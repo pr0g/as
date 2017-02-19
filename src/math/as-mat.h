@@ -2,7 +2,9 @@
 
 #include <type_traits>
 
-#include <ASframework/Types/AsTypes.h>
+#include "src/core/as-types.h"
+
+#include "as-vec.h"
 
 //#define AS_ROW_MAJOR
 #define AS_COL_MAJOR
@@ -158,7 +160,7 @@ AS_INLINE T minor(const Mat<T, 2, 2>& mat)
 	return mat[0] * mat[3] - mat[2] * mat[1];
 }
 
-template<typename T, int cr>
+template<typename T, size_t cr>
 AS_INLINE Mat<T, cr - 1, cr - 1> sub_matrix(const Mat<T, cr, cr> mat, size_t col, size_t row)
 {
 	Mat<T, cr - 1, cr - 1> result = identity<T, cr - 1>();
@@ -173,7 +175,7 @@ AS_INLINE Mat<T, cr - 1, cr - 1> sub_matrix(const Mat<T, cr, cr> mat, size_t col
 	return result;
 }
 
-template<typename T, int cr>
+template<typename T, size_t cr>
 struct DeterminantHelper
 {
 	AS_INLINE static T calculate(const Mat<T, cr, cr>& mat) {
@@ -188,7 +190,7 @@ struct DeterminantHelper
 	}
 };
 
-template<typename T, int cr>
+template<typename T, size_t cr>
 struct MinorHelper
 {
 	AS_INLINE static Mat<T, cr, cr> calculate(const Mat<T, cr, cr>& mat) {

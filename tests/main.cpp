@@ -1,5 +1,11 @@
 #include "gtest/gtest.h"
 
+#include "src/math/as-linear-transform.h"
+#include "src/math/as-mat.h"
+#include "src/math/as-mat3.h"
+#include "src/math/as-mat4.h"
+#include "src/math/as-math.h"
+#include "src/math/as-quat.h"
 #include "src/math/as-vec.h"
 
 TEST(as_vec_test, initialisation) {

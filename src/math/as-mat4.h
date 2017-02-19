@@ -1,6 +1,6 @@
 #pragma once
 
-#include <ASframework/Maths/AsMat.h>
+#include "as-mat.h"
 
 namespace as
 {
@@ -17,16 +17,18 @@ template<> struct Mat<real, 4, 4>
 	union
 	{
 		real data[4 * 4];
-		struct { real4 right; real4 up; real4 forward; real4 position; };
+		struct { v4 right; v4 up; v4 forward; v4 position; };
 	};
 
 	AS_INLINE real& operator[](size_t i) { return data[i]; }
 	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
 };
 
+#ifdef _MSC_VER
 __pragma(warning(pop))
+#endif
 
-AS_INLINE m44 make_m44(real4 right, real4 up, real4 forward, real4 position)
+AS_INLINE m44 make_m44(v4 right, v4 up, v4 forward, v4 position)
 {
 	m44 result;
 	result.right = right;
@@ -53,7 +55,7 @@ AS_INLINE m44 make_m44(real x1, real y1, real z1, real w1,
 AS_INLINE m44 make_perspective_gl_rh(real fovy, real aspect, real n, real f)
 {
 	m44 result;
-	ZeroMemory(&result, sizeof(result));
+	memset(&result, 0, sizeof(result));
 
 	real e = 1.0f / tanr(fovy * 0.5f);
 
@@ -69,7 +71,7 @@ AS_INLINE m44 make_perspective_gl_rh(real fovy, real aspect, real n, real f)
 AS_INLINE m44 make_perspective_gl_lh(real fovy, real aspect, real n, real f)
 {
 	m44 result;
-	ZeroMemory(&result, sizeof(result));
+	memset(&result, 0, sizeof(result));
 
 	real e = 1.0f / tanr(fovy * 0.5f);
 
@@ -86,7 +88,7 @@ AS_INLINE m44 make_perspective_gl_lh(real fovy, real aspect, real n, real f)
 AS_INLINE m44 make_perspective_d3d_lh(real fovy, real aspect, real n, real f)
 {
 	m44 result;
-	ZeroMemory(&result, sizeof(result));
+	memset(&result, 0, sizeof(result));
 
 	real e = 1.0f / tanr(fovy * 0.5f);
 
@@ -102,7 +104,7 @@ AS_INLINE m44 make_perspective_d3d_lh(real fovy, real aspect, real n, real f)
 AS_INLINE m44 make_perspective_d3d_rh(real fovy, real aspect, real n, real f)
 {
 	m44 result;
-	ZeroMemory(&result, sizeof(result));
+	memset(&result, 0, sizeof(result));
 
 	real e = 1.0f / tanr(fovy * 0.5f);
 
@@ -119,7 +121,7 @@ AS_INLINE m44 make_perspective_d3d_rh(real fovy, real aspect, real n, real f)
 AS_INLINE m44 make_ortho_gl_rh(real l, real r, real b, real t, real n, real f)
 {
 	m44 result;
-	ZeroMemory(&result, sizeof(result));
+	memset(&result, 0, sizeof(result));
 
 	real x = 1.0f / (r - l);
 	real y = 1.0f / (t - b);
@@ -140,7 +142,7 @@ AS_INLINE m44 make_ortho_gl_rh(real l, real r, real b, real t, real n, real f)
 AS_INLINE m44 make_ortho_d3d_lh(real l, real r, real b, real t, real n, real f)
 {
 	m44 result;
-	ZeroMemory(&result, sizeof(result));
+	memset(&result, 0, sizeof(result));
 
 	real x = 1.0f / (r - l);
 	real y = 1.0f / (t - b);

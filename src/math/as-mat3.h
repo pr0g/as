@@ -1,6 +1,6 @@
 #pragma once
 
-#include <ASframework/Maths/AsMat.h>
+#include "as-mat.h"
 
 namespace as
 {
@@ -24,7 +24,9 @@ template<> struct Mat<real, 3, 3>
 	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
 };
 
+#ifdef _MSC_VER
 __pragma(warning(pop))
+#endif
 
 AS_INLINE m33 make_m33(v3 right, v3 up, v3 forward)
 {

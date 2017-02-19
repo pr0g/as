@@ -1,6 +1,6 @@
 #pragma once
 
-#include <ASframework/Maths/AsVec.h>
+#include "as-vec.h"
 
 namespace as
 {
@@ -22,23 +22,37 @@ struct quat
 	AS_INLINE const real& operator[](int i) const { return data[i]; }
 };
 
+#ifdef _MSC_VER
 __pragma(warning(pop))
+#endif
 
 AS_INLINE quat make_quat(real r, real i, real j, real k)
 {
-	quat result { r, i, j, k };
+	quat result;
+	result.r = r;
+	result.i = i;
+	result.j = j;
+	result.k = k;
 	return result;
 }
 
 AS_INLINE quat make_quat(real r, const v3& ijk)
 {
-	quat result{ r, ijk.x, ijk.y, ijk.z };
+	quat result;
+	result.r = r;
+	result.i = ijk.x;
+	result.j = ijk.y;
+	result.k = ijk.z;
 	return result;
 }
 
 AS_INLINE quat identity()
 {
-	quat result{ 1, 0, 0, 0 };
+	quat result;
+	result.r = 1.0f;
+	result.i = 0.0f;
+	result.j = 0.0f;
+	result.k = 0.0f;
 	return result;
 }
 
@@ -133,7 +147,7 @@ AS_INLINE quat inverse(const quat& a)
 
 AS_INLINE v3 rotate(const quat& q, const v3& v)
 {
-	quat t = { 0, v.x, v.y, v.z };
+	quat t = make_quat( 0, v.x, v.y, v.z );
 	quat quat_result = q * t * conjugate(q);
 	return make_v3(quat_result.i, quat_result.j, quat_result.k);
 }

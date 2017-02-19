@@ -1,8 +1,11 @@
 #pragma once
 
-#include <ASframework/Types/AsTypes.h>
-#include <ASframework/Maths/AsMat.h>
-#include <ASframework/Maths/AsVec.h>
+#include "src/core/as-types.h"
+
+#include "as-mat.h"
+#include "as-mat3.h"
+#include "as-mat4.h"
+#include "as-vec.h"
 
 namespace as
 {

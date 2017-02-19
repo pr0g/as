@@ -7,12 +7,12 @@
 namespace as
 {
 
-template<typename T, int n>
+template<typename T, size_t n>
 struct Vec
 {
 	T data[n];
-	AS_INLINE T& operator[](int i) { return data[i]; }
-	AS_INLINE const T& operator[](int i) const { return data[i]; }
+	AS_INLINE T& operator[](size_t i) { return data[i]; }
+	AS_INLINE const T& operator[](size_t i) const { return data[i]; }
 };
 
 typedef Vec<real, 2> v2;
@@ -27,8 +27,8 @@ template<> struct Vec<real, 2>
 		struct { real x; real y; };
 	};
 
-	AS_INLINE real& operator[](int i) { return data[i]; }
-	AS_INLINE const real& operator[](int i) const { return data[i]; }
+	AS_INLINE real& operator[](size_t i) { return data[i]; }
+	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
 };
 
 template<> struct Vec<real, 3>
@@ -40,8 +40,8 @@ template<> struct Vec<real, 3>
 		v2 xy;
 	};
 
-	AS_INLINE real& operator[](int i) { return data[i]; }
-	AS_INLINE const real& operator[](int i) const { return data[i]; }
+	AS_INLINE real& operator[](size_t i) { return data[i]; }
+	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
 };
 
 template<> struct Vec<real, 4>
@@ -56,11 +56,11 @@ template<> struct Vec<real, 4>
 		v3 rgb;
 	};
 
-	AS_INLINE real& operator[](int i) { return data[i]; }
-	AS_INLINE const real& operator[](int i) const { return data[i]; }
+	AS_INLINE real& operator[](size_t i) { return data[i]; }
+	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
 };
 
-template<typename T, int n>
+template<typename T, size_t n>
 AS_INLINE T dot(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
 {
 	T result = 0;
@@ -70,7 +70,7 @@ AS_INLINE T dot(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
 	return result;
 }
 
-template<typename T, int n>
+template<typename T, size_t n>
 AS_INLINE T length_squared(const Vec<T, n>& vec)
 {
 	T result = 0;
@@ -80,20 +80,20 @@ AS_INLINE T length_squared(const Vec<T, n>& vec)
 	return result;
 }
 
-template<typename T, int n>
+template<typename T, size_t n>
 AS_INLINE T length(const Vec<T, n>& vec)
 {
 	return std::sqrt(length_squared(vec));
 }
 
-template<typename T, int n>
+template<typename T, size_t n>
 AS_INLINE Vec<T, n> normalize(const Vec<T, n>& vec)
 {
 	T len = length(vec);
 	return vec / len;
 }
 
-template<typename T, int n>
+template<typename T, size_t n>
 AS_INLINE T normalize_return_length(const Vec<T, n>& vec, Vec<T, n>& out)
 {
 	T len = length(vec);
@@ -101,7 +101,7 @@ AS_INLINE T normalize_return_length(const Vec<T, n>& vec, Vec<T, n>& out)
 	return len;
 }
 
-template<typename T, int n>
+template<typename T, size_t n>
 AS_INLINE Vec<T, n> operator+(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
 {
 	Vec<T, n> result;
@@ -111,7 +111,7 @@ AS_INLINE Vec<T, n> operator+(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
 	return result;
 }
 
-template<typename T, int n>
+template<typename T, size_t n>
 AS_INLINE Vec<T, n>& operator+=(Vec<T, n>& lhs, const Vec<T, n>& rhs)
 {
 	for (size_t i = 0; i < n; ++i) {
@@ -120,7 +120,7 @@ AS_INLINE Vec<T, n>& operator+=(Vec<T, n>& lhs, const Vec<T, n>& rhs)
 	return lhs;
 }
 
-template<typename T, int n>
+template<typename T, size_t n>
 AS_INLINE Vec<T, n> operator-(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
 {
 	Vec<T, n> result;
@@ -130,7 +130,7 @@ AS_INLINE Vec<T, n> operator-(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
 	return result;
 }
 
-template<typename T, int n>
+template<typename T, size_t n>
 AS_INLINE Vec<T, n>& operator-=(Vec<T, n>& lhs, const Vec<T, n>& rhs)
 {
 	for (size_t i = 0; i < n; ++i) {
@@ -139,7 +139,7 @@ AS_INLINE Vec<T, n>& operator-=(Vec<T, n>& lhs, const Vec<T, n>& rhs)
 	return lhs;
 }
 
-template<typename T, int n>
+template<typename T, size_t n>
 AS_INLINE Vec<T, n> operator-(const Vec<T, n>& vec)
 {
 	Vec<T, n> result;
@@ -149,7 +149,7 @@ AS_INLINE Vec<T, n> operator-(const Vec<T, n>& vec)
 	return result;
 }
 
-template<typename T, int n>
+template<typename T, size_t n>
 AS_INLINE Vec<T, n> operator*(const Vec<T, n>& vec, T val)
 {
 	Vec<T, n> result;
@@ -159,7 +159,7 @@ AS_INLINE Vec<T, n> operator*(const Vec<T, n>& vec, T val)
 	return result;
 }
 
-template<typename T, int n>
+template<typename T, size_t n>
 AS_INLINE Vec<T, n> operator*(T val, const Vec<T, n>& vec)
 {
 	Vec<T, n> result;
@@ -169,7 +169,7 @@ AS_INLINE Vec<T, n> operator*(T val, const Vec<T, n>& vec)
 	return result;
 }
 
-template<typename T, int n>
+template<typename T, size_t n>
 AS_INLINE void operator*=(Vec<T, n>& vec, T val)
 {
 	for (size_t i = 0; i < n; ++i) {
@@ -177,7 +177,7 @@ AS_INLINE void operator*=(Vec<T, n>& vec, T val)
 	}
 }
 
-template<typename T, int n>
+template<typename T, size_t n>
 AS_INLINE Vec<T, n> operator/(const Vec<T, n>& vec, T val)
 {
 	Vec<T, n> result;
@@ -187,7 +187,7 @@ AS_INLINE Vec<T, n> operator/(const Vec<T, n>& vec, T val)
 	return result;
 }
 
-template<typename T, int n>
+template<typename T, size_t n>
 AS_INLINE void operator/=(Vec<T, n>& vec, T val)
 {
 	for (size_t i = 0; i < n; ++i) {

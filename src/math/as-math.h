@@ -1,6 +1,6 @@
 #pragma once
 
-#include <ASframework/Types/AsTypes.h>
+#include "src/core/as-types.h"
 
 // To get rid of stupid global namespace min and max
 // (Probably brought in by a lib at this point - need
@@ -15,9 +15,9 @@
 namespace as
 {
 
-const float PI = 3.14159265f;
-const float DEG_TO_RAD = PI / 180.0f;
-const float RAD_TO_DEG = 180.0f / PI;
+const real PI = 3.14159265358979323846f;
+const real DEG_TO_RAD = PI / 180.0f;
+const real RAD_TO_DEG = 180.0f / PI;
 
 template<typename T>
 AS_INLINE T lerp(T v0, T v1, T t)
@@ -50,24 +50,14 @@ AS_INLINE T clamp(T v0, T v1, T t)
 	return t <= v0 ? v0 : t >= v1 ? v1 : t;
 }
 
-AS_INLINE float degToRad(float degrees)
+AS_INLINE real degToRad(real degrees)
 {
 	return degrees * DEG_TO_RAD;
 }
 
-AS_INLINE double degToRad(double degrees)
-{
-	return degrees * (double)DEG_TO_RAD;
-}
-
-AS_INLINE float radToDeg(float radians)
+AS_INLINE real radToDeg(real radians)
 {
 	return radians * RAD_TO_DEG;
-}
-
-AS_INLINE double radToDeg(double radians)
-{
-	return radians * (double)RAD_TO_DEG;
 }
 
 }
