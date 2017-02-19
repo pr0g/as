@@ -5,30 +5,32 @@
 namespace as
 {
 
+#ifdef _MSC_VER
 __pragma(warning(push))
 __pragma(warning(disable:4201))
+#endif
 
 struct quat
 {
 	union
 	{
-		float data[4];
-		struct { float r; float i; float j; float k; };
+		real data[4];
+		struct { real r; real i; real j; real k; };
 	};
 
-	AS_INLINE float& operator[](int i) { return data[i]; }
-	AS_INLINE const float& operator[](int i) const { return data[i]; }
+	AS_INLINE real& operator[](int i) { return data[i]; }
+	AS_INLINE const real& operator[](int i) const { return data[i]; }
 };
 
 __pragma(warning(pop))
 
-AS_INLINE quat make_quat(float r, float i, float j, float k)
+AS_INLINE quat make_quat(real r, real i, real j, real k)
 {
 	quat result { r, i, j, k };
 	return result;
 }
 
-AS_INLINE quat make_quat(float r, const float3& ijk)
+AS_INLINE quat make_quat(real r, const v3& ijk)
 {
 	quat result{ r, ijk.x, ijk.y, ijk.z };
 	return result;
@@ -63,7 +65,7 @@ AS_INLINE quat operator+(const quat& a, const quat& b)
 	return result;
 }
 
-AS_INLINE quat operator/(float a, const quat& b)
+AS_INLINE quat operator/(real a, const quat& b)
 {
 	quat result;
 	for (size_t i = 0; i < 4; ++i) {
@@ -72,7 +74,7 @@ AS_INLINE quat operator/(float a, const quat& b)
 	return result;
 }
 
-AS_INLINE quat operator/(const quat& a, float b)
+AS_INLINE quat operator/(const quat& a, real b)
 {
 	quat result;
 	for (int i = 0; i < 4; ++i) {
@@ -81,7 +83,7 @@ AS_INLINE quat operator/(const quat& a, float b)
 	return result;
 }
 
-AS_INLINE quat operator*(float a, const quat& b)
+AS_INLINE quat operator*(real a, const quat& b)
 {
 	quat result;
 	for (size_t i = 0; i < 4; ++i) {
@@ -90,7 +92,7 @@ AS_INLINE quat operator*(float a, const quat& b)
 	return result;
 }
 
-AS_INLINE quat operator*(const quat& a, float b)
+AS_INLINE quat operator*(const quat& a, real b)
 {
 	quat result;
 	for (int i = 0; i < 4; ++i) {
@@ -99,17 +101,17 @@ AS_INLINE quat operator*(const quat& a, float b)
 	return result;
 }
 
-AS_INLINE float dot(const quat& a, const quat& b)
+AS_INLINE real dot(const quat& a, const quat& b)
 {
 	return a.r*b.r + a.i*b.i + a.j*b.j + a.k*b.k;
 }
 
-AS_INLINE float lengthSquared(const quat& a)
+AS_INLINE real lengthSquared(const quat& a)
 {
 	return dot(a, a);
 }
 
-AS_INLINE float length(const quat& a)
+AS_INLINE real length(const quat& a)
 {
 	return std::sqrt(lengthSquared(a));
 }
@@ -129,29 +131,29 @@ AS_INLINE quat inverse(const quat& a)
 	return conjugate(a) / lengthSquared(a);
 }
 
-AS_INLINE float3 rotate(const quat& q, const float3& v)
+AS_INLINE v3 rotate(const quat& q, const v3& v)
 {
 	quat t = { 0, v.x, v.y, v.z };
 	quat quat_result = q * t * conjugate(q);
-	return make_float3(quat_result.i, quat_result.j, quat_result.k);
+	return make_v3(quat_result.i, quat_result.j, quat_result.k);
 }
 
-AS_INLINE quat quat_rotation_axis_angle(const float3& axis, float radians)
+AS_INLINE quat quat_rotation_axis_angle(const v3& axis, real radians)
 {
-	float sinHalfTheta = sinf(0.5f * radians);
-	float cosHalfTheta = cosf(0.5f * radians);
+	real sinHalfTheta = sinr(0.5f * radians);
+	real cosHalfTheta = cosr(0.5f * radians);
 
 	return make_quat(cosHalfTheta, axis * sinHalfTheta);
 }
 
-AS_INLINE quat quat_rotation_zxy(float x, float y, float z)
+AS_INLINE quat quat_rotation_zxy(real x, real y, real z)
 {
-	float sinHalfX = sinf(0.5f * x);
-	float cosHalfX = cosf(0.5f * x);
-	float sinHalfY = sinf(0.5f * y);
-	float cosHalfY = cosf(0.5f * y);
-	float sinHalfZ = sinf(0.5f * z);
-	float cosHalfZ = cosf(0.5f * z);
+	real sinHalfX = sinr(0.5f * x);
+	real cosHalfX = cosr(0.5f * x);
+	real sinHalfY = sinr(0.5f * y);
+	real cosHalfY = cosr(0.5f * y);
+	real sinHalfZ = sinr(0.5f * z);
+	real cosHalfZ = cosr(0.5f * z);
 
 	quat quatX = make_quat(cosHalfX, sinHalfX, 0, 0);
 	quat quatY = make_quat(cosHalfY, 0, sinHalfY, 0);
@@ -160,10 +162,10 @@ AS_INLINE quat quat_rotation_zxy(float x, float y, float z)
 	return quatY * quatX * quatZ;
 }
 
-quat slerp(const quat& a, const quat& b, float u)
+quat slerp(const quat& a, const quat& b, real u)
 {
-	float theta = acosf(dot(a, b));
-	return (a * sinf((1.0f - u) * theta) + b * sinf(u * theta)) / sinf(theta);
+	real theta = acosr(dot(a, b));
+	return (a * sinr((1.0f - u) * theta) + b * sinr(u * theta)) / sinr(theta);
 }
 
 }

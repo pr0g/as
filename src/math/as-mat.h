@@ -18,7 +18,7 @@ struct Mat
 	AS_INLINE const T& operator[](size_t i) const { return data[i]; }
 };
 
-typedef Mat<float, 2, 2> float22;
+typedef Mat<real, 2, 2> v22;
 
 template < typename T, size_t c, size_t r >
 AS_INLINE Mat<T, c, r> operator*(const Mat<T, c, r>& lhs, const Mat<T, c, r>& rhs)
@@ -27,7 +27,7 @@ AS_INLINE Mat<T, c, r> operator*(const Mat<T, c, r>& lhs, const Mat<T, c, r>& rh
 	Mat<T, c, r> result;
 	for (size_t colIndex = 0; colIndex < c; ++colIndex) {
 		for (size_t rowIndex = 0; rowIndex < r; ++rowIndex) {
-			float value = 0.0f;
+			real value = 0.0f;
 			for (size_t step = 0; step < r; ++step) {
 				value += lhs[rowIndex + (c * step)] * rhs[(colIndex * r) + step];
 			}
@@ -39,7 +39,7 @@ AS_INLINE Mat<T, c, r> operator*(const Mat<T, c, r>& lhs, const Mat<T, c, r>& rh
 	Mat<T, c, r> result;
 	for (size_t rowIndex = 0; rowIndex < r; ++rowIndex) {
 		for (size_t colIndex = 0; colIndex < c; ++colIndex) {
-			float value = 0.0f;
+			real value = 0.0f;
 			for (size_t step = 0; step < c; ++step) {
 				value += lhs[(rowIndex * r) + step] * rhs[colIndex + (c * step)];
 			}
@@ -57,7 +57,7 @@ AS_INLINE Vec<T, n> operator*(const Vec<T, n> vec, const Mat<T, c, r>& mat)
 	static_assert(n == r, "Number of rows does not equal number of elements in vector");
 	Vec<T, n> result;
 	for (size_t vertexIndex = 0; vertexIndex< n; ++vertexIndex) {
-		float value = 0.0f;
+		real value = 0.0f;
 		for (size_t step = 0; step < n; ++step) {
 			value += vec[step] * mat[vertexIndex * c + step];
 		}
@@ -68,7 +68,7 @@ AS_INLINE Vec<T, n> operator*(const Vec<T, n> vec, const Mat<T, c, r>& mat)
 	static_assert(n == c, "Number of columns does not equal number of elements in vector");
 	Vec<T, n> result;
 	for (size_t vertexIndex = 0; vertexIndex < n; ++vertexIndex) {
-		float value = 0.0f;
+		real value = 0.0f;
 		for (size_t step = 0; step < n; ++step) {
 			value += vec[step] * mat[vertexIndex + step * c];
 		}
@@ -85,7 +85,7 @@ AS_INLINE Vec<T, n> operator*(const Mat<T, c, r>& mat, const Vec<T, n> vec)
 	static_assert(n == r, "Number of rows does not equal number of elements in vector");
 	Vec<T, n> result;
 	for (size_t vertexIndex = 0; vertexIndex < n; ++vertexIndex) {
-		float value = 0.0f;
+		real value = 0.0f;
 		for (size_t step = 0; step < n; ++step) {
 			value += vec[step] * mat[vertexIndex + step * c];
 		}
@@ -96,7 +96,7 @@ AS_INLINE Vec<T, n> operator*(const Mat<T, c, r>& mat, const Vec<T, n> vec)
 	static_assert(n == c, "Number of columns does not equal number of elements in vector");
 	Vec<T, n> result;
 	for (size_t vertexIndex = 0; vertexIndex < n; ++vertexIndex) {
-		float v = 0.0f;
+		real v = 0.0f;
 		for (size_t step = 0; step < n; ++step) {
 			v += vec[step] * mat[vertexIndex * c + step];
 		}

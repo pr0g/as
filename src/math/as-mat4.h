@@ -5,28 +5,30 @@
 namespace as
 {
 
-typedef Mat<float, 4, 4> float44;
+typedef Mat<real, 4, 4> m44;
 
+#ifdef _MSC_VER
 __pragma(warning(push))
 __pragma(warning(disable:4201))
+#endif
 
-template<> struct Mat<float, 4, 4>
+template<> struct Mat<real, 4, 4>
 {
 	union
 	{
-		float data[4 * 4];
-		struct { float4 right; float4 up; float4 forward; float4 position; };
+		real data[4 * 4];
+		struct { real4 right; real4 up; real4 forward; real4 position; };
 	};
 
-	AS_INLINE float& operator[](size_t i) { return data[i]; }
-	AS_INLINE const float& operator[](size_t i) const { return data[i]; }
+	AS_INLINE real& operator[](size_t i) { return data[i]; }
+	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
 };
 
 __pragma(warning(pop))
 
-AS_INLINE float44 make_float44(float4 right, float4 up, float4 forward, float4 position)
+AS_INLINE m44 make_m44(real4 right, real4 up, real4 forward, real4 position)
 {
-	float44 result;
+	m44 result;
 	result.right = right;
 	result.up = up;
 	result.forward = forward;
@@ -34,12 +36,12 @@ AS_INLINE float44 make_float44(float4 right, float4 up, float4 forward, float4 p
 	return result;
 }
 
-AS_INLINE float44 make_float44(float x1, float y1, float z1, float w1,
-							   float x2, float y2, float z2, float w2,
-							   float x3, float y3, float z3, float w3,
-							   float x4, float y4, float z4, float w4)
+AS_INLINE m44 make_m44(real x1, real y1, real z1, real w1,
+							   real x2, real y2, real z2, real w2,
+							   real x3, real y3, real z3, real w3,
+							   real x4, real y4, real z4, real w4)
 {
-	float44 result;
+	m44 result;
 	result[0] = x1; result[1] = y1; result[2] = z1; result[3] = w1;
 	result[3] = x2; result[5] = y2; result[6] = z2; result[7] = w2;
 	result[8] = x3; result[9] = y3; result[10] = z3; result[11] = w3;
@@ -48,12 +50,12 @@ AS_INLINE float44 make_float44(float x1, float y1, float z1, float w1,
 }
 
 // OpenGL Default
-AS_INLINE float44 make_perspective_gl_rh(float fovy, float aspect, float n, float f)
+AS_INLINE m44 make_perspective_gl_rh(real fovy, real aspect, real n, real f)
 {
-	float44 result;
+	m44 result;
 	ZeroMemory(&result, sizeof(result));
 
-	float e = 1.0f / tanf(fovy * 0.5f);
+	real e = 1.0f / tanr(fovy * 0.5f);
 
 	result[0] = e / aspect;
 	result[5] = e;
@@ -64,12 +66,12 @@ AS_INLINE float44 make_perspective_gl_rh(float fovy, float aspect, float n, floa
 	return result;
 }
 
-AS_INLINE float44 make_perspective_gl_lh(float fovy, float aspect, float n, float f)
+AS_INLINE m44 make_perspective_gl_lh(real fovy, real aspect, real n, real f)
 {
-	float44 result;
+	m44 result;
 	ZeroMemory(&result, sizeof(result));
 
-	float e = 1.0f / tanf(fovy * 0.5f);
+	real e = 1.0f / tanr(fovy * 0.5f);
 
 	result[0] = e / aspect;
 	result[5] = e;
@@ -81,12 +83,12 @@ AS_INLINE float44 make_perspective_gl_lh(float fovy, float aspect, float n, floa
 }
 
 // DirectX Default
-AS_INLINE float44 make_perspective_d3d_lh(float fovy, float aspect, float n, float f)
+AS_INLINE m44 make_perspective_d3d_lh(real fovy, real aspect, real n, real f)
 {
-	float44 result;
+	m44 result;
 	ZeroMemory(&result, sizeof(result));
 
-	float e = 1.0f / tanf(fovy * 0.5f);
+	real e = 1.0f / tanr(fovy * 0.5f);
 
 	result[0] = e / aspect;
 	result[5] = e;
@@ -97,12 +99,12 @@ AS_INLINE float44 make_perspective_d3d_lh(float fovy, float aspect, float n, flo
 	return result;
 }
 
-AS_INLINE float44 make_perspective_d3d_rh(float fovy, float aspect, float n, float f)
+AS_INLINE m44 make_perspective_d3d_rh(real fovy, real aspect, real n, real f)
 {
-	float44 result;
+	m44 result;
 	ZeroMemory(&result, sizeof(result));
 
-	float e = 1.0f / tanf(fovy * 0.5f);
+	real e = 1.0f / tanr(fovy * 0.5f);
 
 	result[0] = e / aspect;
 	result[5] = e;
@@ -114,14 +116,14 @@ AS_INLINE float44 make_perspective_d3d_rh(float fovy, float aspect, float n, flo
 }
 
 // OpenGL Default
-AS_INLINE float44 make_ortho_gl_rh(float l, float r, float b, float t, float n, float f)
+AS_INLINE m44 make_ortho_gl_rh(real l, real r, real b, real t, real n, real f)
 {
-	float44 result;
+	m44 result;
 	ZeroMemory(&result, sizeof(result));
 
-	float x = 1.0f / (r - l);
-	float y = 1.0f / (t - b);
-	float z = 1.0f / (f - n);
+	real x = 1.0f / (r - l);
+	real y = 1.0f / (t - b);
+	real z = 1.0f / (f - n);
 
 	result[0] = 2.0f * x;
 	result[5] = 2.0f * y;
@@ -135,14 +137,14 @@ AS_INLINE float44 make_ortho_gl_rh(float l, float r, float b, float t, float n, 
 }
 
 // DirectX Default
-AS_INLINE float44 make_ortho_d3d_lh(float l, float r, float b, float t, float n, float f)
+AS_INLINE m44 make_ortho_d3d_lh(real l, real r, real b, real t, real n, real f)
 {
-	float44 result;
+	m44 result;
 	ZeroMemory(&result, sizeof(result));
 
-	float x = 1.0f / (r - l);
-	float y = 1.0f / (t - b);
-	float z = 1.0f / (f - n);
+	real x = 1.0f / (r - l);
+	real y = 1.0f / (t - b);
+	real z = 1.0f / (f - n);
 
 	result[0] = 2.0f * x;
 	result[5] = 2.0f * y;

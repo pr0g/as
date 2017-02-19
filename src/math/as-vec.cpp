@@ -2,7 +2,9 @@
 
 namespace as
 {
-	const float3 float3::right = make_float3(1.0f, 0.0f, 0.0);
-	const float3 float3::up = make_float3(0.0f, 1.0f, 0.0);
-	const float3 float3::forward = make_float3(0.0f, 0.0f, 1.0);
+	const v3 v3_x = make_v3(1.0f, 0.0f, 0.0f);
+	const v3 v3_y = make_v3(0.0f, 1.0f, 0.0f);
+	const v3 v3_z = make_v3(0.0f, 0.0f, 1.0f);
+	const v3 v3_zero = make_v3(0.0f, 0.0f, 0.0f);
+	const v3 v3_one = make_v3(1.0f, 1.0f, 1.0f);
 }
