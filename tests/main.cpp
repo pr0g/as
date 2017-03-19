@@ -10,9 +10,12 @@
 
 TEST(as_vec_test, initialisation) {
 	as::v3 v = as::make_v3(0.0f, 0.0f, 0.0f);
-	EXPECT_EQ(v.x, 0.0f);
-	EXPECT_EQ(v.y, 0.0f);
-	EXPECT_EQ(v.z, 0.0f);
+	
+	EXPECT_EQ(v.x, 0.0f) << "v.x is not equal to zero";
+	EXPECT_EQ(v.y, 0.0f) << "v.y is not equal to zero";
+	EXPECT_EQ(v.z, 0.0f) << "v.z is not equal to zero";
+
+	EXPECT_TRUE(as::equal(0.0f, v.x)) << "v is not equal to v3_zero";
 }
 
 int main(int argc, char** argv) {
