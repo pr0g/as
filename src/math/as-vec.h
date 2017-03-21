@@ -15,9 +15,9 @@ struct Vec
 	AS_INLINE const T& operator[](size_t i) const { return data[i]; }
 };
 
-typedef Vec<real, 2> v2;
-typedef Vec<real, 3> v3;
-typedef Vec<real, 4> v4;
+using v2 = Vec<real, 2>;
+using v3 = Vec<real, 3>;
+using v4 = Vec<real, 4>;
 
 template<> struct Vec<real, 2>
 {
@@ -29,6 +29,10 @@ template<> struct Vec<real, 2>
 
 	AS_INLINE real& operator[](size_t i) { return data[i]; }
 	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
+
+	explicit Vec<real, 2>() {}
+	explicit Vec<real, 2>(real xy) : x(xy), y(xy) {}
+	explicit Vec<real, 2>(real x, real y) : x(x), y(y) {}
 };
 
 template<> struct Vec<real, 3>
@@ -42,6 +46,13 @@ template<> struct Vec<real, 3>
 
 	AS_INLINE real& operator[](size_t i) { return data[i]; }
 	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
+
+	explicit Vec<real, 3>() {}
+	explicit Vec<real, 3>(real xyz) : x(xyz), y(xyz), z(xyz) {}
+	explicit Vec<real, 3>(const v2& xy, real z) : x(xy.x), y(xy.y), z(z) {}
+	explicit Vec<real, 3>(real x, real y, real z) : x(x), y(y), z(z) {}
+
+	v2 as_v2() const { return v2( x, y ); }
 };
 
 template<> struct Vec<real, 4>
@@ -58,6 +69,14 @@ template<> struct Vec<real, 4>
 
 	AS_INLINE real& operator[](size_t i) { return data[i]; }
 	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
+
+	explicit Vec<real, 4>() {}
+	explicit Vec<real, 4>(real xyzw) : x(xyzw), y(xyzw), z(xyzw), w(xyzw) {}
+	explicit Vec<real, 4>(const v3& xyz, real w) : x(xyz.x), y(xyz.y), z(xyz.z), w(w) {}
+	explicit Vec<real, 4>(const v2& xy, real z, real w) : x(xy.x), y(xy.y), z(z), w(w) {}
+	explicit Vec<real, 4>(real x, real y, real z, real w) : x(x), y(y), z(z), w(w) {}
+
+	v3 as_v3() const { return v3( x, y, z ); }
 };
 
 template<typename T, size_t n>
@@ -195,39 +214,13 @@ AS_INLINE void operator/=(Vec<T, n>& vec, T val)
 	}
 }
 
-AS_INLINE v2 make_v2(real x, real y)
-{
-	v2 result;
-	result[0] = x;
-	result[1] = y;
-	return result;
-}
+// constants
 
-AS_INLINE v2 make_v2(real val)
-{
-	v2 result;
-	result[0] = val;
-	result[1] = val;
-	return result;
-}
-
-AS_INLINE v3 make_v3(real x, real y, real z)
-{
-	v3 result;
-	result[0] = x;
-	result[1] = y;
-	result[2] = z;
-	return result;
-}
-
-AS_INLINE v3 make_v3(real val)
-{
-	v3 result;
-	result[0] = val;
-	result[1] = val;
-	result[2] = val;
-	return result;
-}
+extern const v3 v3_x;
+extern const v3 v3_y;
+extern const v3 v3_z;
+extern const v3 v3_zero;
+extern const v3 v3_one;
 
 AS_INLINE v3 cross(const v3& lhs, const v3& rhs)
 {
@@ -238,40 +231,10 @@ AS_INLINE v3 cross(const v3& lhs, const v3& rhs)
 	return result;
 }
 
-AS_INLINE v4 make_v4(real x, real y, real z, real w)
+AS_INLINE v3 across_and_up(const v3& dir, v3& across, v3& up, const v3& initial_up = v3_y)
 {
-	v4 result;
-	result[0] = x;
-	result[1] = y;
-	result[2] = z;
-	result[3] = w;
-	return result;
+	// v3 rel_up = 
+	return v3_zero;
 }
-
-AS_INLINE v4 make_v4(real val)
-{
-	v4 result;
-	result[0] = val;
-	result[1] = val;
-	result[2] = val;
-	result[3] = val;
-	return result;
-}
-
-AS_INLINE v4 make_v4(const v3& xyz, real w)
-{
-	v4 result;
-	result[0] = xyz.x;
-	result[1] = xyz.y;
-	result[2] = xyz.z;
-	result[3] = w;
-	return result;
-}
-
-extern const v3 v3_x;
-extern const v3 v3_y;
-extern const v3 v3_z;
-extern const v3 v3_zero;
-extern const v3 v3_one;
 
 }

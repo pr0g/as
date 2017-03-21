@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 #include "src/math/as-linear-transform.h"
 #include "src/math/as-mat.h"
@@ -9,8 +10,11 @@
 #include "src/math/as-quat.h"
 #include "src/math/as-vec.h"
 
+// no idea why this works and other thing doesn't...
+// const as::v3 as::v3_zero = as::v3(0.0f, 0.0f, 0.0f);
+
 TEST(as_vec, initialisation) {
-	as::v3 v = as::make_v3(0.0f, 0.0f, 0.0f);
+	as::v3 v = as::v3(0.0f, 0.0f, 0.0f);
 	
 	EXPECT_EQ(v.x, 0.0f) << "v.x is not equal to zero";
 	EXPECT_EQ(v.y, 0.0f) << "v.y is not equal to zero";
@@ -25,8 +29,8 @@ TEST(as_vec, cross) {
 
 	glm::vec3 glm_ab_result = glm::cross( glm_a, glm_b );
 
-	as::v3 as_a = as::make_v3( 1.0f, 2.0f, 3.0f );
-	as::v3 as_b = as::make_v3( 4.0f, 3.0f, 2.0f );
+	as::v3 as_a = as::v3( 1.0f, 2.0f, 3.0f );
+	as::v3 as_b = as::v3( 4.0f, 3.0f, 2.0f );
 
 	as::v3 as_ab_result = as::cross( as_a, as_b );
 
@@ -36,18 +40,26 @@ TEST(as_vec, cross) {
 }
 
 TEST(as_mat4, inverse) {
-	glm::mat4 glm_a = glm::mat4( 1.0f, 0.0f, 0.0f, 0.0f,
-								 0.0f, 1.0f, 0.0f, 0.0f,
-								 0.0f, 0.0f, 1.0f, 0.0f,
-								 0.0f, 0.0f, 0.0f, 1.0f );
+	// glm::mat4 glm_a = glm::mat4( 1.0f, 0.0f, 0.0f, 0.0f,
+	// 							 0.0f, 1.0f, 0.0f, 0.0f,
+	// 							 0.0f, 0.0f, 1.0f, 0.0f,
+	// 							 0.0f, 0.0f, 0.0f, 1.0f );
 
-	as::m44 as_a = as::make_m44( 1.0f, 0.0f, 0.0f, 0.0f,
-								 0.0f, 1.0f, 0.0f, 0.0f,
-								 0.0f, 0.0f, 1.0f, 0.0f,
-								 0.0f, 0.0f, 0.0f, 1.0f );
+	// as::m44 as_a = as::make_m44( 1.0f, 0.0f, 0.0f, 0.0f,
+	// 							 0.0f, 1.0f, 0.0f, 0.0f,
+	// 							 0.0f, 0.0f, 1.0f, 0.0f,
+	// 							 0.0f, 0.0f, 0.0f, 1.0f );
+
+	glm::mat4 glm_a = glm::rotate( glm::mat4(1.0f), glm::radians( 100.0f ), glm::vec3( 1.0f, 0.0f, 0.0f ) );
+	as::m44 as_a = as::make_m44( as::make_rotation_x( as::degToRad( 100.0f ) ), as::v3_zero );
 
 	glm::mat4 glm_a_inverse = glm::inverse( glm_a );
 	as::m44 as_a_inverse = as::inverse( as_a );
+
+	for ( size_t i = 0; i < 10000; ++i ) {
+		glm_a_inverse = glm::inverse( glm_a_inverse );
+		as_a_inverse = as::inverse( as_a_inverse );
+	}
 
 	EXPECT_TRUE( as::equal( glm_a_inverse[0].x, as_a_inverse[ 0 ] ) ) << "glm: " << glm_a_inverse[0].x << " as: " << as_a_inverse[ 0 ];
 	EXPECT_TRUE( as::equal( glm_a_inverse[0].y, as_a_inverse[ 1 ] ) ) << "glm: " << glm_a_inverse[0].y << " as: " << as_a_inverse[ 1 ];

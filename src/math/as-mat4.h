@@ -1,6 +1,7 @@
 #pragma once
 
 #include "as-mat.h"
+#include "as-mat3.h"
 
 namespace as
 {
@@ -22,6 +23,8 @@ template<> struct Mat<real, 4, 4>
 
 	AS_INLINE real& operator[](size_t i) { return data[i]; }
 	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
+
+	explicit Mat<real, 4, 4>() {}
 };
 
 #ifdef _MSC_VER
@@ -39,9 +42,9 @@ AS_INLINE m44 make_m44(v4 right, v4 up, v4 forward, v4 position)
 }
 
 AS_INLINE m44 make_m44(real x1, real y1, real z1, real w1,
-							   real x2, real y2, real z2, real w2,
-							   real x3, real y3, real z3, real w3,
-							   real x4, real y4, real z4, real w4)
+						real x2, real y2, real z2, real w2,
+						real x3, real y3, real z3, real w3,
+						real x4, real y4, real z4, real w4)
 {
 	m44 result;
 	result[0] = x1; result[1] = y1; result[2] = z1; result[3] = w1;
@@ -51,7 +54,17 @@ AS_INLINE m44 make_m44(real x1, real y1, real z1, real w1,
 	return result;
 }
 
-// OpenGL Default
+AS_INLINE m44 make_m44(const m33& upper, const v3& translation)
+{
+	m44 result;
+	result.right = v4(upper.right, 0.0f);
+	result.up = v4(upper.up, 0.0f);
+	result.forward = v4(upper.forward, 0.0f);
+	result.position = v4(translation, 1.0f);
+	return result;
+}
+
+// openGL default
 AS_INLINE m44 make_perspective_gl_rh(real fovy, real aspect, real n, real f)
 {
 	m44 result;
@@ -84,7 +97,7 @@ AS_INLINE m44 make_perspective_gl_lh(real fovy, real aspect, real n, real f)
 	return result;
 }
 
-// DirectX Default
+// directX default
 AS_INLINE m44 make_perspective_d3d_lh(real fovy, real aspect, real n, real f)
 {
 	m44 result;
@@ -117,7 +130,7 @@ AS_INLINE m44 make_perspective_d3d_rh(real fovy, real aspect, real n, real f)
 	return result;
 }
 
-// OpenGL Default
+// openGL default
 AS_INLINE m44 make_ortho_gl_rh(real l, real r, real b, real t, real n, real f)
 {
 	m44 result;
@@ -138,7 +151,7 @@ AS_INLINE m44 make_ortho_gl_rh(real l, real r, real b, real t, real n, real f)
 	return result;
 }
 
-// DirectX Default
+// directx default
 AS_INLINE m44 make_ortho_d3d_lh(real l, real r, real b, real t, real n, real f)
 {
 	m44 result;

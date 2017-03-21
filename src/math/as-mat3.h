@@ -22,6 +22,8 @@ template<> struct Mat<real, 3, 3>
 
 	AS_INLINE real& operator[](size_t i) { return data[i]; }
 	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
+
+	explicit Mat<real, 3, 3>() {}
 };
 
 #ifdef _MSC_VER
@@ -38,8 +40,8 @@ AS_INLINE m33 make_m33(v3 right, v3 up, v3 forward)
 }
 
 AS_INLINE m33 make_m33(real x1, real y1, real z1,
-							   real x2, real y2, real z2,
-							   real x3, real y3, real z3)
+						real x2, real y2, real z2,
+						real x3, real y3, real z3)
 {
 	m33 result;
 	result[0] = x1; result[1] = y1; result[2] = z1;

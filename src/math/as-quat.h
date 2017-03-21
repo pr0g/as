@@ -149,7 +149,7 @@ AS_INLINE v3 rotate(const quat& q, const v3& v)
 {
 	quat t = make_quat( 0, v.x, v.y, v.z );
 	quat quat_result = q * t * conjugate(q);
-	return make_v3(quat_result.i, quat_result.j, quat_result.k);
+	return v3(quat_result.i, quat_result.j, quat_result.k);
 }
 
 AS_INLINE quat quat_rotation_axis_angle(const v3& axis, real radians)

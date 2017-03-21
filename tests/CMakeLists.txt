@@ -9,7 +9,7 @@ SET(PROJ_INCLUDE_DIR ${PROJ_SRC_PATH}
 
 SET(PROJ_SOURCE ${PROJ_TEST_PATH}/main.cpp)
 
-SET(PROJ_LIBS gtest_main gtest)
+SET(PROJ_LIBS gtest_main gtest as)
 
 INCLUDE_DIRECTORIES(${PROJ_INCLUDE_DIR} ${PROJ_EXTERNAL_PATH}/google-test/include
 										${PROJ_EXTERNAL_PATH}/glm)

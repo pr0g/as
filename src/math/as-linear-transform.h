@@ -31,10 +31,10 @@ struct LinearTransform
 AS_INLINE m44 convertTom44(const LinearTransform& linearTransform)
 {
 	m44 temp;
-	temp.right = make_v4(linearTransform.right(), 0.0f);
-	temp.up = make_v4(linearTransform.up(), 0.0f);
-	temp.forward = make_v4(linearTransform.forward(), 0.0f);
-	temp.position = make_v4(linearTransform.position_, 1.0f);
+	temp.right = v4(linearTransform.right(), 0.0f);
+	temp.up = v4(linearTransform.up(), 0.0f);
+	temp.forward = v4(linearTransform.forward(), 0.0f);
+	temp.position = v4(linearTransform.position_, 1.0f);
 	return temp;
 }
 
