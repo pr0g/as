@@ -1,8 +1,8 @@
 #pragma once
 
-#include <cmath>
-
+#include "as-math.h"
 #include "core/as-types.h"
+#include "core/as-assert.h"
 
 namespace as
 {
@@ -31,8 +31,8 @@ template<> struct Vec<real, 2>
 	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
 
 	explicit Vec<real, 2>() {}
-	explicit Vec<real, 2>(real xy) : x(xy), y(xy) {}
-	explicit Vec<real, 2>(real x, real y) : x(x), y(y) {}
+	constexpr explicit Vec<real, 2>(real xy) : x(xy), y(xy) {}
+	constexpr explicit Vec<real, 2>(real x, real y) : x(x), y(y) {}
 };
 
 template<> struct Vec<real, 3>
@@ -48,11 +48,9 @@ template<> struct Vec<real, 3>
 	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
 
 	explicit Vec<real, 3>() {}
-	explicit Vec<real, 3>(real xyz) : x(xyz), y(xyz), z(xyz) {}
-	explicit Vec<real, 3>(const v2& xy, real z) : x(xy.x), y(xy.y), z(z) {}
-	explicit Vec<real, 3>(real x, real y, real z) : x(x), y(y), z(z) {}
-
-	v2 as_v2() const { return v2( x, y ); }
+	constexpr explicit Vec<real, 3>(real xyz) : x(xyz), y(xyz), z(xyz) {}
+	constexpr explicit Vec<real, 3>(const v2& xy, real z) : x(xy.x), y(xy.y), z(z) {}
+	constexpr explicit Vec<real, 3>(real x, real y, real z) : x(x), y(y), z(z) {}
 };
 
 template<> struct Vec<real, 4>
@@ -71,13 +69,27 @@ template<> struct Vec<real, 4>
 	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
 
 	explicit Vec<real, 4>() {}
-	explicit Vec<real, 4>(real xyzw) : x(xyzw), y(xyzw), z(xyzw), w(xyzw) {}
-	explicit Vec<real, 4>(const v3& xyz, real w) : x(xyz.x), y(xyz.y), z(xyz.z), w(w) {}
-	explicit Vec<real, 4>(const v2& xy, real z, real w) : x(xy.x), y(xy.y), z(z), w(w) {}
-	explicit Vec<real, 4>(real x, real y, real z, real w) : x(x), y(y), z(z), w(w) {}
-
-	v3 as_v3() const { return v3( x, y, z ); }
+	constexpr explicit Vec<real, 4>(real xyzw) : x(xyzw), y(xyzw), z(xyzw), w(xyzw) {}
+	constexpr explicit Vec<real, 4>(const v3& xyz, real w) : x(xyz.x), y(xyz.y), z(xyz.z), w(w) {}
+	constexpr explicit Vec<real, 4>(const v2& xy, real z, real w) : x(xy.x), y(xy.y), z(z), w(w) {}
+	constexpr explicit Vec<real, 4>(real x, real y, real z, real w) : x(x), y(y), z(z), w(w) {}
 };
+
+template<typename T, size_t n>
+AS_INLINE Vec<T, n> make_from(const T(&data)[n])
+{
+	Vec<T, n> result;
+	memcpy(result.data, data, sizeof(T) * n);
+	return result;
+}
+
+template<typename T, size_t n>
+AS_INLINE Vec<T, n> make_from(const T* data)
+{
+	Vec<T, n> result;
+	memcpy(result.data, data, sizeof(T) * n);
+	return result;
+}
 
 template<typename T, size_t n>
 AS_INLINE T dot(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
@@ -102,7 +114,7 @@ AS_INLINE T length_squared(const Vec<T, n>& vec)
 template<typename T, size_t n>
 AS_INLINE T length(const Vec<T, n>& vec)
 {
-	return std::sqrt(length_squared(vec));
+	return sqrt(length_squared(vec));
 }
 
 template<typename T, size_t n>
@@ -214,6 +226,47 @@ AS_INLINE void operator/=(Vec<T, n>& vec, T val)
 	}
 }
 
+template<typename T, size_t n>
+AS_INLINE bool equal(const Vec<T, n>& lhs, const Vec<T, n>& rhs, real epsilon = REAL_EPSILON)
+{
+	bool eq = true;
+	for (size_t i = 0; i < n; ++i) {
+		eq &= equal(lhs[i], rhs[i], epsilon, epsilon);
+		if (!eq) { break; }
+	}
+	return eq;
+}
+
+template<typename T, size_t n>
+AS_INLINE Vec<T, n> min(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
+{
+	Vec<T, n> result;
+	for (size_t i = 0; i < n; ++i) {
+		result[ i ] = min(lhs[i], rhs[i]);
+	}
+	return result;
+}
+
+template<typename T, size_t n>
+AS_INLINE Vec<T, n> max(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
+{
+	Vec<T, n> result;
+	for (size_t i = 0; i < n; ++i) {
+		result[ i ] = max(lhs[i], rhs[i]);
+	}
+	return result;
+}
+
+template<typename T, size_t n>
+AS_INLINE Vec<T, n> abs(const Vec<T, n>& vec)
+{
+	Vec<T, n> result;
+	for (size_t i = 0; i < n; ++i) {
+		result[ i ] = absr(vec[i]);
+	}
+	return result;
+}
+
 // constants
 
 extern const v3 v3_x;
@@ -221,6 +274,8 @@ extern const v3 v3_y;
 extern const v3 v3_z;
 extern const v3 v3_zero;
 extern const v3 v3_one;
+extern const v3 v3_max;
+extern const v3 v3_min;
 
 AS_INLINE v3 cross(const v3& lhs, const v3& rhs)
 {
@@ -231,10 +286,24 @@ AS_INLINE v3 cross(const v3& lhs, const v3& rhs)
 	return result;
 }
 
-AS_INLINE v3 across_and_up(const v3& dir, v3& across, v3& up, const v3& initial_up = v3_y)
+// note: will not work if dir == +/-world_up
+AS_INLINE void right_and_up_lh(const v3& dir, v3& across, v3& up, const v3& world_up = v3_y)
 {
-	// v3 rel_up = 
-	return v3_zero;
+	AS_ASSERT_DESC( !equal(dir, world_up), "dir and world_up are equal");
+
+	across = cross(dir, world_up);
+	up = normalize(cross(across, dir));
+	across = normalize(cross(up, dir));
+}
+
+// note: will not work if dir == +/-world_up
+AS_INLINE void right_and_up_rh(const v3& dir, v3& across, v3& up, const v3& world_up = v3_y)
+{
+	AS_ASSERT_DESC( !equal(dir, world_up), "dir and world_up are equal");
+
+	across = cross(dir, world_up);
+	up = normalize(cross(across, dir));
+	across = normalize(cross(dir, up));
 }
 
 }

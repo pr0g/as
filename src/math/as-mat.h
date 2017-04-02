@@ -20,8 +20,6 @@ struct Mat
 	AS_INLINE const T& operator[](size_t i) const { return data[i]; }
 };
 
-typedef Mat<real, 2, 2> v22;
-
 template < typename T, size_t c, size_t r >
 AS_INLINE Mat<T, c, r> operator*(const Mat<T, c, r>& lhs, const Mat<T, c, r>& rhs)
 {

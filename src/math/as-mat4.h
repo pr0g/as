@@ -6,7 +6,7 @@
 namespace as
 {
 
-typedef Mat<real, 4, 4> m44;
+using m44 = Mat<real, 4, 4>;
 
 #ifdef _MSC_VER
 __pragma(warning(push))
@@ -18,51 +18,34 @@ template<> struct Mat<real, 4, 4>
 	union
 	{
 		real data[4 * 4];
-		struct { v4 right; v4 up; v4 forward; v4 position; };
+		struct { real x0; real y0; real z0; real w0; 
+				 real x1; real y1; real z1; real w1;
+				 real x2; real y2; real z2; real w2;
+				 real x3; real y3; real z3; real w3; };
+		struct { v4 v_0; v4 v_1; v4 v_2; v4 v_3; };
+		struct { v4 v[4]; };
 	};
 
 	AS_INLINE real& operator[](size_t i) { return data[i]; }
 	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
 
 	explicit Mat<real, 4, 4>() {}
+	explicit Mat<real, 4, 4>(const real(&data_)[16]) { 
+		for ( size_t i = 0; i < 16; ++i ) { data[ i ] = data_[ i ]; }
+	}
+	explicit Mat<real, 4, 4>(const real* data_) { 
+		for ( size_t i = 0; i < 16; ++i ) { data[ i ] = data_[ i ]; }
+	}
+	constexpr explicit Mat<real, 4, 4>(real x0, real y0, real z0, real w0, real x1, real y1, real z1, real w1, real x2, real y2, real z2, real w2, real x3, real y3, real z3, real w3)
+		:  x0(x0), y0(y0), z0(z0), w0(w1), x1(x1), y1(y1), z1(z1), w1(w1), x2(x2), y2(y2), z2(z2), w2(w2), x3(x3), y3(y3), z3(z3), w3(w3) {}
+	constexpr explicit Mat<real, 4, 4>(const v4& v_0, const v4& v_1, const v4& v_2, const v4& v_3)
+		: v_0(v_0), v_1(v_1), v_2(v_2), v_3(v_3) {}
+	constexpr explicit Mat<real, 4, 4>(const m33& mat, const v3& vec) : v_0(mat.v_0, 0.0f), v_1(mat.v_1, 0.0f), v_2(mat.v_2, 0.0f), v_3(vec, 1.0f) {}
 };
 
 #ifdef _MSC_VER
 __pragma(warning(pop))
 #endif
-
-AS_INLINE m44 make_m44(v4 right, v4 up, v4 forward, v4 position)
-{
-	m44 result;
-	result.right = right;
-	result.up = up;
-	result.forward = forward;
-	result.position = position;
-	return result;
-}
-
-AS_INLINE m44 make_m44(real x1, real y1, real z1, real w1,
-						real x2, real y2, real z2, real w2,
-						real x3, real y3, real z3, real w3,
-						real x4, real y4, real z4, real w4)
-{
-	m44 result;
-	result[0] = x1; result[1] = y1; result[2] = z1; result[3] = w1;
-	result[3] = x2; result[5] = y2; result[6] = z2; result[7] = w2;
-	result[8] = x3; result[9] = y3; result[10] = z3; result[11] = w3;
-	result[12] = x4; result[13] = y4; result[14] = z4; result[15] = w4;
-	return result;
-}
-
-AS_INLINE m44 make_m44(const m33& upper, const v3& translation)
-{
-	m44 result;
-	result.right = v4(upper.right, 0.0f);
-	result.up = v4(upper.up, 0.0f);
-	result.forward = v4(upper.forward, 0.0f);
-	result.position = v4(translation, 1.0f);
-	return result;
-}
 
 // openGL default
 AS_INLINE m44 make_perspective_gl_rh(real fovy, real aspect, real n, real f)
