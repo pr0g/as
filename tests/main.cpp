@@ -156,14 +156,23 @@ TEST(as_mat, m33_init) {
 TEST(as_vec, init_compat) {
 	glm::vec3 glm_a(1.0f, 2.0f, 3.0f);
 
-	float data[3] = { 1.0f, 2.0f, 3.0f };
+	real data[3] = { 1.0f, 2.0f, 3.0f };
 	as::v3 as_a = as::make_from(data);
-
 	as::v3 as_b = as::make_from<float, 3>(glm::value_ptr(glm_a));
+	as::v3 as_c = as::v3(as::make_from<real, 3>(as::data(as_a)));
+	as::v3 as_d = as::v3(as::make_v3_from(as::data(as_a)));
+
+	real data_v4[4] = { 5.0f, 12.0f, 100.0f, 0.999f };
+	as::v4 as_v4 = as::v4(as::make_v4_from(data_v4));
+
+	as::v4 as_v4_2 = as::v4(as::make_v4_from(as::data(as_v4)));
 
 	print_v3( as_a );
 	print_v3( as_b );
-
+	print_v3( as_c );
+	print_v3( as_d );
+	print_v4( as_v4 );
+	print_v4( as_v4_2 );
 }
 
 TEST(as_vec, conversions) {
@@ -174,7 +183,6 @@ TEST(as_vec, conversions) {
 }
 
 TEST(as_vec, abs) {
-
 	as::v4 v( -1.0f, 2.0f, -100.0f, -7.0f);
 	as::v4 r = abs( v );
 
@@ -187,7 +195,6 @@ TEST(as_vec, abs) {
 }
 
 TEST(as_vec, min) {
-
 	as::v4 v1( -1.0f, 2.0f, -100.0f, -7.0f);
 	as::v4 v2( -10.0f, 7.0f, -50.0f, -16.0f);
 
@@ -196,14 +203,73 @@ TEST(as_vec, min) {
 	EXPECT_TRUE( r.x == -10.0f && r.y == 2.0f && r.z == -100.0f && r.w == -16.0f ) << "as::vec min failed";
 }
 
-TEST(as_vec, max) {
+TEST(as_vec, min_elem) {
+	as::v4 v( -1.0f, 2.0f, -100.0f, -7.0f);
+	real min = min_elem(v);
 
+	EXPECT_TRUE(min == -100.0f) << "as::vec min_elem failed";
+}
+
+TEST(as_vec, max) {
 	as::v4 v1( -1.0f, 2.0f, -100.0f, -7.0f);
 	as::v4 v2( -10.0f, 7.0f, -50.0f, -16.0f);
 
 	as::v4 r = max( v1, v2 );
 
 	EXPECT_TRUE( r.x == -1.0f && r.y == 7.0f && r.z == -50.0f && r.w == -7.0f ) << "as::vec max failed";
+}
+
+TEST(as_vec, max_elem) {
+	as::v4 v( -1.0f, 2.0f, -100.0f, -7.0f);
+	real max = max_elem(v);
+
+	EXPECT_TRUE(max == 2.0f) << "as::vec max_elem failed";
+}
+
+TEST(as_vec, clamp) {
+	as::v3 min(100.0f, 50.0f, -100.0f);
+	as::v3 max(200.0f, 1000.0f, -50.0f);
+
+	as::v3 v(50.0f, 1020.0f, -75.0f);
+
+	as::v3 result = clamp(v, min, max);
+
+	EXPECT_TRUE(result.x == 100.0f && result.y == 1000.0f && result.z == -75.0f) << "as::vec clamp failed";
+}
+
+TEST(as_vec, saturate) {
+	as::v3 v(-2.0f, 0.5f, 1.2f);
+
+	as::v3 result = saturate(v);
+
+	EXPECT_TRUE(result.x == 0.0f && result.y == 0.5f && result.z == 1.0f) << "as::vec saturate failed";
+}
+
+TEST(as_vec, lerp) {
+	as::v3 start(0.0f, 10.0f, 20.0f);
+	as::v3 end(10.0f, 40.0f, 100.0f);
+
+	as::v3 result_begin = lerp(0.0f, start, end);
+	as::v3 result_mid = lerp(0.5f, start, end);
+	as::v3 result_end = lerp(1.0f, start, end);
+
+	EXPECT_TRUE(result_begin.x == 0.0f && result_begin.y == 10.0f && result_begin.z == 20.0f) << "as::vec lerp failed";
+	EXPECT_TRUE(result_mid.x == 5.0f && result_mid.y == 25.0f && result_mid.z == 60.0f) << "as::vec lerp failed";
+	EXPECT_TRUE(result_end.x == 10.0f && result_end.y == 40.0f && result_end.z == 100.0f) << "as::vec lerp failed";
+}
+
+TEST(as_vec, select) {
+	using int3 = as::Vec<int, 3>;
+
+	int3 a;
+	int3 b;
+
+	a[0] = 1; a[1] = 2; a[2] = 3;
+	b[0] = 5; b[1] = 6; b[2] = 7;
+
+	int3 result = select(a, b, true);
+
+	EXPECT_TRUE(result[0] == 1 && result[1] == 2 && result[2] == 3) << "as::vec select failed";
 }
 
 int main(int argc, char** argv) {

@@ -76,6 +76,12 @@ template<> struct Vec<real, 4>
 };
 
 template<typename T, size_t n>
+AS_INLINE const T* data(const Vec<T, n>& vec)
+{
+	return &vec.data[0];
+}
+
+template<typename T, size_t n>
 AS_INLINE Vec<T, n> make_from(const T(&data)[n])
 {
 	Vec<T, n> result;
@@ -89,6 +95,24 @@ AS_INLINE Vec<T, n> make_from(const T* data)
 	Vec<T, n> result;
 	memcpy(result.data, data, sizeof(T) * n);
 	return result;
+}
+
+template<typename T>
+AS_INLINE v2 make_v2_from(const T* data)
+{
+	return make_from<T, 2>(data);
+}
+
+template<typename T>
+AS_INLINE v3 make_v3_from(const T* data)
+{
+	return make_from<T, 3>(data);
+}
+
+template<typename T>
+AS_INLINE v4 make_v4_from(const T* data)
+{
+	return make_from<T, 4>(data);
 }
 
 template<typename T, size_t n>
@@ -248,6 +272,16 @@ AS_INLINE Vec<T, n> min(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
 }
 
 template<typename T, size_t n>
+AS_INLINE real min_elem(const Vec<T, n>& vec)
+{
+	real val = vec[0];
+	for (size_t i = 1; i < n; ++i) {
+		val = min(val, vec[i]);
+	}
+	return val;
+}
+
+template<typename T, size_t n>
 AS_INLINE Vec<T, n> max(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
 {
 	Vec<T, n> result;
@@ -258,6 +292,16 @@ AS_INLINE Vec<T, n> max(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
 }
 
 template<typename T, size_t n>
+AS_INLINE real max_elem(const Vec<T, n>& vec)
+{
+	real val = vec[0];
+	for (size_t i = 1; i < n; ++i) {
+		val = max(val, vec[i]);
+	}
+	return val;
+}
+
+template<typename T, size_t n>
 AS_INLINE Vec<T, n> abs(const Vec<T, n>& vec)
 {
 	Vec<T, n> result;
@@ -265,6 +309,42 @@ AS_INLINE Vec<T, n> abs(const Vec<T, n>& vec)
 		result[ i ] = absr(vec[i]);
 	}
 	return result;
+}
+
+template<typename T, size_t n>
+AS_INLINE Vec<T, n> clamp(const Vec<T, n>& vec, const Vec<T, n>& min, const Vec<T, n>& max)
+{
+	Vec<T, n> result;
+	for (size_t i = 0; i < n; ++i) {
+		result[ i ] = clamp( vec[ i ], min[ i ], max[ i ] );
+	}
+	return result;
+}
+
+template<typename T, size_t n>
+AS_INLINE Vec<T, n> saturate(const Vec<T, n>& vec)
+{
+	Vec<T, n> result;
+	for (size_t i = 0; i < n; ++i) {
+		result[ i ] = clamp( vec[ i ], 0.0f, 1.0f );
+	}
+	return result;
+}
+
+template<typename T, size_t n>
+AS_INLINE Vec<T, n> lerp(real t, const Vec<T, n>& v0, const Vec<T, n>& v1)
+{
+	Vec<T, n> result;
+	for (size_t i = 0; i < n; ++i) {
+		result[ i ] = lerp(t, v0[i], v1[i]);
+	}
+	return result;
+}
+
+template<typename T, size_t n>
+AS_INLINE Vec<T, n> select(const Vec<T, n>& v0, const Vec<T, n>& v1, bool select0)
+{
+	return select0 ? v0 : v1;
 }
 
 // constants
