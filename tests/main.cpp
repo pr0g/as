@@ -261,15 +261,30 @@ TEST(as_vec, lerp) {
 TEST(as_vec, select) {
 	using int3 = as::Vec<int, 3>;
 
-	int3 a;
-	int3 b;
+	int3 a(1, 2, 3);
+	int3 b(5, 6, 7);
+	
+	using byte4 = as::Vec<byte, 4>;
 
-	a[0] = 1; a[1] = 2; a[2] = 3;
-	b[0] = 5; b[1] = 6; b[2] = 7;
+	byte4 c((byte)255, (byte)255, (byte)255, (byte)255);
+	byte4 d((byte)0, (byte)0, (byte)0, (byte)0);
+
+	using float3 = as::Vec<float, 3>;
+
+	float3 x(1.0f, 2.0f, 3.0f);
+	float3 y(4.0f, 5.0f, 6.0f);
 
 	int3 result = select(a, b, true);
+	byte4 result_byte = select(c, d, false);
+
+	int3 e{8, 9, 10};
+	int3 f({11, 12, 13});
+
+	printf("v = x: %d, y: %d, z: %d\n", e[0], e[1], e[2]);
+	printf("v = x: %d, y: %d, z: %d\n", f[0], f[1], f[2]);
 
 	EXPECT_TRUE(result[0] == 1 && result[1] == 2 && result[2] == 3) << "as::vec select failed";
+	EXPECT_TRUE(result_byte[0] == 0 && result_byte[1] == 0 && result_byte[2] == 0 && result_byte[3] == 0) << "as::vec select failed";
 }
 
 int main(int argc, char** argv) {

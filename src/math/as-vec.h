@@ -13,6 +13,9 @@ struct Vec
 	T data[n];
 	AS_INLINE T& operator[](size_t i) { return data[i]; }
 	AS_INLINE const T& operator[](size_t i) const { return data[i]; }
+
+	template<typename ...TT>
+	Vec(TT&&...t) : data{ std::forward<TT>(t)... } {}
 };
 
 using v2 = Vec<real, 2>;
