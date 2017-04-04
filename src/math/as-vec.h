@@ -277,9 +277,9 @@ AS_INLINE Vec<T, n> min(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
 }
 
 template<typename T, size_t n>
-AS_INLINE real min_elem(const Vec<T, n>& vec)
+AS_INLINE T min_elem(const Vec<T, n>& vec)
 {
-	real val = vec[0];
+	T val = vec[0];
 	for (size_t i = 1; i < n; ++i) {
 		val = min(val, vec[i]);
 	}
@@ -297,9 +297,9 @@ AS_INLINE Vec<T, n> max(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
 }
 
 template<typename T, size_t n>
-AS_INLINE real max_elem(const Vec<T, n>& vec)
+AS_INLINE T max_elem(const Vec<T, n>& vec)
 {
-	real val = vec[0];
+	T val = vec[0];
 	for (size_t i = 1; i < n; ++i) {
 		val = max(val, vec[i]);
 	}
@@ -337,7 +337,7 @@ AS_INLINE Vec<T, n> saturate(const Vec<T, n>& vec)
 }
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> lerp(real t, const Vec<T, n>& v0, const Vec<T, n>& v1)
+AS_INLINE Vec<T, n> lerp(T t, const Vec<T, n>& v0, const Vec<T, n>& v1)
 {
 	Vec<T, n> result;
 	for (size_t i = 0; i < n; ++i) {
