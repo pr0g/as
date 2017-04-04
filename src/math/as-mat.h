@@ -24,6 +24,7 @@ struct Mat
 	{
 		T data[c * r];
 		T data_cr[c][r];
+		Vec<T, r> vec[c];
 	};
 
 	AS_INLINE T& operator[](size_t i) { return data[i]; }

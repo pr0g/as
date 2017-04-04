@@ -301,6 +301,14 @@ TEST(as_mat, col_row) {
 	printf("%d ", mat.data_cr[0][4]);
 
 	printf("\n");
+
+	printf("%d ", mat.vec[0][0]);
+	printf("%d ", mat.vec[0][1]);
+	printf("%d ", mat.vec[0][2]);
+	printf("%d ", mat.vec[0][3]);
+	printf("%d ", mat.vec[0][4]);
+
+	printf("\n");
 }
 
 int main(int argc, char** argv) {

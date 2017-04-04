@@ -14,6 +14,8 @@ struct Vec
 	AS_INLINE T& operator[](size_t i) { return data[i]; }
 	AS_INLINE const T& operator[](size_t i) const { return data[i]; }
 
+	Vec() = default;
+
 	template<typename ...P>
 	Vec(P&&...p) : data{ std::forward<P>(p)... } {}
 };
@@ -33,7 +35,7 @@ template<> struct Vec<real, 2>
 	AS_INLINE real& operator[](size_t i) { return data[i]; }
 	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
 
-	explicit Vec<real, 2>() {}
+	explicit Vec<real, 2>() = default;
 	constexpr explicit Vec<real, 2>(real xy) : x(xy), y(xy) {}
 	constexpr explicit Vec<real, 2>(real x, real y) : x(x), y(y) {}
 };
@@ -50,7 +52,7 @@ template<> struct Vec<real, 3>
 	AS_INLINE real& operator[](size_t i) { return data[i]; }
 	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
 
-	explicit Vec<real, 3>() {}
+	explicit Vec<real, 3>() = default;
 	constexpr explicit Vec<real, 3>(real xyz) : x(xyz), y(xyz), z(xyz) {}
 	constexpr explicit Vec<real, 3>(const v2& xy, real z) : x(xy.x), y(xy.y), z(z) {}
 	constexpr explicit Vec<real, 3>(real x, real y, real z) : x(x), y(y), z(z) {}
@@ -71,7 +73,7 @@ template<> struct Vec<real, 4>
 	AS_INLINE real& operator[](size_t i) { return data[i]; }
 	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
 
-	explicit Vec<real, 4>() {}
+	explicit Vec<real, 4>() = default;
 	constexpr explicit Vec<real, 4>(real xyzw) : x(xyzw), y(xyzw), z(xyzw), w(xyzw) {}
 	constexpr explicit Vec<real, 4>(const v3& xyz, real w) : x(xyz.x), y(xyz.y), z(xyz.z), w(w) {}
 	constexpr explicit Vec<real, 4>(const v2& xy, real z, real w) : x(xy.x), y(xy.y), z(z), w(w) {}
