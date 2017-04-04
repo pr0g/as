@@ -12,13 +12,27 @@
 namespace as
 {
 
+#ifdef _MSC_VER
+__pragma(warning(push))
+__pragma(warning(disable:4201))
+#endif
+
 template<typename T, size_t c, size_t r>
 struct Mat
 {
-	T data[c * r];
+	union 
+	{
+		T data[c * r];
+		T data_cr[c][r];
+	};
+
 	AS_INLINE T& operator[](size_t i) { return data[i]; }
 	AS_INLINE const T& operator[](size_t i) const { return data[i]; }
 };
+
+#ifdef _MSC_VER
+__pragma(warning(pop))
+#endif
 
 template < typename T, size_t c, size_t r >
 AS_INLINE Mat<T, c, r> operator*(const Mat<T, c, r>& lhs, const Mat<T, c, r>& rhs)

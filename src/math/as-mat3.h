@@ -17,6 +17,7 @@ template<> struct Mat<real, 3, 3>
 	union
 	{
 		real data[3 * 3];
+		real data_cr[3][3];
 		struct { real x0; real y0; real z0; real x1; real y1; real z1; real x2; real y2; real z2; };
 		struct { v3 v_0; v3 v_1; v3 v_2; };
 		struct { v3 v[3]; };

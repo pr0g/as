@@ -287,6 +287,22 @@ TEST(as_vec, select) {
 	EXPECT_TRUE(result_byte[0] == 0 && result_byte[1] == 0 && result_byte[2] == 0 && result_byte[3] == 0) << "as::vec select failed";
 }
 
+TEST(as_mat, col_row) {
+	as::Mat< int, 5, 5 > mat;
+
+	for (size_t i = 0; i < 25; ++i) {
+		mat[i] = i;
+	}
+
+	printf("%d ", mat.data_cr[0][0]);
+	printf("%d ", mat.data_cr[0][1]);
+	printf("%d ", mat.data_cr[0][2]);
+	printf("%d ", mat.data_cr[0][3]);
+	printf("%d ", mat.data_cr[0][4]);
+
+	printf("\n");
+}
+
 int main(int argc, char** argv) {
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
