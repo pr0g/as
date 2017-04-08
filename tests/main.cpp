@@ -371,6 +371,16 @@ TEST(as_point, point_sub) {
 	EXPECT_TRUE(as::equal(end2, end3.xy));
 }
 
+TEST(as_mat, mat_generic_init) {
+	using int34 = as::Mat<int, 3, 4>;
+
+	int34 int34_test(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0);
+
+	for (size_t i = 0; i < 12; ++i) {
+		printf("%d, ", int34_test[i]);
+	}
+}
+
 int main(int argc, char** argv) {
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();

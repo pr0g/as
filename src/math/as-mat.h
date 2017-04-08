@@ -29,6 +29,9 @@ struct Mat
 
 	AS_INLINE T& operator[](size_t i) { return data[i]; }
 	AS_INLINE const T& operator[](size_t i) const { return data[i]; }
+
+	template<typename ...P>
+	Mat(P&&...p) : data{ std::forward<P>(p)... } {}
 };
 
 #ifdef _MSC_VER
