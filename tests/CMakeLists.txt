@@ -7,7 +7,12 @@ PROJECT(${PROJ_NAME} CXX)
 SET(PROJ_INCLUDE_DIR ${PROJ_SRC_PATH}
 					 ${CMAKE_SOURCE_DIR})
 
-SET(PROJ_SOURCE ${PROJ_TEST_PATH}/main.cpp)
+SET(PROJ_SOURCE ${PROJ_TEST_PATH}/main.cpp
+				${PROJ_TEST_PATH}/as-math-output.h
+				${PROJ_TEST_PATH}/test-vec.cpp
+				${PROJ_TEST_PATH}/test-mat.cpp
+				${PROJ_TEST_PATH}/test-point.cpp
+				${PROJ_TEST_PATH}/test-quat.cpp)
 
 SET(PROJ_LIBS gtest_main gtest as)
 
