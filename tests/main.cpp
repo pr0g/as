@@ -311,6 +311,42 @@ TEST(as_mat, col_row) {
 	printf("\n");
 }
 
+TEST(as_mat, mat_mult) {
+
+	// as::m44 a = as::identity<real, 4>();
+	as::m44 mat = as::m44_id;
+	as::v4 vec = as::v4_w;
+
+	as::v4 result_col = mat * vec;
+	/// as::v4 result_row = vec * mat;
+
+	as::m33 mat_rot = as::make_rotation_x(as::degToRad(90.0f));
+	as::m44 transform_rot = as::m44( mat_rot, as::v3_zero );
+
+	as::v4 dir(0.0, 1.0f, 0.0f, 0.0f);
+	as::v4 result_dir_col = transform_rot * dir;
+	// as::v4 result_dir_row = dir * transform_rot;
+
+	print_v4( result_dir_col );
+	// print_v4( result_dir_row );
+
+	print_v4( result_col );
+	// print_v4( result_row );
+}
+
+TEST(as_mat, mat_proj) {
+	as::m44 proj = as::make_perspective_gl_lh(as::degToRad(60.0f), 4.0f/3.0f, 0.1f, 100.0f);
+	for (size_t i = 0; i < 16; ++i) {
+		printf("proj[%zu]: %f, ", i, proj[i]);
+	}
+
+	glm::mat4 glm_proj = glm::perspective(as::degToRad(60.0f), 4.0f/3.0f, 0.1f, 100.0f);
+	const float* glm_data = (const float*)glm::value_ptr(glm_proj);
+	for (size_t i = 0; i < 16; ++i) {
+		printf("glm proj[%zu]: %f, ", i, glm_data[i]);
+	}
+}
+
 int main(int argc, char** argv) {
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();

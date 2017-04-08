@@ -48,6 +48,8 @@ template<> struct Mat<real, 4, 4>
 __pragma(warning(pop))
 #endif
 
+const m44 m44_id = identity<real, 4>();
+
 // openGL default
 AS_INLINE m44 make_perspective_gl_rh(real fovy, real aspect, real n, real f)
 {

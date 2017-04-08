@@ -66,38 +66,18 @@ AS_INLINE Mat<T, c, r> operator*(const Mat<T, c, r>& lhs, const Mat<T, c, r>& rh
 }
 
 template<typename T, size_t c, size_t r, size_t n>
+#if defined AS_ROW_MAJOR
 AS_INLINE Vec<T, n> operator*(const Vec<T, n> vec, const Mat<T, c, r>& mat)
-{
-#ifdef AS_COL_MAJOR
-	static_assert(n == r, "Number of rows does not equal number of elements in vector");
-	Vec<T, n> result;
-	for (size_t vertexIndex = 0; vertexIndex< n; ++vertexIndex) {
-		T value = 0;
-		for (size_t step = 0; step < n; ++step) {
-			value += vec[step] * mat[vertexIndex * c + step];
-		}
-		result[vertexIndex] = value;
-	}
-	return result;
-#elif defined AS_ROW_MAJOR
-	static_assert(n == c, "Number of columns does not equal number of elements in vector");
-	Vec<T, n> result;
-	for (size_t vertexIndex = 0; vertexIndex < n; ++vertexIndex) {
-		T value = 0;
-		for (size_t step = 0; step < n; ++step) {
-			value += vec[step] * mat[vertexIndex + step * c];
-		}
-		result[vertexIndex] = value;
-	}
-	return result;
-#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
-}
-
-template<typename T, size_t c, size_t r, size_t n>
+#elif defined AS_COL_MAJOR
 AS_INLINE Vec<T, n> operator*(const Mat<T, c, r>& mat, const Vec<T, n> vec)
+#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 {
-#ifdef AS_COL_MAJOR
+#if defined AS_ROW_MAJOR
+	static_assert(n == c, "Number of columns does not equal number of elements in vector");
+#elif defined AS_COL_MAJOR
 	static_assert(n == r, "Number of rows does not equal number of elements in vector");
+#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+
 	Vec<T, n> result;
 	for (size_t vertexIndex = 0; vertexIndex < n; ++vertexIndex) {
 		T value = 0;
@@ -107,18 +87,6 @@ AS_INLINE Vec<T, n> operator*(const Mat<T, c, r>& mat, const Vec<T, n> vec)
 		result[vertexIndex] = value;
 	}
 	return result;
-#elif defined AS_ROW_MAJOR
-	static_assert(n == c, "Number of columns does not equal number of elements in vector");
-	Vec<T, n> result;
-	for (size_t vertexIndex = 0; vertexIndex < n; ++vertexIndex) {
-		T value = 0;
-		for (size_t step = 0; step < n; ++step) {
-			value += vec[step] * mat[vertexIndex * c + step];
-		}
-		result[vertexIndex] = value;
-	}
-	return result;
-#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 }
 
 template<typename T, size_t c, size_t r>

@@ -43,6 +43,8 @@ template<> struct Mat<real, 3, 3>
 __pragma(warning(pop))
 #endif
 
+const m33 m33_id = identity<real, 3>();
+
 AS_INLINE m33 axis_angle_rotation(v3 axis, real radians)
 {
 	m33 result;

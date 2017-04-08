@@ -362,6 +362,15 @@ extern const v3 v3_one;
 extern const v3 v3_max;
 extern const v3 v3_min;
 
+extern const v4 v4_x;
+extern const v4 v4_y;
+extern const v4 v4_z;
+extern const v4 v4_w;
+extern const v4 v4_zero;
+extern const v4 v4_one;
+extern const v4 v4_max;
+extern const v4 v4_min;
+
 AS_INLINE v3 cross(const v3& lhs, const v3& rhs)
 {
 	v3 result;

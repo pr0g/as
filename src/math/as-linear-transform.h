@@ -38,17 +38,19 @@ AS_INLINE m44 convertTom44(const LinearTransform& linearTransform)
 	return temp;
 }
 
+#if defined AS_COL_MAJOR
 AS_INLINE v3 operator*(const LinearTransform& transform, const v3& vec)
 {
 	v3 result = transform.rotation * vec;
 	return result + transform.position;
 }
-
+#elif defined AS_ROW_MAJOR
 AS_INLINE v3 operator*(const v3& vec, const LinearTransform& transform)
 {
 	v3 result = vec * transform.rotation;
 	return result + transform.position;
 }
+#endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 
 AS_INLINE v3 LinearTransform::transformDirection(const v3& direction)
 {
