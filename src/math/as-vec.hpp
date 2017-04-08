@@ -1,9 +1,9 @@
 #pragma once
 
-#include "core/as-types.h"
-#include "core/as-assert.h"
+#include "core/as-types.hpp"
+#include "core/as-assert.hpp"
 
-#include "as-math.h"
+#include "as-math.hpp"
 
 namespace as
 {

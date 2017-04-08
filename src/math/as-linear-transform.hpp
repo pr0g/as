@@ -1,11 +1,11 @@
 #pragma once
 
-#include "src/core/as-types.h"
+#include "src/core/as-types.hpp"
 
-#include "as-mat.h"
-#include "as-mat3.h"
-#include "as-mat4.h"
-#include "as-vec.h"
+#include "as-mat.hpp"
+#include "as-mat3.hpp"
+#include "as-mat4.hpp"
+#include "as-vec.hpp"
 
 namespace as
 {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "src/core/as-types.h"
+#include "src/core/as-types.hpp"
 
 // to get rid of stupid global namespace min and max
 // (probably brought in by a lib at this point - need

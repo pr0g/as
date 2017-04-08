@@ -1,7 +1,7 @@
 #pragma once
 
-#include "as-mat.h"
-#include "as-mat3.h"
+#include "as-mat.hpp"
+#include "as-mat3.hpp"
 
 namespace as
 {

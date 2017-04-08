@@ -2,9 +2,9 @@
 
 #include <type_traits>
 
-#include "src/core/as-types.h"
+#include "src/core/as-types.hpp"
 
-#include "as-vec.h"
+#include "as-vec.hpp"
 
 //#define AS_ROW_MAJOR
 #define AS_COL_MAJOR

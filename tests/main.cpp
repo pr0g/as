@@ -7,14 +7,14 @@
 #include "glm/gtc/matrix_transform.hpp"
 
 // as
-#include "src/math/as-linear-transform.h"
-#include "src/math/as-mat.h"
-#include "src/math/as-mat3.h"
-#include "src/math/as-mat4.h"
-#include "src/math/as-math.h"
-#include "src/math/as-quat.h"
-#include "src/math/as-vec.h"
-#include "src/math/as-point.h"
+#include "src/math/as-linear-transform.hpp"
+#include "src/math/as-mat.hpp"
+#include "src/math/as-mat3.hpp"
+#include "src/math/as-mat4.hpp"
+#include "src/math/as-math.hpp"
+#include "src/math/as-quat.hpp"
+#include "src/math/as-vec.hpp"
+#include "src/math/as-point.hpp"
 
 void print_v3(const as::v3& v) { printf("v = x: %f, y: %f, z: %f\n", v.x, v.y, v.z); }
 void print_v4(const as::v4& v) { printf("v = x: %f, y: %f, z: %f, w: %f\n", v.x, v.y, v.z, v.w); }

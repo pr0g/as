@@ -1,6 +1,6 @@
 #pragma once
 
-#include "as-vec.h"
+#include "as-vec.hpp"
 
 namespace as
 {

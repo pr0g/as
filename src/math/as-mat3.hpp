@@ -1,6 +1,6 @@
 #pragma once
 
-#include "as-mat.h"
+#include "as-mat.hpp"
 
 namespace as
 {
