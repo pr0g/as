@@ -14,6 +14,7 @@
 #include "src/math/as-math.h"
 #include "src/math/as-quat.h"
 #include "src/math/as-vec.h"
+#include "src/math/as-point.h"
 
 void print_v3(const as::v3& v) { printf("v = x: %f, y: %f, z: %f\n", v.x, v.y, v.z); }
 void print_v4(const as::v4& v) { printf("v = x: %f, y: %f, z: %f, w: %f\n", v.x, v.y, v.z, v.w); }
@@ -345,6 +346,29 @@ TEST(as_mat, mat_proj) {
 	for (size_t i = 0; i < 16; ++i) {
 		printf("glm proj[%zu]: %f, ", i, glm_data[i]);
 	}
+}
+
+TEST(as_point, point_sub) {
+	as::p3 a3( 10.0f, 0.0f, 10.0f);
+	as::p3 b3( 5.0f, 0.0f, 0.0f);
+
+	as::v3 r3 = a3 - b3;
+
+	as::p3 end3 = b3 + r3;
+
+	print_v3(a3.v);
+	print_v3(end3.v);
+
+	EXPECT_TRUE(as::equal(a3, end3));
+
+	as::p2 a2 = end3.xy;
+	as::p2 b2 = a3.xy;
+
+	as::v2 r2 = a2 - b2;
+
+	as::p2 end2 = b2 + r2;
+
+	EXPECT_TRUE(as::equal(end2, end3.xy));
 }
 
 int main(int argc, char** argv) {
