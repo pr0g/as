@@ -354,22 +354,29 @@ AS_INLINE Vec<T, n> select(const Vec<T, n>& v0, const Vec<T, n>& v1, bool select
 
 // constants
 
-extern const v3 v3_x;
-extern const v3 v3_y;
-extern const v3 v3_z;
-extern const v3 v3_zero;
-extern const v3 v3_one;
-extern const v3 v3_max;
-extern const v3 v3_min;
+const v2 v2_x(1.0f, 0.0f);
+const v2 v2_y(0.0f, 1.0f);
+const v2 v2_zero(0.0f, 0.0f);
+const v2 v2_one(1.0f, 1.0f);
+const v2 v2_max(REAL_MAX, REAL_MAX);
+const v2 v2_min(REAL_MIN, REAL_MIN);
 
-extern const v4 v4_x;
-extern const v4 v4_y;
-extern const v4 v4_z;
-extern const v4 v4_w;
-extern const v4 v4_zero;
-extern const v4 v4_one;
-extern const v4 v4_max;
-extern const v4 v4_min;
+const v3 v3_x(1.0f, 0.0f, 0.0f);
+const v3 v3_y(0.0f, 1.0f, 0.0f);
+const v3 v3_z(0.0f, 0.0f, 1.0f);
+const v3 v3_zero(0.0f, 0.0f, 0.0f);
+const v3 v3_one(1.0f, 1.0f, 1.0f);
+const v3 v3_max(REAL_MAX, REAL_MAX, REAL_MAX);
+const v3 v3_min(REAL_MIN, REAL_MIN, REAL_MIN);
+
+const v4 v4_x(1.0f, 0.0f, 0.0f, 0.0f);
+const v4 v4_y(0.0f, 1.0f, 0.0f, 0.0f);
+const v4 v4_z(0.0f, 0.0f, 1.0f, 0.0f);
+const v4 v4_w(0.0f, 0.0f, 0.0f, 1.0f);
+const v4 v4_zero(0.0f, 0.0f, 0.0f, 0.0f);
+const v4 v4_one(1.0f, 1.0f, 1.0f, 1.0f);
+const v4 v4_max(REAL_MAX, REAL_MAX, REAL_MAX, REAL_MAX);
+const v4 v4_min(REAL_MIN, REAL_MIN, REAL_MIN, REAL_MIN);
 
 AS_INLINE v3 cross(const v3& lhs, const v3& rhs)
 {
