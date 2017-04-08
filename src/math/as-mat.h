@@ -17,13 +17,13 @@ __pragma(warning(push))
 __pragma(warning(disable:4201))
 #endif
 
-template<typename T, size_t c, size_t r>
+template<typename T, size_t r, size_t c>
 struct Mat
 {
 	union 
 	{
-		T data[c * r];
-		T data_cr[c][r];
+		T data[r * c];
+		T data_cr[r][c];
 		Vec<T, r> vec[c];
 	};
 
@@ -35,11 +35,11 @@ struct Mat
 __pragma(warning(pop))
 #endif
 
-template < typename T, size_t c, size_t r >
-AS_INLINE Mat<T, c, r> operator*(const Mat<T, c, r>& lhs, const Mat<T, c, r>& rhs)
+template < typename T, size_t r, size_t c >
+AS_INLINE Mat<T, r, c> operator*(const Mat<T, r, c>& lhs, const Mat<T, r, c>& rhs)
 {
 #ifdef AS_COL_MAJOR
-	Mat<T, c, r> result;
+	Mat<T, r, c> result;
 	for (size_t colIndex = 0; colIndex < c; ++colIndex) {
 		for (size_t rowIndex = 0; rowIndex < r; ++rowIndex) {
 			T value = 0;
@@ -51,7 +51,7 @@ AS_INLINE Mat<T, c, r> operator*(const Mat<T, c, r>& lhs, const Mat<T, c, r>& rh
 	}
 	return result;
 #elif defined AS_ROW_MAJOR
-	Mat<T, c, r> result;
+	Mat<T, r, c> result;
 	for (size_t rowIndex = 0; rowIndex < r; ++rowIndex) {
 		for (size_t colIndex = 0; colIndex < c; ++colIndex) {
 			T value = 0;
@@ -65,11 +65,11 @@ AS_INLINE Mat<T, c, r> operator*(const Mat<T, c, r>& lhs, const Mat<T, c, r>& rh
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 }
 
-template<typename T, size_t c, size_t r, size_t n>
+template<typename T, size_t r, size_t c, size_t n>
 #if defined AS_ROW_MAJOR
-AS_INLINE Vec<T, n> operator*(const Vec<T, n> vec, const Mat<T, c, r>& mat)
+AS_INLINE Vec<T, n> operator*(const Vec<T, n> vec, const Mat<T, r, c>& mat)
 #elif defined AS_COL_MAJOR
-AS_INLINE Vec<T, n> operator*(const Mat<T, c, r>& mat, const Vec<T, n> vec)
+AS_INLINE Vec<T, n> operator*(const Mat<T, r, c>& mat, const Vec<T, n> vec)
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 {
 #if defined AS_ROW_MAJOR
@@ -89,8 +89,8 @@ AS_INLINE Vec<T, n> operator*(const Mat<T, c, r>& mat, const Vec<T, n> vec)
 	return result;
 }
 
-template<typename T, size_t c, size_t r>
-AS_INLINE Mat<T, r, c> operator*(const Mat<T, c, r>& mat, T scalar)
+template<typename T, size_t r, size_t c>
+AS_INLINE Mat<T, r, c> operator*(const Mat<T, r, c>& mat, T scalar)
 {
 	Mat<T, r, c> result;
 	for (size_t rowIndex = 0; rowIndex < r; ++rowIndex) {
@@ -101,8 +101,8 @@ AS_INLINE Mat<T, r, c> operator*(const Mat<T, c, r>& mat, T scalar)
 	return result;
 }
 
-template<typename T, size_t c, size_t r>
-AS_INLINE void operator*=(Mat<T, c, r>& mat, T scalar)
+template<typename T, size_t r, size_t c>
+AS_INLINE void operator*=(Mat<T, r, c>& mat, T scalar)
 {
 	for (size_t rowIndex = 0; rowIndex < r; ++rowIndex) {
 		for (size_t colIndex = 0; colIndex < c; ++colIndex) {
@@ -111,8 +111,8 @@ AS_INLINE void operator*=(Mat<T, c, r>& mat, T scalar)
 	}
 }
 
-template<typename T, size_t c, size_t r>
-AS_INLINE Mat<T, r, c> transpose(const Mat<T, c, r>& mat)
+template<typename T, size_t r, size_t c>
+AS_INLINE Mat<T, r, c> transpose(const Mat<T, r, c>& mat)
 {
 	Mat<T, r, c> result;
 	for (size_t rowIndex = 0; rowIndex < r; ++rowIndex) {
