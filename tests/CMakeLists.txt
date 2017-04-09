@@ -8,7 +8,7 @@ SET(PROJ_INCLUDE_DIR ${PROJ_SRC_PATH}
 					 ${CMAKE_SOURCE_DIR})
 
 SET(PROJ_SOURCE ${PROJ_TEST_PATH}/main.cpp
-				${PROJ_TEST_PATH}/as-math-output.h
+				${PROJ_TEST_PATH}/as-math-output.hpp
 				${PROJ_TEST_PATH}/test-vec.cpp
 				${PROJ_TEST_PATH}/test-mat.cpp
 				${PROJ_TEST_PATH}/test-point.cpp

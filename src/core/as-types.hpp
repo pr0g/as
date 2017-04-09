@@ -27,7 +27,14 @@ typedef double f64;
 
 typedef uint8_t byte;
 
-#ifdef PRECISION_FLOAT
+// static assert to check library floating point precision has been set correctly
+#if (!defined(AS_PRECISION_FLOAT) && !defined(AS_PRECISION_DOUBLE))
+	static_assert(false, "Must define AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE");
+#elif (defined(AS_PRECISION_FLOAT) && defined(AS_PRECISION_DOUBLE))
+	static_assert(false, "Must define only AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE");
+#endif // // AS_PRECISION_FLOAT ? AS_PRECISION_DOUBLE
+
+#ifdef AS_PRECISION_FLOAT
 typedef float real;
 #define cosr cosf
 #define sinr sinf
@@ -39,7 +46,7 @@ typedef float real;
 #define REAL_EPSILON FLT_EPSILON
 #define REAL_MAX FLT_MAX
 #define REAL_MIN FLT_MIN
-#elif defined PRECISION_DOUBLE
+#elif defined AS_PRECISION_DOUBLE
 typedef double real;
 #define cosr cos
 #define sinr sin

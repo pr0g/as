@@ -6,7 +6,7 @@
 #include "src/math/as-point.hpp"
 
 // as-test
-#include "as-math-output.h"
+#include "as-math-output.hpp"
 
 TEST(as_point, point_sub) {
 	as::p3 a3( 10.0f, 0.0f, 10.0f);

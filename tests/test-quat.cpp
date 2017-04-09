@@ -9,3 +9,6 @@
 // as
 #include "src/math/as-math.hpp"
 #include "src/math/as-quat.hpp"
+
+// as-test
+#include "as-math-output.hpp"

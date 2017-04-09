@@ -6,16 +6,20 @@
 
 #include "as-vec.hpp"
 
-//#define AS_ROW_MAJOR
-#define AS_COL_MAJOR
-
 namespace as
 {
 
 #ifdef _MSC_VER
 __pragma(warning(push))
 __pragma(warning(disable:4201))
-#endif
+#endif // _MSC_VER
+
+// static assert to check library matrix convention has been set correctly
+#if (!defined(AS_COL_MAJOR) && !defined(AS_ROW_MAJOR))
+	static_assert(false, "Must define AS_COL_MAJOR or AS_ROW_MAJOR");
+#elif (defined(AS_COL_MAJOR) && defined(AS_ROW_MAJOR))
+	static_assert(false, "Must define only AS_COL_MAJOR or AS_ROW_MAJOR");
+#endif // // AS_ROW_MAJOR ? AS_COL_MAJOR
 
 template<typename T, size_t r, size_t c>
 struct Mat
@@ -36,7 +40,7 @@ struct Mat
 
 #ifdef _MSC_VER
 __pragma(warning(pop))
-#endif
+#endif // _MSC_VER
 
 template < typename T, size_t r, size_t c >
 AS_INLINE Mat<T, r, c> operator*(const Mat<T, r, c>& lhs, const Mat<T, r, c>& rhs)

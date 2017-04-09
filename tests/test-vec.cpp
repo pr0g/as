@@ -12,7 +12,7 @@
 #include "src/math/as-vec.hpp"
 
 // as-test
-#include "as-math-output.h"
+#include "as-math-output.hpp"
 
 TEST(as_vec, initialisation) {
 	as::v3 v = as::v3(0.0f, 0.0f, 0.0f);

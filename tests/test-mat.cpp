@@ -12,7 +12,7 @@
 #include "src/math/as-mat4.hpp"
 
 // as-test
-#include "as-math-output.h"
+#include "as-math-output.hpp"
 
 TEST(as_mat4, inverse) {
 	// glm::mat4 glm_a = glm::mat4( 1.0f, 0.0f, 0.0f, 0.0f,
@@ -112,21 +112,25 @@ TEST(as_mat, mat_mult) {
 	as::m44 mat = as::m44_id;
 	as::v4 vec = as::v4_w;
 
+#ifdef AS_COL_MAJOR
 	as::v4 result_col = mat * vec;
-	/// as::v4 result_row = vec * mat;
+#elif defined AS_ROW_MAJOR
+	as::v4 result_row = vec * mat;
+#endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 
 	as::m33 mat_rot = as::make_rotation_x(as::degToRad(90.0f));
 	as::m44 transform_rot = as::m44( mat_rot, as::v3_zero );
 
 	as::v4 dir(0.0, 1.0f, 0.0f, 0.0f);
+#ifdef AS_COL_MAJOR
 	as::v4 result_dir_col = transform_rot * dir;
-	// as::v4 result_dir_row = dir * transform_rot;
-
 	print_v4( result_dir_col );
-	// print_v4( result_dir_row );
-
 	print_v4( result_col );
-	// print_v4( result_row );
+#elif defined AS_ROW_MAJOR
+	as::v4 result_dir_row = dir * transform_rot;
+	print_v4( result_dir_row );
+	print_v4( result_row );
+#endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
 TEST(as_mat, mat_proj) {
