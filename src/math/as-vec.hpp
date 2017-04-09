@@ -16,9 +16,13 @@ struct Vec
 	AS_INLINE const T& operator[](size_t i) const { return data[i]; }
 
 	Vec() = default;
+	Vec(Vec&) = default;
+	Vec(Vec&&) = default;
+	Vec(const Vec&) = default;
+	Vec& operator=(const Vec&) = default;
 
-	template<typename ...P>
-	Vec(P&&...p) : data{ std::forward<P>(p)... } {}
+	template<typename ...Args>
+	Vec(Args&&...args) : data{ std::forward<Args>(args)... } {}
 };
 
 using v2 = Vec<real, 2>;

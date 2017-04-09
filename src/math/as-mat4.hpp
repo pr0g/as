@@ -18,7 +18,7 @@ template<> struct Mat<real, 4, 4>
 	union
 	{
 		real data[4 * 4];
-		real data_cr[4][4];
+		real data_rc[4][4];
 		struct { real x0; real y0; real z0; real w0; 
 				 real x1; real y1; real z1; real w1;
 				 real x2; real y2; real z2; real w2;

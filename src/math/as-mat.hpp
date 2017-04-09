@@ -27,15 +27,21 @@ struct Mat
 	union 
 	{
 		T data[r * c];
-		T data_cr[r][c];
+		T data_rc[r][c];
 		Vec<T, r> vec[c];
 	};
 
 	AS_INLINE T& operator[](size_t i) { return data[i]; }
 	AS_INLINE const T& operator[](size_t i) const { return data[i]; }
 
-	template<typename ...P>
-	Mat(P&&...p) : data{ std::forward<P>(p)... } {}
+	Mat() = default;
+	Mat(Mat& mat) { std::copy(std::begin(mat.data), std::end(mat.data), std::begin(data)); }
+	Mat(Mat&& mat) { std::copy(std::begin(mat.data), std::end(mat.data), std::begin(data)); }
+	Mat(const Mat& mat) { std::copy(std::begin(mat.data), std::end(mat.data), std::begin(data)); }
+	Mat& operator=(const Mat& mat) { std::copy(std::begin(mat.data), std::end(mat.data), std::begin(data)); return *this; }
+
+	template<typename ...Args>
+	Mat(Args&&...args) : data{ std::forward<Args>(args)... } {}
 };
 
 #ifdef _MSC_VER

@@ -14,6 +14,37 @@
 // as-test
 #include "as-math-output.hpp"
 
+TEST(as_mat, constructor) {
+	// todo
+}
+
+TEST(as_mat, copy_constructor) {
+	as::Mat<double, 2, 4> a( 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0 );
+	as::Mat<double, 2, 4> a_copy(a);
+
+	EXPECT_EQ(a_copy[0], 1.0f) << "mat copy constructor failed";
+	EXPECT_EQ(a_copy[1], 2.0f) << "mat copy constructor failed";
+	EXPECT_EQ(a_copy[2], 3.0f) << "mat copy constructor failed";
+	EXPECT_EQ(a_copy[3], 4.0f) << "mat copy constructor failed";
+	EXPECT_EQ(a_copy[4], 5.0f) << "mat copy constructor failed";
+	EXPECT_EQ(a_copy[5], 6.0f) << "mat copy constructor failed";
+	EXPECT_EQ(a_copy[6], 7.0f) << "mat copy constructor failed";
+	EXPECT_EQ(a_copy[7], 8.0f) << "mat copy constructor failed";
+
+	as::m33 b(as::v3(1.0f, 5.0f, 10.0f), as::v3(2.0f, 6.0f, 11.0f), as::v3(3.0f, 7.0f, 12.0f));
+	as::m33 b_copy(b);
+
+	EXPECT_EQ(b_copy[0], 1.0f) << "mat copy constructor failed";
+	EXPECT_EQ(b_copy[1], 5.0f) << "mat copy constructor failed";
+	EXPECT_EQ(b_copy[2], 10.0f) << "mat copy constructor failed";
+	EXPECT_EQ(b_copy[3], 2.0f) << "mat copy constructor failed";
+	EXPECT_EQ(b_copy[4], 6.0f) << "mat copy constructor failed";
+	EXPECT_EQ(b_copy[5], 11.0f) << "mat copy constructor failed";
+	EXPECT_EQ(b_copy[6], 3.0f) << "mat copy constructor failed";
+	EXPECT_EQ(b_copy[7], 7.0f) << "mat copy constructor failed";
+	EXPECT_EQ(b_copy[8], 12.0f) << "mat copy constructor failed";
+}
+
 TEST(as_mat4, inverse) {
 	// glm::mat4 glm_a = glm::mat4( 1.0f, 0.0f, 0.0f, 0.0f,
 	// 							 0.0f, 1.0f, 0.0f, 0.0f,
@@ -90,11 +121,11 @@ TEST(as_mat, col_row) {
 		mat[i] = i;
 	}
 
-	printf("%d ", mat.data_cr[0][0]);
-	printf("%d ", mat.data_cr[0][1]);
-	printf("%d ", mat.data_cr[0][2]);
-	printf("%d ", mat.data_cr[0][3]);
-	printf("%d ", mat.data_cr[0][4]);
+	printf("%d ", mat.data_rc[0][0]);
+	printf("%d ", mat.data_rc[0][1]);
+	printf("%d ", mat.data_rc[0][2]);
+	printf("%d ", mat.data_rc[0][3]);
+	printf("%d ", mat.data_rc[0][4]);
 
 	printf("\n");
 

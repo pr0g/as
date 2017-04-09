@@ -14,14 +14,68 @@
 // as-test
 #include "as-math-output.hpp"
 
-TEST(as_vec, initialisation) {
-	as::v3 v = as::v3(0.0f, 0.0f, 0.0f);
+TEST(as_vec, construction) {
+	as::v3 a = as::v3(0.0f, 0.0f, 0.0f);
 	
-	EXPECT_EQ(v.x, 0.0f) << "v.x is not equal to zero";
-	EXPECT_EQ(v.y, 0.0f) << "v.y is not equal to zero";
-	EXPECT_EQ(v.z, 0.0f) << "v.z is not equal to zero";
+	EXPECT_EQ(a.x, 0.0f) << "a.x is not equal to zero";
+	EXPECT_EQ(a.y, 0.0f) << "a.y is not equal to zero";
+	EXPECT_EQ(a.z, 0.0f) << "a.z is not equal to zero";
 
-	EXPECT_TRUE(as::equal(0.0f, v.x)) << "v is not equal to v3_zero";
+	EXPECT_TRUE(as::equal(0.0f, a.x)) << "v is not equal to v3_zero";
+
+	as::v4 b(100.0f, 47.0f, 962.0f, 1.0f);
+	
+	EXPECT_EQ(b.x, 100.0f) << "b.x was not constructed correctly";
+	EXPECT_EQ(b.y, 47.0f) << "b.y was not constructed correctly";
+	EXPECT_EQ(b.z, 962.0f) << "b.z was not constructed correctly";
+	EXPECT_EQ(b.w, 1.0f) << "b.z was not constructed correctly";
+}
+
+TEST(as_vec, copy_construction) {
+	as::v3 v = as::v3(1.0f, 2.0f, 3.0f);
+	
+	EXPECT_EQ(v.x, 1.0f) << "v.x is not equal to one";
+	EXPECT_EQ(v.y, 2.0f) << "v.y is not equal to two";
+	EXPECT_EQ(v.z, 3.0f) << "v.z is not equal to three";
+	
+	as::v3 v_copy(v);
+
+	EXPECT_EQ(v.x, v_copy.x) << "v.x is not v_copy.x";
+	EXPECT_EQ(v.y, v_copy.y) << "v.y is not v_copy.y";
+	EXPECT_EQ(v.z, v_copy.z) << "v.z is not v_copy.z";
+
+	as::Vec<float, 6> custom_v(2.0f, 4.0f, 6.0f, 8.0f, 10.0f, 12.0f);
+	as::Vec<float, 6> custom_v_copy(custom_v);
+
+	EXPECT_EQ(custom_v[0], custom_v_copy[0]) << "custom_v does not equal custom_v_copy";
+	EXPECT_EQ(custom_v[1], custom_v_copy[1]) << "custom_v does not equal custom_v_copy";
+	EXPECT_EQ(custom_v[2], custom_v_copy[2]) << "custom_v does not equal custom_v_copy";
+	EXPECT_EQ(custom_v[3], custom_v_copy[3]) << "custom_v does not equal custom_v_copy";
+	EXPECT_EQ(custom_v[4], custom_v_copy[4]) << "custom_v does not equal custom_v_copy";
+	EXPECT_EQ(custom_v[5], custom_v_copy[5]) << "custom_v does not equal custom_v_copy";
+
+	EXPECT_TRUE(as::equal(1.0f, v.x)) << "v is not equal to v3_zero";
+}
+
+TEST(as_vec, assignment) {
+	as::v2 a = as::v2(5.0f);
+	as::v2 b = as::v2(10.0f);
+
+	a = b;
+
+	EXPECT_EQ(a.x, b.x) << "a.x is not equal to b.x";
+	EXPECT_EQ(a.y, b.y) << "a.y is not equal to b.y";
+	
+	as::Vec<short, 5> custom_a = as::Vec<short, 5>((short)17, (short)53, (short)119, (short)42, (short)99);
+	as::Vec<short, 5> custom_b = as::Vec<short, 5>((short)11, (short)1002, (short)234, (short)3, (short)829);
+
+	custom_b = custom_a;
+
+	EXPECT_EQ(custom_a[0], custom_b[0]) << "custom values not equal";
+	EXPECT_EQ(custom_a[1], custom_b[1]) << "custom values not equal";
+	EXPECT_EQ(custom_a[2], custom_b[2]) << "custom values not equal";
+	EXPECT_EQ(custom_a[3], custom_b[3]) << "custom values not equal";
+	EXPECT_EQ(custom_a[4], custom_b[4]) << "custom values not equal";
 }
 
 TEST(as_vec, cross) {
@@ -206,6 +260,7 @@ TEST(as_vec, select) {
 
 	int3 e{8, 9, 10};
 	int3 f({11, 12, 13});
+	int3 g(11, 12, 13);
 
 	printf("v = x: %d, y: %d, z: %d\n", e[0], e[1], e[2]);
 	printf("v = x: %d, y: %d, z: %d\n", f[0], f[1], f[2]);
