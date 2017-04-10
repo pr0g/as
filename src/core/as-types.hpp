@@ -62,7 +62,7 @@ typedef double real;
 
 #ifdef _MSC_VER
 __pragma(warning(push))
-__pragma(warning(disable: 4251)
+__pragma(warning(disable: 4251))
 #endif
 
 namespace as
