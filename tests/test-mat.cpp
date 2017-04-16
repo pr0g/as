@@ -118,7 +118,7 @@ TEST(as_mat, col_row) {
 	as::Mat< int, 5, 5 > mat;
 
 	for (size_t i = 0; i < 25; ++i) {
-		mat[i] = i;
+		mat[i] = (int)i;
 	}
 
 	printf("%d ", mat.data_rc[0][0]);

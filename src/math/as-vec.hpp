@@ -15,14 +15,14 @@ struct Vec
 	AS_INLINE T& operator[](size_t i) { return data[i]; }
 	AS_INLINE const T& operator[](size_t i) const { return data[i]; }
 
-	Vec() = default;
-	Vec(Vec&) = default;
+	Vec() {}
 	Vec(Vec&&) = default;
 	Vec(const Vec&) = default;
 	Vec& operator=(const Vec&) = default;
 
-	template<typename ...Args>
-	Vec(Args&&...args) : data{ std::forward<Args>(args)... } {}
+	template< typename... > struct typelist;
+	template <typename... Args, typename = std::enable_if_t<!std::is_same<typelist<Vec>, typelist<std::decay_t<Args>...>>::value>>
+	Vec(Args&&... args) : data{ std::forward<Args>(args)... } {}
 };
 
 using v2 = Vec<real, 2>;
@@ -40,9 +40,9 @@ template<> struct Vec<real, 2>
 	AS_INLINE real& operator[](size_t i) { return data[i]; }
 	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
 
-	explicit Vec<real, 2>() = default;
-	constexpr explicit Vec<real, 2>(real xy) : x(xy), y(xy) {}
-	constexpr explicit Vec<real, 2>(real x, real y) : x(x), y(y) {}
+	explicit Vec() {}
+	constexpr explicit Vec(real xy) : x(xy), y(xy) {}
+	constexpr explicit Vec(real x, real y) : x(x), y(y) {}
 };
 
 template<> struct Vec<real, 3>
@@ -57,10 +57,10 @@ template<> struct Vec<real, 3>
 	AS_INLINE real& operator[](size_t i) { return data[i]; }
 	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
 
-	explicit Vec<real, 3>() = default;
-	constexpr explicit Vec<real, 3>(real xyz) : x(xyz), y(xyz), z(xyz) {}
-	constexpr explicit Vec<real, 3>(const v2& xy, real z) : x(xy.x), y(xy.y), z(z) {}
-	constexpr explicit Vec<real, 3>(real x, real y, real z) : x(x), y(y), z(z) {}
+	explicit Vec() {}
+	constexpr explicit Vec(real xyz) : x(xyz), y(xyz), z(xyz) {}
+	constexpr explicit Vec(const v2& xy, real z) : x(xy.x), y(xy.y), z(z) {}
+	constexpr explicit Vec(real x, real y, real z) : x(x), y(y), z(z) {}
 };
 
 template<> struct Vec<real, 4>
@@ -78,17 +78,17 @@ template<> struct Vec<real, 4>
 	AS_INLINE real& operator[](size_t i) { return data[i]; }
 	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
 
-	explicit Vec<real, 4>() = default;
-	constexpr explicit Vec<real, 4>(real xyzw) : x(xyzw), y(xyzw), z(xyzw), w(xyzw) {}
-	constexpr explicit Vec<real, 4>(const v3& xyz, real w) : x(xyz.x), y(xyz.y), z(xyz.z), w(w) {}
-	constexpr explicit Vec<real, 4>(const v2& xy, real z, real w) : x(xy.x), y(xy.y), z(z), w(w) {}
-	constexpr explicit Vec<real, 4>(real x, real y, real z, real w) : x(x), y(y), z(z), w(w) {}
+	explicit Vec() {}
+	constexpr explicit Vec(real xyzw) : x(xyzw), y(xyzw), z(xyzw), w(xyzw) {}
+	constexpr explicit Vec(const v3& xyz, real w) : x(xyz.x), y(xyz.y), z(xyz.z), w(w) {}
+	constexpr explicit Vec(const v2& xy, real z, real w) : x(xy.x), y(xy.y), z(z), w(w) {}
+	constexpr explicit Vec(real x, real y, real z, real w) : x(x), y(y), z(z), w(w) {}
 };
 
 template<typename T, size_t n>
 AS_INLINE const T* data(const Vec<T, n>& vec)
 {
-	return &vec.data[0];
+	return vec.data;
 }
 
 template<typename T, size_t n>

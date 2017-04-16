@@ -25,7 +25,7 @@ __pragma(warning(disable:4201))
 template<typename T, size_t r, size_t c>
 struct Mat
 {
-	union 
+	union
 	{
 		T data[r * c];
 		T data_rc[r][c];
@@ -35,14 +35,14 @@ struct Mat
 	AS_INLINE T& operator[](size_t i) { return data[i]; }
 	AS_INLINE const T& operator[](size_t i) const { return data[i]; }
 
-	Mat() = default;
-	Mat(Mat& mat) { std::copy(std::begin(mat.data), std::end(mat.data), std::begin(data)); }
+	Mat() {}
 	Mat(Mat&& mat) { std::copy(std::begin(mat.data), std::end(mat.data), std::begin(data)); }
 	Mat(const Mat& mat) { std::copy(std::begin(mat.data), std::end(mat.data), std::begin(data)); }
 	Mat& operator=(const Mat& mat) { std::copy(std::begin(mat.data), std::end(mat.data), std::begin(data)); return *this; }
 
-	template<typename ...Args>
-	Mat(Args&&...args) : data{ std::forward<Args>(args)... } {}
+	template< typename... > struct typelist;
+	template <typename... Args, typename = std::enable_if_t<!std::is_same<typelist<Mat>, typelist<std::decay_t<Args>...>>::value>>
+	Mat(Args&&... args) : data { std::forward<Args>(args)... } {}
 };
 
 #ifdef _MSC_VER

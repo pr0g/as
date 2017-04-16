@@ -27,9 +27,6 @@ template<> struct Mat<real, 3, 3>
 	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
 
 	explicit Mat<real, 3, 3>() {}
-	explicit Mat<real, 3, 3>(const real(&data_)[9]) { 
-		for ( size_t i = 0; i < 9; ++i ) { data[ i ] = data_[ i ]; }
-	}
 	explicit Mat<real, 3, 3>(const real* data_) { 
 		for ( size_t i = 0; i < 9; ++i ) { data[ i ] = data_[ i ]; }
 	}
