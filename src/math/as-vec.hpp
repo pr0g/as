@@ -27,7 +27,7 @@ struct Vec
 	Vec& operator=(const Vec&) = default;
 
 	template< typename... > struct typelist;
-	template <typename... Args, typename = std::enable_if<!std::is_same<typelist<Vec>, typelist<std::decay<Args>...>>::value>>
+	template <typename... Args, typename = std::enable_if_t<!std::is_same<typelist<Vec>, typelist<std::decay_t<Args>...>>::value>>
 	Vec(Args&&... args) : data{ std::forward<Args>(args)... } {}
 };
 

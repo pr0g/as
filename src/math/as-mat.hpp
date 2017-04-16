@@ -44,7 +44,7 @@ struct Mat
 	Mat& operator=(const Mat& mat) { std::copy(std::begin(mat.data), std::end(mat.data), std::begin(data)); return *this; }
 
 	template< typename... > struct typelist;
-	template <typename... Args, typename = std::enable_if<!std::is_same<typelist<Mat>, typelist<std::decay<Args>...>>::value>>
+	template <typename... Args, typename = std::enable_if_t<!std::is_same<typelist<Mat>, typelist<std::decay_t<Args>...>>::value>>
 	Mat(Args&&... args) : data { std::forward<Args>(args)... } {}
 };
 
