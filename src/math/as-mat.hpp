@@ -36,12 +36,15 @@ struct Mat
 	AS_INLINE const T& operator[](size_t i) const { return data[i]; }
 
 	Mat() {}
+#ifdef __GNUC__
+	Mat(Mat& mat) : Mat(const_cast<const Mat&>(mat)) {}
+#endif // __GNUC__
 	Mat(Mat&& mat) { std::copy(std::begin(mat.data), std::end(mat.data), std::begin(data)); }
 	Mat(const Mat& mat) { std::copy(std::begin(mat.data), std::end(mat.data), std::begin(data)); }
 	Mat& operator=(const Mat& mat) { std::copy(std::begin(mat.data), std::end(mat.data), std::begin(data)); return *this; }
 
 	template< typename... > struct typelist;
-	template <typename... Args, typename = std::enable_if_t<!std::is_same<typelist<Mat>, typelist<std::decay_t<Args>...>>::value>>
+	template <typename... Args, typename = std::enable_if<!std::is_same<typelist<Mat>, typelist<std::decay<Args>...>>::value>>
 	Mat(Args&&... args) : data { std::forward<Args>(args)... } {}
 };
 

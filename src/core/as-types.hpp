@@ -3,11 +3,11 @@
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
-#endif
+#endif // _WIN32
 
 #ifdef __GNUC__
 #include <csignal>
-#endif
+#endif // __GNUC__
 
 #include <stdint.h>
 #include <cmath>
@@ -63,7 +63,7 @@ typedef double real;
 #ifdef _MSC_VER
 __pragma(warning(push))
 __pragma(warning(disable: 4251))
-#endif
+#endif // _MSC_VER
 
 namespace as
 {
@@ -125,7 +125,7 @@ template <typename T, int N> char(&dim_helper(T(&)[N]))[N];
 						 __pragma(warning(disable:4100))
 
 #define AS_DISABLE_UNUSED __pragma(warning(pop))
-#endif
+#endif // _MSC_VER
 
 // Logging - Log to Visual Studio Output Window (DEBUG) or Console (CONSOLE)
 #define AS_LOG_DEBUG

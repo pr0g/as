@@ -1,5 +1,8 @@
 #pragma once
 
+#include <algorithm>
+#include <type_traits>
+
 #include "core/as-types.hpp"
 #include "core/as-assert.hpp"
 
@@ -16,12 +19,15 @@ struct Vec
 	AS_INLINE const T& operator[](size_t i) const { return data[i]; }
 
 	Vec() {}
+#ifdef __GNUC__
+	Vec(Vec&) = default;
+#endif // __GNUC__
 	Vec(Vec&&) = default;
 	Vec(const Vec&) = default;
 	Vec& operator=(const Vec&) = default;
 
 	template< typename... > struct typelist;
-	template <typename... Args, typename = std::enable_if_t<!std::is_same<typelist<Vec>, typelist<std::decay_t<Args>...>>::value>>
+	template <typename... Args, typename = std::enable_if<!std::is_same<typelist<Vec>, typelist<std::decay<Args>...>>::value>>
 	Vec(Args&&... args) : data{ std::forward<Args>(args)... } {}
 };
 
