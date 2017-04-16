@@ -50,6 +50,11 @@ __pragma(warning(pop))
 
 const m44 m44_id = identity<real, 4>();
 
+AS_INLINE m44 translation(const v3& translation)
+{
+	return m44(v4_x, v4_y, v4_z, v4(translation, 1.0f));
+}
+
 // openGL default
 AS_INLINE m44 make_perspective_gl_rh(real fovy, real aspect, real n, real f)
 {
