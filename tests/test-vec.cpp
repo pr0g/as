@@ -262,6 +262,14 @@ TEST(as_vec, select) {
 	int3 f({11, 12, 13});
 	int3 g(11, 12, 13);
 
+	int3 h = int3{1};
+	int3 i = int3{1, 2};
+
+	// implicit conversions are allowed
+	int3 k = { 5, 6, 7 };
+	int3 l = { 1 };
+	int3 m = 2;
+
 	printf("v = x: %d, y: %d, z: %d\n", e[0], e[1], e[2]);
 	printf("v = x: %d, y: %d, z: %d\n", f[0], f[1], f[2]);
 

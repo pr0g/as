@@ -18,16 +18,17 @@ struct Vec
 	AS_INLINE T& operator[](size_t i) { return data[i]; }
 	AS_INLINE const T& operator[](size_t i) const { return data[i]; }
 
-	Vec() {}
+	Vec() = default;
 #ifdef __GNUC__
 	Vec(Vec&) = default;
 #endif // __GNUC__
-	Vec(Vec&&) = default;
 	Vec(const Vec&) = default;
 	Vec& operator=(const Vec&) = default;
+	Vec(Vec&&) noexcept = default;
+    Vec& operator=(Vec&&) noexcept = default;
+    ~Vec() = default;
 
-	template< typename... > struct typelist;
-	template <typename... Args, typename = std::enable_if_t<!std::is_same<typelist<Vec>, typelist<std::decay_t<Args>...>>::value>>
+	template <typename... Args>
 	Vec(Args&&... args) : data{ std::forward<Args>(args)... } {}
 };
 
@@ -46,7 +47,7 @@ template<> struct Vec<real, 2>
 	AS_INLINE real& operator[](size_t i) { return data[i]; }
 	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
 
-	explicit Vec() {}
+	explicit Vec() = default;
 	constexpr explicit Vec(real xy) : x(xy), y(xy) {}
 	constexpr explicit Vec(real x, real y) : x(x), y(y) {}
 };
@@ -63,7 +64,7 @@ template<> struct Vec<real, 3>
 	AS_INLINE real& operator[](size_t i) { return data[i]; }
 	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
 
-	explicit Vec() {}
+	explicit Vec() = default;
 	constexpr explicit Vec(real xyz) : x(xyz), y(xyz), z(xyz) {}
 	constexpr explicit Vec(const v2& xy, real z) : x(xy.x), y(xy.y), z(z) {}
 	constexpr explicit Vec(real x, real y, real z) : x(x), y(y), z(z) {}
@@ -84,7 +85,7 @@ template<> struct Vec<real, 4>
 	AS_INLINE real& operator[](size_t i) { return data[i]; }
 	AS_INLINE const real& operator[](size_t i) const { return data[i]; }
 
-	explicit Vec() {}
+	explicit Vec() = default;
 	constexpr explicit Vec(real xyzw) : x(xyzw), y(xyzw), z(xyzw), w(xyzw) {}
 	constexpr explicit Vec(const v3& xyz, real w) : x(xyz.x), y(xyz.y), z(xyz.z), w(w) {}
 	constexpr explicit Vec(const v2& xy, real z, real w) : x(xy.x), y(xy.y), z(z), w(w) {}
@@ -401,7 +402,7 @@ AS_INLINE v3 cross(const v3& lhs, const v3& rhs)
 // note: will not work if dir == +/-world_up
 AS_INLINE void right_and_up_lh(const v3& dir, v3& across, v3& up, const v3& world_up = v3_y)
 {
-	AS_ASSERT_DESC( !equal(dir, world_up), "dir and world_up are equal");
+	AS_ASSERT_DESC(!equal(dir, world_up), "dir and world_up are equal");
 
 	across = cross(dir, world_up);
 	up = normalize(cross(across, dir));
@@ -411,7 +412,7 @@ AS_INLINE void right_and_up_lh(const v3& dir, v3& across, v3& up, const v3& worl
 // note: will not work if dir == +/-world_up
 AS_INLINE void right_and_up_rh(const v3& dir, v3& across, v3& up, const v3& world_up = v3_y)
 {
-	AS_ASSERT_DESC( !equal(dir, world_up), "dir and world_up are equal");
+	AS_ASSERT_DESC(!equal(dir, world_up), "dir and world_up are equal");
 
 	across = cross(dir, world_up);
 	up = normalize(cross(across, dir));
