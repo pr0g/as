@@ -9,7 +9,7 @@
 #include <csignal>
 #endif // __GNUC__
 
-#include <stdint.h>
+#include <cstdint>
 #include <cmath>
 #include <cfloat>
 
@@ -29,9 +29,9 @@ typedef uint8_t byte;
 
 // static assert to check library floating point precision has been set correctly
 #if (!defined(AS_PRECISION_FLOAT) && !defined(AS_PRECISION_DOUBLE))
-	static_assert(false, "Must define AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE");
+    static_assert(false, "Must define AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE");
 #elif (defined(AS_PRECISION_FLOAT) && defined(AS_PRECISION_DOUBLE))
-	static_assert(false, "Must define only AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE");
+    static_assert(false, "Must define only AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE");
 #endif // // AS_PRECISION_FLOAT ? AS_PRECISION_DOUBLE
 
 #ifdef AS_PRECISION_FLOAT
@@ -70,34 +70,34 @@ namespace as
 
 #ifdef AS_FUNCDLL_EXPORT
 #ifdef _MSC_VER
-	#define AS_FUNCDLL_API __declspec(dllexport)
+    #define AS_FUNCDLL_API __declspec(dllexport)
 #elif defined __GNUC__
-	#define AS_FUNCDLL_API __attribute__ ((visibility("default")))
+    #define AS_FUNCDLL_API __attribute__ ((visibility("default")))
 #endif
 #else
 #ifdef _MSC_VER
-	#define AS_FUNCDLL_API __declspec(dllimport)
+    #define AS_FUNCDLL_API __declspec(dllimport)
 #elif defined __GNUC__ 
-	#define AS_FUNCDLL_API __attribute__ ((visibility ("hidden")))
+    #define AS_FUNCDLL_API __attribute__ ((visibility ("hidden")))
 #endif
 #endif
 
 #define AS_MULTILINE_MACRO_BEGIN do {
 #define AS_MULTILINE_MACRO_END \
-	} while((void)0,0)
+    } while((void)0,0)
 
 //(void)sizeof(x); // Does not work on VS 2010+
 #define AS_UNUSED(x) AS_MULTILINE_MACRO_BEGIN \
-	(void)(x); \
-	AS_MULTILINE_MACRO_END
+    (void)(x); \
+    AS_MULTILINE_MACRO_END
 
 #ifdef _MSC_VER
 #define AS_BREAK() AS_MULTILINE_MACRO_BEGIN \
-	__debugbreak(); \
+    __debugbreak(); \
 AS_MULTILINE_MACRO_END
 #elif defined __GNUC__
 #define AS_BREAK() AS_MULTILINE_MACRO_BEGIN \
-	raise(SIGTRAP); \
+    raise(SIGABRT); \
 AS_MULTILINE_MACRO_END
 #endif
 
@@ -122,7 +122,7 @@ template <typename T, int N> char(&dim_helper(T(&)[N]))[N];
 
 #ifdef _MSC_VER
 #define AS_ENABLE_UNUSED __pragma(warning(push)) \
-						 __pragma(warning(disable:4100))
+                         __pragma(warning(disable:4100))
 
 #define AS_DISABLE_UNUSED __pragma(warning(pop))
 #endif // _MSC_VER

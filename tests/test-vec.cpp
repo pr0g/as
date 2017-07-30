@@ -15,264 +15,264 @@
 #include "as-math-output.hpp"
 
 TEST(as_vec, construction) {
-	as::v3 a = as::v3(0.0f, 0.0f, 0.0f);
-	
-	EXPECT_EQ(a.x, 0.0f) << "a.x is not equal to zero";
-	EXPECT_EQ(a.y, 0.0f) << "a.y is not equal to zero";
-	EXPECT_EQ(a.z, 0.0f) << "a.z is not equal to zero";
+    as::v3 a = as::v3(0.0f, 0.0f, 0.0f);
 
-	EXPECT_TRUE(as::equal(0.0f, a.x)) << "v is not equal to v3_zero";
+    EXPECT_EQ(a.x, 0.0f) << "a.x is not equal to zero";
+    EXPECT_EQ(a.y, 0.0f) << "a.y is not equal to zero";
+    EXPECT_EQ(a.z, 0.0f) << "a.z is not equal to zero";
 
-	as::v4 b(100.0f, 47.0f, 962.0f, 1.0f);
-	
-	EXPECT_EQ(b.x, 100.0f) << "b.x was not constructed correctly";
-	EXPECT_EQ(b.y, 47.0f) << "b.y was not constructed correctly";
-	EXPECT_EQ(b.z, 962.0f) << "b.z was not constructed correctly";
-	EXPECT_EQ(b.w, 1.0f) << "b.z was not constructed correctly";
+    EXPECT_TRUE(as::equal(0.0f, a.x)) << "v is not equal to v3_zero";
+
+    as::v4 b(100.0f, 47.0f, 962.0f, 1.0f);
+
+    EXPECT_EQ(b.x, 100.0f) << "b.x was not constructed correctly";
+    EXPECT_EQ(b.y, 47.0f) << "b.y was not constructed correctly";
+    EXPECT_EQ(b.z, 962.0f) << "b.z was not constructed correctly";
+    EXPECT_EQ(b.w, 1.0f) << "b.z was not constructed correctly";
 }
 
 TEST(as_vec, copy_construction) {
-	as::v3 v = as::v3(1.0f, 2.0f, 3.0f);
-	
-	EXPECT_EQ(v.x, 1.0f) << "v.x is not equal to one";
-	EXPECT_EQ(v.y, 2.0f) << "v.y is not equal to two";
-	EXPECT_EQ(v.z, 3.0f) << "v.z is not equal to three";
-	
-	as::v3 v_copy(v);
+    as::v3 v = as::v3(1.0f, 2.0f, 3.0f);
 
-	EXPECT_EQ(v.x, v_copy.x) << "v.x is not v_copy.x";
-	EXPECT_EQ(v.y, v_copy.y) << "v.y is not v_copy.y";
-	EXPECT_EQ(v.z, v_copy.z) << "v.z is not v_copy.z";
+    EXPECT_EQ(v.x, 1.0f) << "v.x is not equal to one";
+    EXPECT_EQ(v.y, 2.0f) << "v.y is not equal to two";
+    EXPECT_EQ(v.z, 3.0f) << "v.z is not equal to three";
 
-	as::Vec<float, 6> custom_v(2.0f, 4.0f, 6.0f, 8.0f, 10.0f, 12.0f);
-	as::Vec<float, 6> custom_v_copy(custom_v);
+    as::v3 v_copy(v);
 
-	EXPECT_EQ(custom_v[0], custom_v_copy[0]) << "custom_v does not equal custom_v_copy";
-	EXPECT_EQ(custom_v[1], custom_v_copy[1]) << "custom_v does not equal custom_v_copy";
-	EXPECT_EQ(custom_v[2], custom_v_copy[2]) << "custom_v does not equal custom_v_copy";
-	EXPECT_EQ(custom_v[3], custom_v_copy[3]) << "custom_v does not equal custom_v_copy";
-	EXPECT_EQ(custom_v[4], custom_v_copy[4]) << "custom_v does not equal custom_v_copy";
-	EXPECT_EQ(custom_v[5], custom_v_copy[5]) << "custom_v does not equal custom_v_copy";
+    EXPECT_EQ(v.x, v_copy.x) << "v.x is not v_copy.x";
+    EXPECT_EQ(v.y, v_copy.y) << "v.y is not v_copy.y";
+    EXPECT_EQ(v.z, v_copy.z) << "v.z is not v_copy.z";
 
-	EXPECT_TRUE(as::equal(1.0f, v.x)) << "v is not equal to v3_zero";
+    as::Vec<float, 6> custom_v(2.0f, 4.0f, 6.0f, 8.0f, 10.0f, 12.0f);
+    as::Vec<float, 6> custom_v_copy(custom_v);
+
+    EXPECT_EQ(custom_v[0], custom_v_copy[0]) << "custom_v does not equal custom_v_copy";
+    EXPECT_EQ(custom_v[1], custom_v_copy[1]) << "custom_v does not equal custom_v_copy";
+    EXPECT_EQ(custom_v[2], custom_v_copy[2]) << "custom_v does not equal custom_v_copy";
+    EXPECT_EQ(custom_v[3], custom_v_copy[3]) << "custom_v does not equal custom_v_copy";
+    EXPECT_EQ(custom_v[4], custom_v_copy[4]) << "custom_v does not equal custom_v_copy";
+    EXPECT_EQ(custom_v[5], custom_v_copy[5]) << "custom_v does not equal custom_v_copy";
+
+    EXPECT_TRUE(as::equal(1.0f, v.x)) << "v is not equal to v3_zero";
 }
 
 TEST(as_vec, assignment) {
-	as::v2 a = as::v2(5.0f);
-	as::v2 b = as::v2(10.0f);
+    as::v2 a = as::v2(5.0f);
+    as::v2 b = as::v2(10.0f);
 
-	a = b;
+    a = b;
 
-	EXPECT_EQ(a.x, b.x) << "a.x is not equal to b.x";
-	EXPECT_EQ(a.y, b.y) << "a.y is not equal to b.y";
-	
-	as::Vec<short, 5> custom_a = as::Vec<short, 5>((short)17, (short)53, (short)119, (short)42, (short)99);
-	as::Vec<short, 5> custom_b = as::Vec<short, 5>((short)11, (short)1002, (short)234, (short)3, (short)829);
+    EXPECT_EQ(a.x, b.x) << "a.x is not equal to b.x";
+    EXPECT_EQ(a.y, b.y) << "a.y is not equal to b.y";
 
-	custom_b = custom_a;
+    as::Vec<short, 5> custom_a = as::Vec<short, 5>((short)17, (short)53, (short)119, (short)42, (short)99);
+    as::Vec<short, 5> custom_b = as::Vec<short, 5>((short)11, (short)1002, (short)234, (short)3, (short)829);
 
-	EXPECT_EQ(custom_a[0], custom_b[0]) << "custom values not equal";
-	EXPECT_EQ(custom_a[1], custom_b[1]) << "custom values not equal";
-	EXPECT_EQ(custom_a[2], custom_b[2]) << "custom values not equal";
-	EXPECT_EQ(custom_a[3], custom_b[3]) << "custom values not equal";
-	EXPECT_EQ(custom_a[4], custom_b[4]) << "custom values not equal";
+    custom_b = custom_a;
+
+    EXPECT_EQ(custom_a[0], custom_b[0]) << "custom values not equal";
+    EXPECT_EQ(custom_a[1], custom_b[1]) << "custom values not equal";
+    EXPECT_EQ(custom_a[2], custom_b[2]) << "custom values not equal";
+    EXPECT_EQ(custom_a[3], custom_b[3]) << "custom values not equal";
+    EXPECT_EQ(custom_a[4], custom_b[4]) << "custom values not equal";
 }
 
 TEST(as_vec, cross) {
-	glm::vec3 glm_a = glm::vec3( 1.0f, 2.0f, 3.0f );
-	glm::vec3 glm_b = glm::vec3( 4.0f, 3.0f, 2.0f );
+    glm::vec3 glm_a = glm::vec3( 1.0f, 2.0f, 3.0f );
+    glm::vec3 glm_b = glm::vec3( 4.0f, 3.0f, 2.0f );
 
-	glm::vec3 glm_ab_result = glm::cross( glm_a, glm_b );
+    glm::vec3 glm_ab_result = glm::cross( glm_a, glm_b );
 
-	as::v3 as_a = as::v3( 1.0f, 2.0f, 3.0f );
-	as::v3 as_b = as::v3( 4.0f, 3.0f, 2.0f );
+    as::v3 as_a = as::v3( 1.0f, 2.0f, 3.0f );
+    as::v3 as_b = as::v3( 4.0f, 3.0f, 2.0f );
 
-	as::v3 as_ab_result = as::cross( as_a, as_b );
+    as::v3 as_ab_result = as::cross( as_a, as_b );
 
-	EXPECT_TRUE( as::equal( as_ab_result.x, glm_ab_result.x ) );
-	EXPECT_TRUE( as::equal( as_ab_result.y, glm_ab_result.y ) );
-	EXPECT_TRUE( as::equal( as_ab_result.z, glm_ab_result.z ) );
+    EXPECT_TRUE( as::equal( as_ab_result.x, glm_ab_result.x ) );
+    EXPECT_TRUE( as::equal( as_ab_result.y, glm_ab_result.y ) );
+    EXPECT_TRUE( as::equal( as_ab_result.z, glm_ab_result.z ) );
 }
 
 TEST(as_vec, right_and_up) {
-	as::v3 dir(0.0f, 0.0f, -1.0f);
-	
-	printf( "dir - x: %f, y: %f, z: %f\n", dir.x, dir.y, dir.z);
+    as::v3 dir(0.0f, 0.0f, -1.0f);
 
-	{
-		as::v3 across_lh, up_lh;
-		as::right_and_up_lh(dir, across_lh, up_lh);
+    printf( "dir - x: %f, y: %f, z: %f\n", dir.x, dir.y, dir.z);
 
-		printf( "right lh - x: %f, y: %f, z: %f\n", across_lh.x, across_lh.y, across_lh.z);
-		printf( "up lh - x: %f, y: %f, z: %f\n", up_lh.x, up_lh.y, up_lh.z);
-	}
+    {
+        as::v3 across_lh, up_lh;
+        as::right_and_up_lh(dir, across_lh, up_lh);
 
-	{
-		as::v3 across_rh, up_rh;
-		as::right_and_up_rh(dir, across_rh, up_rh);
+        printf( "right lh - x: %f, y: %f, z: %f\n", across_lh.x, across_lh.y, across_lh.z);
+        printf( "up lh - x: %f, y: %f, z: %f\n", up_lh.x, up_lh.y, up_lh.z);
+    }
 
-		printf( "right rh - x: %f, y: %f, z: %f\n", across_rh.x, across_rh.y, across_rh.z);
-		printf( "up rh - x: %f, y: %f, z: %f\n", up_rh.x, up_rh.y, up_rh.z);
-	}
+    {
+        as::v3 across_rh, up_rh;
+        as::right_and_up_rh(dir, across_rh, up_rh);
+
+        printf( "right rh - x: %f, y: %f, z: %f\n", across_rh.x, across_rh.y, across_rh.z);
+        printf( "up rh - x: %f, y: %f, z: %f\n", up_rh.x, up_rh.y, up_rh.z);
+    }
 }
 
 TEST(as_vec, constants) {
-	// todo
+    // todo
 }
 
 TEST(as_vec, equal) {
-	as::v3 a(1.11f, 0.3f, 517.2f);
-	as::v3 b(1.11f, 0.3f, 517.2f);
+    as::v3 a(1.11f, 0.3f, 517.2f);
+    as::v3 b(1.11f, 0.3f, 517.2f);
 
-	EXPECT_TRUE(equal(a, b)) << "vector equality check for equal vectors failed";
+    EXPECT_TRUE(equal(a, b)) << "vector equality check for equal vectors failed";
 
-	as::v3 c(1.11f, 0.3f, 514.2f);
-	as::v3 d(1.114f, 0.3f, 517.2f);
+    as::v3 c(1.11f, 0.3f, 514.2f);
+    as::v3 d(1.114f, 0.3f, 517.2f);
 
-	EXPECT_FALSE(equal(a, c)) << "vector equality check for different vectors failed";
-	EXPECT_FALSE(equal(a, d)) << "vector equality check for different vectors failed";
-	EXPECT_FALSE(equal(b, c)) << "vector equality check for different vectors failed";
+    EXPECT_FALSE(equal(a, c)) << "vector equality check for different vectors failed";
+    EXPECT_FALSE(equal(a, d)) << "vector equality check for different vectors failed";
+    EXPECT_FALSE(equal(b, c)) << "vector equality check for different vectors failed";
 }
 
 TEST(as_vec, init_compat) {
-	glm::vec3 glm_a(1.0f, 2.0f, 3.0f);
+    glm::vec3 glm_a(1.0f, 2.0f, 3.0f);
 
-	real data[3] = { 1.0f, 2.0f, 3.0f };
-	as::v3 as_a = as::make_from(data);
-	as::v3 as_b = as::make_from<float, 3>(glm::value_ptr(glm_a));
-	as::v3 as_c = as::v3(as::make_from<real, 3>(as::data(as_a)));
-	as::v3 as_d = as::v3(as::make_v3_from(as::data(as_a)));
+    real data[3] = { 1.0f, 2.0f, 3.0f };
+    as::v3 as_a = as::make_from(data);
+    as::v3 as_b = as::make_from<float, 3>(glm::value_ptr(glm_a));
+    as::v3 as_c = as::v3(as::make_from<real, 3>(as::data(as_a)));
+    as::v3 as_d = as::v3(as::make_v3_from(as::data(as_a)));
 
-	real data_v4[4] = { 5.0f, 12.0f, 100.0f, 0.999f };
-	as::v4 as_v4 = as::v4(as::make_v4_from(data_v4));
+    real data_v4[4] = { 5.0f, 12.0f, 100.0f, 0.999f };
+    as::v4 as_v4 = as::v4(as::make_v4_from(data_v4));
 
-	as::v4 as_v4_2 = as::v4(as::make_v4_from(as::data(as_v4)));
+    as::v4 as_v4_2 = as::v4(as::make_v4_from(as::data(as_v4)));
 
-	print_v3( as_a );
-	print_v3( as_b );
-	print_v3( as_c );
-	print_v3( as_d );
-	print_v4( as_v4 );
-	print_v4( as_v4_2 );
+    print_v3( as_a );
+    print_v3( as_b );
+    print_v3( as_c );
+    print_v3( as_d );
+    print_v4( as_v4 );
+    print_v4( as_v4_2 );
 }
 
 TEST(as_vec, conversions) {
-	as::v4 a_v4( 1.0f, 2.0f, 3.0f, 4.0f );
-	as::v2 a_v2 = a_v4.xy;
+    as::v4 a_v4( 1.0f, 2.0f, 3.0f, 4.0f );
+    as::v2 a_v2 = a_v4.xy;
 
-	printf("%f %f\n", a_v2.x, a_v2.y);
+    printf("%f %f\n", a_v2.x, a_v2.y);
 }
 
 TEST(as_vec, abs) {
-	as::v4 v( -1.0f, 2.0f, -100.0f, -7.0f);
-	as::v4 r = abs( v );
+    as::v4 v( -1.0f, 2.0f, -100.0f, -7.0f);
+    as::v4 r = abs( v );
 
-	bool is_abs = true;
-	for( size_t i = 0; i < 4; ++i ) {
-		is_abs &= r[i] >= 0.0f;
-	}
+    bool is_abs = true;
+    for( size_t i = 0; i < 4; ++i ) {
+        is_abs &= r[i] >= 0.0f;
+    }
 
-	EXPECT_TRUE( is_abs ) << "as::vec abs failed";
+    EXPECT_TRUE( is_abs ) << "as::vec abs failed";
 }
 
 TEST(as_vec, min) {
-	as::v4 v1( -1.0f, 2.0f, -100.0f, -7.0f);
-	as::v4 v2( -10.0f, 7.0f, -50.0f, -16.0f);
+    as::v4 v1( -1.0f, 2.0f, -100.0f, -7.0f);
+    as::v4 v2( -10.0f, 7.0f, -50.0f, -16.0f);
 
-	as::v4 r = min( v1, v2 );
+    as::v4 r = min( v1, v2 );
 
-	EXPECT_TRUE( r.x == -10.0f && r.y == 2.0f && r.z == -100.0f && r.w == -16.0f ) << "as::vec min failed";
+    EXPECT_TRUE( r.x == -10.0f && r.y == 2.0f && r.z == -100.0f && r.w == -16.0f ) << "as::vec min failed";
 }
 
 TEST(as_vec, min_elem) {
-	as::v4 v( -1.0f, 2.0f, -100.0f, -7.0f);
-	real min = min_elem(v);
+    as::v4 v( -1.0f, 2.0f, -100.0f, -7.0f);
+    real min = min_elem(v);
 
-	EXPECT_TRUE(min == -100.0f) << "as::vec min_elem failed";
+    EXPECT_TRUE(min == -100.0f) << "as::vec min_elem failed";
 }
 
 TEST(as_vec, max) {
-	as::v4 v1( -1.0f, 2.0f, -100.0f, -7.0f);
-	as::v4 v2( -10.0f, 7.0f, -50.0f, -16.0f);
+    as::v4 v1( -1.0f, 2.0f, -100.0f, -7.0f);
+    as::v4 v2( -10.0f, 7.0f, -50.0f, -16.0f);
 
-	as::v4 r = max( v1, v2 );
+    as::v4 r = max( v1, v2 );
 
-	EXPECT_TRUE( r.x == -1.0f && r.y == 7.0f && r.z == -50.0f && r.w == -7.0f ) << "as::vec max failed";
+    EXPECT_TRUE( r.x == -1.0f && r.y == 7.0f && r.z == -50.0f && r.w == -7.0f ) << "as::vec max failed";
 }
 
 TEST(as_vec, max_elem) {
-	as::v4 v( -1.0f, 2.0f, -100.0f, -7.0f);
-	real max = max_elem(v);
+    as::v4 v( -1.0f, 2.0f, -100.0f, -7.0f);
+    real max = max_elem(v);
 
-	EXPECT_TRUE(max == 2.0f) << "as::vec max_elem failed";
+    EXPECT_TRUE(max == 2.0f) << "as::vec max_elem failed";
 }
 
 TEST(as_vec, clamp) {
-	as::v3 min(100.0f, 50.0f, -100.0f);
-	as::v3 max(200.0f, 1000.0f, -50.0f);
+    as::v3 min(100.0f, 50.0f, -100.0f);
+    as::v3 max(200.0f, 1000.0f, -50.0f);
 
-	as::v3 v(50.0f, 1020.0f, -75.0f);
+    as::v3 v(50.0f, 1020.0f, -75.0f);
 
-	as::v3 result = clamp(v, min, max);
+    as::v3 result = clamp(v, min, max);
 
-	EXPECT_TRUE(result.x == 100.0f && result.y == 1000.0f && result.z == -75.0f) << "as::vec clamp failed";
+    EXPECT_TRUE(result.x == 100.0f && result.y == 1000.0f && result.z == -75.0f) << "as::vec clamp failed";
 }
 
 TEST(as_vec, saturate) {
-	as::v3 v(-2.0f, 0.5f, 1.2f);
+    as::v3 v(-2.0f, 0.5f, 1.2f);
 
-	as::v3 result = saturate(v);
+    as::v3 result = saturate(v);
 
-	EXPECT_TRUE(result.x == 0.0f && result.y == 0.5f && result.z == 1.0f) << "as::vec saturate failed";
+    EXPECT_TRUE(result.x == 0.0f && result.y == 0.5f && result.z == 1.0f) << "as::vec saturate failed";
 }
 
 TEST(as_vec, lerp) {
-	as::v3 start(0.0f, 10.0f, 20.0f);
-	as::v3 end(10.0f, 40.0f, 100.0f);
+    as::v3 start(0.0f, 10.0f, 20.0f);
+    as::v3 end(10.0f, 40.0f, 100.0f);
 
-	as::v3 result_begin = lerp(0.0f, start, end);
-	as::v3 result_mid = lerp(0.5f, start, end);
-	as::v3 result_end = lerp(1.0f, start, end);
+    as::v3 result_begin = lerp(0.0f, start, end);
+    as::v3 result_mid = lerp(0.5f, start, end);
+    as::v3 result_end = lerp(1.0f, start, end);
 
-	EXPECT_TRUE(result_begin.x == 0.0f && result_begin.y == 10.0f && result_begin.z == 20.0f) << "as::vec lerp failed";
-	EXPECT_TRUE(result_mid.x == 5.0f && result_mid.y == 25.0f && result_mid.z == 60.0f) << "as::vec lerp failed";
-	EXPECT_TRUE(result_end.x == 10.0f && result_end.y == 40.0f && result_end.z == 100.0f) << "as::vec lerp failed";
+    EXPECT_TRUE(result_begin.x == 0.0f && result_begin.y == 10.0f && result_begin.z == 20.0f) << "as::vec lerp failed";
+    EXPECT_TRUE(result_mid.x == 5.0f && result_mid.y == 25.0f && result_mid.z == 60.0f) << "as::vec lerp failed";
+    EXPECT_TRUE(result_end.x == 10.0f && result_end.y == 40.0f && result_end.z == 100.0f) << "as::vec lerp failed";
 }
 
 TEST(as_vec, select) {
-	using int3 = as::Vec<int, 3>;
+    using int3 = as::Vec<int, 3>;
 
-	int3 a(1, 2, 3);
-	int3 b(5, 6, 7);
-	
-	using byte4 = as::Vec<byte, 4>;
+    int3 a(1, 2, 3);
+    int3 b(5, 6, 7);
 
-	byte4 c((byte)255, (byte)255, (byte)255, (byte)255);
-	byte4 d((byte)0, (byte)0, (byte)0, (byte)0);
+    using byte4 = as::Vec<byte, 4>;
 
-	using float3 = as::Vec<float, 3>;
+    byte4 c((byte)255, (byte)255, (byte)255, (byte)255);
+    byte4 d((byte)0, (byte)0, (byte)0, (byte)0);
 
-	float3 x(1.0f, 2.0f, 3.0f);
-	float3 y(4.0f, 5.0f, 6.0f);
+    using float3 = as::Vec<float, 3>;
 
-	int3 result = select(a, b, true);
-	byte4 result_byte = select(c, d, false);
+    float3 x(1.0f, 2.0f, 3.0f);
+    float3 y(4.0f, 5.0f, 6.0f);
 
-	int3 e{8, 9, 10};
-	int3 f({11, 12, 13});
-	int3 g(11, 12, 13);
+    int3 result = select(a, b, true);
+    byte4 result_byte = select(c, d, false);
 
-	int3 h = int3{1};
-	int3 i = int3{1, 2};
+    int3 e{8, 9, 10};
+    int3 f({11, 12, 13});
+    int3 g(11, 12, 13);
 
-	// implicit conversions are allowed
-	int3 k = { 5, 6, 7 };
-	int3 l = { 1 };
-	int3 m = 2;
+    int3 h = int3{1};
+    int3 i = int3{1, 2};
 
-	printf("v = x: %d, y: %d, z: %d\n", e[0], e[1], e[2]);
-	printf("v = x: %d, y: %d, z: %d\n", f[0], f[1], f[2]);
+    // implicit conversions are allowed
+    int3 k = { 5, 6, 7 };
+    int3 l = { 1 };
+    int3 m = 2;
 
-	EXPECT_TRUE(result[0] == 1 && result[1] == 2 && result[2] == 3) << "as::vec select failed";
-	EXPECT_TRUE(result_byte[0] == 0 && result_byte[1] == 0 && result_byte[2] == 0 && result_byte[3] == 0) << "as::vec select failed";
+    printf("v = x: %d, y: %d, z: %d\n", e[0], e[1], e[2]);
+    printf("v = x: %d, y: %d, z: %d\n", f[0], f[1], f[2]);
+
+    EXPECT_TRUE(result[0] == 1 && result[1] == 2 && result[2] == 3) << "as::vec select failed";
+    EXPECT_TRUE(result_byte[0] == 0 && result_byte[1] == 0 && result_byte[2] == 0 && result_byte[3] == 0) << "as::vec select failed";
 }
