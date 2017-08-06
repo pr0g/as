@@ -19,12 +19,13 @@ SET(PROJ_LIBS gtest_main gtest as)
 INCLUDE_DIRECTORIES(${PROJ_INCLUDE_DIR} ${PROJ_EXTERNAL_PATH}/google-test/include
                                         ${PROJ_EXTERNAL_PATH}/glm)
 
-
 if (APPLE)
     #-DCMAKE_OSX_ARCHITECTURES=x86_64
     LINK_DIRECTORIES(${PROJ_EXTERNAL_PATH}/google-test/lib/macOS/x64)
 elseif(MSVC)
     LINK_DIRECTORIES(${PROJ_EXTERNAL_PATH}/google-test/lib/windows/msvc/x64)
+elseif(MINGW)
+    LINK_DIRECTORIES(${PROJ_EXTERNAL_PATH}/google-test/lib/windows/gcc/x64)
 endif(APPLE)
 
 ADD_EXECUTABLE(${PROJ_NAME} ${PROJ_SOURCE})
