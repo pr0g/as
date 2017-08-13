@@ -14,9 +14,9 @@ namespace as
 template<typename T, size_t n>
 struct Vec
 {
-    T data[n];
-    AS_INLINE T& operator[](size_t i) { return data[i]; }
-    AS_INLINE const T& operator[](size_t i) const { return data[i]; }
+    T elem[n];
+    AS_INLINE T& operator[](size_t i) { return elem[i]; }
+    AS_INLINE const T& operator[](size_t i) const { return elem[i]; }
 
     Vec() = default;
 #ifdef __GNUC__
@@ -34,7 +34,7 @@ struct Vec
 #else
     template <typename... Args>
 #endif //_MSC_VER
-    Vec(Args... args) noexcept : data{ std::forward<Args>(args)... } {}
+    Vec(Args... args) noexcept : elem{ std::forward<Args>(args)... } {}
 };
 
 using v2 = Vec<real, 2>;
@@ -45,14 +45,20 @@ template<> struct Vec<real, 2>
 {
     union
     {
-        real data[2];
+        real elem[2];
         struct { real x; real y; };
     };
 
-    AS_INLINE real& operator[](size_t i) { return data[i]; }
-    AS_INLINE const real& operator[](size_t i) const { return data[i]; }
+    AS_INLINE real& operator[](size_t i) { return elem[i]; }
+    AS_INLINE const real& operator[](size_t i) const { return elem[i]; }
 
     explicit Vec() = default;
+    Vec(const Vec&) = default;
+    Vec& operator=(const Vec&) = default;
+    Vec(Vec&&) noexcept = default;
+    Vec& operator=(Vec&&) noexcept = default;
+    ~Vec() = default;
+
     constexpr explicit Vec(real xy) : x(xy), y(xy) {}
     constexpr explicit Vec(real x, real y) : x(x), y(y) {}
 };
@@ -61,15 +67,21 @@ template<> struct Vec<real, 3>
 {
     union
     {
-        real data[3];
+        real elem[3];
         struct { real x; real y; real z; };
         v2 xy;
     };
 
-    AS_INLINE real& operator[](size_t i) { return data[i]; }
-    AS_INLINE const real& operator[](size_t i) const { return data[i]; }
+    AS_INLINE real& operator[](size_t i) { return elem[i]; }
+    AS_INLINE const real& operator[](size_t i) const { return elem[i]; }
 
     explicit Vec() = default;
+    Vec(const Vec&) = default;
+    Vec& operator=(const Vec&) = default;
+    Vec(Vec&&) noexcept = default;
+    Vec& operator=(Vec&&) noexcept = default;
+    ~Vec() = default;
+
     constexpr explicit Vec(real xyz) : x(xyz), y(xyz), z(xyz) {}
     constexpr explicit Vec(const v2& xy, real z) : x(xy.x), y(xy.y), z(z) {}
     constexpr explicit Vec(real x, real y, real z) : x(x), y(y), z(z) {}
@@ -79,18 +91,22 @@ template<> struct Vec<real, 4>
 {
     union
     {
-        real data[4];
+        real elem[4];
         struct { real x; real y; real z; real w; };
-        struct { real r; real g; real b; real a; };
         v2 xy;
         v3 xyz;
-        v3 rgb;
     };
 
-    AS_INLINE real& operator[](size_t i) { return data[i]; }
-    AS_INLINE const real& operator[](size_t i) const { return data[i]; }
+    AS_INLINE real& operator[](size_t i) { return elem[i]; }
+    AS_INLINE const real& operator[](size_t i) const { return elem[i]; }
 
     explicit Vec() = default;
+    Vec(const Vec&) = default;
+    Vec& operator=(const Vec&) = default;
+    Vec(Vec&&) noexcept = default;
+    Vec& operator=(Vec&&) noexcept = default;
+    ~Vec() = default;
+
     constexpr explicit Vec(real xyzw) : x(xyzw), y(xyzw), z(xyzw), w(xyzw) {}
     constexpr explicit Vec(const v3& xyz, real w) : x(xyz.x), y(xyz.y), z(xyz.z), w(w) {}
     constexpr explicit Vec(const v2& xy, real z, real w) : x(xy.x), y(xy.y), z(z), w(w) {}
@@ -98,276 +114,97 @@ template<> struct Vec<real, 4>
 };
 
 template<typename T, size_t n>
-AS_INLINE const T* data(const Vec<T, n>& vec)
-{
-    return vec.data;
-}
+AS_INLINE const T* data(const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> make_from(const T(&data)[n])
-{
-    Vec<T, n> result;
-    std::copy(std::begin(data), std::end(data), result.data);
-    return result;
-}
+AS_INLINE Vec<T, n> make_from(const T(&data)[n]);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> make_from(const T* data)
-{
-    Vec<T, n> result;
-    std::copy(data, data + n, result.data);
-    return result;
-}
+AS_INLINE Vec<T, n> make_from(const T* data);
 
 template<typename T>
-AS_INLINE v2 make_v2_from(const T* data)
-{
-    return make_from<T, 2>(data);
-}
+AS_INLINE v2 make_v2_from(const T* data);
 
 template<typename T>
-AS_INLINE v3 make_v3_from(const T* data)
-{
-    return make_from<T, 3>(data);
-}
+AS_INLINE v3 make_v3_from(const T* data);
 
 template<typename T>
-AS_INLINE v4 make_v4_from(const T* data)
-{
-    return make_from<T, 4>(data);
-}
+AS_INLINE v4 make_v4_from(const T* data);
 
 template<typename T, size_t n>
-AS_INLINE T dot(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
-{
-    T result = 0;
-    for (size_t i = 0; i < n; ++i) {
-        result += lhs[i] * rhs[i];
-    }
-    return result;
-}
+AS_INLINE T dot(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
 
 template<typename T, size_t n>
-AS_INLINE T length_squared(const Vec<T, n>& vec)
-{
-    T result = 0;
-    for (size_t i = 0; i < n; ++i) {
-        result += vec[i] * vec[i];
-    }
-    return result;
-}
+AS_INLINE T length_squared(const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE T length(const Vec<T, n>& vec)
-{
-    return sqrt(length_squared(vec));
-}
+AS_INLINE T length(const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> normalize(const Vec<T, n>& vec)
-{
-    T len = length(vec);
-    return vec / len;
-}
+AS_INLINE Vec<T, n> normalize(const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE T normalize_return_length(const Vec<T, n>& vec, Vec<T, n>& out)
-{
-    T len = length(vec);
-    out = vec / len;
-    return len;
-}
+AS_INLINE T normalize_return_length(const Vec<T, n>& vec, Vec<T, n>& out);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> operator+(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
-{
-    Vec<T, n> result;
-    for (size_t i = 0; i < n; ++i) {
-        result[i] = lhs[i] + rhs[i];
-    }
-    return result;
-}
+AS_INLINE Vec<T, n> operator+(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n>& operator+=(Vec<T, n>& lhs, const Vec<T, n>& rhs)
-{
-    for (size_t i = 0; i < n; ++i) {
-        lhs[i] += rhs[i];
-    }
-    return lhs;
-}
+AS_INLINE Vec<T, n>& operator+=(Vec<T, n>& lhs, const Vec<T, n>& rhs);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> operator-(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
-{
-    Vec<T, n> result;
-    for (size_t i = 0; i < n; ++i) {
-        result[i] = lhs[i] - rhs[i];
-    }
-    return result;
-}
+AS_INLINE Vec<T, n> operator-(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n>& operator-=(Vec<T, n>& lhs, const Vec<T, n>& rhs)
-{
-    for (size_t i = 0; i < n; ++i) {
-        lhs[i] -= rhs[i];
-    }
-    return lhs;
-}
+AS_INLINE Vec<T, n>& operator-=(Vec<T, n>& lhs, const Vec<T, n>& rhs);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> operator-(const Vec<T, n>& vec)
-{
-    Vec<T, n> result;
-    for (size_t i = 0; i < n; ++i) {
-        result[i] = -vec[i];
-    }
-    return result;
-}
+AS_INLINE Vec<T, n> operator-(const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> operator*(const Vec<T, n>& vec, T val)
-{
-    Vec<T, n> result;
-    for (size_t i = 0; i < n; ++i) {
-        result[i] = vec[i] * val;
-    }
-    return result;
-}
+AS_INLINE Vec<T, n> operator*(const Vec<T, n>& vec, T val);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> operator*(T val, const Vec<T, n>& vec)
-{
-    Vec<T, n> result;
-    for (size_t i = 0; i < n; ++i) {
-        result[i] = vec[i] * val;
-    }
-    return result;
-}
+AS_INLINE Vec<T, n> operator*(T val, const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE void operator*=(Vec<T, n>& vec, T val)
-{
-    for (size_t i = 0; i < n; ++i) {
-        vec[i] *= val;
-    }
-}
+AS_INLINE void operator*=(Vec<T, n>& vec, T val);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> operator/(const Vec<T, n>& vec, T val)
-{
-    Vec<T, n> result;
-    for (size_t i = 0; i < n; ++i) {
-        result[i] = vec[i] / val;
-    }
-    return result;
-}
+AS_INLINE Vec<T, n> operator/(const Vec<T, n>& vec, T val);
 
 template<typename T, size_t n>
-AS_INLINE void operator/=(Vec<T, n>& vec, T val)
-{
-    for (size_t i = 0; i < n; ++i) {
-        vec[i] /= val;
-    }
-}
+AS_INLINE void operator/=(Vec<T, n>& vec, T val);
 
 template<typename T, size_t n>
-AS_INLINE bool equal(const Vec<T, n>& lhs, const Vec<T, n>& rhs, real epsilon = std::numeric_limits<real>::epsilon())
-{
-    bool eq = true;
-    for (size_t i = 0; i < n; ++i) {
-        eq &= equal(lhs[i], rhs[i], epsilon, epsilon);
-        if (!eq) { break; }
-    }
-    return eq;
-}
+AS_INLINE bool equal(const Vec<T, n>& lhs, const Vec<T, n>& rhs, real epsilon = std::numeric_limits<real>::epsilon());
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> min(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
-{
-    Vec<T, n> result;
-    for (size_t i = 0; i < n; ++i) {
-        result[ i ] = min(lhs[i], rhs[i]);
-    }
-    return result;
-}
+AS_INLINE Vec<T, n> min(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
 
 template<typename T, size_t n>
-AS_INLINE T min_elem(const Vec<T, n>& vec)
-{
-    T val = vec[0];
-    for (size_t i = 1; i < n; ++i) {
-        val = min(val, vec[i]);
-    }
-    return val;
-}
+AS_INLINE T min_elem(const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> max(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
-{
-    Vec<T, n> result;
-    for (size_t i = 0; i < n; ++i) {
-        result[ i ] = max(lhs[i], rhs[i]);
-    }
-    return result;
-}
+AS_INLINE Vec<T, n> max(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
 
 template<typename T, size_t n>
-AS_INLINE T max_elem(const Vec<T, n>& vec)
-{
-    T val = vec[0];
-    for (size_t i = 1; i < n; ++i) {
-        val = max(val, vec[i]);
-    }
-    return val;
-}
+AS_INLINE T max_elem(const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> abs(const Vec<T, n>& vec)
-{
-    Vec<T, n> result;
-    for (size_t i = 0; i < n; ++i) {
-        result[ i ] = absr(vec[i]);
-    }
-    return result;
-}
+AS_INLINE Vec<T, n> abs(const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> clamp(const Vec<T, n>& vec, const Vec<T, n>& min, const Vec<T, n>& max)
-{
-    Vec<T, n> result;
-    for (size_t i = 0; i < n; ++i) {
-        result[ i ] = clamp( vec[ i ], min[ i ], max[ i ] );
-    }
-    return result;
-}
+AS_INLINE Vec<T, n> clamp(const Vec<T, n>& vec, const Vec<T, n>& min, const Vec<T, n>& max);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> saturate(const Vec<T, n>& vec)
-{
-    Vec<T, n> result;
-    for (size_t i = 0; i < n; ++i) {
-        result[ i ] = clamp( vec[ i ], 0.0f, 1.0f );
-    }
-    return result;
-}
+AS_INLINE Vec<T, n> saturate(const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> lerp(T t, const Vec<T, n>& v0, const Vec<T, n>& v1)
-{
-    Vec<T, n> result;
-    for (size_t i = 0; i < n; ++i) {
-        result[ i ] = lerp(t, v0[i], v1[i]);
-    }
-    return result;
-}
+AS_INLINE Vec<T, n> lerp(T t, const Vec<T, n>& v0, const Vec<T, n>& v1);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> select(const Vec<T, n>& v0, const Vec<T, n>& v1, bool select0)
-{
-    return select0 ? v0 : v1;
-}
+AS_INLINE Vec<T, n> select(const Vec<T, n>& v0, const Vec<T, n>& v1, bool select0);
 
 // constants
 
@@ -395,33 +232,14 @@ const v4 v4_one(1.0f, 1.0f, 1.0f, 1.0f);
 const v4 v4_max(REAL_MAX, REAL_MAX, REAL_MAX, REAL_MAX);
 const v4 v4_min(REAL_MIN, REAL_MIN, REAL_MIN, REAL_MIN);
 
-AS_INLINE v3 cross(const v3& lhs, const v3& rhs)
-{
-    v3 result;
-    result[0] = lhs.y * rhs.z - lhs.z * rhs.y;
-    result[1] = lhs.z * rhs.x - lhs.x * rhs.z;
-    result[2] = lhs.x * rhs.y - lhs.y * rhs.x;
-    return result;
-}
+AS_INLINE v3 cross(const v3& lhs, const v3& rhs);
 
 // note: will not work if dir == +/-world_up
-AS_INLINE void right_and_up_lh(const v3& dir, v3& across, v3& up, const v3& world_up = v3_y)
-{
-    AS_ASSERT_DESC(!equal(dir, world_up), "dir and world_up are equal");
-
-    across = cross(dir, world_up);
-    up = normalize(cross(across, dir));
-    across = normalize(cross(up, dir));
-}
+AS_INLINE void right_and_up_lh(const v3& dir, v3& across, v3& up, const v3& world_up = v3_y);
 
 // note: will not work if dir == +/-world_up
-AS_INLINE void right_and_up_rh(const v3& dir, v3& across, v3& up, const v3& world_up = v3_y)
-{
-    AS_ASSERT_DESC(!equal(dir, world_up), "dir and world_up are equal");
-
-    across = cross(dir, world_up);
-    up = normalize(cross(across, dir));
-    across = normalize(cross(dir, up));
-}
+AS_INLINE void right_and_up_rh(const v3& dir, v3& across, v3& up, const v3& world_up = v3_y);
 
 }
+
+#include "as-vec.inl"

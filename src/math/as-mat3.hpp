@@ -16,52 +16,65 @@ template<> struct Mat<real, 3, 3>
 {
     union
     {
-        real data[3 * 3];
-        real data_rc[3][3];
+        real elem[3 * 3];
+        real elem_rc[3][3];
         struct { real x0; real y0; real z0;
                  real x1; real y1; real z1;
                  real x2; real y2; real z2; };
     };
 
 #ifdef AS_ROW_MAJOR
-    v3 row(size_t i) { return v3(data_rc[i][0], data_rc[i][1], data_rc[i][2]); }
-    v3 row0() const { return v3(data_rc[0][0], data_rc[0][1], data_rc[0][2]); }
-    v3 row1() const { return v3(data_rc[1][0], data_rc[1][1], data_rc[1][2]); }
-    v3 row2() const { return v3(data_rc[2][0], data_rc[2][1], data_rc[2][2]); }
+    v3 row(size_t i) { return v3(elem_rc[i][0], elem_rc[i][1], elem_rc[i][2]); }
+    v3 row0() const { return v3(elem_rc[0][0], elem_rc[0][1], elem_rc[0][2]); }
+    v3 row1() const { return v3(elem_rc[1][0], elem_rc[1][1], elem_rc[1][2]); }
+    v3 row2() const { return v3(elem_rc[2][0], elem_rc[2][1], elem_rc[2][2]); }
 
-    v3 col(size_t i) { return v3(data_rc[0][i], data_rc[1][i], data_rc[2][i]); }
-    v3 col0() const { return v3(data_rc[0][0], data_rc[1][0], data_rc[2][0]); }
-    v3 col1() const { return v3(data_rc[0][1], data_rc[1][1], data_rc[2][1]); }
-    v3 col2() const { return v3(data_rc[0][2], data_rc[1][2], data_rc[2][2]); }
+    v3 col(size_t i) { return v3(elem_rc[0][i], elem_rc[1][i], elem_rc[2][i]); }
+    v3 col0() const { return v3(elem_rc[0][0], elem_rc[1][0], elem_rc[2][0]); }
+    v3 col1() const { return v3(elem_rc[0][1], elem_rc[1][1], elem_rc[2][1]); }
+    v3 col2() const { return v3(elem_rc[0][2], elem_rc[1][2], elem_rc[2][2]); }
 #elif defined AS_COL_MAJOR
-    v3 col(size_t i) { return v3(data_rc[i][0], data_rc[i][1], data_rc[i][2]); }
-    v3 col0() const { return v3(data_rc[0][0], data_rc[0][1], data_rc[0][2]); }
-    v3 col1() const { return v3(data_rc[1][0], data_rc[1][1], data_rc[1][2]); }
-    v3 col2() const { return v3(data_rc[2][0], data_rc[2][1], data_rc[2][2]); }
+    v3 col(size_t i) { return v3(elem_rc[i][0], elem_rc[i][1], elem_rc[i][2]); }
+    v3 col0() const { return v3(elem_rc[0][0], elem_rc[0][1], elem_rc[0][2]); }
+    v3 col1() const { return v3(elem_rc[1][0], elem_rc[1][1], elem_rc[1][2]); }
+    v3 col2() const { return v3(elem_rc[2][0], elem_rc[2][1], elem_rc[2][2]); }
 
-    v3 row(size_t i) { return v3(data_rc[0][i], data_rc[1][i], data_rc[2][i]); }
-    v3 row0() const { return v3(data_rc[0][0], data_rc[1][0], data_rc[2][0]); }
-    v3 row1() const { return v3(data_rc[0][1], data_rc[1][1], data_rc[2][1]); }
-    v3 row2() const { return v3(data_rc[0][2], data_rc[1][2], data_rc[2][2]); }
+    v3 row(size_t i) { return v3(elem_rc[0][i], elem_rc[1][i], elem_rc[2][i]); }
+    v3 row0() const { return v3(elem_rc[0][0], elem_rc[1][0], elem_rc[2][0]); }
+    v3 row1() const { return v3(elem_rc[0][1], elem_rc[1][1], elem_rc[2][1]); }
+    v3 row2() const { return v3(elem_rc[0][2], elem_rc[1][2], elem_rc[2][2]); }
 #endif
 
-    AS_INLINE real& operator[](size_t i) { return data[i]; }
-    AS_INLINE real operator[](size_t i) const { return data[i]; }
+    AS_INLINE real& operator[](size_t i) { return elem[i]; }
+    AS_INLINE real operator[](size_t i) const { return elem[i]; }
 
-    explicit Mat<real, 3, 3>() = default;
-    explicit Mat<real, 3, 3>(const real* data_) {
-        std::copy(data_, data_ + 9, data);
-    }
+    explicit Mat() = default;
+    Mat(const Mat& mat) = default;
+    Mat& operator=(const Mat& mat) = default;
+    Mat(Mat&& mat) noexcept = default;
+    Mat& operator=(Mat&& mat) noexcept = default;
+    ~Mat() = default;
 
-    constexpr explicit Mat<real, 3, 3>(real x0, real y0, real z0, real x1, real y1, real z1, real x2, real y2, real z2)
-        : x0(x0), y0(y0), z0(z0), x1(x1), y1(y1), z1(z1), x2(x2), y2(y2), z2(z2) {}
+    constexpr explicit Mat(
+        real x0, real y0, real z0,
+        real x1, real y1, real z1,
+        real x2, real y2, real z2)
+        : x0(x0), y0(y0), z0(z0),
+          x1(x1), y1(y1), z1(z1),
+          x2(x2), y2(y2), z2(z2) {}
 
 #ifdef AS_ROW_MAJOR
-    constexpr explicit Mat<real, 3, 3>(const v3& row0, const v3& row1, const v3& row2)
-        : x0(row0.x), y0(row0.y), z0(row0.z), x1(row1.x), y1(row1.y), z1(row1.z), x2(row2.x), y2(row2.y), z2(row2.z) {}
+    constexpr explicit Mat(
+        const v3& row0, const v3& row1, const v3& row2)
+        : x0(row0.x), y0(row0.y), z0(row0.z),
+          x1(row1.x), y1(row1.y), z1(row1.z),
+          x2(row2.x), y2(row2.y), z2(row2.z) {}
 #elif defined AS_COL_MAJOR
-    constexpr explicit Mat<real, 3, 3>(const v3& col0, const v3& col1, const v3& col2)
-        : x0(col0.x), y0(col0.y), z0(col0.z), x1(col1.x), y1(col1.y), z1(col1.z), x2(col2.x), y2(col2.y), z2(col2.z) {}
+    constexpr explicit Mat(
+        const v3& col0, const v3& col1, const v3& col2)
+        : x0(col0.x), y0(col0.y), z0(col0.z),
+          x1(col1.x), y1(col1.y), z1(col1.z),
+          x2(col2.x), y2(col2.y), z2(col2.z) {}
 #endif
 
     size_t rows() const { return 3; }
@@ -73,6 +86,12 @@ __pragma(warning(pop))
 #endif
 
 const m33 m33_id = identity<real, 3>();
+
+template<typename T>
+AS_INLINE m33 make_m33_from(const T* data)
+{
+    return make_from<T, 3, 3>(data);
+}
 
 AS_INLINE m33 axis_angle_rotation(v3 axis, real radians)
 {

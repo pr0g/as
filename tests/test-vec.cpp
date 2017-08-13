@@ -7,12 +7,17 @@
 #include "glm/gtc/matrix_transform.hpp"
 
 // as
-#include "src/math/as-linear-transform.hpp"
 #include "src/math/as-math.hpp"
 #include "src/math/as-vec.hpp"
 
 // as-test
 #include "as-math-output.hpp"
+
+TEST(as_vec, v2_construction) {
+    as::v2 a { 1.0f, 2.0f };
+    EXPECT_EQ(a.x, 1.0f);
+    EXPECT_EQ(a.y, 2.0f);
+}
 
 TEST(as_vec, construction) {
     as::v3 a = as::v3(0.0f, 0.0f, 0.0f);

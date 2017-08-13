@@ -36,14 +36,14 @@ TEST(as_mat, constructor) {
     }
 
     float data_33[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    as::m33 m33_data(data_33);
+    as::m33 m33_data = as::make_m33_from(data_33);
     for (size_t i = 0; i < m33_data.rows(); ++i)
     {
         printf("row: %f, %f, %f\n", m33_data.row(i).x, m33_data.row(i).y, m33_data.row(i).z);
     }
 
     float data_44[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
-    as::m44 m44_data(data_44);
+    as::m44 m44_data = as::make_m44_from(data_44);
     for (size_t i = 0; i < m44_data.rows(); ++i)
     {
         printf("row: %f, %f, %f, %f\n", m44_data.row(i).x, m44_data.row(i).y, m44_data.row(i).z, m44_data.row(i).w);
@@ -127,7 +127,7 @@ TEST(as_mat, m33_init) {
             data[ i ] = (real)(i + 1);
         }
 
-        as::m33 a(data);
+        as::m33 a = as::make_m33_from(data);
         for ( size_t i = 0; i < 3; ++i ) {
             print_v3(a.row(i));
         }
@@ -139,7 +139,7 @@ TEST(as_mat, m33_init) {
             data_p[ i ] = (real)(i + 1);
         }
 
-        as::m33 p_a(data_p);
+        as::m33 p_a = as::make_m33_from(data_p);
         for ( size_t i = 0; i < 3; ++i ) {
             print_v3(p_a.row(i));
         }
@@ -153,11 +153,11 @@ TEST(as_mat, col_row) {
         mat[i] = (int)i;
     }
 
-    printf("%d ", mat.data_rc[0][0]);
-    printf("%d ", mat.data_rc[0][1]);
-    printf("%d ", mat.data_rc[0][2]);
-    printf("%d ", mat.data_rc[0][3]);
-    printf("%d ", mat.data_rc[0][4]);
+    printf("%d ", mat.elem_rc[0][0]);
+    printf("%d ", mat.elem_rc[0][1]);
+    printf("%d ", mat.elem_rc[0][2]);
+    printf("%d ", mat.elem_rc[0][3]);
+    printf("%d ", mat.elem_rc[0][4]);
 
     printf("\n");
 
