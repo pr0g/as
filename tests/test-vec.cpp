@@ -13,74 +13,389 @@
 // as-test
 #include "as-math-output.hpp"
 
-TEST(as_vec, v2_construction) {
-    as::v2 a { 1.0f, 2.0f };
-    EXPECT_EQ(a.x, 1.0f);
-    EXPECT_EQ(a.y, 2.0f);
+TEST(as_vec, v2_initialization)
+{
+    // default initialization
+    {
+        as::v2 vec2;
+        AS_UNUSED(vec2);
+    }
+
+    // zero initialization
+    {
+        as::v2 vec2{};
+        EXPECT_EQ(vec2.x, 0.0f);
+        EXPECT_EQ(vec2.y, 0.0f);
+    }
+
+    // value initialization
+    {
+        as::v2 vec2 = as::v2();
+        EXPECT_EQ(vec2.x, 0.0f);
+        EXPECT_EQ(vec2.y, 0.0f);
+    }
+
+    // direct initialization (braces)
+    {
+        as::v2 vec2{1.0f, 2.0f};
+        EXPECT_EQ(vec2.x, 1.0f);
+        EXPECT_EQ(vec2.y, 2.0f);
+    }
+
+    // direct initialization (parens)
+    {
+        as::v2 vec2(5.0f, 10.0f);
+        EXPECT_EQ(vec2.x, 5.0f);
+        EXPECT_EQ(vec2.y, 10.0f);
+    }
+
+    // direct/copy initialization (braces)
+    {
+        as::v2 vec2 = as::v2{3.0f, 4.0f};
+        EXPECT_EQ(vec2.x, 3.0f);
+        EXPECT_EQ(vec2.y, 4.0f);
+    }
+
+    // direct/copy initialization (parens)
+    {
+        as::v2 vec2 = as::v2(3.0f, 4.0f);
+        EXPECT_EQ(vec2.x, 3.0f);
+        EXPECT_EQ(vec2.y, 4.0f);
+    }
+
+    // direct/copy initialization - single argument (braces)
+    {
+        as::v2 vec2 = as::v2{123.0f};
+        EXPECT_EQ(vec2.x, 123.0f);
+        EXPECT_EQ(vec2.y, 123.0f);
+    }
+
+    // direct/copy initialization - single argument (parens)
+    {
+        as::v2 vec2 = as::v2(25.0f);
+        EXPECT_EQ(vec2.x, 25.0f);
+        EXPECT_EQ(vec2.y, 25.0f);
+    }
+
+    // direct + copy initialization
+    {
+        as::v2 vec2_a(300.0f, 400.0f);
+        as::v2 vec2_b(vec2_a);
+
+        EXPECT_EQ(vec2_b.x, 300.0f);
+        EXPECT_EQ(vec2_b.y, 400.0f);
+    }
+
+    // direct + copy initialization (assignment)
+    {
+        as::v2 vec2_a(100.0f, 200.0f);
+        as::v2 vec2_b = vec2_a;
+
+        EXPECT_EQ(vec2_b.x, 100.0f);
+        EXPECT_EQ(vec2_b.y, 200.0f);
+    }
+
+    // direct + copy initialization (assignment)
+    {
+        as::v2 vec2_a(500.0f, 600.0f);
+        as::v2 vec2_b;
+
+        vec2_b = vec2_a;
+
+        EXPECT_EQ(vec2_b.x, 500.0f);
+        EXPECT_EQ(vec2_b.y, 600.0f);
+    }
 }
 
-TEST(as_vec, construction) {
-    as::v3 a = as::v3(0.0f, 0.0f, 0.0f);
+TEST(as_vec, v3_initialization)
+{
+    // default initialization
+    {
+        as::v3 vec3;
+        AS_UNUSED(vec3);
+    }
 
-    EXPECT_EQ(a.x, 0.0f) << "a.x is not equal to zero";
-    EXPECT_EQ(a.y, 0.0f) << "a.y is not equal to zero";
-    EXPECT_EQ(a.z, 0.0f) << "a.z is not equal to zero";
+    // zero initialization
+    {
+        as::v3 vec3{};
+        EXPECT_EQ(vec3.x, 0.0f);
+        EXPECT_EQ(vec3.y, 0.0f);
+        EXPECT_EQ(vec3.z, 0.0f);
+    }
 
-    EXPECT_TRUE(as::equal(0.0f, a.x)) << "v is not equal to v3_zero";
+    // value initialization
+    {
+        as::v3 vec3 = as::v3();
+        EXPECT_EQ(vec3.x, 0.0f);
+        EXPECT_EQ(vec3.y, 0.0f);
+        EXPECT_EQ(vec3.z, 0.0f);
+    }
 
-    as::v4 b(100.0f, 47.0f, 962.0f, 1.0f);
+    // direct initialization (braces)
+    {
+        as::v3 vec3{1.0f, 2.0f, 3.0f};
+        EXPECT_EQ(vec3.x, 1.0f);
+        EXPECT_EQ(vec3.y, 2.0f);
+        EXPECT_EQ(vec3.z, 3.0f);
+    }
 
-    EXPECT_EQ(b.x, 100.0f) << "b.x was not constructed correctly";
-    EXPECT_EQ(b.y, 47.0f) << "b.y was not constructed correctly";
-    EXPECT_EQ(b.z, 962.0f) << "b.z was not constructed correctly";
-    EXPECT_EQ(b.w, 1.0f) << "b.z was not constructed correctly";
+    // direct initialization (parens)
+    {
+        as::v3 vec3(5.0f, 10.0f, 15.0f);
+        EXPECT_EQ(vec3.x, 5.0f);
+        EXPECT_EQ(vec3.y, 10.0f);
+        EXPECT_EQ(vec3.z, 15.0f);
+    }
+
+    // direct/copy initialization (braces)
+    {
+        as::v3 vec3 = as::v3{1.0f, 2.0f, 3.0f};
+        EXPECT_EQ(vec3.x, 1.0f);
+        EXPECT_EQ(vec3.y, 2.0f);
+        EXPECT_EQ(vec3.z, 3.0f);
+    }
+
+    // direct/copy initialization (parens)
+    {
+        as::v3 vec3 = as::v3(3.0f, 4.0f, 5.0f);
+        EXPECT_EQ(vec3.x, 3.0f);
+        EXPECT_EQ(vec3.y, 4.0f);
+        EXPECT_EQ(vec3.z, 5.0f);
+    }
+
+    // direct/copy initialization - single argument (braces)
+    {
+        as::v3 vec3 = as::v3{50.0f};
+        EXPECT_EQ(vec3.x, 50.0f);
+        EXPECT_EQ(vec3.y, 50.0f);
+        EXPECT_EQ(vec3.z, 50.0f);
+    }
+
+    // direct/copy initialization - single argument (parens)
+    {
+        as::v3 vec3 = as::v3(25.0f);
+        EXPECT_EQ(vec3.x, 25.0f);
+        EXPECT_EQ(vec3.y, 25.0f);
+        EXPECT_EQ(vec3.z, 25.0f);
+    }
+
+    // direct/copy initialization - double argument (braces)
+    {
+        as::v3 vec3 = as::v3{as::v2{1.0f, 2.0f}, 3.0f};
+        EXPECT_EQ(vec3.x, 1.0f);
+        EXPECT_EQ(vec3.y, 2.0f);
+        EXPECT_EQ(vec3.z, 3.0f);
+    }
+
+    // direct/copy initialization - double argument (parens)
+    {
+        as::v3 vec3 = as::v3(as::v2(1.0f, 2.0f), 3.0f);
+        EXPECT_EQ(vec3.x, 1.0f);
+        EXPECT_EQ(vec3.y, 2.0f);
+        EXPECT_EQ(vec3.z, 3.0f);
+    }
+
+    // direct + copy initialization
+    {
+        as::v3 vec3_a(100.0f, 200.0f, 300.0f);
+        as::v3 vec3_b(vec3_a);
+
+        EXPECT_EQ(vec3_b.x, 100.0f);
+        EXPECT_EQ(vec3_b.y, 200.0f);
+        EXPECT_EQ(vec3_b.z, 300.0f);
+    }
+
+    // direct + copy initialization
+    {
+        as::v3 vec3_a(400.0f, 500.0f, 600.0f);
+        as::v3 vec3_b = vec3_a;
+
+        EXPECT_EQ(vec3_b.x, 400.0f);
+        EXPECT_EQ(vec3_b.y, 500.0f);
+        EXPECT_EQ(vec3_b.z, 600.0f);
+    }
+
+    // direct + copy initialization (assignment)
+    {
+        as::v3 vec3_a(500.0f, 600.0f, 700.0f);
+        as::v3 vec3_b;
+
+        vec3_b = vec3_a;
+
+        EXPECT_EQ(vec3_b.x, 500.0f);
+        EXPECT_EQ(vec3_b.y, 600.0f);
+        EXPECT_EQ(vec3_b.z, 700.0f);
+    }
 }
 
-TEST(as_vec, copy_construction) {
-    as::v3 v = as::v3(1.0f, 2.0f, 3.0f);
+TEST(as_vec, v4_initialization)
+{
+    // default initialization
+    {
+        as::v4 vec4;
+        AS_UNUSED(vec4);
+    }
 
-    EXPECT_EQ(v.x, 1.0f) << "v.x is not equal to one";
-    EXPECT_EQ(v.y, 2.0f) << "v.y is not equal to two";
-    EXPECT_EQ(v.z, 3.0f) << "v.z is not equal to three";
+    // zero initialization
+    {
+        as::v4 vec4{};
+        EXPECT_EQ(vec4.x, 0.0f);
+        EXPECT_EQ(vec4.y, 0.0f);
+        EXPECT_EQ(vec4.z, 0.0f);
+        EXPECT_EQ(vec4.w, 0.0f);
+    }
 
-    as::v3 v_copy(v);
+    // value initialization
+    {
+        as::v4 vec4 = as::v4();
+        EXPECT_EQ(vec4.x, 0.0f);
+        EXPECT_EQ(vec4.y, 0.0f);
+        EXPECT_EQ(vec4.z, 0.0f);
+        EXPECT_EQ(vec4.w, 0.0f);
+    }
 
-    EXPECT_EQ(v.x, v_copy.x) << "v.x is not v_copy.x";
-    EXPECT_EQ(v.y, v_copy.y) << "v.y is not v_copy.y";
-    EXPECT_EQ(v.z, v_copy.z) << "v.z is not v_copy.z";
+    // direct initialization (braces)
+    {
+        as::v4 vec4{1.0f, 2.0f, 3.0f, 4.0f};
+        EXPECT_EQ(vec4.x, 1.0f);
+        EXPECT_EQ(vec4.y, 2.0f);
+        EXPECT_EQ(vec4.z, 3.0f);
+        EXPECT_EQ(vec4.w, 4.0f);
+    }
 
-    as::Vec<float, 6> custom_v(2.0f, 4.0f, 6.0f, 8.0f, 10.0f, 12.0f);
-    as::Vec<float, 6> custom_v_copy(custom_v);
+    // direct initialization (parens)
+    {
+        as::v4 vec4(1.0f, 2.0f, 3.0f, 4.0f);
+        EXPECT_EQ(vec4.x, 1.0f);
+        EXPECT_EQ(vec4.y, 2.0f);
+        EXPECT_EQ(vec4.z, 3.0f);
+        EXPECT_EQ(vec4.w, 4.0f);
+    }
 
-    EXPECT_EQ(custom_v[0], custom_v_copy[0]) << "custom_v does not equal custom_v_copy";
-    EXPECT_EQ(custom_v[1], custom_v_copy[1]) << "custom_v does not equal custom_v_copy";
-    EXPECT_EQ(custom_v[2], custom_v_copy[2]) << "custom_v does not equal custom_v_copy";
-    EXPECT_EQ(custom_v[3], custom_v_copy[3]) << "custom_v does not equal custom_v_copy";
-    EXPECT_EQ(custom_v[4], custom_v_copy[4]) << "custom_v does not equal custom_v_copy";
-    EXPECT_EQ(custom_v[5], custom_v_copy[5]) << "custom_v does not equal custom_v_copy";
+    // direct/copy initialization (braces)
+    {
+        as::v4 vec4 = as::v4{3.0f, 4.0f, 5.0f, 6.0f};
+        EXPECT_EQ(vec4.x, 3.0f);
+        EXPECT_EQ(vec4.y, 4.0f);
+        EXPECT_EQ(vec4.z, 5.0f);
+        EXPECT_EQ(vec4.w, 6.0f);
+    }
 
-    EXPECT_TRUE(as::equal(1.0f, v.x)) << "v is not equal to v3_zero";
-}
+    // direct/copy initialization (parens)
+    {
+        as::v4 vec4 = as::v4(3.0f, 4.0f, 5.0f, 6.0f);
+        EXPECT_EQ(vec4.x, 3.0f);
+        EXPECT_EQ(vec4.y, 4.0f);
+        EXPECT_EQ(vec4.z, 5.0f);
+        EXPECT_EQ(vec4.w, 6.0f);
+    }
 
-TEST(as_vec, assignment) {
-    as::v2 a = as::v2(5.0f);
-    as::v2 b = as::v2(10.0f);
+    // direct/copy initialization - single argument (braces)
+    {
+        as::v4 vec4 = as::v4{50.0f};
+        EXPECT_EQ(vec4.x, 50.0f);
+        EXPECT_EQ(vec4.y, 50.0f);
+        EXPECT_EQ(vec4.z, 50.0f);
+        EXPECT_EQ(vec4.w, 50.0f);
+    }
 
-    a = b;
+    // direct/copy initialization - single argument (parens)
+    {
+        as::v4 vec4 = as::v4(25.0f);
+        EXPECT_EQ(vec4.x, 25.0f);
+        EXPECT_EQ(vec4.y, 25.0f);
+        EXPECT_EQ(vec4.z, 25.0f);
+        EXPECT_EQ(vec4.w, 25.0f);
+    }
 
-    EXPECT_EQ(a.x, b.x) << "a.x is not equal to b.x";
-    EXPECT_EQ(a.y, b.y) << "a.y is not equal to b.y";
+    // direct/copy initialization - double argument (braces)
+    {
+        as::v4 vec4 = as::v4{as::v3{1.0f, 2.0f, 3.0f}, 4.0f};
+        EXPECT_EQ(vec4.x, 1.0f);
+        EXPECT_EQ(vec4.y, 2.0f);
+        EXPECT_EQ(vec4.z, 3.0f);
+        EXPECT_EQ(vec4.w, 4.0f);
+    }
 
-    as::Vec<short, 5> custom_a = as::Vec<short, 5>((short)17, (short)53, (short)119, (short)42, (short)99);
-    as::Vec<short, 5> custom_b = as::Vec<short, 5>((short)11, (short)1002, (short)234, (short)3, (short)829);
+    // direct/copy initialization - double argument (parens)
+    {
+        as::v4 vec4 = as::v4(as::v3(1.0f, 2.0f, 3.0f), 4.0f);
+        EXPECT_EQ(vec4.x, 1.0f);
+        EXPECT_EQ(vec4.y, 2.0f);
+        EXPECT_EQ(vec4.z, 3.0f);
+        EXPECT_EQ(vec4.w, 4.0f);
+    }
 
-    custom_b = custom_a;
+    // direct/copy initialization - double argument (braces)
+    {
+        as::v4 vec4 = as::v4{as::v2{1.0f, 2.0f}, as::v2{3.0f, 4.0f}};
+        EXPECT_EQ(vec4.x, 1.0f);
+        EXPECT_EQ(vec4.y, 2.0f);
+        EXPECT_EQ(vec4.z, 3.0f);
+        EXPECT_EQ(vec4.w, 4.0f);
+    }
 
-    EXPECT_EQ(custom_a[0], custom_b[0]) << "custom values not equal";
-    EXPECT_EQ(custom_a[1], custom_b[1]) << "custom values not equal";
-    EXPECT_EQ(custom_a[2], custom_b[2]) << "custom values not equal";
-    EXPECT_EQ(custom_a[3], custom_b[3]) << "custom values not equal";
-    EXPECT_EQ(custom_a[4], custom_b[4]) << "custom values not equal";
+    // direct/copy initialization - double argument (parens)
+    {
+        as::v4 vec4 = as::v4(as::v2(1.0f, 2.0f), as::v2(3.0f, 4.0f));
+        EXPECT_EQ(vec4.x, 1.0f);
+        EXPECT_EQ(vec4.y, 2.0f);
+        EXPECT_EQ(vec4.z, 3.0f);
+        EXPECT_EQ(vec4.w, 4.0f);
+    }
+
+    // direct/copy initialization - double argument (braces)
+    {
+        as::v4 vec4 = as::v4{as::v2{1.0f, 2.0f}, 3.0f, 4.0f};
+        EXPECT_EQ(vec4.x, 1.0f);
+        EXPECT_EQ(vec4.y, 2.0f);
+        EXPECT_EQ(vec4.z, 3.0f);
+        EXPECT_EQ(vec4.w, 4.0f);
+    }
+
+    // direct/copy initialization - double argument (parens)
+    {
+        as::v4 vec4 = as::v4(as::v2(1.0f, 2.0f), 3.0f, 4.0f);
+        EXPECT_EQ(vec4.x, 1.0f);
+        EXPECT_EQ(vec4.y, 2.0f);
+        EXPECT_EQ(vec4.z, 3.0f);
+        EXPECT_EQ(vec4.w, 4.0f);
+    }
+
+    // direct + copy initialization
+    {
+        as::v4 vec4_a(100.0f, 200.0f, 300.0f, 400.0f);
+        as::v4 vec4_b(vec4_a);
+
+        EXPECT_EQ(vec4_b.x, 100.0f);
+        EXPECT_EQ(vec4_b.y, 200.0f);
+        EXPECT_EQ(vec4_b.z, 300.0f);
+        EXPECT_EQ(vec4_b.w, 400.0f);
+    }
+
+    // direct + copy initialization
+    {
+        as::v4 vec4_a(500.0f, 600.0f, 700.0f, 800.0f);
+        as::v4 vec4_b = vec4_a;
+
+        EXPECT_EQ(vec4_b.x, 500.0f);
+        EXPECT_EQ(vec4_b.y, 600.0f);
+        EXPECT_EQ(vec4_b.z, 700.0f);
+        EXPECT_EQ(vec4_b.w, 800.0f);
+    }
+
+    // direct + copy initialization (assignment)
+    {
+        as::v4 vec4_a(500.0f, 600.0f, 700.0f, 800.0f);
+        as::v4 vec4_b;
+
+        vec4_b = vec4_a;
+
+        EXPECT_EQ(vec4_b.x, 500.0f);
+        EXPECT_EQ(vec4_b.y, 600.0f);
+        EXPECT_EQ(vec4_b.z, 700.0f);
+        EXPECT_EQ(vec4_b.w, 800.0f);
+    }
 }
 
 TEST(as_vec, cross) {
