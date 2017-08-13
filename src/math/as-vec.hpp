@@ -19,21 +19,14 @@ struct Vec
     AS_INLINE const T& operator[](size_t i) const { return elem[i]; }
 
     Vec() = default;
-#ifdef __GNUC__
-    Vec(Vec&) = default;
-#endif // __GNUC__
     Vec(const Vec&) = default;
     Vec& operator=(const Vec&) = default;
     Vec(Vec&&) noexcept = default;
     Vec& operator=(Vec&&) noexcept = default;
     ~Vec() = default;
 
-#ifdef _MSC_VER
     template<typename...> struct typelist;
     template<typename... Args, typename = std::enable_if_t<!std::is_same<typelist<Vec>, typelist<std::decay_t<Args>...>>::value>>
-#else
-    template <typename... Args>
-#endif //_MSC_VER
     Vec(Args... args) noexcept : elem{ std::forward<Args>(args)... } {}
 };
 

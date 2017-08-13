@@ -36,21 +36,14 @@ struct Mat
     AS_INLINE const T& operator[](size_t i) const { return elem[i]; }
 
     Mat() = default;
-#ifdef __GNUC__
-    Mat(Mat& mat) = default;
-#endif // __GNUC__
     Mat(const Mat& mat) = default;
     Mat& operator=(const Mat& mat) = default;
     Mat(Mat&& mat) noexcept = default;
     Mat& operator=(Mat&& mat) noexcept = default;
     ~Mat() = default;
 
-#ifdef _MSC_VER
     template<typename...> struct typelist;
     template<typename... Args, typename = std::enable_if_t<!std::is_same<typelist<Mat>, typelist<std::decay_t<Args>...>>::value>>
-#else
-    template <typename... Args>
-#endif //_MSC_VER
     Mat(Args&&... args) noexcept : elem { std::forward<Args>(args)... } {}
 };
 
