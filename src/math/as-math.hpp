@@ -62,7 +62,10 @@ AS_INLINE real radToDeg(real radians)
 
 // floating point comparison by Bruce Dawson
 // ref: https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
-AS_INLINE bool equal(real a, real b, real max_diff = REAL_EPSILON, real max_rel_diff = REAL_EPSILON)
+AS_INLINE bool equal(
+    real a, real b,
+    real max_diff = std::numeric_limits<real>::epsilon(),
+    real max_rel_diff = std::numeric_limits<real>::epsilon())
 {
     // check if the numbers are really close
     // needed when comparing numbers near zero

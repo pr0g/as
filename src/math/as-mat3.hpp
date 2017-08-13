@@ -50,9 +50,7 @@ template<> struct Mat<real, 3, 3>
 
     explicit Mat<real, 3, 3>() = default;
     explicit Mat<real, 3, 3>(const real* data_) {
-        for (size_t i = 0; i < 9; ++i) {
-            data[i] = data_[i];
-        }
+        std::copy(data_, data_ + 9, data);
     }
 
     constexpr explicit Mat<real, 3, 3>(real x0, real y0, real z0, real x1, real y1, real z1, real x2, real y2, real z2)

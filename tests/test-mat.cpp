@@ -34,6 +34,20 @@ TEST(as_mat, constructor) {
     {
         printf("col: %f, %f, %f, %f\n", m44_1.col(i).x, m44_1.col(i).y, m44_1.col(i).z, m44_1.col(i).w);
     }
+
+    float data_33[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    as::m33 m33_data(data_33);
+    for (size_t i = 0; i < m33_data.rows(); ++i)
+    {
+        printf("row: %f, %f, %f\n", m33_data.row(i).x, m33_data.row(i).y, m33_data.row(i).z);
+    }
+
+    float data_44[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    as::m44 m44_data(data_44);
+    for (size_t i = 0; i < m44_data.rows(); ++i)
+    {
+        printf("row: %f, %f, %f, %f\n", m44_data.row(i).x, m44_data.row(i).y, m44_data.row(i).z, m44_data.row(i).w);
+    }
 }
 
 TEST(as_mat, copy_constructor) {

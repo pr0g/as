@@ -75,7 +75,7 @@ AS_INLINE p2& operator-=(p2& point, const v2& vec)
     return point;
 }
 
-AS_INLINE bool equal(const p2& lhs, const p2& rhs, real epsilon = REAL_EPSILON)
+AS_INLINE bool equal(const p2& lhs, const p2& rhs, real epsilon = std::numeric_limits<real>::epsilon())
 {
     return equal(lhs.v, rhs.v, epsilon);
 }
@@ -107,7 +107,7 @@ AS_INLINE p3& operator-=(p3& point, const v3& vec)
     return point;
 }
 
-AS_INLINE bool equal(const p3& lhs, const p3& rhs, real epsilon = REAL_EPSILON)
+AS_INLINE bool equal(const p3& lhs, const p3& rhs, real epsilon = std::numeric_limits<real>::epsilon())
 {
     return equal(lhs.v, rhs.v, epsilon);
 }

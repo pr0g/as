@@ -56,9 +56,7 @@ template<> struct Mat<real, 4, 4>
 
     explicit Mat() = default;
     explicit Mat(const real* data_) {
-        for (size_t i = 0; i < 16; ++i) {
-            data[i] = data_[i];
-        }
+        std::copy(data_, data_ + 16, data);
     }
     constexpr explicit Mat(real x0, real y0, real z0, real w0, real x1, real y1, real z1, real w1, real x2, real y2, real z2, real w2, real x3, real y3, real z3, real w3)
         :  x0(x0), y0(y0), z0(z0), w0(w0), x1(x1), y1(y1), z1(z1), w1(w1), x2(x2), y2(y2), z2(z2), w2(w2), x3(x3), y3(y3), z3(z3), w3(w3) {}

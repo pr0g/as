@@ -273,7 +273,7 @@ AS_INLINE void operator/=(Vec<T, n>& vec, T val)
 }
 
 template<typename T, size_t n>
-AS_INLINE bool equal(const Vec<T, n>& lhs, const Vec<T, n>& rhs, real epsilon = REAL_EPSILON)
+AS_INLINE bool equal(const Vec<T, n>& lhs, const Vec<T, n>& rhs, real epsilon = std::numeric_limits<real>::epsilon())
 {
     bool eq = true;
     for (size_t i = 0; i < n; ++i) {
