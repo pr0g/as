@@ -107,7 +107,7 @@ template<typename T, size_t n>
 AS_INLINE Vec<T, n> make_from(const T(&data)[n])
 {
     Vec<T, n> result;
-    memcpy(result.data, data, sizeof(T) * n);
+    std::copy(std::begin(data), std::end(data), result.data);
     return result;
 }
 
@@ -115,7 +115,7 @@ template<typename T, size_t n>
 AS_INLINE Vec<T, n> make_from(const T* data)
 {
     Vec<T, n> result;
-    memcpy(result.data, data, sizeof(T) * n);
+    std::copy(data, data + n, result.data);
     return result;
 }
 
