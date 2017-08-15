@@ -86,7 +86,7 @@ template<> struct Vec<real, 4>
     {
         real elem[4];
         struct { real x; real y; real z; real w; };
-        v2 xy;
+        struct { v2 xy; v2 zw; };
         v3 xyz;
     };
 

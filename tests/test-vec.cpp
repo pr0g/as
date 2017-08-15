@@ -398,7 +398,7 @@ TEST(as_vec, v4_initialization)
     }
 }
 
-TEST(as_vec, accessors)
+TEST(as_vec, v2_accessors)
 {
     {
         as::v2 vec2{};
@@ -411,7 +411,10 @@ TEST(as_vec, accessors)
         EXPECT_EQ(vec2.x, vec2[0]);
         EXPECT_EQ(vec2.y, vec2[1]);
     }
+}
 
+TEST(as_vec, v3_accessors)
+{
     {
         as::v3 vec3{};
         EXPECT_EQ(vec3.x, vec3[0]);
@@ -434,7 +437,10 @@ TEST(as_vec, accessors)
         EXPECT_EQ(vec3.xy.y, vec3.y);
         EXPECT_EQ(vec3.z, vec3[2]);
     }
+}
 
+TEST(as_vec, v4_accessors)
+{
     {
         as::v4 vec4{};
         EXPECT_EQ(vec4.x, vec4[0]);
@@ -455,14 +461,36 @@ TEST(as_vec, accessors)
         as::v4 vec4(1.0f, 2.0f, 3.0f, 4.0f);
         EXPECT_EQ(vec4.xy[0], vec4[0]);
         EXPECT_EQ(vec4.xy[1], vec4[1]);
-        // note: might be one day nice to support this somehow
-        // EXPECT_EQ(vec4.zw[0], vec4[2]);
-        // EXPECT_EQ(vec4.zw[1], vec4[3]);
+        EXPECT_EQ(vec4.zw[0], vec4[2]);
+        EXPECT_EQ(vec4.zw[1], vec4[3]);
         EXPECT_EQ(vec4.xyz[0], vec4[0]);
         EXPECT_EQ(vec4.xyz[1], vec4[1]);
         EXPECT_EQ(vec4.xyz[2], vec4[2]);
         EXPECT_EQ(vec4.w, vec4[3]);
     }
+}
+
+TEST(as_vec, v2_v3_v4_accessors)
+{
+    as::v2 vec2(1.0f, 2.0f);
+    as::v3 vec3(vec2, 3.0f);
+
+    as::v4 vec4_a(vec2, 3.0f, 4.0f);
+    as::v4 vec4_b(vec2, vec2);
+    as::v4 vec4_c(vec3, 4.0f);
+
+    EXPECT_EQ(vec4_a.x, vec2.x);
+    EXPECT_EQ(vec4_a.y, vec2.y);
+
+    EXPECT_EQ(vec4_b.x, vec2.x);
+    EXPECT_EQ(vec4_b.y, vec2.y);
+    EXPECT_EQ(vec4_b.z, vec2.x);
+    EXPECT_EQ(vec4_b.w, vec2.y);
+
+    EXPECT_EQ(vec4_c.x, vec2.x);
+    EXPECT_EQ(vec4_c.y, vec2.y);
+    EXPECT_EQ(vec4_c.z, vec4_a.z);
+    EXPECT_EQ(vec4_c.w, vec4_a.w);
 }
 
 TEST(as_vec, cross)
