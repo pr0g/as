@@ -344,7 +344,7 @@ TEST(as_vec, v4_initialization)
         EXPECT_EQ(vec4.w, 4.0f);
     }
 
-    // direct/copy initialization - double argument (braces)
+    // direct/copy initialization - triple argument (braces)
     {
         as::v4 vec4 = as::v4{as::v2{1.0f, 2.0f}, 3.0f, 4.0f};
         EXPECT_EQ(vec4.x, 1.0f);
@@ -353,7 +353,7 @@ TEST(as_vec, v4_initialization)
         EXPECT_EQ(vec4.w, 4.0f);
     }
 
-    // direct/copy initialization - double argument (parens)
+    // direct/copy initialization - triple argument (parens)
     {
         as::v4 vec4 = as::v4(as::v2(1.0f, 2.0f), 3.0f, 4.0f);
         EXPECT_EQ(vec4.x, 1.0f);
@@ -398,41 +398,110 @@ TEST(as_vec, v4_initialization)
     }
 }
 
-TEST(as_vec, cross) {
-    glm::vec3 glm_a = glm::vec3( 1.0f, 2.0f, 3.0f );
-    glm::vec3 glm_b = glm::vec3( 4.0f, 3.0f, 2.0f );
+TEST(as_vec, accessors)
+{
+    {
+        as::v2 vec2{};
+        EXPECT_EQ(vec2.x, vec2[0]);
+        EXPECT_EQ(vec2.y, vec2[1]);
+    }
 
-    glm::vec3 glm_ab_result = glm::cross( glm_a, glm_b );
+    {
+        as::v2 vec2(1.0f, 2.0f);
+        EXPECT_EQ(vec2.x, vec2[0]);
+        EXPECT_EQ(vec2.y, vec2[1]);
+    }
 
-    as::v3 as_a = as::v3( 1.0f, 2.0f, 3.0f );
-    as::v3 as_b = as::v3( 4.0f, 3.0f, 2.0f );
+    {
+        as::v3 vec3{};
+        EXPECT_EQ(vec3.x, vec3[0]);
+        EXPECT_EQ(vec3.y, vec3[1]);
+        EXPECT_EQ(vec3.z, vec3[2]);
+    }
 
-    as::v3 as_ab_result = as::cross( as_a, as_b );
+    {
+        as::v3 vec3(1.0f, 2.0f, 3.0f);
+        EXPECT_EQ(vec3.x, vec3[0]);
+        EXPECT_EQ(vec3.y, vec3[1]);
+        EXPECT_EQ(vec3.z, vec3[2]);
+    }
 
-    EXPECT_TRUE( as::equal( as_ab_result.x, glm_ab_result.x ) );
-    EXPECT_TRUE( as::equal( as_ab_result.y, glm_ab_result.y ) );
-    EXPECT_TRUE( as::equal( as_ab_result.z, glm_ab_result.z ) );
+    {
+        as::v3 vec3(1.0f, 2.0f, 3.0f);
+        EXPECT_EQ(vec3.xy[0], vec3.x);
+        EXPECT_EQ(vec3.xy[1], vec3.y);
+        EXPECT_EQ(vec3.xy.x, vec3.x);
+        EXPECT_EQ(vec3.xy.y, vec3.y);
+        EXPECT_EQ(vec3.z, vec3[2]);
+    }
+
+    {
+        as::v4 vec4{};
+        EXPECT_EQ(vec4.x, vec4[0]);
+        EXPECT_EQ(vec4.y, vec4[1]);
+        EXPECT_EQ(vec4.z, vec4[2]);
+        EXPECT_EQ(vec4.w, vec4[3]);
+    }
+
+    {
+        as::v4 vec4(1.0f, 2.0f, 3.0f, 4.0f);
+        EXPECT_EQ(vec4.x, vec4[0]);
+        EXPECT_EQ(vec4.y, vec4[1]);
+        EXPECT_EQ(vec4.z, vec4[2]);
+        EXPECT_EQ(vec4.w, vec4[3]);
+    }
+
+    {
+        as::v4 vec4(1.0f, 2.0f, 3.0f, 4.0f);
+        EXPECT_EQ(vec4.xy[0], vec4[0]);
+        EXPECT_EQ(vec4.xy[1], vec4[1]);
+        // note: might be one day nice to support this somehow
+        // EXPECT_EQ(vec4.zw[0], vec4[2]);
+        // EXPECT_EQ(vec4.zw[1], vec4[3]);
+        EXPECT_EQ(vec4.xyz[0], vec4[0]);
+        EXPECT_EQ(vec4.xyz[1], vec4[1]);
+        EXPECT_EQ(vec4.xyz[2], vec4[2]);
+        EXPECT_EQ(vec4.w, vec4[3]);
+    }
 }
 
-TEST(as_vec, right_and_up) {
+TEST(as_vec, cross)
+{
+    glm::vec3 glm_a = glm::vec3(1.0f, 2.0f, 3.0f);
+    glm::vec3 glm_b = glm::vec3(4.0f, 3.0f, 2.0f);
+
+    glm::vec3 glm_ab_result = glm::cross(glm_a, glm_b);
+
+    as::v3 as_a = as::v3(1.0f, 2.0f, 3.0f);
+    as::v3 as_b = as::v3(4.0f, 3.0f, 2.0f);
+
+    as::v3 as_ab_result = as::cross(as_a, as_b);
+
+    EXPECT_TRUE(as::equal(as_ab_result.x, glm_ab_result.x));
+    EXPECT_TRUE(as::equal(as_ab_result.y, glm_ab_result.y));
+    EXPECT_TRUE(as::equal(as_ab_result.z, glm_ab_result.z));
+}
+
+TEST(as_vec, right_and_up)
+{
     as::v3 dir(0.0f, 0.0f, -1.0f);
 
-    printf( "dir - x: %f, y: %f, z: %f\n", dir.x, dir.y, dir.z);
+    printf("dir - x: %f, y: %f, z: %f\n", dir.x, dir.y, dir.z);
 
     {
         as::v3 across_lh, up_lh;
         as::right_and_up_lh(dir, across_lh, up_lh);
 
-        printf( "right lh - x: %f, y: %f, z: %f\n", across_lh.x, across_lh.y, across_lh.z);
-        printf( "up lh - x: %f, y: %f, z: %f\n", up_lh.x, up_lh.y, up_lh.z);
+        printf("right lh - x: %f, y: %f, z: %f\n", across_lh.x, across_lh.y, across_lh.z);
+        printf("up lh - x: %f, y: %f, z: %f\n", up_lh.x, up_lh.y, up_lh.z);
     }
 
     {
         as::v3 across_rh, up_rh;
         as::right_and_up_rh(dir, across_rh, up_rh);
 
-        printf( "right rh - x: %f, y: %f, z: %f\n", across_rh.x, across_rh.y, across_rh.z);
-        printf( "up rh - x: %f, y: %f, z: %f\n", up_rh.x, up_rh.y, up_rh.z);
+        printf("right rh - x: %f, y: %f, z: %f\n", across_rh.x, across_rh.y, across_rh.z);
+        printf("up rh - x: %f, y: %f, z: %f\n", up_rh.x, up_rh.y, up_rh.z);
     }
 }
 
@@ -468,60 +537,60 @@ TEST(as_vec, init_compat) {
 
     as::v4 as_v4_2 = as::v4(as::make_v4_from(as::data(as_v4)));
 
-    print_v3( as_a );
-    print_v3( as_b );
-    print_v3( as_c );
-    print_v3( as_d );
-    print_v4( as_v4 );
-    print_v4( as_v4_2 );
+    print_v3(as_a);
+    print_v3(as_b);
+    print_v3(as_c);
+    print_v3(as_d);
+    print_v4(as_v4);
+    print_v4(as_v4_2);
 }
 
 TEST(as_vec, conversions) {
-    as::v4 a_v4( 1.0f, 2.0f, 3.0f, 4.0f );
+    as::v4 a_v4(1.0f, 2.0f, 3.0f, 4.0f);
     as::v2 a_v2 = a_v4.xy;
 
     printf("%f %f\n", a_v2.x, a_v2.y);
 }
 
 TEST(as_vec, abs) {
-    as::v4 v( -1.0f, 2.0f, -100.0f, -7.0f);
-    as::v4 r = abs( v );
+    as::v4 v(-1.0f, 2.0f, -100.0f, -7.0f);
+    as::v4 r = abs(v);
 
     bool is_abs = true;
-    for( size_t i = 0; i < 4; ++i ) {
+    for(size_t i = 0; i < 4; ++i) {
         is_abs &= r[i] >= 0.0f;
     }
 
-    EXPECT_TRUE( is_abs ) << "as::vec abs failed";
+    EXPECT_TRUE(is_abs) << "as::vec abs failed";
 }
 
 TEST(as_vec, min) {
-    as::v4 v1( -1.0f, 2.0f, -100.0f, -7.0f);
-    as::v4 v2( -10.0f, 7.0f, -50.0f, -16.0f);
+    as::v4 v1(-1.0f, 2.0f, -100.0f, -7.0f);
+    as::v4 v2(-10.0f, 7.0f, -50.0f, -16.0f);
 
-    as::v4 r = min( v1, v2 );
+    as::v4 r = min(v1, v2);
 
-    EXPECT_TRUE( r.x == -10.0f && r.y == 2.0f && r.z == -100.0f && r.w == -16.0f ) << "as::vec min failed";
+    EXPECT_TRUE(r.x == -10.0f && r.y == 2.0f && r.z == -100.0f && r.w == -16.0f) << "as::vec min failed";
 }
 
 TEST(as_vec, min_elem) {
-    as::v4 v( -1.0f, 2.0f, -100.0f, -7.0f);
+    as::v4 v(-1.0f, 2.0f, -100.0f, -7.0f);
     real min = min_elem(v);
 
     EXPECT_TRUE(min == -100.0f) << "as::vec min_elem failed";
 }
 
 TEST(as_vec, max) {
-    as::v4 v1( -1.0f, 2.0f, -100.0f, -7.0f);
-    as::v4 v2( -10.0f, 7.0f, -50.0f, -16.0f);
+    as::v4 v1(-1.0f, 2.0f, -100.0f, -7.0f);
+    as::v4 v2(-10.0f, 7.0f, -50.0f, -16.0f);
 
-    as::v4 r = max( v1, v2 );
+    as::v4 r = max(v1, v2);
 
-    EXPECT_TRUE( r.x == -1.0f && r.y == 7.0f && r.z == -50.0f && r.w == -7.0f ) << "as::vec max failed";
+    EXPECT_TRUE(r.x == -1.0f && r.y == 7.0f && r.z == -50.0f && r.w == -7.0f) << "as::vec max failed";
 }
 
 TEST(as_vec, max_elem) {
-    as::v4 v( -1.0f, 2.0f, -100.0f, -7.0f);
+    as::v4 v(-1.0f, 2.0f, -100.0f, -7.0f);
     real max = max_elem(v);
 
     EXPECT_TRUE(max == 2.0f) << "as::vec max_elem failed";
