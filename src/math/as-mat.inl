@@ -130,7 +130,7 @@ AS_INLINE T minor(const Mat<T, 2, 2>& mat)
 }
 
 template<typename T, size_t cr>
-AS_INLINE Mat<T, cr - 1, cr - 1> sub_matrix(const Mat<T, cr, cr> mat, size_t col, size_t row)
+AS_INLINE Mat<T, cr - 1, cr - 1> sub_matrix(const Mat<T, cr, cr>& mat, size_t col, size_t row)
 {
     Mat<T, cr - 1, cr - 1> result = identity<T, cr - 1>();
     size_t i = 0;

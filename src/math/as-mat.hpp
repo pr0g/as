@@ -86,7 +86,7 @@ template<typename T>
 AS_INLINE T minor(const Mat<T, 2, 2>& mat);
 
 template<typename T, size_t cr>
-AS_INLINE Mat<T, cr - 1, cr - 1> sub_matrix(const Mat<T, cr, cr> mat, size_t col, size_t row);
+AS_INLINE Mat<T, cr - 1, cr - 1> sub_matrix(const Mat<T, cr, cr>& mat, size_t col, size_t row);
 
 template<typename T, size_t cr>
 AS_INLINE T determinant(const Mat<T, cr, cr>& mat);

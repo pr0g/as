@@ -34,7 +34,8 @@ using v2 = Vec<real, 2>;
 using v3 = Vec<real, 3>;
 using v4 = Vec<real, 4>;
 
-template<> struct Vec<real, 2>
+template<>
+struct Vec<real, 2>
 {
     union
     {
@@ -56,7 +57,8 @@ template<> struct Vec<real, 2>
     constexpr explicit Vec(real x, real y) : x(x), y(y) {}
 };
 
-template<> struct Vec<real, 3>
+template<>
+struct Vec<real, 3>
 {
     union
     {
@@ -80,7 +82,8 @@ template<> struct Vec<real, 3>
     constexpr explicit Vec(real x, real y, real z) : x(x), y(y), z(z) {}
 };
 
-template<> struct Vec<real, 4>
+template<>
+struct Vec<real, 4>
 {
     union
     {
@@ -108,7 +111,10 @@ template<> struct Vec<real, 4>
 };
 
 template<typename T, size_t n>
-AS_INLINE const T* data(const Vec<T, n>& vec);
+AS_INLINE T* data(Vec<T, n>& vec);
+
+template<typename T, size_t n>
+AS_INLINE const T* const_data(const Vec<T, n>& vec);
 
 template<typename T, size_t n>
 AS_INLINE Vec<T, n> make_from(const T(&data)[n]);

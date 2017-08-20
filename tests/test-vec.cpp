@@ -400,21 +400,31 @@ TEST(as_vec, v4_initialization)
 
 TEST(as_vec, v2_accessors)
 {
+    // anonymous struct and subscript operator - zero initializer
     {
         as::v2 vec2{};
         EXPECT_EQ(vec2.x, vec2[0]);
         EXPECT_EQ(vec2.y, vec2[1]);
     }
 
+    // anonymous struct and subscript operator - explicit construction
     {
         as::v2 vec2(1.0f, 2.0f);
         EXPECT_EQ(vec2.x, vec2[0]);
         EXPECT_EQ(vec2.y, vec2[1]);
     }
+
+    // anonymous struct and internal element array - explicit construction
+    {
+        as::v2 vec2(1.0f, 2.0f);
+        EXPECT_EQ(vec2.elem[0], vec2[0]);
+        EXPECT_EQ(vec2.elem[1], vec2[1]);
+    }
 }
 
 TEST(as_vec, v3_accessors)
 {
+    // anonymous struct and subscript operator - zero initializer
     {
         as::v3 vec3{};
         EXPECT_EQ(vec3.x, vec3[0]);
@@ -422,6 +432,7 @@ TEST(as_vec, v3_accessors)
         EXPECT_EQ(vec3.z, vec3[2]);
     }
 
+    // anonymous struct and subscript operator - explicit construction
     {
         as::v3 vec3(1.0f, 2.0f, 3.0f);
         EXPECT_EQ(vec3.x, vec3[0]);
@@ -429,6 +440,7 @@ TEST(as_vec, v3_accessors)
         EXPECT_EQ(vec3.z, vec3[2]);
     }
 
+    // anonymous struct and subscript operator - explicit construction
     {
         as::v3 vec3(1.0f, 2.0f, 3.0f);
         EXPECT_EQ(vec3.xy[0], vec3.x);
@@ -437,10 +449,19 @@ TEST(as_vec, v3_accessors)
         EXPECT_EQ(vec3.xy.y, vec3.y);
         EXPECT_EQ(vec3.z, vec3[2]);
     }
+
+    // anonymous struct and internal element array - explicit construction
+    {
+        as::v3 vec3(2.0f, 4.0f, 6.0f);
+        EXPECT_EQ(vec3.elem[0], vec3[0]);
+        EXPECT_EQ(vec3.elem[1], vec3[1]);
+        EXPECT_EQ(vec3.elem[2], vec3[2]);
+    }
 }
 
 TEST(as_vec, v4_accessors)
 {
+    // anonymous struct and subscript operator - zero initializer
     {
         as::v4 vec4{};
         EXPECT_EQ(vec4.x, vec4[0]);
@@ -449,6 +470,7 @@ TEST(as_vec, v4_accessors)
         EXPECT_EQ(vec4.w, vec4[3]);
     }
 
+    // anonymous struct and subscript operator - explicit construction
     {
         as::v4 vec4(1.0f, 2.0f, 3.0f, 4.0f);
         EXPECT_EQ(vec4.x, vec4[0]);
@@ -457,6 +479,7 @@ TEST(as_vec, v4_accessors)
         EXPECT_EQ(vec4.w, vec4[3]);
     }
 
+    // anonymous struct and subscript operator - explicit construction
     {
         as::v4 vec4(1.0f, 2.0f, 3.0f, 4.0f);
         EXPECT_EQ(vec4.xy[0], vec4[0]);
@@ -467,6 +490,15 @@ TEST(as_vec, v4_accessors)
         EXPECT_EQ(vec4.xyz[1], vec4[1]);
         EXPECT_EQ(vec4.xyz[2], vec4[2]);
         EXPECT_EQ(vec4.w, vec4[3]);
+    }
+
+    // anonymous struct and internal element array - explicit construction
+    {
+        as::v4 vec4(1.0f, 2.0f, 3.0f, 4.0f);
+        EXPECT_EQ(vec4.elem[0], vec4[0]);
+        EXPECT_EQ(vec4.elem[1], vec4[1]);
+        EXPECT_EQ(vec4.elem[2], vec4[2]);
+        EXPECT_EQ(vec4.elem[3], vec4[3]);
     }
 }
 
@@ -479,6 +511,7 @@ TEST(as_vec, v2_v3_v4_accessors)
     as::v4 vec4_b(vec2, vec2);
     as::v4 vec4_c(vec3, 4.0f);
 
+    // anonymous struct accessors
     EXPECT_EQ(vec4_a.x, vec2.x);
     EXPECT_EQ(vec4_a.y, vec2.y);
 
@@ -492,6 +525,153 @@ TEST(as_vec, v2_v3_v4_accessors)
     EXPECT_EQ(vec4_c.z, vec4_a.z);
     EXPECT_EQ(vec4_c.w, vec4_a.w);
 }
+
+TEST(as_vec, vec_data)
+{
+    // data mutable
+    {
+        as::v2 vec2(5.0f, 10.0f);
+        real *data = as::data(vec2);
+
+        EXPECT_EQ(data[0], 5.0f);
+        EXPECT_EQ(data[1], 10.0f);
+    }
+
+    // data const
+    {
+        as::v4 vec4(1.0f, 2.0f, 3.0f, 4.0f);
+        const real* data = as::const_data(vec4);
+
+        EXPECT_EQ(data[0], 1.0f);
+        EXPECT_EQ(data[1], 2.0f);
+        EXPECT_EQ(data[2], 3.0f);
+        EXPECT_EQ(data[3], 4.0f);
+    }
+
+    // r-value - will not compile
+    {
+        // as::data(as::v3(1.0f, 2.0f, 3.0f));
+    }
+
+    // data mutable
+    {
+        as::v2 vec2(20.0f, 40.0f);
+        real* data = as::data(vec2);
+
+        EXPECT_EQ(data[0], 20.0f);
+        EXPECT_EQ(data[1], 40.0f);
+
+        data[0] = 100.0f;
+        data[1] = 200.0f;
+
+        EXPECT_EQ(vec2.x, 100.0f);
+        EXPECT_EQ(vec2.y, 200.0f);
+    }
+
+    // generic data mutable
+    {
+        using int5 = as::Vec<int, 5>;
+        int5 int5_vec{ 11, 12, 13, 14, 15 };
+        int* data = as::data(int5_vec);
+
+        EXPECT_EQ(int5_vec[0], 11);
+        EXPECT_EQ(int5_vec[1], 12);
+        EXPECT_EQ(int5_vec[2], 13);
+        EXPECT_EQ(int5_vec[3], 14);
+        EXPECT_EQ(int5_vec[4], 15);
+
+        data[3] = 22;
+
+        EXPECT_EQ(int5_vec[3], 22);
+    }
+
+    // data const
+    {
+        using short7 = as::Vec<short, 7>;
+        short7 short7_vec{
+            (short)11, (short)22, (short)33, (short)44,
+            (short)55, (short)66, (short)77 };
+        const short* data = as::const_data(short7_vec);
+
+        EXPECT_EQ(short7_vec[0], 11);
+        EXPECT_EQ(short7_vec[1], 22);
+        EXPECT_EQ(short7_vec[2], 33);
+        EXPECT_EQ(short7_vec[3], 44);
+        EXPECT_EQ(short7_vec[4], 55);
+        EXPECT_EQ(short7_vec[5], 66);
+        EXPECT_EQ(short7_vec[6], 77);
+    }
+}
+
+TEST(as_vec, vec_make_from)
+{
+    // generic make_from v2
+    {
+        real data[2] = { 2.0f, 4.0f };
+        as::v2 vec2 = as::make_from(data);
+
+        EXPECT_EQ(vec2.x, 2.0f);
+        EXPECT_EQ(vec2.y, 4.0f);
+
+        // won't compile (array length 2 to as::v3
+        // as::v3 vec3 = as::make_from(data);
+    }
+
+    // generic make_from v3
+    {
+        real data[3] = { 1.0f, 2.0f, 3.0f };
+        as::v3 vec3 = as::make_from(data);
+
+        EXPECT_EQ(vec3.x, 1.0f);
+        EXPECT_EQ(vec3.y, 2.0f);
+        EXPECT_EQ(vec3.z, 3.0f);
+    }
+
+    // generic make_from <char, 6>
+    {
+        char data[6] = { 11, 12, 13, 14, 15, 16 };
+        as::Vec<char, 6> char_6 = as::make_from(data);
+
+        EXPECT_EQ(char_6[0], 11);
+        EXPECT_EQ(char_6[1], 12);
+        EXPECT_EQ(char_6[2], 13);
+        EXPECT_EQ(char_6[3], 14);
+        EXPECT_EQ(char_6[4], 15);
+        EXPECT_EQ(char_6[5], 16);
+    }
+
+    // v2_make_from
+    {
+        real data[2] = { 2.0f, 4.0f };
+        as::v2 vec2 = as::make_v2_from(data);
+
+        EXPECT_EQ(vec2.x, 2.0f);
+        EXPECT_EQ(vec2.y, 4.0f);
+    }
+
+    // v3_make_from
+    {
+        real data[3] = { 1.0f, 2.0f, 3.0f };
+        as::v3 vec3 = as::make_v3_from(data);
+
+        EXPECT_EQ(vec3.x, 1.0f);
+        EXPECT_EQ(vec3.y, 2.0f);
+        EXPECT_EQ(vec3.z, 3.0f);
+    }
+
+    // v4_make_from
+    {
+        real data[4] = { 4.0f, 8.0f, 12.0f, 16.0f };
+        as::v4 vec4 = as::make_v4_from(data);
+
+        EXPECT_EQ(vec4.x, 4.0f);
+        EXPECT_EQ(vec4.y, 8.0f);
+        EXPECT_EQ(vec4.z, 12.0f);
+        EXPECT_EQ(vec4.w, 16.0f);
+    }
+}
+
+// ------
 
 TEST(as_vec, cross)
 {
@@ -571,13 +751,6 @@ TEST(as_vec, init_compat) {
     print_v3(as_d);
     print_v4(as_v4);
     print_v4(as_v4_2);
-}
-
-TEST(as_vec, conversions) {
-    as::v4 a_v4(1.0f, 2.0f, 3.0f, 4.0f);
-    as::v2 a_v2 = a_v4.xy;
-
-    printf("%f %f\n", a_v2.x, a_v2.y);
 }
 
 TEST(as_vec, abs) {

@@ -2,7 +2,13 @@ namespace as
 {
 
 template<typename T, size_t n>
-AS_INLINE const T* data(const Vec<T, n>& vec)
+AS_INLINE const T* const_data(const Vec<T, n>& vec)
+{
+    return vec.elem;
+}
+
+template<typename T, size_t n>
+AS_INLINE T* data(Vec<T, n>& vec)
 {
     return vec.elem;
 }
