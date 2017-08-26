@@ -526,6 +526,41 @@ TEST(as_vec, v2_v3_v4_accessors)
     EXPECT_EQ(vec4_c.w, vec4_a.w);
 }
 
+TEST(as_vec, vec_size)
+{
+    size_t vec2_size = as::v2::size;
+    as::v2 vec2;
+    size_t vec2_inst_size = as::size(vec2);
+    EXPECT_EQ(vec2_size, 2);
+    EXPECT_EQ(vec2_inst_size, vec2_size);
+
+    size_t vec3_size = as::v3::size;
+    as::v3 vec3;
+    size_t vec3_inst_size = as::size(vec3);
+    EXPECT_EQ(vec3_size, 3);
+    EXPECT_EQ(vec3_inst_size, vec3_size);
+
+    size_t vec4_size = as::v4::size;
+    as::v4 vec4;
+    size_t vec4_inst_size = as::size(vec4);
+    EXPECT_EQ(vec4_size, 4);
+    EXPECT_EQ(vec4_inst_size, vec4_size);
+
+    using short7 = as::Vec<short, 7>;
+    short7 vec_short7;
+    size_t vec_short7_inst_size = as::size(vec_short7);
+    size_t short7_size = short7::size;
+    EXPECT_EQ(short7_size, 7);
+    EXPECT_EQ(vec_short7_inst_size, short7_size);
+
+    using int5 = as::Vec<int, 5>;
+    int5 vec_short5;
+    size_t vec_short5_inst_size = as::size(vec_short5);
+    size_t int5_size = int5::size;
+    EXPECT_EQ(int5_size, 5);
+    EXPECT_EQ(vec_short5_inst_size, int5_size);
+}
+
 TEST(as_vec, vec_data)
 {
     // data mutable
@@ -600,10 +635,14 @@ TEST(as_vec, vec_data)
         EXPECT_EQ(short7_vec[4], 55);
         EXPECT_EQ(short7_vec[5], 66);
         EXPECT_EQ(short7_vec[6], 77);
+
+        for (size_t i = 0; i < short7::size; ++i) {
+            EXPECT_EQ(short7_vec[i], data[i]);
+        }
     }
 }
 
-TEST(as_vec, vec_make_from)
+TEST(as_vec, vec_make_from_array)
 {
     // generic make_from v2
     {
@@ -613,7 +652,7 @@ TEST(as_vec, vec_make_from)
         EXPECT_EQ(vec2.x, 2.0f);
         EXPECT_EQ(vec2.y, 4.0f);
 
-        // won't compile (array length 2 to as::v3
+        // won't compile (array length 2 to as::v3)
         // as::v3 vec3 = as::make_from(data);
     }
 
@@ -663,6 +702,91 @@ TEST(as_vec, vec_make_from)
     {
         real data[4] = { 4.0f, 8.0f, 12.0f, 16.0f };
         as::v4 vec4 = as::make_v4_from(data);
+
+        EXPECT_EQ(vec4.x, 4.0f);
+        EXPECT_EQ(vec4.y, 8.0f);
+        EXPECT_EQ(vec4.z, 12.0f);
+        EXPECT_EQ(vec4.w, 16.0f);
+    }
+}
+
+TEST(as_vec, vec_make_from_pointer)
+{
+    // generic make_from v2
+    {
+        std::unique_ptr<real[]> data = std::make_unique<real[]>(2);
+        data[0] = 2.0f;
+        data[1] = 4.0f;
+        as::v2 vec2 = as::make_from<real, 2>(data.get());
+
+        EXPECT_EQ(vec2.x, 2.0f);
+        EXPECT_EQ(vec2.y, 4.0f);
+    }
+
+    // generic make_from v3
+    {
+        std::unique_ptr<real[]> data = std::make_unique<real[]>(3);
+        data[0] = 1.0f;
+        data[1] = 2.0f;
+        data[2] = 3.0f;
+        as::v3 vec3 = as::make_from<real, 3>(data.get());
+
+        EXPECT_EQ(vec3.x, 1.0f);
+        EXPECT_EQ(vec3.y, 2.0f);
+        EXPECT_EQ(vec3.z, 3.0f);
+    }
+
+    // generic make_from <char, 6>
+    {
+        std::unique_ptr<char[]> data = std::make_unique<char[]>(6);
+        data[0] = 11;
+        data[1] = 12;
+        data[2] = 13;
+        data[3] = 14;
+        data[4] = 15;
+        data[5] = 16;
+        as::Vec<char, 6> char_6 = as::make_from<char, 6>(data.get());
+
+        EXPECT_EQ(char_6[0], 11);
+        EXPECT_EQ(char_6[1], 12);
+        EXPECT_EQ(char_6[2], 13);
+        EXPECT_EQ(char_6[3], 14);
+        EXPECT_EQ(char_6[4], 15);
+        EXPECT_EQ(char_6[5], 16);
+    }
+
+    // v2_make_from
+    {
+        std::unique_ptr<real[]> data = std::make_unique<real[]>(2);
+        data[0] = 2.0f;
+        data[1] = 4.0f;
+        as::v2 vec2 = as::make_v2_from(data.get());
+
+        EXPECT_EQ(vec2.x, 2.0f);
+        EXPECT_EQ(vec2.y, 4.0f);
+    }
+
+    // v3_make_from
+    {
+        std::unique_ptr<real[]> data = std::make_unique<real[]>(3);
+        data[0] = 1.0f;
+        data[1] = 2.0f;
+        data[2] = 3.0f;
+        as::v3 vec3 = as::make_v3_from(data.get());
+
+        EXPECT_EQ(vec3.x, 1.0f);
+        EXPECT_EQ(vec3.y, 2.0f);
+        EXPECT_EQ(vec3.z, 3.0f);
+    }
+
+    // v4_make_from
+    {
+        std::unique_ptr<real[]> data = std::make_unique<real[]>(4);
+        data[0] = 4.0f;
+        data[1] = 8.0f;
+        data[2] = 12.0f;
+        data[3] = 16.0f;
+        as::v4 vec4 = as::make_v4_from(data.get());
 
         EXPECT_EQ(vec4.x, 4.0f);
         EXPECT_EQ(vec4.y, 8.0f);

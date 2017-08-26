@@ -15,6 +15,8 @@ template<typename T, size_t n>
 struct Vec
 {
     T elem[n];
+    static const size_t size = n;
+
     AS_INLINE T& operator[](size_t i) { return elem[i]; }
     AS_INLINE const T& operator[](size_t i) const { return elem[i]; }
 
@@ -43,6 +45,8 @@ struct Vec<real, 2>
         struct { real x; real y; };
     };
 
+    static const size_t size = 2;
+
     AS_INLINE real& operator[](size_t i) { return elem[i]; }
     AS_INLINE const real& operator[](size_t i) const { return elem[i]; }
 
@@ -66,6 +70,8 @@ struct Vec<real, 3>
         struct { real x; real y; real z; };
         v2 xy;
     };
+
+    static const size_t size = 3;
 
     AS_INLINE real& operator[](size_t i) { return elem[i]; }
     AS_INLINE const real& operator[](size_t i) const { return elem[i]; }
@@ -93,6 +99,8 @@ struct Vec<real, 4>
         v3 xyz;
     };
 
+    static const size_t size = 4;
+
     AS_INLINE real& operator[](size_t i) { return elem[i]; }
     AS_INLINE const real& operator[](size_t i) const { return elem[i]; }
 
@@ -111,6 +119,9 @@ struct Vec<real, 4>
 };
 
 template<typename T, size_t n>
+AS_INLINE size_t size(Vec<T, n>& vec);
+
+template<typename T, size_t n>
 AS_INLINE T* data(Vec<T, n>& vec);
 
 template<typename T, size_t n>
@@ -122,14 +133,14 @@ AS_INLINE Vec<T, n> make_from(const T(&data)[n]);
 template<typename T, size_t n>
 AS_INLINE Vec<T, n> make_from(const T* data);
 
-template<typename T>
-AS_INLINE v2 make_v2_from(const T* data);
+AS_INLINE v2 make_v2_from(const real* data);
+AS_INLINE v2 make_v2_from(const real(&data)[2]);
 
-template<typename T>
-AS_INLINE v3 make_v3_from(const T* data);
+AS_INLINE v3 make_v3_from(const real* data);
+AS_INLINE v3 make_v3_from(const real(&data)[3]);
 
-template<typename T>
-AS_INLINE v4 make_v4_from(const T* data);
+AS_INLINE v4 make_v4_from(const real* data);
+AS_INLINE v4 make_v4_from(const real(&data)[4]);
 
 template<typename T, size_t n>
 AS_INLINE T dot(const Vec<T, n>& lhs, const Vec<T, n>& rhs);

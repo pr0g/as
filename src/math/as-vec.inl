@@ -2,6 +2,12 @@ namespace as
 {
 
 template<typename T, size_t n>
+AS_INLINE size_t size(Vec<T, n>&)
+{
+    return n;
+}
+
+template<typename T, size_t n>
 AS_INLINE const T* const_data(const Vec<T, n>& vec)
 {
     return vec.elem;
@@ -29,22 +35,34 @@ AS_INLINE Vec<T, n> make_from(const T* data)
     return result;
 }
 
-template<typename T>
-AS_INLINE v2 make_v2_from(const T* data)
+AS_INLINE v2 make_v2_from(const real* data)
 {
-    return make_from<T, 2>(data);
+    return make_from<real, 2>(data);
 }
 
-template<typename T>
-AS_INLINE v3 make_v3_from(const T* data)
+AS_INLINE v2 make_v2_from(const real(&data)[2])
 {
-    return make_from<T, 3>(data);
+    return make_from(data);
 }
 
-template<typename T>
-AS_INLINE v4 make_v4_from(const T* data)
+AS_INLINE v3 make_v3_from(const real* data)
 {
-    return make_from<T, 4>(data);
+    return make_from<real, 3>(data);
+}
+
+AS_INLINE v3 make_v3_from(const real(&data)[3])
+{
+    return make_from(data);
+}
+
+AS_INLINE v4 make_v4_from(const real* data)
+{
+    return make_from<real, 4>(data);
+}
+
+AS_INLINE v4 make_v4_from(const real(&data)[4])
+{
+    return make_from(data);
 }
 
 template<typename T, size_t n>
