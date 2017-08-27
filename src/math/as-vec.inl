@@ -20,7 +20,7 @@ AS_INLINE T* data(Vec<T, n>& vec)
 }
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> make_from(const T(&data)[n])
+AS_INLINE Vec<T, n> make_vec_from_arr(const T(&data)[n])
 {
     Vec<T, n> result;
     std::copy(std::begin(data), std::end(data), result.elem);
@@ -28,41 +28,41 @@ AS_INLINE Vec<T, n> make_from(const T(&data)[n])
 }
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> make_from(const T* data)
+AS_INLINE Vec<T, n> make_vec_from_ptr(const T* data)
 {
     Vec<T, n> result;
     std::copy(data, data + n, result.elem);
     return result;
 }
 
-AS_INLINE v2 make_v2_from(const real* data)
+AS_INLINE v2 make_v2_from_ptr(const real* data)
 {
-    return make_from<real, 2>(data);
+    return make_vec_from_ptr<real, 2>(data);
 }
 
-AS_INLINE v2 make_v2_from(const real(&data)[2])
+AS_INLINE v2 make_v2_from_arr(const real(&data)[2])
 {
-    return make_from(data);
+    return make_vec_from_arr(data);
 }
 
-AS_INLINE v3 make_v3_from(const real* data)
+AS_INLINE v3 make_v3_from_ptr(const real* data)
 {
-    return make_from<real, 3>(data);
+    return make_vec_from_ptr<real, 3>(data);
 }
 
-AS_INLINE v3 make_v3_from(const real(&data)[3])
+AS_INLINE v3 make_v3_from_arr(const real(&data)[3])
 {
-    return make_from(data);
+    return make_vec_from_arr(data);
 }
 
-AS_INLINE v4 make_v4_from(const real* data)
+AS_INLINE v4 make_v4_from_ptr(const real* data)
 {
-    return make_from<real, 4>(data);
+    return make_vec_from_ptr<real, 4>(data);
 }
 
-AS_INLINE v4 make_v4_from(const real(&data)[4])
+AS_INLINE v4 make_v4_from_arr(const real(&data)[4])
 {
-    return make_from(data);
+    return make_vec_from_arr(data);
 }
 
 template<typename T, size_t n>

@@ -17,8 +17,8 @@ struct Vec
     T elem[n];
     static const size_t size = n;
 
-    AS_INLINE T& operator[](size_t i) { return elem[i]; }
-    AS_INLINE const T& operator[](size_t i) const { return elem[i]; }
+    constexpr AS_INLINE T& operator[](size_t i) { return elem[i]; }
+    constexpr AS_INLINE const T& operator[](size_t i) const { return elem[i]; }
 
     Vec() = default;
     Vec(const Vec&) = default;
@@ -47,8 +47,8 @@ struct Vec<real, 2>
 
     static const size_t size = 2;
 
-    AS_INLINE real& operator[](size_t i) { return elem[i]; }
-    AS_INLINE const real& operator[](size_t i) const { return elem[i]; }
+    constexpr AS_INLINE real& operator[](size_t i) { return elem[i]; }
+    constexpr AS_INLINE const real& operator[](size_t i) const { return elem[i]; }
 
     explicit Vec() = default;
     Vec(const Vec&) = default;
@@ -68,13 +68,12 @@ struct Vec<real, 3>
     {
         real elem[3];
         struct { real x; real y; real z; };
-        v2 xy;
     };
 
     static const size_t size = 3;
 
-    AS_INLINE real& operator[](size_t i) { return elem[i]; }
-    AS_INLINE const real& operator[](size_t i) const { return elem[i]; }
+    constexpr AS_INLINE real& operator[](size_t i) { return elem[i]; }
+    constexpr AS_INLINE const real& operator[](size_t i) const { return elem[i]; }
 
     explicit Vec() = default;
     Vec(const Vec&) = default;
@@ -86,6 +85,8 @@ struct Vec<real, 3>
     constexpr explicit Vec(real xyz) : x(xyz), y(xyz), z(xyz) {}
     constexpr explicit Vec(const v2& xy, real z) : x(xy.x), y(xy.y), z(z) {}
     constexpr explicit Vec(real x, real y, real z) : x(x), y(y), z(z) {}
+
+    AS_INLINE v2 xy() const { return v2(x, y); }
 };
 
 template<>
@@ -95,14 +96,12 @@ struct Vec<real, 4>
     {
         real elem[4];
         struct { real x; real y; real z; real w; };
-        struct { v2 xy; v2 zw; };
-        v3 xyz;
     };
 
     static const size_t size = 4;
 
-    AS_INLINE real& operator[](size_t i) { return elem[i]; }
-    AS_INLINE const real& operator[](size_t i) const { return elem[i]; }
+    constexpr AS_INLINE real& operator[](size_t i) { return elem[i]; }
+    constexpr AS_INLINE const real& operator[](size_t i) const { return elem[i]; }
 
     explicit Vec() = default;
     Vec(const Vec&) = default;
@@ -116,6 +115,10 @@ struct Vec<real, 4>
     constexpr explicit Vec(const v2& xy, real z, real w) : x(xy.x), y(xy.y), z(z), w(w) {}
     constexpr explicit Vec(const v2& xy, const v2& zw) : x(xy.x), y(xy.y), z(zw.x), w(zw.y) {}
     constexpr explicit Vec(real x, real y, real z, real w) : x(x), y(y), z(z), w(w) {}
+
+    AS_INLINE v2 xy() const { return v2(x, y); }
+    AS_INLINE v2 zw() const { return v2(z, w); }
+    AS_INLINE v3 xyz() const { return v3(x, y, z); }
 };
 
 template<typename T, size_t n>
@@ -128,19 +131,19 @@ template<typename T, size_t n>
 AS_INLINE const T* const_data(const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> make_from(const T(&data)[n]);
+AS_INLINE Vec<T, n> make_vec_from_arr(const T(&data)[n]);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> make_from(const T* data);
+AS_INLINE Vec<T, n> make_vec_from_ptr(const T* data);
 
-AS_INLINE v2 make_v2_from(const real* data);
-AS_INLINE v2 make_v2_from(const real(&data)[2]);
+AS_INLINE v2 make_v2_from_ptr(const real* data);
+AS_INLINE v2 make_v2_from_arr(const real(&data)[2]);
 
-AS_INLINE v3 make_v3_from(const real* data);
-AS_INLINE v3 make_v3_from(const real(&data)[3]);
+AS_INLINE v3 make_v3_from_ptr(const real* data);
+AS_INLINE v3 make_v3_from_arr(const real(&data)[3]);
 
-AS_INLINE v4 make_v4_from(const real* data);
-AS_INLINE v4 make_v4_from(const real(&data)[4]);
+AS_INLINE v4 make_v4_from_ptr(const real* data);
+AS_INLINE v4 make_v4_from_arr(const real(&data)[4]);
 
 template<typename T, size_t n>
 AS_INLINE T dot(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
