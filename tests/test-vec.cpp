@@ -15,6 +15,8 @@
 
 #include <memory>
 
+const real epsilon = std::numeric_limits<real>::epsilon();
+
 TEST(as_vec, v2_initialization)
 {
     // default initialization
@@ -646,7 +648,7 @@ TEST(as_vec, vec_data)
 
 TEST(as_vec, vec_make_from_arr)
 {
-    // generic make_from v2
+    // generic make_from_arr v2
     {
         real data[2] = { 2.0f, 4.0f };
         as::v2 vec2 = as::make_vec_from_arr(data);
@@ -658,7 +660,7 @@ TEST(as_vec, vec_make_from_arr)
         // as::v3 vec3 = as::make_from(data);
     }
 
-    // generic make_from v3
+    // generic make_from_arr v3
     {
         real data[3] = { 1.0f, 2.0f, 3.0f };
         as::v3 vec3 = as::make_vec_from_arr(data);
@@ -668,7 +670,7 @@ TEST(as_vec, vec_make_from_arr)
         EXPECT_EQ(vec3.z, 3.0f);
     }
 
-    // generic make_from <char, 6>
+    // generic make_from_arr <char, 6>
     {
         char data[6] = { 11, 12, 13, 14, 15, 16 };
         as::Vec<char, 6> char_6 = as::make_vec_from_arr(data);
@@ -681,7 +683,7 @@ TEST(as_vec, vec_make_from_arr)
         EXPECT_EQ(char_6[5], 16);
     }
 
-    // v2_make_from
+    // v2_make_from_arr
     {
         real data[2] = { 2.0f, 4.0f };
         as::v2 vec2 = as::make_v2_from_arr(data);
@@ -690,7 +692,7 @@ TEST(as_vec, vec_make_from_arr)
         EXPECT_EQ(vec2.y, 4.0f);
     }
 
-    // v3_make_from
+    // v3_make_from_arr
     {
         real data[3] = { 1.0f, 2.0f, 3.0f };
         as::v3 vec3 = as::make_v3_from_arr(data);
@@ -700,7 +702,7 @@ TEST(as_vec, vec_make_from_arr)
         EXPECT_EQ(vec3.z, 3.0f);
     }
 
-    // v4_make_from
+    // v4_make_from_arr
     {
         real data[4] = { 4.0f, 8.0f, 12.0f, 16.0f };
         as::v4 vec4 = as::make_v4_from_arr(data);
@@ -714,7 +716,7 @@ TEST(as_vec, vec_make_from_arr)
 
 TEST(as_vec, vec_make_from_ptr)
 {
-    // generic make_from v2
+    // generic make_from_ptr v2
     {
         std::unique_ptr<real[]> data = std::make_unique<real[]>(2);
         data[0] = 2.0f;
@@ -725,7 +727,7 @@ TEST(as_vec, vec_make_from_ptr)
         EXPECT_EQ(vec2.y, 4.0f);
     }
 
-    // generic make_from v3
+    // generic make_from_ptr v3
     {
         std::unique_ptr<real[]> data = std::make_unique<real[]>(3);
         data[0] = 1.0f;
@@ -738,7 +740,7 @@ TEST(as_vec, vec_make_from_ptr)
         EXPECT_EQ(vec3.z, 3.0f);
     }
 
-    // generic make_from <char, 6>
+    // generic make_from_ptr <char, 6>
     {
         std::unique_ptr<char[]> data = std::make_unique<char[]>(6);
         data[0] = 11;
@@ -757,7 +759,7 @@ TEST(as_vec, vec_make_from_ptr)
         EXPECT_EQ(char_6[5], 16);
     }
 
-    // v2_make_from
+    // v2_make_from_ptr
     {
         std::unique_ptr<real[]> data = std::make_unique<real[]>(2);
         data[0] = 2.0f;
@@ -768,7 +770,7 @@ TEST(as_vec, vec_make_from_ptr)
         EXPECT_EQ(vec2.y, 4.0f);
     }
 
-    // v3_make_from
+    // v3_make_from_ptr
     {
         std::unique_ptr<real[]> data = std::make_unique<real[]>(3);
         data[0] = 1.0f;
@@ -781,7 +783,7 @@ TEST(as_vec, vec_make_from_ptr)
         EXPECT_EQ(vec3.z, 3.0f);
     }
 
-    // v4_make_from
+    // v4_make_from_ptr
     {
         std::unique_ptr<real[]> data = std::make_unique<real[]>(4);
         data[0] = 4.0f;
@@ -804,6 +806,34 @@ TEST(as_vec, vec_make_from_ptr)
         // does not compile - types do not match
         // as::Vec<char, 2> char_2 = as::make_vec_from_ptr<char, 2>(data.get());
         // as::v2 vec2 = as::make_vec_from_ptr<float, 2>(data.get());
+    }
+}
+
+TEST(as_vec, dot)
+{
+    // note: comparison values calculated using - http://calculator.vhex.net
+    {
+        as::v3 vec1(1.0f, 2.0f, 3.0f);
+        as::v3 vec2(4.0f, 5.0f, 6.0f);
+
+        real dot_result = as::dot(vec1, vec2);
+        EXPECT_NEAR(dot_result, 32.0f, epsilon);
+    }
+
+    {
+        as::v3 vec1(-50.0f, 20.0f, 9.0f);
+        as::v3 vec2(-1.0f, -7.0f, 4.0f);
+
+        real dot_result = as::dot(vec1, vec2);
+        EXPECT_NEAR(dot_result, -54.0f, epsilon);
+    }
+
+    {
+        as::v3 vec1(-27.367f, 0.1165f, 0.921f);
+        as::v3 vec2(-123.456f, -7.732f, 2.491f);
+
+        real dot_result = as::dot(vec1, vec2);
+        EXPECT_NEAR(dot_result, 3380.013785f, epsilon);
     }
 }
 
@@ -988,13 +1018,13 @@ TEST(as_vec, select) {
     int3 f({11, 12, 13});
     int3 g(11, 12, 13);
 
-    int3 h = int3{1};
-    int3 i = int3{1, 2};
+    //int3 h = int3{1};
+    //int3 i = int3{1, 2};
 
     // implicit conversions are allowed
     int3 k = { 5, 6, 7 };
     int3 l = { 1 };
-    int3 m = 2;
+    //int3 m = 2;
 
     printf("v = x: %d, y: %d, z: %d\n", e[0], e[1], e[2]);
     printf("v = x: %d, y: %d, z: %d\n", f[0], f[1], f[2]);
