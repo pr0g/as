@@ -20,7 +20,7 @@ __pragma(warning(disable:4201))
     static_assert(false, "Must define AS_COL_MAJOR or AS_ROW_MAJOR");
 #elif (defined(AS_COL_MAJOR) && defined(AS_ROW_MAJOR))
     static_assert(false, "Must define only AS_COL_MAJOR or AS_ROW_MAJOR");
-#endif // // AS_ROW_MAJOR ? AS_COL_MAJOR
+#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
 template<typename T, size_t r, size_t c>
 struct Mat

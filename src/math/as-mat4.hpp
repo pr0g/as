@@ -147,6 +147,18 @@ AS_INLINE m44 make_perspective_gl_lh(real fovy, real aspect, real n, real f)
     return result;
 }
 
+// vulkan default
+AS_INLINE m44 make_perspective_vulkan_rh(real fovy, real aspect, real n, real f)
+{
+    // vulkan clip space has inverted Y and half z
+    const m44 clip(1.0f, 0.0f, 0.0f, 0.0f,
+                   0.0f, -1.0f, 0.0f, 0.0f,
+                   0.0f, 0.0f, 0.5f, 0.0f,
+                   0.0f, 0.0f, 0.5f, 1.0f);
+
+    return clip * make_perspective_gl_rh(fovy, aspect, n, f);
+}
+
 // directX default
 AS_INLINE m44 make_perspective_d3d_lh(real fovy, real aspect, real n, real f)
 {

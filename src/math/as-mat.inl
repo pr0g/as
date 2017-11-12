@@ -32,7 +32,7 @@ AS_INLINE Mat<T, r, c> operator*(const Mat<T, r, c>& lhs, const Mat<T, r, c>& rh
         for (size_t rowIndex = 0; rowIndex < r; ++rowIndex) {
             T value = 0;
             for (size_t step = 0; step < r; ++step) {
-                value += lhs[rowIndex + (c * step)] * rhs[(colIndex * r) + step];
+                value += lhs[rowIndex + c * step] * rhs[colIndex * r + step];
             }
             result[colIndex * c + rowIndex] = value;
         }
@@ -44,7 +44,7 @@ for (size_t rowIndex = 0; rowIndex < r; ++rowIndex) {
     for (size_t colIndex = 0; colIndex < c; ++colIndex) {
         T value = 0;
         for (size_t step = 0; step < c; ++step) {
-            value += lhs[(rowIndex * r) + step] * rhs[colIndex + (c * step)];
+            value += lhs[rowIndex * r + step] * rhs[colIndex + c * step];
         }
         result[rowIndex * c + colIndex] = value;
     }
