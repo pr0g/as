@@ -40,12 +40,12 @@ AS_INLINE T clamp(T t, T v0, T v1)
     return t < v0 ? v0 : t > v1 ? v1 : t;
 }
 
-AS_INLINE real degToRad(real degrees)
+AS_INLINE real deg_to_rad(real degrees)
 {
     return degrees * DEG_TO_RAD;
 }
 
-AS_INLINE real radToDeg(real radians)
+AS_INLINE real rad_to_deg(real radians)
 {
     return radians * RAD_TO_DEG;
 }

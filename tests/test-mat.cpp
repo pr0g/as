@@ -89,7 +89,7 @@ TEST(as_mat4, inverse) {
     // 							 0.0f, 0.0f, 0.0f, 1.0f );
 
     glm::mat4 glm_a = glm::rotate( glm::mat4(1.0f), glm::radians( 100.0f ), glm::vec3( 1.0f, 0.0f, 0.0f ) );
-    as::m44 as_a = as::m44( as::make_rotation_x( as::degToRad( 100.0f ) ), as::v3_zero );
+    as::m44 as_a = as::m44( as::make_rotation_x( as::deg_to_rad( 100.0f ) ), as::v3_zero );
 
     glm::mat4 glm_a_inverse = glm::inverse( glm_a );
     as::m44 as_a_inverse = as::inverse( as_a );
@@ -181,7 +181,7 @@ TEST(as_mat, mat_mult) {
     as::v4 result_row = vec * mat;
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 
-    as::m33 mat_rot = as::make_rotation_x(as::degToRad(90.0f));
+    as::m33 mat_rot = as::make_rotation_x(as::deg_to_rad(90.0f));
     as::m44 transform_rot = as::m44( mat_rot, as::v3_zero );
 
     as::v4 dir(0.0, 1.0f, 0.0f, 0.0f);
@@ -197,12 +197,12 @@ TEST(as_mat, mat_mult) {
 }
 
 TEST(as_mat, mat_proj) {
-    as::m44 proj = as::make_perspective_gl_lh(as::degToRad(60.0f), 4.0f/3.0f, 0.1f, 100.0f);
+    as::m44 proj = as::make_perspective_gl_lh(as::deg_to_rad(60.0f), 4.0f/3.0f, 0.1f, 100.0f);
     for (size_t i = 0; i < 16; ++i) {
         printf("proj[%d]: %f, ", static_cast<int>(i), proj[i]);
     }
 
-    glm::mat4 glm_proj = glm::perspective(as::degToRad(60.0f), 4.0f/3.0f, 0.1f, 100.0f);
+    glm::mat4 glm_proj = glm::perspective(as::deg_to_rad(60.0f), 4.0f/3.0f, 0.1f, 100.0f);
     const float* glm_data = (const float*)glm::value_ptr(glm_proj);
     for (size_t i = 0; i < 16; ++i) {
         printf("glm proj[%d]: %f, ", static_cast<int>(i), glm_data[i]);
