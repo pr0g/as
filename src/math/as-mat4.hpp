@@ -114,6 +114,11 @@ AS_INLINE m44 translation(const v3& translation)
     return m44(v4_x, v4_y, v4_z, v4(translation, 1.0f));
 }
 
+AS_INLINE m44 rotation(const m33& rotation)
+{
+    return m44(rotation, v3_zero);
+}
+
 // openGL default
 AS_INLINE m44 make_perspective_gl_rh(real fovy, real aspect, real n, real f)
 {
