@@ -17,8 +17,8 @@ struct Vec
     T elem[n];
     static const size_t size = n;
 
-    constexpr AS_INLINE T& operator[](size_t i) { return elem[i]; }
-    constexpr AS_INLINE const T& operator[](size_t i) const { return elem[i]; }
+    constexpr T& operator[](size_t i) { return elem[i]; }
+    constexpr const T& operator[](size_t i) const { return elem[i]; }
 
     Vec() = default;
     Vec(const Vec&) = default;
@@ -32,10 +32,6 @@ struct Vec
     Vec(Args... args) noexcept : elem{ std::forward<Args>(args)... } {}
 };
 
-using v2 = Vec<real, 2>;
-using v3 = Vec<real, 3>;
-using v4 = Vec<real, 4>;
-
 template<>
 struct Vec<real, 2>
 {
@@ -47,8 +43,8 @@ struct Vec<real, 2>
 
     static const size_t size = 2;
 
-    constexpr AS_INLINE real& operator[](size_t i) { return elem[i]; }
-    constexpr AS_INLINE const real& operator[](size_t i) const { return elem[i]; }
+    constexpr real& operator[](size_t i) { return elem[i]; }
+    constexpr const real& operator[](size_t i) const { return elem[i]; }
 
     explicit Vec() = default;
     Vec(const Vec&) = default;
@@ -61,6 +57,8 @@ struct Vec<real, 2>
     constexpr explicit Vec(real x, real y) : x(x), y(y) {}
 };
 
+using v2 = Vec<real, 2>;
+
 template<>
 struct Vec<real, 3>
 {
@@ -72,8 +70,8 @@ struct Vec<real, 3>
 
     static const size_t size = 3;
 
-    constexpr AS_INLINE real& operator[](size_t i) { return elem[i]; }
-    constexpr AS_INLINE const real& operator[](size_t i) const { return elem[i]; }
+    constexpr real& operator[](size_t i) { return elem[i]; }
+    constexpr const real& operator[](size_t i) const { return elem[i]; }
 
     explicit Vec() = default;
     Vec(const Vec&) = default;
@@ -86,8 +84,10 @@ struct Vec<real, 3>
     constexpr explicit Vec(const v2& xy, real z) : x(xy.x), y(xy.y), z(z) {}
     constexpr explicit Vec(real x, real y, real z) : x(x), y(y), z(z) {}
 
-    AS_INLINE v2 xy() const { return v2(x, y); }
+    v2 xy() const { return v2(x, y); }
 };
+
+using v3 = Vec<real, 3>;
 
 template<>
 struct Vec<real, 4>
@@ -100,8 +100,8 @@ struct Vec<real, 4>
 
     static const size_t size = 4;
 
-    constexpr AS_INLINE real& operator[](size_t i) { return elem[i]; }
-    constexpr AS_INLINE const real& operator[](size_t i) const { return elem[i]; }
+    constexpr real& operator[](size_t i) { return elem[i]; }
+    constexpr const real& operator[](size_t i) const { return elem[i]; }
 
     explicit Vec() = default;
     Vec(const Vec&) = default;
@@ -116,10 +116,12 @@ struct Vec<real, 4>
     constexpr explicit Vec(const v2& xy, const v2& zw) : x(xy.x), y(xy.y), z(zw.x), w(zw.y) {}
     constexpr explicit Vec(real x, real y, real z, real w) : x(x), y(y), z(z), w(w) {}
 
-    AS_INLINE v2 xy() const { return v2(x, y); }
-    AS_INLINE v2 zw() const { return v2(z, w); }
-    AS_INLINE v3 xyz() const { return v3(x, y, z); }
+    v2 xy() const { return v2(x, y); }
+    v2 zw() const { return v2(z, w); }
+    v3 xyz() const { return v3(x, y, z); }
 };
+
+using v4 = Vec<real, 4>;
 
 template<typename T, size_t n>
 AS_INLINE size_t size(Vec<T, n>& vec);

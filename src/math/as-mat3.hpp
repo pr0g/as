@@ -45,8 +45,8 @@ template<> struct Mat<real, 3, 3>
     v3 row2() const { return v3(elem_rc[0][2], elem_rc[1][2], elem_rc[2][2]); }
 #endif
 
-    AS_INLINE real& operator[](size_t i) { return elem[i]; }
-    AS_INLINE real operator[](size_t i) const { return elem[i]; }
+    constexpr real& operator[](size_t i) { return elem[i]; }
+    constexpr real operator[](size_t i) const { return elem[i]; }
 
     explicit Mat() = default;
     Mat(const Mat& mat) = default;
@@ -87,10 +87,9 @@ __pragma(warning(pop))
 
 const m33 m33_id = identity<real, 3>();
 
-template<typename T>
-AS_INLINE m33 make_m33_from(const T* data)
+AS_INLINE m33 make_m33_from(const real* data)
 {
-    return make_from<T, 3, 3>(data);
+    return make_from<real, 3, 3>(data);
 }
 
 AS_INLINE m33 axis_angle_rotation(v3 axis, real radians)

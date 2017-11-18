@@ -51,8 +51,8 @@ template<> struct Mat<real, 4, 4>
     v4 row3() const { return v4(elem_rc[3][0], elem_rc[3][1], elem_rc[3][2], elem_rc[3][3]); }
 #endif
 
-    AS_INLINE real& operator[](size_t i) { return elem[i]; }
-    AS_INLINE const real& operator[](size_t i) const { return elem[i]; }
+    constexpr real& operator[](size_t i) { return elem[i]; }
+    constexpr const real& operator[](size_t i) const { return elem[i]; }
 
     explicit Mat() = default;
     Mat(const Mat& mat) = default;
@@ -103,10 +103,9 @@ __pragma(warning(pop))
 
 const m44 m44_id = identity<real, 4>();
 
-template<typename T>
-AS_INLINE m44 make_m44_from(const T* data)
+AS_INLINE m44 make_m44_from(const real* data)
 {
-    return make_from<T, 4, 4>(data);
+    return make_from<real, 4, 4>(data);
 }
 
 AS_INLINE m44 translation(const v3& translation)
