@@ -48,7 +48,7 @@ template<> struct Mat<real, 3, 3>
     constexpr real& operator[](size_t i) { return elem[i]; }
     constexpr real operator[](size_t i) const { return elem[i]; }
 
-    explicit Mat() = default;
+    Mat() = default;
     Mat(const Mat& mat) = default;
     Mat& operator=(const Mat& mat) = default;
     Mat(Mat&& mat) noexcept = default;

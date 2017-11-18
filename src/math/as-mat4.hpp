@@ -54,7 +54,7 @@ template<> struct Mat<real, 4, 4>
     constexpr real& operator[](size_t i) { return elem[i]; }
     constexpr const real& operator[](size_t i) const { return elem[i]; }
 
-    explicit Mat() = default;
+    Mat() = default;
     Mat(const Mat& mat) = default;
     Mat& operator=(const Mat& mat) = default;
     Mat(Mat&& mat) noexcept = default;
@@ -121,8 +121,7 @@ AS_INLINE m44 rotation(const m33& rotation)
 // openGL default
 AS_INLINE m44 make_perspective_gl_rh(real fovy, real aspect, real n, real f)
 {
-    m44 result;
-    memset(&result, 0, sizeof(result));
+    m44 result = {};
 
     real e = 1.0f / tanr(fovy * 0.5f);
 
@@ -137,8 +136,7 @@ AS_INLINE m44 make_perspective_gl_rh(real fovy, real aspect, real n, real f)
 
 AS_INLINE m44 make_perspective_gl_lh(real fovy, real aspect, real n, real f)
 {
-    m44 result;
-    memset(&result, 0, sizeof(result));
+    m44 result = {};
 
     real e = 1.0f / tanr(fovy * 0.5f);
 
@@ -166,8 +164,7 @@ AS_INLINE m44 make_perspective_vulkan_rh(real fovy, real aspect, real n, real f)
 // directX default
 AS_INLINE m44 make_perspective_d3d_lh(real fovy, real aspect, real n, real f)
 {
-    m44 result;
-    memset(&result, 0, sizeof(result));
+    m44 result = {};
 
     real e = 1.0f / tanr(fovy * 0.5f);
 
@@ -182,8 +179,7 @@ AS_INLINE m44 make_perspective_d3d_lh(real fovy, real aspect, real n, real f)
 
 AS_INLINE m44 make_perspective_d3d_rh(real fovy, real aspect, real n, real f)
 {
-    m44 result;
-    memset(&result, 0, sizeof(result));
+    m44 result = {};
 
     real e = 1.0f / tanr(fovy * 0.5f);
 
@@ -199,8 +195,7 @@ AS_INLINE m44 make_perspective_d3d_rh(real fovy, real aspect, real n, real f)
 // openGL default
 AS_INLINE m44 make_ortho_gl_rh(real l, real r, real b, real t, real n, real f)
 {
-    m44 result;
-    memset(&result, 0, sizeof(result));
+    m44 result = {};
 
     real x = 1.0f / (r - l);
     real y = 1.0f / (t - b);
@@ -220,8 +215,7 @@ AS_INLINE m44 make_ortho_gl_rh(real l, real r, real b, real t, real n, real f)
 // directx default
 AS_INLINE m44 make_ortho_d3d_lh(real l, real r, real b, real t, real n, real f)
 {
-    m44 result;
-    memset(&result, 0, sizeof(result));
+    m44 result = {};
 
     real x = 1.0f / (r - l);
     real y = 1.0f / (t - b);

@@ -46,7 +46,7 @@ struct Vec<real, 2>
     constexpr real& operator[](size_t i) { return elem[i]; }
     constexpr const real& operator[](size_t i) const { return elem[i]; }
 
-    explicit Vec() = default;
+    Vec() = default;
     Vec(const Vec&) = default;
     Vec& operator=(const Vec&) = default;
     Vec(Vec&&) noexcept = default;
@@ -73,7 +73,7 @@ struct Vec<real, 3>
     constexpr real& operator[](size_t i) { return elem[i]; }
     constexpr const real& operator[](size_t i) const { return elem[i]; }
 
-    explicit Vec() = default;
+    Vec() = default;
     Vec(const Vec&) = default;
     Vec& operator=(const Vec&) = default;
     Vec(Vec&&) noexcept = default;
@@ -103,7 +103,7 @@ struct Vec<real, 4>
     constexpr real& operator[](size_t i) { return elem[i]; }
     constexpr const real& operator[](size_t i) const { return elem[i]; }
 
-    explicit Vec() = default;
+    Vec() = default;
     Vec(const Vec&) = default;
     Vec& operator=(const Vec&) = default;
     Vec(Vec&&) noexcept = default;
