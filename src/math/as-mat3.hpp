@@ -139,14 +139,10 @@ AS_INLINE m33 make_rotation_zxy(real x, real y, real z)
 
 AS_INLINE m33 make_rotation_x(real radians)
 {
-    m33 result;
+    m33 result = {};
     result[0] = 1.0f;
-    result[1] = 0.0f;
-    result[2] = 0.0f;
-    result[3] = 0.0f;
     result[4] = cosr(radians);
     result[5] = sinr(radians);
-    result[6] = 0.0f;
     result[7] = -sinr(radians);
     result[8] = cosr(radians);
     return result;
@@ -154,30 +150,22 @@ AS_INLINE m33 make_rotation_x(real radians)
 
 AS_INLINE m33 make_rotation_y(real radians)
 {
-    m33 result;
+    m33 result = {};
     result[0] = cosr(radians);
-    result[1] = 0.0f;
     result[2] = -sinr(radians);
-    result[3] = 0.0f;
     result[4] = 1.0f;
-    result[5] = 0.0f;
     result[6] = sinr(radians);
-    result[7] = 0.0f;
     result[8] = cosr(radians);
     return result;
 }
 
 AS_INLINE m33 make_rotation_z(real radians)
 {
-    m33 result;
+    m33 result = {};
     result[0] = cosr(radians);
     result[1] = sinr(radians);
-    result[2] = 0.0f;
     result[3] = -sinr(radians);
     result[4] = cosr(radians);
-    result[5] = 0.0f;
-    result[6] = 0.0f;
-    result[7] = 0.0f;
     result[8] = 1.0f;
     return result;
 }
