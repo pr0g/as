@@ -13,6 +13,9 @@
 #include <cmath>
 #include <cfloat>
 
+namespace as
+{
+
 // typedefs
 typedef int8_t s8;
 typedef int16_t s16;
@@ -64,9 +67,6 @@ typedef double real;
 __pragma(warning(push))
 __pragma(warning(disable: 4251))
 #endif // _MSC_VER
-
-namespace as
-{
 
 #ifdef AS_FUNCDLL_EXPORT
 #ifdef _MSC_VER

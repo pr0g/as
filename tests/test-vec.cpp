@@ -15,7 +15,7 @@
 
 #include <memory>
 
-const real epsilon = std::numeric_limits<real>::epsilon();
+const as::real epsilon = std::numeric_limits<as::real>::epsilon();
 
 TEST(as_vec, v2_initialization)
 {
@@ -570,7 +570,7 @@ TEST(as_vec, vec_data)
     // data mutable
     {
         as::v2 vec2(5.0f, 10.0f);
-        real *data = as::data(vec2);
+        as::real *data = as::data(vec2);
 
         EXPECT_EQ(data[0], 5.0f);
         EXPECT_EQ(data[1], 10.0f);
@@ -579,7 +579,7 @@ TEST(as_vec, vec_data)
     // data const
     {
         as::v4 vec4(1.0f, 2.0f, 3.0f, 4.0f);
-        const real* data = as::const_data(vec4);
+        const as::real* data = as::const_data(vec4);
 
         EXPECT_EQ(data[0], 1.0f);
         EXPECT_EQ(data[1], 2.0f);
@@ -595,7 +595,7 @@ TEST(as_vec, vec_data)
     // data mutable
     {
         as::v2 vec2(20.0f, 40.0f);
-        real* data = as::data(vec2);
+        as::real* data = as::data(vec2);
 
         EXPECT_EQ(data[0], 20.0f);
         EXPECT_EQ(data[1], 40.0f);
@@ -650,7 +650,7 @@ TEST(as_vec, vec_make_from_arr)
 {
     // generic make_from_arr v2
     {
-        real data[2] = { 2.0f, 4.0f };
+        as::real data[2] = { 2.0f, 4.0f };
         as::v2 vec2 = as::make_vec_from_arr(data);
 
         EXPECT_EQ(vec2.x, 2.0f);
@@ -662,7 +662,7 @@ TEST(as_vec, vec_make_from_arr)
 
     // generic make_from_arr v3
     {
-        real data[3] = { 1.0f, 2.0f, 3.0f };
+        as::real data[3] = { 1.0f, 2.0f, 3.0f };
         as::v3 vec3 = as::make_vec_from_arr(data);
 
         EXPECT_EQ(vec3.x, 1.0f);
@@ -685,7 +685,7 @@ TEST(as_vec, vec_make_from_arr)
 
     // v2_make_from_arr
     {
-        real data[2] = { 2.0f, 4.0f };
+        as::real data[2] = { 2.0f, 4.0f };
         as::v2 vec2 = as::make_v2_from_arr(data);
 
         EXPECT_EQ(vec2.x, 2.0f);
@@ -694,7 +694,7 @@ TEST(as_vec, vec_make_from_arr)
 
     // v3_make_from_arr
     {
-        real data[3] = { 1.0f, 2.0f, 3.0f };
+        as::real data[3] = { 1.0f, 2.0f, 3.0f };
         as::v3 vec3 = as::make_v3_from_arr(data);
 
         EXPECT_EQ(vec3.x, 1.0f);
@@ -704,7 +704,7 @@ TEST(as_vec, vec_make_from_arr)
 
     // v4_make_from_arr
     {
-        real data[4] = { 4.0f, 8.0f, 12.0f, 16.0f };
+        as::real data[4] = { 4.0f, 8.0f, 12.0f, 16.0f };
         as::v4 vec4 = as::make_v4_from_arr(data);
 
         EXPECT_EQ(vec4.x, 4.0f);
@@ -718,10 +718,10 @@ TEST(as_vec, vec_make_from_ptr)
 {
     // generic make_from_ptr v2
     {
-        std::unique_ptr<real[]> data = std::make_unique<real[]>(2);
+        std::unique_ptr<as::real[]> data = std::make_unique<as::real[]>(2);
         data[0] = 2.0f;
         data[1] = 4.0f;
-        as::v2 vec2 = as::make_vec_from_ptr<real, 2>(data.get());
+        as::v2 vec2 = as::make_vec_from_ptr<as::real, 2>(data.get());
 
         EXPECT_EQ(vec2.x, 2.0f);
         EXPECT_EQ(vec2.y, 4.0f);
@@ -729,11 +729,11 @@ TEST(as_vec, vec_make_from_ptr)
 
     // generic make_from_ptr v3
     {
-        std::unique_ptr<real[]> data = std::make_unique<real[]>(3);
+        std::unique_ptr<as::real[]> data = std::make_unique<as::real[]>(3);
         data[0] = 1.0f;
         data[1] = 2.0f;
         data[2] = 3.0f;
-        as::v3 vec3 = as::make_vec_from_ptr<real, 3>(data.get());
+        as::v3 vec3 = as::make_vec_from_ptr<as::real, 3>(data.get());
 
         EXPECT_EQ(vec3.x, 1.0f);
         EXPECT_EQ(vec3.y, 2.0f);
@@ -761,7 +761,7 @@ TEST(as_vec, vec_make_from_ptr)
 
     // v2_make_from_ptr
     {
-        std::unique_ptr<real[]> data = std::make_unique<real[]>(2);
+        std::unique_ptr<as::real[]> data = std::make_unique<as::real[]>(2);
         data[0] = 2.0f;
         data[1] = 4.0f;
         as::v2 vec2 = as::make_v2_from_ptr(data.get());
@@ -772,7 +772,7 @@ TEST(as_vec, vec_make_from_ptr)
 
     // v3_make_from_ptr
     {
-        std::unique_ptr<real[]> data = std::make_unique<real[]>(3);
+        std::unique_ptr<as::real[]> data = std::make_unique<as::real[]>(3);
         data[0] = 1.0f;
         data[1] = 2.0f;
         data[2] = 3.0f;
@@ -785,7 +785,7 @@ TEST(as_vec, vec_make_from_ptr)
 
     // v4_make_from_ptr
     {
-        std::unique_ptr<real[]> data = std::make_unique<real[]>(4);
+        std::unique_ptr<as::real[]> data = std::make_unique<as::real[]>(4);
         data[0] = 4.0f;
         data[1] = 8.0f;
         data[2] = 12.0f;
@@ -816,7 +816,7 @@ TEST(as_vec, dot)
         as::v3 vec1(1.0f, 2.0f, 3.0f);
         as::v3 vec2(4.0f, 5.0f, 6.0f);
 
-        real dot_result = as::dot(vec1, vec2);
+        as::real dot_result = as::dot(vec1, vec2);
         EXPECT_NEAR(dot_result, 32.0f, epsilon);
     }
 
@@ -824,7 +824,7 @@ TEST(as_vec, dot)
         as::v3 vec1(-50.0f, 20.0f, 9.0f);
         as::v3 vec2(-1.0f, -7.0f, 4.0f);
 
-        real dot_result = as::dot(vec1, vec2);
+        as::real dot_result = as::dot(vec1, vec2);
         EXPECT_NEAR(dot_result, -54.0f, epsilon);
     }
 
@@ -832,7 +832,7 @@ TEST(as_vec, dot)
         as::v3 vec1(-27.367f, 0.1165f, 0.921f);
         as::v3 vec2(-123.456f, -7.732f, 2.491f);
 
-        real dot_result = as::dot(vec1, vec2);
+        as::real dot_result = as::dot(vec1, vec2);
         EXPECT_NEAR(dot_result, 3380.013785f, epsilon);
     }
 }
@@ -900,13 +900,13 @@ TEST(as_vec, equal) {
 TEST(as_vec, init_compat) {
     glm::vec3 glm_a(1.0f, 2.0f, 3.0f);
 
-    real data[3] = { 1.0f, 2.0f, 3.0f };
+    as::real data[3] = { 1.0f, 2.0f, 3.0f };
     as::v3 as_a = as::make_vec_from_arr(data);
     as::v3 as_b = as::make_vec_from_ptr<float, 3>(glm::value_ptr(glm_a));
-    as::v3 as_c = as::v3(as::make_vec_from_ptr<real, 3>(as::data(as_a)));
+    as::v3 as_c = as::v3(as::make_vec_from_ptr<as::real, 3>(as::data(as_a)));
     as::v3 as_d = as::v3(as::make_v3_from_ptr(as::data(as_a)));
 
-    real data_v4[4] = { 5.0f, 12.0f, 100.0f, 0.999f };
+    as::real data_v4[4] = { 5.0f, 12.0f, 100.0f, 0.999f };
     as::v4 as_v4 = as::v4(as::make_v4_from_arr(data_v4));
 
     as::v4 as_v4_2 = as::v4(as::make_v4_from_ptr(as::data(as_v4)));
@@ -942,7 +942,7 @@ TEST(as_vec, min) {
 
 TEST(as_vec, min_elem) {
     as::v4 v(-1.0f, 2.0f, -100.0f, -7.0f);
-    real min = min_elem(v);
+    as::real min = min_elem(v);
 
     EXPECT_TRUE(min == -100.0f) << "as::vec min_elem failed";
 }
@@ -958,7 +958,7 @@ TEST(as_vec, max) {
 
 TEST(as_vec, max_elem) {
     as::v4 v(-1.0f, 2.0f, -100.0f, -7.0f);
-    real max = max_elem(v);
+    as::real max = max_elem(v);
 
     EXPECT_TRUE(max == 2.0f) << "as::vec max_elem failed";
 }
@@ -1001,10 +1001,10 @@ TEST(as_vec, select) {
     int3 a(1, 2, 3);
     int3 b(5, 6, 7);
 
-    using byte4 = as::Vec<byte, 4>;
+    using byte4 = as::Vec<as::byte, 4>;
 
-    byte4 c((byte)255, (byte)255, (byte)255, (byte)255);
-    byte4 d((byte)0, (byte)0, (byte)0, (byte)0);
+    byte4 c((as::byte)255, (as::byte)255, (as::byte)255, (as::byte)255);
+    byte4 d((as::byte)0, (as::byte)0, (as::byte)0, (as::byte)0);
 
     using float3 = as::Vec<float, 3>;
 

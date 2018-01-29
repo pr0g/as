@@ -122,9 +122,9 @@ TEST(as_mat4, inverse) {
 
 TEST(as_mat, m33_init) {
     {
-        real data[9];
+        as::real data[9];
         for ( size_t i = 0; i < 9; ++i ) {
-            data[ i ] = (real)(i + 1);
+            data[ i ] = (as::real)(i + 1);
         }
 
         as::m33 a = as::make_m33_from(data);
@@ -134,9 +134,9 @@ TEST(as_mat, m33_init) {
     }
 
     {
-        real* data_p = new real[9];
+        as::real* data_p = new as::real[9];
         for ( size_t i = 0; i < 9; ++i ) {
-            data_p[ i ] = (real)(i + 1);
+            data_p[ i ] = (as::real)(i + 1);
         }
 
         as::m33 p_a = as::make_m33_from(data_p);
@@ -171,7 +171,7 @@ TEST(as_mat, col_row) {
 }
 
 TEST(as_mat, mat_mult) {
-    // as::m44 a = as::identity<real, 4>();
+    // as::m44 a = as::identity<as::real, 4>();
     as::m44 mat = as::m44_id;
     as::v4 vec = as::v4_w;
 
