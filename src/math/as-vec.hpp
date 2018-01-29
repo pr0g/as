@@ -54,7 +54,7 @@ struct Vec<real, 2>
     ~Vec() = default;
 
     constexpr explicit Vec(real xy) : x(xy), y(xy) {}
-    constexpr explicit Vec(real x, real y) : x(x), y(y) {}
+    constexpr Vec(real x, real y) : x(x), y(y) {}
 };
 
 using v2 = Vec<real, 2>;
@@ -81,8 +81,8 @@ struct Vec<real, 3>
     ~Vec() = default;
 
     constexpr explicit Vec(real xyz) : x(xyz), y(xyz), z(xyz) {}
-    constexpr explicit Vec(const v2& xy, real z) : x(xy.x), y(xy.y), z(z) {}
-    constexpr explicit Vec(real x, real y, real z) : x(x), y(y), z(z) {}
+    constexpr Vec(const v2& xy, real z) : x(xy.x), y(xy.y), z(z) {}
+    constexpr Vec(real x, real y, real z) : x(x), y(y), z(z) {}
 
     v2 xy() const { return v2(x, y); }
 };
@@ -111,10 +111,10 @@ struct Vec<real, 4>
     ~Vec() = default;
 
     constexpr explicit Vec(real xyzw) : x(xyzw), y(xyzw), z(xyzw), w(xyzw) {}
-    constexpr explicit Vec(const v3& xyz, real w) : x(xyz.x), y(xyz.y), z(xyz.z), w(w) {}
-    constexpr explicit Vec(const v2& xy, real z, real w) : x(xy.x), y(xy.y), z(z), w(w) {}
-    constexpr explicit Vec(const v2& xy, const v2& zw) : x(xy.x), y(xy.y), z(zw.x), w(zw.y) {}
-    constexpr explicit Vec(real x, real y, real z, real w) : x(x), y(y), z(z), w(w) {}
+    constexpr Vec(const v3& xyz, real w) : x(xyz.x), y(xyz.y), z(xyz.z), w(w) {}
+    constexpr Vec(const v2& xy, real z, real w) : x(xy.x), y(xy.y), z(z), w(w) {}
+    constexpr Vec(const v2& xy, const v2& zw) : x(xy.x), y(xy.y), z(zw.x), w(zw.y) {}
+    constexpr Vec(real x, real y, real z, real w) : x(x), y(y), z(z), w(w) {}
 
     v2 xy() const { return v2(x, y); }
     v2 zw() const { return v2(z, w); }

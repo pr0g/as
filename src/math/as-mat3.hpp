@@ -55,7 +55,7 @@ template<> struct Mat<real, 3, 3>
     Mat& operator=(Mat&& mat) noexcept = default;
     ~Mat() = default;
 
-    constexpr explicit Mat(
+    constexpr Mat(
         real x0, real y0, real z0,
         real x1, real y1, real z1,
         real x2, real y2, real z2)
@@ -64,13 +64,13 @@ template<> struct Mat<real, 3, 3>
           x2(x2), y2(y2), z2(z2) {}
 
 #ifdef AS_ROW_MAJOR
-    constexpr explicit Mat(
+    constexpr Mat(
         const v3& row0, const v3& row1, const v3& row2)
         : x0(row0.x), y0(row0.y), z0(row0.z),
           x1(row1.x), y1(row1.y), z1(row1.z),
           x2(row2.x), y2(row2.y), z2(row2.z) {}
 #elif defined AS_COL_MAJOR
-    constexpr explicit Mat(
+    constexpr Mat(
         const v3& col0, const v3& col1, const v3& col2)
         : x0(col0.x), y0(col0.y), z0(col0.z),
           x1(col1.x), y1(col1.y), z1(col1.z),
