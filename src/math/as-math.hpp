@@ -10,49 +10,49 @@ const real DEG_TO_RAD = PI / 180.0f;
 const real RAD_TO_DEG = 180.0f / PI;
 
 template<typename T>
-AS_INLINE T lerp(T t, T v0, T v1)
+inline T lerp(T t, T v0, T v1)
 {
     return ((T)1 - t) * v0 + t * v1;
 }
 
 template<typename T>
-AS_INLINE T smooth_step(T t, T v0, T v1)
+inline T smooth_step(T t, T v0, T v1)
 {
     T val = (t * t) * ((T)3 - (T)2 * t);
     return lerp(v0, v1, val);
 }
 
 template<typename T>
-AS_INLINE T max(T v0, T v1)
+inline T max(T v0, T v1)
 {
     return v0 > v1 ? v0 : v1;
 }
 
 template<typename T>
-AS_INLINE T min(T v0, T v1)
+inline T min(T v0, T v1)
 {
     return v0 < v1 ? v0 : v1;
 }
 
 template<typename T>
-AS_INLINE T clamp(T t, T v0, T v1)
+inline T clamp(T t, T v0, T v1)
 {
     return t < v0 ? v0 : t > v1 ? v1 : t;
 }
 
-AS_INLINE real deg_to_rad(real degrees)
+inline real deg_to_rad(real degrees)
 {
     return degrees * DEG_TO_RAD;
 }
 
-AS_INLINE real rad_to_deg(real radians)
+inline real rad_to_deg(real radians)
 {
     return radians * RAD_TO_DEG;
 }
 
 // floating point comparison by Bruce Dawson
 // ref: https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
-AS_INLINE bool equal(
+inline bool equal(
     real a, real b,
     real max_diff = std::numeric_limits<real>::epsilon(),
     real max_rel_diff = std::numeric_limits<real>::epsilon())

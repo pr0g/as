@@ -1,6 +1,39 @@
 namespace as
 {
 
+v2 v2::create_from_ptr(const real* data)
+{
+    return vec::create_from_ptr<real, 2>(data);
+}
+
+v2 v2::create_from_arr(const real(&data)[2])
+{
+    return vec::create_from_arr(data);
+}
+
+v3 v3::create_from_ptr(const real* data)
+{
+    return vec::create_from_ptr<real, 3>(data);
+}
+
+v3 v3::create_from_arr(const real(&data)[3])
+{
+    return vec::create_from_arr(data);
+}
+
+v4 v4::create_from_ptr(const real* data)
+{
+    return vec::create_from_ptr<real, 4>(data);
+}
+
+v4 v4::create_from_arr(const real(&data)[4])
+{
+    return vec::create_from_arr(data);
+}
+
+namespace vec
+{
+
 template<typename T, size_t n>
 size_t size(Vec<T, n>&)
 {
@@ -20,7 +53,7 @@ T* data(Vec<T, n>& vec)
 }
 
 template<typename T, size_t n>
-Vec<T, n> make_vec_from_arr(const T(&data)[n])
+Vec<T, n> create_from_arr(const T(&data)[n])
 {
     Vec<T, n> result;
     std::copy(std::begin(data), std::end(data), result.elem);
@@ -28,41 +61,11 @@ Vec<T, n> make_vec_from_arr(const T(&data)[n])
 }
 
 template<typename T, size_t n>
-Vec<T, n> make_vec_from_ptr(const T* data)
+Vec<T, n> create_from_ptr(const T* data)
 {
     Vec<T, n> result;
     std::copy(data, data + n, result.elem);
     return result;
-}
-
-v2 make_v2_from_ptr(const real* data)
-{
-    return make_vec_from_ptr<real, 2>(data);
-}
-
-v2 make_v2_from_arr(const real(&data)[2])
-{
-    return make_vec_from_arr(data);
-}
-
-v3 make_v3_from_ptr(const real* data)
-{
-    return make_vec_from_ptr<real, 3>(data);
-}
-
-v3 make_v3_from_arr(const real(&data)[3])
-{
-    return make_vec_from_arr(data);
-}
-
-v4 make_v4_from_ptr(const real* data)
-{
-    return make_vec_from_ptr<real, 4>(data);
-}
-
-v4 make_v4_from_arr(const real(&data)[4])
-{
-    return make_vec_from_arr(data);
 }
 
 template<typename T, size_t n>
@@ -205,7 +208,7 @@ bool equal(const Vec<T, n>& lhs, const Vec<T, n>& rhs, real epsilon /*= std::num
 {
     bool eq = true;
     for (size_t i = 0; i < n; ++i) {
-        eq &= equal(lhs[i], rhs[i], epsilon, epsilon);
+        eq &= as::equal(lhs[i], rhs[i], epsilon, epsilon);
         if (!eq) { break; }
     }
     return eq;
@@ -216,7 +219,7 @@ Vec<T, n> min(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
 {
     Vec<T, n> result;
     for (size_t i = 0; i < n; ++i) {
-        result[ i ] = min(lhs[i], rhs[i]);
+        result[ i ] = as::min(lhs[i], rhs[i]);
     }
     return result;
 }
@@ -226,7 +229,7 @@ T min_elem(const Vec<T, n>& vec)
 {
     T val = vec[0];
     for (size_t i = 1; i < n; ++i) {
-        val = min(val, vec[i]);
+        val = as::min(val, vec[i]);
     }
     return val;
 }
@@ -236,7 +239,7 @@ Vec<T, n> max(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
 {
     Vec<T, n> result;
     for (size_t i = 0; i < n; ++i) {
-        result[ i ] = max(lhs[i], rhs[i]);
+        result[ i ] = as::max(lhs[i], rhs[i]);
     }
     return result;
 }
@@ -246,7 +249,7 @@ T max_elem(const Vec<T, n>& vec)
 {
     T val = vec[0];
     for (size_t i = 1; i < n; ++i) {
-        val = max(val, vec[i]);
+        val = as::max(val, vec[i]);
     }
     return val;
 }
@@ -266,7 +269,7 @@ Vec<T, n> clamp(const Vec<T, n>& vec, const Vec<T, n>& min, const Vec<T, n>& max
 {
     Vec<T, n> result;
     for (size_t i = 0; i < n; ++i) {
-        result[ i ] = clamp( vec[ i ], min[ i ], max[ i ] );
+        result[ i ] = as::clamp( vec[ i ], min[ i ], max[ i ] );
     }
     return result;
 }
@@ -276,7 +279,7 @@ Vec<T, n> saturate(const Vec<T, n>& vec)
 {
     Vec<T, n> result;
     for (size_t i = 0; i < n; ++i) {
-        result[ i ] = clamp( vec[ i ], 0.0f, 1.0f );
+        result[ i ] = as::clamp( vec[ i ], 0.0f, 1.0f );
     }
     return result;
 }
@@ -286,7 +289,7 @@ Vec<T, n> lerp(T t, const Vec<T, n>& v0, const Vec<T, n>& v1)
 {
     Vec<T, n> result;
     for (size_t i = 0; i < n; ++i) {
-        result[ i ] = lerp(t, v0[i], v1[i]);
+        result[ i ] = as::lerp(t, v0[i], v1[i]);
     }
     return result;
 }
@@ -326,4 +329,6 @@ void right_and_up_rh(const v3& dir, v3& across, v3& up, const v3& world_up /*= v
     across = normalize(cross(dir, up));
 }
 
-}
+} // namespace vec
+
+} // namespace as

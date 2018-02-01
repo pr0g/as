@@ -6,14 +6,14 @@
 namespace as
 {
 
-using m44 = Mat<real, 4, 4>;
+using m44 = mat::Mat<real, 4, 4>;
 
 #ifdef _MSC_VER
 __pragma(warning(push))
 __pragma(warning(disable:4201))
 #endif
 
-template<> struct Mat<real, 4, 4>
+template<> struct mat::Mat<real, 4, 4>
 {
     union
     {
@@ -101,21 +101,21 @@ template<> struct Mat<real, 4, 4>
 __pragma(warning(pop))
 #endif
 
-const m44 m44_id = identity<real, 4>();
+const m44 m44_id = mat::identity<real, 4>();
 
 AS_INLINE m44 make_m44_from(const real* data)
 {
-    return make_from<real, 4, 4>(data);
+    return mat::make_from<real, 4, 4>(data);
 }
 
 AS_INLINE m44 translation(const v3& translation)
 {
-    return m44(v4_x, v4_y, v4_z, v4(translation, 1.0f));
+    return m44(v4::axis_x(), v4::axis_y(), v4::axis_z(), v4(translation, 1.0f));
 }
 
 AS_INLINE m44 rotation(const m33& rotation)
 {
-    return m44(rotation, v3_zero);
+    return m44(rotation, v3::zero());
 }
 
 // openGL default

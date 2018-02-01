@@ -11,6 +11,9 @@
 namespace as
 {
 
+namespace vec
+{
+
 template<typename T, size_t n>
 struct Vec
 {
@@ -32,8 +35,10 @@ struct Vec
     Vec(Args... args) noexcept : elem{ std::forward<Args>(args)... } {}
 };
 
+}
+
 template<>
-struct Vec<real, 2>
+struct vec::Vec<real, 2>
 {
     union
     {
@@ -55,12 +60,22 @@ struct Vec<real, 2>
 
     constexpr explicit Vec(real xy) : x(xy), y(xy) {}
     constexpr Vec(real x, real y) : x(x), y(y) {}
+
+    constexpr static Vec axis_x() { return { 1.0f, 0.0f }; }
+    constexpr static Vec axis_y() { return { 0.0f, 1.0f }; }
+    constexpr static Vec zero() { return { 0.0f, 0.0f }; }
+    constexpr static Vec one() { return { 1.0f, 1.0f }; }
+    constexpr static Vec max() { return { REAL_MAX, REAL_MAX }; }
+    constexpr static Vec min() { return { REAL_MIN, REAL_MIN }; }
+
+    static inline Vec create_from_ptr(const real* data);
+    static inline Vec create_from_arr(const real(&data)[size]);
 };
 
-using v2 = Vec<real, 2>;
+using v2 = vec::Vec<real, 2>;
 
 template<>
-struct Vec<real, 3>
+struct vec::Vec<real, 3>
 {
     union
     {
@@ -85,12 +100,23 @@ struct Vec<real, 3>
     constexpr Vec(real x, real y, real z) : x(x), y(y), z(z) {}
 
     v2 xy() const { return v2(x, y); }
+
+    constexpr static Vec axis_x() { return { 1.0f, 0.0f, 0.0f }; }
+    constexpr static Vec axis_y() { return { 0.0f, 1.0f, 0.0f }; }
+    constexpr static Vec axis_z() { return { 0.0f, 0.0f, 1.0f }; }
+    constexpr static Vec zero() { return { 0.0f, 0.0f, 0.0f }; }
+    constexpr static Vec one() { return { 1.0f, 1.0f, 1.0f }; }
+    constexpr static Vec max() { return { REAL_MAX, REAL_MAX, REAL_MAX }; }
+    constexpr static Vec min() { return { REAL_MIN, REAL_MIN, REAL_MIN }; }
+
+    static inline Vec create_from_ptr(const real* data);
+    static inline Vec create_from_arr(const real(&data)[size]);
 };
 
-using v3 = Vec<real, 3>;
+using v3 = vec::Vec<real, 3>;
 
 template<>
-struct Vec<real, 4>
+struct vec::Vec<real, 4>
 {
     union
     {
@@ -119,143 +145,125 @@ struct Vec<real, 4>
     v2 xy() const { return v2(x, y); }
     v2 zw() const { return v2(z, w); }
     v3 xyz() const { return v3(x, y, z); }
+
+    constexpr static Vec axis_x() { return { 1.0f, 0.0f, 0.0f, 0.0f }; }
+    constexpr static Vec axis_y() { return { 0.0f, 1.0f, 0.0f, 0.0f }; }
+    constexpr static Vec axis_z() { return { 0.0f, 0.0f, 1.0f, 0.0f }; }
+    constexpr static Vec axis_w() { return { 0.0f, 0.0f, 0.0f, 1.0f }; }
+    constexpr static Vec zero() { return { 0.0f, 0.0f, 0.0f, 0.0f }; }
+    constexpr static Vec one() { return { 1.0f, 1.0f, 1.0f, 1.0f }; }
+    constexpr static Vec max() { return { REAL_MAX, REAL_MAX, REAL_MAX, REAL_MAX }; }
+    constexpr static Vec min() { return { REAL_MIN, REAL_MIN, REAL_MIN, REAL_MIN }; }
+
+    static inline Vec create_from_ptr(const real* data);
+    static inline Vec create_from_arr(const real(&data)[size]);
 };
 
-using v4 = Vec<real, 4>;
+using v4 = vec::Vec<real, 4>;
+
+namespace vec
+{
 
 template<typename T, size_t n>
-AS_INLINE size_t size(Vec<T, n>& vec);
+inline size_t size(Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE T* data(Vec<T, n>& vec);
+inline T* data(Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE const T* const_data(const Vec<T, n>& vec);
+inline const T* const_data(const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> make_vec_from_arr(const T(&data)[n]);
+inline Vec<T, n> create_from_arr(const T(&data)[n]);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> make_vec_from_ptr(const T* data);
-
-AS_INLINE v2 make_v2_from_ptr(const real* data);
-AS_INLINE v2 make_v2_from_arr(const real(&data)[2]);
-
-AS_INLINE v3 make_v3_from_ptr(const real* data);
-AS_INLINE v3 make_v3_from_arr(const real(&data)[3]);
-
-AS_INLINE v4 make_v4_from_ptr(const real* data);
-AS_INLINE v4 make_v4_from_arr(const real(&data)[4]);
+inline Vec<T, n> create_from_ptr(const T* data);
 
 template<typename T, size_t n>
-AS_INLINE T dot(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
+inline T dot(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
 
 template<typename T, size_t n>
-AS_INLINE T length_squared(const Vec<T, n>& vec);
+inline T length_squared(const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE T length(const Vec<T, n>& vec);
+inline T length(const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> normalize(const Vec<T, n>& vec);
+inline Vec<T, n> normalize(const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE T normalize_return_length(const Vec<T, n>& vec, Vec<T, n>& out);
+inline T normalize_return_length(const Vec<T, n>& vec, Vec<T, n>& out);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> operator+(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
+inline Vec<T, n> operator+(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n>& operator+=(Vec<T, n>& lhs, const Vec<T, n>& rhs);
+inline Vec<T, n>& operator+=(Vec<T, n>& lhs, const Vec<T, n>& rhs);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> operator-(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
+inline Vec<T, n> operator-(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n>& operator-=(Vec<T, n>& lhs, const Vec<T, n>& rhs);
+inline Vec<T, n>& operator-=(Vec<T, n>& lhs, const Vec<T, n>& rhs);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> operator-(const Vec<T, n>& vec);
+inline Vec<T, n> operator-(const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> operator*(const Vec<T, n>& vec, T val);
+inline Vec<T, n> operator*(const Vec<T, n>& vec, T val);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> operator*(T val, const Vec<T, n>& vec);
+inline Vec<T, n> operator*(T val, const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE void operator*=(Vec<T, n>& vec, T val);
+inline void operator*=(Vec<T, n>& vec, T val);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> operator/(const Vec<T, n>& vec, T val);
+inline Vec<T, n> operator/(const Vec<T, n>& vec, T val);
 
 template<typename T, size_t n>
-AS_INLINE void operator/=(Vec<T, n>& vec, T val);
+inline void operator/=(Vec<T, n>& vec, T val);
 
 template<typename T, size_t n>
-AS_INLINE bool equal(const Vec<T, n>& lhs, const Vec<T, n>& rhs, real epsilon = std::numeric_limits<real>::epsilon());
+inline bool equal(const Vec<T, n>& lhs, const Vec<T, n>& rhs, real epsilon = std::numeric_limits<real>::epsilon());
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> min(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
+inline Vec<T, n> min(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
 
 template<typename T, size_t n>
-AS_INLINE T min_elem(const Vec<T, n>& vec);
+inline T min_elem(const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> max(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
+inline Vec<T, n> max(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
 
 template<typename T, size_t n>
-AS_INLINE T max_elem(const Vec<T, n>& vec);
+inline T max_elem(const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> abs(const Vec<T, n>& vec);
+inline Vec<T, n> abs(const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> clamp(const Vec<T, n>& vec, const Vec<T, n>& min, const Vec<T, n>& max);
+inline Vec<T, n> clamp(const Vec<T, n>& vec, const Vec<T, n>& min, const Vec<T, n>& max);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> saturate(const Vec<T, n>& vec);
+inline Vec<T, n> saturate(const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> lerp(T t, const Vec<T, n>& v0, const Vec<T, n>& v1);
+inline Vec<T, n> lerp(T t, const Vec<T, n>& v0, const Vec<T, n>& v1);
 
 template<typename T, size_t n>
-AS_INLINE Vec<T, n> select(const Vec<T, n>& v0, const Vec<T, n>& v1, bool select0);
+inline Vec<T, n> select(const Vec<T, n>& v0, const Vec<T, n>& v1, bool select0);
 
-// constants
-
-const v2 v2_x(1.0f, 0.0f);
-const v2 v2_y(0.0f, 1.0f);
-const v2 v2_zero(0.0f, 0.0f);
-const v2 v2_one(1.0f, 1.0f);
-const v2 v2_max(REAL_MAX, REAL_MAX);
-const v2 v2_min(REAL_MIN, REAL_MIN);
-
-const v3 v3_x(1.0f, 0.0f, 0.0f);
-const v3 v3_y(0.0f, 1.0f, 0.0f);
-const v3 v3_z(0.0f, 0.0f, 1.0f);
-const v3 v3_zero(0.0f, 0.0f, 0.0f);
-const v3 v3_one(1.0f, 1.0f, 1.0f);
-const v3 v3_max(REAL_MAX, REAL_MAX, REAL_MAX);
-const v3 v3_min(REAL_MIN, REAL_MIN, REAL_MIN);
-
-const v4 v4_x(1.0f, 0.0f, 0.0f, 0.0f);
-const v4 v4_y(0.0f, 1.0f, 0.0f, 0.0f);
-const v4 v4_z(0.0f, 0.0f, 1.0f, 0.0f);
-const v4 v4_w(0.0f, 0.0f, 0.0f, 1.0f);
-const v4 v4_zero(0.0f, 0.0f, 0.0f, 0.0f);
-const v4 v4_one(1.0f, 1.0f, 1.0f, 1.0f);
-const v4 v4_max(REAL_MAX, REAL_MAX, REAL_MAX, REAL_MAX);
-const v4 v4_min(REAL_MIN, REAL_MIN, REAL_MIN, REAL_MIN);
-
-AS_INLINE v3 cross(const v3& lhs, const v3& rhs);
+inline v3 cross(const v3& lhs, const v3& rhs);
 
 // note: will not work if dir == +/-world_up
-AS_INLINE void right_and_up_lh(const v3& dir, v3& across, v3& up, const v3& world_up = v3_y);
+inline void right_and_up_lh(const v3& dir, v3& across, v3& up, const v3& world_up = v3::axis_y());
 
 // note: will not work if dir == +/-world_up
-AS_INLINE void right_and_up_rh(const v3& dir, v3& across, v3& up, const v3& world_up = v3_y);
+inline void right_and_up_rh(const v3& dir, v3& across, v3& up, const v3& world_up = v3::axis_y());
 
-}
+} // namespace vec
+
+} // namespace as
 
 #include "as-vec.inl"

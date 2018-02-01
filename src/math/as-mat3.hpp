@@ -5,14 +5,14 @@
 namespace as
 {
 
-using m33 = Mat<real, 3, 3>;
+using m33 = mat::Mat<real, 3, 3>;
 
 #ifdef _MSC_VER
 __pragma(warning(push))
 __pragma(warning(disable:4201))
 #endif
 
-template<> struct Mat<real, 3, 3>
+template<> struct mat::Mat<real, 3, 3>
 {
     union
     {
@@ -85,11 +85,11 @@ template<> struct Mat<real, 3, 3>
 __pragma(warning(pop))
 #endif
 
-const m33 m33_id = identity<real, 3>();
+const m33 m33_id = mat::identity<real, 3>();
 
 AS_INLINE m33 make_m33_from(const real* data)
 {
-    return make_from<real, 3, 3>(data);
+    return mat::make_from<real, 3, 3>(data);
 }
 
 AS_INLINE m33 axis_angle_rotation(v3 axis, real radians)
