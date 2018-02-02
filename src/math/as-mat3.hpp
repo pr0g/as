@@ -89,7 +89,7 @@ const m33 m33_id = mat::identity<real, 3>();
 
 AS_INLINE m33 make_m33_from(const real* data)
 {
-    return mat::make_from<real, 3, 3>(data);
+    return mat::create_from_ptr<real, 3, 3>(data);
 }
 
 AS_INLINE m33 axis_angle_rotation(v3 axis, real radians)

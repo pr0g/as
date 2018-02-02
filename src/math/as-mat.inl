@@ -17,7 +17,7 @@ inline const T* const_data(const Mat<T, r, c>& mat)
 }
 
 template<typename T, size_t r, size_t c>
-inline Mat<T, r, c> make_from(const T(&data)[r * c])
+inline Mat<T, r, c> create_from_arr(const T(&data)[r * c])
 {
     Mat<T, r, c> result;
     std::copy(std::begin(data), std::end(data), result.elem);
@@ -25,7 +25,7 @@ inline Mat<T, r, c> make_from(const T(&data)[r * c])
 }
 
 template<typename T, size_t r, size_t c>
-inline Mat<T, r, c> make_from(const T* data)
+inline Mat<T, r, c> create_from_ptr(const T* data)
 {
     Mat<T, r, c> result;
     std::copy(data, data + r * c, result.elem);
@@ -120,17 +120,22 @@ inline Mat<T, r, c> transpose(const Mat<T, r, c>& mat)
     return result;
 }
 
-template<typename T, size_t cr>
-inline Mat<T, cr, cr> identity()
+template<typename T, size_t rc>
+inline Mat<T, rc, rc> identity()
 {
-    Mat<T, cr, cr> identity;
-    size_t size = cr * cr;
+    Mat<T, rc, rc> identity;
+    size_t size = rc * rc;
     std::fill(std::begin(identity.elem), std::end(identity.elem), 0.0f);
-    for (size_t i = 0; i < size; i += cr + 1) {
+    for (size_t i = 0; i < size; i += rc + 1) {
         identity.elem[i] = 1.0f;
     }
     return identity;
 }
+
+namespace internal
+{
+
+template<size_t> struct int2type {};
 
 template<typename T>
 inline T minor(const Mat<T, 2, 2>& mat)
@@ -138,107 +143,104 @@ inline T minor(const Mat<T, 2, 2>& mat)
     return mat[0] * mat[3] - mat[2] * mat[1];
 }
 
-template<typename T, size_t cr>
-inline Mat<T, cr - 1, cr - 1> sub_matrix(const Mat<T, cr, cr>& mat, size_t col, size_t row)
+// where col and row are the rows to ignore
+template<typename T, size_t rc>
+inline Mat<T, rc - 1, rc - 1> sub_matrix(const Mat<T, rc, rc>& mat, size_t col, size_t row)
 {
-    Mat<T, cr - 1, cr - 1> result = identity<T, cr - 1>();
+    Mat<T, rc - 1, rc - 1> result = identity<T, rc - 1>();
     size_t i = 0;
-    for (size_t r = 0; r < cr; ++r) {
-        for (size_t c = 0; c < cr; ++c) {
+    for (size_t r = 0; r < rc; ++r) {
+        for (size_t c = 0; c < rc; ++c) {
             if (r == row || c == col)
                 continue;
-            result[i++] = mat[r * cr + c];
+            result[i++] = mat[r * rc + c];
         }
     }
     return result;
 }
 
-template<typename T, size_t cr>
-struct DeterminantHelper
+template<typename T, size_t rc, size_t I>
+T determinant_impl(const Mat<T, rc, rc>& mat, int2type<I>)
 {
-    inline static T calculate(const Mat<T, cr, cr>& mat) {
-        T sign = (T)1;
-        T result = 0;
-        for (size_t i = 0; i < cr; ++i) {
-            T minor = DeterminantHelper<T, cr - 1>::calculate(sub_matrix(mat, i, 0));
-            result += (mat[i] * minor) * sign;
-            sign *= (T)-1;
-        }
-        return result;
+    T sign{ 1 };
+    T result = 0;
+    for (size_t i = 0; i < rc; ++i) {
+        T minor = determinant_impl(sub_matrix(mat, i, 0), int2type<I - 1>{});
+        result += (mat[i] * minor) * sign;
+        sign *= T{ -1 };
     }
-};
-
-template<typename T, size_t cr>
-struct MinorHelper
-{
-    inline static Mat<T, cr, cr> calculate(const Mat<T, cr, cr>& mat) {
-        Mat<T, cr, cr> result;
-        T outerSign = (T)1;
-        for (size_t i = 0; i < cr; ++i) {
-            T innerSign = outerSign;
-            for (size_t j = 0; j < cr; ++j) {
-                T minor = DeterminantHelper<T, cr - 1>::calculate(sub_matrix(mat, j, i));
-                result[j + i * cr] = minor * innerSign;
-                innerSign *= (T)-1;
-            }
-            outerSign *= (T)-1;
-        }
-        return result;
-    }
-};
-
-template<typename T>
-struct DeterminantHelper<T, 2>
-{
-    inline static T calculate(const Mat<T, 2, 2>& mat) {
-        return minor(mat);
-    }
-};
-
-template<typename T, size_t cr>
-inline T determinant(const Mat<T, cr, cr>& mat)
-{
-    return DeterminantHelper<T, cr>::calculate(mat);
+    return result;
 }
 
-template<typename T, size_t cr>
-inline Mat<T, cr, cr> inverse(const Mat<T, cr, cr>& mat)
+template<typename T>
+T determinant_impl(const Mat<T, 2, 2>& mat, int2type<2>)
 {
-    Mat<T, cr, cr> result;
+    return minor(mat);
+};
+
+template<typename T, size_t rc, size_t I>
+inline Mat<T, rc, rc> minor_impl(const Mat<T, rc, rc>& mat, int2type<I>)
+{
+    Mat<T, rc, rc> result;
+    T outerSign = T{ 1 };
+    for (size_t i = 0; i < rc; ++i) {
+        T innerSign = outerSign;
+        for (size_t j = 0; j < rc; ++j) {
+            T minor = determinant_impl<T>(internal::sub_matrix(mat, j, i), int2type<rc - 1>{});
+            result[j + i * rc] = minor * innerSign;
+            innerSign *= T{ -1 };
+        }
+        outerSign *= T{ -1 };
+    }
+    return result;
+}
+
+} // namespace internal
+
+template<typename T, size_t rc>
+inline T determinant(const Mat<T, rc, rc>& mat)
+{
+    return internal::determinant_impl(mat, internal::int2type<rc>{});
+}
+
+template<typename T, size_t rc>
+inline Mat<T, rc, rc> inverse(const Mat<T, rc, rc>& mat)
+{
+    Mat<T, rc, rc> result;
 
     T det = determinant(mat);
 
-    result = MinorHelper<T, cr>::calculate(mat);
+    result = internal::minor_impl(mat, internal::int2type<rc>{});
     result = transpose(result);
     result *= 1.0f / det;
 
     return result;
 }
 
-template<typename T, size_t cr>
-inline Mat<T, cr, cr> gj_inverse(const Mat<T, cr, cr>& mat)
+template<typename T, size_t rc>
+inline Mat<T, rc, rc> gj_inverse(const Mat<T, rc, rc>& mat)
 {
-    Mat<T, cr, cr> currentMat = mat;
-    Mat<T, cr, cr> result = identity<T, cr>();
+    Mat<T, rc, rc> currentMat = mat;
+    Mat<T, rc, rc> result = identity<T, rc>();
 
     size_t currentLine = 0;
-    for (size_t i = 0; i < cr; ++i) {
-        T diagonal = currentMat[(cr * i) + i];
-        T diagonalRecip = (T)1 / diagonal;
+    for (size_t i = 0; i < rc; ++i) {
+        T diagonal = currentMat[(rc * i) + i];
+        T diagonalRecip = T{ 1 } / diagonal;
 
-        for (size_t j = cr * i; j < cr + (cr * i); ++j) {
+        for (size_t j = rc * i; j < rc + (rc * i); ++j) {
             currentMat[j] *= diagonalRecip;
             result[j] *= diagonalRecip;
         }
 
-        for (size_t row = 0; row < cr; ++row) {
+        for (size_t row = 0; row < rc; ++row) {
             if (row == currentLine)
                 continue;
-            T next = currentMat[currentLine + row * cr];
-            for (size_t col = 0; col < cr; ++col) {
-                size_t index = cr * row + col;
-                currentMat[index] -= (next * currentMat[cr * currentLine + col]);
-                result[index] -= (next * result[cr * currentLine + col]);
+            T next = currentMat[currentLine + row * rc];
+            for (size_t col = 0; col < rc; ++col) {
+                size_t index = rc * row + col;
+                currentMat[index] -= (next * currentMat[rc * currentLine + col]);
+                result[index] -= (next * result[rc * currentLine + col]);
             }
         }
 

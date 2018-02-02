@@ -50,7 +50,7 @@ struct Mat
     Mat(Args&&... args) noexcept : elem { std::forward<Args>(args)... } {}
 };
 
-}
+} // namespace mat
 
 #ifdef _MSC_VER
 __pragma(warning(pop))
@@ -66,10 +66,10 @@ template<typename T, size_t r, size_t c>
 inline const T* const_data(const Mat<T, r, c>& mat);
 
 template<typename T, size_t r, size_t c>
-inline Mat<T, r, c> make_from(const T(&data)[r * c]);
+inline Mat<T, r, c> create_from_arr(const T(&data)[r * c]);
 
 template<typename T, size_t r, size_t c>
-inline Mat<T, r, c> make_from(const T* data);
+inline Mat<T, r, c> create_from_ptr(const T* data);
 
 template <typename T, size_t r, size_t c>
 inline Mat<T, r, c> operator*(const Mat<T, r, c>& lhs, const Mat<T, r, c>& rhs);
@@ -92,12 +92,6 @@ inline Mat<T, r, c> transpose(const Mat<T, r, c>& mat);
 
 template<typename T, size_t cr>
 inline Mat<T, cr, cr> identity();
-
-template<typename T>
-inline T minor(const Mat<T, 2, 2>& mat);
-
-template<typename T, size_t cr>
-inline Mat<T, cr - 1, cr - 1> sub_matrix(const Mat<T, cr, cr>& mat, size_t col, size_t row);
 
 template<typename T, size_t cr>
 inline T determinant(const Mat<T, cr, cr>& mat);

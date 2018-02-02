@@ -105,7 +105,7 @@ const m44 m44_id = mat::identity<real, 4>();
 
 AS_INLINE m44 make_m44_from(const real* data)
 {
-    return mat::make_from<real, 4, 4>(data);
+    return mat::create_from_ptr<real, 4, 4>(data);
 }
 
 AS_INLINE m44 translation(const v3& translation)
