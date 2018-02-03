@@ -115,9 +115,9 @@ template <typename T, int N> char(&dim_helper(T(&)[N]))[N];
 #define AS_DIM(x) (sizeof(dim_helper(x)))
 
 #ifdef _MSC_VER
-#define AS_INLINE __forceinline
+#define AS_FORCE_INLINE __forceinline
 #elif defined __GNUC__
-#define AS_INLINE inline __attribute__((__always_inline__))
+#define AS_FORCE_INLINE inline __attribute__((__always_inline__))
 #endif
 
 #ifdef _MSC_VER

@@ -5,71 +5,33 @@
 namespace as
 {
 
-const real PI = 3.14159265358979323846f;
-const real DEG_TO_RAD = PI / 180.0f;
-const real RAD_TO_DEG = 180.0f / PI;
+constexpr real PI = 3.14159265358979323846f;
+constexpr real DEG_TO_RAD = PI / 180.0f;
+constexpr real RAD_TO_DEG = 180.0f / PI;
 
 template<typename T>
-inline T lerp(T t, T v0, T v1)
-{
-    return ((T)1 - t) * v0 + t * v1;
-}
+inline T lerp(T t, T v0, T v1);
 
 template<typename T>
-inline T smooth_step(T t, T v0, T v1)
-{
-    T val = (t * t) * ((T)3 - (T)2 * t);
-    return lerp(v0, v1, val);
-}
+inline T smooth_step(T t, T v0, T v1);
 
 template<typename T>
-inline T max(T v0, T v1)
-{
-    return v0 > v1 ? v0 : v1;
-}
+inline T max(T v0, T v1);
 
 template<typename T>
-inline T min(T v0, T v1)
-{
-    return v0 < v1 ? v0 : v1;
-}
+inline T min(T v0, T v1);
 
 template<typename T>
-inline T clamp(T t, T v0, T v1)
-{
-    return t < v0 ? v0 : t > v1 ? v1 : t;
-}
+inline T clamp(T t, T v0, T v1);
 
-inline real deg_to_rad(real degrees)
-{
-    return degrees * DEG_TO_RAD;
-}
+inline real deg_to_rad(real degrees);
+inline real rad_to_deg(real radians);
 
-inline real rad_to_deg(real radians)
-{
-    return radians * RAD_TO_DEG;
-}
-
-// floating point comparison by Bruce Dawson
-// ref: https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
 inline bool equal(
     real a, real b,
     real max_diff = std::numeric_limits<real>::epsilon(),
-    real max_rel_diff = std::numeric_limits<real>::epsilon())
-{
-    // check if the numbers are really close
-    // needed when comparing numbers near zero
-    real diff = absr(a - b);
-    if (diff <= max_diff) {
-        return true;
-    }
+    real max_rel_diff = std::numeric_limits<real>::epsilon());
 
-    a = absr( a );
-    b = absr( b );
-    real largest = ( b > a ) ? b : a;
+} // namespace as
 
-    // find relative difference
-    return diff <= largest * max_rel_diff;
-}
-
-}
+#include "as-math.inl"
