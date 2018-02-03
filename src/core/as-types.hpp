@@ -131,7 +131,7 @@ template <typename T, int N> char(&dim_helper(T(&)[N]))[N];
 #define AS_LOG_DEBUG
 //#define AS_LOG_CONSOLE
 
-}
+} // namespace as
 
 #ifdef _MSC_VER
 __pragma(warning(pop))
