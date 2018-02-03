@@ -17,7 +17,7 @@ inline const T* const_data(const Mat<T, r, c>& mat)
 }
 
 template<typename T, size_t r, size_t c>
-inline Mat<T, r, c> create_from_arr(const T(&data)[r * c])
+inline Mat<T, r, c> from_arr(const T(&data)[r * c])
 {
     Mat<T, r, c> result;
     std::copy(std::begin(data), std::end(data), result.elem);
@@ -25,7 +25,7 @@ inline Mat<T, r, c> create_from_arr(const T(&data)[r * c])
 }
 
 template<typename T, size_t r, size_t c>
-inline Mat<T, r, c> create_from_ptr(const T* data)
+inline Mat<T, r, c> from_ptr(const T* data)
 {
     Mat<T, r, c> result;
     std::copy(data, data + r * c, result.elem);
@@ -208,11 +208,9 @@ inline Mat<T, rc, rc> inverse(const Mat<T, rc, rc>& mat)
 {
     Mat<T, rc, rc> result;
 
-    T det = determinant(mat);
-
     result = internal::minor_impl(mat, internal::int2type<rc>{});
     result = transpose(result);
-    result *= 1.0f / det;
+    result *= 1.0f / determinant(mat);
 
     return result;
 }

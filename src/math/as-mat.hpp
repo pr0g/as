@@ -35,8 +35,8 @@ struct Mat
         vec::Vec<T, r> vec[c];
     };
 
-    inline T& operator[](size_t i) { return elem[i]; }
-    inline const T& operator[](size_t i) const { return elem[i]; }
+    constexpr T& operator[](size_t i) { return elem[i]; }
+    constexpr const T& operator[](size_t i) const { return elem[i]; }
 
     Mat() = default;
     Mat(const Mat& mat) = default;
@@ -66,10 +66,10 @@ template<typename T, size_t r, size_t c>
 inline const T* const_data(const Mat<T, r, c>& mat);
 
 template<typename T, size_t r, size_t c>
-inline Mat<T, r, c> create_from_arr(const T(&data)[r * c]);
+inline Mat<T, r, c> from_arr(const T(&data)[r * c]);
 
 template<typename T, size_t r, size_t c>
-inline Mat<T, r, c> create_from_ptr(const T* data);
+inline Mat<T, r, c> from_ptr(const T* data);
 
 template <typename T, size_t r, size_t c>
 inline Mat<T, r, c> operator*(const Mat<T, r, c>& lhs, const Mat<T, r, c>& rhs);

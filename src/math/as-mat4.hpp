@@ -93,144 +93,23 @@ template<> struct mat::Mat<real, 4, 4>
           x2(mat.x2), y2(mat.y2), z2(mat.z2), w2(0.0f),
           x3(pos.x),  y3(pos.y),  z3(pos.z),  w3(1.0f) {}
 
-    size_t rows() const { return 4; }
-    size_t cols() const { return 4; }
+    constexpr static size_t rows() { return 4; }
+    constexpr static size_t cols() { return 4; }
+
+    constexpr static Mat identity() { return mat::identity<real, 4>(); }
+
+    constexpr inline static Mat from_ptr(const real* data);
+    constexpr inline static Mat from_arr(const real(&data)[16]);
+
+    constexpr inline static m44 translation(const v3& translation);
+    constexpr inline static m44 rotation(const m33& rotation);
+    constexpr inline static m44 transform(const m33& rotation, const v3& translation);
 };
 
 #ifdef _MSC_VER
 __pragma(warning(pop))
 #endif
 
-const m44 m44_id = mat::identity<real, 4>();
+} // namespace as
 
-AS_INLINE m44 make_m44_from(const real* data)
-{
-    return mat::create_from_ptr<real, 4, 4>(data);
-}
-
-AS_INLINE m44 translation(const v3& translation)
-{
-    return m44(v4::axis_x(), v4::axis_y(), v4::axis_z(), v4(translation, 1.0f));
-}
-
-AS_INLINE m44 rotation(const m33& rotation)
-{
-    return m44(rotation, v3::zero());
-}
-
-// openGL default
-AS_INLINE m44 make_perspective_gl_rh(real fovy, real aspect, real n, real f)
-{
-    m44 result = {};
-
-    real e = 1.0f / tanr(fovy * 0.5f);
-
-    result[0] = e / aspect;
-    result[5] = e;
-    result[10] = -((f + n) / (f - n));
-    result[11] = -1.0f;
-    result[14] = -((2.0f * f * n) / (f - n));
-
-    return result;
-}
-
-AS_INLINE m44 make_perspective_gl_lh(real fovy, real aspect, real n, real f)
-{
-    m44 result = {};
-
-    real e = 1.0f / tanr(fovy * 0.5f);
-
-    result[0] = e / aspect;
-    result[5] = e;
-    result[10] = ((f + n) / (f - n));
-    result[11] = 1.0f;
-    result[14] = -((2.0f * f * n) / (f - n));
-
-    return result;
-}
-
-// vulkan default
-AS_INLINE m44 make_perspective_vulkan_rh(real fovy, real aspect, real n, real f)
-{
-    // vulkan clip space has inverted Y and half z
-    const m44 clip(
-        1.0f, 0.0f, 0.0f, 0.0f,
-        0.0f, -1.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 0.5f, 0.0f,
-        0.0f, 0.0f, 0.5f, 1.0f);
-
-    return clip * make_perspective_gl_rh(fovy, aspect, n, f);
-}
-
-// directX default
-AS_INLINE m44 make_perspective_d3d_lh(real fovy, real aspect, real n, real f)
-{
-    m44 result = {};
-
-    real e = 1.0f / tanr(fovy * 0.5f);
-
-    result[0] = e / aspect;
-    result[5] = e;
-    result[10] = f / (f - n);
-    result[11] = 1.0f;
-    result[14] = -((f * n) / (f - n));
-
-    return result;
-}
-
-AS_INLINE m44 make_perspective_d3d_rh(real fovy, real aspect, real n, real f)
-{
-    m44 result = {};
-
-    real e = 1.0f / tanr(fovy * 0.5f);
-
-    result[0] = e / aspect;
-    result[5] = e;
-    result[10] = -f / (f - n);
-    result[11] = -1.0f;
-    result[14] = -((f * n) / (f - n));
-
-    return result;
-}
-
-// openGL default
-AS_INLINE m44 make_ortho_gl_rh(real l, real r, real b, real t, real n, real f)
-{
-    m44 result = {};
-
-    real x = 1.0f / (r - l);
-    real y = 1.0f / (t - b);
-    real z = 1.0f / (f - n);
-
-    result[0] = 2.0f * x;
-    result[5] = 2.0f * y;
-    result[10] = -2.0f * z;
-    result[12] = -(l + r) * x;
-    result[13] = -(b + t) * y;
-    result[14] = -(n + f) * z;
-    result[15] = 1.0f;
-
-    return result;
-}
-
-// directx default
-AS_INLINE m44 make_ortho_d3d_lh(real l, real r, real b, real t, real n, real f)
-{
-    m44 result = {};
-
-    real x = 1.0f / (r - l);
-    real y = 1.0f / (t - b);
-    real z = 1.0f / (f - n);
-
-    result[0] = 2.0f * x;
-    result[5] = 2.0f * y;
-    result[10] = z;
-    result[12] = -(l + r) * x;
-    result[13] = -(b + t) * y;
-    result[14] = -n * z;
-    result[15] = 1.0f;
-
-    return result;
-}
-
-}
+#include "as-mat4.inl"

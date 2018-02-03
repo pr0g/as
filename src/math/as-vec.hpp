@@ -68,8 +68,8 @@ struct vec::Vec<real, 2>
     constexpr static Vec max() { return { REAL_MAX, REAL_MAX }; }
     constexpr static Vec min() { return { REAL_MIN, REAL_MIN }; }
 
-    static inline Vec create_from_ptr(const real* data);
-    static inline Vec create_from_arr(const real(&data)[size]);
+    constexpr inline static Vec from_ptr(const real* data);
+    constexpr inline static Vec from_arr(const real(&data)[size]);
 };
 
 using v2 = vec::Vec<real, 2>;
@@ -99,7 +99,7 @@ struct vec::Vec<real, 3>
     constexpr Vec(const v2& xy, real z) : x(xy.x), y(xy.y), z(z) {}
     constexpr Vec(real x, real y, real z) : x(x), y(y), z(z) {}
 
-    v2 xy() const { return v2(x, y); }
+    constexpr v2 xy() const { return v2(x, y); }
 
     constexpr static Vec axis_x() { return { 1.0f, 0.0f, 0.0f }; }
     constexpr static Vec axis_y() { return { 0.0f, 1.0f, 0.0f }; }
@@ -109,8 +109,8 @@ struct vec::Vec<real, 3>
     constexpr static Vec max() { return { REAL_MAX, REAL_MAX, REAL_MAX }; }
     constexpr static Vec min() { return { REAL_MIN, REAL_MIN, REAL_MIN }; }
 
-    static inline Vec create_from_ptr(const real* data);
-    static inline Vec create_from_arr(const real(&data)[size]);
+    constexpr inline static Vec from_ptr(const real* data);
+    constexpr inline static Vec from_arr(const real(&data)[size]);
 };
 
 using v3 = vec::Vec<real, 3>;
@@ -142,9 +142,9 @@ struct vec::Vec<real, 4>
     constexpr Vec(const v2& xy, const v2& zw) : x(xy.x), y(xy.y), z(zw.x), w(zw.y) {}
     constexpr Vec(real x, real y, real z, real w) : x(x), y(y), z(z), w(w) {}
 
-    v2 xy() const { return v2(x, y); }
-    v2 zw() const { return v2(z, w); }
-    v3 xyz() const { return v3(x, y, z); }
+    constexpr v2 xy() const { return v2(x, y); }
+    constexpr v2 zw() const { return v2(z, w); }
+    constexpr v3 xyz() const { return v3(x, y, z); }
 
     constexpr static Vec axis_x() { return { 1.0f, 0.0f, 0.0f, 0.0f }; }
     constexpr static Vec axis_y() { return { 0.0f, 1.0f, 0.0f, 0.0f }; }
@@ -155,8 +155,8 @@ struct vec::Vec<real, 4>
     constexpr static Vec max() { return { REAL_MAX, REAL_MAX, REAL_MAX, REAL_MAX }; }
     constexpr static Vec min() { return { REAL_MIN, REAL_MIN, REAL_MIN, REAL_MIN }; }
 
-    static inline Vec create_from_ptr(const real* data);
-    static inline Vec create_from_arr(const real(&data)[size]);
+    constexpr inline static Vec from_ptr(const real* data);
+    constexpr inline static Vec from_arr(const real(&data)[size]);
 };
 
 using v4 = vec::Vec<real, 4>;
@@ -174,10 +174,10 @@ template<typename T, size_t n>
 inline const T* const_data(const Vec<T, n>& vec);
 
 template<typename T, size_t n>
-inline Vec<T, n> create_from_arr(const T(&data)[n]);
+inline Vec<T, n> from_arr(const T(&data)[n]);
 
 template<typename T, size_t n>
-inline Vec<T, n> create_from_ptr(const T* data);
+inline Vec<T, n> from_ptr(const T* data);
 
 template<typename T, size_t n>
 inline T dot(const Vec<T, n>& lhs, const Vec<T, n>& rhs);

@@ -10,6 +10,7 @@
 #include "src/math/as-mat.hpp"
 #include "src/math/as-mat3.hpp"
 #include "src/math/as-mat4.hpp"
+#include "src/math/as-view.hpp"
 
 // as-test
 #include "as-math-output.hpp"
@@ -36,14 +37,14 @@ TEST(as_mat, constructor) {
     }
 
     float data_33[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    as::m33 m33_data = as::make_m33_from(data_33);
+    as::m33 m33_data = as::m33::from_ptr(data_33);
     for (size_t i = 0; i < m33_data.rows(); ++i)
     {
         printf("row: %f, %f, %f\n", m33_data.row(i).x, m33_data.row(i).y, m33_data.row(i).z);
     }
 
     float data_44[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
-    as::m44 m44_data = as::make_m44_from(data_44);
+    as::m44 m44_data = as::m44::from_ptr(data_44);
     for (size_t i = 0; i < m44_data.rows(); ++i)
     {
         printf("row: %f, %f, %f, %f\n", m44_data.row(i).x, m44_data.row(i).y, m44_data.row(i).z, m44_data.row(i).w);
@@ -89,7 +90,7 @@ TEST(as_mat4, inverse) {
     // 							 0.0f, 0.0f, 0.0f, 1.0f);
 
     glm::mat4 glm_a = glm::rotate(glm::mat4(1.0f), glm::radians(100.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    as::m44 as_a = as::m44(as::make_rotation_x(as::deg_to_rad(100.0f)), as::v3::zero());
+    as::m44 as_a = as::m44(as::m33::rotation_x(as::deg_to_rad(100.0f)), as::v3::zero());
 
     glm::mat4 glm_a_inverse = glm::inverse(glm_a);
     as::m44 as_a_inverse = as::mat::inverse(as_a);
@@ -127,7 +128,7 @@ TEST(as_mat, m33_init) {
             data[i] = (as::real)(i + 1);
         }
 
-        as::m33 a = as::make_m33_from(data);
+        as::m33 a = as::m33::from_ptr(data);
         for (size_t i = 0; i < 3; ++i) {
             print_v3(a.row(i));
         }
@@ -139,7 +140,7 @@ TEST(as_mat, m33_init) {
             data_p[i] = (as::real)(i + 1);
         }
 
-        as::m33 p_a = as::make_m33_from(data_p);
+        as::m33 p_a = as::m33::from_ptr(data_p);
         for (size_t i = 0; i < 3; ++i) {
             print_v3(p_a.row(i));
         }
@@ -172,7 +173,7 @@ TEST(as_mat, col_row) {
 
 TEST(as_mat, mat_mult) {
     // as::m44 a = as::identity<as::real, 4>();
-    as::m44 mat = as::m44_id;
+    as::m44 mat = as::m44::identity();
     as::v4 vec = as::v4::axis_w();
 
 #ifdef AS_COL_MAJOR
@@ -181,7 +182,7 @@ TEST(as_mat, mat_mult) {
     as::v4 result_row = vec * mat;
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 
-    as::m33 mat_rot = as::make_rotation_x(as::deg_to_rad(90.0f));
+    as::m33 mat_rot = as::m33::rotation_x(as::deg_to_rad(90.0f));
     as::m44 transform_rot = as::m44(mat_rot, as::v3::zero());
 
     as::v4 dir(0.0, 1.0f, 0.0f, 0.0f);
@@ -197,7 +198,7 @@ TEST(as_mat, mat_mult) {
 }
 
 TEST(as_mat, mat_proj) {
-    as::m44 proj = as::make_perspective_gl_lh(as::deg_to_rad(60.0f), 4.0f/3.0f, 0.1f, 100.0f);
+    as::m44 proj = as::view::perspective_gl_lh(as::deg_to_rad(60.0f), 4.0f/3.0f, 0.1f, 100.0f);
     for (size_t i = 0; i < 16; ++i) {
         printf("proj[%d]: %f, ", static_cast<int>(i), proj[i]);
     }

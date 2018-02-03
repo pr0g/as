@@ -1,34 +1,34 @@
 namespace as
 {
 
-v2 v2::create_from_ptr(const real* data)
+constexpr v2 v2::from_ptr(const real* data)
 {
-    return vec::create_from_ptr<real, 2>(data);
+    return vec::from_ptr<real, 2>(data);
 }
 
-v2 v2::create_from_arr(const real(&data)[2])
+constexpr v2 v2::from_arr(const real(&data)[2])
 {
-    return vec::create_from_arr(data);
+    return vec::from_arr(data);
 }
 
-v3 v3::create_from_ptr(const real* data)
+constexpr v3 v3::from_ptr(const real* data)
 {
-    return vec::create_from_ptr<real, 3>(data);
+    return vec::from_ptr<real, 3>(data);
 }
 
-v3 v3::create_from_arr(const real(&data)[3])
+constexpr v3 v3::from_arr(const real(&data)[3])
 {
-    return vec::create_from_arr(data);
+    return vec::from_arr(data);
 }
 
-v4 v4::create_from_ptr(const real* data)
+constexpr v4 v4::from_ptr(const real* data)
 {
-    return vec::create_from_ptr<real, 4>(data);
+    return vec::from_ptr<real, 4>(data);
 }
 
-v4 v4::create_from_arr(const real(&data)[4])
+constexpr v4 v4::from_arr(const real(&data)[4])
 {
-    return vec::create_from_arr(data);
+    return vec::from_arr(data);
 }
 
 namespace vec
@@ -53,7 +53,7 @@ T* data(Vec<T, n>& vec)
 }
 
 template<typename T, size_t n>
-Vec<T, n> create_from_arr(const T(&data)[n])
+Vec<T, n> from_arr(const T(&data)[n])
 {
     Vec<T, n> result;
     std::copy(std::begin(data), std::end(data), result.elem);
@@ -61,7 +61,7 @@ Vec<T, n> create_from_arr(const T(&data)[n])
 }
 
 template<typename T, size_t n>
-Vec<T, n> create_from_ptr(const T* data)
+Vec<T, n> from_ptr(const T* data)
 {
     Vec<T, n> result;
     std::copy(data, data + n, result.elem);
@@ -97,8 +97,7 @@ T length(const Vec<T, n>& vec)
 template<typename T, size_t n>
 Vec<T, n> normalize(const Vec<T, n>& vec)
 {
-    T len = length(vec);
-    return vec / len;
+    return vec / length(vec);
 }
 
 template<typename T, size_t n>
@@ -302,11 +301,11 @@ Vec<T, n> select(const Vec<T, n>& v0, const Vec<T, n>& v1, bool select0)
 
 v3 cross(const v3& lhs, const v3& rhs)
 {
-    v3 result;
-    result[0] = lhs.y * rhs.z - lhs.z * rhs.y;
-    result[1] = lhs.z * rhs.x - lhs.x * rhs.z;
-    result[2] = lhs.x * rhs.y - lhs.y * rhs.x;
-    return result;
+    return {
+        lhs.y * rhs.z - lhs.z * rhs.y,
+        lhs.z * rhs.x - lhs.x * rhs.z,
+        lhs.x * rhs.y - lhs.y * rhs.x
+    };
 }
 
 // note: will not work if dir == +/-world_up
