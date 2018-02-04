@@ -4,7 +4,7 @@
 #include <type_traits>
 
 #include "src/core/as-types.hpp"
-#include "src/math/as-vec-type.hpp"
+#include "src/math/as-vec.hpp"
 
 namespace as
 {
@@ -66,38 +66,6 @@ inline Mat<T, r, c> operator*(const Mat<T, r, c>& mat, T scalar);
 template<typename T, size_t r, size_t c>
 inline void operator*=(Mat<T, r, c>& mat, T scalar);
 
-namespace mat
-{
-
-template<typename T, size_t r, size_t c>
-inline T* data(const Mat<T, r, c>& mat);
-
-template<typename T, size_t r, size_t c>
-inline const T* const_data(const Mat<T, r, c>& mat);
-
-template<typename T, size_t r, size_t c>
-inline Mat<T, r, c> from_arr(const T(&data)[r * c]);
-
-template<typename T, size_t r, size_t c>
-inline Mat<T, r, c> from_ptr(const T* data);
-
-template<typename T, size_t r, size_t c>
-inline Mat<T, r, c> transpose(const Mat<T, r, c>& mat);
-
-template<typename T, size_t cr>
-inline Mat<T, cr, cr> identity();
-
-template<typename T, size_t cr>
-inline T determinant(const Mat<T, cr, cr>& mat);
-
-template<typename T, size_t cr>
-inline Mat<T, cr, cr> inverse(const Mat<T, cr, cr>& mat);
-
-template<typename T, size_t cr>
-inline Mat<T, cr, cr> gj_inverse(const Mat<T, cr, cr>& mat);
-
-} // namespace mat
-
 } // namespace as
 
-#include "as-mat-type.inl"
+#include "as-mat.inl"

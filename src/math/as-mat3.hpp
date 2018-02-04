@@ -1,6 +1,6 @@
 #pragma once
 
-#include "as-mat-type.hpp"
+#include "as-mat.hpp"
 
 namespace as
 {
@@ -76,21 +76,6 @@ template<> struct Mat<real, 3, 3>
           x1(col1.x), y1(col1.y), z1(col1.z),
           x2(col2.x), y2(col2.y), z2(col2.z) {}
 #endif
-
-    constexpr static size_t rows() { return 3; }
-    constexpr static size_t cols() { return 3; }
-
-    constexpr static Mat identity() { return mat::identity<real, 3>(); }
-
-    constexpr inline static Mat from_ptr(const real* data);
-    constexpr inline static Mat from_arr(const real(&data)[9]);
-    
-    constexpr inline static Mat axis_angle(const v3& axis, real radians);
-    constexpr inline static Mat rotation_xyz(real x, real y, real z);
-    constexpr inline static Mat rotation_zxy(real x, real y, real z);
-    constexpr inline static Mat rotation_x(real radians);
-    constexpr inline static Mat rotation_y(real radians);
-    constexpr inline static Mat rotation_z(real radians);
 };
 
 #ifdef _MSC_VER
@@ -98,5 +83,3 @@ __pragma(warning(pop))
 #endif
 
 } // namespace as
-
-#include "as-mat3-type.inl"

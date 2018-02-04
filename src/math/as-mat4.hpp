@@ -1,7 +1,7 @@
 #pragma once
 
-#include "as-mat-type.hpp"
-#include "as-mat3-type.hpp"
+#include "as-mat.hpp"
+#include "as-mat3.hpp"
 
 namespace as
 {
@@ -92,17 +92,6 @@ template<> struct Mat<real, 4, 4>
           x1(mat.x1), y1(mat.y1), z1(mat.z1), w1(0.0f),
           x2(mat.x2), y2(mat.y2), z2(mat.z2), w2(0.0f),
           x3(pos.x),  y3(pos.y),  z3(pos.z),  w3(1.0f) {}
-
-    constexpr static size_t rows() { return 4; }
-    constexpr static size_t cols() { return 4; }
-
-    constexpr static Mat identity() { return mat::identity<real, 4>(); }
-
-    constexpr inline static Mat from_ptr(const real* data);
-    constexpr inline static Mat from_arr(const real(&data)[16]);
-    constexpr inline static m44 from_v3(const v3& translation);
-    constexpr inline static m44 from_m33(const m33& rotation);
-    constexpr inline static m44 from_m33_v3(const m33& rotation, const v3& translation);
 };
 
 #ifdef _MSC_VER
@@ -110,5 +99,3 @@ __pragma(warning(pop))
 #endif
 
 } // namespace as
-
-#include "as-mat4-type.inl"

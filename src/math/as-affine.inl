@@ -1,31 +1,5 @@
-#pragma once
-
-#include "src/math/as-mat3-type.hpp"
-#include "src/math/as-mat4-type.hpp"
-
 namespace as
 {
-
-struct affine
-{
-    affine() = default;
-    affine(const affine&) = default;
-    affine& operator=(const affine&) = default;
-    affine(affine&&) noexcept = default;
-    affine& operator=(affine&&) noexcept = default;
-    ~affine() = default;
-
-    constexpr affine(const m33& rotation, const v3& position)
-        : rotation(rotation), position(position) {}
-
-    m33 rotation;
-    v3 position;
-
-    v3 transform_dir(const v3& direction);
-    v3 transform_pos(const v3& position);
-    v3 inv_transform_dir(const v3& direction);
-    v3 inv_transform_pos(const v3& position);
-};
 
 #if defined AS_COL_MAJOR
 v3 operator*(const affine& transform, const v3& vec)
@@ -59,7 +33,7 @@ v3 affine::transform_pos(const v3& position_)
 
 v3 affine::inv_transform_dir(const v3& direction)
 {
-    const m33 invRotation = as::mat::inverse(rotation);
+    const m33 invRotation = as::m_inverse(rotation);
 #if defined AS_COL_MAJOR
     return invRotation * direction;
 #elif defined AS_ROW_MAJOR
@@ -69,7 +43,7 @@ v3 affine::inv_transform_dir(const v3& direction)
 
 v3 affine::inv_transform_pos(const v3& position_)
 {
-    const m33 invRotation = as::mat::inverse(rotation);
+    const m33 invRotation = as::m_inverse(rotation);
 #if defined AS_COL_MAJOR
     return invRotation * (position_ - position);
 #elif defined AS_ROW_MAJOR

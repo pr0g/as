@@ -1,7 +1,7 @@
 #pragma once
 
 #include "as-math.hpp"
-#include "as-vec-type.hpp"
+#include "as-vec.hpp"
 
 namespace as
 {
@@ -63,17 +63,13 @@ inline p2 operator+(const p2& point, const v2& vec);
 inline void operator+=(p2& point, const v2& vec);
 inline p2 operator-(const p2& point, const v2& vec);
 inline void operator-=(p2& point, const v2& vec);
-inline bool equal(const p2& lhs, const p2& rhs,
-    real epsilon = std::numeric_limits<real>::epsilon());
 
 inline v3 operator-(const p3& lhs, const p3& rhs);
 inline p3 operator+(const p3& point, const v3& vec);
 inline void operator+=(p3& point, const v3& vec);
 inline p3 operator-(const p3& point, const v3& vec);
 inline void operator-=(p3& point, const v3& vec);
-inline bool equal(const p3& lhs, const p3& rhs,
-    real epsilon = std::numeric_limits<real>::epsilon());
 
 } // namespace as
 
-#include "as-point-type.inl"
+#include "as-point.inl"
