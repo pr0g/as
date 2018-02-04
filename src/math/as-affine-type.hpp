@@ -1,7 +1,7 @@
 #pragma once
 
-#include "src/math/as-mat3.hpp"
-#include "src/math/as-mat4.hpp"
+#include "src/math/as-mat3-type.hpp"
+#include "src/math/as-mat4-type.hpp"
 
 namespace as
 {

@@ -1,7 +1,7 @@
 // gtest
 #include "gtest/gtest.h"
 
-#include "src/math/as-affine.hpp"
+#include "src/math/as-affine-type.hpp"
 
 TEST(as_affine, constructor)
 {

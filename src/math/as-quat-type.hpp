@@ -1,6 +1,6 @@
 #pragma once
 
-#include "as-vec.hpp"
+#include "as-vec-type.hpp"
 
 namespace as
 {
@@ -58,4 +58,4 @@ inline quat operator*(const quat& a, real b);
 
 }
 
-#include "as-quat.inl"
+#include "as-quat-type.inl"

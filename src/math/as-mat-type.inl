@@ -1,37 +1,6 @@
 namespace as
 {
 
-namespace mat
-{
-
-template<typename T, size_t r, size_t c>
-inline T* data(const Mat<T, r, c>& mat)
-{
-    return mat.elem;
-}
-
-template<typename T, size_t r, size_t c>
-inline const T* const_data(const Mat<T, r, c>& mat)
-{
-    return mat.elem;
-}
-
-template<typename T, size_t r, size_t c>
-inline Mat<T, r, c> from_arr(const T(&data)[r * c])
-{
-    Mat<T, r, c> result;
-    std::copy(std::begin(data), std::end(data), result.elem);
-    return result;
-}
-
-template<typename T, size_t r, size_t c>
-inline Mat<T, r, c> from_ptr(const T* data)
-{
-    Mat<T, r, c> result;
-    std::copy(data, data + r * c, result.elem);
-    return result;
-}
-
 template < typename T, size_t r, size_t c >
 inline Mat<T, r, c> operator*(const Mat<T, r, c>& lhs, const Mat<T, r, c>& rhs)
 {
@@ -64,9 +33,9 @@ return result;
 
 template<typename T, size_t r, size_t c, size_t n>
 #if defined AS_ROW_MAJOR
-inline vec::Vec<T, n> operator*(const vec::Vec<T, n> v, const Mat<T, r, c>& mat)
+inline Vec<T, n> operator*(const Vec<T, n> v, const Mat<T, r, c>& mat)
 #elif defined AS_COL_MAJOR
-inline vec::Vec<T, n> operator*(const Mat<T, r, c>& mat, const vec::Vec<T, n> v)
+inline Vec<T, n> operator*(const Mat<T, r, c>& mat, const Vec<T, n> v)
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 {
 #if defined AS_ROW_MAJOR
@@ -75,7 +44,7 @@ inline vec::Vec<T, n> operator*(const Mat<T, r, c>& mat, const vec::Vec<T, n> v)
     static_assert(n == r, "Number of rows does not equal number of elements in vector");
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
-    vec::Vec<T, n> result;
+    Vec<T, n> result;
     for (size_t vertexIndex = 0; vertexIndex < n; ++vertexIndex) {
         T value = 0;
         for (size_t step = 0; step < n; ++step) {
@@ -106,6 +75,37 @@ inline void operator*=(Mat<T, r, c>& mat, T scalar)
             mat[rowIndex * c + colIndex] *= scalar;
         }
     }
+}
+
+namespace mat
+{
+
+template<typename T, size_t r, size_t c>
+inline T* data(const Mat<T, r, c>& mat)
+{
+    return mat.elem;
+}
+
+template<typename T, size_t r, size_t c>
+inline const T* const_data(const Mat<T, r, c>& mat)
+{
+    return mat.elem;
+}
+
+template<typename T, size_t r, size_t c>
+inline Mat<T, r, c> from_arr(const T(&data)[r * c])
+{
+    Mat<T, r, c> result;
+    std::copy(std::begin(data), std::end(data), result.elem);
+    return result;
+}
+
+template<typename T, size_t r, size_t c>
+inline Mat<T, r, c> from_ptr(const T* data)
+{
+    Mat<T, r, c> result;
+    std::copy(data, data + r * c, result.elem);
+    return result;
 }
 
 template<typename T, size_t r, size_t c>

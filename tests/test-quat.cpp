@@ -8,7 +8,7 @@
 
 // as
 #include "src/math/as-math.hpp"
-#include "src/math/as-quat.hpp"
+#include "src/math/as-quat-type.hpp"
 
 // as-test
 #include "as-math-output.hpp"

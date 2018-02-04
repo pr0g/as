@@ -4,7 +4,7 @@
 #include <type_traits>
 
 #include "src/core/as-types.hpp"
-#include "src/math/as-vec.hpp"
+#include "src/math/as-vec-type.hpp"
 
 namespace as
 {
@@ -21,9 +21,6 @@ __pragma(warning(disable:4201))
     static_assert(false, "Must define only AS_COL_MAJOR or AS_ROW_MAJOR");
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
-namespace mat
-{
-
 template<typename T, size_t r, size_t c>
 struct Mat
 {
@@ -31,7 +28,7 @@ struct Mat
     {
         T elem[r * c];
         T elem_rc[r][c];
-        vec::Vec<T, r> vec[c];
+        Vec<T, r> vec[c];
     };
 
     constexpr T& operator[](size_t i) { return elem[i]; }
@@ -49,11 +46,25 @@ struct Mat
     Mat(Args&&... args) noexcept : elem { std::forward<Args>(args)... } {}
 };
 
-} // namespace mat
-
 #ifdef _MSC_VER
 __pragma(warning(pop))
 #endif // _MSC_VER
+
+template <typename T, size_t r, size_t c>
+inline Mat<T, r, c> operator*(const Mat<T, r, c>& lhs, const Mat<T, r, c>& rhs);
+
+template<typename T, size_t r, size_t c, size_t n>
+#if defined AS_ROW_MAJOR
+inline Vec<T, n> operator*(const Vec<T, n> v, const Mat<T, r, c>& mat)
+#elif defined AS_COL_MAJOR
+inline Vec<T, n> operator*(const Mat<T, r, c>& mat, const Vec<T, n> v);
+#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+
+template<typename T, size_t r, size_t c>
+inline Mat<T, r, c> operator*(const Mat<T, r, c>& mat, T scalar);
+
+template<typename T, size_t r, size_t c>
+inline void operator*=(Mat<T, r, c>& mat, T scalar);
 
 namespace mat
 {
@@ -69,22 +80,6 @@ inline Mat<T, r, c> from_arr(const T(&data)[r * c]);
 
 template<typename T, size_t r, size_t c>
 inline Mat<T, r, c> from_ptr(const T* data);
-
-template <typename T, size_t r, size_t c>
-inline Mat<T, r, c> operator*(const Mat<T, r, c>& lhs, const Mat<T, r, c>& rhs);
-
-template<typename T, size_t r, size_t c, size_t n>
-#if defined AS_ROW_MAJOR
-inline vec::Vec<T, n> operator*(const vec::Vec<T, n> v, const Mat<T, r, c>& mat)
-#elif defined AS_COL_MAJOR
-inline vec::Vec<T, n> operator*(const Mat<T, r, c>& mat, const vec::Vec<T, n> v);
-#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
-
-template<typename T, size_t r, size_t c>
-inline Mat<T, r, c> operator*(const Mat<T, r, c>& mat, T scalar);
-
-template<typename T, size_t r, size_t c>
-inline void operator*=(Mat<T, r, c>& mat, T scalar);
 
 template<typename T, size_t r, size_t c>
 inline Mat<T, r, c> transpose(const Mat<T, r, c>& mat);
@@ -105,4 +100,4 @@ inline Mat<T, cr, cr> gj_inverse(const Mat<T, cr, cr>& mat);
 
 } // namespace as
 
-#include "as-mat.inl"
+#include "as-mat-type.inl"

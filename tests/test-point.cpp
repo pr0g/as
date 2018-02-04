@@ -2,8 +2,8 @@
 #include "gtest/gtest.h"
 
 // as
-#include "src/math/as-vec.hpp"
-#include "src/math/as-point.hpp"
+#include "src/math/as-vec-type.hpp"
+#include "src/math/as-point-type.hpp"
 
 // as-test
 #include "as-math-output.hpp"

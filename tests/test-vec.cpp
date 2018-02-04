@@ -8,7 +8,7 @@
 
 // as
 #include "src/math/as-math.hpp"
-#include "src/math/as-vec.hpp"
+#include "src/math/as-vec-type.hpp"
 
 // as-test
 #include "as-math-output.hpp"
@@ -550,14 +550,14 @@ TEST(as_vec, vec_size)
     EXPECT_EQ(vec4_size, static_cast<size_t>(4));
     EXPECT_EQ(vec4_inst_size, vec4_size);
 
-    using short7 = as::vec::Vec<short, 7>;
+    using short7 = as::Vec<short, 7>;
     short7 vec_short7;
     size_t vec_short7_inst_size = as::vec::size(vec_short7);
     size_t short7_size = short7::size;
     EXPECT_EQ(short7_size, static_cast<size_t>(7));
     EXPECT_EQ(vec_short7_inst_size, short7_size);
 
-    using int5 = as::vec::Vec<int, 5>;
+    using int5 = as::Vec<int, 5>;
     int5 vec_short5;
     size_t vec_short5_inst_size = as::vec::size(vec_short5);
     size_t int5_size = int5::size;
@@ -609,7 +609,7 @@ TEST(as_vec, vec_data)
 
     // generic data mutable
     {
-        using int5 = as::vec::Vec<int, 5>;
+        using int5 = as::Vec<int, 5>;
         int5 int5_vec{ 11, 12, 13, 14, 15 };
         int* data = as::vec::data(int5_vec);
 
@@ -626,7 +626,7 @@ TEST(as_vec, vec_data)
 
     // data const
     {
-        using short7 = as::vec::Vec<short, 7>;
+        using short7 = as::Vec<short, 7>;
         short7 short7_vec{
             (short)11, (short)22, (short)33, (short)44,
             (short)55, (short)66, (short)77 };
@@ -673,7 +673,7 @@ TEST(as_vec, vec_make_from_arr)
     // generic make_from_arr <char, 6>
     {
         char data[6] = { 11, 12, 13, 14, 15, 16 };
-        as::vec::Vec<char, 6> char_6 = as::vec::from_arr(data);
+        as::Vec<char, 6> char_6 = as::vec::from_arr(data);
 
         EXPECT_EQ(char_6[0], 11);
         EXPECT_EQ(char_6[1], 12);
@@ -749,7 +749,7 @@ TEST(as_vec, vec_make_from_ptr)
         data[3] = 14;
         data[4] = 15;
         data[5] = 16;
-        as::vec::Vec<char, 6> char_6 = as::vec::from_ptr<char, 6>(data.get());
+        as::Vec<char, 6> char_6 = as::vec::from_ptr<char, 6>(data.get());
 
         EXPECT_EQ(char_6[0], 11);
         EXPECT_EQ(char_6[1], 12);
@@ -935,7 +935,7 @@ TEST(as_vec, min) {
     as::v4 v1(-1.0f, 2.0f, -100.0f, -7.0f);
     as::v4 v2(-10.0f, 7.0f, -50.0f, -16.0f);
 
-    as::v4 r = min(v1, v2);
+    as::v4 r = as::vec::min(v1, v2);
 
     EXPECT_TRUE(r.x == -10.0f && r.y == 2.0f && r.z == -100.0f && r.w == -16.0f) << "as::vec min failed";
 }
@@ -951,7 +951,7 @@ TEST(as_vec, max) {
     as::v4 v1(-1.0f, 2.0f, -100.0f, -7.0f);
     as::v4 v2(-10.0f, 7.0f, -50.0f, -16.0f);
 
-    as::v4 r = max(v1, v2);
+    as::v4 r = as::vec::max(v1, v2);
 
     EXPECT_TRUE(r.x == -1.0f && r.y == 7.0f && r.z == -50.0f && r.w == -7.0f) << "as::vec max failed";
 }
@@ -996,17 +996,17 @@ TEST(as_vec, lerp) {
 }
 
 TEST(as_vec, select) {
-    using int3 = as::vec::Vec<int, 3>;
+    using int3 = as::Vec<int, 3>;
 
     int3 a(1, 2, 3);
     int3 b(5, 6, 7);
 
-    using byte4 = as::vec::Vec<as::byte, 4>;
+    using byte4 = as::Vec<as::byte, 4>;
 
     byte4 c((as::byte)255, (as::byte)255, (as::byte)255, (as::byte)255);
     byte4 d((as::byte)0, (as::byte)0, (as::byte)0, (as::byte)0);
 
-    using float3 = as::vec::Vec<float, 3>;
+    using float3 = as::Vec<float, 3>;
 
     float3 x(1.0f, 2.0f, 3.0f);
     float3 y(4.0f, 5.0f, 6.0f);

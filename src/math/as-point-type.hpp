@@ -1,7 +1,7 @@
 #pragma once
 
 #include "as-math.hpp"
-#include "as-vec.hpp"
+#include "as-vec-type.hpp"
 
 namespace as
 {
@@ -76,4 +76,4 @@ inline bool equal(const p3& lhs, const p3& rhs,
 
 } // namespace as
 
-#include "as-point.inl"
+#include "as-point-type.inl"

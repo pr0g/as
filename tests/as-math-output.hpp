@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "src/math/as-vec.hpp"
+#include "src/math/as-vec-type.hpp"
 
 inline void print_v2(const as::v2& v) { printf("v = x: %f, y: %f\n", v.x, v.y); }
 inline void print_v3(const as::v3& v) { printf("v = x: %f, y: %f, z: %f\n", v.x, v.y, v.z); }

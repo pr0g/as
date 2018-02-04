@@ -7,9 +7,9 @@
 #include "glm/gtc/matrix_transform.hpp"
 
 // as
-#include "src/math/as-mat.hpp"
-#include "src/math/as-mat3.hpp"
-#include "src/math/as-mat4.hpp"
+#include "src/math/as-mat-type.hpp"
+#include "src/math/as-mat3-type.hpp"
+#include "src/math/as-mat4-type.hpp"
 #include "src/math/as-view.hpp"
 
 // as-test
@@ -52,8 +52,8 @@ TEST(as_mat, constructor) {
 }
 
 TEST(as_mat, copy_constructor) {
-    as::mat::Mat<double, 2, 4> a(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0);
-    as::mat::Mat<double, 2, 4> a_copy(a);
+    as::Mat<double, 2, 4> a(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0);
+    as::Mat<double, 2, 4> a_copy(a);
 
     EXPECT_EQ(a_copy[0], 1.0f) << "mat copy constructor failed";
     EXPECT_EQ(a_copy[1], 2.0f) << "mat copy constructor failed";
@@ -148,7 +148,7 @@ TEST(as_mat, m33_init) {
 }
 
 TEST(as_mat, col_row) {
-    as::mat::Mat< int, 5, 5 > mat;
+    as::Mat< int, 5, 5 > mat;
 
     for (size_t i = 0; i < 25; ++i) {
         mat[i] = (int)i;
@@ -211,7 +211,7 @@ TEST(as_mat, mat_proj) {
 }
 
 TEST(as_mat, mat_generic_init) {
-    using int34 = as::mat::Mat<int, 3, 4>;
+    using int34 = as::Mat<int, 3, 4>;
 
     int34 int34_test(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0);
 
@@ -226,7 +226,7 @@ TEST(as_mat, mat_transform_vec) {
 
     //as::v3 r_v3 = a_m44 * a_v3;
 
-    as::mat::Mat<as::real, 3, 4> my_m34;
+    as::Mat<as::real, 3, 4> my_m34;
 
     as::v3 result = my_m34 * a_v3;
     //as::v4 result2 = my_m34 * as::v4{ 0.0f, 0.0f, 0.0f, 1.0f }; // fails to compile

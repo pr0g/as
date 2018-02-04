@@ -11,9 +11,6 @@
 namespace as
 {
 
-namespace vec
-{
-
 template<typename T, size_t n>
 struct Vec
 {
@@ -35,10 +32,8 @@ struct Vec
     Vec(Args... args) noexcept : elem{ std::forward<Args>(args)... } {}
 };
 
-}
-
 template<>
-struct vec::Vec<real, 2>
+struct Vec<real, 2>
 {
     union
     {
@@ -72,10 +67,10 @@ struct vec::Vec<real, 2>
     constexpr inline static Vec from_arr(const real(&data)[size]);
 };
 
-using v2 = vec::Vec<real, 2>;
+using v2 = Vec<real, 2>;
 
 template<>
-struct vec::Vec<real, 3>
+struct Vec<real, 3>
 {
     union
     {
@@ -113,10 +108,10 @@ struct vec::Vec<real, 3>
     constexpr inline static Vec from_arr(const real(&data)[size]);
 };
 
-using v3 = vec::Vec<real, 3>;
+using v3 = Vec<real, 3>;
 
 template<>
-struct vec::Vec<real, 4>
+struct Vec<real, 4>
 {
     union
     {
@@ -159,7 +154,37 @@ struct vec::Vec<real, 4>
     constexpr inline static Vec from_arr(const real(&data)[size]);
 };
 
-using v4 = vec::Vec<real, 4>;
+using v4 = Vec<real, 4>;
+
+template<typename T, size_t n>
+inline Vec<T, n> operator+(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
+
+template<typename T, size_t n>
+inline Vec<T, n>& operator+=(Vec<T, n>& lhs, const Vec<T, n>& rhs);
+
+template<typename T, size_t n>
+inline Vec<T, n> operator-(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
+
+template<typename T, size_t n>
+inline Vec<T, n>& operator-=(Vec<T, n>& lhs, const Vec<T, n>& rhs);
+
+template<typename T, size_t n>
+inline Vec<T, n> operator-(const Vec<T, n>& vec);
+
+template<typename T, size_t n>
+inline Vec<T, n> operator*(const Vec<T, n>& vec, T val);
+
+template<typename T, size_t n>
+inline Vec<T, n> operator*(T val, const Vec<T, n>& vec);
+
+template<typename T, size_t n>
+inline void operator*=(Vec<T, n>& vec, T val);
+
+template<typename T, size_t n>
+inline Vec<T, n> operator/(const Vec<T, n>& vec, T val);
+
+template<typename T, size_t n>
+inline void operator/=(Vec<T, n>& vec, T val);
 
 namespace vec
 {
@@ -194,35 +219,6 @@ inline Vec<T, n> normalize(const Vec<T, n>& vec);
 template<typename T, size_t n>
 inline T normalize_return_length(const Vec<T, n>& vec, Vec<T, n>& out);
 
-template<typename T, size_t n>
-inline Vec<T, n> operator+(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
-
-template<typename T, size_t n>
-inline Vec<T, n>& operator+=(Vec<T, n>& lhs, const Vec<T, n>& rhs);
-
-template<typename T, size_t n>
-inline Vec<T, n> operator-(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
-
-template<typename T, size_t n>
-inline Vec<T, n>& operator-=(Vec<T, n>& lhs, const Vec<T, n>& rhs);
-
-template<typename T, size_t n>
-inline Vec<T, n> operator-(const Vec<T, n>& vec);
-
-template<typename T, size_t n>
-inline Vec<T, n> operator*(const Vec<T, n>& vec, T val);
-
-template<typename T, size_t n>
-inline Vec<T, n> operator*(T val, const Vec<T, n>& vec);
-
-template<typename T, size_t n>
-inline void operator*=(Vec<T, n>& vec, T val);
-
-template<typename T, size_t n>
-inline Vec<T, n> operator/(const Vec<T, n>& vec, T val);
-
-template<typename T, size_t n>
-inline void operator/=(Vec<T, n>& vec, T val);
 
 template<typename T, size_t n>
 inline bool equal(const Vec<T, n>& lhs, const Vec<T, n>& rhs, real epsilon = std::numeric_limits<real>::epsilon());
@@ -266,4 +262,4 @@ inline void right_and_up_rh(const v3& dir, v3& across, v3& up, const v3& world_u
 
 } // namespace as
 
-#include "as-vec.inl"
+#include "as-vec-type.inl"

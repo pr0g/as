@@ -1,19 +1,19 @@
 #pragma once
 
-#include "as-mat.hpp"
-#include "as-mat3.hpp"
+#include "as-mat-type.hpp"
+#include "as-mat3-type.hpp"
 
 namespace as
 {
 
-using m44 = mat::Mat<real, 4, 4>;
+using m44 = Mat<real, 4, 4>;
 
 #ifdef _MSC_VER
 __pragma(warning(push))
 __pragma(warning(disable:4201))
 #endif
 
-template<> struct mat::Mat<real, 4, 4>
+template<> struct Mat<real, 4, 4>
 {
     union
     {
@@ -111,4 +111,4 @@ __pragma(warning(pop))
 
 } // namespace as
 
-#include "as-mat4.inl"
+#include "as-mat4-type.inl"
