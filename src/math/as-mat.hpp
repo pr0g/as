@@ -4,8 +4,7 @@
 #include <type_traits>
 
 #include "src/core/as-types.hpp"
-
-#include "as-vec.hpp"
+#include "src/math/as-vec.hpp"
 
 namespace as
 {

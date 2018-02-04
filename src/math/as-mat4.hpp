@@ -100,10 +100,9 @@ template<> struct mat::Mat<real, 4, 4>
 
     constexpr inline static Mat from_ptr(const real* data);
     constexpr inline static Mat from_arr(const real(&data)[16]);
-
-    constexpr inline static m44 translation(const v3& translation);
-    constexpr inline static m44 rotation(const m33& rotation);
-    constexpr inline static m44 transform(const m33& rotation, const v3& translation);
+    constexpr inline static m44 from_v3(const v3& translation);
+    constexpr inline static m44 from_m33(const m33& rotation);
+    constexpr inline static m44 from_m33_v3(const m33& rotation, const v3& translation);
 };
 
 #ifdef _MSC_VER

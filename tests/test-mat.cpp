@@ -219,3 +219,16 @@ TEST(as_mat, mat_generic_init) {
         printf("%d, ", int34_test[i]);
     }
 }
+
+TEST(as_mat, mat_transform_vec) {
+    as::v3 a_v3{ 1.0f, 2.0f, 3.0f };
+    as::m44 a_m44{ as::m44::from_m33(as::m33::rotation_x(as::deg_to_rad(90.0f))) };
+
+    //as::v3 r_v3 = a_m44 * a_v3;
+
+    as::mat::Mat<as::real, 3, 4> my_m34;
+
+    as::v3 result = my_m34 * a_v3;
+    //as::v4 result2 = my_m34 * as::v4{ 0.0f, 0.0f, 0.0f, 1.0f }; // fails to compile
+
+}

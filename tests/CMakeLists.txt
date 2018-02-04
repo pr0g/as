@@ -12,7 +12,8 @@ SET(PROJ_SOURCE ${PROJ_TEST_PATH}/main.cpp
                 ${PROJ_TEST_PATH}/test-vec.cpp
                 ${PROJ_TEST_PATH}/test-mat.cpp
                 ${PROJ_TEST_PATH}/test-point.cpp
-                ${PROJ_TEST_PATH}/test-quat.cpp)
+                ${PROJ_TEST_PATH}/test-quat.cpp
+                ${PROJ_TEST_PATH}/test-affine.cpp)
 
 SET(PROJ_LIBS gtest_main gtest as)
 
