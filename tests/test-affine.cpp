@@ -2,14 +2,14 @@
 #include "gtest/gtest.h"
 
 #include "src/math/as-math-type-ops.hpp"
-#include "src/math/as-affine-type.hpp"
+#include "src/math/as-affine_t.hpp"
 
-TEST(as_affine, constructor)
+TEST(as_affine_t, constructor)
 {
-    as::v3 pos = as::v3_zero();
-    as::m33 rot = as::m33_rotation_zxy(0.0f, 0.0f, 0.0f);
+    as::vec3_t pos = as::vec3::zero();
+    as::mat33_t rot = as::mat33::rotation_zxy(0.0f, 0.0f, 0.0f);
     
-    as::affine affine{ rot, pos };
+    as::affine_t affine_t{ rot, pos };
 
     int i;
     i = 0;

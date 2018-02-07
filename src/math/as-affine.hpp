@@ -5,25 +5,25 @@
 namespace as
 {
 
-struct affine
+struct affine_t
 {
-    affine() = default;
-    affine(const affine&) = default;
-    affine& operator=(const affine&) = default;
-    affine(affine&&) noexcept = default;
-    affine& operator=(affine&&) noexcept = default;
-    ~affine() = default;
+    affine_t() = default;
+    affine_t(const affine_t&) = default;
+    affine_t& operator=(const affine_t&) = default;
+    affine_t(affine_t&&) noexcept = default;
+    affine_t& operator=(affine_t&&) noexcept = default;
+    ~affine_t() = default;
 
-    constexpr affine(const m33& rotation, const v3& position)
+    constexpr affine_t(const mat33_t& rotation, const vec3_t& position)
         : rotation(rotation), position(position) {}
 
-    m33 rotation;
-    v3 position;
+    mat33_t rotation;
+    vec3_t position;
 
-    inline v3 transform_dir(const v3& direction);
-    inline v3 transform_pos(const v3& position);
-    inline v3 inv_transform_dir(const v3& direction);
-    inline v3 inv_transform_pos(const v3& position);
+    inline vec3_t transform_dir(const vec3_t& direction);
+    inline vec3_t transform_pos(const vec3_t& position);
+    inline vec3_t inv_transform_dir(const vec3_t& direction);
+    inline vec3_t inv_transform_pos(const vec3_t& position);
 };
 
 } // namespace as

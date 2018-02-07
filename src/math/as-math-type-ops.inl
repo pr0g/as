@@ -1,26 +1,29 @@
 namespace as
 {
 
+namespace vec
+{
+
 template<typename T, size_t n>
-size_t v_size(Vec<T, n>&)
+size_t size(Vec<T, n>&)
 {
     return n;
 }
 
 template<typename T, size_t n>
-const T* v_const_data(const Vec<T, n>& vec)
+const T* const_data(const Vec<T, n>& vec)
 {
     return vec.elem;
 }
 
 template<typename T, size_t n>
-T* v_data(Vec<T, n>& vec)
+T* data(Vec<T, n>& vec)
 {
     return vec.elem;
 }
 
 template<typename T, size_t n>
-constexpr Vec<T, n> v_from_arr(const T(&data)[n])
+constexpr Vec<T, n> from_arr(const T(&data)[n])
 {
     Vec<T, n> result;
     std::copy(std::begin(data), std::end(data), result.elem);
@@ -28,7 +31,7 @@ constexpr Vec<T, n> v_from_arr(const T(&data)[n])
 }
 
 template<typename T, size_t n>
-constexpr Vec<T, n> v_from_ptr(const T* data)
+constexpr Vec<T, n> from_ptr(const T* data)
 {
     Vec<T, n> result;
     std::copy(data, data + n, result.elem);
@@ -36,7 +39,7 @@ constexpr Vec<T, n> v_from_ptr(const T* data)
 }
 
 template<typename T, size_t n>
-T v_dot(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
+T dot(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
 {
     T result = 0;
     for (size_t i = 0; i < n; ++i) {
@@ -46,7 +49,7 @@ T v_dot(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
 }
 
 template<typename T, size_t n>
-T v_length_squared(const Vec<T, n>& vec)
+T length_squared(const Vec<T, n>& vec)
 {
     T result = 0;
     for (size_t i = 0; i < n; ++i) {
@@ -56,27 +59,27 @@ T v_length_squared(const Vec<T, n>& vec)
 }
 
 template<typename T, size_t n>
-T v_length(const Vec<T, n>& vec)
+T length(const Vec<T, n>& vec)
 {
-    return sqrt(v_length_squared(vec));
+    return sqrt(length_squared(vec));
 }
 
 template<typename T, size_t n>
-Vec<T, n> v_normalize(const Vec<T, n>& vec)
+Vec<T, n> normalize(const Vec<T, n>& vec)
 {
-    return vec / v_length(vec);
+    return vec / length(vec);
 }
 
 template<typename T, size_t n>
-T v_normalize_return_length(const Vec<T, n>& vec, Vec<T, n>& out)
+T normalize_return_length(const Vec<T, n>& vec, Vec<T, n>& out)
 {
-    T len = v_length(vec);
+    T len = length(vec);
     out = vec / len;
     return len;
 }
 
 template<typename T, size_t n>
-bool v_equal(const Vec<T, n>& lhs, const Vec<T, n>& rhs, real epsilon /*= std::numeric_limits<real>::epsilon()*/)
+bool equal(const Vec<T, n>& lhs, const Vec<T, n>& rhs, real_t epsilon /*= std::numeric_limits<real_t>::epsilon()*/)
 {
     bool eq = true;
     for (size_t i = 0; i < n; ++i) {
@@ -87,7 +90,7 @@ bool v_equal(const Vec<T, n>& lhs, const Vec<T, n>& rhs, real epsilon /*= std::n
 }
 
 template<typename T, size_t n>
-Vec<T, n> v_min(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
+Vec<T, n> min(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
 {
     Vec<T, n> result;
     for (size_t i = 0; i < n; ++i) {
@@ -97,7 +100,7 @@ Vec<T, n> v_min(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
 }
 
 template<typename T, size_t n>
-T v_min_elem(const Vec<T, n>& vec)
+T min_elem(const Vec<T, n>& vec)
 {
     T val = vec[0];
     for (size_t i = 1; i < n; ++i) {
@@ -107,7 +110,7 @@ T v_min_elem(const Vec<T, n>& vec)
 }
 
 template<typename T, size_t n>
-Vec<T, n> v_max(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
+Vec<T, n> max(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
 {
     Vec<T, n> result;
     for (size_t i = 0; i < n; ++i) {
@@ -117,7 +120,7 @@ Vec<T, n> v_max(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
 }
 
 template<typename T, size_t n>
-T v_max_elem(const Vec<T, n>& vec)
+T max_elem(const Vec<T, n>& vec)
 {
     T val = vec[0];
     for (size_t i = 1; i < n; ++i) {
@@ -127,7 +130,7 @@ T v_max_elem(const Vec<T, n>& vec)
 }
 
 template<typename T, size_t n>
-Vec<T, n> v_abs(const Vec<T, n>& vec)
+Vec<T, n> abs(const Vec<T, n>& vec)
 {
     Vec<T, n> result;
     for (size_t i = 0; i < n; ++i) {
@@ -137,7 +140,7 @@ Vec<T, n> v_abs(const Vec<T, n>& vec)
 }
 
 template<typename T, size_t n>
-Vec<T, n> v_clamp(const Vec<T, n>& vec, const Vec<T, n>& min, const Vec<T, n>& max)
+Vec<T, n> clamp(const Vec<T, n>& vec, const Vec<T, n>& min, const Vec<T, n>& max)
 {
     Vec<T, n> result;
     for (size_t i = 0; i < n; ++i) {
@@ -147,7 +150,7 @@ Vec<T, n> v_clamp(const Vec<T, n>& vec, const Vec<T, n>& min, const Vec<T, n>& m
 }
 
 template<typename T, size_t n>
-Vec<T, n> v_saturate(const Vec<T, n>& vec)
+Vec<T, n> saturate(const Vec<T, n>& vec)
 {
     Vec<T, n> result;
     for (size_t i = 0; i < n; ++i) {
@@ -157,7 +160,7 @@ Vec<T, n> v_saturate(const Vec<T, n>& vec)
 }
 
 template<typename T, size_t n>
-Vec<T, n> v_lerp(T t, const Vec<T, n>& v0, const Vec<T, n>& v1)
+Vec<T, n> lerp(T t, const Vec<T, n>& v0, const Vec<T, n>& v1)
 {
     Vec<T, n> result;
     for (size_t i = 0; i < n; ++i) {
@@ -167,47 +170,47 @@ Vec<T, n> v_lerp(T t, const Vec<T, n>& v0, const Vec<T, n>& v1)
 }
 
 template<typename T, size_t n>
-Vec<T, n> v_select(const Vec<T, n>& v0, const Vec<T, n>& v1, bool select0)
+Vec<T, n> select(const Vec<T, n>& v0, const Vec<T, n>& v1, bool select0)
 {
     return select0 ? v0 : v1;
 }
 
-constexpr inline v2 v2_from_ptr(const real* data)
+} // namespace vec
+
+namespace vec2
 {
-    return v_from_ptr<real, 2>(data);
+
+constexpr inline vec2_t from_ptr(const real_t* data)
+{
+    return vec::from_ptr<real_t, 2>(data);
 }
 
-constexpr inline v2 v2_from_arr(const real(&data)[2])
+constexpr inline vec2_t from_arr(const real_t(&data)[2])
 {
-    return v_from_arr(data);
+    return vec::from_arr(data);
 }
 
-constexpr v3 v3_from_ptr(const real* data)
-{
-    return v_from_ptr<real, 3>(data);
-}
-
-constexpr v3 v3_from_arr(const real(&data)[3])
-{
-    return v_from_arr(data);
-}
-
-constexpr v4 v4_from_ptr(const real* data)
-{
-    return v_from_ptr<real, 4>(data);
-}
-
-constexpr v4 v4_from_arr(const real(&data)[4])
-{
-    return v_from_arr(data);
-}
-
-real v2_wedge(const v2& lhs, const v2& rhs)
+real_t wedge(const vec2_t& lhs, const vec2_t& rhs)
 {
     return lhs.x * rhs.y - lhs.y * rhs.x;
 }
 
-v3 v3_cross(const v3& lhs, const v3& rhs)
+} // namespace vec2
+
+namespace vec3
+{
+
+constexpr vec3_t from_ptr(const real_t* data)
+{
+    return vec::from_ptr<real_t, 3>(data);
+}
+
+constexpr vec3_t from_arr(const real_t(&data)[3])
+{
+    return vec::from_arr(data);
+}
+
+vec3_t cross(const vec3_t& lhs, const vec3_t& rhs)
 {
     return {
         lhs.y * rhs.z - lhs.z * rhs.y,
@@ -217,39 +220,59 @@ v3 v3_cross(const v3& lhs, const v3& rhs)
 }
 
 // note: will not work if dir == +/-world_up
-void v3_right_and_up_lh(const v3& dir, v3& across, v3& up, const v3& world_up /*= v3_y*/)
+void right_and_up_lh(const vec3_t& dir, vec3_t& across, vec3_t& up, const vec3_t& world_up)
 {
-    AS_ASSERT_DESC(!v_equal(dir, world_up), "dir and world_up are equal");
+    AS_ASSERT_DESC(!vec::equal(dir, world_up), "dir and world_up are equal");
 
-    across = v3_cross(dir, world_up);
-    up = v_normalize(v3_cross(across, dir));
-    across = v_normalize(v3_cross(up, dir));
+    across = cross(dir, world_up);
+    up = vec::normalize(cross(across, dir));
+    across = vec::normalize(cross(up, dir));
 }
 
 // note: will not work if dir == +/-world_up
-void v3_right_and_up_rh(const v3& dir, v3& across, v3& up, const v3& world_up /*= v3_y*/)
+void right_and_up_rh(const vec3_t& dir, vec3_t& across, vec3_t& up, const vec3_t& world_up)
 {
-    AS_ASSERT_DESC(!v_equal(dir, world_up), "dir and world_up are equal");
+    AS_ASSERT_DESC(!vec::equal(dir, world_up), "dir and world_up are equal");
 
-    across = v3_cross(dir, world_up);
-    up = v_normalize(v3_cross(across, dir));
-    across = v_normalize(v3_cross(dir, up));
+    across = cross(dir, world_up);
+    up = vec::normalize(cross(across, dir));
+    across = vec::normalize(cross(dir, up));
 }
 
+} // namespace vec3
+
+namespace vec4
+{
+
+constexpr vec4_t from_ptr(const real_t* data)
+{
+    return vec::from_ptr<real_t, 4>(data);
+}
+
+constexpr vec4_t from_arr(const real_t(&data)[4])
+{
+    return vec::from_arr(data);
+}
+
+} // namespace vec4
+
+namespace mat
+{
+
 template<typename T, size_t r, size_t c>
-inline T* m_data(const Mat<T, r, c>& mat)
+inline T* data(const Mat<T, r, c>& mat)
 {
     return mat.elem;
 }
 
 template<typename T, size_t r, size_t c>
-inline const T* m_const_data(const Mat<T, r, c>& mat)
+inline const T* const_data(const Mat<T, r, c>& mat)
 {
     return mat.elem;
 }
 
 template<typename T, size_t r, size_t c>
-constexpr inline Mat<T, r, c> m_from_arr(const T(&data)[r * c])
+constexpr inline Mat<T, r, c> from_arr(const T(&data)[r * c])
 {
     Mat<T, r, c> result;
     std::copy(std::begin(data), std::end(data), result.elem);
@@ -257,7 +280,7 @@ constexpr inline Mat<T, r, c> m_from_arr(const T(&data)[r * c])
 }
 
 template<typename T, size_t r, size_t c>
-constexpr inline Mat<T, r, c> m_from_ptr(const T* data)
+constexpr inline Mat<T, r, c> from_ptr(const T* data)
 {
     Mat<T, r, c> result;
     std::copy(data, data + r * c, result.elem);
@@ -265,7 +288,7 @@ constexpr inline Mat<T, r, c> m_from_ptr(const T* data)
 }
 
 template<typename T, size_t r, size_t c>
-inline Mat<T, r, c> m_transpose(const Mat<T, r, c>& mat)
+inline Mat<T, r, c> transpose(const Mat<T, r, c>& mat)
 {
     Mat<T, r, c> result;
     for (size_t rowIndex = 0; rowIndex < r; ++rowIndex) {
@@ -277,7 +300,7 @@ inline Mat<T, r, c> m_transpose(const Mat<T, r, c>& mat)
 }
 
 template<typename T, size_t rc>
-constexpr inline Mat<T, rc, rc> m_identity()
+constexpr inline Mat<T, rc, rc> identity()
 {
     Mat<T, rc, rc> identity;
     size_t size = rc * rc;
@@ -294,16 +317,16 @@ namespace internal
 template<size_t> struct int2type {};
 
 template<typename T>
-inline T m_minor(const Mat<T, 2, 2>& mat)
+inline T minor(const Mat<T, 2, 2>& mat)
 {
     return mat[0] * mat[3] - mat[2] * mat[1];
 }
 
 // where col and row are the rows to ignore
 template<typename T, size_t rc>
-inline Mat<T, rc - 1, rc - 1> m_sub_matrix(const Mat<T, rc, rc>& mat, size_t col, size_t row)
+inline Mat<T, rc - 1, rc - 1> sub_matrix(const Mat<T, rc, rc>& mat, size_t col, size_t row)
 {
-    Mat<T, rc - 1, rc - 1> result = m_identity<T, rc - 1>();
+    Mat<T, rc - 1, rc - 1> result = identity<T, rc - 1>();
     size_t i = 0;
     for (size_t r = 0; r < rc; ++r) {
         for (size_t c = 0; c < rc; ++c) {
@@ -316,12 +339,12 @@ inline Mat<T, rc - 1, rc - 1> m_sub_matrix(const Mat<T, rc, rc>& mat, size_t col
 }
 
 template<typename T, size_t rc, size_t I>
-T m_determinant_impl(const Mat<T, rc, rc>& mat, int2type<I>)
+T determinant_impl(const Mat<T, rc, rc>& mat, int2type<I>)
 {
     T sign{ 1 };
     T result = 0;
     for (size_t i = 0; i < rc; ++i) {
-        T minor = m_determinant_impl(m_sub_matrix(mat, i, 0), int2type<I - 1>{});
+        T minor = determinant_impl(sub_matrix(mat, i, 0), int2type<I - 1>{});
         result += (mat[i] * minor) * sign;
         sign *= T{ -1 };
     }
@@ -329,20 +352,20 @@ T m_determinant_impl(const Mat<T, rc, rc>& mat, int2type<I>)
 }
 
 template<typename T>
-T m_determinant_impl(const Mat<T, 2, 2>& mat, int2type<2>)
+T determinant_impl(const Mat<T, 2, 2>& mat, int2type<2>)
 {
-    return m_minor(mat);
+    return minor(mat);
 };
 
 template<typename T, size_t rc, size_t I>
-inline Mat<T, rc, rc> m_minor_impl(const Mat<T, rc, rc>& mat, int2type<I>)
+inline Mat<T, rc, rc> minor_impl(const Mat<T, rc, rc>& mat, int2type<I>)
 {
     Mat<T, rc, rc> result;
     T outerSign = T{ 1 };
     for (size_t i = 0; i < rc; ++i) {
         T innerSign = outerSign;
         for (size_t j = 0; j < rc; ++j) {
-            T minor = m_determinant_impl<T>(internal::m_sub_matrix(mat, j, i), int2type<rc - 1>{});
+            T minor = determinant_impl<T>(internal::sub_matrix(mat, j, i), int2type<rc - 1>{});
             result[j + i * rc] = minor * innerSign;
             innerSign *= T{ -1 };
         }
@@ -354,25 +377,25 @@ inline Mat<T, rc, rc> m_minor_impl(const Mat<T, rc, rc>& mat, int2type<I>)
 } // namespace internal
 
 template<typename T, size_t rc>
-inline T m_determinant(const Mat<T, rc, rc>& mat)
+inline T determinant(const Mat<T, rc, rc>& mat)
 {
-    return internal::m_determinant_impl(mat, internal::int2type<rc>{});
+    return internal::determinant_impl(mat, internal::int2type<rc>{});
 }
 
 template<typename T, size_t rc>
-inline Mat<T, rc, rc> m_inverse(const Mat<T, rc, rc>& mat)
+inline Mat<T, rc, rc> inverse(const Mat<T, rc, rc>& mat)
 {
     Mat<T, rc, rc> result;
 
-    result = internal::m_minor_impl(mat, internal::int2type<rc>{});
-    result = m_transpose(result);
-    result *= 1.0f / m_determinant(mat);
+    result = internal::minor_impl(mat, internal::int2type<rc>{});
+    result = transpose(result);
+    result *= 1.0f / determinant(mat);
 
     return result;
 }
 
 template<typename T, size_t rc>
-inline Mat<T, rc, rc> m_gj_inverse(const Mat<T, rc, rc>& mat)
+inline Mat<T, rc, rc> gj_inverse(const Mat<T, rc, rc>& mat)
 {
     Mat<T, rc, rc> currentMat = mat;
     Mat<T, rc, rc> result = identity<T, rc>();
@@ -404,17 +427,22 @@ inline Mat<T, rc, rc> m_gj_inverse(const Mat<T, rc, rc>& mat)
     return result;
 }
 
-constexpr m33 m33_from_ptr(const real* data)
+} // namespace mat
+
+namespace mat33
 {
-    return as::m_from_ptr<real, 3, 3>(data);
+
+constexpr mat33_t from_ptr(const real_t* data)
+{
+    return mat::from_ptr<real_t, 3, 3>(data);
 }
 
-constexpr m33 m33_from_arr(const real(&data)[9])
+constexpr mat33_t from_arr(const real_t(&data)[9])
 {
-    return as::m_from_arr<real, 3, 3>(data);
+    return mat::from_arr<real_t, 3, 3>(data);
 }
 
-constexpr m33 m33_axis_angle(const v3& axis, real radians)
+constexpr mat33_t axis_angle(const vec3_t& axis, real_t radians)
 {
     return {
         cosr(radians) + ((axis.x * axis.x) * (1.0f - cosr(radians))),
@@ -429,7 +457,7 @@ constexpr m33 m33_axis_angle(const v3& axis, real radians)
     };
 }
 
-constexpr m33 m33_rotation_xyz(real x, real y, real z)
+constexpr mat33_t rotation_xyz(real_t x, real_t y, real_t z)
 {
     return {
         cosr(y) * cosr(z),
@@ -444,7 +472,7 @@ constexpr m33 m33_rotation_xyz(real x, real y, real z)
     };
 }
 
-constexpr m33 m33_rotation_zxy(real x, real y, real z)
+constexpr mat33_t rotation_zxy(real_t x, real_t y, real_t z)
 {
     return {
         cosr(z) * cosr(y) + sinr(x) * sinr(y) * sinr(z),
@@ -459,7 +487,7 @@ constexpr m33 m33_rotation_zxy(real x, real y, real z)
     };
 }
 
-constexpr m33 m33_rotation_x(real radians)
+constexpr mat33_t rotation_x(real_t radians)
 {
     return {
         1.0f, 0.0f, 0.0f,
@@ -468,7 +496,7 @@ constexpr m33 m33_rotation_x(real radians)
     };
 }
 
-constexpr m33 m33_rotation_y(real radians)
+constexpr mat33_t rotation_y(real_t radians)
 {
     return {
         cosr(radians), 0.0f, -sinr(radians),
@@ -477,7 +505,7 @@ constexpr m33 m33_rotation_y(real radians)
     };
 }
 
-constexpr m33 m33_rotation_z(real radians)
+constexpr mat33_t rotation_z(real_t radians)
 {
     return {
         cosr(radians), sinr(radians), 0.0f,
@@ -486,7 +514,7 @@ constexpr m33 m33_rotation_z(real radians)
     };
 }
 
-constexpr inline m33 m33_from_m44(const m44& transform)
+constexpr inline mat33_t from_mat44(const mat44_t& transform)
 {
     return {
         transform.x0, transform.x1, transform.x2,
@@ -495,95 +523,112 @@ constexpr inline m33 m33_from_m44(const m44& transform)
     };
 }
 
-constexpr inline m44 m44_from_ptr(const real* data)
+} // namespace mat33
+
+namespace mat44
 {
-    return as::m_from_ptr<real, 4, 4>(data);
+
+constexpr inline mat44_t from_ptr(const real_t* data)
+{
+    return mat::from_ptr<real_t, 4, 4>(data);
 }
 
-constexpr inline m44 m44_from_arr(const real(&data)[16])
+constexpr inline mat44_t from_arr(const real_t(&data)[16])
 {
-    return as::m_from_arr<real, 4, 4>(data);
+    return mat::from_arr<real_t, 4, 4>(data);
 }
 
-constexpr inline m44 m44_from_v3(const v3& translation)
+constexpr inline mat44_t from_vec3(const vec3_t& translation)
 {
-    return { v4_axis_x(), v4_axis_y(), v4_axis_z(),{ translation, 1.0f } };
+    return { vec4::axis_x(), vec4::axis_y(), vec4::axis_z(), { translation, 1.0f } };
 }
 
-constexpr inline m44 m44_from_m33(const m33& rotation)
+constexpr inline mat44_t from_mat33(const mat33_t& rotation)
 {
-    return { rotation, v3_zero() };
+    return { rotation, vec3::zero() };
 }
 
-constexpr inline m44 m44_from_m33_v3(const m33& rotation, const v3& translation)
+constexpr inline mat44_t from_mat33_vec3(const mat33_t& rotation, const vec3_t& translation)
 {
     return { rotation, translation };
 }
 
-inline bool p_equal(const p2& lhs, const p2& rhs,
-    const real epsilon /*= std::numeric_limits<real>::epsilon()*/)
+} // namespace mat44
+
+namespace point
 {
-    return as::v_equal(lhs.v, rhs.v, epsilon);
+
+inline bool equal(const point2_t& lhs, const point2_t& rhs,
+    const real_t epsilon /*= std::numeric_limits<real_t>::epsilon()*/)
+{
+    return vec::equal(lhs.v, rhs.v, epsilon);
 }
 
-inline bool p_equal(const p3& lhs, const p3& rhs,
-    const real epsilon /*= std::numeric_limits<real>::epsilon()*/)
+inline bool equal(const point3_t& lhs, const point3_t& rhs,
+    const real_t epsilon /*= std::numeric_limits<real_t>::epsilon()*/)
 {
-    return as::v_equal(lhs.v, rhs.v, epsilon);
+    return vec::equal(lhs.v, rhs.v, epsilon);
 }
 
-constexpr inline real q_dot(const quat& a, const quat& b)
+} // namespace point
+
+namespace quat
 {
-    return a.r * b.r + a.i * b.i + a.j * b.j + a.k * b.k;
+
+constexpr inline real_t dot(const quat_t& a, const quat_t& b)
+{
+    return a.w * b.w + a.x * b.x + a.y * b.y + a.z * b.z;
 }
 
-constexpr inline real q_length_squared(const quat& a)
+constexpr inline real_t length_squared(const quat_t& a)
 {
-    return q_dot(a, a);
+    return dot(a, a);
 }
 
-inline real q_length(const quat& a)
+inline real_t length(const quat_t& a)
 {
-    return std::sqrt(q_length_squared(a));
+    return std::sqrt(length_squared(a));
 }
 
-inline quat q_normalize(const quat& a)
+inline quat_t normalize(const quat_t& a)
 {
-    return a / q_length(a);
+    return a / length(a);
 }
 
-constexpr inline quat q_conjugate(const quat& a)
+constexpr inline quat_t conjugate(const quat_t& a)
 {
-    return { a.r, -a.i, -a.j, -a.k };
+    return { a.w, -a.x, -a.y, -a.z };
 }
 
-inline quat q_inverse(const quat& a)
+inline quat_t inverse(const quat_t& a)
 {
-    return q_conjugate(a) / q_length_squared(a);
+    return conjugate(a) / length_squared(a);
 }
 
-inline v3 q_rotate(const quat& q, const v3& v)
+inline vec3_t rotate(const quat_t& q, const vec3_t& v)
 {
-    const quat quat_result = q * quat{ 0.0f, v.x, v.y, v.z } *q_conjugate(q);
-    return { quat_result.i, quat_result.j, quat_result.k };
+    const quat_t quat_result = q * quat_t{ 0.0f, v.x, v.y, v.z } * conjugate(q);
+    return { quat_result.x, quat_result.y, quat_result.z };
 }
 
-inline quat q_axis_angle(const v3& axis, real radians)
+inline quat_t axis_angle(const vec3_t& axis, real_t radians)
 {
     return { cosr(0.5f * radians), axis * sinr(0.5f * radians) };
 }
 
-inline quat q_rotation_zxy(real x, real y, real z)
+inline quat_t rotation_zxy(real_t x, real_t y, real_t z)
 {
-    return quat{ cosr(0.5f * y), 0.0f, sinr(0.5f * y), 0.0f } *
-        quat{ cosr(0.5f * x), sinr(0.5f * x), 0.0f, 0.0f } *
-        quat{ cosr(0.5f * z), 0.0f, 0.0f, sinr(0.5f * z) };
+    return quat_t{ cosr(0.5f * y), 0.0f, sinr(0.5f * y), 0.0f } *
+        quat_t{ cosr(0.5f * x), sinr(0.5f * x), 0.0f, 0.0f } *
+        quat_t{ cosr(0.5f * z), 0.0f, 0.0f, sinr(0.5f * z) };
 }
 
-inline quat q_slerp(const quat& a, const quat& b, real u)
+inline quat_t slerp(const quat_t& a, const quat_t& b, real_t u)
 {
-    const real theta = acosr(q_dot(a, b));
+    const real_t theta = acosr(dot(a, b));
     return (a * sinr((1.0f - u) * theta) + b * sinr(u * theta)) / sinr(theta);
 }
+
+} // namespace quat
 
 } // namespace as

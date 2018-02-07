@@ -6,69 +6,65 @@
 namespace as
 {
 
-struct point2
+struct point2_t
 {
     union
     {
-        v2 v;
-        struct { real x; real y; };
+        vec2_t v;
+        struct { real_t x; real_t y; };
     };
 
-    constexpr real& operator[](size_t i) { return v[i]; }
-    constexpr const real& operator[](size_t i) const { return v[i]; }
+    constexpr real_t& operator[](size_t i) { return v[i]; }
+    constexpr const real_t& operator[](size_t i) const { return v[i]; }
 
-    point2() = default;
-    point2(const point2&) = default;
-    point2& operator=(const point2&) = default;
-    point2(point2&&) noexcept = default;
-    point2& operator=(point2&&) noexcept = default;
-    ~point2() = default;
+    point2_t() = default;
+    point2_t(const point2_t&) = default;
+    point2_t& operator=(const point2_t&) = default;
+    point2_t(point2_t&&) noexcept = default;
+    point2_t& operator=(point2_t&&) noexcept = default;
+    ~point2_t() = default;
 
-    constexpr explicit point2(real xy) : x(xy), y(xy) {}
-    constexpr explicit point2(const v2& v) : v(v) {}
-    constexpr point2(real x, real y) : x(x), y(y) {}
+    constexpr explicit point2_t(real_t xy) : x(xy), y(xy) {}
+    constexpr explicit point2_t(const vec2_t& v) : v(v) {}
+    constexpr point2_t(real_t x, real_t y) : x(x), y(y) {}
 };
 
-using p2 = point2;
-
-struct point3
+struct point3_t
 {
     union
     {
-        v3 v;
-        struct { real x; real y; real z; };
-        p2 xy;
+        vec3_t v;
+        struct { real_t x; real_t y; real_t z; };
+        point2_t xy;
     };
 
-    constexpr real& operator[](size_t i) { return v[i]; }
-    constexpr const real& operator[](size_t i) const { return v[i]; }
+    constexpr real_t& operator[](size_t i) { return v[i]; }
+    constexpr const real_t& operator[](size_t i) const { return v[i]; }
 
-    point3() = default;
-    point3(const point3&) = default;
-    point3& operator=(const point3&) = default;
-    point3(point3&&) noexcept = default;
-    point3& operator=(point3&&) noexcept = default;
-    ~point3() = default;
+    point3_t() = default;
+    point3_t(const point3_t&) = default;
+    point3_t& operator=(const point3_t&) = default;
+    point3_t(point3_t&&) noexcept = default;
+    point3_t& operator=(point3_t&&) noexcept = default;
+    ~point3_t() = default;
 
-    constexpr explicit point3(real xyz) : x(xyz), y(xyz), z(xyz) {}
-    constexpr explicit point3(const v3& v) : v(v) {}
-    constexpr point3(real x, real y, real z) : x(x), y(y), z(z) {}
-    constexpr point3(const v2& xy, real z) : x(xy.x), y(xy.y), z(z) {}
+    constexpr explicit point3_t(real_t xyz) : x(xyz), y(xyz), z(xyz) {}
+    constexpr explicit point3_t(const vec3_t& v) : v(v) {}
+    constexpr point3_t(real_t x, real_t y, real_t z) : x(x), y(y), z(z) {}
+    constexpr point3_t(const vec2_t& xy, real_t z) : x(xy.x), y(xy.y), z(z) {}
 };
 
-using p3 = point3;
+inline vec2_t operator-(const point2_t& lhs, const point2_t& rhs);
+inline point2_t operator+(const point2_t& point, const vec2_t& vec);
+inline void operator+=(point2_t& point, const vec2_t& vec);
+inline point2_t operator-(const point2_t& point, const vec2_t& vec);
+inline void operator-=(point2_t& point, const vec2_t& vec);
 
-inline v2 operator-(const p2& lhs, const p2& rhs);
-inline p2 operator+(const p2& point, const v2& vec);
-inline void operator+=(p2& point, const v2& vec);
-inline p2 operator-(const p2& point, const v2& vec);
-inline void operator-=(p2& point, const v2& vec);
-
-inline v3 operator-(const p3& lhs, const p3& rhs);
-inline p3 operator+(const p3& point, const v3& vec);
-inline void operator+=(p3& point, const v3& vec);
-inline p3 operator-(const p3& point, const v3& vec);
-inline void operator-=(p3& point, const v3& vec);
+inline vec3_t operator-(const point3_t& lhs, const point3_t& rhs);
+inline point3_t operator+(const point3_t& point, const vec3_t& vec);
+inline void operator+=(point3_t& point, const vec3_t& vec);
+inline point3_t operator-(const point3_t& point, const vec3_t& vec);
+inline void operator-=(point3_t& point, const vec3_t& vec);
 
 } // namespace as
 

@@ -10,37 +10,37 @@ __pragma(warning(push))
 __pragma(warning(disable:4201))
 #endif
 
-struct quat
+struct quat_t
 {
     union
     {
-        real elem[4];
-        struct { real r; real i; real j; real k; };
+        real_t elem[4];
+        struct { real_t w; real_t x; real_t y; real_t z; };
     };
 
-    constexpr real& operator[](size_t i) { return elem[i]; }
-    constexpr const real& operator[](size_t i) const { return elem[i]; }
+    constexpr real_t& operator[](size_t x) { return elem[x]; }
+    constexpr const real_t& operator[](size_t x) const { return elem[x]; }
 
-    quat() = default;
-    quat(const quat&) = default;
-    quat& operator=(const quat&) = default;
-    quat(quat&&) noexcept = default;
-    quat& operator=(quat&&) noexcept = default;
-    ~quat() = default;
+    quat_t() = default;
+    quat_t(const quat_t&) = default;
+    quat_t& operator=(const quat_t&) = default;
+    quat_t(quat_t&&) noexcept = default;
+    quat_t& operator=(quat_t&&) noexcept = default;
+    ~quat_t() = default;
 
-    constexpr quat(real r, real i, real j, real k) : r(r), i(i), j(j), k(k) {}
-    constexpr quat(real r, const v3& ijk) : r(r), i(ijk.x), j(ijk.y), k(ijk.z) {}
+    constexpr quat_t(real_t w, real_t x, real_t y, real_t z) : w(w), x(x), y(y), z(z) {}
+    constexpr quat_t(real_t w, const vec3_t& xyz) : w(w), x(xyz.x), y(xyz.y), z(xyz.z) {}
 };
 
 #ifdef _MSC_VER
 __pragma(warning(pop))
 #endif
 
-constexpr inline quat operator*(const quat& lhs, const quat& rhs);
-constexpr inline void operator*=(quat& lhs, const quat& rhs);
-inline quat operator+(const quat& lhs, const quat& rhs);
-inline quat operator/(const quat& lhs, real rhs);
-inline quat operator*(const quat& lhs, real rhs);
+constexpr inline quat_t operator*(const quat_t& lhs, const quat_t& rhs);
+constexpr inline void operator*=(quat_t& lhs, const quat_t& rhs);
+inline quat_t operator+(const quat_t& lhs, const quat_t& rhs);
+inline quat_t operator/(const quat_t& lhs, real_t rhs);
+inline quat_t operator*(const quat_t& lhs, real_t rhs);
 
 }
 

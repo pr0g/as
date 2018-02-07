@@ -1,52 +1,52 @@
 namespace as
 {
 
-inline v2 operator-(const p2& lhs, const p2& rhs)
+inline vec2_t operator-(const point2_t& lhs, const point2_t& rhs)
 {
     return lhs.v - rhs.v;
 }
 
-inline p2 operator+(const p2& point, const v2& vec)
+inline point2_t operator+(const point2_t& point, const vec2_t& vec)
 {
-    return p2(point.v + vec);
+    return point2_t(point.v + vec);
 }
 
-inline void operator+=(p2& point, const v2& vec)
+inline void operator+=(point2_t& point, const vec2_t& vec)
 {
     point.v += vec;
 }
 
-inline p2 operator-(const p2& point, const v2& vec)
+inline point2_t operator-(const point2_t& point, const vec2_t& vec)
 {
-    return p2(point.v - vec);
+    return point2_t(point.v - vec);
 }
 
-inline void operator-=(p2& point, const v2& vec)
+inline void operator-=(point2_t& point, const vec2_t& vec)
 {
     point.v -= vec;
 }
 
-inline v3 operator-(const p3& lhs, const p3& rhs)
+inline vec3_t operator-(const point3_t& lhs, const point3_t& rhs)
 {
     return lhs.v - rhs.v;
 }
 
-inline p3 operator+(const p3& point, const v3& vec)
+inline point3_t operator+(const point3_t& point, const vec3_t& vec)
 {
-    return p3(point.v + vec);
+    return point3_t(point.v + vec);
 }
 
-inline void operator+=(p3& point, const v3& vec)
+inline void operator+=(point3_t& point, const vec3_t& vec)
 {
     point.v += vec;
 }
 
-inline p3 operator-(const p3& point, const v3& vec)
+inline point3_t operator-(const point3_t& point, const vec3_t& vec)
 {
-    return p3(point.v - vec);
+    return point3_t(point.v - vec);
 }
 
-inline void operator-=(p3& point, const v3& vec)
+inline void operator-=(point3_t& point, const vec3_t& vec)
 {
     point.v -= vec;
 }

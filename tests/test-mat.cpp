@@ -14,38 +14,38 @@
 #include "as-math-output.hpp"
 
 TEST(as_mat, constructor) {
-    as::m33 m33_1(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f);
-    for (size_t i = 0; i < as::m33_rows(); ++i)
+    as::mat33_t mat33_1(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f);
+    for (size_t i = 0; i < as::mat33::rows(); ++i)
     {
-        printf("row: %f, %f, %f\n", m33_1.row(i).x, m33_1.row(i).y, m33_1.row(i).z);
+        printf("row: %f, %f, %f\n", mat33_1.row(i).x, mat33_1.row(i).y, mat33_1.row(i).z);
     }
-    for (size_t i = 0; i < as::m33_cols(); ++i)
+    for (size_t i = 0; i < as::mat33::cols(); ++i)
     {
-        printf("col: %f, %f, %f\n", m33_1.col(i).x, m33_1.col(i).y, m33_1.col(i).z);
+        printf("col: %f, %f, %f\n", mat33_1.col(i).x, mat33_1.col(i).y, mat33_1.col(i).z);
     }
 
-    as::m44 m44_1(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f, 11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f);
-    for (size_t i = 0; i < as::m44_rows(); ++i)
+    as::mat44_t mat44_1(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f, 11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f);
+    for (size_t i = 0; i < as::mat44::rows(); ++i)
     {
-        printf("row: %f, %f, %f, %f\n", m44_1.row(i).x, m44_1.row(i).y, m44_1.row(i).z, m44_1.row(i).w);
+        printf("row: %f, %f, %f, %f\n", mat44_1.row(i).x, mat44_1.row(i).y, mat44_1.row(i).z, mat44_1.row(i).w);
     }
-    for (size_t i = 0; i < as::m44_cols(); ++i)
+    for (size_t i = 0; i < as::mat44::cols(); ++i)
     {
-        printf("col: %f, %f, %f, %f\n", m44_1.col(i).x, m44_1.col(i).y, m44_1.col(i).z, m44_1.col(i).w);
+        printf("col: %f, %f, %f, %f\n", mat44_1.col(i).x, mat44_1.col(i).y, mat44_1.col(i).z, mat44_1.col(i).w);
     }
 
     float data_33[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    as::m33 m33_data = as::m33_from_ptr(data_33);
-    for (size_t i = 0; i < as::m33_rows(); ++i)
+    as::mat33_t mat33_data = as::mat33::from_ptr(data_33);
+    for (size_t i = 0; i < as::mat33::rows(); ++i)
     {
-        printf("row: %f, %f, %f\n", m33_data.row(i).x, m33_data.row(i).y, m33_data.row(i).z);
+        printf("row: %f, %f, %f\n", mat33_data.row(i).x, mat33_data.row(i).y, mat33_data.row(i).z);
     }
 
     float data_44[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
-    as::m44 m44_data = as::m44_from_ptr(data_44);
-    for (size_t i = 0; i < as::m44_rows(); ++i)
+    as::mat44_t mat44_data = as::mat44::from_ptr(data_44);
+    for (size_t i = 0; i < as::mat44::rows(); ++i)
     {
-        printf("row: %f, %f, %f, %f\n", m44_data.row(i).x, m44_data.row(i).y, m44_data.row(i).z, m44_data.row(i).w);
+        printf("row: %f, %f, %f, %f\n", mat44_data.row(i).x, mat44_data.row(i).y, mat44_data.row(i).z, mat44_data.row(i).w);
     }
 }
 
@@ -62,8 +62,8 @@ TEST(as_mat, copy_constructor) {
     EXPECT_EQ(a_copy[6], 7.0f) << "mat copy constructor failed";
     EXPECT_EQ(a_copy[7], 8.0f) << "mat copy constructor failed";
 
-    as::m33 b(as::v3(1.0f, 5.0f, 10.0f), as::v3(2.0f, 6.0f, 11.0f), as::v3(3.0f, 7.0f, 12.0f));
-    as::m33 b_copy(b);
+    as::mat33_t b(as::vec3_t(1.0f, 5.0f, 10.0f), as::vec3_t(2.0f, 6.0f, 11.0f), as::vec3_t(3.0f, 7.0f, 12.0f));
+    as::mat33_t b_copy(b);
 
     EXPECT_EQ(b_copy[0], 1.0f) << "mat copy constructor failed";
     EXPECT_EQ(b_copy[1], 5.0f) << "mat copy constructor failed";
@@ -77,25 +77,15 @@ TEST(as_mat, copy_constructor) {
 }
 
 TEST(as_mat4, inverse) {
-    // glm::mat4 glm_a = glm::mat4(1.0f, 0.0f, 0.0f, 0.0f,
-    // 							 0.0f, 1.0f, 0.0f, 0.0f,
-    // 							 0.0f, 0.0f, 1.0f, 0.0f,
-    // 							 0.0f, 0.0f, 0.0f, 1.0f);
-
-    // as::m44 as_a = as::make_m44(1.0f, 0.0f, 0.0f, 0.0f,
-    // 							 0.0f, 1.0f, 0.0f, 0.0f,
-    // 							 0.0f, 0.0f, 1.0f, 0.0f,
-    // 							 0.0f, 0.0f, 0.0f, 1.0f);
-
     glm::mat4 glm_a = glm::rotate(glm::mat4(1.0f), glm::radians(100.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    as::m44 as_a = as::m44(as::m33_rotation_x(as::deg_to_rad(100.0f)), as::v3_zero());
+    as::mat44_t as_a = as::mat44_t(as::mat33::rotation_x(as::deg_to_rad(100.0f)), as::vec3::zero());
 
     glm::mat4 glm_a_inverse = glm::inverse(glm_a);
-    as::m44 as_a_inverse = as::m_inverse(as_a);
+    as::mat44_t as_a_inverse = as::mat::inverse(as_a);
 
     for (size_t i = 0; i < 10000; ++i) {
         glm_a_inverse = glm::inverse(glm_a_inverse);
-        as_a_inverse = as::m_inverse(as_a_inverse);
+        as_a_inverse = as::mat::inverse(as_a_inverse);
     }
 
     EXPECT_TRUE(as::equal(glm_a_inverse[0].x, as_a_inverse[0])) << "glm: " << glm_a_inverse[0].x << " as: " << as_a_inverse[0];
@@ -119,28 +109,28 @@ TEST(as_mat4, inverse) {
     EXPECT_TRUE(as::equal(glm_a_inverse[3].w, as_a_inverse[15])) << "glm: " << glm_a_inverse[3].w << " as: " << as_a_inverse[15];
 }
 
-TEST(as_mat, m33_init) {
+TEST(as_mat, mat33_init) {
     {
-        as::real data[9];
+        as::real_t data[9];
         for (size_t i = 0; i < 9; ++i) {
-            data[i] = (as::real)(i + 1);
+            data[i] = (as::real_t)(i + 1);
         }
 
-        as::m33 a = as::m33_from_ptr(data);
+        as::mat33_t a = as::mat33::from_ptr(data);
         for (size_t i = 0; i < 3; ++i) {
-            print_v3(a.row(i));
+            print_vec3(a.row(i));
         }
     }
 
     {
-        as::real* data_p = new as::real[9];
+        as::real_t* data_p = new as::real_t[9];
         for (size_t i = 0; i < 9; ++i) {
-            data_p[i] = (as::real)(i + 1);
+            data_p[i] = (as::real_t)(i + 1);
         }
 
-        as::m33 p_a = as::m33_from_ptr(data_p);
+        as::mat33_t p_a = as::mat33::from_ptr(data_p);
         for (size_t i = 0; i < 3; ++i) {
-            print_v3(p_a.row(i));
+            print_vec3(p_a.row(i));
         }
     }
 }
@@ -170,33 +160,33 @@ TEST(as_mat, col_row) {
 }
 
 TEST(as_mat, mat_mult) {
-    // as::m44 a = as::identity<as::real, 4>();
-    as::m44 mat = as::m44_identity();
-    as::v4 vec = as::v4_axis_w();
+    // as::mat44_t a = as::identity<as::real_t, 4>();
+    as::mat44_t mat = as::mat44::identity();
+    as::vec4_t vec = as::vec4::axis_w();
 
 #ifdef AS_COL_MAJOR
-    as::v4 result_col = mat * vec;
+    as::vec4_t result_col = mat * vec;
 #elif defined AS_ROW_MAJOR
-    as::v4 result_row = vec * mat;
+    as::vec4_t result_row = vec * mat;
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 
-    as::m33 mat_rot = as::m33_rotation_x(as::deg_to_rad(90.0f));
-    as::m44 transform_rot = as::m44(mat_rot, as::v3_zero());
+    as::mat33_t mat_rot = as::mat33::rotation_x(as::deg_to_rad(90.0f));
+    as::mat44_t transform_rot = as::mat44_t(mat_rot, as::vec3::zero());
 
-    as::v4 dir(0.0, 1.0f, 0.0f, 0.0f);
+    as::vec4_t dir(0.0, 1.0f, 0.0f, 0.0f);
 #ifdef AS_COL_MAJOR
-    as::v4 result_dir_col = transform_rot * dir;
-    print_v4(result_dir_col);
-    print_v4(result_col);
+    as::vec4_t result_dir_col = transform_rot * dir;
+    print_vec4(result_dir_col);
+    print_vec4(result_col);
 #elif defined AS_ROW_MAJOR
-    as::v4 result_dir_row = dir * transform_rot;
-    print_v4(result_dir_row);
-    print_v4(result_row);
+    as::vec4_t result_dir_row = dir * transform_rot;
+    print_vec4(result_dir_row);
+    print_vec4(result_row);
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
 TEST(as_mat, mat_proj) {
-    as::m44 proj = as::view::perspective_gl_lh(as::deg_to_rad(60.0f), 4.0f/3.0f, 0.1f, 100.0f);
+    as::mat44_t proj = as::view::perspective_gl_lh(as::deg_to_rad(60.0f), 4.0f/3.0f, 0.1f, 100.0f);
     for (size_t i = 0; i < 16; ++i) {
         printf("proj[%d]: %f, ", static_cast<int>(i), proj[i]);
     }
@@ -219,15 +209,11 @@ TEST(as_mat, mat_generic_init) {
 }
 
 TEST(as_mat, mat_transform_vec) {
-    as::v3 a_v3{ 1.0f, 2.0f, 3.0f };
-    as::m44 a_m44{ as::m44_from_m33(as::m33_rotation_x(as::deg_to_rad(90.0f))) };
+    as::vec3_t a_vec3{ 1.0f, 2.0f, 3.0f };
+    as::mat44_t a_mat44{ as::mat44::from_mat33(as::mat33::rotation_x(as::deg_to_rad(90.0f))) };
 
-    //as::v3 r_v3 = a_m44 * a_v3;
+    as::Mat<as::real_t, 3, 4> my_mat34;
 
-    as::Mat<as::real, 3, 4> my_m34;
-
-    as::v3 result = my_m34 * a_v3;
-    //as::v4 result2 = my_m34 * as::v4{ 0.0f, 0.0f, 0.0f, 1.0f }; // fails to compile
-
-    
+    as::vec3_t result = my_mat34 * a_vec3;
+    //as::vec4_t result2 = my_m34 * as::vec4_t{ 0.0f, 0.0f, 0.0f, 1.0f }; // fails to compile
 }

@@ -32,12 +32,12 @@ inline T clamp(T t, T v0, T v1)
     return t < v0 ? v0 : t > v1 ? v1 : t;
 }
 
-inline real deg_to_rad(real degrees)
+inline real_t deg_to_rad(real_t degrees)
 {
     return degrees * DEG_TO_RAD;
 }
 
-inline real rad_to_deg(real radians)
+inline real_t rad_to_deg(real_t radians)
 {
     return radians * RAD_TO_DEG;
 }
@@ -45,20 +45,20 @@ inline real rad_to_deg(real radians)
 // floating point comparison by Bruce Dawson
 // ref: https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
 inline bool equal(
-    real a, real b,
-    real max_diff /*= std::numeric_limits<real>::epsilon()*/,
-    real max_rel_diff /*= std::numeric_limits<real>::epsilon()*/)
+    real_t a, real_t b,
+    real_t max_diff /*= std::numeric_limits<real_t>::epsilon()*/,
+    real_t max_rel_diff /*= std::numeric_limits<real_t>::epsilon()*/)
 {
     // check if the numbers are really close
     // needed when comparing numbers near zero
-    real diff = absr(a - b);
+    real_t diff = absr(a - b);
     if (diff <= max_diff) {
         return true;
     }
 
     a = absr( a );
     b = absr( b );
-    real largest = ( b > a ) ? b : a;
+    real_t largest = ( b > a ) ? b : a;
 
     // find relative difference
     return diff <= largest * max_rel_diff;

@@ -2,18 +2,18 @@ namespace as
 {
 
 #if defined AS_COL_MAJOR
-v3 operator*(const affine& transform, const v3& vec)
+vec3_t operator*(const affine_t& transform, const vec3_t& vec)
 {
     return transform.rotation * vec + transform.position;
 }
 #elif defined AS_ROW_MAJOR
-v3 operator*(const v3& vec, const affine& transform)
+vec3_t operator*(const vec3_t& vec, const affine_t& transform)
 {
     return vec * transform.rotation + transform.position;
 }
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 
-v3 affine::transform_dir(const v3& direction)
+vec3_t affine_t::transform_dir(const vec3_t& direction)
 {
 #if defined AS_COL_MAJOR
     return rotation * direction;
@@ -22,7 +22,7 @@ v3 affine::transform_dir(const v3& direction)
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
-v3 affine::transform_pos(const v3& position_)
+vec3_t affine_t::transform_pos(const vec3_t& position_)
 {
 #if defined AS_COL_MAJOR
     return rotation * position_ + position;
@@ -31,9 +31,9 @@ v3 affine::transform_pos(const v3& position_)
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
-v3 affine::inv_transform_dir(const v3& direction)
+vec3_t affine_t::inv_transform_dir(const vec3_t& direction)
 {
-    const m33 invRotation = as::m_inverse(rotation);
+    const mat33_t invRotation = as::mat::inverse(rotation);
 #if defined AS_COL_MAJOR
     return invRotation * direction;
 #elif defined AS_ROW_MAJOR
@@ -41,9 +41,9 @@ v3 affine::inv_transform_dir(const v3& direction)
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
-v3 affine::inv_transform_pos(const v3& position_)
+vec3_t affine_t::inv_transform_pos(const vec3_t& position_)
 {
-    const m33 invRotation = as::m_inverse(rotation);
+    const mat33_t invRotation = as::mat::inverse(rotation);
 #if defined AS_COL_MAJOR
     return invRotation * (position_ - position);
 #elif defined AS_ROW_MAJOR

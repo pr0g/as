@@ -5,9 +5,9 @@ namespace view
 {
 
 // openGL default
-inline m44 perspective_gl_rh(real fovy, real aspect, real n, real f)
+inline mat44_t perspective_gl_rh(real_t fovy, real_t aspect, real_t n, real_t f)
 {
-    real e = 1.0f / tanr(fovy * 0.5f);
+    real_t e = 1.0f / tanr(fovy * 0.5f);
 
     return {
         e / aspect, 0.0f, 0.0f, 0.0f,
@@ -17,9 +17,9 @@ inline m44 perspective_gl_rh(real fovy, real aspect, real n, real f)
     };
 }
 
-inline m44 perspective_gl_lh(real fovy, real aspect, real n, real f)
+inline mat44_t perspective_gl_lh(real_t fovy, real_t aspect, real_t n, real_t f)
 {
-    real e = 1.0f / tanr(fovy * 0.5f);
+    real_t e = 1.0f / tanr(fovy * 0.5f);
 
     return {
         e / aspect, 0.0f, 0.0f, 0.0f,
@@ -30,9 +30,9 @@ inline m44 perspective_gl_lh(real fovy, real aspect, real n, real f)
 }
 
 // directX default
-inline m44 perspective_d3d_lh(real fovy, real aspect, real n, real f)
+inline mat44_t perspective_d3d_lh(real_t fovy, real_t aspect, real_t n, real_t f)
 {
-    real e = 1.0f / tanr(fovy * 0.5f);
+    real_t e = 1.0f / tanr(fovy * 0.5f);
 
     return {
         e / aspect, 0.0f, 0.0f, 0.0f,
@@ -42,9 +42,9 @@ inline m44 perspective_d3d_lh(real fovy, real aspect, real n, real f)
     };
 }
 
-inline m44 perspective_d3d_rh(real fovy, real aspect, real n, real f)
+inline mat44_t perspective_d3d_rh(real_t fovy, real_t aspect, real_t n, real_t f)
 {
-    real e = 1.0f / tanr(fovy * 0.5f);
+    real_t e = 1.0f / tanr(fovy * 0.5f);
 
     return {
         e / aspect, 0.0f, 0.0f, 0.0f,
@@ -55,10 +55,10 @@ inline m44 perspective_d3d_rh(real fovy, real aspect, real n, real f)
 }
 
 // vulkan default
-inline m44 perspective_vulkan_rh(real fovy, real aspect, real n, real f)
+inline mat44_t perspective_vulkan_rh(real_t fovy, real_t aspect, real_t n, real_t f)
 {
     // vulkan clip space has inverted Y and half z
-    const m44 clip{
+    const mat44_t clip{
         1.0f, 0.0f, 0.0f, 0.0f,
         0.0f, -1.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 0.5f, 0.0f,
@@ -68,10 +68,10 @@ inline m44 perspective_vulkan_rh(real fovy, real aspect, real n, real f)
     return clip * perspective_gl_rh(fovy, aspect, n, f);
 }
 
-inline m44 perspective_vulkan_lh(real fovy, real aspect, real n, real f)
+inline mat44_t perspective_vulkan_lh(real_t fovy, real_t aspect, real_t n, real_t f)
 {
     // vulkan clip space has inverted Y and half z
-    const m44 clip{
+    const mat44_t clip{
         1.0f, 0.0f, 0.0f, 0.0f,
         0.0f, -1.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 0.5f, 0.0f,
@@ -82,11 +82,11 @@ inline m44 perspective_vulkan_lh(real fovy, real aspect, real n, real f)
 }
 
 // openGL default
-inline m44 ortho_gl_rh(real l, real r, real b, real t, real n, real f)
+inline mat44_t ortho_gl_rh(real_t l, real_t r, real_t b, real_t t, real_t n, real_t f)
 {
-    const real x = 1.0f / (r - l);
-    const real y = 1.0f / (t - b);
-    const real z = 1.0f / (f - n);
+    const real_t x = 1.0f / (r - l);
+    const real_t y = 1.0f / (t - b);
+    const real_t z = 1.0f / (f - n);
 
     return {
         2.0f * x, 0.0f, 0.0f, 0.0f,
@@ -97,11 +97,11 @@ inline m44 ortho_gl_rh(real l, real r, real b, real t, real n, real f)
 }
 
 // directx default
-inline m44 ortho_d3d_lh(real l, real r, real b, real t, real n, real f)
+inline mat44_t ortho_d3d_lh(real_t l, real_t r, real_t b, real_t t, real_t n, real_t f)
 {
-    const real x = 1.0f / (r - l);
-    const real y = 1.0f / (t - b);
-    const real z = 1.0f / (f - n);
+    const real_t x = 1.0f / (r - l);
+    const real_t y = 1.0f / (t - b);
+    const real_t z = 1.0f / (f - n);
 
     return {
         2.0f * x, 0.0f, 0.0f, 0.0f,
