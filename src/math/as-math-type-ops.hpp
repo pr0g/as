@@ -213,18 +213,19 @@ inline bool equal(const point3_t& lhs, const point3_t& rhs,
 namespace quat
 {
 
-constexpr inline quat_t q_identity() { return { 1.0f, 0.0f, 0.0f, 0.0f }; }
-constexpr inline real_t q_dot(const quat_t& a, const quat_t& b);
-constexpr inline real_t q_length_squared(const quat_t& a);
-constexpr inline quat_t q_conjugate(const quat_t& a);
+constexpr inline quat_t identity() { return { 1.0f, 0.0f, 0.0f, 0.0f }; }
 
-inline quat_t q_axis_angle(const vec3_t& axis, real_t radians);
-inline quat_t q_rotation_zxy(real_t x, real_t y, real_t z);
-inline real_t q_length(const quat_t& a);
-inline quat_t q_normalize(const quat_t& a);
-inline quat_t q_inverse(const quat_t& a);
-inline vec3_t q_rotate(const quat_t& q, const vec3_t& v);
-inline quat_t q_slerp(const quat_t& a, const quat_t& b, real_t u);
+constexpr inline real_t dot(const quat_t& a, const quat_t& b);
+constexpr inline real_t length_squared(const quat_t& a);
+constexpr inline quat_t conjugate(const quat_t& a);
+
+inline quat_t axis_angle(const vec3_t& axis, real_t radians);
+inline quat_t rotation_zxy(real_t x, real_t y, real_t z);
+inline real_t length(const quat_t& a);
+inline quat_t normalize(const quat_t& a);
+inline quat_t inverse(const quat_t& a);
+inline vec3_t rotate(const quat_t& q, const vec3_t& v);
+inline quat_t slerp(const quat_t& a, const quat_t& b, real_t u);
 
 }
 

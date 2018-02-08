@@ -2,7 +2,7 @@
 #include "gtest/gtest.h"
 
 #include "src/math/as-math-type-ops.hpp"
-#include "src/math/as-affine_t.hpp"
+#include "src/math/as-affine.hpp"
 
 TEST(as_affine_t, constructor)
 {
