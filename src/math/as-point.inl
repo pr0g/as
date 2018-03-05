@@ -51,6 +51,4 @@ inline void operator-=(point3_t& point, const vec3_t& vec)
     point.v -= vec;
 }
 
-
-
 } // namespace as

@@ -27,12 +27,12 @@ TEST(as_point, point_sub) {
 
     EXPECT_TRUE(as::point::equal(a3, end3));
 
-    as::point2_t a2 = end3.xy;
-    as::point2_t b2 = a3.xy;
+    as::point2_t a2 = as::point2_t(end3.v.xy());
+    as::point2_t b2 = as::point2_t(a3.v.xy());
 
     as::vec2_t r2 = a2 - b2;
 
     as::point2_t end2 = b2 + r2;
 
-    EXPECT_TRUE(as::point::equal(end2, end3.xy));
+    EXPECT_TRUE(as::point::equal(end2, as::point2_t(end3.v.xy())));
 }

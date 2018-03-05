@@ -8,11 +8,7 @@ namespace as
 
 struct point2_t
 {
-    union
-    {
-        vec2_t v;
-        struct { real_t x; real_t y; };
-    };
+    vec2_t v;
 
     constexpr real_t& operator[](size_t i) { return v[i]; }
     constexpr const real_t& operator[](size_t i) const { return v[i]; }
@@ -24,19 +20,14 @@ struct point2_t
     point2_t& operator=(point2_t&&) noexcept = default;
     ~point2_t() = default;
 
-    constexpr explicit point2_t(real_t xy) : x(xy), y(xy) {}
+    constexpr explicit point2_t(real_t xy) : v { xy, xy } {}
     constexpr explicit point2_t(const vec2_t& v) : v(v) {}
-    constexpr point2_t(real_t x, real_t y) : x(x), y(y) {}
+    constexpr point2_t(real_t x, real_t y) : v { x, y } {}
 };
 
 struct point3_t
 {
-    union
-    {
-        vec3_t v;
-        struct { real_t x; real_t y; real_t z; };
-        point2_t xy;
-    };
+    vec3_t v;
 
     constexpr real_t& operator[](size_t i) { return v[i]; }
     constexpr const real_t& operator[](size_t i) const { return v[i]; }
@@ -48,10 +39,10 @@ struct point3_t
     point3_t& operator=(point3_t&&) noexcept = default;
     ~point3_t() = default;
 
-    constexpr explicit point3_t(real_t xyz) : x(xyz), y(xyz), z(xyz) {}
+    constexpr explicit point3_t(real_t xyz) : v { xyz, xyz, xyz } {}
     constexpr explicit point3_t(const vec3_t& v) : v(v) {}
-    constexpr point3_t(real_t x, real_t y, real_t z) : x(x), y(y), z(z) {}
-    constexpr point3_t(const vec2_t& xy, real_t z) : x(xy.x), y(xy.y), z(z) {}
+    constexpr point3_t(real_t x, real_t y, real_t z) : v { x, y, z } {}
+    constexpr point3_t(const vec2_t& xy, real_t z) : v { xy.x, xy.y, z } {}
 };
 
 inline vec2_t operator-(const point2_t& lhs, const point2_t& rhs);
