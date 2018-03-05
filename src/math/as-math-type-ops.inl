@@ -13,20 +13,20 @@ size_t size(Vec<T, n>&)
 template<typename T, size_t n>
 const T* const_data(const Vec<T, n>& vec)
 {
-    return vec.elem;
+    return vec.elems();
 }
 
 template<typename T, size_t n>
 T* data(Vec<T, n>& vec)
 {
-    return vec.elem;
+    return vec.elems();
 }
 
 template<typename T, size_t n>
 constexpr Vec<T, n> from_arr(const T(&data)[n])
 {
     Vec<T, n> result;
-    std::copy(std::begin(data), std::end(data), result.elem);
+    std::copy(std::begin(data), std::end(data), result.elems());
     return result;
 }
 
@@ -34,7 +34,7 @@ template<typename T, size_t n>
 constexpr Vec<T, n> from_ptr(const T* data)
 {
     Vec<T, n> result;
-    std::copy(data, data + n, result.elem);
+    std::copy(data, data + n, result.elems());
     return result;
 }
 

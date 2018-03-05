@@ -14,6 +14,7 @@
 // as-test
 #include "as-math-output.hpp"
 
+// std
 #include <memory>
 
 const as::real_t epsilon = std::numeric_limits<as::real_t>::epsilon();
@@ -422,8 +423,8 @@ TEST(as_vec, vec2_accessors)
     // anonymous struct and internal element array - explicit construction
     {
         as::vec2_t vec2(1.0f, 2.0f);
-        EXPECT_EQ(vec2.elem[0], vec2[0]);
-        EXPECT_EQ(vec2.elem[1], vec2[1]);
+        EXPECT_EQ(vec2.elems()[0], vec2[0]);
+        EXPECT_EQ(vec2.elems()[1], vec2[1]);
     }
 }
 
@@ -458,9 +459,9 @@ TEST(as_vec, vec3_accessors)
     // anonymous struct and internal element array - explicit construction
     {
         as::vec3_t vec3(2.0f, 4.0f, 6.0f);
-        EXPECT_EQ(vec3.elem[0], vec3[0]);
-        EXPECT_EQ(vec3.elem[1], vec3[1]);
-        EXPECT_EQ(vec3.elem[2], vec3[2]);
+        EXPECT_EQ(vec3.elems()[0], vec3[0]);
+        EXPECT_EQ(vec3.elems()[1], vec3[1]);
+        EXPECT_EQ(vec3.elems()[2], vec3[2]);
     }
 }
 
@@ -500,10 +501,10 @@ TEST(as_vec, vec4_accessors)
     // anonymous struct and internal element array - explicit construction
     {
         as::vec4_t vec4(1.0f, 2.0f, 3.0f, 4.0f);
-        EXPECT_EQ(vec4.elem[0], vec4[0]);
-        EXPECT_EQ(vec4.elem[1], vec4[1]);
-        EXPECT_EQ(vec4.elem[2], vec4[2]);
-        EXPECT_EQ(vec4.elem[3], vec4[3]);
+        EXPECT_EQ(vec4.elems()[0], vec4[0]);
+        EXPECT_EQ(vec4.elems()[1], vec4[1]);
+        EXPECT_EQ(vec4.elems()[2], vec4[2]);
+        EXPECT_EQ(vec4.elems()[3], vec4[3]);
     }
 }
 
