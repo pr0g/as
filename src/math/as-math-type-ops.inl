@@ -262,20 +262,20 @@ namespace mat
 template<typename T, size_t r, size_t c>
 inline T* data(const Mat<T, r, c>& mat)
 {
-    return mat.elem;
+    return mat.elems();
 }
 
 template<typename T, size_t r, size_t c>
 inline const T* const_data(const Mat<T, r, c>& mat)
 {
-    return mat.elem;
+    return mat.elems();
 }
 
 template<typename T, size_t r, size_t c>
 constexpr inline Mat<T, r, c> from_arr(const T(&data)[r * c])
 {
     Mat<T, r, c> result;
-    std::copy(std::begin(data), std::end(data), result.elem);
+    std::copy(std::begin(data), std::end(data), result.elems());
     return result;
 }
 
@@ -283,7 +283,7 @@ template<typename T, size_t r, size_t c>
 constexpr inline Mat<T, r, c> from_ptr(const T* data)
 {
     Mat<T, r, c> result;
-    std::copy(data, data + r * c, result.elem);
+    std::copy(data, data + r * c, result.elems());
     return result;
 }
 
@@ -302,11 +302,10 @@ inline Mat<T, r, c> transpose(const Mat<T, r, c>& mat)
 template<typename T, size_t rc>
 constexpr inline Mat<T, rc, rc> identity()
 {
-    Mat<T, rc, rc> identity;
-    size_t size = rc * rc;
-    std::fill(std::begin(identity.elem), std::end(identity.elem), 0.0f);
+    Mat<T, rc, rc> identity{};
+    const size_t size = rc * rc;
     for (size_t i = 0; i < size; i += rc + 1) {
-        identity.elem[i] = 1.0f;
+        identity[i] = 1.0f;
     }
     return identity;
 }
@@ -517,9 +516,9 @@ constexpr mat33_t rotation_z(real_t radians)
 constexpr inline mat33_t from_mat44(const mat44_t& transform)
 {
     return {
-        transform.x0, transform.x1, transform.x2,
-        transform.y0, transform.y1, transform.y2,
-        transform.z0, transform.z1, transform.z2
+        transform.elem_rc[0][0], transform.elem_rc[0][1], transform.elem_rc[0][2],
+        transform.elem_rc[1][0], transform.elem_rc[1][1], transform.elem_rc[1][2],
+        transform.elem_rc[2][0], transform.elem_rc[2][1], transform.elem_rc[2][2],
     };
 }
 

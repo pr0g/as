@@ -141,22 +141,6 @@ TEST(as_mat, col_row) {
     for (size_t i = 0; i < 25; ++i) {
         mat[i] = (int)i;
     }
-
-    printf("%d ", mat.elem_rc[0][0]);
-    printf("%d ", mat.elem_rc[0][1]);
-    printf("%d ", mat.elem_rc[0][2]);
-    printf("%d ", mat.elem_rc[0][3]);
-    printf("%d ", mat.elem_rc[0][4]);
-
-    printf("\n");
-
-    printf("%d ", mat.vec[0][0]);
-    printf("%d ", mat.vec[0][1]);
-    printf("%d ", mat.vec[0][2]);
-    printf("%d ", mat.vec[0][3]);
-    printf("%d ", mat.vec[0][4]);
-
-    printf("\n");
 }
 
 TEST(as_mat, mat_mult) {

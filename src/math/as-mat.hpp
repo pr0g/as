@@ -24,15 +24,11 @@ __pragma(warning(disable:4201))
 template<typename T, size_t r, size_t c>
 struct Mat
 {
-    union
-    {
-        T elem[r * c];
-        T elem_rc[r][c];
-        Vec<T, r> vec[c];
-    };
-
     constexpr T& operator[](size_t i) { return elem[i]; }
     constexpr const T& operator[](size_t i) const { return elem[i]; }
+
+    T* elems() { return elem; }
+    const T* elems() const { return elem; }
 
     Mat() = default;
     Mat(const Mat& mat) = default;
@@ -44,6 +40,9 @@ struct Mat
     template<typename...> struct typelist;
     template<typename... Args, typename = std::enable_if_t<!std::is_same<typelist<Mat>, typelist<std::decay_t<Args>...>>::value>>
     Mat(Args&&... args) noexcept : elem { std::forward<Args>(args)... } {}
+
+private:
+    T elem[r * c];
 };
 
 #ifdef _MSC_VER
