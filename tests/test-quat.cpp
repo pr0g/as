@@ -10,9 +10,6 @@
 #include "src/math/as-math.hpp"
 #include "src/math/as-quat.hpp"
 
-// as-test
-#include "as-math-output.hpp"
-
 TEST(as_quat, multiply_equal)
 {
     as::quat_t q1{ 1.0f, 2.0f, 3.0f, 4.0f };
@@ -27,6 +24,7 @@ TEST(as_quat, multiply_equal)
     
     int i;
     i = 0;
+    (void)i;
 
     //glm::quat_t a = qq1 * 5.0f;
     //glm::quat_t b = 5.0f * qq1;

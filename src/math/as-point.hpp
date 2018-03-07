@@ -10,8 +10,8 @@ struct point2_t
 {
     vec2_t v;
 
-    constexpr real_t& operator[](size_t i) { return v[i]; }
-    constexpr const real_t& operator[](size_t i) const { return v[i]; }
+    real_t& operator[](size_t i) { return v[i]; }
+    const real_t& operator[](size_t i) const { return v[i]; }
 
     point2_t() = default;
     point2_t(const point2_t&) = default;
@@ -29,8 +29,8 @@ struct point3_t
 {
     vec3_t v;
 
-    constexpr real_t& operator[](size_t i) { return v[i]; }
-    constexpr const real_t& operator[](size_t i) const { return v[i]; }
+    real_t& operator[](size_t i) { return v[i]; }
+    const real_t& operator[](size_t i) const { return v[i]; }
 
     point3_t() = default;
     point3_t(const point3_t&) = default;

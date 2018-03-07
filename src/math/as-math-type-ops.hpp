@@ -22,10 +22,10 @@ template<typename T, size_t n>
 inline const T* const_data(const vec_t<T, n>& vec);
 
 template<typename T, size_t n>
-constexpr inline vec_t<T, n> from_arr(const T(&data)[n]);
+inline vec_t<T, n> from_arr(const T(&data)[n]);
 
 template<typename T, size_t n>
-constexpr inline vec_t<T, n> from_ptr(const T* data);
+inline vec_t<T, n> from_ptr(const T* data);
 
 template<typename T, size_t n>
 inline T dot(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
@@ -83,8 +83,8 @@ constexpr inline vec2_t zero() { return { 0.0f, 0.0f }; }
 constexpr inline vec2_t one() { return { 1.0f, 1.0f }; }
 constexpr inline vec2_t max() { return { REAL_MAX, REAL_MAX }; }
 constexpr inline vec2_t min() { return { REAL_MIN, REAL_MIN }; }
-constexpr inline vec2_t from_ptr(const real_t* data);
-constexpr inline vec2_t from_arr(const real_t(&data)[2]);
+inline vec2_t from_ptr(const real_t* data);
+inline vec2_t from_arr(const real_t(&data)[2]);
 
 inline real_t wedge(const vec2_t& lhs, const vec2_t& rhs);
 
@@ -100,8 +100,8 @@ constexpr inline vec3_t zero() { return { 0.0f, 0.0f, 0.0f }; }
 constexpr inline vec3_t one() { return { 1.0f, 1.0f, 1.0f }; }
 constexpr inline vec3_t max() { return { REAL_MAX, REAL_MAX, REAL_MAX }; }
 constexpr inline vec3_t min() { return { REAL_MIN, REAL_MIN, REAL_MIN }; }
-constexpr inline vec3_t from_ptr(const real_t* data);
-constexpr inline vec3_t from_arr(const real_t(&data)[3]);
+inline vec3_t from_ptr(const real_t* data);
+inline vec3_t from_arr(const real_t(&data)[3]);
 
 inline vec3_t cross(const vec3_t& lhs, const vec3_t& rhs);
 
@@ -124,8 +124,8 @@ constexpr inline vec4_t zero() { return { 0.0f, 0.0f, 0.0f, 0.0f }; }
 constexpr inline vec4_t one() { return { 1.0f, 1.0f, 1.0f, 1.0f }; }
 constexpr inline vec4_t max() { return { REAL_MAX, REAL_MAX, REAL_MAX, REAL_MAX }; }
 constexpr inline vec4_t min() { return { REAL_MIN, REAL_MIN, REAL_MIN, REAL_MIN }; }
-constexpr inline vec4_t from_ptr(const real_t* data);
-constexpr inline vec4_t from_arr(const real_t(&data)[4]);
+inline vec4_t from_ptr(const real_t* data);
+inline vec4_t from_arr(const real_t(&data)[4]);
 
 }
 
@@ -139,10 +139,10 @@ template<typename T, size_t r, size_t c>
 inline const T* const_data(const mat_t<T, r, c>& mat);
 
 template<typename T, size_t r, size_t c>
-constexpr inline mat_t<T, r, c> from_arr(const T(&data)[r * c]);
+inline mat_t<T, r, c> from_arr(const T(&data)[r * c]);
 
 template<typename T, size_t r, size_t c>
-constexpr inline mat_t<T, r, c> from_ptr(const T* data);
+inline mat_t<T, r, c> from_ptr(const T* data);
 
 template<typename T, size_t r, size_t c>
 inline mat_t<T, r, c> transpose(const mat_t<T, r, c>& mat);
@@ -169,8 +169,8 @@ constexpr inline size_t cols() { return 3; }
 
 constexpr inline mat33_t identity() { return mat::identity<real_t, 3>(); }
 
-constexpr inline mat33_t from_ptr(const real_t* data);
-constexpr inline mat33_t from_arr(const real_t(&data)[9]);
+inline mat33_t from_ptr(const real_t* data);
+inline mat33_t from_arr(const real_t(&data)[9]);
 constexpr inline mat33_t from_mat44(const mat44_t& transform);
 
 constexpr inline mat33_t axis_angle(const vec3_t& axis, real_t radians);
@@ -190,8 +190,8 @@ constexpr size_t cols() { return 4; }
 
 constexpr inline mat44_t identity() { return mat::identity<real_t, 4>(); }
 
-constexpr inline mat44_t from_ptr(const real_t* data);
-constexpr inline mat44_t from_arr(const real_t(&data)[16]);
+inline mat44_t from_ptr(const real_t* data);
+inline mat44_t from_arr(const real_t(&data)[16]);
 
 constexpr inline mat44_t from_vec3(const vec3_t& translation);
 constexpr inline mat44_t from_mat33(const mat33_t& rotation);

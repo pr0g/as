@@ -13,4 +13,5 @@ TEST(as_affine_t, constructor)
 
     int i;
     i = 0;
+    (void)i;
 }

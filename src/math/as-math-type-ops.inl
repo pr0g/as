@@ -23,7 +23,7 @@ T* data(vec_t<T, n>& vec)
 }
 
 template<typename T, size_t n>
-constexpr vec_t<T, n> from_arr(const T(&data)[n])
+vec_t<T, n> from_arr(const T(&data)[n])
 {
     vec_t<T, n> result;
     std::copy(std::begin(data), std::end(data), result.elems());
@@ -31,7 +31,7 @@ constexpr vec_t<T, n> from_arr(const T(&data)[n])
 }
 
 template<typename T, size_t n>
-constexpr vec_t<T, n> from_ptr(const T* data)
+vec_t<T, n> from_ptr(const T* data)
 {
     vec_t<T, n> result;
     std::copy(data, data + n, result.elems());
@@ -180,12 +180,12 @@ vec_t<T, n> select(const vec_t<T, n>& v0, const vec_t<T, n>& v1, bool select0)
 namespace vec2
 {
 
-constexpr inline vec2_t from_ptr(const real_t* data)
+inline vec2_t from_ptr(const real_t* data)
 {
     return vec::from_ptr<real_t, 2>(data);
 }
 
-constexpr inline vec2_t from_arr(const real_t(&data)[2])
+inline vec2_t from_arr(const real_t(&data)[2])
 {
     return vec::from_arr(data);
 }
@@ -200,12 +200,12 @@ real_t wedge(const vec2_t& lhs, const vec2_t& rhs)
 namespace vec3
 {
 
-constexpr vec3_t from_ptr(const real_t* data)
+vec3_t from_ptr(const real_t* data)
 {
     return vec::from_ptr<real_t, 3>(data);
 }
 
-constexpr vec3_t from_arr(const real_t(&data)[3])
+vec3_t from_arr(const real_t(&data)[3])
 {
     return vec::from_arr(data);
 }
@@ -244,12 +244,12 @@ void right_and_up_rh(const vec3_t& dir, vec3_t& across, vec3_t& up, const vec3_t
 namespace vec4
 {
 
-constexpr vec4_t from_ptr(const real_t* data)
+vec4_t from_ptr(const real_t* data)
 {
     return vec::from_ptr<real_t, 4>(data);
 }
 
-constexpr vec4_t from_arr(const real_t(&data)[4])
+vec4_t from_arr(const real_t(&data)[4])
 {
     return vec::from_arr(data);
 }
@@ -272,7 +272,7 @@ inline const T* const_data(const mat_t<T, r, c>& mat)
 }
 
 template<typename T, size_t r, size_t c>
-constexpr inline mat_t<T, r, c> from_arr(const T(&data)[r * c])
+inline mat_t<T, r, c> from_arr(const T(&data)[r * c])
 {
     mat_t<T, r, c> result;
     std::copy(std::begin(data), std::end(data), result.elems());
@@ -280,7 +280,7 @@ constexpr inline mat_t<T, r, c> from_arr(const T(&data)[r * c])
 }
 
 template<typename T, size_t r, size_t c>
-constexpr inline mat_t<T, r, c> from_ptr(const T* data)
+inline mat_t<T, r, c> from_ptr(const T* data)
 {
     mat_t<T, r, c> result;
     std::copy(data, data + r * c, result.elems());
@@ -431,12 +431,12 @@ inline mat_t<T, rc, rc> gj_inverse(const mat_t<T, rc, rc>& mat)
 namespace mat33
 {
 
-constexpr mat33_t from_ptr(const real_t* data)
+mat33_t from_ptr(const real_t* data)
 {
     return mat::from_ptr<real_t, 3, 3>(data);
 }
 
-constexpr mat33_t from_arr(const real_t(&data)[9])
+mat33_t from_arr(const real_t(&data)[9])
 {
     return mat::from_arr<real_t, 3, 3>(data);
 }
@@ -527,12 +527,12 @@ constexpr inline mat33_t from_mat44(const mat44_t& transform)
 namespace mat44
 {
 
-constexpr inline mat44_t from_ptr(const real_t* data)
+inline mat44_t from_ptr(const real_t* data)
 {
     return mat::from_ptr<real_t, 4, 4>(data);
 }
 
-constexpr inline mat44_t from_arr(const real_t(&data)[16])
+inline mat44_t from_arr(const real_t(&data)[16])
 {
     return mat::from_arr<real_t, 4, 4>(data);
 }

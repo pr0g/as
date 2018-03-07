@@ -54,8 +54,8 @@ template<> struct mat_t<real_t, 3, 3>
     void row2(const vec3_t& row) { elem_rc[0][2] = row.x; elem_rc[1][2] = row.y; elem_rc[2][2] = row.z; }
 #endif
 
-    real_t* elems() { return &elem_rc[0][0]; }
-    const real_t* elems() const { return &elem_rc[0][0]; }
+    constexpr real_t* elems() { return &elem_rc[0][0]; }
+    constexpr const real_t* elems() const { return &elem_rc[0][0]; }
     
     constexpr real_t& operator[](size_t i) { return elems()[i]; }
     constexpr real_t operator[](size_t i) const { return elems()[i]; }
