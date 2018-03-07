@@ -2,9 +2,9 @@ namespace as
 {
 
 template<typename T, size_t n>
-Vec<T, n> operator+(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
+vec_t<T, n> operator+(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 {
-    Vec<T, n> result;
+    vec_t<T, n> result;
     for (size_t i = 0; i < n; ++i)
     {
         result[i] = lhs[i] + rhs[i];
@@ -13,7 +13,7 @@ Vec<T, n> operator+(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
 }
 
 template<typename T, size_t n>
-Vec<T, n>& operator+=(Vec<T, n>& lhs, const Vec<T, n>& rhs)
+vec_t<T, n>& operator+=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 {
     for (size_t i = 0; i < n; ++i)
     {
@@ -23,9 +23,9 @@ Vec<T, n>& operator+=(Vec<T, n>& lhs, const Vec<T, n>& rhs)
 }
 
 template<typename T, size_t n>
-Vec<T, n> operator-(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
+vec_t<T, n> operator-(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 {
-    Vec<T, n> result;
+    vec_t<T, n> result;
     for (size_t i = 0; i < n; ++i)
     {
         result[i] = lhs[i] - rhs[i];
@@ -34,7 +34,7 @@ Vec<T, n> operator-(const Vec<T, n>& lhs, const Vec<T, n>& rhs)
 }
 
 template<typename T, size_t n>
-Vec<T, n>& operator-=(Vec<T, n>& lhs, const Vec<T, n>& rhs)
+vec_t<T, n>& operator-=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 {
     for (size_t i = 0; i < n; ++i)
     {
@@ -44,9 +44,9 @@ Vec<T, n>& operator-=(Vec<T, n>& lhs, const Vec<T, n>& rhs)
 }
 
 template<typename T, size_t n>
-Vec<T, n> operator-(const Vec<T, n>& vec)
+vec_t<T, n> operator-(const vec_t<T, n>& vec)
 {
-    Vec<T, n> result;
+    vec_t<T, n> result;
     for (size_t i = 0; i < n; ++i)
     {
         result[i] = -vec[i];
@@ -55,9 +55,9 @@ Vec<T, n> operator-(const Vec<T, n>& vec)
 }
 
 template<typename T, size_t n>
-Vec<T, n> operator*(const Vec<T, n>& vec, T val)
+vec_t<T, n> operator*(const vec_t<T, n>& vec, T val)
 {
-    Vec<T, n> result;
+    vec_t<T, n> result;
     for (size_t i = 0; i < n; ++i)
     {
         result[i] = vec[i] * val;
@@ -66,9 +66,9 @@ Vec<T, n> operator*(const Vec<T, n>& vec, T val)
 }
 
 template<typename T, size_t n>
-Vec<T, n> operator*(T val, const Vec<T, n>& vec)
+vec_t<T, n> operator*(T val, const vec_t<T, n>& vec)
 {
-    Vec<T, n> result;
+    vec_t<T, n> result;
     for (size_t i = 0; i < n; ++i)
     {
         result[i] = vec[i] * val;
@@ -77,7 +77,7 @@ Vec<T, n> operator*(T val, const Vec<T, n>& vec)
 }
 
 template<typename T, size_t n>
-void operator*=(Vec<T, n>& vec, T val)
+void operator*=(vec_t<T, n>& vec, T val)
 {
     for (size_t i = 0; i < n; ++i)
     {
@@ -86,9 +86,9 @@ void operator*=(Vec<T, n>& vec, T val)
 }
 
 template<typename T, size_t n>
-Vec<T, n> operator/(const Vec<T, n>& vec, T val)
+vec_t<T, n> operator/(const vec_t<T, n>& vec, T val)
 {
-    Vec<T, n> result;
+    vec_t<T, n> result;
     for (size_t i = 0; i < n; ++i)
     {
         result[i] = vec[i] / val;
@@ -97,7 +97,7 @@ Vec<T, n> operator/(const Vec<T, n>& vec, T val)
 }
 
 template<typename T, size_t n>
-void operator/=(Vec<T, n>& vec, T val)
+void operator/=(vec_t<T, n>& vec, T val)
 {
     for (size_t i = 0; i < n; ++i)
     {

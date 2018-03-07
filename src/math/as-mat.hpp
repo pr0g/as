@@ -22,27 +22,27 @@ __pragma(warning(disable:4201))
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
 template<typename T, size_t r, size_t c>
-struct Mat
+struct mat_t
 {
-    constexpr T& operator[](size_t i) { return elem[i]; }
-    constexpr const T& operator[](size_t i) const { return elem[i]; }
+    T elem_rc[r][c];
+    static const size_t size = r * c;
 
-    T* elems() { return elem; }
-    const T* elems() const { return elem; }
+    constexpr T& operator[](size_t i) { return elems()[i]; }
+    constexpr const T& operator[](size_t i) const { return elems()[i]; }
 
-    Mat() = default;
-    Mat(const Mat& mat) = default;
-    Mat& operator=(const Mat& mat) = default;
-    Mat(Mat&& mat) noexcept = default;
-    Mat& operator=(Mat&& mat) noexcept = default;
-    ~Mat() = default;
+    T* elems() { return &elem_rc[0][0]; }
+    const T* elems() const { return &elem_rc[0][0]; }
+
+    mat_t() = default;
+    mat_t(const mat_t& mat) = default;
+    mat_t& operator=(const mat_t& mat) = default;
+    mat_t(mat_t&& mat) noexcept = default;
+    mat_t& operator=(mat_t&& mat) noexcept = default;
+    ~mat_t() = default;
 
     template<typename...> struct typelist;
-    template<typename... Args, typename = std::enable_if_t<!std::is_same<typelist<Mat>, typelist<std::decay_t<Args>...>>::value>>
-    Mat(Args&&... args) noexcept : elem { std::forward<Args>(args)... } {}
-
-private:
-    T elem[r * c];
+    template<typename... Args, typename = std::enable_if_t<!std::is_same<typelist<mat_t>, typelist<std::decay_t<Args>...>>::value>>
+    mat_t(Args&&... args) noexcept : elem_rc { std::forward<Args>(args)... } {}
 };
 
 #ifdef _MSC_VER
@@ -50,20 +50,20 @@ __pragma(warning(pop))
 #endif // _MSC_VER
 
 template <typename T, size_t r, size_t c>
-inline Mat<T, r, c> operator*(const Mat<T, r, c>& lhs, const Mat<T, r, c>& rhs);
+inline mat_t<T, r, c> operator*(const mat_t<T, r, c>& lhs, const mat_t<T, r, c>& rhs);
 
 template<typename T, size_t r, size_t c, size_t n>
 #if defined AS_ROW_MAJOR
-inline Vec<T, n> operator*(const Vec<T, n> v, const Mat<T, r, c>& mat)
+inline vec_t<T, n> operator*(const vec_t<T, n> v, const mat_t<T, r, c>& mat);
 #elif defined AS_COL_MAJOR
-inline Vec<T, n> operator*(const Mat<T, r, c>& mat, const Vec<T, n> v);
+inline vec_t<T, n> operator*(const mat_t<T, r, c>& mat, const vec_t<T, n> v);
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
 template<typename T, size_t r, size_t c>
-inline Mat<T, r, c> operator*(const Mat<T, r, c>& mat, T scalar);
+inline mat_t<T, r, c> operator*(const mat_t<T, r, c>& mat, T scalar);
 
 template<typename T, size_t r, size_t c>
-inline void operator*=(Mat<T, r, c>& mat, T scalar);
+inline void operator*=(mat_t<T, r, c>& mat, T scalar);
 
 } // namespace as
 

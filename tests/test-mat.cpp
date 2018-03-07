@@ -50,8 +50,8 @@ TEST(as_mat, constructor) {
 }
 
 TEST(as_mat, copy_constructor) {
-    as::Mat<double, 2, 4> a(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0);
-    as::Mat<double, 2, 4> a_copy(a);
+    as::mat_t<double, 2, 4> a(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0);
+    as::mat_t<double, 2, 4> a_copy(a);
 
     EXPECT_EQ(a_copy[0], 1.0f) << "mat copy constructor failed";
     EXPECT_EQ(a_copy[1], 2.0f) << "mat copy constructor failed";
@@ -136,7 +136,7 @@ TEST(as_mat, mat33_init) {
 }
 
 TEST(as_mat, col_row) {
-    as::Mat< int, 5, 5 > mat;
+    as::mat_t< int, 5, 5 > mat;
 
     for (size_t i = 0; i < 25; ++i) {
         mat[i] = (int)i;
@@ -183,7 +183,7 @@ TEST(as_mat, mat_proj) {
 }
 
 TEST(as_mat, mat_generic_init) {
-    using int34 = as::Mat<int, 3, 4>;
+    using int34 = as::mat_t<int, 3, 4>;
 
     int34 int34_test(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0);
 
@@ -196,8 +196,32 @@ TEST(as_mat, mat_transform_vec) {
     as::vec3_t a_vec3{ 1.0f, 2.0f, 3.0f };
     as::mat44_t a_mat44{ as::mat44::from_mat33(as::mat33::rotation_x(as::deg_to_rad(90.0f))) };
 
-    as::Mat<as::real_t, 3, 4> my_mat34;
+    //as::mat_t<as::real_t, 3, 4> my_mat34;
 
-    as::vec3_t result = my_mat34 * a_vec3;
+    //as::vec3_t result = my_mat34 * a_vec3;
     //as::vec4_t result2 = my_m34 * as::vec4_t{ 0.0f, 0.0f, 0.0f, 1.0f }; // fails to compile
+}
+
+TEST(as_mat, mat_generic_vs_33_44)
+{
+    as::mat_t<as::real_t, 5, 5> custom_m55(
+        1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f, 
+        11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f, 17.0f, 18.0f, 19.0f, 20.0f,
+        21.0f, 22.0f, 23.0f, 24.0f, 25.0f);
+    as::mat44_t m44(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f,
+        11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f);
+
+    for (size_t i = 0; i < as::mat_t<as::real_t, 5, 5>::size; ++i)
+    {
+        as::real_t* number = custom_m55.elems() + i;
+        printf("%f, ", *number);
+        printf("%f, ", custom_m55[i]);
+    }
+
+    for (size_t i = 0; i < as::mat44_t::size; ++i)
+    {
+        as::real_t* number = m44.elems() + i;
+        printf("%f, ", *number);
+        printf("%f, ", m44[i]);
+    }
 }

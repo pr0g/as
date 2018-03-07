@@ -13,64 +13,64 @@ namespace vec
 {
 
 template<typename T, size_t n>
-inline size_t size(Vec<T, n>& vec);
+inline size_t size(vec_t<T, n>& vec);
 
 template<typename T, size_t n>
-inline T* data(Vec<T, n>& vec);
+inline T* data(vec_t<T, n>& vec);
 
 template<typename T, size_t n>
-inline const T* const_data(const Vec<T, n>& vec);
+inline const T* const_data(const vec_t<T, n>& vec);
 
 template<typename T, size_t n>
-constexpr inline Vec<T, n> from_arr(const T(&data)[n]);
+constexpr inline vec_t<T, n> from_arr(const T(&data)[n]);
 
 template<typename T, size_t n>
-constexpr inline Vec<T, n> from_ptr(const T* data);
+constexpr inline vec_t<T, n> from_ptr(const T* data);
 
 template<typename T, size_t n>
-inline T dot(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
+inline T dot(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<typename T, size_t n>
-inline T length_squared(const Vec<T, n>& vec);
+inline T length_squared(const vec_t<T, n>& vec);
 
 template<typename T, size_t n>
-inline T length(const Vec<T, n>& vec);
+inline T length(const vec_t<T, n>& vec);
 
 template<typename T, size_t n>
-inline Vec<T, n> normalize(const Vec<T, n>& vec);
+inline vec_t<T, n> normalize(const vec_t<T, n>& vec);
 
 template<typename T, size_t n>
-inline T normalize_return_length(const Vec<T, n>& vec, Vec<T, n>& out);
+inline T normalize_return_length(const vec_t<T, n>& vec, vec_t<T, n>& out);
 
 template<typename T, size_t n>
-inline bool equal(const Vec<T, n>& lhs, const Vec<T, n>& rhs, real_t epsilon = std::numeric_limits<real_t>::epsilon());
+inline bool equal(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs, real_t epsilon = std::numeric_limits<real_t>::epsilon());
 
 template<typename T, size_t n>
-inline Vec<T, n> min(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
+inline vec_t<T, n> min(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<typename T, size_t n>
-inline T min_elem(const Vec<T, n>& vec);
+inline T min_elem(const vec_t<T, n>& vec);
 
 template<typename T, size_t n>
-inline Vec<T, n> max(const Vec<T, n>& lhs, const Vec<T, n>& rhs);
+inline vec_t<T, n> max(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<typename T, size_t n>
-inline T max_elem(const Vec<T, n>& vec);
+inline T max_elem(const vec_t<T, n>& vec);
 
 template<typename T, size_t n>
-inline Vec<T, n> abs(const Vec<T, n>& vec);
+inline vec_t<T, n> abs(const vec_t<T, n>& vec);
 
 template<typename T, size_t n>
-inline Vec<T, n> clamp(const Vec<T, n>& vec, const Vec<T, n>& min, const Vec<T, n>& max);
+inline vec_t<T, n> clamp(const vec_t<T, n>& vec, const vec_t<T, n>& min, const vec_t<T, n>& max);
 
 template<typename T, size_t n>
-inline Vec<T, n> saturate(const Vec<T, n>& vec);
+inline vec_t<T, n> saturate(const vec_t<T, n>& vec);
 
 template<typename T, size_t n>
-inline Vec<T, n> lerp(T t, const Vec<T, n>& v0, const Vec<T, n>& v1);
+inline vec_t<T, n> lerp(T t, const vec_t<T, n>& v0, const vec_t<T, n>& v1);
 
 template<typename T, size_t n>
-inline Vec<T, n> select(const Vec<T, n>& v0, const Vec<T, n>& v1, bool select0);
+inline vec_t<T, n> select(const vec_t<T, n>& v0, const vec_t<T, n>& v1, bool select0);
 
 }
 
@@ -133,31 +133,31 @@ namespace mat
 {
 
 template<typename T, size_t r, size_t c>
-inline T* data(const Mat<T, r, c>& mat);
+inline T* data(const mat_t<T, r, c>& mat);
 
 template<typename T, size_t r, size_t c>
-inline const T* const_data(const Mat<T, r, c>& mat);
+inline const T* const_data(const mat_t<T, r, c>& mat);
 
 template<typename T, size_t r, size_t c>
-constexpr inline Mat<T, r, c> from_arr(const T(&data)[r * c]);
+constexpr inline mat_t<T, r, c> from_arr(const T(&data)[r * c]);
 
 template<typename T, size_t r, size_t c>
-constexpr inline Mat<T, r, c> from_ptr(const T* data);
+constexpr inline mat_t<T, r, c> from_ptr(const T* data);
 
 template<typename T, size_t r, size_t c>
-inline Mat<T, r, c> transpose(const Mat<T, r, c>& mat);
+inline mat_t<T, r, c> transpose(const mat_t<T, r, c>& mat);
 
 template<typename T, size_t cr>
-constexpr inline Mat<T, cr, cr> identity();
+constexpr inline mat_t<T, cr, cr> identity();
 
 template<typename T, size_t cr>
-inline T determinant(const Mat<T, cr, cr>& mat);
+inline T determinant(const mat_t<T, cr, cr>& mat);
 
 template<typename T, size_t cr>
-inline Mat<T, cr, cr> inverse(const Mat<T, cr, cr>& mat);
+inline mat_t<T, cr, cr> inverse(const mat_t<T, cr, cr>& mat);
 
 template<typename T, size_t cr>
-inline Mat<T, cr, cr> gj_inverse(const Mat<T, cr, cr>& mat);
+inline mat_t<T, cr, cr> gj_inverse(const mat_t<T, cr, cr>& mat);
 
 }
 
