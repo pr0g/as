@@ -640,4 +640,47 @@ quat_t slerp(const quat_t& a, const quat_t& b, real_t u)
 
 } // namespace quat
 
+namespace affine
+{
+
+vec3_t transform_dir(const affine_t& affine, const vec3_t& direction)
+{
+#if defined AS_COL_MAJOR
+    return affine.rotation * direction;
+#elif defined AS_ROW_MAJOR
+    return direction * rotation;
+#endif // AS_COL_MAJOR ? AS_ROW_MAJOR
+}
+
+vec3_t transform_pos(const affine_t& affine, const vec3_t& position_)
+{
+#if defined AS_COL_MAJOR
+    return affine.rotation * position_ + affine.position;
+#elif defined AS_ROW_MAJOR
+    return position_ * rotation + position;
+#endif // AS_COL_MAJOR ? AS_ROW_MAJOR
+}
+
+vec3_t inv_transform_dir(const affine_t& affine, const vec3_t& direction)
+{
+    const mat33_t invRotation = as::mat::inverse(affine.rotation);
+#if defined AS_COL_MAJOR
+    return invRotation * direction;
+#elif defined AS_ROW_MAJOR
+    return direction * invRotation;
+#endif // AS_COL_MAJOR ? AS_ROW_MAJOR
+}
+
+vec3_t inv_transform_pos(const affine_t& affine, const vec3_t& position_)
+{
+    const mat33_t invRotation = as::mat::inverse(affine.rotation);
+#if defined AS_COL_MAJOR
+    return invRotation * (position_ - affine.position);
+#elif defined AS_ROW_MAJOR
+    return (position_ - position) * invRotation;
+#endif // AS_COL_MAJOR ? AS_ROW_MAJOR
+}
+
+} // namespace affine
+
 } // namespace as

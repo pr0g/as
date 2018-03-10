@@ -14,17 +14,19 @@ struct affine_t
     affine_t& operator=(affine_t&&) noexcept = default;
     ~affine_t() = default;
 
-    constexpr affine_t(const mat33_t& rotation, const vec3_t& position)
+    constexpr affine_t(
+        const mat33_t& rotation, const vec3_t& position)
         : rotation(rotation), position(position) {}
 
     mat33_t rotation;
     vec3_t position;
-
-    inline vec3_t transform_dir(const vec3_t& direction);
-    inline vec3_t transform_pos(const vec3_t& position);
-    inline vec3_t inv_transform_dir(const vec3_t& direction);
-    inline vec3_t inv_transform_pos(const vec3_t& position);
 };
+
+#if defined AS_COL_MAJOR
+inline vec3_t operator*(const affine_t& transform, const vec3_t& vec);
+#elif defined AS_ROW_MAJOR
+inline vec3_t operator*(const vec3_t& vec, const affine_t& transform);
+#endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 
 } // namespace as
 
