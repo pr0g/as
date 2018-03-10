@@ -7,7 +7,7 @@ namespace as
 
 struct quat_t
 {
-    struct { real_t w; real_t x; real_t y; real_t z; };
+    real_t w, x, y, z;
 
     quat_t() = default;
     quat_t(const quat_t&) = default;
@@ -23,6 +23,8 @@ struct quat_t
 constexpr inline quat_t operator*(const quat_t& lhs, const quat_t& rhs);
 constexpr inline void operator*=(quat_t& lhs, const quat_t& rhs);
 inline quat_t operator+(const quat_t& lhs, const quat_t& rhs);
+inline quat_t operator-(const quat_t& lhs, const quat_t& rhs);
+inline quat_t operator-(const quat_t& q);
 inline quat_t operator/(const quat_t& lhs, real_t rhs);
 inline quat_t operator*(const quat_t& lhs, real_t rhs);
 

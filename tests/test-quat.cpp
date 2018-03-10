@@ -17,10 +17,14 @@ TEST(as_quat, multiply_equal)
 
     q1 *= q2;
 
+    as::quat_t q_sub = q2 - q1;
+
     glm::quat qq1{ 1.0f, 2.0f, 3.0f, 4.0f };
     glm::quat qq2{ 2.0f, 4.0f, 6.0f, 8.0f };
 
     qq1 *= qq2;
+
+    as::quat_t neg_q = -q1;
     
     int i;
     i = 0;

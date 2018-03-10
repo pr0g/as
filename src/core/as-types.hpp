@@ -46,6 +46,7 @@ typedef float real_t;
 #define asinr asinf
 #define atanr atanf
 #define absr fabsf
+#define sqrtr sqrtf
 #define REAL_EPSILON FLT_EPSILON
 #define REAL_MAX FLT_MAX
 #define REAL_MIN FLT_MIN
@@ -58,6 +59,7 @@ typedef double real_t;
 #define asinr asin
 #define atanr atan
 #define absr fabs
+#define sqrtr sqrt
 #define REAL_EPSILON DBL_EPSILON
 #define REAL_MAX DBL_MAX
 #define REAL_MIN DBL_MIN

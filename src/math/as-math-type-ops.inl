@@ -586,7 +586,7 @@ constexpr inline real_t length_squared(const quat_t& a)
 
 inline real_t length(const quat_t& a)
 {
-    return std::sqrt(length_squared(a));
+    return sqrtr(length_squared(a));
 }
 
 inline quat_t normalize(const quat_t& a)

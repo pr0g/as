@@ -406,21 +406,21 @@ TEST(as_vec, vec4_initialization)
 
 TEST(as_vec, vec2_accessors)
 {
-    // anonymous struct and subscript operator - zero initializer
+    // member and subscript operator - zero initializer
     {
         as::vec2_t vec2{};
         EXPECT_EQ(vec2.x, vec2[0]);
         EXPECT_EQ(vec2.y, vec2[1]);
     }
 
-    // anonymous struct and subscript operator - explicit construction
+    // member and subscript operator - explicit construction
     {
         as::vec2_t vec2(1.0f, 2.0f);
         EXPECT_EQ(vec2.x, vec2[0]);
         EXPECT_EQ(vec2.y, vec2[1]);
     }
 
-    // anonymous struct and internal element array - explicit construction
+    // member pointer and subscript operator - explicit construction
     {
         as::vec2_t vec2(1.0f, 2.0f);
         EXPECT_EQ(vec2.elems()[0], vec2[0]);
@@ -430,7 +430,7 @@ TEST(as_vec, vec2_accessors)
 
 TEST(as_vec, vec3_accessors)
 {
-    // anonymous struct and subscript operator - zero initializer
+    // member and subscript operator - zero initializer
     {
         as::vec3_t vec3{};
         EXPECT_EQ(vec3.x, vec3[0]);
@@ -438,7 +438,7 @@ TEST(as_vec, vec3_accessors)
         EXPECT_EQ(vec3.z, vec3[2]);
     }
 
-    // anonymous struct and subscript operator - explicit construction
+    // member and subscript operator - explicit construction
     {
         as::vec3_t vec3(1.0f, 2.0f, 3.0f);
         EXPECT_EQ(vec3.x, vec3[0]);
@@ -446,7 +446,7 @@ TEST(as_vec, vec3_accessors)
         EXPECT_EQ(vec3.z, vec3[2]);
     }
 
-    // anonymous struct and subscript operator - explicit construction
+    // member and subscript operator - explicit construction
     {
         as::vec3_t vec3(1.0f, 2.0f, 3.0f);
         EXPECT_EQ(vec3.xy()[0], vec3.x);
@@ -456,7 +456,7 @@ TEST(as_vec, vec3_accessors)
         EXPECT_EQ(vec3.z, vec3[2]);
     }
 
-    // anonymous struct and internal element array - explicit construction
+    // member pointer and subscript operator - explicit construction
     {
         as::vec3_t vec3(2.0f, 4.0f, 6.0f);
         EXPECT_EQ(vec3.elems()[0], vec3[0]);
@@ -467,7 +467,7 @@ TEST(as_vec, vec3_accessors)
 
 TEST(as_vec, vec4_accessors)
 {
-    // anonymous struct and subscript operator - zero initializer
+    // member and subscript operator - zero initializer
     {
         as::vec4_t vec4{};
         EXPECT_EQ(vec4.x, vec4[0]);
@@ -476,7 +476,7 @@ TEST(as_vec, vec4_accessors)
         EXPECT_EQ(vec4.w, vec4[3]);
     }
 
-    // anonymous struct and subscript operator - explicit construction
+    // member and subscript operator - explicit construction
     {
         as::vec4_t vec4(1.0f, 2.0f, 3.0f, 4.0f);
         EXPECT_EQ(vec4.x, vec4[0]);
@@ -485,7 +485,7 @@ TEST(as_vec, vec4_accessors)
         EXPECT_EQ(vec4.w, vec4[3]);
     }
 
-    // anonymous struct and subscript operator - explicit construction
+    // member and subscript operator - explicit construction
     {
         as::vec4_t vec4(1.0f, 2.0f, 3.0f, 4.0f);
         EXPECT_EQ(vec4.xy()[0], vec4[0]);
@@ -498,7 +498,7 @@ TEST(as_vec, vec4_accessors)
         EXPECT_EQ(vec4.w, vec4[3]);
     }
 
-    // anonymous struct and internal element array - explicit construction
+    // member pointer and subscript operator - explicit construction
     {
         as::vec4_t vec4(1.0f, 2.0f, 3.0f, 4.0f);
         EXPECT_EQ(vec4.elems()[0], vec4[0]);
@@ -517,7 +517,7 @@ TEST(as_vec, vec2_vec3_vec4_accessors)
     as::vec4_t vec4_b(vec2, vec2);
     as::vec4_t vec4_c(vec3, 4.0f);
 
-    // anonymous struct accessors
+    // member accessors
     EXPECT_EQ(vec4_a.x, vec2.x);
     EXPECT_EQ(vec4_a.y, vec2.y);
 
