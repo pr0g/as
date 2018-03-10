@@ -180,12 +180,12 @@ vec_t<T, n> select(const vec_t<T, n>& v0, const vec_t<T, n>& v1, bool select0)
 namespace vec2
 {
 
-inline vec2_t from_ptr(const real_t* data)
+vec2_t from_ptr(const real_t* data)
 {
     return vec::from_ptr<real_t, 2>(data);
 }
 
-inline vec2_t from_arr(const real_t(&data)[2])
+vec2_t from_arr(const real_t(&data)[2])
 {
     return vec::from_arr(data);
 }
@@ -260,19 +260,19 @@ namespace mat
 {
 
 template<typename T, size_t r, size_t c>
-inline T* data(const mat_t<T, r, c>& mat)
+T* data(const mat_t<T, r, c>& mat)
 {
     return mat.elems();
 }
 
 template<typename T, size_t r, size_t c>
-inline const T* const_data(const mat_t<T, r, c>& mat)
+const T* const_data(const mat_t<T, r, c>& mat)
 {
     return mat.elems();
 }
 
 template<typename T, size_t r, size_t c>
-inline mat_t<T, r, c> from_arr(const T(&data)[r * c])
+mat_t<T, r, c> from_arr(const T(&data)[r * c])
 {
     mat_t<T, r, c> result;
     std::copy(std::begin(data), std::end(data), result.elems());
@@ -280,7 +280,7 @@ inline mat_t<T, r, c> from_arr(const T(&data)[r * c])
 }
 
 template<typename T, size_t r, size_t c>
-inline mat_t<T, r, c> from_ptr(const T* data)
+mat_t<T, r, c> from_ptr(const T* data)
 {
     mat_t<T, r, c> result;
     std::copy(data, data + r * c, result.elems());
@@ -288,7 +288,7 @@ inline mat_t<T, r, c> from_ptr(const T* data)
 }
 
 template<typename T, size_t r, size_t c>
-inline mat_t<T, r, c> transpose(const mat_t<T, r, c>& mat)
+mat_t<T, r, c> transpose(const mat_t<T, r, c>& mat)
 {
     mat_t<T, r, c> result;
     for (size_t rowIndex = 0; rowIndex < r; ++rowIndex) {
@@ -300,7 +300,7 @@ inline mat_t<T, r, c> transpose(const mat_t<T, r, c>& mat)
 }
 
 template<typename T, size_t rc>
-constexpr inline mat_t<T, rc, rc> identity()
+constexpr mat_t<T, rc, rc> identity()
 {
     mat_t<T, rc, rc> identity{};
     const size_t size = rc * rc;
@@ -316,14 +316,14 @@ namespace internal
 template<size_t> struct int2type {};
 
 template<typename T>
-inline T minor(const mat_t<T, 2, 2>& mat)
+T minor(const mat_t<T, 2, 2>& mat)
 {
     return mat[0] * mat[3] - mat[2] * mat[1];
 }
 
 // where col and row are the rows to ignore
 template<typename T, size_t rc>
-inline mat_t<T, rc - 1, rc - 1> sub_matrix(const mat_t<T, rc, rc>& mat, size_t col, size_t row)
+mat_t<T, rc - 1, rc - 1> sub_matrix(const mat_t<T, rc, rc>& mat, size_t col, size_t row)
 {
     mat_t<T, rc - 1, rc - 1> result = identity<T, rc - 1>();
     size_t i = 0;
@@ -357,7 +357,7 @@ T determinant_impl(const mat_t<T, 2, 2>& mat, int2type<2>)
 };
 
 template<typename T, size_t rc, size_t I>
-inline mat_t<T, rc, rc> minor_impl(const mat_t<T, rc, rc>& mat, int2type<I>)
+mat_t<T, rc, rc> minor_impl(const mat_t<T, rc, rc>& mat, int2type<I>)
 {
     mat_t<T, rc, rc> result;
     T outerSign = T{ 1 };
@@ -376,13 +376,13 @@ inline mat_t<T, rc, rc> minor_impl(const mat_t<T, rc, rc>& mat, int2type<I>)
 } // namespace internal
 
 template<typename T, size_t rc>
-inline T determinant(const mat_t<T, rc, rc>& mat)
+T determinant(const mat_t<T, rc, rc>& mat)
 {
     return internal::determinant_impl(mat, internal::int2type<rc>{});
 }
 
 template<typename T, size_t rc>
-inline mat_t<T, rc, rc> inverse(const mat_t<T, rc, rc>& mat)
+mat_t<T, rc, rc> inverse(const mat_t<T, rc, rc>& mat)
 {
     mat_t<T, rc, rc> result;
 
@@ -394,7 +394,7 @@ inline mat_t<T, rc, rc> inverse(const mat_t<T, rc, rc>& mat)
 }
 
 template<typename T, size_t rc>
-inline mat_t<T, rc, rc> gj_inverse(const mat_t<T, rc, rc>& mat)
+mat_t<T, rc, rc> gj_inverse(const mat_t<T, rc, rc>& mat)
 {
     mat_t<T, rc, rc> currentMat = mat;
     mat_t<T, rc, rc> result = identity<T, rc>();
@@ -431,6 +431,11 @@ inline mat_t<T, rc, rc> gj_inverse(const mat_t<T, rc, rc>& mat)
 namespace mat33
 {
 
+constexpr mat33_t identity()
+{
+    return mat::identity<real_t, 3>();
+}
+
 mat33_t from_ptr(const real_t* data)
 {
     return mat::from_ptr<real_t, 3, 3>(data);
@@ -441,7 +446,7 @@ mat33_t from_arr(const real_t(&data)[9])
     return mat::from_arr<real_t, 3, 3>(data);
 }
 
-constexpr mat33_t axis_angle(const vec3_t& axis, real_t radians)
+mat33_t axis_angle(const vec3_t& axis, real_t radians)
 {
     return {
         cosr(radians) + ((axis.x * axis.x) * (1.0f - cosr(radians))),
@@ -456,7 +461,7 @@ constexpr mat33_t axis_angle(const vec3_t& axis, real_t radians)
     };
 }
 
-constexpr mat33_t rotation_xyz(real_t x, real_t y, real_t z)
+mat33_t rotation_xyz(real_t x, real_t y, real_t z)
 {
     return {
         cosr(y) * cosr(z),
@@ -471,7 +476,7 @@ constexpr mat33_t rotation_xyz(real_t x, real_t y, real_t z)
     };
 }
 
-constexpr mat33_t rotation_zxy(real_t x, real_t y, real_t z)
+mat33_t rotation_zxy(real_t x, real_t y, real_t z)
 {
     return {
         cosr(z) * cosr(y) + sinr(x) * sinr(y) * sinr(z),
@@ -486,7 +491,7 @@ constexpr mat33_t rotation_zxy(real_t x, real_t y, real_t z)
     };
 }
 
-constexpr mat33_t rotation_x(real_t radians)
+mat33_t rotation_x(real_t radians)
 {
     return {
         1.0f, 0.0f, 0.0f,
@@ -495,7 +500,7 @@ constexpr mat33_t rotation_x(real_t radians)
     };
 }
 
-constexpr mat33_t rotation_y(real_t radians)
+mat33_t rotation_y(real_t radians)
 {
     return {
         cosr(radians), 0.0f, -sinr(radians),
@@ -504,7 +509,7 @@ constexpr mat33_t rotation_y(real_t radians)
     };
 }
 
-constexpr mat33_t rotation_z(real_t radians)
+mat33_t rotation_z(real_t radians)
 {
     return {
         cosr(radians), sinr(radians), 0.0f,
@@ -513,7 +518,7 @@ constexpr mat33_t rotation_z(real_t radians)
     };
 }
 
-constexpr inline mat33_t from_mat44(const mat44_t& transform)
+constexpr mat33_t from_mat44(const mat44_t& transform)
 {
     return {
         transform.elem_rc[0][0], transform.elem_rc[0][1], transform.elem_rc[0][2],
@@ -527,27 +532,32 @@ constexpr inline mat33_t from_mat44(const mat44_t& transform)
 namespace mat44
 {
 
-inline mat44_t from_ptr(const real_t* data)
+constexpr mat44_t identity()
+{
+    return mat::identity<real_t, 4>();
+}
+
+mat44_t from_ptr(const real_t* data)
 {
     return mat::from_ptr<real_t, 4, 4>(data);
 }
 
-inline mat44_t from_arr(const real_t(&data)[16])
+mat44_t from_arr(const real_t(&data)[16])
 {
     return mat::from_arr<real_t, 4, 4>(data);
 }
 
-constexpr inline mat44_t from_vec3(const vec3_t& translation)
+constexpr mat44_t from_vec3(const vec3_t& translation)
 {
     return { vec4::axis_x(), vec4::axis_y(), vec4::axis_z(), { translation, 1.0f } };
 }
 
-constexpr inline mat44_t from_mat33(const mat33_t& rotation)
+constexpr mat44_t from_mat33(const mat33_t& rotation)
 {
     return { rotation, vec3::zero() };
 }
 
-constexpr inline mat44_t from_mat33_vec3(const mat33_t& rotation, const vec3_t& translation)
+constexpr mat44_t from_mat33_vec3(const mat33_t& rotation, const vec3_t& translation)
 {
     return { rotation, translation };
 }
@@ -557,13 +567,13 @@ constexpr inline mat44_t from_mat33_vec3(const mat33_t& rotation, const vec3_t& 
 namespace point
 {
 
-inline bool equal(const point2_t& lhs, const point2_t& rhs,
+bool equal(const point2_t& lhs, const point2_t& rhs,
     const real_t epsilon /*= std::numeric_limits<real_t>::epsilon()*/)
 {
     return vec::equal(lhs.v, rhs.v, epsilon);
 }
 
-inline bool equal(const point3_t& lhs, const point3_t& rhs,
+bool equal(const point3_t& lhs, const point3_t& rhs,
     const real_t epsilon /*= std::numeric_limits<real_t>::epsilon()*/)
 {
     return vec::equal(lhs.v, rhs.v, epsilon);
@@ -574,55 +584,55 @@ inline bool equal(const point3_t& lhs, const point3_t& rhs,
 namespace quat
 {
 
-constexpr inline real_t dot(const quat_t& a, const quat_t& b)
+constexpr real_t dot(const quat_t& a, const quat_t& b)
 {
     return a.w * b.w + a.x * b.x + a.y * b.y + a.z * b.z;
 }
 
-constexpr inline real_t length_squared(const quat_t& a)
+constexpr real_t length_squared(const quat_t& a)
 {
     return dot(a, a);
 }
 
-inline real_t length(const quat_t& a)
+real_t length(const quat_t& a)
 {
     return sqrtr(length_squared(a));
 }
 
-inline quat_t normalize(const quat_t& a)
+quat_t normalize(const quat_t& a)
 {
     return a / length(a);
 }
 
-constexpr inline quat_t conjugate(const quat_t& a)
+constexpr quat_t conjugate(const quat_t& a)
 {
     return { a.w, -a.x, -a.y, -a.z };
 }
 
-inline quat_t inverse(const quat_t& a)
+quat_t inverse(const quat_t& a)
 {
     return conjugate(a) / length_squared(a);
 }
 
-inline vec3_t rotate(const quat_t& q, const vec3_t& v)
+vec3_t rotate(const quat_t& q, const vec3_t& v)
 {
     const quat_t quat_result = q * quat_t{ 0.0f, v.x, v.y, v.z } * conjugate(q);
     return { quat_result.x, quat_result.y, quat_result.z };
 }
 
-inline quat_t axis_angle(const vec3_t& axis, real_t radians)
+quat_t axis_angle(const vec3_t& axis, real_t radians)
 {
     return { cosr(0.5f * radians), axis * sinr(0.5f * radians) };
 }
 
-inline quat_t rotation_zxy(real_t x, real_t y, real_t z)
+quat_t rotation_zxy(real_t x, real_t y, real_t z)
 {
     return quat_t{ cosr(0.5f * y), 0.0f, sinr(0.5f * y), 0.0f } *
         quat_t{ cosr(0.5f * x), sinr(0.5f * x), 0.0f, 0.0f } *
         quat_t{ cosr(0.5f * z), 0.0f, 0.0f, sinr(0.5f * z) };
 }
 
-inline quat_t slerp(const quat_t& a, const quat_t& b, real_t u)
+quat_t slerp(const quat_t& a, const quat_t& b, real_t u)
 {
     const real_t theta = acosr(dot(a, b));
     return (a * sinr((1.0f - u) * theta) + b * sinr(u * theta)) / sinr(theta);

@@ -167,18 +167,18 @@ namespace mat33
 constexpr inline size_t rows() { return 3; }
 constexpr inline size_t cols() { return 3; }
 
-constexpr inline mat33_t identity() { return mat::identity<real_t, 3>(); }
+constexpr inline mat33_t identity();
 
 inline mat33_t from_ptr(const real_t* data);
 inline mat33_t from_arr(const real_t(&data)[9]);
 constexpr inline mat33_t from_mat44(const mat44_t& transform);
 
-constexpr inline mat33_t axis_angle(const vec3_t& axis, real_t radians);
-constexpr inline mat33_t rotation_xyz(real_t x, real_t y, real_t z);
-constexpr inline mat33_t rotation_zxy(real_t x, real_t y, real_t z);
-constexpr inline mat33_t rotation_x(real_t radians);
-constexpr inline mat33_t rotation_y(real_t radians);
-constexpr inline mat33_t rotation_z(real_t radians);
+inline mat33_t axis_angle(const vec3_t& axis, real_t radians);
+inline mat33_t rotation_xyz(real_t x, real_t y, real_t z);
+inline mat33_t rotation_zxy(real_t x, real_t y, real_t z);
+inline mat33_t rotation_x(real_t radians);
+inline mat33_t rotation_y(real_t radians);
+inline mat33_t rotation_z(real_t radians);
 
 }
 
@@ -188,7 +188,7 @@ namespace mat44
 constexpr size_t rows() { return 4; }
 constexpr size_t cols() { return 4; }
 
-constexpr inline mat44_t identity() { return mat::identity<real_t, 4>(); }
+constexpr inline mat44_t identity();
 
 inline mat44_t from_ptr(const real_t* data);
 inline mat44_t from_arr(const real_t(&data)[16]);
