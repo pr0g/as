@@ -5,6 +5,7 @@
 #include "as-mat4.hpp"
 #include "as-point.hpp"
 #include "as-quat.hpp"
+#include "as-affine.hpp"
 
 namespace as
 {
@@ -72,7 +73,7 @@ inline vec_t<T, n> lerp(T t, const vec_t<T, n>& v0, const vec_t<T, n>& v1);
 template<typename T, size_t n>
 inline vec_t<T, n> select(const vec_t<T, n>& v0, const vec_t<T, n>& v1, bool select0);
 
-}
+} // namespace vec
 
 namespace vec2
 {
@@ -88,7 +89,7 @@ inline vec2_t from_arr(const real_t(&data)[2]);
 
 inline real_t wedge(const vec2_t& lhs, const vec2_t& rhs);
 
-}
+} // namespace vec2
 
 namespace vec3
 {
@@ -111,7 +112,7 @@ inline void right_and_up_lh(const vec3_t& dir, vec3_t& across, vec3_t& up, const
 // note: will not work if dir == +/-world_up
 inline void right_and_up_rh(const vec3_t& dir, vec3_t& across, vec3_t& up, const vec3_t& world_up = axis_y());
 
-}
+} // namespace vec3
 
 namespace vec4
 {
@@ -127,7 +128,7 @@ constexpr inline vec4_t min() { return { REAL_MIN, REAL_MIN, REAL_MIN, REAL_MIN 
 inline vec4_t from_ptr(const real_t* data);
 inline vec4_t from_arr(const real_t(&data)[4]);
 
-}
+} // namespace vec4
 
 namespace mat
 {
@@ -159,7 +160,7 @@ inline mat_t<T, cr, cr> inverse(const mat_t<T, cr, cr>& mat);
 template<typename T, size_t cr>
 inline mat_t<T, cr, cr> gj_inverse(const mat_t<T, cr, cr>& mat);
 
-}
+} // namespace mat
 
 namespace mat33
 {
@@ -167,20 +168,20 @@ namespace mat33
 constexpr inline size_t rows() { return 3; }
 constexpr inline size_t cols() { return 3; }
 
-constexpr inline mat33_t identity() { return mat::identity<real_t, 3>(); }
+constexpr inline mat33_t identity();
 
 inline mat33_t from_ptr(const real_t* data);
 inline mat33_t from_arr(const real_t(&data)[9]);
 constexpr inline mat33_t from_mat44(const mat44_t& transform);
 
-constexpr inline mat33_t axis_angle(const vec3_t& axis, real_t radians);
-constexpr inline mat33_t rotation_xyz(real_t x, real_t y, real_t z);
-constexpr inline mat33_t rotation_zxy(real_t x, real_t y, real_t z);
-constexpr inline mat33_t rotation_x(real_t radians);
-constexpr inline mat33_t rotation_y(real_t radians);
-constexpr inline mat33_t rotation_z(real_t radians);
+inline mat33_t axis_angle(const vec3_t& axis, real_t radians);
+inline mat33_t rotation_xyz(real_t x, real_t y, real_t z);
+inline mat33_t rotation_zxy(real_t x, real_t y, real_t z);
+inline mat33_t rotation_x(real_t radians);
+inline mat33_t rotation_y(real_t radians);
+inline mat33_t rotation_z(real_t radians);
 
-}
+} // namespace mat33
 
 namespace mat44
 {
@@ -188,7 +189,7 @@ namespace mat44
 constexpr size_t rows() { return 4; }
 constexpr size_t cols() { return 4; }
 
-constexpr inline mat44_t identity() { return mat::identity<real_t, 4>(); }
+constexpr inline mat44_t identity();
 
 inline mat44_t from_ptr(const real_t* data);
 inline mat44_t from_arr(const real_t(&data)[16]);
@@ -197,7 +198,7 @@ constexpr inline mat44_t from_vec3(const vec3_t& translation);
 constexpr inline mat44_t from_mat33(const mat33_t& rotation);
 constexpr inline mat44_t from_mat33_vec3(const mat33_t& rotation, const vec3_t& translation);
 
-}
+} // namespace mat44
 
 namespace point
 {
@@ -208,7 +209,7 @@ inline bool equal(const point2_t& lhs, const point2_t& rhs,
 inline bool equal(const point3_t& lhs, const point3_t& rhs,
     real_t epsilon = std::numeric_limits<real_t>::epsilon());
 
-}
+} // namespace point
 
 namespace quat
 {
@@ -227,7 +228,17 @@ inline quat_t inverse(const quat_t& a);
 inline vec3_t rotate(const quat_t& q, const vec3_t& v);
 inline quat_t slerp(const quat_t& a, const quat_t& b, real_t u);
 
-}
+} // namespace quat
+
+namespace affine
+{
+
+inline vec3_t transform_dir(const affine_t& affine, const vec3_t& direction);
+inline vec3_t transform_pos(const affine_t& affine, const vec3_t& position);
+inline vec3_t inv_transform_dir(const affine_t& affine, const vec3_t& direction);
+inline vec3_t inv_transform_pos(const affine_t& affine, const vec3_t& position);
+
+} // namespace affine
 
 } // namespace as
 
