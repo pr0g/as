@@ -808,6 +808,7 @@ TEST(as_vec, vec_make_from_ptr)
         // does not compile - types do not match
         // as::vec_t<char, 2> char_2 = as::from_ptr<char, 2>(data.get());
         // as::vec2_t vec2 = as::from_ptr<float, 2>(data.get());
+        as::vec_t<double, 2> vec2 = as::vec::from_ptr<double, 2>(data.get());
     }
 }
 
@@ -839,86 +840,103 @@ TEST(as_vec, dot)
     }
 }
 
-// ------
-
 TEST(as_vec, cross)
 {
-    glm::vec3 glm_a = glm::vec3(1.0f, 2.0f, 3.0f);
-    glm::vec3 glm_b = glm::vec3(4.0f, 3.0f, 2.0f);
+    // note: comparison values calculated using https://www.symbolab.com/solver/vector-cross-product-calculator
+    {
+        as::vec3_t vec1(1.0f, 2.0f, 3.0f);
+        as::vec3_t vec2(4.0f, 5.0f, 6.0f);
 
-    glm::vec3 glm_ab_result = glm::cross(glm_a, glm_b);
+        as::vec3_t cross_result = as::vec3::cross(vec1, vec2);
+        EXPECT_NEAR(cross_result.x, -3.0f, epsilon);
+        EXPECT_NEAR(cross_result.y, 6.0f, epsilon);
+        EXPECT_NEAR(cross_result.z, -3.0f, epsilon);
+    }
 
-    as::vec3_t as_a = as::vec3_t(1.0f, 2.0f, 3.0f);
-    as::vec3_t as_b = as::vec3_t(4.0f, 3.0f, 2.0f);
+    {
+        as::vec3_t vec1(1.0f, 0.0f, 0.0f);
+        as::vec3_t vec2(0.0f, 1.0f, 0.0f);
 
-    as::vec3_t as_ab_result = as::vec3::cross(as_a, as_b);
+        as::vec3_t cross_result1 = as::vec3::cross(vec1, vec2);
+        EXPECT_NEAR(cross_result1.x, 0.0f, epsilon);
+        EXPECT_NEAR(cross_result1.y, 0.0f, epsilon);
+        EXPECT_NEAR(cross_result1.z, 1.0f, epsilon);
 
-    EXPECT_TRUE(as::equal(as_ab_result.x, glm_ab_result.x));
-    EXPECT_TRUE(as::equal(as_ab_result.y, glm_ab_result.y));
-    EXPECT_TRUE(as::equal(as_ab_result.z, glm_ab_result.z));
+        as::vec3_t cross_result2 = as::vec3::cross(vec2, vec1);
+        EXPECT_NEAR(cross_result2.x, 0.0f, epsilon);
+        EXPECT_NEAR(cross_result2.y, 0.0f, epsilon);
+        EXPECT_NEAR(cross_result2.z, -1.0f, epsilon);
+    }
+
+    {
+        as::vec3_t vec1(0.0f, 5.0f, 0.0f);
+        as::vec3_t vec2(0.0f, 0.0f, 12.0f);
+
+        as::vec3_t cross_result = as::vec3::cross(vec1, vec2);
+        EXPECT_NEAR(cross_result.x, 60.0f, epsilon);
+        EXPECT_NEAR(cross_result.y, 0.0f, epsilon);
+        EXPECT_NEAR(cross_result.z, 0.0f, epsilon);
+    }
 }
 
 TEST(as_vec, right_and_up)
 {
-    as::vec3_t dir(0.0f, 0.0f, -1.0f);
-
-    printf("dir - x: %f, y: %f, z: %f\n", dir.x, dir.y, dir.z);
-
     {
+        as::vec3_t dir(0.0f, 0.0f, 1.0f);
+
         as::vec3_t across_lh, up_lh;
         as::vec3::right_and_up_lh(dir, across_lh, up_lh);
 
-        printf("right lh - x: %f, y: %f, z: %f\n", across_lh.x, across_lh.y, across_lh.z);
-        printf("up lh - x: %f, y: %f, z: %f\n", up_lh.x, up_lh.y, up_lh.z);
+        EXPECT_NEAR(across_lh.x, 1.0f, epsilon);
+        EXPECT_NEAR(across_lh.y, 0.0f, epsilon);
+        EXPECT_NEAR(across_lh.z, 0.0f, epsilon);
+
+        EXPECT_NEAR(up_lh.x, 0.0f, epsilon);
+        EXPECT_NEAR(up_lh.y, 1.0f, epsilon);
+        EXPECT_NEAR(up_lh.z, 0.0f, epsilon);
     }
 
     {
+        as::vec3_t dir(0.0f, 0.0f, 1.0f);
+
         as::vec3_t across_rh, up_rh;
         as::vec3::right_and_up_rh(dir, across_rh, up_rh);
 
-        printf("right rh - x: %f, y: %f, z: %f\n", across_rh.x, across_rh.y, across_rh.z);
-        printf("up rh - x: %f, y: %f, z: %f\n", up_rh.x, up_rh.y, up_rh.z);
+        EXPECT_NEAR(across_rh.x, -1.0f, epsilon);
+        EXPECT_NEAR(across_rh.y, 0.0f, epsilon);
+        EXPECT_NEAR(across_rh.z, 0.0f, epsilon);
+
+        EXPECT_NEAR(up_rh.x, 0.0f, epsilon);
+        EXPECT_NEAR(up_rh.y, 1.0f, epsilon);
+        EXPECT_NEAR(up_rh.z, 0.0f, epsilon);
     }
 }
 
-TEST(as_vec, constants) {
-    // todo
+TEST(as_vec, equal)
+{
+    {
+        as::vec3_t vec1(1.11f, 0.3f, 517.2f);
+        as::vec3_t vec2(1.11f, 0.3f, 517.2f);
+
+        EXPECT_TRUE(as::vec::equal(vec1, vec2)) << "vector equality check for equal vectors failed";
+    }
+
+    {
+        as::vec3_t vec1(1.11f, 0.3f, 514.2f);
+        as::vec3_t vec2(1.114f, 0.3f, 517.2f);
+
+        EXPECT_FALSE(as::vec::equal(vec1, vec2)) << "vector equality check for different vectors failed";
+    }
+
+    {
+        as::vec3_t vec1(1.11f, 0.3f, 514.2f);
+        as::vec3_t vec2(1.11f, 0.311f, 514.2f);
+
+        EXPECT_FALSE(as::vec::equal(vec1, vec2)) << "vector equality check for different vectors failed";
+    }
 }
 
-TEST(as_vec, equal) {
-    as::vec3_t a(1.11f, 0.3f, 517.2f);
-    as::vec3_t b(1.11f, 0.3f, 517.2f);
-
-    EXPECT_TRUE(as::vec::equal(a, b)) << "vector equality check for equal vectors failed";
-
-    as::vec3_t c(1.11f, 0.3f, 514.2f);
-    as::vec3_t d(1.114f, 0.3f, 517.2f);
-
-    EXPECT_FALSE(as::vec::equal(a, c)) << "vector equality check for different vectors failed";
-    EXPECT_FALSE(as::vec::equal(a, d)) << "vector equality check for different vectors failed";
-    EXPECT_FALSE(as::vec::equal(b, c)) << "vector equality check for different vectors failed";
-}
-
-TEST(as_vec, init_compat) {
-    glm::vec3 glm_a(1.0f, 2.0f, 3.0f);
-
-    as::real_t data[3] = { 1.0f, 2.0f, 3.0f };
-    as::vec3_t as_a = as::vec::from_arr(data);
-    as::vec3_t as_b = as::vec::from_ptr<float, 3>(glm::value_ptr(glm_a));
-    as::vec3_t as_c = as::vec3_t(as::vec::from_ptr<as::real_t, 3>(as::vec::data(as_a)));
-    as::vec3_t as_d = as::vec3_t(as::vec3::from_ptr(as::vec::data(as_a)));
-
-    as::real_t data_vec4[4] = { 5.0f, 12.0f, 100.0f, 0.999f };
-    as::vec4_t as_vec4 = as::vec4_t(as::vec4::from_arr(data_vec4));
-    as::vec4_t as_vec4_2 = as::vec4_t(as::vec4::from_ptr(as::vec::data(as_vec4)));
-
-    print_vec3(as_a);
-    print_vec3(as_b);
-    print_vec3(as_c);
-    print_vec3(as_d);
-    print_vec4(as_vec4);
-    print_vec4(as_vec4_2);
-}
+// -----
 
 TEST(as_vec, abs) {
     as::vec4_t v(-1.0f, 2.0f, -100.0f, -7.0f);
