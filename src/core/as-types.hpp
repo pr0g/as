@@ -38,7 +38,8 @@ typedef uint8_t byte;
 #endif // // AS_PRECISION_FLOAT ? AS_PRECISION_DOUBLE
 
 #ifdef AS_PRECISION_FLOAT
-typedef float real_t;
+using real_t = float;
+using integer_t = int32_t;
 #define cosr cosf
 #define sinr sinf
 #define tanr tanf
@@ -51,7 +52,8 @@ typedef float real_t;
 #define REAL_MAX FLT_MAX
 #define REAL_MIN FLT_MIN
 #elif defined AS_PRECISION_DOUBLE
-typedef double real_t;
+using real_t = double;
+using integer_t = int64_t;
 #define cosr cos
 #define sinr sin
 #define tanr tan

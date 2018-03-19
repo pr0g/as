@@ -1045,6 +1045,8 @@ TEST(as_vec, select) {
     int3 l = { 1 };
     //int3 m = 2;
 
+    as::vec4i_t my_int_vec{ 1, 2, 3, 4 };
+
     printf("v = x: %d, y: %d, z: %d\n", e[0], e[1], e[2]);
     printf("v = x: %d, y: %d, z: %d\n", f[0], f[1], f[2]);
 
