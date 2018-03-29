@@ -820,7 +820,7 @@ TEST(as_vec, dot)
         as::vec3_t vec2(4.0f, 5.0f, 6.0f);
 
         as::real_t dot_result = as::vec::dot(vec1, vec2);
-        EXPECT_NEAR(dot_result, 32.0f, epsilon);
+        EXPECT_NEAR(dot_result, 32.0f, epsilon) << "as::vec::dot failed";
     }
 
     {
@@ -828,7 +828,7 @@ TEST(as_vec, dot)
         as::vec3_t vec2(-1.0f, -7.0f, 4.0f);
 
         as::real_t dot_result = as::vec::dot(vec1, vec2);
-        EXPECT_NEAR(dot_result, -54.0f, epsilon);
+        EXPECT_NEAR(dot_result, -54.0f, epsilon) << "as::vec::dot failed";
     }
 
     {
@@ -836,7 +836,7 @@ TEST(as_vec, dot)
         as::vec3_t vec2(-123.456f, -7.732f, 2.491f);
 
         as::real_t dot_result = as::vec::dot(vec1, vec2);
-        EXPECT_NEAR(dot_result, 3380.013785f, epsilon);
+        EXPECT_NEAR(dot_result, 3380.013785f, epsilon) << "as::vec::dot failed";
     }
 }
 
@@ -848,9 +848,9 @@ TEST(as_vec, cross)
         as::vec3_t vec2(4.0f, 5.0f, 6.0f);
 
         as::vec3_t cross_result = as::vec3::cross(vec1, vec2);
-        EXPECT_NEAR(cross_result.x, -3.0f, epsilon);
-        EXPECT_NEAR(cross_result.y, 6.0f, epsilon);
-        EXPECT_NEAR(cross_result.z, -3.0f, epsilon);
+        EXPECT_NEAR(cross_result.x, -3.0f, epsilon) << "as::vec::cross failed";
+        EXPECT_NEAR(cross_result.y, 6.0f, epsilon) << "as::vec::cross failed";;
+        EXPECT_NEAR(cross_result.z, -3.0f, epsilon) << "as::vec::cross failed";;
     }
 
     {
@@ -858,14 +858,14 @@ TEST(as_vec, cross)
         as::vec3_t vec2(0.0f, 1.0f, 0.0f);
 
         as::vec3_t cross_result1 = as::vec3::cross(vec1, vec2);
-        EXPECT_NEAR(cross_result1.x, 0.0f, epsilon);
-        EXPECT_NEAR(cross_result1.y, 0.0f, epsilon);
-        EXPECT_NEAR(cross_result1.z, 1.0f, epsilon);
+        EXPECT_NEAR(cross_result1.x, 0.0f, epsilon) << "as::vec::cross failed";;
+        EXPECT_NEAR(cross_result1.y, 0.0f, epsilon) << "as::vec::cross failed";;
+        EXPECT_NEAR(cross_result1.z, 1.0f, epsilon) << "as::vec::cross failed";;
 
         as::vec3_t cross_result2 = as::vec3::cross(vec2, vec1);
-        EXPECT_NEAR(cross_result2.x, 0.0f, epsilon);
-        EXPECT_NEAR(cross_result2.y, 0.0f, epsilon);
-        EXPECT_NEAR(cross_result2.z, -1.0f, epsilon);
+        EXPECT_NEAR(cross_result2.x, 0.0f, epsilon) << "as::vec::cross failed";;
+        EXPECT_NEAR(cross_result2.y, 0.0f, epsilon) << "as::vec::cross failed";;
+        EXPECT_NEAR(cross_result2.z, -1.0f, epsilon) << "as::vec::cross failed";;
     }
 
     {
@@ -873,9 +873,24 @@ TEST(as_vec, cross)
         as::vec3_t vec2(0.0f, 0.0f, 12.0f);
 
         as::vec3_t cross_result = as::vec3::cross(vec1, vec2);
-        EXPECT_NEAR(cross_result.x, 60.0f, epsilon);
-        EXPECT_NEAR(cross_result.y, 0.0f, epsilon);
-        EXPECT_NEAR(cross_result.z, 0.0f, epsilon);
+        EXPECT_NEAR(cross_result.x, 60.0f, epsilon) << "as::vec::cross failed";;
+        EXPECT_NEAR(cross_result.y, 0.0f, epsilon) << "as::vec::cross failed";;
+        EXPECT_NEAR(cross_result.z, 0.0f, epsilon) << "as::vec::cross failed";;
+    }
+
+    {
+        as::vec3_t x(1.0f, 0.0f, 0.0f);
+        as::vec3_t y(0.0f, 1.0f, 0.0f);
+        as::vec3_t z(0.0f, 0.0f, 1.0f);
+
+        as::vec3_t cross_result1 = as::vec3::cross(x, y);
+        EXPECT_NEAR(cross_result1.z, 1.0f, epsilon) << "as::vec::cross failed";;
+
+        as::vec3_t cross_result2 = as::vec3::cross(y, z);
+        EXPECT_NEAR(cross_result2.x, 1.0f, epsilon) << "as::vec::cross failed";;
+
+        as::vec3_t cross_result3 = as::vec3::cross(z, x);
+        EXPECT_NEAR(cross_result3.y, 1.0f, epsilon) << "as::vec::cross failed";;
     }
 }
 
@@ -887,13 +902,13 @@ TEST(as_vec, right_and_up)
         as::vec3_t across_lh, up_lh;
         as::vec3::right_and_up_lh(dir, across_lh, up_lh);
 
-        EXPECT_NEAR(across_lh.x, 1.0f, epsilon);
-        EXPECT_NEAR(across_lh.y, 0.0f, epsilon);
-        EXPECT_NEAR(across_lh.z, 0.0f, epsilon);
+        EXPECT_NEAR(across_lh.x, 1.0f, epsilon) << "as::vec3::right_and_up_lh failed";
+        EXPECT_NEAR(across_lh.y, 0.0f, epsilon) << "as::vec3::right_and_up_lh failed";
+        EXPECT_NEAR(across_lh.z, 0.0f, epsilon) << "as::vec3::right_and_up_lh failed";
 
-        EXPECT_NEAR(up_lh.x, 0.0f, epsilon);
-        EXPECT_NEAR(up_lh.y, 1.0f, epsilon);
-        EXPECT_NEAR(up_lh.z, 0.0f, epsilon);
+        EXPECT_NEAR(up_lh.x, 0.0f, epsilon) << "as::vec3::right_and_up_lh failed";
+        EXPECT_NEAR(up_lh.y, 1.0f, epsilon) << "as::vec3::right_and_up_lh failed";
+        EXPECT_NEAR(up_lh.z, 0.0f, epsilon) << "as::vec3::right_and_up_lh failed";
     }
 
     {
@@ -902,13 +917,13 @@ TEST(as_vec, right_and_up)
         as::vec3_t across_rh, up_rh;
         as::vec3::right_and_up_rh(dir, across_rh, up_rh);
 
-        EXPECT_NEAR(across_rh.x, -1.0f, epsilon);
-        EXPECT_NEAR(across_rh.y, 0.0f, epsilon);
-        EXPECT_NEAR(across_rh.z, 0.0f, epsilon);
+        EXPECT_NEAR(across_rh.x, -1.0f, epsilon) << "as::vec3::right_and_up_rh failed";
+        EXPECT_NEAR(across_rh.y, 0.0f, epsilon) << "as::vec3::right_and_up_rh failed";
+        EXPECT_NEAR(across_rh.z, 0.0f, epsilon) << "as::vec3::right_and_up_rh failed";
 
-        EXPECT_NEAR(up_rh.x, 0.0f, epsilon);
-        EXPECT_NEAR(up_rh.y, 1.0f, epsilon);
-        EXPECT_NEAR(up_rh.z, 0.0f, epsilon);
+        EXPECT_NEAR(up_rh.x, 0.0f, epsilon) << "as::vec3::right_and_up_rh failed";
+        EXPECT_NEAR(up_rh.y, 1.0f, epsilon) << "as::vec3::right_and_up_rh failed";
+        EXPECT_NEAR(up_rh.z, 0.0f, epsilon) << "as::vec3::right_and_up_rh failed";
     }
 }
 
@@ -918,88 +933,199 @@ TEST(as_vec, equal)
         as::vec3_t vec1(1.11f, 0.3f, 517.2f);
         as::vec3_t vec2(1.11f, 0.3f, 517.2f);
 
-        EXPECT_TRUE(as::vec::equal(vec1, vec2)) << "vector equality check for equal vectors failed";
+        EXPECT_TRUE(as::vec::equal(vec1, vec2)) << "as::vec::equal failed";
     }
 
     {
         as::vec3_t vec1(1.11f, 0.3f, 514.2f);
         as::vec3_t vec2(1.114f, 0.3f, 517.2f);
 
-        EXPECT_FALSE(as::vec::equal(vec1, vec2)) << "vector equality check for different vectors failed";
+        EXPECT_FALSE(as::vec::equal(vec1, vec2)) << "as::vec::equal failed";
     }
 
     {
         as::vec3_t vec1(1.11f, 0.3f, 514.2f);
         as::vec3_t vec2(1.11f, 0.311f, 514.2f);
 
-        EXPECT_FALSE(as::vec::equal(vec1, vec2)) << "vector equality check for different vectors failed";
+        EXPECT_FALSE(as::vec::equal(vec1, vec2)) << "as::vec::equal failed";
     }
 }
 
-// -----
+TEST(as_vec, abs)
+{
+    {
+        as::vec4_t vec(-1.0f, -2.0f, -100.0f, -7.0f);
+        as::vec4_t result = as::vec::abs(vec);
 
-TEST(as_vec, abs) {
-    as::vec4_t v(-1.0f, 2.0f, -100.0f, -7.0f);
-    as::vec4_t r = as::vec::abs(v);
+        as::vec4_t vec_reference = { 1.0f, 2.0f, 100.0f, 7.0f };
 
-    bool is_abs = true;
-    for(size_t i = 0; i < 4; ++i) {
-        is_abs &= r[i] >= 0.0f;
+        EXPECT_TRUE(as::vec::equal(vec_reference, result)) << "as::vec::abs failed";
     }
 
-    EXPECT_TRUE(is_abs) << "as::vec abs failed";
+    {
+        as::vec4_t vec{ 1.0f, 4.0f, 6.0f, 50.0f };
+        as::vec4_t result = as::vec::abs(vec);
+
+        as::vec4_t vec_reference = { 1.0f, 4.0f, 6.0f, 50.0f };
+
+        EXPECT_TRUE(as::vec::equal(vec_reference, result)) << "as::vec::abs failed";
+    }
 }
 
-TEST(as_vec, min) {
-    as::vec4_t v1(-1.0f, 2.0f, -100.0f, -7.0f);
-    as::vec4_t vec2_t(-10.0f, 7.0f, -50.0f, -16.0f);
+TEST(as_vec, min) 
+{
+    {
+        as::vec4_t vec1(-1.0f, 2.0f, -100.0f, -7.0f);
+        as::vec4_t vec2(-10.0f, 7.0f, -50.0f, -16.0f);
 
-    as::vec4_t r = as::vec::min(v1, vec2_t);
+        as::vec4_t vec_reference(-10.0f, 2.0f, -100.0f, -16.0f);
 
-    EXPECT_TRUE(r.x == -10.0f && r.y == 2.0f && r.z == -100.0f && r.w == -16.0f) << "as::vec min failed";
+        as::vec4_t result = as::vec::min(vec1, vec2);
+    
+        EXPECT_TRUE(as::vec::equal(vec_reference, result)) << "as::vec::min failed";
+    }
+
+    {
+        as::vec4_t vec1(1.0f, 2.0f, 3.0f, 4.0f);
+        as::vec4_t vec2(2.0f, 3.0f, 4.0f, 5.0f);
+
+        as::vec4_t vec_reference(1.0f, 2.0f, 3.0f, 4.0f);
+
+        as::vec4_t result = as::vec::min(vec1, vec2);
+
+        EXPECT_TRUE(as::vec::equal(vec_reference, result)) << "as::vec::min failed";
+    }
 }
 
-TEST(as_vec, min_elem) {
-    as::vec4_t v(-1.0f, 2.0f, -100.0f, -7.0f);
-    as::real_t min = as::vec::min_elem(v);
+TEST(as_vec, min_elem)
+{
+    {
+        as::vec3_t vec{ -1.0f, 2.0f, -100.0f };
+        as::real_t result = as::vec::min_elem(vec);
 
-    EXPECT_TRUE(min == -100.0f) << "as::vec min_elem failed";
+        EXPECT_TRUE(result == -100.0f) << "as::vec::min_elem failed";
+    }
+
+    {
+        as::vec3_t vec{ 1.0f, 2.0f, 3.0f };
+        as::real_t result = as::vec::min_elem(vec);
+
+        EXPECT_TRUE(result == 1.0f) << "as::vec::min_elem failed";
+    }
 }
 
-TEST(as_vec, max) {
-    as::vec4_t v1(-1.0f, 2.0f, -100.0f, -7.0f);
-    as::vec4_t vec2_t(-10.0f, 7.0f, -50.0f, -16.0f);
+TEST(as_vec, max)
+{
+    {
+        as::vec4_t vec1(-1.0f, 2.0f, -100.0f, -7.0f);
+        as::vec4_t vec2(-10.0f, 7.0f, -50.0f, -16.0f);
 
-    as::vec4_t r = as::vec::max(v1, vec2_t);
+        as::vec4_t vec_reference(-1.0f, 7.0f, -50.0f, -7.0f);
 
-    EXPECT_TRUE(r.x == -1.0f && r.y == 7.0f && r.z == -50.0f && r.w == -7.0f) << "as::vec max failed";
+        as::vec4_t result = as::vec::max(vec1, vec2);
+
+        EXPECT_TRUE(as::vec::equal(vec_reference, result)) << "as::vec::max failed";
+    }
+
+    {
+        as::vec4_t vec1(1.0f, 2.0f, 3.0f, 4.0f);
+        as::vec4_t vec2(2.0f, 3.0f, 4.0f, 5.0f);
+
+        as::vec4_t vec_reference(2.0f, 3.0f, 4.0f, 5.0f);
+
+        as::vec4_t result = as::vec::max(vec1, vec2);
+
+        EXPECT_TRUE(as::vec::equal(vec_reference, result)) << "as::vec::max failed";
+    }
 }
 
-TEST(as_vec, max_elem) {
-    as::vec4_t v(-1.0f, 2.0f, -100.0f, -7.0f);
-    as::real_t max = as::vec::max_elem(v);
+TEST(as_vec, max_elem)
+{
+    {
+        as::vec3_t vec{ -1.0f, 2.0f, -100.0f };
+        as::real_t result = as::vec::max_elem(vec);
 
-    EXPECT_TRUE(max == 2.0f) << "as::vec max_elem failed";
+        EXPECT_TRUE(result == 2.0f) << "as::vec::max_elem failed";
+    }
+
+    {
+        as::vec3_t vec{ 1.0f, 2.0f, 3.0f };
+        as::real_t result = as::vec::max_elem(vec);
+
+        EXPECT_TRUE(result == 3.0f) << "as::vec::max_elem failed";
+    }
 }
 
-TEST(as_vec, clamp) {
-    as::vec3_t min(100.0f, 50.0f, -100.0f);
-    as::vec3_t max(200.0f, 1000.0f, -50.0f);
+TEST(as_vec, clamp)
+{
+    {
+        as::vec3_t min(50.0f, 50.0f, 50.0f);
+        as::vec3_t max(100.0f, 100.0f, 100.0f);
 
-    as::vec3_t v(50.0f, 1020.0f, -75.0f);
+        as::vec3_t vec(20.0f, 20.0f, 20.0f);
 
-    as::vec3_t result = as::vec::clamp(v, min, max);
+        as::vec3_t result = as::vec::clamp(vec, min, max);
 
-    EXPECT_TRUE(result.x == 100.0f && result.y == 1000.0f && result.z == -75.0f) << "as::vec clamp failed";
+        EXPECT_TRUE(as::vec::equal(result, min)) << "as::vec::clamp failed";
+    }
+
+    {
+        as::vec3_t min(50.0f, 50.0f, 50.0f);
+        as::vec3_t max(100.0f, 100.0f, 100.0f);
+
+        as::vec3_t vec(120.0f, 200.0f, 300.0f);
+
+        as::vec3_t result = as::vec::clamp(vec, min, max);
+
+        EXPECT_TRUE(as::vec::equal(result, max)) << "as::vec::clamp failed";
+    }
+
+    {
+        as::vec3_t min(50.0f, 50.0f, 50.0f);
+        as::vec3_t max(100.0f, 100.0f, 100.0f);
+
+        as::vec3_t vec(20.0f, 120.0f, 20.0f);
+        as::vec3_t vec_reference(50.0f, 100.0f, 50.0f);
+
+        as::vec3_t result = as::vec::clamp(vec, min, max);
+
+        EXPECT_TRUE(as::vec::equal(result, vec_reference)) << "as::vec::clamp failed";
+    }
+
+    {
+        as::vec3_t min(50.0f, 50.0f, 50.0f);
+        as::vec3_t max(100.0f, 100.0f, 100.0f);
+
+        as::vec3_t vec(62.0f, 56.0f, 72.0f);
+
+        as::vec3_t result = as::vec::clamp(vec, min, max);
+
+        EXPECT_TRUE(as::vec::equal(result, vec)) << "as::vec::clamp failed";
+    }
 }
 
-TEST(as_vec, saturate) {
-    as::vec3_t v(-2.0f, 0.5f, 1.2f);
+TEST(as_vec, saturate)
+{
+    {
+        as::vec3_t vec(-2.0f, 0.5f, 1.2f);
+        as::vec3_t result = as::vec::saturate(vec);
 
-    as::vec3_t result = as::vec::saturate(v);
+        as::vec3_t vec_reference(0.0f, 0.5f, 1.0f);
 
-    EXPECT_TRUE(result.x == 0.0f && result.y == 0.5f && result.z == 1.0f) << "as::vec saturate failed";
+        EXPECT_TRUE(as::vec::equal(result, vec_reference)) << "as::vec::saturate failed";
+    }
+
+    {
+        as::vec3_t vec(3.0f, 0.1f, -1.2f);
+        as::vec3_t result = as::vec::saturate(vec);
+
+        as::vec3_t vec_reference(1.0f, 0.1f, 0.0f);
+
+        EXPECT_TRUE(as::vec::equal(result, vec_reference)) << "as::vec::saturate failed";
+    }
 }
+
+// ---
 
 TEST(as_vec, lerp) {
     as::vec3_t start(0.0f, 10.0f, 20.0f);
