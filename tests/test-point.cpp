@@ -2,7 +2,7 @@
 #include "gtest/gtest.h"
 
 // as
-#include "src/math/as-math-type-ops.hpp"
+#include "src/math/as-math-ops.hpp"
 
 // as-test
 #include "as-math-output.hpp"

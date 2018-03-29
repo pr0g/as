@@ -242,4 +242,4 @@ inline vec3_t inv_transform_pos(const affine_t& affine, const vec3_t& position);
 
 } // namespace as
 
-#include "as-math-type-ops.inl"
+#include "as-math-ops.inl"

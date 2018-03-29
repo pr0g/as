@@ -7,7 +7,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 
 // as
-#include "src/math/as-math-type-ops.hpp"
+#include "src/math/as-math-ops.hpp"
 #include "src/math/as-view.hpp"
 
 // as-test
