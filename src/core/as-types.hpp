@@ -39,7 +39,6 @@ typedef uint8_t byte;
 
 #ifdef AS_PRECISION_FLOAT
 using real_t = float;
-using integer_t = int32_t;
 #define cosr cosf
 #define sinr sinf
 #define tanr tanf
@@ -53,7 +52,6 @@ using integer_t = int32_t;
 #define REAL_MIN FLT_MIN
 #elif defined AS_PRECISION_DOUBLE
 using real_t = double;
-using integer_t = int64_t;
 #define cosr cos
 #define sinr sin
 #define tanr tan

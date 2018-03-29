@@ -84,7 +84,8 @@ struct vec_t<T, 2> : vec2_base_t<T>
 };
 
 using vec2_t = vec_t<real_t, 2>;
-using vec2i_t = vec_t<integer_t, 2>;
+using vec2i_t = vec_t<int32_t, 2>;
+using vec2l_t = vec_t<int64_t, 2>;
 
 template<typename T>
 struct vec3_base_t
@@ -139,7 +140,8 @@ struct vec_t<T, 3> : vec3_base_t<T>
 };
 
 using vec3_t = vec_t<real_t, 3>;
-using vec3i_t = vec_t<integer_t, 3>;
+using vec3i_t = vec_t<int32_t, 3>;
+using vec3l_t = vec_t<int64_t, 3>;
 
 template<typename T>
 struct vec4_base_t
@@ -201,7 +203,8 @@ struct vec_t<T, 4> : vec4_base_t<T>
 };
 
 using vec4_t = vec_t<real_t, 4>;
-using vec4i_t = vec_t<integer_t, 4>;
+using vec4i_t = vec_t<int32_t, 4>;
+using vec4l_t = vec_t<int64_t, 4>;
 
 template<typename T, size_t n>
 inline vec_t<T, n> operator+(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
