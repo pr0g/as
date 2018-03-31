@@ -112,9 +112,8 @@ AS_MULTILINE_MACRO_END
 
 #define AS_TOSTRING(x) #x
 
-// Type-safe compile time array size
-template <typename T, int N> char(&dim_helper(T(&)[N]))[N];
-#define AS_DIM(x) (sizeof(dim_helper(x)))
+// from Google's Chromium project - compile time array size
+#define AS_DIM(x) ((sizeof(x) / sizeof(0[x])) / ((size_t)(!(sizeof(x) % sizeof(0[x])))))
 
 #ifdef _MSC_VER
 #define AS_FORCE_INLINE __forceinline
