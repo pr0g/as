@@ -180,6 +180,8 @@ inline mat33_t rotation_zxy(real_t x, real_t y, real_t z);
 inline mat33_t rotation_x(real_t radians);
 inline mat33_t rotation_y(real_t radians);
 inline mat33_t rotation_z(real_t radians);
+inline mat33_t scale(real_t scale);
+inline mat33_t scale(const vec3_t& scale);
 
 } // namespace mat33
 

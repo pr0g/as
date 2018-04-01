@@ -518,6 +518,24 @@ mat33_t rotation_z(real_t radians)
     };
 }
 
+mat33_t scale(real_t scale)
+{
+    return {
+        scale, 0.0f, 0.0f,
+        0.0f, scale, 0.0f,
+        0.0f, 0.0f, scale
+    };
+}
+
+mat33_t scale(const vec3_t& scale)
+{
+    return {
+        scale.x, 0.0f, 0.0f,
+        0.0f, scale.y, 0.0f,
+        0.0f, 0.0f, scale.z
+    };
+}
+
 constexpr mat33_t from_mat44(const mat44_t& transform)
 {
     return {
