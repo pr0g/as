@@ -426,6 +426,16 @@ TEST(as_vec, vec2_accessors)
         EXPECT_EQ(vec2.elems()[0], vec2[0]);
         EXPECT_EQ(vec2.elems()[1], vec2[1]);
     }
+
+    // member and const subscript operator - explicit construction
+    {
+        as::vec2_t vec2(1.0f, 2.0f);
+        const as::real_t& x = vec2[0];
+        const as::real_t& y = vec2[1];
+
+        EXPECT_FLOAT_EQ(vec2.x, x);
+        EXPECT_FLOAT_EQ(vec2.y, y);
+    }
 }
 
 TEST(as_vec, vec3_accessors)
@@ -1127,17 +1137,20 @@ TEST(as_vec, saturate)
 
 // ---
 
-TEST(as_vec, lerp) {
-    as::vec3_t start(0.0f, 10.0f, 20.0f);
-    as::vec3_t end(10.0f, 40.0f, 100.0f);
+TEST(as_vec, lerp) 
+{
+    {
+        as::vec3_t start(0.0f, 10.0f, 20.0f);
+        as::vec3_t end(10.0f, 40.0f, 100.0f);
 
-    as::vec3_t result_begin = as::vec::lerp(0.0f, start, end);
-    as::vec3_t result_mid = as::vec::lerp(0.5f, start, end);
-    as::vec3_t result_end = as::vec::lerp(1.0f, start, end);
+        as::vec3_t result_begin = as::vec::lerp(0.0f, start, end);
+        as::vec3_t result_mid = as::vec::lerp(0.5f, start, end);
+        as::vec3_t result_end = as::vec::lerp(1.0f, start, end);
 
-    EXPECT_TRUE(result_begin.x == 0.0f && result_begin.y == 10.0f && result_begin.z == 20.0f) << "as::vec lerp failed";
-    EXPECT_TRUE(result_mid.x == 5.0f && result_mid.y == 25.0f && result_mid.z == 60.0f) << "as::vec lerp failed";
-    EXPECT_TRUE(result_end.x == 10.0f && result_end.y == 40.0f && result_end.z == 100.0f) << "as::vec lerp failed";
+        EXPECT_TRUE(result_begin.x == 0.0f && result_begin.y == 10.0f && result_begin.z == 20.0f) << "as::vec lerp failed";
+        EXPECT_TRUE(result_mid.x == 5.0f && result_mid.y == 25.0f && result_mid.z == 60.0f) << "as::vec lerp failed";
+        EXPECT_TRUE(result_end.x == 10.0f && result_end.y == 40.0f && result_end.z == 100.0f) << "as::vec lerp failed";
+    }
 }
 
 TEST(as_vec, select) {

@@ -83,7 +83,7 @@ template<> struct mat_t<real_t, 3, 3>
 #elif defined AS_COL_MAJOR
     constexpr mat_t(
         const vec3_t& col0, const vec3_t& col1, const vec3_t& col2)
-        : elem_rc{
+        : elem_rc {
             col0.x, col0.y, col0.z,
             col1.x, col1.y, col1.z,
             col2.x, col2.y, col2.z } {}
