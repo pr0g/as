@@ -819,6 +819,7 @@ TEST(as_vec, vec_make_from_ptr)
         // as::vec_t<char, 2> char_2 = as::from_ptr<char, 2>(data.get());
         // as::vec2_t vec2 = as::from_ptr<float, 2>(data.get());
         as::vec_t<double, 2> vec2 = as::vec::from_ptr<double, 2>(data.get());
+        AS_UNUSED(vec2);
     }
 }
 
@@ -1180,8 +1181,8 @@ TEST(as_vec, select) {
     //int3 i = int3{1, 2};
 
     // implicit conversions are allowed
-    int3 k = { 5, 6, 7 };
-    int3 l = { 1 };
+    // int3 k = { 5, 6, 7 };
+    // int3 l = { 1 };
     //int3 m = 2;
 
     as::vec4i_t my_int_vec{ 1, 2, 3, 4 };
