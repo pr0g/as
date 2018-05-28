@@ -4,6 +4,7 @@
 
 namespace as
 {
+
 namespace view
 {
 
