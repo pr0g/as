@@ -1154,6 +1154,18 @@ TEST(as_vec, lerp)
     }
 }
 
+TEST(as_vec, normalize_return_length)
+{
+    {
+        as::vec3_t vec(3.0f, 4.0f, 0.0f);
+        as::vec3_t vec_normalized;
+        as::real_t length = as::vec::normalize_return_length(vec, vec_normalized);
+
+        EXPECT_FLOAT_EQ(length, 5.0f) << "as::vec::normalize_return_length failed - length";
+        EXPECT_FLOAT_EQ(as::vec::length(vec_normalized), 1.0f) << "as::vec::normalize_return_length failed - normalize";
+    }
+}
+
 TEST(as_vec, select) {
     using int3 = as::vec_t<int, 3>;
 
