@@ -56,7 +56,7 @@ template<> struct mat_t<real_t, 3, 3>
 
     constexpr real_t* elems() { return &elem_rc[0][0]; }
     constexpr const real_t* elems() const { return &elem_rc[0][0]; }
-    
+
     constexpr real_t& operator[](size_t i) { return elems()[i]; }
     constexpr real_t operator[](size_t i) const { return elems()[i]; }
 
@@ -71,22 +71,28 @@ template<> struct mat_t<real_t, 3, 3>
         real_t x0, real_t y0, real_t z0,
         real_t x1, real_t y1, real_t z1,
         real_t x2, real_t y2, real_t z2)
-            : elem_rc { x0, y0, z0, x1, y1, z1, x2, y2, z2 } {}
+            : elem_rc {
+                { x0, y0, z0 },
+                { x1, y1, z1 },
+                { x2, y2, z2 }
+            } {}
 
 #ifdef AS_ROW_MAJOR
     constexpr mat_t(
         const vec3_t& row0, const vec3_t& row1, const vec3_t& row2)
-        : elem_rc { 
-            row0.x, row0.y, row0.z, 
-            row1.x, row1.y, row1.z,
-            row2.x, row2.y, row2.z } {}
+        : elem_rc {
+            { row0.x, row0.y, row0.z },
+            { row1.x, row1.y, row1.z },
+            { row2.x, row2.y, row2.z }
+        } {}
 #elif defined AS_COL_MAJOR
     constexpr mat_t(
         const vec3_t& col0, const vec3_t& col1, const vec3_t& col2)
         : elem_rc {
-            col0.x, col0.y, col0.z,
-            col1.x, col1.y, col1.z,
-            col2.x, col2.y, col2.z } {}
+            { col0.x, col0.y, col0.z },
+            { col1.x, col1.y, col1.z },
+            { col2.x, col2.y, col2.z }
+        } {}
 #endif
 };
 

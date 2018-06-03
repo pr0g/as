@@ -18,6 +18,7 @@ TEST(as_quat, multiply_equal)
     q1 *= q2;
 
     as::quat_t q_sub = q2 - q1;
+    AS_UNUSED(q_sub);
 
     glm::quat qq1{ 1.0f, 2.0f, 3.0f, 4.0f };
     glm::quat qq2{ 2.0f, 4.0f, 6.0f, 8.0f };
@@ -25,7 +26,8 @@ TEST(as_quat, multiply_equal)
     qq1 *= qq2;
 
     as::quat_t neg_q = -q1;
-    
+    AS_UNUSED(neg_q);
+
     int i;
     i = 0;
     (void)i;

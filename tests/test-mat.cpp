@@ -196,6 +196,8 @@ TEST(as_mat, mat_transform_vec) {
     as::vec3_t a_vec3{ 1.0f, 2.0f, 3.0f };
     as::mat44_t a_mat44{ as::mat44::from_mat33(as::mat33::rotation_x(as::deg_to_rad(90.0f))) };
 
+    AS_UNUSED(a_mat44);
+
     //as::mat_t<as::real_t, 3, 4> my_mat34;
 
     //as::vec3_t result = my_mat34 * a_vec3;
@@ -205,7 +207,7 @@ TEST(as_mat, mat_transform_vec) {
 TEST(as_mat, mat_generic_vs_33_44)
 {
     as::mat_t<as::real_t, 5, 5> custom_m55(
-        1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f, 
+        1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f,
         11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f, 17.0f, 18.0f, 19.0f, 20.0f,
         21.0f, 22.0f, 23.0f, 24.0f, 25.0f);
     as::mat44_t m44(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f,
