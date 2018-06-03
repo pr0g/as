@@ -823,6 +823,22 @@ TEST(as_vec, vec_make_from_ptr)
     }
 }
 
+TEST(as_vec, addition)
+{
+    // vec3_t operator '+'
+    {
+        as::vec3_t vec = as::vec3_t{10.0f, 20.0f, 30.0f} + as::vec3_t{20.0f, 10.0f, 0.0f};
+        EXPECT_TRUE(as::vec::equal(vec, as::vec3_t(30.0f, 30.0f, 30.0f))) << "as::vec operator '+' invalid";
+    }
+
+    // vec3_t operator '+='
+    {
+        as::vec3_t vec1(10.0f, 20.0f, 30.0f);
+        vec1 += as::vec3_t(25.0f, 15.0f, 5.0f);
+        EXPECT_TRUE(as::vec::equal(vec1, as::vec3_t(35.0f, 35.0f, 35.0f))) << "as::vec operator '+=' invalid";
+    }
+}
+
 TEST(as_vec, dot)
 {
     // note: comparison values calculated using - http://calculator.vhex.net
