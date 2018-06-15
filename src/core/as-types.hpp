@@ -16,19 +16,19 @@
 namespace as
 {
 
-// typedefs
-typedef int8_t s8;
-typedef int16_t s16;
-typedef int32_t s32;
-typedef int64_t s64;
-typedef uint8_t u8;
-typedef uint16_t u16;
-typedef uint32_t u32;
-typedef uint64_t u64;
-typedef float f32;
-typedef double f64;
+// aliases
+using s8 = int8_t;
+using s16 = int16_t;
+using s32 = int32_t;
+using s64 = int64_t;
+using u8 = uint8_t;
+using u16 = uint16_t;
+using u32 = uint32_t;
+using u64 = uint64_t;
+using f32 = float;
+using f64 = double;
 
-typedef uint8_t byte;
+using byte = uint8_t;
 
 // static assert to check library floating point precision has been set correctly
 #if (!defined(AS_PRECISION_FLOAT) && !defined(AS_PRECISION_DOUBLE))
@@ -64,11 +64,6 @@ using real_t = double;
 #define REAL_MAX DBL_MAX
 #define REAL_MIN DBL_MIN
 #endif
-
-#ifdef _MSC_VER
-__pragma(warning(push))
-__pragma(warning(disable: 4251))
-#endif // _MSC_VER
 
 #ifdef AS_FUNCDLL_EXPORT
 #ifdef _MSC_VER
@@ -121,19 +116,8 @@ AS_MULTILINE_MACRO_END
 #define AS_FORCE_INLINE inline __attribute__((__always_inline__))
 #endif
 
-#ifdef _MSC_VER
-#define AS_ENABLE_UNUSED __pragma(warning(push)) \
-                         __pragma(warning(disable:4100))
-
-#define AS_DISABLE_UNUSED __pragma(warning(pop))
-#endif // _MSC_VER
-
 // Logging - Log to Visual Studio Output Window (DEBUG) or Console (CONSOLE)
 #define AS_LOG_DEBUG
 //#define AS_LOG_CONSOLE
 
 } // namespace as
-
-#ifdef _MSC_VER
-__pragma(warning(pop))
-#endif

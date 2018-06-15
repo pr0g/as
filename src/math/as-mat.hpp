@@ -9,11 +9,6 @@
 namespace as
 {
 
-#ifdef _MSC_VER
-__pragma(warning(push))
-__pragma(warning(disable:4201))
-#endif // _MSC_VER
-
 // static assert to check library matrix convention has been set correctly
 #if (!defined(AS_COL_MAJOR) && !defined(AS_ROW_MAJOR))
     static_assert(false, "Must define AS_COL_MAJOR or AS_ROW_MAJOR");
@@ -44,10 +39,6 @@ struct mat_t
     template<typename... Args, typename = std::enable_if_t<!std::is_same<typelist<mat_t>, typelist<std::decay_t<Args>...>>::value>>
     mat_t(Args&&... args) noexcept : elem_rc { std::forward<Args>(args)... } {}
 };
-
-#ifdef _MSC_VER
-__pragma(warning(pop))
-#endif // _MSC_VER
 
 template <typename T, size_t r, size_t c>
 inline mat_t<T, r, c> operator*(const mat_t<T, r, c>& lhs, const mat_t<T, r, c>& rhs);
