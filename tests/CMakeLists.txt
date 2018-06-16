@@ -17,13 +17,13 @@ SET(PROJ_SOURCE ${PROJ_TEST_PATH}/main.cpp
 
 SET(PROJ_LIBS gtest_main gtest as)
 
-if (APPLE)
+IF (APPLE)
     LINK_DIRECTORIES(${PROJ_EXTERNAL_PATH}/google-test/lib/macOS/x64)
-elseif(MSVC)
+ELSEIF (MSVC)
     LINK_DIRECTORIES(${PROJ_EXTERNAL_PATH}/google-test/lib/windows/msvc/x64)
-elseif(MINGW)
+ELSEIF (MINGW)
     LINK_DIRECTORIES(${PROJ_EXTERNAL_PATH}/google-test/lib/windows/gcc/x64)
-endif(APPLE)
+ENDIF ()
 
 ADD_EXECUTABLE(${PROJ_NAME} ${PROJ_SOURCE})
 
