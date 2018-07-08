@@ -79,7 +79,8 @@ T normalize_return_length(const vec_t<T, n>& vec, vec_t<T, n>& out)
 }
 
 template<typename T, size_t n>
-bool equal(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs, real_t epsilon /*= std::numeric_limits<real_t>::epsilon()*/)
+bool equal(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs,
+    real_t epsilon /*= std::numeric_limits<real_t>::epsilon()*/)
 {
     bool eq = true;
     for (size_t i = 0; i < n; ++i) {
@@ -140,7 +141,8 @@ vec_t<T, n> abs(const vec_t<T, n>& vec)
 }
 
 template<typename T, size_t n>
-vec_t<T, n> clamp(const vec_t<T, n>& vec, const vec_t<T, n>& min, const vec_t<T, n>& max)
+vec_t<T, n> clamp(const vec_t<T, n>& vec,
+    const vec_t<T, n>& min, const vec_t<T, n>& max)
 {
     vec_t<T, n> result;
     for (size_t i = 0; i < n; ++i) {
@@ -220,7 +222,8 @@ vec3_t cross(const vec3_t& lhs, const vec3_t& rhs)
 }
 
 // note: will not work if dir == +/-world_up
-void right_and_up_lh(const vec3_t& dir, vec3_t& across, vec3_t& up, const vec3_t& world_up)
+void right_and_up_lh(
+    const vec3_t& dir, vec3_t& across, vec3_t& up, const vec3_t& world_up)
 {
     AS_ASSERT_DESC(!vec::equal(dir, world_up), "dir and world_up are equal");
 
@@ -230,7 +233,8 @@ void right_and_up_lh(const vec3_t& dir, vec3_t& across, vec3_t& up, const vec3_t
 }
 
 // note: will not work if dir == +/-world_up
-void right_and_up_rh(const vec3_t& dir, vec3_t& across, vec3_t& up, const vec3_t& world_up)
+void right_and_up_rh(
+    const vec3_t& dir, vec3_t& across, vec3_t& up, const vec3_t& world_up)
 {
     AS_ASSERT_DESC(!vec::equal(dir, world_up), "dir and world_up are equal");
 
@@ -323,7 +327,8 @@ T minor(const mat_t<T, 2, 2>& mat)
 
 // where col and row are the rows to ignore
 template<typename T, size_t rc>
-mat_t<T, rc - 1, rc - 1> sub_matrix(const mat_t<T, rc, rc>& mat, size_t col, size_t row)
+mat_t<T, rc - 1, rc - 1> sub_matrix(
+    const mat_t<T, rc, rc>& mat, size_t col, size_t row)
 {
     mat_t<T, rc - 1, rc - 1> result = identity<T, rc - 1>();
     size_t i = 0;
@@ -364,7 +369,9 @@ mat_t<T, rc, rc> minor_impl(const mat_t<T, rc, rc>& mat, int2type<I>)
     for (size_t i = 0; i < rc; ++i) {
         T innerSign = outerSign;
         for (size_t j = 0; j < rc; ++j) {
-            T minor = determinant_impl<T>(internal::sub_matrix(mat, j, i), int2type<rc - 1>{});
+            T minor = determinant_impl<T>(
+                internal::sub_matrix(mat, j, i),
+                int2type<rc - 1>{});
             result[j + i * rc] = minor * innerSign;
             innerSign *= T{ -1 };
         }
@@ -396,26 +403,26 @@ mat_t<T, rc, rc> inverse(const mat_t<T, rc, rc>& mat)
 template<typename T, size_t rc>
 mat_t<T, rc, rc> gj_inverse(const mat_t<T, rc, rc>& mat)
 {
-    mat_t<T, rc, rc> currentMat = mat;
+    mat_t<T, rc, rc> curr_mat = mat;
     mat_t<T, rc, rc> result = identity<T, rc>();
 
     size_t currentLine = 0;
     for (size_t i = 0; i < rc; ++i) {
-        T diagonal = currentMat[(rc * i) + i];
-        T diagonalRecip = T{ 1 } / diagonal;
+        T diagonal = curr_mat[(rc * i) + i];
+        T diagonal_recip = T{ 1 } / diagonal;
 
         for (size_t j = rc * i; j < rc + (rc * i); ++j) {
-            currentMat[j] *= diagonalRecip;
-            result[j] *= diagonalRecip;
+            curr_mat[j] *= diagonal_recip;
+            result[j] *= diagonal_recip;
         }
 
         for (size_t row = 0; row < rc; ++row) {
             if (row == currentLine)
                 continue;
-            T next = currentMat[currentLine + row * rc];
+            T next = curr_mat[currentLine + row * rc];
             for (size_t col = 0; col < rc; ++col) {
                 size_t index = rc * row + col;
-                currentMat[index] -= (next * currentMat[rc * currentLine + col]);
+                curr_mat[index] -= (next * curr_mat[rc * currentLine + col]);
                 result[index] -= (next * result[rc * currentLine + col]);
             }
         }
@@ -567,7 +574,12 @@ mat44_t from_arr(const real_t(&data)[16])
 
 constexpr mat44_t from_vec3(const vec3_t& translation)
 {
-    return { vec4::axis_x(), vec4::axis_y(), vec4::axis_z(), { translation, 1.0f } };
+    return {
+        vec4::axis_x(),
+        vec4::axis_y(),
+        vec4::axis_z(),
+        { translation, 1.0f }
+    };
 }
 
 constexpr mat44_t from_mat33(const mat33_t& rotation)
@@ -575,7 +587,8 @@ constexpr mat44_t from_mat33(const mat33_t& rotation)
     return { rotation, vec3::zero() };
 }
 
-constexpr mat44_t from_mat33_vec3(const mat33_t& rotation, const vec3_t& translation)
+constexpr mat44_t from_mat33_vec3(
+    const mat33_t& rotation, const vec3_t& translation)
 {
     return { rotation, translation };
 }

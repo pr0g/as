@@ -1188,10 +1188,10 @@ TEST(as_vec, select) {
     int3 a(1, 2, 3);
     int3 b(5, 6, 7);
 
-    using byte4 = as::vec_t<as::byte, 4>;
+    using byte4 = as::vec_t<as::u8, 4>;
 
-    byte4 c((as::byte)255, (as::byte)255, (as::byte)255, (as::byte)255);
-    byte4 d((as::byte)0, (as::byte)0, (as::byte)0, (as::byte)0);
+    byte4 c((as::u8)255, (as::u8)255, (as::u8)255, (as::u8)255);
+    byte4 d((as::u8)0, (as::u8)0, (as::u8)0, (as::u8)0);
 
     using float3 = as::vec_t<float, 3>;
 
