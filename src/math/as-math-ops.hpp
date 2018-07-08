@@ -7,6 +7,8 @@
 #include "as-quat.hpp"
 #include "as-affine.hpp"
 
+#include "core/as-assert.hpp"
+
 namespace as
 {
 

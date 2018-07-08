@@ -1,14 +1,10 @@
 #pragma once
 
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#endif // _WIN32
-
 #ifdef __GNUC__
 #include <csignal>
 #endif // __GNUC__
 
+#include <cstddef>
 #include <cstdint>
 #include <cmath>
 #include <cfloat>
@@ -27,8 +23,6 @@ using u32 = uint32_t;
 using u64 = uint64_t;
 using f32 = float;
 using f64 = double;
-
-using byte = uint8_t;
 
 // static assert to check library floating point precision has been set correctly
 #if (!defined(AS_PRECISION_FLOAT) && !defined(AS_PRECISION_DOUBLE))
@@ -99,6 +93,7 @@ AS_MULTILINE_MACRO_END
 #endif
 
 #define AS_DISABLE_OPTIMIZATIONS #pragma optimize("", off)
+
 #ifdef _MSC_VER
 #define AS_NOINLINE __declspec(noinline)
 #elif defined __GNUC__
@@ -115,9 +110,5 @@ AS_MULTILINE_MACRO_END
 #elif defined __GNUC__
 #define AS_FORCE_INLINE inline __attribute__((__always_inline__))
 #endif
-
-// Logging - Log to Visual Studio Output Window (DEBUG) or Console (CONSOLE)
-#define AS_LOG_DEBUG
-//#define AS_LOG_CONSOLE
 
 } // namespace as

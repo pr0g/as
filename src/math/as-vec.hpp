@@ -3,10 +3,8 @@
 #include <algorithm>
 #include <type_traits>
 
-#include "core/as-types.hpp"
-#include "core/as-assert.hpp"
-
 #include "as-math.hpp"
+#include "core/as-types.hpp"
 
 namespace as
 {
