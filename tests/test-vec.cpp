@@ -1,12 +1,7 @@
-// gtest
 #include "gtest/gtest.h"
 
-// as
-#include "as/as-math.hpp"
-#include "as/as-vec.hpp"
 #include "as/as-math-ops.hpp"
 
-// std
 #include <memory>
 
 const as::real_t epsilon = std::numeric_limits<as::real_t>::epsilon();
@@ -1185,30 +1180,8 @@ TEST(as_vec, select) {
     byte4 c((as::u8)255, (as::u8)255, (as::u8)255, (as::u8)255);
     byte4 d((as::u8)0, (as::u8)0, (as::u8)0, (as::u8)0);
 
-    using float3 = as::vec_t<float, 3>;
-
-    float3 x(1.0f, 2.0f, 3.0f);
-    float3 y(4.0f, 5.0f, 6.0f);
-
     int3 result = as::vec::select(a, b, true);
     byte4 result_byte = as::vec::select(c, d, false);
-
-    int3 e{8, 9, 10};
-    int3 f({11, 12, 13});
-    int3 g(11, 12, 13);
-
-    //int3 h = int3{1};
-    //int3 i = int3{1, 2};
-
-    // implicit conversions are allowed
-    // int3 k = { 5, 6, 7 };
-    // int3 l = { 1 };
-    //int3 m = 2;
-
-    as::vec4i_t my_int_vec{ 1, 2, 3, 4 };
-
-    printf("v = x: %d, y: %d, z: %d\n", e[0], e[1], e[2]);
-    printf("v = x: %d, y: %d, z: %d\n", f[0], f[1], f[2]);
 
     EXPECT_TRUE(result[0] == 1 && result[1] == 2 && result[2] == 3) << "as::vec select failed";
     EXPECT_TRUE(result_byte[0] == 0 && result_byte[1] == 0 && result_byte[2] == 0 && result_byte[3] == 0) << "as::vec select failed";
