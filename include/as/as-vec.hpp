@@ -4,7 +4,6 @@
 #include <type_traits>
 
 #include "as-math.hpp"
-#include "core/as-types.hpp"
 
 namespace as
 {

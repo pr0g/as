@@ -1,6 +1,6 @@
 #pragma once
 
-#include "math/as-math-ops.hpp"
+#include "as-math-ops.hpp"
 
 namespace as
 {

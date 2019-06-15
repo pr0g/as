@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core/as-types.hpp"
+#include "as-types.hpp"
 
 namespace as
 {

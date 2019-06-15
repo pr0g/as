@@ -1,0 +1,12 @@
+# auto detect text files and perform LF normalization
+*               text=auto
+
+# documents
+*.md            text
+
+*.hpp           text diff=cpp
+*.inl           text diff=cpp
+
+# exclude files from exporting
+*.gitattributes export-ignore
+.gitignore      export-ignore

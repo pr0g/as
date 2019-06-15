@@ -3,8 +3,8 @@
 #include <algorithm>
 #include <type_traits>
 
-#include "core/as-types.hpp"
-#include "math/as-vec.hpp"
+#include "as-types.hpp"
+#include "as-vec.hpp"
 
 namespace as
 {
