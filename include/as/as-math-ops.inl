@@ -147,7 +147,7 @@ vec_t<T, n> abs(const vec_t<T, n>& vec)
 {
     vec_t<T, n> result;
     for (size_t i = 0; i < n; ++i) {
-        result[ i ] = absr(vec[i]);
+        result[ i ] = fabsr(vec[i]);
     }
     return result;
 }

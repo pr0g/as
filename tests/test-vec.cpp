@@ -1,18 +1,10 @@
 // gtest
 #include "gtest/gtest.h"
 
-// glm
-#include "glm/glm.hpp"
-#include "glm/gtc/type_ptr.hpp"
-#include "glm/gtc/matrix_transform.hpp"
-
 // as
-#include "src/math/as-math.hpp"
-#include "src/math/as-vec.hpp"
-#include "src/math/as-math-ops.hpp"
-
-// as-test
-#include "as-math-output.hpp"
+#include "as/as-math.hpp"
+#include "as/as-vec.hpp"
+#include "as/as-math-ops.hpp"
 
 // std
 #include <memory>
@@ -24,7 +16,7 @@ TEST(as_vec, vec2_initialization)
     // default initialization
     {
         as::vec2_t vec2;
-        AS_UNUSED(vec2);
+        (void)vec2;
     }
 
     // zero initialization
@@ -118,7 +110,7 @@ TEST(as_vec, vec3_initialization)
     // default initialization
     {
         as::vec3_t vec3;
-        AS_UNUSED(vec3);
+        (void)vec3;
     }
 
     // zero initialization
@@ -239,7 +231,7 @@ TEST(as_vec, vec4_initialization)
     // default initialization
     {
         as::vec4_t vec4;
-        AS_UNUSED(vec4);
+        (void)vec4;
     }
 
     // zero initialization
@@ -819,7 +811,7 @@ TEST(as_vec, vec_make_from_ptr)
         // as::vec_t<char, 2> char_2 = as::from_ptr<char, 2>(data.get());
         // as::vec2_t vec2 = as::from_ptr<float, 2>(data.get());
         as::vec_t<double, 2> vec2 = as::vec::from_ptr<double, 2>(data.get());
-        AS_UNUSED(vec2);
+        (void)vec2;
     }
 }
 
@@ -999,7 +991,7 @@ TEST(as_vec, abs)
     }
 }
 
-TEST(as_vec, min) 
+TEST(as_vec, min)
 {
     {
         as::vec4_t vec1(-1.0f, 2.0f, -100.0f, -7.0f);
@@ -1008,7 +1000,7 @@ TEST(as_vec, min)
         as::vec4_t vec_reference(-10.0f, 2.0f, -100.0f, -16.0f);
 
         as::vec4_t result = as::vec::min(vec1, vec2);
-    
+
         EXPECT_TRUE(as::vec::equal(vec_reference, result)) << "as::vec::min failed";
     }
 
@@ -1154,7 +1146,7 @@ TEST(as_vec, saturate)
 
 // ---
 
-TEST(as_vec, lerp) 
+TEST(as_vec, lerp)
 {
     {
         as::vec3_t start(0.0f, 10.0f, 20.0f);

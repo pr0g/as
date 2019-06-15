@@ -2,16 +2,11 @@
 #include "gtest/gtest.h"
 
 // as
-#include "src/math/as-math-ops.hpp"
-
-// as-test
-#include "as-math-output.hpp"
+#include "as/as-math-ops.hpp"
 
 TEST(as_point, copy_constructor){
     as::point2_t p2_a(1.0f, 5.0f);
     as::point2_t p2_b(p2_a);
-
-    print_vec2(p2_b.v);
 }
 
 TEST(as_point, point_sub) {
@@ -21,9 +16,6 @@ TEST(as_point, point_sub) {
     as::vec3_t r3 = a3 - b3;
 
     as::point3_t end3 = b3 + r3;
-
-    print_vec3(a3.v);
-    print_vec3(end3.v);
 
     EXPECT_TRUE(as::point::equal(a3, end3));
 
