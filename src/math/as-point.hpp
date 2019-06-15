@@ -45,17 +45,17 @@ struct point3_t
     constexpr point3_t(const vec2_t& xy, real_t z) : v { xy.x, xy.y, z } {}
 };
 
-inline vec2_t operator-(const point2_t& lhs, const point2_t& rhs);
-inline point2_t operator+(const point2_t& point, const vec2_t& vec);
-inline void operator+=(point2_t& point, const vec2_t& vec);
-inline point2_t operator-(const point2_t& point, const vec2_t& vec);
-inline void operator-=(point2_t& point, const vec2_t& vec);
+inline const vec2_t operator-(const point2_t& lhs, const point2_t& rhs);
+inline const point2_t operator+(const point2_t& point, const vec2_t& vec);
+inline point2_t& operator+=(point2_t& point, const vec2_t& vec);
+inline const point2_t operator-(const point2_t& point, const vec2_t& vec);
+inline point2_t& operator-=(point2_t& point, const vec2_t& vec);
 
-inline vec3_t operator-(const point3_t& lhs, const point3_t& rhs);
-inline point3_t operator+(const point3_t& point, const vec3_t& vec);
-inline void operator+=(point3_t& point, const vec3_t& vec);
-inline point3_t operator-(const point3_t& point, const vec3_t& vec);
-inline void operator-=(point3_t& point, const vec3_t& vec);
+inline const vec3_t operator-(const point3_t& lhs, const point3_t& rhs);
+inline const point3_t operator+(const point3_t& point, const vec3_t& vec);
+inline point3_t& operator+=(point3_t& point, const vec3_t& vec);
+inline const point3_t operator-(const point3_t& point, const vec3_t& vec);
+inline point3_t& operator-=(point3_t& point, const vec3_t& vec);
 
 } // namespace as
 

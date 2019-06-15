@@ -2,7 +2,7 @@ namespace as
 {
 
 template < typename T, size_t r, size_t c >
-inline mat_t<T, r, c> operator*(const mat_t<T, r, c>& lhs, const mat_t<T, r, c>& rhs)
+const mat_t<T, r, c> operator*(const mat_t<T, r, c>& lhs, const mat_t<T, r, c>& rhs)
 {
 #ifdef AS_COL_MAJOR
     mat_t<T, r, c> result;
@@ -33,9 +33,9 @@ return result;
 
 template<typename T, size_t r, size_t c, size_t n>
 #if defined AS_ROW_MAJOR
-inline vec_t<T, n> operator*(const vec_t<T, n> v, const mat_t<T, r, c>& mat)
+const vec_t<T, n> operator*(const vec_t<T, n> v, const mat_t<T, r, c>& mat)
 #elif defined AS_COL_MAJOR
-inline vec_t<T, n> operator*(const mat_t<T, r, c>& mat, const vec_t<T, n> v)
+const vec_t<T, n> operator*(const mat_t<T, r, c>& mat, const vec_t<T, n> v)
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 {
 #if defined AS_ROW_MAJOR
@@ -56,7 +56,7 @@ inline vec_t<T, n> operator*(const mat_t<T, r, c>& mat, const vec_t<T, n> v)
 }
 
 template<typename T, size_t r, size_t c>
-inline mat_t<T, r, c> operator*(const mat_t<T, r, c>& mat, T scalar)
+const mat_t<T, r, c> operator*(const mat_t<T, r, c>& mat, T scalar)
 {
     mat_t<T, r, c> result;
     for (size_t rowIndex = 0; rowIndex < r; ++rowIndex) {
@@ -68,13 +68,14 @@ inline mat_t<T, r, c> operator*(const mat_t<T, r, c>& mat, T scalar)
 }
 
 template<typename T, size_t r, size_t c>
-inline void operator*=(mat_t<T, r, c>& mat, T scalar)
+mat_t<T, r, c>& operator*=(mat_t<T, r, c>& mat, T scalar)
 {
     for (size_t rowIndex = 0; rowIndex < r; ++rowIndex) {
         for (size_t colIndex = 0; colIndex < c; ++colIndex) {
             mat[rowIndex * c + colIndex] *= scalar;
         }
     }
+    return mat;
 }
 
 } // namespace as

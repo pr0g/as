@@ -7,8 +7,6 @@
 #include "as-quat.hpp"
 #include "as-affine.hpp"
 
-#include "core/as-assert.hpp"
-
 namespace as
 {
 
@@ -33,8 +31,14 @@ inline vec_t<T, n> from_ptr(const T* data);
 template<typename T, size_t n>
 inline T dot(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
+template<>
+inline real_t dot(const vec3_t& lhs, const vec3_t& rhs);
+
 template<typename T, size_t n>
 inline T length_squared(const vec_t<T, n>& vec);
+
+template<>
+inline real_t length_squared(const vec3_t& vec);
 
 template<typename T, size_t n>
 inline T length(const vec_t<T, n>& vec);

@@ -48,6 +48,12 @@ T dot(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
     return result;
 }
 
+template<>
+real_t dot(const vec3_t& lhs, const vec3_t& rhs)
+{
+    return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;
+}
+
 template<typename T, size_t n>
 T length_squared(const vec_t<T, n>& vec)
 {
@@ -58,10 +64,16 @@ T length_squared(const vec_t<T, n>& vec)
     return result;
 }
 
+template<>
+inline real_t length_squared(const vec3_t& vec)
+{
+    return dot(vec, vec);
+}
+
 template<typename T, size_t n>
 T length(const vec_t<T, n>& vec)
 {
-    return sqrt(length_squared(vec));
+    return sqrtr(length_squared(vec));
 }
 
 template<typename T, size_t n>
@@ -225,8 +237,6 @@ vec3_t cross(const vec3_t& lhs, const vec3_t& rhs)
 void right_and_up_lh(
     const vec3_t& dir, vec3_t& across, vec3_t& up, const vec3_t& world_up)
 {
-    AS_ASSERT_DESC(!vec::equal(dir, world_up), "dir and world_up are equal");
-
     across = cross(dir, world_up);
     up = vec::normalize(cross(across, dir));
     across = vec::normalize(cross(up, dir));
@@ -236,8 +246,6 @@ void right_and_up_lh(
 void right_and_up_rh(
     const vec3_t& dir, vec3_t& across, vec3_t& up, const vec3_t& world_up)
 {
-    AS_ASSERT_DESC(!vec::equal(dir, world_up), "dir and world_up are equal");
-
     across = cross(dir, world_up);
     up = vec::normalize(cross(across, dir));
     across = vec::normalize(cross(dir, up));

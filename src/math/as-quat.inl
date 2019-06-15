@@ -1,7 +1,7 @@
 namespace as
 {
 
-constexpr inline quat_t operator*(const quat_t& lhs, const quat_t& rhs)
+constexpr const quat_t operator*(const quat_t& lhs, const quat_t& rhs)
 {
     return {
         lhs.w * rhs.w - lhs.x * rhs.x - lhs.y * rhs.y - lhs.z * rhs.z,
@@ -11,34 +11,35 @@ constexpr inline quat_t operator*(const quat_t& lhs, const quat_t& rhs)
     };
 }
 
-constexpr inline void operator*=(quat_t& lhs, const quat_t& rhs)
+constexpr quat_t& operator*=(quat_t& lhs, const quat_t& rhs)
 {
     lhs = lhs * rhs;
+    return lhs;
 }
 
-inline quat_t operator+(const quat_t& lhs, const quat_t& rhs)
+const quat_t operator+(const quat_t& lhs, const quat_t& rhs)
 {
     return { lhs.w + rhs.w, lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z };
 }
 
-inline quat_t operator-(const quat_t& lhs, const quat_t& rhs)
+const quat_t operator-(const quat_t& lhs, const quat_t& rhs)
 {
     return { lhs.w - rhs.w, lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z };
 }
 
-inline quat_t operator-(const quat_t& q)
+const quat_t operator-(const quat_t& q)
 {
     return { -q.w, -q.x, -q.y, -q.z };
 }
 
-inline quat_t operator/(const quat_t& lhs, real_t rhs)
+const quat_t operator/(const quat_t& lhs, real_t rhs)
 {
     return { lhs.w / rhs, lhs.x / rhs, lhs.y / rhs, lhs.z / rhs };
 }
 
-inline quat_t operator*(const quat_t& lhs, real_t rhs)
+const quat_t operator*(const quat_t& lhs, real_t rhs)
 {
     return { lhs.w * rhs, lhs.x * rhs, lhs.y * rhs, lhs.z * rhs };
 }
 
-}
+} // namespace as

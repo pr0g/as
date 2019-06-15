@@ -3,8 +3,8 @@
 #include <algorithm>
 #include <type_traits>
 
-#include "src/core/as-types.hpp"
-#include "src/math/as-vec.hpp"
+#include "core/as-types.hpp"
+#include "math/as-vec.hpp"
 
 namespace as
 {
@@ -41,20 +41,20 @@ struct mat_t
 };
 
 template <typename T, size_t r, size_t c>
-inline mat_t<T, r, c> operator*(const mat_t<T, r, c>& lhs, const mat_t<T, r, c>& rhs);
+inline const mat_t<T, r, c> operator*(const mat_t<T, r, c>& lhs, const mat_t<T, r, c>& rhs);
 
 template<typename T, size_t r, size_t c, size_t n>
 #if defined AS_ROW_MAJOR
-inline vec_t<T, n> operator*(const vec_t<T, n> v, const mat_t<T, r, c>& mat);
+inline const vec_t<T, n> operator*(const vec_t<T, n> v, const mat_t<T, r, c>& mat);
 #elif defined AS_COL_MAJOR
-inline vec_t<T, n> operator*(const mat_t<T, r, c>& mat, const vec_t<T, n> v);
+inline const vec_t<T, n> operator*(const mat_t<T, r, c>& mat, const vec_t<T, n> v);
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
 template<typename T, size_t r, size_t c>
-inline mat_t<T, r, c> operator*(const mat_t<T, r, c>& mat, T scalar);
+inline const mat_t<T, r, c> operator*(const mat_t<T, r, c>& mat, T scalar);
 
 template<typename T, size_t r, size_t c>
-inline void operator*=(mat_t<T, r, c>& mat, T scalar);
+inline mat_t<T, r, c>& operator*=(mat_t<T, r, c>& mat, T scalar);
 
 } // namespace as
 

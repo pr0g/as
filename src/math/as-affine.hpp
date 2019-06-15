@@ -1,6 +1,6 @@
 #pragma once
 
-#include "src/math/as-math-ops.hpp"
+#include "math/as-math-ops.hpp"
 
 namespace as
 {
@@ -23,9 +23,9 @@ struct affine_t
 };
 
 #if defined AS_COL_MAJOR
-inline vec3_t operator*(const affine_t& transform, const vec3_t& vec);
+inline const vec3_t operator*(const affine_t& transform, const vec3_t& vec);
 #elif defined AS_ROW_MAJOR
-inline vec3_t operator*(const vec3_t& vec, const affine_t& transform);
+inline const vec3_t operator*(const vec3_t& vec, const affine_t& transform);
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 
 } // namespace as

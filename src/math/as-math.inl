@@ -51,17 +51,17 @@ inline bool equal(
 {
     // check if the numbers are really close
     // needed when comparing numbers near zero
-    real_t diff = absr(a - b);
+    real_t diff = fabsr(a - b);
     if (diff <= max_diff) {
         return true;
     }
 
-    a = absr( a );
-    b = absr( b );
+    a = fabsr( a );
+    b = fabsr( b );
     real_t largest = ( b > a ) ? b : a;
 
     // find relative difference
     return diff <= largest * max_rel_diff;
 }
 
-}
+} // namespace as
