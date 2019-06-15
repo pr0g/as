@@ -2,6 +2,15 @@ cmake_minimum_required(VERSION 3.8)
 
 project(as-test VERSION 0.0.1 LANGUAGES CXX)
 
+if (NOT DEFINED DEV_LIB_DIR)
+    message(
+        FATAL_ERROR "Please provide the path to the library in active development.
+Example: cmake -DDEV_LIB_DIR=\"path/to/library/in/development\" ..")
+endif()
+
+include(autoinstall.cmake)
+install_it(${DEV_LIB_DIR})
+
 find_package(as REQUIRED)
 find_package(GTest REQUIRED)
 
