@@ -39,7 +39,7 @@ using real_t = float;
 #define acosr acosf
 #define asinr asinf
 #define atanr atanf
-#define absr fabsf
+#define fabsr fabsf
 #define sqrtr sqrtf
 #define REAL_EPSILON FLT_EPSILON
 #define REAL_MAX FLT_MAX
@@ -52,7 +52,7 @@ using real_t = double;
 #define acosr acos
 #define asinr asin
 #define atanr atan
-#define absr fabs
+#define fabsr fabs
 #define sqrtr sqrt
 #define REAL_EPSILON DBL_EPSILON
 #define REAL_MAX DBL_MAX
@@ -91,8 +91,6 @@ AS_MULTILINE_MACRO_END
     raise(SIGABRT); \
 AS_MULTILINE_MACRO_END
 #endif
-
-#define AS_DISABLE_OPTIMIZATIONS #pragma optimize("", off)
 
 #ifdef _MSC_VER
 #define AS_NOINLINE __declspec(noinline)
