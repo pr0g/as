@@ -4,8 +4,8 @@ namespace as
 template < typename T, size_t r, size_t c >
 const mat_t<T, r, c> operator*(const mat_t<T, r, c>& lhs, const mat_t<T, r, c>& rhs)
 {
-#ifdef AS_COL_MAJOR
     mat_t<T, r, c> result;
+#ifdef AS_COL_MAJOR
     for (size_t colIndex = 0; colIndex < c; ++colIndex) {
         for (size_t rowIndex = 0; rowIndex < r; ++rowIndex) {
             T value = 0;
@@ -17,17 +17,16 @@ const mat_t<T, r, c> operator*(const mat_t<T, r, c>& lhs, const mat_t<T, r, c>& 
     }
     return result;
 #elif defined AS_ROW_MAJOR
-    mat_t<T, r, c> result;
-for (size_t rowIndex = 0; rowIndex < r; ++rowIndex) {
-    for (size_t colIndex = 0; colIndex < c; ++colIndex) {
-        T value = 0;
-        for (size_t step = 0; step < c; ++step) {
-            value += lhs[rowIndex * r + step] * rhs[colIndex + c * step];
+    for (size_t rowIndex = 0; rowIndex < r; ++rowIndex) {
+        for (size_t colIndex = 0; colIndex < c; ++colIndex) {
+            T value = 0;
+            for (size_t step = 0; step < c; ++step) {
+                value += lhs[rowIndex * r + step] * rhs[colIndex + c * step];
+            }
+            result[rowIndex * c + colIndex] = value;
         }
-        result[rowIndex * c + colIndex] = value;
     }
-}
-return result;
+    return result;
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 }
 
