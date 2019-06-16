@@ -206,4 +206,21 @@ using vec3_t = vec_t<float, 3>;
 
 ## Other Approaches
 
+There are a million other math libraries out there that are more complete, more reliable, more efficient and likely more interesting. If this has in any way piqued your interest I suggest checking out these libraries and articles.
+
+### Libraries
+
+- [OpenGL Mathematics (glm)](https://glm.g-truc.net/0.9.9/index.html)
+- [DirectXMath](https://docs.microsoft.com/en-us/windows/desktop/dxmath/directxmath-portal)
+- [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page)
+- [Tuesday](https://github.com/Cincinesh/tue)
+- [HandmadeMath](https://github.com/HandmadeMath/Handmade-Math)
+- [RealTimeMath](https://github.com/nfrechette/rtm)
+
+### Articles
+
 - [How To Write A Maths Library In 2016](http://www.codersnotes.com/notes/maths-lib-2016/)
+
+## Related Links
+
+- [GameDev.net - A slick trick in c](https://www.gamedev.net/forums/topic/261920-a-slick-trick-in-c/)
