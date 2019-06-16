@@ -13,6 +13,7 @@ Deficiencies include but are not limited to:
 - I have used this in a few Vulkan demo projects (see [vulkan-fruit](https://twitter.com/tom_h_h/status/957656446258307073) if you're interested) and my fork of [aras_p's](https://twitter.com/aras_p) [ToyMeshPathTracer](https://github.com/pr0g/ToyMeshPathTracer) but nothing much else (yet..)
 - There's bound to be bugs!
 - The performance is likely not very good either (I'm working on improving this, for example creating template specializations for the common cases etc.)
+- No SIMD (yet?)
 
 ## Origins
 
@@ -163,14 +164,15 @@ void Example()
 
 We're doing the exact same thing but just using `this` as the object instead of a named instance like in the `Person` example.
 
-The big drawback with this approach is you have to put the static definition in the .cpp file, which sort of throws a spanner in the works with creating a header-only library 😫. The good news is there's some clever template tricks you can pull to make it possible everything can live in the `.h` file! 🥳
+One drawback to this approach is if you provide a full template specialization you have to put the static definitions in the .cpp file, which sort of throws a spanner in the works with creating a header-only library 😫. The good news is if you only partially specialize the class template you can put the definition of the static variables in the header and the linker won't complain 🙂This is because the definition of the static data member is itself a template. 🥳
+
+The final approach I went for was this but hiding the `elem` magic stuff in a base class so anyone using the type `vec3_t` won't see `elem` popup in their IDE intellisense (hopefully!) 😬
 
 ```c++
 template<typename T>
 struct vec3_base_t
 {
     T x, y, z;
-
     T& operator[](size_t i) { return this->*elem[i]; }
     const T& operator[](size_t i) const { return this->*elem[i]; }
 
@@ -193,7 +195,14 @@ struct vec_t<T, 3> : internal::vec3_base_t<T>
 using vec3_t = vec_t<float, 3>;
 ```
 
-Basically if you put the static variables in a base class that is templated, you can put the definition of the static variables in the header and the linker won't complain 🙂This is because the definition of the static data member is itself a template.
+### Row/Column Major
+
+- todo
+
+### Miscellaneous
+
+- Physical design - separation of .hpp and .inl files
+- Variadic templates for constructors taking arbitrary number of arguments
 
 ## Other Approaches
 
