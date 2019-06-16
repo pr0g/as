@@ -10,10 +10,11 @@ Deficiencies include but are not limited to:
 
 - The API is not stable (I'm still iterating on it)
 - The test coverage is currently woefully inadequate (I'm working on improving this)
-- I have used this in a few Vulkan demo projects (see [vulkan-fruit](https://twitter.com/tom_h_h/status/957656446258307073) if you're interested) and my fork of [aras_p's](https://twitter.com/aras_p) [ToyMeshPathTracer](https://github.com/pr0g/ToyMeshPathTracer) but nothing much else (yet..)
+- I have used this in a few projects (see [vulkan-fruit](https://twitter.com/tom_h_h/status/957656446258307073)) and my fork of Aras Pranckevičius' \([aras_p's](https://twitter.com/aras_p)\) [ToyMeshPathTracer](https://github.com/pr0g/ToyMeshPathTracer), but nothing much else (yet..)
 - There's bound to be bugs!
 - The performance is likely not very good either (I'm working on improving this, for example creating template specializations for the common cases etc.)
-- No SIMD (yet?)
+- No SIMD (yet? we'll see... 🤔)
+- I've probably made some horrible mistake somewhere which I'll be terribly embarassed about once brought to my attention.
 
 ## Origins
 
@@ -21,13 +22,13 @@ The inspriation for this project came from reading an excellent blog post by Nat
 
 The post has some interesting advice on how one might write a math library and goes into some detail about the pros and cons of various approaches.
 
-I decided to follow the advice outlined (template heavy, parameterized on dimensions and type). This gives a high degree of flexibility at a cost of some performance and compile times.
+I decided to follow the advice outlined (template heavy, parameterized on dimensions and type). This gives a high degree of flexibility at a cost of some performance and compile time.
 
-I've tried something a bit different with the interface (which is a little unusual) but I've grown quite fond of it over time. I'll try and persuade you the approach I've taken is ~~a good idea~~ not complete stupid 🙃.
+I've tried something a bit different with the interface (which is a little unusual) but I've grown quite fond of it over time. I'll try and persuade you the approach I've taken is ~~a good idea~~ not completely stupid 🙃.
 
 ## Design
 
-A lot of the design is informed by the article I mention in the [Origins](#origins) section but there are some things I'd like to try and explain.
+A lot of the design is informed by the article I mention in the [Origins](#origins) section (maybe read that first?) but there are some things I'd like to try and explain.
 
 ### Names and Namespaces
 
@@ -53,9 +54,9 @@ mat33 m = q.to_mat33(); // member
 mat33 m = quat::to_mat33(q); // static
 ```
 
-The big problem with this is we get into a situation where `mat33.h` can't include `quat.h` and `quat.h` include `mat33.h` at the same time (we can get around this if we stick the implementation in the .cpp file and forward declare the type, but then we lose the ability to inline (forgetting LTO for the moment) and in doing so the ability to have a header-only library 😫).
+The big problem with this is we get into a situation where `mat33.h` can't include `quat.h` and `quat.h` can't include `mat33.h` at the same time (we can get around this if we stick the implementation in a .cpp file and forward declare the type, but then we lose the ability to inline (forgetting LTO for the moment) and in doing so the ability to have a header-only library 😫).
 
-So we're back to free functions. The lovely property about this is we can keep the `<type>.h` files quite light (we pretty much just have the special members and overloaded operators) and all other functions can go into a separate file, which includes whatever types it likes. So we now have:
+So we're back to free functions. The lovely property about this is we can keep the `<type>.h` files quite light (we pretty much just have the special members and overloaded operators there) and all other functions can go into a separate file, which includes whatever types it likes. So we now have:
 
 ```c++
 mat33 m1 = // ... build some rotation
@@ -66,7 +67,7 @@ mat33 m2 = to_mat33(q2); // free
 
 When I first tried this, a big problem I ran into was how to logically group functions. One advantage to having static functions on a type is it's easy in most modern IDEs to type the name, hit the '`.`' operator, and see a list of available ~~methods~~ member/static functions. This advantage is really important and I wanted to try and find a way to do something similar.
 
-I realized I could take advantage of `C++` namespaces to group functions by type. Irritatingly using the name `vec3` or `mat44` for the namespace means I lose the ability to use them as type names 😖 however a workaround I decided to borrow from `C` and `C++` was to add an `_t` postfix to indicate the type itself and use the unadorned name as the namespace (I know any name ending with `_t` is technically reserved, in `C` at least, but as I'm keeping everything inside my own namespace I think I should be safe - failing that I could use `_s` instead for struct but I'm sticking with `_t` for now).
+I realized I could take advantage of `C++` namespaces to group functions by type. Irritatingly using the name `vec3` or `mat44` for the namespace means I lose the ability to use them as type names 😖 however a workaround I decided to borrow from `C` and `C++` was to add a `_t` postfix to indicate the type itself and use the unadorned name as the namespace (I know any name ending with `_t` is technically reserved, in `C` at least, but as I'm keeping everything inside my own namespace I think I should be safe - failing that I could use `_s` instead for struct but I'm sticking with `_t` for now).
 
 With this approach I can now do this:
 
@@ -99,9 +100,9 @@ template<typename T> struct Vec<T, 3>
 }
 ```
 
-There are a few problems with this approach unfortunately. First, `C++` does not support an anonymous `struct`. There's a pretty good chance your compiler will support this but you might get a warning or it might not compile. The next problem with this approach is if you write to the field `data[1]` and then later read from `y`, you've _technically_ invoked undefined behaviour in `C++` (type punning like this is legal in `C` but not strictly in `C++`). I was totally not aware of this until relatively recently and I have Simon Brand \(aka [@TartanLlama](https://twitter.com/tartanllama)\) to thank for pointing [this](https://twitter.com/tom_h_h/status/961273239958892544) out to me. To play devil's advocate chances are everything will work fine but there's no guarantee - you might be able to avoid it by enabling `-fno-strict-aliasing` but perhaps you're in an environment where you (or your user) can't.
+There are a few problems with this approach unfortunately. First, `C++` does not support anonymous `struct`s. There's a pretty good chance your compiler will support this but you might get a warning or it might not compile. The next problem with this approach is if you write to the field `data[1]` and then later read from `y`, you've _technically_ invoked undefined behaviour in `C++` (type punning like this is legal in `C` but not strictly in `C++`). I was totally not aware of this until relatively recently and I have Simon Brand \(aka [@TartanLlama](https://twitter.com/tartanllama)\) to thank for pointing [this](https://twitter.com/tom_h_h/status/961273239958892544) out to me. To play devil's advocate chances are everything will work fine but there's no guarantee - you might be able to avoid it by enabling `-fno-strict-aliasing` but perhaps you're in an environment where you (or your user) can't.
 
-For the record this can also technically lead to undefined behaviour:
+For the record the following approach can also technically lead to undefined behaviour:
 
 ```c++
 template<typename T>struct Vec<T, 3>
@@ -130,7 +131,7 @@ template<typename T>
 T vec3_t<T>::*vec3_t<T>::elem[3] = { &vec3_t<T>::x, &vec3_t<T>::y, &vec3_t<T>::z }; // .cpp file
 ```
 
-This definitely looks more complicated than the previous snippets but it isn't as bad as it looks at first glance. Essentially what's happening is we introduce 3 new member variables (`x`, `y`, `z`) for this specialization which is where the actual data is stored per instance (no surprises there!).
+This definitely looks more complicated than the previous snippets but it isn't as bad as it looks at first glance. Essentially what's happening is we introduce 3 new member variables (`x`, `y`, `z`) for this specialization which is where the actual data is stored per instance (no surprises there).
 
 The first unusual bit of code to examine is the declaration of the static member `float Vec::*elem[3];`. The syntax may be unfamiliar but this is declaring an array of _member pointers_ (not just regular pointers) indicated by the `Vec::` prefix before `*elem[3]`. Because it's static we need to initialize it in the .cpp file. Here were setup each member pointer to point to the address of the member variables of the class (so `elem[0]` corresponds to the address/offset of `x` in `vec3_t`).
 
@@ -201,14 +202,23 @@ The last thing to mention is the function template specializations. These were m
 
 ### Row/Column Major
 
-- todo
+I wanted it to be possible to use the library with either row or column vectors and not get them accidentally mixed up. Different graphics APIs use different conventions (OpenGL uses column-major and DirectX uses row-major). Now the layout in memory (as far as `C++` is concerned) is always row-major (I recommend reading [this](http://seanmiddleditch.com/matrices-handedness-pre-and-post-multiplication-row-vs-column-major-and-notations/) article by Sean Middleditch \([@stmiddleditch](https://twitter.com/stmiddleditch)\) for a great treatment of this subject).
+
+With row-major, when a vector is transformed by a matrix, the notation is to place the vector to the left of the matrix (so you multiply reading left to right) but with column-major the notation is to place the vector being transformed to the right of the matrix (in this case you multiply reading right to left). Now under the hood the multiplication is actually exactly the same, but I make sure to only enable the right overload for `operator *` when multiplying a vector and a matrix to make sure you can't get them the wrong way round (I do this by forcing you to pick the convention you want to use before you start using the library with a `#define` - you must define either `AS_COL_MAJOR` or `AS_ROW_MAJOR`).
+
+In the case of multiplying two matrices the multiplication order is different to account for the left-to-right or right-to-left convention when combining matrices.
+
+Also as a random aside [this](https://www.sebastiansylvan.com/post/matrix_naming_convention/) article by Sebastian Sylvan ([@ssylvan](https://twitter.com/ssylvan)) is pure genius and well worth a read to help simplify the naming of your transforms 😎
 
 ### real_t
 
+I decided to also provide an abstraction over `float` and `double` for the common types (`vec3_t`, `mat44_t` etc.) so you can easily switch between precisions by either defining `AS_PRECISION_FLOAT` or `AS_PRECISION_DOUBLE`. I've wrapped all the base math functions with `r` versions (e.g. `fabsr` replaces either `fabsf` if floating point precision is used or `fabs` if double precision is used).
+
 ### Miscellaneous
 
-- Physical design - separation of .hpp and .inl files
-- Variadic templates for constructors taking arbitrary number of arguments
+#### Physical design
+
+Even though this is a header-only library I still like the separation of interface and implementation when looking at the code. To achieve this all implementation code is in `.inl` files that are included at the bottom of all the `.h` files. You should never need to include these explicitly.
 
 ## Other Approaches
 
@@ -226,6 +236,7 @@ There are a million other math libraries out there that are more complete, more 
 ### Articles
 
 - [How To Write A Maths Library In 2016](http://www.codersnotes.com/notes/maths-lib-2016/)
+- [On Vector Math Libraries](http://www.reedbeta.com/blog/on-vector-math-libraries/)
 
 ## Related Links
 
