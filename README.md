@@ -16,6 +16,181 @@ Deficiencies include but are not limited to:
 - No SIMD (yet? we'll see... 🤔)
 - I've probably made some horrible mistake somewhere which I'll be terribly embarassed about once brought to my attention.
 
+## Using and/or installing the library
+
+`as` is pretty simple to drop into your project if you want to give it a try. I'll describe several options if you're using CMake, and offer some advice if you're sans-CMake.
+
+### CMake
+
+#### Installing
+
+This is my preferred approach and if you're a CMake wizz you'll probably want to do something similar to this. If you'd like to learn more about installing and CMake do checkout my other repo here: [cmake-examples](https://github.com/pr0g/cmake-examples) 🙂
+
+1. Make a folder somewhere for the `as` library.
+
+    ```bash
+    cd documents/
+    mkdir as && cd as
+    ```
+
+2. Download or clone the library to that folder
+
+    ```bash
+    git clone https://github.com/pr0g/as.git .
+    ```
+
+3. Create a build folder
+
+    ```bash
+    mkdir build && cd build
+    ```
+
+4. Configure CMake
+
+    ```bash
+    cmake ..
+    ```
+
+5. Install library
+
+    ```bash
+    cmake --build . --target install
+    ```
+
+    Note: If you wish to install the library to a specific location please checkout `CMAKE_INSTALL_PREFIX` and `CMAKE_PREFIX_PATH`. The other repo has more info about this if you're interested! 🙂
+
+6. Navigate to your application and then find the library from your `CMakeLists.txt` file
+
+    ```cmake
+    find_package(as REQUIRED)
+    ```
+
+7. Specify the required defines
+
+    ```cmake
+    target_compile_definitions(
+        ${PROJECT_NAME} PRIVATE AS_PRECISION_FLOAT AS_COL_MAJOR)
+    ```
+
+8. Link against it in `target_link_libraries`
+
+    ```cmake
+    target_link_libraries(${PROJECT_NAME} PUBLIC as::as)
+    ```
+
+9. A full `CMakeLists.txt` example using `as`:
+
+    ```cmake
+    cmake_minimum_required(VERSION 3.8)
+    project(app VERSION 0.0.1 LANGUAGES CXX)
+
+    # required for as
+    find_package(as REQUIRED)
+
+    add_executable(${PROJECT_NAME} main.cpp)
+
+    # required for as
+    target_compile_definitions(
+        ${PROJECT_NAME} PRIVATE AS_PRECISION_FLOAT AS_COL_MAJOR)
+
+    # required for as
+    target_link_libraries(${PROJECT_NAME} PUBLIC as::as)
+    ```
+
+10. Include the libray in one of your files
+
+    ```c++
+    #include "as/as-math-ops.hpp"
+    ```
+
+11. Build your application
+
+    ```bash
+    cd build/
+    cmake ..
+    cmake --build .
+    ```
+
+#### Full Include
+
+It is also possible to drop the repo into your project as-is and use `add_subdirectory`
+
+```bash
+|-- root
+    |-- as #added (<root>)
+        |-- CMakeLists.txt
+    |-- main.cpp
+    |-- CMakeLists.txt
+```
+
+Full example:
+
+```cmake
+cmake_minimum_required(VERSION 3.8)
+project(app VERSION 0.0.1 LANGUAGES CXX)
+
+# required for as
+add_subdirectory(as) # note: folder name is as
+
+add_executable(${PROJECT_NAME} main.cpp)
+
+# required for as
+target_compile_definitions(
+    ${PROJECT_NAME} PRIVATE AS_PRECISION_FLOAT AS_COL_MAJOR)
+
+# required for as (as is not imported so we're not using as::as)
+target_link_libraries(${PROJECT_NAME} PUBLIC as)
+```
+
+#### Partial Include
+
+If this all looks like a lot of hassle another option is just to copy-paste the `as` folder (the one under the `include/` directory in the repo) into your project directory (maybe pop it in an `external` or `3rdParty` folder or some such?)
+
+```bash
+|-- root
+    |-- as #added (<root>/include/as)
+    |-- main.cpp
+    |-- CMakeLists.txt
+```
+
+or
+
+```bash
+|-- root
+    |-- external
+        |-- as #added (<root>/include/as)
+        |-- useful
+    |-- main.cpp
+    |-- CMakeLists.txt
+```
+
+Your CMakeLists.txt file can then look like this:
+
+```cmake
+cmake_minimum_required(VERSION 3.8)
+project(app VERSION 0.0.1 LANGUAGES CXX)
+
+add_executable(${PROJECT_NAME} main.cpp)
+
+# required for as
+target_compile_definitions(
+    ${PROJECT_NAME} PRIVATE AS_PRECISION_FLOAT AS_COL_MAJOR)
+
+# required for as (we need to set this ourselves now)
+target_compile_features(
+    ${PROJECT_NAME} PRIVATE cxx_std_14)
+
+# needed if adding as to say a nested folder called external/3rdParty
+target_include_directories(
+    ${PROJECT_NAME} PRIVATE external) # optional
+```
+
+### Non-CMake
+
+Anything non-CMake is more complicated to cover as this technically entails any/every potential build system under the sun 🤔
+
+My advice would be to use something similar to the [Partial Include](#partial-include) section above but just set the include directories in Visual Studio or XCode or whatever other build system you might be using (Bazel, waf, ninja, make, Premake etc.)
+
 ## Origins
 
 The inspriation for this project came from reading an excellent blog post by Nathan Reed ([@Reedbeta](https://twitter.com/Reedbeta)) about writing a vector math library. You can find the post titled 'On Vector Math Libraries' [here](http://www.reedbeta.com/blog/on-vector-math-libraries/) (it's well worth a read!).
