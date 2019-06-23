@@ -56,9 +56,9 @@ inline bool equal(
         return true;
     }
 
-    a = fabsr( a );
-    b = fabsr( b );
-    real_t largest = ( b > a ) ? b : a;
+    a = fabsr(a);
+    b = fabsr(b);
+    real_t largest = (b > a) ? b : a;
 
     // find relative difference
     return diff <= largest * max_rel_diff;

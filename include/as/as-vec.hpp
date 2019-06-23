@@ -1,9 +1,8 @@
 #pragma once
 
-#include <algorithm>
 #include <type_traits>
 
-#include "as-math.hpp"
+#include "as-types.hpp"
 
 namespace as
 {

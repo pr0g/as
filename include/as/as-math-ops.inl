@@ -107,7 +107,7 @@ vec_t<T, n> min(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 {
     vec_t<T, n> result;
     for (size_t i = 0; i < n; ++i) {
-        result[ i ] = as::min(lhs[i], rhs[i]);
+        result[i] = as::min(lhs[i], rhs[i]);
     }
     return result;
 }
@@ -127,7 +127,7 @@ vec_t<T, n> max(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 {
     vec_t<T, n> result;
     for (size_t i = 0; i < n; ++i) {
-        result[ i ] = as::max(lhs[i], rhs[i]);
+        result[i] = as::max(lhs[i], rhs[i]);
     }
     return result;
 }
@@ -147,7 +147,7 @@ vec_t<T, n> abs(const vec_t<T, n>& vec)
 {
     vec_t<T, n> result;
     for (size_t i = 0; i < n; ++i) {
-        result[ i ] = fabsr(vec[i]);
+        result[i] = fabsr(vec[i]);
     }
     return result;
 }
@@ -158,7 +158,7 @@ vec_t<T, n> clamp(const vec_t<T, n>& vec,
 {
     vec_t<T, n> result;
     for (size_t i = 0; i < n; ++i) {
-        result[ i ] = as::clamp( vec[ i ], min[ i ], max[ i ] );
+        result[i] = as::clamp(vec[i], min[i], max[i]);
     }
     return result;
 }
@@ -168,7 +168,7 @@ vec_t<T, n> saturate(const vec_t<T, n>& vec)
 {
     vec_t<T, n> result;
     for (size_t i = 0; i < n; ++i) {
-        result[ i ] = as::clamp( vec[ i ], 0.0f, 1.0f );
+        result[i] = as::clamp(vec[i], 0.0f, 1.0f);
     }
     return result;
 }
@@ -178,7 +178,7 @@ vec_t<T, n> lerp(T t, const vec_t<T, n>& v0, const vec_t<T, n>& v1)
 {
     vec_t<T, n> result;
     for (size_t i = 0; i < n; ++i) {
-        result[ i ] = as::lerp(t, v0[i], v1[i]);
+        result[i] = as::lerp(t, v0[i], v1[i]);
     }
     return result;
 }
