@@ -11,7 +11,7 @@ template<typename T, size_t n>
 struct vec_t
 {
     T elem[n];
-    static const size_t size = n;
+    static constexpr size_t size = n;
 
     constexpr T& operator[](size_t i) { return elem[i]; }
     constexpr const T& operator[](size_t i) const { return elem[i]; }
@@ -29,9 +29,13 @@ struct vec_t
     template<typename...> struct typelist;
     template<
         typename... Args,
-        typename = std::enable_if_t<!std::is_same<typelist<vec_t>, typelist<std::decay_t<Args>...>>::value>
-    >
-    vec_t(Args... args) noexcept : elem{ std::forward<Args>(args)... } {}
+        typename = std::enable_if_t<
+            !std::is_same<typelist<vec_t>,
+            typelist<std::decay_t<Args>...>>::value>>
+    vec_t(Args... args) noexcept : elem{ std::forward<Args>(args)... }
+    {
+        static_assert(sizeof ...(args) == n, "Not enough arguments for dimension");
+    }
 };
 
 namespace internal
@@ -42,7 +46,7 @@ struct vec2_base_t
 {
     T x, y;
 
-    static const size_t size = 2;
+    static constexpr size_t size = 2;
 
     T& operator[](size_t i) { return this->*elem[i]; }
     const T& operator[](size_t i) const { return this->*elem[i]; }
@@ -98,7 +102,7 @@ template<typename T>
 struct vec3_base_t
 {
     T x, y, z;
-    static const size_t size = 3;
+    static constexpr size_t size = 3;
 
     T& operator[](size_t i) { return this->*elem[i]; }
     const T& operator[](size_t i) const { return this->*elem[i]; }
@@ -159,7 +163,7 @@ template<typename T>
 struct vec4_base_t
 {
     T x, y, z, w;
-    static const size_t size = 4;
+    static constexpr size_t size = 4;
 
     T& operator[](size_t i) { return this->*elem[i]; }
     const T& operator[](size_t i) const { return this->*elem[i]; }
@@ -289,7 +293,7 @@ inline const vec3_t operator/(const vec3_t& lhs, real_t val);
 template<typename T, size_t n>
 inline vec_t<T, n>& operator/=(vec_t<T, n>& lhs, T val);
 
-template<typename T, size_t n>
+template<>
 inline vec3_t& operator/=(vec3_t& lhs, real_t val);
 
 template<typename T, size_t n>
@@ -301,8 +305,8 @@ inline const vec3_t operator/(const vec3_t& lhs, const vec3_t& rhs);
 template<typename T, size_t n>
 inline vec_t<T, n>& operator/=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
-template<typename T, size_t n>
-inline vec3_t& operator/=(vec3_t& lhs, const vec_t<T, n>& rhs);
+template<>
+inline vec3_t& operator/=(vec3_t& lhs, const vec3_t& rhs);
 
 } // namespace as
 

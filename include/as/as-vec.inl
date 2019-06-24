@@ -182,7 +182,7 @@ vec_t<T, n>& operator/=(vec_t<T, n>& lhs, T val)
     return lhs;
 }
 
-template<typename T, size_t n>
+template<>
 vec3_t& operator/=(vec3_t& lhs, real_t val)
 {
     lhs.x /= val;
@@ -214,8 +214,8 @@ vec_t<T, n>& operator/=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
     return lhs;
 }
 
-template<typename T, size_t n>
-vec3_t& operator/=(vec3_t& lhs, const vec_t<T, n>& rhs)
+template<>
+vec3_t& operator/=(vec3_t& lhs, const vec3_t& rhs)
 {
     lhs.x /= rhs.x;
     lhs.y /= rhs.y;

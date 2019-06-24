@@ -19,7 +19,7 @@ template<typename T, size_t r, size_t c>
 struct mat_t
 {
     T elem_rc[r][c];
-    static const size_t size = r * c;
+    static constexpr size_t size = r * c;
 
     constexpr T& operator[](size_t i) { return elems()[i]; }
     constexpr const T& operator[](size_t i) const { return elems()[i]; }
@@ -35,8 +35,15 @@ struct mat_t
     ~mat_t() = default;
 
     template<typename...> struct typelist;
-    template<typename... Args, typename = std::enable_if_t<!std::is_same<typelist<mat_t>, typelist<std::decay_t<Args>...>>::value>>
-    mat_t(Args&&... args) noexcept : elem_rc { std::forward<Args>(args)... } {}
+    template<
+        typename... Args,
+        typename = std::enable_if_t<
+            !std::is_same<typelist<mat_t>,
+            typelist<std::decay_t<Args>...>>::value>>
+    mat_t(Args&&... args) noexcept : elem_rc { std::forward<Args>(args)... }
+    {
+        static_assert(sizeof ...(args) == size, "Not enough arguments for dimension");
+    }
 };
 
 template <typename T, size_t r, size_t c>
