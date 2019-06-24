@@ -1150,6 +1150,36 @@ TEST(as_vec, divide_vector_vec3)
 
 TEST(as_vec, dot)
 {
+    using vec5_t = vec_t<real_t, 5>;
+
+    // note: comparison values calculated using - http://calculator.vhex.net
+    {
+        vec5_t vec1(1.0f, 2.0f, 3.0f, 4.0f, 5.0f);
+        vec5_t vec2(4.0f, 5.0f, 6.0f, 8.0f, 4.0f);
+
+        real_t dot_result = vec::dot(vec1, vec2);
+        EXPECT_NEAR(dot_result, 84.0f, epsilon) << "vec::dot failed";
+    }
+
+    {
+        vec5_t vec1(-50.0f, 20.0f, 9.0f, 11.0f, 3.0f);
+        vec5_t vec2(-1.0f, -7.0f, 4.0f, 2.0f, 0.5f);
+
+        real_t dot_result = vec::dot(vec1, vec2);
+        EXPECT_NEAR(dot_result, -30.5, epsilon) << "vec::dot failed";
+    }
+
+    {
+        vec5_t vec1(-27.367f, 0.1165f, 0.921f, 0.123f, 0.543f);
+        vec5_t vec2(-123.456f, -7.732f, 2.491f, -1.321f, -0.261f);
+
+        real_t dot_result = vec::dot(vec1, vec2);
+        EXPECT_NEAR(dot_result, 3379.709579f, epsilon) << "vec::dot failed";
+    }
+}
+
+TEST(as_vec, dot_vec3)
+{
     // note: comparison values calculated using - http://calculator.vhex.net
     {
         vec3_t vec1(1.0f, 2.0f, 3.0f);
