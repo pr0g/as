@@ -1,79 +1,106 @@
 #include "gtest/gtest.h"
+#include "gmock/gmock.h"
 
 #include "as/as-math-ops.hpp"
 
 #include <memory>
 
-const as::real_t epsilon = std::numeric_limits<as::real_t>::epsilon();
+using namespace as;
+
+const real_t epsilon = std::numeric_limits<real_t>::epsilon();
 
 TEST(as_vec, vec2_initialization)
 {
     // default initialization
     {
-        as::vec2_t vec2;
+        vec2_t vec2;
         (void)vec2;
     }
 
     // zero initialization
     {
-        as::vec2_t vec2{};
+        vec2_t vec2{};
         EXPECT_EQ(vec2.x, 0.0f);
         EXPECT_EQ(vec2.y, 0.0f);
     }
 
     // value initialization
     {
-        as::vec2_t vec2 = as::vec2_t();
+        vec2_t vec2 = vec2_t();
         EXPECT_EQ(vec2.x, 0.0f);
         EXPECT_EQ(vec2.y, 0.0f);
     }
 
     // direct initialization (braces)
     {
-        as::vec2_t vec2{1.0f, 2.0f};
+        vec2_t vec2{1.0f, 2.0f};
         EXPECT_EQ(vec2.x, 1.0f);
         EXPECT_EQ(vec2.y, 2.0f);
     }
 
+    // direct initialization - single argument (braces)
+    {
+        vec2_t vec2{5.0f};
+        EXPECT_EQ(vec2.x, 5.0f);
+        EXPECT_EQ(vec2.y, 5.0f);
+    }
+
     // direct initialization (parens)
     {
-        as::vec2_t vec2(5.0f, 10.0f);
+        vec2_t vec2(5.0f, 10.0f);
         EXPECT_EQ(vec2.x, 5.0f);
         EXPECT_EQ(vec2.y, 10.0f);
     }
 
+    // direct initialization - single argument (parens)
+    {
+        vec2_t vec2;
+        vec2 = vec2_t(5.0f);
+        EXPECT_EQ(vec2.x, 5.0f);
+        EXPECT_EQ(vec2.y, 5.0f);
+    }
+
     // direct/copy initialization (braces)
     {
-        as::vec2_t vec2 = as::vec2_t{3.0f, 4.0f};
+        vec2_t vec2 = vec2_t{3.0f, 4.0f};
         EXPECT_EQ(vec2.x, 3.0f);
         EXPECT_EQ(vec2.y, 4.0f);
     }
 
     // direct/copy initialization (parens)
     {
-        as::vec2_t vec2 = as::vec2_t(3.0f, 4.0f);
+        vec2_t vec2 = vec2_t(3.0f, 4.0f);
         EXPECT_EQ(vec2.x, 3.0f);
         EXPECT_EQ(vec2.y, 4.0f);
     }
 
     // direct/copy initialization - single argument (braces)
     {
-        as::vec2_t vec2 = as::vec2_t{123.0f};
+        const real_t value { 123.0f };
+        vec2_t vec2 = vec2_t{ value };
         EXPECT_EQ(vec2.x, 123.0f);
         EXPECT_EQ(vec2.y, 123.0f);
     }
 
     // direct/copy initialization - single argument (parens)
     {
-        as::vec2_t vec2 = as::vec2_t(25.0f);
+        vec2_t vec2 = vec2_t(25.0f);
         EXPECT_EQ(vec2.x, 25.0f);
         EXPECT_EQ(vec2.y, 25.0f);
     }
 
+    // assignment initialization - single argument (braces)
+    {
+        vec2_t vec2;
+        vec2 = vec2_t{ 75.0f };
+        EXPECT_EQ(vec2.x, 75.0f);
+        EXPECT_EQ(vec2.y, 75.0f);
+    }
+
     // direct + copy initialization
     {
-        as::vec2_t vec2_a(300.0f, 400.0f);
-        as::vec2_t vec2_b(vec2_a);
+        vec2_t vec2_a(300.0f, 400.0f);
+        vec2_t vec2_b(vec2_a);
 
         EXPECT_EQ(vec2_b.x, 300.0f);
         EXPECT_EQ(vec2_b.y, 400.0f);
@@ -81,8 +108,8 @@ TEST(as_vec, vec2_initialization)
 
     // direct + copy initialization (assignment)
     {
-        as::vec2_t vec2_a(100.0f, 200.0f);
-        as::vec2_t vec2_b = vec2_a;
+        vec2_t vec2_a(100.0f, 200.0f);
+        vec2_t vec2_b = vec2_a;
 
         EXPECT_EQ(vec2_b.x, 100.0f);
         EXPECT_EQ(vec2_b.y, 200.0f);
@@ -90,8 +117,8 @@ TEST(as_vec, vec2_initialization)
 
     // direct + copy initialization (assignment)
     {
-        as::vec2_t vec2_a(500.0f, 600.0f);
-        as::vec2_t vec2_b;
+        vec2_t vec2_a(500.0f, 600.0f);
+        vec2_t vec2_b;
 
         vec2_b = vec2_a;
 
@@ -104,13 +131,13 @@ TEST(as_vec, vec3_initialization)
 {
     // default initialization
     {
-        as::vec3_t vec3;
+        vec3_t vec3;
         (void)vec3;
     }
 
     // zero initialization
     {
-        as::vec3_t vec3{};
+        vec3_t vec3{};
         EXPECT_EQ(vec3.x, 0.0f);
         EXPECT_EQ(vec3.y, 0.0f);
         EXPECT_EQ(vec3.z, 0.0f);
@@ -118,7 +145,7 @@ TEST(as_vec, vec3_initialization)
 
     // value initialization
     {
-        as::vec3_t vec3 = as::vec3_t();
+        vec3_t vec3 = vec3_t();
         EXPECT_EQ(vec3.x, 0.0f);
         EXPECT_EQ(vec3.y, 0.0f);
         EXPECT_EQ(vec3.z, 0.0f);
@@ -126,7 +153,7 @@ TEST(as_vec, vec3_initialization)
 
     // direct initialization (braces)
     {
-        as::vec3_t vec3{1.0f, 2.0f, 3.0f};
+        vec3_t vec3{1.0f, 2.0f, 3.0f};
         EXPECT_EQ(vec3.x, 1.0f);
         EXPECT_EQ(vec3.y, 2.0f);
         EXPECT_EQ(vec3.z, 3.0f);
@@ -134,7 +161,7 @@ TEST(as_vec, vec3_initialization)
 
     // direct initialization (parens)
     {
-        as::vec3_t vec3(5.0f, 10.0f, 15.0f);
+        vec3_t vec3(5.0f, 10.0f, 15.0f);
         EXPECT_EQ(vec3.x, 5.0f);
         EXPECT_EQ(vec3.y, 10.0f);
         EXPECT_EQ(vec3.z, 15.0f);
@@ -142,7 +169,7 @@ TEST(as_vec, vec3_initialization)
 
     // direct/copy initialization (braces)
     {
-        as::vec3_t vec3 = as::vec3_t{1.0f, 2.0f, 3.0f};
+        vec3_t vec3 = vec3_t{1.0f, 2.0f, 3.0f};
         EXPECT_EQ(vec3.x, 1.0f);
         EXPECT_EQ(vec3.y, 2.0f);
         EXPECT_EQ(vec3.z, 3.0f);
@@ -150,7 +177,7 @@ TEST(as_vec, vec3_initialization)
 
     // direct/copy initialization (parens)
     {
-        as::vec3_t vec3 = as::vec3_t(3.0f, 4.0f, 5.0f);
+        vec3_t vec3 = vec3_t(3.0f, 4.0f, 5.0f);
         EXPECT_EQ(vec3.x, 3.0f);
         EXPECT_EQ(vec3.y, 4.0f);
         EXPECT_EQ(vec3.z, 5.0f);
@@ -158,7 +185,16 @@ TEST(as_vec, vec3_initialization)
 
     // direct/copy initialization - single argument (braces)
     {
-        as::vec3_t vec3 = as::vec3_t{50.0f};
+        vec3_t vec3 = vec3_t{ 50.0f };
+        EXPECT_EQ(vec3.x, 50.0f);
+        EXPECT_EQ(vec3.y, 50.0f);
+        EXPECT_EQ(vec3.z, 50.0f);
+    }
+
+    // assignment initialization - single argument (braces)
+    {
+        vec3_t vec3;
+        vec3 = vec3_t{ 50.0f };
         EXPECT_EQ(vec3.x, 50.0f);
         EXPECT_EQ(vec3.y, 50.0f);
         EXPECT_EQ(vec3.z, 50.0f);
@@ -166,7 +202,7 @@ TEST(as_vec, vec3_initialization)
 
     // direct/copy initialization - single argument (parens)
     {
-        as::vec3_t vec3 = as::vec3_t(25.0f);
+        vec3_t vec3 = vec3_t(25.0f);
         EXPECT_EQ(vec3.x, 25.0f);
         EXPECT_EQ(vec3.y, 25.0f);
         EXPECT_EQ(vec3.z, 25.0f);
@@ -174,7 +210,7 @@ TEST(as_vec, vec3_initialization)
 
     // direct/copy initialization - double argument (braces)
     {
-        as::vec3_t vec3 = as::vec3_t{as::vec2_t{1.0f, 2.0f}, 3.0f};
+        vec3_t vec3 = vec3_t{vec2_t{1.0f, 2.0f}, 3.0f};
         EXPECT_EQ(vec3.x, 1.0f);
         EXPECT_EQ(vec3.y, 2.0f);
         EXPECT_EQ(vec3.z, 3.0f);
@@ -182,7 +218,8 @@ TEST(as_vec, vec3_initialization)
 
     // direct/copy initialization - double argument (parens)
     {
-        as::vec3_t vec3 = as::vec3_t(as::vec2_t(1.0f, 2.0f), 3.0f);
+        vec2_t vec2 = vec2_t(1.0f, 2.0f);
+        vec3_t vec3 = vec3_t(vec2, 3.0f);
         EXPECT_EQ(vec3.x, 1.0f);
         EXPECT_EQ(vec3.y, 2.0f);
         EXPECT_EQ(vec3.z, 3.0f);
@@ -190,8 +227,8 @@ TEST(as_vec, vec3_initialization)
 
     // direct + copy initialization
     {
-        as::vec3_t vec3_a(100.0f, 200.0f, 300.0f);
-        as::vec3_t vec3_b(vec3_a);
+        vec3_t vec3_a(100.0f, 200.0f, 300.0f);
+        vec3_t vec3_b(vec3_a);
 
         EXPECT_EQ(vec3_b.x, 100.0f);
         EXPECT_EQ(vec3_b.y, 200.0f);
@@ -200,8 +237,8 @@ TEST(as_vec, vec3_initialization)
 
     // direct + copy initialization
     {
-        as::vec3_t vec3_a(400.0f, 500.0f, 600.0f);
-        as::vec3_t vec3_b = vec3_a;
+        vec3_t vec3_a(400.0f, 500.0f, 600.0f);
+        vec3_t vec3_b = vec3_a;
 
         EXPECT_EQ(vec3_b.x, 400.0f);
         EXPECT_EQ(vec3_b.y, 500.0f);
@@ -210,8 +247,8 @@ TEST(as_vec, vec3_initialization)
 
     // direct + copy initialization (assignment)
     {
-        as::vec3_t vec3_a(500.0f, 600.0f, 700.0f);
-        as::vec3_t vec3_b;
+        vec3_t vec3_a(500.0f, 600.0f, 700.0f);
+        vec3_t vec3_b;
 
         vec3_b = vec3_a;
 
@@ -225,13 +262,13 @@ TEST(as_vec, vec4_initialization)
 {
     // default initialization
     {
-        as::vec4_t vec4;
+        vec4_t vec4;
         (void)vec4;
     }
 
     // zero initialization
     {
-        as::vec4_t vec4{};
+        vec4_t vec4{};
         EXPECT_EQ(vec4.x, 0.0f);
         EXPECT_EQ(vec4.y, 0.0f);
         EXPECT_EQ(vec4.z, 0.0f);
@@ -240,7 +277,7 @@ TEST(as_vec, vec4_initialization)
 
     // value initialization
     {
-        as::vec4_t vec4 = as::vec4_t();
+        vec4_t vec4 = vec4_t();
         EXPECT_EQ(vec4.x, 0.0f);
         EXPECT_EQ(vec4.y, 0.0f);
         EXPECT_EQ(vec4.z, 0.0f);
@@ -249,7 +286,7 @@ TEST(as_vec, vec4_initialization)
 
     // direct initialization (braces)
     {
-        as::vec4_t vec4{1.0f, 2.0f, 3.0f, 4.0f};
+        vec4_t vec4{1.0f, 2.0f, 3.0f, 4.0f};
         EXPECT_EQ(vec4.x, 1.0f);
         EXPECT_EQ(vec4.y, 2.0f);
         EXPECT_EQ(vec4.z, 3.0f);
@@ -258,7 +295,7 @@ TEST(as_vec, vec4_initialization)
 
     // direct initialization (parens)
     {
-        as::vec4_t vec4(1.0f, 2.0f, 3.0f, 4.0f);
+        vec4_t vec4(1.0f, 2.0f, 3.0f, 4.0f);
         EXPECT_EQ(vec4.x, 1.0f);
         EXPECT_EQ(vec4.y, 2.0f);
         EXPECT_EQ(vec4.z, 3.0f);
@@ -267,7 +304,7 @@ TEST(as_vec, vec4_initialization)
 
     // direct/copy initialization (braces)
     {
-        as::vec4_t vec4 = as::vec4_t{3.0f, 4.0f, 5.0f, 6.0f};
+        vec4_t vec4 = vec4_t{3.0f, 4.0f, 5.0f, 6.0f};
         EXPECT_EQ(vec4.x, 3.0f);
         EXPECT_EQ(vec4.y, 4.0f);
         EXPECT_EQ(vec4.z, 5.0f);
@@ -276,7 +313,7 @@ TEST(as_vec, vec4_initialization)
 
     // direct/copy initialization (parens)
     {
-        as::vec4_t vec4 = as::vec4_t(3.0f, 4.0f, 5.0f, 6.0f);
+        vec4_t vec4 = vec4_t(3.0f, 4.0f, 5.0f, 6.0f);
         EXPECT_EQ(vec4.x, 3.0f);
         EXPECT_EQ(vec4.y, 4.0f);
         EXPECT_EQ(vec4.z, 5.0f);
@@ -285,16 +322,26 @@ TEST(as_vec, vec4_initialization)
 
     // direct/copy initialization - single argument (braces)
     {
-        as::vec4_t vec4 = as::vec4_t{50.0f};
+        vec4_t vec4 = vec4_t{50.0f};
         EXPECT_EQ(vec4.x, 50.0f);
         EXPECT_EQ(vec4.y, 50.0f);
         EXPECT_EQ(vec4.z, 50.0f);
         EXPECT_EQ(vec4.w, 50.0f);
     }
 
+    // assignment initialization - single argument (braces)
+    {
+        vec4_t vec4;
+        vec4 = vec4_t{ 99.0f };
+        EXPECT_EQ(vec4.x, 99.0f);
+        EXPECT_EQ(vec4.y, 99.0f);
+        EXPECT_EQ(vec4.z, 99.0f);
+        EXPECT_EQ(vec4.w, 99.0f);
+    }
+
     // direct/copy initialization - single argument (parens)
     {
-        as::vec4_t vec4 = as::vec4_t(25.0f);
+        vec4_t vec4 = vec4_t(25.0f);
         EXPECT_EQ(vec4.x, 25.0f);
         EXPECT_EQ(vec4.y, 25.0f);
         EXPECT_EQ(vec4.z, 25.0f);
@@ -303,7 +350,7 @@ TEST(as_vec, vec4_initialization)
 
     // direct/copy initialization - double argument (braces)
     {
-        as::vec4_t vec4 = as::vec4_t{as::vec3_t{1.0f, 2.0f, 3.0f}, 4.0f};
+        vec4_t vec4 = vec4_t{vec3_t{1.0f, 2.0f, 3.0f}, 4.0f};
         EXPECT_EQ(vec4.x, 1.0f);
         EXPECT_EQ(vec4.y, 2.0f);
         EXPECT_EQ(vec4.z, 3.0f);
@@ -312,7 +359,7 @@ TEST(as_vec, vec4_initialization)
 
     // direct/copy initialization - double argument (parens)
     {
-        as::vec4_t vec4 = as::vec4_t(as::vec3_t(1.0f, 2.0f, 3.0f), 4.0f);
+        vec4_t vec4 = vec4_t(vec3_t(1.0f, 2.0f, 3.0f), 4.0f);
         EXPECT_EQ(vec4.x, 1.0f);
         EXPECT_EQ(vec4.y, 2.0f);
         EXPECT_EQ(vec4.z, 3.0f);
@@ -321,7 +368,7 @@ TEST(as_vec, vec4_initialization)
 
     // direct/copy initialization - double argument (braces)
     {
-        as::vec4_t vec4 = as::vec4_t{as::vec2_t{1.0f, 2.0f}, as::vec2_t{3.0f, 4.0f}};
+        vec4_t vec4 = vec4_t{vec2_t{1.0f, 2.0f}, vec2_t{3.0f, 4.0f}};
         EXPECT_EQ(vec4.x, 1.0f);
         EXPECT_EQ(vec4.y, 2.0f);
         EXPECT_EQ(vec4.z, 3.0f);
@@ -330,7 +377,7 @@ TEST(as_vec, vec4_initialization)
 
     // direct/copy initialization - double argument (parens)
     {
-        as::vec4_t vec4 = as::vec4_t(as::vec2_t(1.0f, 2.0f), as::vec2_t(3.0f, 4.0f));
+        vec4_t vec4 = vec4_t(vec2_t(1.0f, 2.0f), vec2_t(3.0f, 4.0f));
         EXPECT_EQ(vec4.x, 1.0f);
         EXPECT_EQ(vec4.y, 2.0f);
         EXPECT_EQ(vec4.z, 3.0f);
@@ -339,7 +386,7 @@ TEST(as_vec, vec4_initialization)
 
     // direct/copy initialization - triple argument (braces)
     {
-        as::vec4_t vec4 = as::vec4_t{as::vec2_t{1.0f, 2.0f}, 3.0f, 4.0f};
+        vec4_t vec4 = vec4_t{vec2_t{1.0f, 2.0f}, 3.0f, 4.0f};
         EXPECT_EQ(vec4.x, 1.0f);
         EXPECT_EQ(vec4.y, 2.0f);
         EXPECT_EQ(vec4.z, 3.0f);
@@ -348,7 +395,7 @@ TEST(as_vec, vec4_initialization)
 
     // direct/copy initialization - triple argument (parens)
     {
-        as::vec4_t vec4 = as::vec4_t(as::vec2_t(1.0f, 2.0f), 3.0f, 4.0f);
+        vec4_t vec4 = vec4_t(vec2_t(1.0f, 2.0f), 3.0f, 4.0f);
         EXPECT_EQ(vec4.x, 1.0f);
         EXPECT_EQ(vec4.y, 2.0f);
         EXPECT_EQ(vec4.z, 3.0f);
@@ -357,8 +404,8 @@ TEST(as_vec, vec4_initialization)
 
     // direct + copy initialization
     {
-        as::vec4_t vec4_a(100.0f, 200.0f, 300.0f, 400.0f);
-        as::vec4_t vec4_b(vec4_a);
+        vec4_t vec4_a(100.0f, 200.0f, 300.0f, 400.0f);
+        vec4_t vec4_b(vec4_a);
 
         EXPECT_EQ(vec4_b.x, 100.0f);
         EXPECT_EQ(vec4_b.y, 200.0f);
@@ -368,8 +415,8 @@ TEST(as_vec, vec4_initialization)
 
     // direct + copy initialization
     {
-        as::vec4_t vec4_a(500.0f, 600.0f, 700.0f, 800.0f);
-        as::vec4_t vec4_b = vec4_a;
+        vec4_t vec4_a(500.0f, 600.0f, 700.0f, 800.0f);
+        vec4_t vec4_b = vec4_a;
 
         EXPECT_EQ(vec4_b.x, 500.0f);
         EXPECT_EQ(vec4_b.y, 600.0f);
@@ -379,8 +426,8 @@ TEST(as_vec, vec4_initialization)
 
     // direct + copy initialization (assignment)
     {
-        as::vec4_t vec4_a(500.0f, 600.0f, 700.0f, 800.0f);
-        as::vec4_t vec4_b;
+        vec4_t vec4_a(500.0f, 600.0f, 700.0f, 800.0f);
+        vec4_t vec4_b;
 
         vec4_b = vec4_a;
 
@@ -395,30 +442,30 @@ TEST(as_vec, vec2_accessors)
 {
     // member and subscript operator - zero initializer
     {
-        as::vec2_t vec2{};
+        vec2_t vec2{};
         EXPECT_EQ(vec2.x, vec2[0]);
         EXPECT_EQ(vec2.y, vec2[1]);
     }
 
     // member and subscript operator - explicit construction
     {
-        as::vec2_t vec2(1.0f, 2.0f);
+        vec2_t vec2(1.0f, 2.0f);
         EXPECT_EQ(vec2.x, vec2[0]);
         EXPECT_EQ(vec2.y, vec2[1]);
     }
 
     // member pointer and subscript operator - explicit construction
     {
-        as::vec2_t vec2(1.0f, 2.0f);
+        vec2_t vec2(1.0f, 2.0f);
         EXPECT_EQ(vec2.elems()[0], vec2[0]);
         EXPECT_EQ(vec2.elems()[1], vec2[1]);
     }
 
     // member and const subscript operator - explicit construction
     {
-        as::vec2_t vec2(1.0f, 2.0f);
-        const as::real_t& x = vec2[0];
-        const as::real_t& y = vec2[1];
+        vec2_t vec2(1.0f, 2.0f);
+        const real_t& x = vec2[0];
+        const real_t& y = vec2[1];
 
         EXPECT_FLOAT_EQ(vec2.x, x);
         EXPECT_FLOAT_EQ(vec2.y, y);
@@ -429,7 +476,7 @@ TEST(as_vec, vec3_accessors)
 {
     // member and subscript operator - zero initializer
     {
-        as::vec3_t vec3{};
+        vec3_t vec3{};
         EXPECT_EQ(vec3.x, vec3[0]);
         EXPECT_EQ(vec3.y, vec3[1]);
         EXPECT_EQ(vec3.z, vec3[2]);
@@ -437,7 +484,7 @@ TEST(as_vec, vec3_accessors)
 
     // member and subscript operator - explicit construction
     {
-        as::vec3_t vec3(1.0f, 2.0f, 3.0f);
+        vec3_t vec3(1.0f, 2.0f, 3.0f);
         EXPECT_EQ(vec3.x, vec3[0]);
         EXPECT_EQ(vec3.y, vec3[1]);
         EXPECT_EQ(vec3.z, vec3[2]);
@@ -445,7 +492,7 @@ TEST(as_vec, vec3_accessors)
 
     // member and subscript operator - explicit construction
     {
-        as::vec3_t vec3(1.0f, 2.0f, 3.0f);
+        vec3_t vec3(1.0f, 2.0f, 3.0f);
         EXPECT_EQ(vec3.xy()[0], vec3.x);
         EXPECT_EQ(vec3.xy()[1], vec3.y);
         EXPECT_EQ(vec3.xy().x, vec3.x);
@@ -455,10 +502,22 @@ TEST(as_vec, vec3_accessors)
 
     // member pointer and subscript operator - explicit construction
     {
-        as::vec3_t vec3(2.0f, 4.0f, 6.0f);
+        vec3_t vec3(2.0f, 4.0f, 6.0f);
         EXPECT_EQ(vec3.elems()[0], vec3[0]);
         EXPECT_EQ(vec3.elems()[1], vec3[1]);
         EXPECT_EQ(vec3.elems()[2], vec3[2]);
+    }
+
+    // member and const subscript operator - explicit construction
+    {
+        vec3_t vec3(1.0f, 2.0f, 3.0f);
+        const real_t& x = vec3[0];
+        const real_t& y = vec3[1];
+        const real_t& z = vec3[2];
+
+        EXPECT_FLOAT_EQ(vec3.x, x);
+        EXPECT_FLOAT_EQ(vec3.y, y);
+        EXPECT_FLOAT_EQ(vec3.z, z);
     }
 }
 
@@ -466,7 +525,7 @@ TEST(as_vec, vec4_accessors)
 {
     // member and subscript operator - zero initializer
     {
-        as::vec4_t vec4{};
+        vec4_t vec4{};
         EXPECT_EQ(vec4.x, vec4[0]);
         EXPECT_EQ(vec4.y, vec4[1]);
         EXPECT_EQ(vec4.z, vec4[2]);
@@ -475,7 +534,7 @@ TEST(as_vec, vec4_accessors)
 
     // member and subscript operator - explicit construction
     {
-        as::vec4_t vec4(1.0f, 2.0f, 3.0f, 4.0f);
+        vec4_t vec4(1.0f, 2.0f, 3.0f, 4.0f);
         EXPECT_EQ(vec4.x, vec4[0]);
         EXPECT_EQ(vec4.y, vec4[1]);
         EXPECT_EQ(vec4.z, vec4[2]);
@@ -484,7 +543,7 @@ TEST(as_vec, vec4_accessors)
 
     // member and subscript operator - explicit construction
     {
-        as::vec4_t vec4(1.0f, 2.0f, 3.0f, 4.0f);
+        vec4_t vec4(1.0f, 2.0f, 3.0f, 4.0f);
         EXPECT_EQ(vec4.xy()[0], vec4[0]);
         EXPECT_EQ(vec4.xy()[1], vec4[1]);
         EXPECT_EQ(vec4.zw()[0], vec4[2]);
@@ -497,7 +556,7 @@ TEST(as_vec, vec4_accessors)
 
     // member pointer and subscript operator - explicit construction
     {
-        as::vec4_t vec4(1.0f, 2.0f, 3.0f, 4.0f);
+        vec4_t vec4(1.0f, 2.0f, 3.0f, 4.0f);
         EXPECT_EQ(vec4.elems()[0], vec4[0]);
         EXPECT_EQ(vec4.elems()[1], vec4[1]);
         EXPECT_EQ(vec4.elems()[2], vec4[2]);
@@ -507,12 +566,12 @@ TEST(as_vec, vec4_accessors)
 
 TEST(as_vec, vec2_vec3_vec4_accessors)
 {
-    as::vec2_t vec2(1.0f, 2.0f);
-    as::vec3_t vec3(vec2, 3.0f);
+    vec2_t vec2(1.0f, 2.0f);
+    vec3_t vec3(vec2, 3.0f);
 
-    as::vec4_t vec4_a(vec2, 3.0f, 4.0f);
-    as::vec4_t vec4_b(vec2, vec2);
-    as::vec4_t vec4_c(vec3, 4.0f);
+    vec4_t vec4_a(vec2, 3.0f, 4.0f);
+    vec4_t vec4_b(vec2, vec2);
+    vec4_t vec4_c(vec3, 4.0f);
 
     // member accessors
     EXPECT_EQ(vec4_a.x, vec2.x);
@@ -529,36 +588,91 @@ TEST(as_vec, vec2_vec3_vec4_accessors)
     EXPECT_EQ(vec4_c.w, vec4_a.w);
 }
 
+TEST(as_vec, const_elem_access)
+{
+    using ::testing::ElementsAreArray;
+
+    const vec_t<real_t, 5> vec5(1.0f, 2.0f, 3.0f, 4.0f, 5.0f);
+
+    const real_t elem_0 = vec5[0];
+    const real_t elem_1 = vec5[1];
+    const real_t elem_2 = vec5[2];
+    const real_t elem_3 = vec5[3];
+    const real_t elem_4 = vec5[4];
+
+    const real_t vec_arr[] = { elem_0, elem_1, elem_2, elem_3, elem_4 };
+    EXPECT_THAT(vec_arr, ElementsAreArray(vec5.elems(), 5));
+}
+
+TEST(as_vec, const_elem_access_v2_v3_v4)
+{
+    using ::testing::ElementsAreArray;
+
+    {
+        const vec2_t vec2(15.0f, 30.0f);
+
+        const real_t elem_0 = vec2[0];
+        const real_t elem_1 = vec2[1];
+
+        const real_t vec_arr[] = { elem_0, elem_1 };
+        EXPECT_THAT(vec_arr, ElementsAreArray(vec2.elems(), 2));
+    }
+
+    {
+        const vec3_t vec3(2.0f, 3.0f, 4.0f);
+
+        const real_t elem_0 = vec3[0];
+        const real_t elem_1 = vec3[1];
+        const real_t elem_2 = vec3[2];
+
+        const real_t vec_arr[] = { elem_0, elem_1, elem_2 };
+        EXPECT_THAT(vec_arr, ElementsAreArray(vec3.elems(), 3));
+    }
+
+    {
+        vec4_t vec4;
+        vec4 = vec4_t(10.0f, 20.0f, 30.0f, 40.0f);
+
+        const real_t elem_0 = vec4[0];
+        const real_t elem_1 = vec4[1];
+        const real_t elem_2 = vec4[2];
+        const real_t elem_3 = vec4[3];
+
+        const real_t vec_arr[] = { elem_0, elem_1, elem_2, elem_3 };
+        EXPECT_THAT(vec_arr, ElementsAreArray(vec4.elems(), 4));
+    }
+}
+
 TEST(as_vec, vec_size)
 {
-    size_t vec2_size = as::vec2_t::size;
-    as::vec2_t vec2;
-    size_t vec2_inst_size = as::vec::size(vec2);
+    size_t vec2_size = vec2_t::size;
+    vec2_t vec2;
+    size_t vec2_inst_size = vec::size(vec2);
     EXPECT_EQ(vec2_size, static_cast<size_t>(2));
     EXPECT_EQ(vec2_inst_size, vec2_size);
 
-    size_t vec3_size = as::vec3_t::size;
-    as::vec3_t vec3;
-    size_t vec3_inst_size = as::vec::size(vec3);
+    size_t vec3_size = vec3_t::size;
+    vec3_t vec3;
+    size_t vec3_inst_size = vec::size(vec3);
     EXPECT_EQ(vec3_size, static_cast<size_t>(3));
     EXPECT_EQ(vec3_inst_size, vec3_size);
 
-    size_t vec4_size = as::vec4_t::size;
-    as::vec4_t vec4;
-    size_t vec4_inst_size = as::vec::size(vec4);
+    size_t vec4_size = vec4_t::size;
+    vec4_t vec4;
+    size_t vec4_inst_size = vec::size(vec4);
     EXPECT_EQ(vec4_size, static_cast<size_t>(4));
     EXPECT_EQ(vec4_inst_size, vec4_size);
 
-    using short7 = as::vec_t<short, 7>;
+    using short7 = vec_t<short, 7>;
     short7 vec_short7;
-    size_t vec_short7_inst_size = as::vec::size(vec_short7);
+    size_t vec_short7_inst_size = vec::size(vec_short7);
     size_t short7_size = short7::size;
     EXPECT_EQ(short7_size, static_cast<size_t>(7));
     EXPECT_EQ(vec_short7_inst_size, short7_size);
 
-    using int5 = as::vec_t<int, 5>;
+    using int5 = vec_t<int, 5>;
     int5 vec_short5;
-    size_t vec_short5_inst_size = as::vec::size(vec_short5);
+    size_t vec_short5_inst_size = vec::size(vec_short5);
     size_t int5_size = int5::size;
     EXPECT_EQ(int5_size, static_cast<size_t>(5));
     EXPECT_EQ(vec_short5_inst_size, int5_size);
@@ -568,8 +682,8 @@ TEST(as_vec, vec_data)
 {
     // data mutable
     {
-        as::vec2_t vec2(5.0f, 10.0f);
-        as::real_t *data = as::vec::data(vec2);
+        vec2_t vec2(5.0f, 10.0f);
+        real_t *data = vec::data(vec2);
 
         EXPECT_EQ(data[0], 5.0f);
         EXPECT_EQ(data[1], 10.0f);
@@ -577,8 +691,8 @@ TEST(as_vec, vec_data)
 
     // data const
     {
-        as::vec4_t vec4(1.0f, 2.0f, 3.0f, 4.0f);
-        const as::real_t* data = as::vec::const_data(vec4);
+        vec4_t vec4(1.0f, 2.0f, 3.0f, 4.0f);
+        const real_t* data = vec::const_data(vec4);
 
         EXPECT_EQ(data[0], 1.0f);
         EXPECT_EQ(data[1], 2.0f);
@@ -588,13 +702,13 @@ TEST(as_vec, vec_data)
 
     // r-value - will not compile
     {
-        // as::data(as::vec3_t(1.0f, 2.0f, 3.0f));
+        // data(vec3_t(1.0f, 2.0f, 3.0f));
     }
 
     // data mutable
     {
-        as::vec2_t vec2(20.0f, 40.0f);
-        as::real_t* data = as::vec::data(vec2);
+        vec2_t vec2(20.0f, 40.0f);
+        real_t* data = vec::data(vec2);
 
         EXPECT_EQ(data[0], 20.0f);
         EXPECT_EQ(data[1], 40.0f);
@@ -608,9 +722,9 @@ TEST(as_vec, vec_data)
 
     // generic data mutable
     {
-        using int5 = as::vec_t<int, 5>;
+        using int5 = vec_t<int, 5>;
         int5 int5_vec{ 11, 12, 13, 14, 15 };
-        int* data = as::vec::data(int5_vec);
+        int* data = vec::data(int5_vec);
 
         EXPECT_EQ(int5_vec[0], 11);
         EXPECT_EQ(int5_vec[1], 12);
@@ -625,11 +739,11 @@ TEST(as_vec, vec_data)
 
     // data const
     {
-        using short7 = as::vec_t<short, 7>;
+        using short7 = vec_t<short, 7>;
         short7 short7_vec{
             (short)11, (short)22, (short)33, (short)44,
             (short)55, (short)66, (short)77 };
-        const short* data = as::vec::const_data(short7_vec);
+        const short* data = vec::const_data(short7_vec);
 
         EXPECT_EQ(short7_vec[0], 11);
         EXPECT_EQ(short7_vec[1], 22);
@@ -649,20 +763,20 @@ TEST(as_vec, vec_make_from_arr)
 {
     // generic make_from_arr vec2_t
     {
-        as::real_t data[2] = { 2.0f, 4.0f };
-        as::vec2_t vec2 = as::vec::from_arr(data);
+        real_t data[2] = { 2.0f, 4.0f };
+        vec2_t vec2 = vec::from_arr(data);
 
         EXPECT_EQ(vec2.x, 2.0f);
         EXPECT_EQ(vec2.y, 4.0f);
 
-        // won't compile (array length 2 to as::vec3_t)
-        // as::vec3_t vec3 = as::make_from(data);
+        // won't compile (array length 2 to vec3_t)
+        // vec3_t vec3 = make_from(data);
     }
 
     // generic make_from_arr vec3_t
     {
-        as::real_t data[3] = { 1.0f, 2.0f, 3.0f };
-        as::vec3_t vec3 = as::vec::from_arr(data);
+        real_t data[3] = { 1.0f, 2.0f, 3.0f };
+        vec3_t vec3 = vec::from_arr(data);
 
         EXPECT_EQ(vec3.x, 1.0f);
         EXPECT_EQ(vec3.y, 2.0f);
@@ -672,7 +786,7 @@ TEST(as_vec, vec_make_from_arr)
     // generic make_from_arr <char, 6>
     {
         char data[6] = { 11, 12, 13, 14, 15, 16 };
-        as::vec_t<char, 6> char_6 = as::vec::from_arr(data);
+        vec_t<char, 6> char_6 = vec::from_arr(data);
 
         EXPECT_EQ(char_6[0], 11);
         EXPECT_EQ(char_6[1], 12);
@@ -684,8 +798,8 @@ TEST(as_vec, vec_make_from_arr)
 
     // vec2::make_from_arr
     {
-        as::real_t data[2] = { 2.0f, 4.0f };
-        as::vec2_t vec2 = as::vec2::from_arr(data);
+        real_t data[2] = { 2.0f, 4.0f };
+        vec2_t vec2 = vec2::from_arr(data);
 
         EXPECT_EQ(vec2.x, 2.0f);
         EXPECT_EQ(vec2.y, 4.0f);
@@ -693,8 +807,8 @@ TEST(as_vec, vec_make_from_arr)
 
     // vec3_make_from_arr
     {
-        as::real_t data[3] = { 1.0f, 2.0f, 3.0f };
-        as::vec3_t vec3 = as::vec3::from_arr(data);
+        real_t data[3] = { 1.0f, 2.0f, 3.0f };
+        vec3_t vec3 = vec3::from_arr(data);
 
         EXPECT_EQ(vec3.x, 1.0f);
         EXPECT_EQ(vec3.y, 2.0f);
@@ -703,8 +817,8 @@ TEST(as_vec, vec_make_from_arr)
 
     // vec4_make_from_arr
     {
-        as::real_t data[4] = { 4.0f, 8.0f, 12.0f, 16.0f };
-        as::vec4_t vec4 = as::vec4::from_arr(data);
+        real_t data[4] = { 4.0f, 8.0f, 12.0f, 16.0f };
+        vec4_t vec4 = vec4::from_arr(data);
 
         EXPECT_EQ(vec4.x, 4.0f);
         EXPECT_EQ(vec4.y, 8.0f);
@@ -717,10 +831,10 @@ TEST(as_vec, vec_make_from_ptr)
 {
     // generic make_from_ptr vec2_t
     {
-        std::unique_ptr<as::real_t[]> data = std::make_unique<as::real_t[]>(2);
+        std::unique_ptr<real_t[]> data = std::make_unique<real_t[]>(2);
         data[0] = 2.0f;
         data[1] = 4.0f;
-        as::vec2_t vec2 = as::vec::from_ptr<as::real_t, 2>(data.get());
+        vec2_t vec2 = vec::from_ptr<real_t, 2>(data.get());
 
         EXPECT_EQ(vec2.x, 2.0f);
         EXPECT_EQ(vec2.y, 4.0f);
@@ -728,11 +842,11 @@ TEST(as_vec, vec_make_from_ptr)
 
     // generic make_from_ptr vec3_t
     {
-        std::unique_ptr<as::real_t[]> data = std::make_unique<as::real_t[]>(3);
+        std::unique_ptr<real_t[]> data = std::make_unique<real_t[]>(3);
         data[0] = 1.0f;
         data[1] = 2.0f;
         data[2] = 3.0f;
-        as::vec3_t vec3 = as::vec::from_ptr<as::real_t, 3>(data.get());
+        vec3_t vec3 = vec::from_ptr<real_t, 3>(data.get());
 
         EXPECT_EQ(vec3.x, 1.0f);
         EXPECT_EQ(vec3.y, 2.0f);
@@ -748,7 +862,7 @@ TEST(as_vec, vec_make_from_ptr)
         data[3] = 14;
         data[4] = 15;
         data[5] = 16;
-        as::vec_t<char, 6> char_6 = as::vec::from_ptr<char, 6>(data.get());
+        vec_t<char, 6> char_6 = vec::from_ptr<char, 6>(data.get());
 
         EXPECT_EQ(char_6[0], 11);
         EXPECT_EQ(char_6[1], 12);
@@ -760,10 +874,10 @@ TEST(as_vec, vec_make_from_ptr)
 
     // vec2::make_from_ptr
     {
-        std::unique_ptr<as::real_t[]> data = std::make_unique<as::real_t[]>(2);
+        std::unique_ptr<real_t[]> data = std::make_unique<real_t[]>(2);
         data[0] = 2.0f;
         data[1] = 4.0f;
-        as::vec2_t vec2 = as::vec2::from_ptr(data.get());
+        vec2_t vec2 = vec2::from_ptr(data.get());
 
         EXPECT_EQ(vec2.x, 2.0f);
         EXPECT_EQ(vec2.y, 4.0f);
@@ -771,11 +885,11 @@ TEST(as_vec, vec_make_from_ptr)
 
     // vec3_make_from_ptr
     {
-        std::unique_ptr<as::real_t[]> data = std::make_unique<as::real_t[]>(3);
+        std::unique_ptr<real_t[]> data = std::make_unique<real_t[]>(3);
         data[0] = 1.0f;
         data[1] = 2.0f;
         data[2] = 3.0f;
-        as::vec3_t vec3 = as::vec3::from_ptr(data.get());
+        vec3_t vec3 = vec3::from_ptr(data.get());
 
         EXPECT_EQ(vec3.x, 1.0f);
         EXPECT_EQ(vec3.y, 2.0f);
@@ -784,12 +898,12 @@ TEST(as_vec, vec_make_from_ptr)
 
     // vec4_make_from_ptr
     {
-        std::unique_ptr<as::real_t[]> data = std::make_unique<as::real_t[]>(4);
+        std::unique_ptr<real_t[]> data = std::make_unique<real_t[]>(4);
         data[0] = 4.0f;
         data[1] = 8.0f;
         data[2] = 12.0f;
         data[3] = 16.0f;
-        as::vec4_t vec4 = as::vec4::from_ptr(data.get());
+        vec4_t vec4 = vec4::from_ptr(data.get());
 
         EXPECT_EQ(vec4.x, 4.0f);
         EXPECT_EQ(vec4.y, 8.0f);
@@ -803,26 +917,234 @@ TEST(as_vec, vec_make_from_ptr)
         data[0] = 2.0f;
         data[1] = 4.0f;
         // does not compile - types do not match
-        // as::vec_t<char, 2> char_2 = as::from_ptr<char, 2>(data.get());
-        // as::vec2_t vec2 = as::from_ptr<float, 2>(data.get());
-        as::vec_t<double, 2> vec2 = as::vec::from_ptr<double, 2>(data.get());
+        // vec_t<char, 2> char_2 = from_ptr<char, 2>(data.get());
+        // vec2_t vec2 = from_ptr<float, 2>(data.get());
+        vec_t<double, 2> vec2 = vec::from_ptr<double, 2>(data.get());
         (void)vec2;
     }
 }
 
 TEST(as_vec, addition)
 {
+    using vec5_t = vec_t<real_t, 5>;
+
+    // vec_t operator '+'
+    {
+        vec5_t vec = vec5_t{10.0f, 20.0f, 30.0f, 40.0f, 50.0f} + vec5_t{40.0f, 30.0f, 20.0f, 10.0f, 0.0f};
+        EXPECT_TRUE(vec::equal(vec, vec5_t(50.0f, 50.0f, 50.0f, 50.0f, 50.0f))) << "vec operator '+' invalid";
+    }
+
+    // vec_t operator '+='
+    {
+        vec5_t vec1(10.0f, 20.0f, 30.0f, 40.0f, 50.0f);
+        vec1 += vec5_t(25.0f, 15.0f, 5.0f, 10.0f, 1.0f);
+        EXPECT_TRUE(vec::equal(vec1, vec5_t(35.0f, 35.0f, 35.0f, 50.0f, 51.0f))) << "vec operator '+=' invalid";
+    }
+}
+
+TEST(as_vec, addition_vec3)
+{
     // vec3_t operator '+'
     {
-        as::vec3_t vec = as::vec3_t{10.0f, 20.0f, 30.0f} + as::vec3_t{20.0f, 10.0f, 0.0f};
-        EXPECT_TRUE(as::vec::equal(vec, as::vec3_t(30.0f, 30.0f, 30.0f))) << "as::vec operator '+' invalid";
+        vec3_t vec = vec3_t{10.0f, 20.0f, 30.0f} + vec3_t{20.0f, 10.0f, 0.0f};
+        EXPECT_TRUE(vec::equal(vec, vec3_t(30.0f, 30.0f, 30.0f))) << "vec operator '+' invalid";
     }
 
     // vec3_t operator '+='
     {
-        as::vec3_t vec1(10.0f, 20.0f, 30.0f);
-        vec1 += as::vec3_t(25.0f, 15.0f, 5.0f);
-        EXPECT_TRUE(as::vec::equal(vec1, as::vec3_t(35.0f, 35.0f, 35.0f))) << "as::vec operator '+=' invalid";
+        vec3_t vec1(10.0f, 20.0f, 30.0f);
+        vec1 += vec3_t(25.0f, 15.0f, 5.0f);
+        EXPECT_TRUE(vec::equal(vec1, vec3_t(35.0f, 35.0f, 35.0f))) << "vec operator '+=' invalid";
+    }
+}
+
+TEST(as_vec, substraction)
+{
+    using vec5_t = vec_t<real_t, 5>;
+
+    // vec_t operator '-'
+    {
+        vec5_t vec = vec5_t{40.0f, 30.0f, 20.0f, 10.0f, 0.0f} - vec5_t{10.0f, 20.0f, 30.0f, 40.0f, 50.0f};
+        EXPECT_TRUE(vec::equal(vec, vec5_t(30.0f, 10.0f, -10.0f, -30.0f, -50.0f))) << "vec operator '-' invalid";
+    }
+
+    // vec_t operator '-='
+    {
+        vec5_t vec1(10.0f, 20.0f, 30.0f, 40.0f, 50.0f);
+        vec1 -= vec5_t(25.0f, 15.0f, 5.0f, 10.0f, 1.0f);
+        EXPECT_TRUE(vec::equal(vec1, vec5_t(-15.0f, 5.0f, 25.0f, 30.0f, 49.0f))) << "vec operator '-=' invalid";
+    }
+}
+
+TEST(as_vec, substraction_vec3)
+{
+    // vec3_t operator '-'
+    {
+        vec3_t vec = vec3_t{40.0f, 30.0f, 20.0f} - vec3_t{10.0f, 20.0f, 30.0f};
+        EXPECT_TRUE(vec::equal(vec, vec3_t(30.0f, 10.0f, -10.0f))) << "vec operator '-' invalid";
+    }
+
+    // vec3_t operator '-='
+    {
+        vec3_t vec1(10.0f, 20.0f, 30.0f);
+        vec1 -= vec3_t(25.0f, 15.0f, 5.0f);
+        EXPECT_TRUE(vec::equal(vec1, vec3_t(-15.0f, 5.0f, 25.0f))) << "vec operator '-=' invalid";
+    }
+}
+
+TEST(as_vec, negation)
+{
+    using vec5_t = vec_t<real_t, 5>;
+
+    vec5_t vec = vec5_t{40.0f, 30.0f, 20.0f, 10.0f, 0.0f};
+    vec5_t neg_vec = -vec;
+    EXPECT_TRUE(vec::equal(neg_vec, vec5_t(-40.0f, -30.0f, -20.0f, -10.0f, -0.0f)));
+}
+
+TEST(as_vec, negation_vec3)
+{
+    vec3_t vec = vec3_t{20.0f, 10.0f, 0.0f};
+    vec3_t neg_vec = -vec;
+    EXPECT_TRUE(vec::equal(neg_vec, vec3_t(-20.0f, -10.0f, -0.0f)));
+}
+
+TEST(as_vec, multiplication_scalar)
+{
+    using vec5_t = vec_t<real_t, 5>;
+
+    // vec_t operator '*'
+    {
+        vec5_t vec = 5.0f * vec5_t{50.0f, 40.0f, 25.0f, 20.0f, 10.0f};
+        EXPECT_TRUE(vec::equal(vec, vec5_t(250.0f, 200.0f, 125.0, 100.0f, 50.0f)));
+    }
+
+    // vec_t operator '*='
+    {
+        vec5_t vec = vec5_t{50.0f, 40.0f, 25.0f, 20.0f, 10.0f};
+        vec *= 5.0f;
+        EXPECT_TRUE(vec::equal(vec, vec5_t(250.0f, 200.0f, 125.0, 100.0f, 50.0f)));
+    }
+}
+
+TEST(as_vec, multiplication_scalar_vec3)
+{
+    // vec3_t operator '*'
+    {
+        vec3_t vec = 5.0f * vec3_t{50.0f, 40.0f, 25.0f};
+        EXPECT_TRUE(vec::equal(vec, vec3_t(250.0f, 200.0f, 125.0)));
+    }
+
+    // vec3_t operator '*='
+    {
+        vec3_t vec = vec3_t{50.0f, 40.0f, 25.0f};
+        vec *= 5.0f;
+        EXPECT_TRUE(vec::equal(vec, vec3_t(250.0f, 200.0f, 125.0)));
+    }
+}
+
+TEST(as_vec, multiplication_vector)
+{
+    using vec5_t = vec_t<real_t, 5>;
+
+    // vec_t operator '*'
+    {
+        vec5_t vec = vec5_t{ 2.0f, 3.0f, 4.0f, 5.0f, 0.5f } * vec5_t{ 50.0f, 40.0f, 25.0f, 20.0f, 10.0f };
+        EXPECT_TRUE(vec::equal(vec, vec5_t(100.0f, 120.0f, 100.0f, 100.0f, 5.0f)));
+    }
+
+    // vec_t operator '*='
+    {
+        vec5_t vec1 = vec5_t{ 2.0f, 3.0f, 4.0f, 5.0f, 0.5f };
+        vec5_t vec2 = vec5_t{ 50.0f, 40.0f, 25.0f, 20.0f, 10.0f };
+        vec1 *= vec2;
+        EXPECT_TRUE(vec::equal(vec1, vec5_t(100.0f, 120.0f, 100.0f, 100.0f, 5.0f)));
+    }
+}
+
+TEST(as_vec, multiplication_vector_vec3)
+{
+    // vec_t operator '*'
+    {
+        vec3_t vec = vec3_t{ 0.5f, 3.0f, 4.0f } * vec3_t{ 50.0f, 40.0f, 25.0f };
+        EXPECT_TRUE(vec::equal(vec, vec3_t(25.0f, 120.0f, 100.0f)));
+    }
+
+    // vec_t operator '*='
+    {
+        vec3_t vec1 = vec3_t{ 0.5f, 3.0f, 4.0f };
+        vec3_t vec2 = vec3_t{ 50.0f, 40.0f, 25.0f };
+        vec1 *= vec2;
+        EXPECT_TRUE(vec::equal(vec1, vec3_t(25.0f, 120.0f, 100.0f)));
+    }
+}
+
+TEST(as_vec, divide_scalar)
+{
+    using vec5_t = vec_t<real_t, 5>;
+
+    // vec_t operator '/'
+    {
+        vec5_t vec = vec5_t{ 50.0f, 40.0f, 25.0f, 20.0f, 10.0f } / 5.0f;
+        EXPECT_TRUE(vec::equal(vec, vec5_t(10.0f, 8.0f, 5.0f, 4.0f, 2.0f)));
+    }
+
+    // vec_t operator '/='
+    {
+        vec5_t vec = vec5_t{50.0f, 40.0f, 25.0f, 20.0f, 10.0f};
+        vec /= 5.0f;
+        EXPECT_TRUE(vec::equal(vec, vec5_t(10.0f, 8.0f, 5.0f, 4.0f, 2.0f)));
+    }
+}
+
+TEST(as_vec, divide_scalar_vec3)
+{
+    // vec_t operator '/'
+    {
+        vec3_t vec = vec3_t{ 50.0f, 40.0f, 25.0f } / 5.0f;
+        EXPECT_TRUE(vec::equal(vec, vec3_t(10.0f, 8.0f, 5.0f)));
+    }
+
+    // vec_t operator '/='
+    {
+        vec3_t vec = vec3_t{50.0f, 40.0f, 25.0f};
+        vec /= 5.0f;
+        EXPECT_TRUE(vec::equal(vec, vec3_t(10.0f, 8.0f, 5.0f)));
+    }
+}
+
+TEST(as_vec, divide_vector)
+{
+    using vec5_t = vec_t<real_t, 5>;
+
+    // vec_t operator '/'
+    {
+        vec5_t vec = vec5_t{ 33.0f, 48.0f, 10.0f, 120.0f, 2.0f } / vec5_t{ 3.0f, 6.0f, 2.0f, 3.0f, 0.5f };
+        EXPECT_TRUE(vec::equal(vec, vec5_t(11.0f, 8.0f, 5.0f, 40.0f, 4.0f)));
+    }
+
+    // vec_t operator '/='
+    {
+        vec5_t vec1 = vec5_t{ 33.0f, 48.0f, 10.0f, 120.0f, 2.0f };
+        vec5_t vec2 = vec5_t{ 3.0f, 6.0f, 2.0f, 3.0f, 0.5f };
+        vec1 /= vec2;
+        EXPECT_TRUE(vec::equal(vec1, vec5_t(11.0f, 8.0f, 5.0f, 40.0f, 4.0f)));
+    }
+}
+
+TEST(as_vec, divide_vector_vec3)
+{
+    // vec_t operator '/'
+    {
+        vec3_t vec = vec3_t{ 33.0f, 48.0f, 10.0f } / vec3_t{ 3.0f, 6.0f, 2.0f };
+        EXPECT_TRUE(vec::equal(vec, vec3_t(11.0f, 8.0f, 5.0f)));
+    }
+
+    // vec_t operator '/='
+    {
+        vec3_t vec1 = vec3_t{ 33.0f, 48.0f, 10.0f };
+        vec3_t vec2 = vec3_t{ 3.0f, 6.0f, 2.0f };
+        vec1 /= vec2;
+        EXPECT_TRUE(vec::equal(vec1, vec3_t(11.0f, 8.0f, 5.0f)));
     }
 }
 
@@ -830,27 +1152,27 @@ TEST(as_vec, dot)
 {
     // note: comparison values calculated using - http://calculator.vhex.net
     {
-        as::vec3_t vec1(1.0f, 2.0f, 3.0f);
-        as::vec3_t vec2(4.0f, 5.0f, 6.0f);
+        vec3_t vec1(1.0f, 2.0f, 3.0f);
+        vec3_t vec2(4.0f, 5.0f, 6.0f);
 
-        as::real_t dot_result = as::vec::dot(vec1, vec2);
-        EXPECT_NEAR(dot_result, 32.0f, epsilon) << "as::vec::dot failed";
+        real_t dot_result = vec::dot(vec1, vec2);
+        EXPECT_NEAR(dot_result, 32.0f, epsilon) << "vec::dot failed";
     }
 
     {
-        as::vec3_t vec1(-50.0f, 20.0f, 9.0f);
-        as::vec3_t vec2(-1.0f, -7.0f, 4.0f);
+        vec3_t vec1(-50.0f, 20.0f, 9.0f);
+        vec3_t vec2(-1.0f, -7.0f, 4.0f);
 
-        as::real_t dot_result = as::vec::dot(vec1, vec2);
-        EXPECT_NEAR(dot_result, -54.0f, epsilon) << "as::vec::dot failed";
+        real_t dot_result = vec::dot(vec1, vec2);
+        EXPECT_NEAR(dot_result, -54.0f, epsilon) << "vec::dot failed";
     }
 
     {
-        as::vec3_t vec1(-27.367f, 0.1165f, 0.921f);
-        as::vec3_t vec2(-123.456f, -7.732f, 2.491f);
+        vec3_t vec1(-27.367f, 0.1165f, 0.921f);
+        vec3_t vec2(-123.456f, -7.732f, 2.491f);
 
-        as::real_t dot_result = as::vec::dot(vec1, vec2);
-        EXPECT_NEAR(dot_result, 3380.013785f, epsilon) << "as::vec::dot failed";
+        real_t dot_result = vec::dot(vec1, vec2);
+        EXPECT_NEAR(dot_result, 3380.013785f, epsilon) << "vec::dot failed";
     }
 }
 
@@ -858,284 +1180,284 @@ TEST(as_vec, cross)
 {
     // note: comparison values calculated using https://www.symbolab.com/solver/vector-cross-product-calculator
     {
-        as::vec3_t vec1(1.0f, 2.0f, 3.0f);
-        as::vec3_t vec2(4.0f, 5.0f, 6.0f);
+        vec3_t vec1(1.0f, 2.0f, 3.0f);
+        vec3_t vec2(4.0f, 5.0f, 6.0f);
 
-        as::vec3_t cross_result = as::vec3::cross(vec1, vec2);
-        EXPECT_NEAR(cross_result.x, -3.0f, epsilon) << "as::vec::cross failed";
-        EXPECT_NEAR(cross_result.y, 6.0f, epsilon) << "as::vec::cross failed";;
-        EXPECT_NEAR(cross_result.z, -3.0f, epsilon) << "as::vec::cross failed";;
+        vec3_t cross_result = vec3::cross(vec1, vec2);
+        EXPECT_NEAR(cross_result.x, -3.0f, epsilon) << "vec::cross failed";
+        EXPECT_NEAR(cross_result.y, 6.0f, epsilon) << "vec::cross failed";;
+        EXPECT_NEAR(cross_result.z, -3.0f, epsilon) << "vec::cross failed";;
     }
 
     {
-        as::vec3_t vec1(1.0f, 0.0f, 0.0f);
-        as::vec3_t vec2(0.0f, 1.0f, 0.0f);
+        vec3_t vec1(1.0f, 0.0f, 0.0f);
+        vec3_t vec2(0.0f, 1.0f, 0.0f);
 
-        as::vec3_t cross_result1 = as::vec3::cross(vec1, vec2);
-        EXPECT_NEAR(cross_result1.x, 0.0f, epsilon) << "as::vec::cross failed";;
-        EXPECT_NEAR(cross_result1.y, 0.0f, epsilon) << "as::vec::cross failed";;
-        EXPECT_NEAR(cross_result1.z, 1.0f, epsilon) << "as::vec::cross failed";;
+        vec3_t cross_result1 = vec3::cross(vec1, vec2);
+        EXPECT_NEAR(cross_result1.x, 0.0f, epsilon) << "vec::cross failed";;
+        EXPECT_NEAR(cross_result1.y, 0.0f, epsilon) << "vec::cross failed";;
+        EXPECT_NEAR(cross_result1.z, 1.0f, epsilon) << "vec::cross failed";;
 
-        as::vec3_t cross_result2 = as::vec3::cross(vec2, vec1);
-        EXPECT_NEAR(cross_result2.x, 0.0f, epsilon) << "as::vec::cross failed";;
-        EXPECT_NEAR(cross_result2.y, 0.0f, epsilon) << "as::vec::cross failed";;
-        EXPECT_NEAR(cross_result2.z, -1.0f, epsilon) << "as::vec::cross failed";;
+        vec3_t cross_result2 = vec3::cross(vec2, vec1);
+        EXPECT_NEAR(cross_result2.x, 0.0f, epsilon) << "vec::cross failed";;
+        EXPECT_NEAR(cross_result2.y, 0.0f, epsilon) << "vec::cross failed";;
+        EXPECT_NEAR(cross_result2.z, -1.0f, epsilon) << "vec::cross failed";;
     }
 
     {
-        as::vec3_t vec1(0.0f, 5.0f, 0.0f);
-        as::vec3_t vec2(0.0f, 0.0f, 12.0f);
+        vec3_t vec1(0.0f, 5.0f, 0.0f);
+        vec3_t vec2(0.0f, 0.0f, 12.0f);
 
-        as::vec3_t cross_result = as::vec3::cross(vec1, vec2);
-        EXPECT_NEAR(cross_result.x, 60.0f, epsilon) << "as::vec::cross failed";;
-        EXPECT_NEAR(cross_result.y, 0.0f, epsilon) << "as::vec::cross failed";;
-        EXPECT_NEAR(cross_result.z, 0.0f, epsilon) << "as::vec::cross failed";;
+        vec3_t cross_result = vec3::cross(vec1, vec2);
+        EXPECT_NEAR(cross_result.x, 60.0f, epsilon) << "vec::cross failed";;
+        EXPECT_NEAR(cross_result.y, 0.0f, epsilon) << "vec::cross failed";;
+        EXPECT_NEAR(cross_result.z, 0.0f, epsilon) << "vec::cross failed";;
     }
 
     {
-        as::vec3_t x(1.0f, 0.0f, 0.0f);
-        as::vec3_t y(0.0f, 1.0f, 0.0f);
-        as::vec3_t z(0.0f, 0.0f, 1.0f);
+        vec3_t x(1.0f, 0.0f, 0.0f);
+        vec3_t y(0.0f, 1.0f, 0.0f);
+        vec3_t z(0.0f, 0.0f, 1.0f);
 
-        as::vec3_t cross_result1 = as::vec3::cross(x, y);
-        EXPECT_NEAR(cross_result1.z, 1.0f, epsilon) << "as::vec::cross failed";;
+        vec3_t cross_result1 = vec3::cross(x, y);
+        EXPECT_NEAR(cross_result1.z, 1.0f, epsilon) << "vec::cross failed";;
 
-        as::vec3_t cross_result2 = as::vec3::cross(y, z);
-        EXPECT_NEAR(cross_result2.x, 1.0f, epsilon) << "as::vec::cross failed";;
+        vec3_t cross_result2 = vec3::cross(y, z);
+        EXPECT_NEAR(cross_result2.x, 1.0f, epsilon) << "vec::cross failed";;
 
-        as::vec3_t cross_result3 = as::vec3::cross(z, x);
-        EXPECT_NEAR(cross_result3.y, 1.0f, epsilon) << "as::vec::cross failed";;
+        vec3_t cross_result3 = vec3::cross(z, x);
+        EXPECT_NEAR(cross_result3.y, 1.0f, epsilon) << "vec::cross failed";;
     }
 }
 
 TEST(as_vec, right_and_up)
 {
     {
-        as::vec3_t dir(0.0f, 0.0f, 1.0f);
+        vec3_t dir(0.0f, 0.0f, 1.0f);
 
-        as::vec3_t across_lh, up_lh;
-        as::vec3::right_and_up_lh(dir, across_lh, up_lh);
+        vec3_t across_lh, up_lh;
+        vec3::right_and_up_lh(dir, across_lh, up_lh);
 
-        EXPECT_NEAR(across_lh.x, 1.0f, epsilon) << "as::vec3::right_and_up_lh failed";
-        EXPECT_NEAR(across_lh.y, 0.0f, epsilon) << "as::vec3::right_and_up_lh failed";
-        EXPECT_NEAR(across_lh.z, 0.0f, epsilon) << "as::vec3::right_and_up_lh failed";
+        EXPECT_NEAR(across_lh.x, 1.0f, epsilon) << "vec3::right_and_up_lh failed";
+        EXPECT_NEAR(across_lh.y, 0.0f, epsilon) << "vec3::right_and_up_lh failed";
+        EXPECT_NEAR(across_lh.z, 0.0f, epsilon) << "vec3::right_and_up_lh failed";
 
-        EXPECT_NEAR(up_lh.x, 0.0f, epsilon) << "as::vec3::right_and_up_lh failed";
-        EXPECT_NEAR(up_lh.y, 1.0f, epsilon) << "as::vec3::right_and_up_lh failed";
-        EXPECT_NEAR(up_lh.z, 0.0f, epsilon) << "as::vec3::right_and_up_lh failed";
+        EXPECT_NEAR(up_lh.x, 0.0f, epsilon) << "vec3::right_and_up_lh failed";
+        EXPECT_NEAR(up_lh.y, 1.0f, epsilon) << "vec3::right_and_up_lh failed";
+        EXPECT_NEAR(up_lh.z, 0.0f, epsilon) << "vec3::right_and_up_lh failed";
     }
 
     {
-        as::vec3_t dir(0.0f, 0.0f, 1.0f);
+        vec3_t dir(0.0f, 0.0f, 1.0f);
 
-        as::vec3_t across_rh, up_rh;
-        as::vec3::right_and_up_rh(dir, across_rh, up_rh);
+        vec3_t across_rh, up_rh;
+        vec3::right_and_up_rh(dir, across_rh, up_rh);
 
-        EXPECT_NEAR(across_rh.x, -1.0f, epsilon) << "as::vec3::right_and_up_rh failed";
-        EXPECT_NEAR(across_rh.y, 0.0f, epsilon) << "as::vec3::right_and_up_rh failed";
-        EXPECT_NEAR(across_rh.z, 0.0f, epsilon) << "as::vec3::right_and_up_rh failed";
+        EXPECT_NEAR(across_rh.x, -1.0f, epsilon) << "vec3::right_and_up_rh failed";
+        EXPECT_NEAR(across_rh.y, 0.0f, epsilon) << "vec3::right_and_up_rh failed";
+        EXPECT_NEAR(across_rh.z, 0.0f, epsilon) << "vec3::right_and_up_rh failed";
 
-        EXPECT_NEAR(up_rh.x, 0.0f, epsilon) << "as::vec3::right_and_up_rh failed";
-        EXPECT_NEAR(up_rh.y, 1.0f, epsilon) << "as::vec3::right_and_up_rh failed";
-        EXPECT_NEAR(up_rh.z, 0.0f, epsilon) << "as::vec3::right_and_up_rh failed";
+        EXPECT_NEAR(up_rh.x, 0.0f, epsilon) << "vec3::right_and_up_rh failed";
+        EXPECT_NEAR(up_rh.y, 1.0f, epsilon) << "vec3::right_and_up_rh failed";
+        EXPECT_NEAR(up_rh.z, 0.0f, epsilon) << "vec3::right_and_up_rh failed";
     }
 }
 
 TEST(as_vec, equal)
 {
     {
-        as::vec3_t vec1(1.11f, 0.3f, 517.2f);
-        as::vec3_t vec2(1.11f, 0.3f, 517.2f);
+        vec3_t vec1(1.11f, 0.3f, 517.2f);
+        vec3_t vec2(1.11f, 0.3f, 517.2f);
 
-        EXPECT_TRUE(as::vec::equal(vec1, vec2)) << "as::vec::equal failed";
+        EXPECT_TRUE(vec::equal(vec1, vec2)) << "vec::equal failed";
     }
 
     {
-        as::vec3_t vec1(1.11f, 0.3f, 514.2f);
-        as::vec3_t vec2(1.114f, 0.3f, 517.2f);
+        vec3_t vec1(1.11f, 0.3f, 514.2f);
+        vec3_t vec2(1.114f, 0.3f, 517.2f);
 
-        EXPECT_FALSE(as::vec::equal(vec1, vec2)) << "as::vec::equal failed";
+        EXPECT_FALSE(vec::equal(vec1, vec2)) << "vec::equal failed";
     }
 
     {
-        as::vec3_t vec1(1.11f, 0.3f, 514.2f);
-        as::vec3_t vec2(1.11f, 0.311f, 514.2f);
+        vec3_t vec1(1.11f, 0.3f, 514.2f);
+        vec3_t vec2(1.11f, 0.311f, 514.2f);
 
-        EXPECT_FALSE(as::vec::equal(vec1, vec2)) << "as::vec::equal failed";
+        EXPECT_FALSE(vec::equal(vec1, vec2)) << "vec::equal failed";
     }
 }
 
 TEST(as_vec, abs)
 {
     {
-        as::vec4_t vec(-1.0f, -2.0f, -100.0f, -7.0f);
-        as::vec4_t result = as::vec::abs(vec);
+        vec4_t vec(-1.0f, -2.0f, -100.0f, -7.0f);
+        vec4_t result = vec::abs(vec);
 
-        as::vec4_t vec_reference = { 1.0f, 2.0f, 100.0f, 7.0f };
+        vec4_t vec_reference = { 1.0f, 2.0f, 100.0f, 7.0f };
 
-        EXPECT_TRUE(as::vec::equal(vec_reference, result)) << "as::vec::abs failed";
+        EXPECT_TRUE(vec::equal(vec_reference, result)) << "vec::abs failed";
     }
 
     {
-        as::vec4_t vec{ 1.0f, 4.0f, 6.0f, 50.0f };
-        as::vec4_t result = as::vec::abs(vec);
+        vec4_t vec{ 1.0f, 4.0f, 6.0f, 50.0f };
+        vec4_t result = vec::abs(vec);
 
-        as::vec4_t vec_reference = { 1.0f, 4.0f, 6.0f, 50.0f };
+        vec4_t vec_reference = { 1.0f, 4.0f, 6.0f, 50.0f };
 
-        EXPECT_TRUE(as::vec::equal(vec_reference, result)) << "as::vec::abs failed";
+        EXPECT_TRUE(vec::equal(vec_reference, result)) << "vec::abs failed";
     }
 }
 
 TEST(as_vec, min)
 {
     {
-        as::vec4_t vec1(-1.0f, 2.0f, -100.0f, -7.0f);
-        as::vec4_t vec2(-10.0f, 7.0f, -50.0f, -16.0f);
+        vec4_t vec1(-1.0f, 2.0f, -100.0f, -7.0f);
+        vec4_t vec2(-10.0f, 7.0f, -50.0f, -16.0f);
 
-        as::vec4_t vec_reference(-10.0f, 2.0f, -100.0f, -16.0f);
+        vec4_t vec_reference(-10.0f, 2.0f, -100.0f, -16.0f);
 
-        as::vec4_t result = as::vec::min(vec1, vec2);
+        vec4_t result = vec::min(vec1, vec2);
 
-        EXPECT_TRUE(as::vec::equal(vec_reference, result)) << "as::vec::min failed";
+        EXPECT_TRUE(vec::equal(vec_reference, result)) << "vec::min failed";
     }
 
     {
-        as::vec4_t vec1(1.0f, 2.0f, 3.0f, 4.0f);
-        as::vec4_t vec2(2.0f, 3.0f, 4.0f, 5.0f);
+        vec4_t vec1(1.0f, 2.0f, 3.0f, 4.0f);
+        vec4_t vec2(2.0f, 3.0f, 4.0f, 5.0f);
 
-        as::vec4_t vec_reference(1.0f, 2.0f, 3.0f, 4.0f);
+        vec4_t vec_reference(1.0f, 2.0f, 3.0f, 4.0f);
 
-        as::vec4_t result = as::vec::min(vec1, vec2);
+        vec4_t result = vec::min(vec1, vec2);
 
-        EXPECT_TRUE(as::vec::equal(vec_reference, result)) << "as::vec::min failed";
+        EXPECT_TRUE(vec::equal(vec_reference, result)) << "vec::min failed";
     }
 }
 
 TEST(as_vec, min_elem)
 {
     {
-        as::vec3_t vec{ -1.0f, 2.0f, -100.0f };
-        as::real_t result = as::vec::min_elem(vec);
+        vec3_t vec{ -1.0f, 2.0f, -100.0f };
+        real_t result = vec::min_elem(vec);
 
-        EXPECT_TRUE(result == -100.0f) << "as::vec::min_elem failed";
+        EXPECT_TRUE(result == -100.0f) << "vec::min_elem failed";
     }
 
     {
-        as::vec3_t vec{ 1.0f, 2.0f, 3.0f };
-        as::real_t result = as::vec::min_elem(vec);
+        vec3_t vec{ 1.0f, 2.0f, 3.0f };
+        real_t result = vec::min_elem(vec);
 
-        EXPECT_TRUE(result == 1.0f) << "as::vec::min_elem failed";
+        EXPECT_TRUE(result == 1.0f) << "vec::min_elem failed";
     }
 }
 
 TEST(as_vec, max)
 {
     {
-        as::vec4_t vec1(-1.0f, 2.0f, -100.0f, -7.0f);
-        as::vec4_t vec2(-10.0f, 7.0f, -50.0f, -16.0f);
+        vec4_t vec1(-1.0f, 2.0f, -100.0f, -7.0f);
+        vec4_t vec2(-10.0f, 7.0f, -50.0f, -16.0f);
 
-        as::vec4_t vec_reference(-1.0f, 7.0f, -50.0f, -7.0f);
+        vec4_t vec_reference(-1.0f, 7.0f, -50.0f, -7.0f);
 
-        as::vec4_t result = as::vec::max(vec1, vec2);
+        vec4_t result = vec::max(vec1, vec2);
 
-        EXPECT_TRUE(as::vec::equal(vec_reference, result)) << "as::vec::max failed";
+        EXPECT_TRUE(vec::equal(vec_reference, result)) << "vec::max failed";
     }
 
     {
-        as::vec4_t vec1(1.0f, 2.0f, 3.0f, 4.0f);
-        as::vec4_t vec2(2.0f, 3.0f, 4.0f, 5.0f);
+        vec4_t vec1(1.0f, 2.0f, 3.0f, 4.0f);
+        vec4_t vec2(2.0f, 3.0f, 4.0f, 5.0f);
 
-        as::vec4_t vec_reference(2.0f, 3.0f, 4.0f, 5.0f);
+        vec4_t vec_reference(2.0f, 3.0f, 4.0f, 5.0f);
 
-        as::vec4_t result = as::vec::max(vec1, vec2);
+        vec4_t result = vec::max(vec1, vec2);
 
-        EXPECT_TRUE(as::vec::equal(vec_reference, result)) << "as::vec::max failed";
+        EXPECT_TRUE(vec::equal(vec_reference, result)) << "vec::max failed";
     }
 }
 
 TEST(as_vec, max_elem)
 {
     {
-        as::vec3_t vec{ -1.0f, 2.0f, -100.0f };
-        as::real_t result = as::vec::max_elem(vec);
+        vec3_t vec{ -1.0f, 2.0f, -100.0f };
+        real_t result = vec::max_elem(vec);
 
-        EXPECT_TRUE(result == 2.0f) << "as::vec::max_elem failed";
+        EXPECT_TRUE(result == 2.0f) << "vec::max_elem failed";
     }
 
     {
-        as::vec3_t vec{ 1.0f, 2.0f, 3.0f };
-        as::real_t result = as::vec::max_elem(vec);
+        vec3_t vec{ 1.0f, 2.0f, 3.0f };
+        real_t result = vec::max_elem(vec);
 
-        EXPECT_TRUE(result == 3.0f) << "as::vec::max_elem failed";
+        EXPECT_TRUE(result == 3.0f) << "vec::max_elem failed";
     }
 }
 
 TEST(as_vec, clamp)
 {
     {
-        as::vec3_t min(50.0f, 50.0f, 50.0f);
-        as::vec3_t max(100.0f, 100.0f, 100.0f);
+        vec3_t min(50.0f, 50.0f, 50.0f);
+        vec3_t max(100.0f, 100.0f, 100.0f);
 
-        as::vec3_t vec(20.0f, 20.0f, 20.0f);
+        vec3_t vec(20.0f, 20.0f, 20.0f);
 
-        as::vec3_t result = as::vec::clamp(vec, min, max);
+        vec3_t result = vec::clamp(vec, min, max);
 
-        EXPECT_TRUE(as::vec::equal(result, min)) << "as::vec::clamp failed";
+        EXPECT_TRUE(vec::equal(result, min)) << "vec::clamp failed";
     }
 
     {
-        as::vec3_t min(50.0f, 50.0f, 50.0f);
-        as::vec3_t max(100.0f, 100.0f, 100.0f);
+        vec3_t min(50.0f, 50.0f, 50.0f);
+        vec3_t max(100.0f, 100.0f, 100.0f);
 
-        as::vec3_t vec(120.0f, 200.0f, 300.0f);
+        vec3_t vec(120.0f, 200.0f, 300.0f);
 
-        as::vec3_t result = as::vec::clamp(vec, min, max);
+        vec3_t result = vec::clamp(vec, min, max);
 
-        EXPECT_TRUE(as::vec::equal(result, max)) << "as::vec::clamp failed";
+        EXPECT_TRUE(vec::equal(result, max)) << "vec::clamp failed";
     }
 
     {
-        as::vec3_t min(50.0f, 50.0f, 50.0f);
-        as::vec3_t max(100.0f, 100.0f, 100.0f);
+        vec3_t min(50.0f, 50.0f, 50.0f);
+        vec3_t max(100.0f, 100.0f, 100.0f);
 
-        as::vec3_t vec(20.0f, 120.0f, 20.0f);
-        as::vec3_t vec_reference(50.0f, 100.0f, 50.0f);
+        vec3_t vec(20.0f, 120.0f, 20.0f);
+        vec3_t vec_reference(50.0f, 100.0f, 50.0f);
 
-        as::vec3_t result = as::vec::clamp(vec, min, max);
+        vec3_t result = vec::clamp(vec, min, max);
 
-        EXPECT_TRUE(as::vec::equal(result, vec_reference)) << "as::vec::clamp failed";
+        EXPECT_TRUE(vec::equal(result, vec_reference)) << "vec::clamp failed";
     }
 
     {
-        as::vec3_t min(50.0f, 50.0f, 50.0f);
-        as::vec3_t max(100.0f, 100.0f, 100.0f);
+        vec3_t min(50.0f, 50.0f, 50.0f);
+        vec3_t max(100.0f, 100.0f, 100.0f);
 
-        as::vec3_t vec(62.0f, 56.0f, 72.0f);
+        vec3_t vec(62.0f, 56.0f, 72.0f);
 
-        as::vec3_t result = as::vec::clamp(vec, min, max);
+        vec3_t result = vec::clamp(vec, min, max);
 
-        EXPECT_TRUE(as::vec::equal(result, vec)) << "as::vec::clamp failed";
+        EXPECT_TRUE(vec::equal(result, vec)) << "vec::clamp failed";
     }
 }
 
 TEST(as_vec, saturate)
 {
     {
-        as::vec3_t vec(-2.0f, 0.5f, 1.2f);
-        as::vec3_t result = as::vec::saturate(vec);
+        vec3_t vec(-2.0f, 0.5f, 1.2f);
+        vec3_t result = vec::saturate(vec);
 
-        as::vec3_t vec_reference(0.0f, 0.5f, 1.0f);
+        vec3_t vec_reference(0.0f, 0.5f, 1.0f);
 
-        EXPECT_TRUE(as::vec::equal(result, vec_reference)) << "as::vec::saturate failed";
+        EXPECT_TRUE(vec::equal(result, vec_reference)) << "vec::saturate failed";
     }
 
     {
-        as::vec3_t vec(3.0f, 0.1f, -1.2f);
-        as::vec3_t result = as::vec::saturate(vec);
+        vec3_t vec(3.0f, 0.1f, -1.2f);
+        vec3_t result = vec::saturate(vec);
 
-        as::vec3_t vec_reference(1.0f, 0.1f, 0.0f);
+        vec3_t vec_reference(1.0f, 0.1f, 0.0f);
 
-        EXPECT_TRUE(as::vec::equal(result, vec_reference)) << "as::vec::saturate failed";
+        EXPECT_TRUE(vec::equal(result, vec_reference)) << "vec::saturate failed";
     }
 }
 
@@ -1144,45 +1466,45 @@ TEST(as_vec, saturate)
 TEST(as_vec, lerp)
 {
     {
-        as::vec3_t start(0.0f, 10.0f, 20.0f);
-        as::vec3_t end(10.0f, 40.0f, 100.0f);
+        vec3_t start(0.0f, 10.0f, 20.0f);
+        vec3_t end(10.0f, 40.0f, 100.0f);
 
-        as::vec3_t result_begin = as::vec::lerp(0.0f, start, end);
-        as::vec3_t result_mid = as::vec::lerp(0.5f, start, end);
-        as::vec3_t result_end = as::vec::lerp(1.0f, start, end);
+        vec3_t result_begin = vec::lerp(0.0f, start, end);
+        vec3_t result_mid = vec::lerp(0.5f, start, end);
+        vec3_t result_end = vec::lerp(1.0f, start, end);
 
-        EXPECT_TRUE(result_begin.x == 0.0f && result_begin.y == 10.0f && result_begin.z == 20.0f) << "as::vec lerp failed";
-        EXPECT_TRUE(result_mid.x == 5.0f && result_mid.y == 25.0f && result_mid.z == 60.0f) << "as::vec lerp failed";
-        EXPECT_TRUE(result_end.x == 10.0f && result_end.y == 40.0f && result_end.z == 100.0f) << "as::vec lerp failed";
+        EXPECT_TRUE(result_begin.x == 0.0f && result_begin.y == 10.0f && result_begin.z == 20.0f) << "vec lerp failed";
+        EXPECT_TRUE(result_mid.x == 5.0f && result_mid.y == 25.0f && result_mid.z == 60.0f) << "vec lerp failed";
+        EXPECT_TRUE(result_end.x == 10.0f && result_end.y == 40.0f && result_end.z == 100.0f) << "vec lerp failed";
     }
 }
 
 TEST(as_vec, normalize_return_length)
 {
     {
-        as::vec3_t vec(3.0f, 4.0f, 0.0f);
-        as::vec3_t vec_normalized;
-        as::real_t length = as::vec::normalize_return_length(vec, vec_normalized);
+        vec3_t vec(3.0f, 4.0f, 0.0f);
+        vec3_t vec_normalized;
+        real_t length = vec::normalize_return_length(vec, vec_normalized);
 
-        EXPECT_FLOAT_EQ(length, 5.0f) << "as::vec::normalize_return_length failed - length";
-        EXPECT_FLOAT_EQ(as::vec::length(vec_normalized), 1.0f) << "as::vec::normalize_return_length failed - normalize";
+        EXPECT_FLOAT_EQ(length, 5.0f) << "vec::normalize_return_length failed - length";
+        EXPECT_FLOAT_EQ(vec::length(vec_normalized), 1.0f) << "vec::normalize_return_length failed - normalize";
     }
 }
 
 TEST(as_vec, select) {
-    using int3 = as::vec_t<int, 3>;
+    using int3 = vec_t<int, 3>;
 
     int3 a(1, 2, 3);
     int3 b(5, 6, 7);
 
-    using byte4 = as::vec_t<as::u8, 4>;
+    using byte4 = vec_t<u8, 4>;
 
-    byte4 c((as::u8)255, (as::u8)255, (as::u8)255, (as::u8)255);
-    byte4 d((as::u8)0, (as::u8)0, (as::u8)0, (as::u8)0);
+    byte4 c((u8)255, (u8)255, (u8)255, (u8)255);
+    byte4 d((u8)0, (u8)0, (u8)0, (u8)0);
 
-    int3 result = as::vec::select(a, b, true);
-    byte4 result_byte = as::vec::select(c, d, false);
+    int3 result = vec::select(a, b, true);
+    byte4 result_byte = vec::select(c, d, false);
 
-    EXPECT_TRUE(result[0] == 1 && result[1] == 2 && result[2] == 3) << "as::vec select failed";
-    EXPECT_TRUE(result_byte[0] == 0 && result_byte[1] == 0 && result_byte[2] == 0 && result_byte[3] == 0) << "as::vec select failed";
+    EXPECT_TRUE(result[0] == 1 && result[1] == 2 && result[2] == 3) << "vec select failed";
+    EXPECT_TRUE(result_byte[0] == 0 && result_byte[1] == 0 && result_byte[2] == 0 && result_byte[3] == 0) << "vec select failed";
 }
