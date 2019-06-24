@@ -57,7 +57,7 @@ struct vec2_base_t
     vec2_base_t& operator=(vec2_base_t&&) noexcept = default;
     ~vec2_base_t() noexcept = default;
 
-    constexpr vec2_base_t(T xy) : x(xy), y(xy) {}
+    constexpr explicit vec2_base_t(T xy) : x(xy), y(xy) {}
     constexpr vec2_base_t(T x, T y) : x(x), y(y) {}
 
 private:
@@ -83,7 +83,7 @@ struct vec_t<T, 2> : internal::vec2_base_t<T>
     vec_t& operator=(vec_t&&) noexcept = default;
     ~vec_t() noexcept = default;
 
-    constexpr vec_t(T xy) : internal::vec2_base_t<T>(xy) {}
+    constexpr explicit vec_t(T xy) : internal::vec2_base_t<T>(xy) {}
     constexpr vec_t(T x, T y) : internal::vec2_base_t<T>(x, y) {}
 };
 
@@ -113,7 +113,7 @@ struct vec3_base_t
     vec3_base_t& operator=(vec3_base_t&&) noexcept = default;
     ~vec3_base_t() noexcept = default;
 
-    constexpr vec3_base_t(T xyz) : x(xyz), y(xyz), z(xyz) {}
+    constexpr explicit vec3_base_t(T xyz) : x(xyz), y(xyz), z(xyz) {}
     constexpr vec3_base_t(const vec2_t& xy, T z) : x(xy.x), y(xy.y), z(z) {}
     constexpr vec3_base_t(T x, T y, T z) : x(x), y(y), z(z) {}
 
@@ -143,7 +143,7 @@ struct vec_t<T, 3> : internal::vec3_base_t<T>
     vec_t& operator=(vec_t&&) noexcept = default;
     ~vec_t() noexcept = default;
 
-    constexpr vec_t(T xyz) : internal::vec3_base_t<T>(xyz) {}
+    constexpr explicit vec_t(T xyz) : internal::vec3_base_t<T>(xyz) {}
     constexpr vec_t(const vec_t<T, 2>& xy, T z) : internal::vec3_base_t<T>(xy, z) {}
     constexpr vec_t(T x, T y, T z) : internal::vec3_base_t<T>(x, y, z) {}
 };
@@ -174,7 +174,7 @@ struct vec4_base_t
     vec4_base_t& operator=(vec4_base_t&&) noexcept = default;
     ~vec4_base_t() noexcept = default;
 
-    constexpr vec4_base_t(T xyzw) : x(xyzw), y(xyzw), z(xyzw), w(xyzw) {}
+    constexpr explicit vec4_base_t(T xyzw) : x(xyzw), y(xyzw), z(xyzw), w(xyzw) {}
     constexpr vec4_base_t(const vec_t<T, 3>& xyz, T w) : x(xyz.x), y(xyz.y), z(xyz.z), w(w) {}
     constexpr vec4_base_t(const vec_t<T, 2>& xy, T z, T w) : x(xy.x), y(xy.y), z(z), w(w) {}
     constexpr vec4_base_t(const vec_t<T, 2>& xy, const vec_t<T, 2>& zw) : x(xy.x), y(xy.y), z(zw.x), w(zw.y) {}
@@ -209,7 +209,7 @@ struct vec_t<T, 4> : internal::vec4_base_t<T>
     vec_t& operator=(vec_t&&) noexcept = default;
     ~vec_t() noexcept = default;
 
-    constexpr vec_t(T xyzw) : internal::vec4_base_t<T>(xyzw) {}
+    constexpr explicit vec_t(T xyzw) : internal::vec4_base_t<T>(xyzw) {}
     constexpr vec_t(const vec_t<T, 3>& xyz, T w) : internal::vec4_base_t<T>(xyz, w) {}
     constexpr vec_t(const vec_t<T, 2>& xy, T z, T w) : internal::vec4_base_t<T>(xy, z, w) {}
     constexpr vec_t(const vec_t<T, 2>& xy, const vec_t<T, 2>& zw) : internal::vec4_base_t<T>(xy, zw) {}
