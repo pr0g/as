@@ -68,6 +68,9 @@ This is my preferred approach and if you're a CMake wizz you'll probably want to
 7. Specify the required defines
 
     ```cmake
+    # AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE
+    # AS_COL_MAJOR or AS_ROW_MAJOR
+
     target_compile_definitions(
         ${PROJECT_NAME} PRIVATE AS_PRECISION_FLOAT AS_COL_MAJOR)
     ```
