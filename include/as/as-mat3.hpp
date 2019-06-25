@@ -10,7 +10,7 @@ using mat33_t = mat_t<real_t, 3, 3>;
 template<> struct mat_t<real_t, 3, 3>
 {
     real_t elem_rc[3][3];
-    static const size_t size = 3 * 3;
+    static constexpr size_t size = 3 * 3;
 
 #ifdef AS_ROW_MAJOR
     vec3_t row(size_t i) const { return vec3_t(elem_rc[i][0], elem_rc[i][1], elem_rc[i][2]); }

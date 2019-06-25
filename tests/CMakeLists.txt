@@ -18,7 +18,8 @@ add_executable(
     ${PROJECT_NAME}
     main.cpp test-affine.cpp
     test-mat.cpp test-point.cpp
-    test-quat.cpp test-vec.cpp)
+    test-quat.cpp test-vec.cpp
+    test-math.cpp)
 
 string(
     APPEND build_options

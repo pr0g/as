@@ -55,17 +55,7 @@ real_t dot(const vec3_t& lhs, const vec3_t& rhs)
 }
 
 template<typename T, size_t n>
-T length_squared(const vec_t<T, n>& vec)
-{
-    T result = 0;
-    for (size_t i = 0; i < n; ++i) {
-        result += vec[i] * vec[i];
-    }
-    return result;
-}
-
-template<>
-inline real_t length_squared(const vec3_t& vec)
+T length_sq(const vec_t<T, n>& vec)
 {
     return dot(vec, vec);
 }
@@ -73,7 +63,7 @@ inline real_t length_squared(const vec3_t& vec)
 template<typename T, size_t n>
 T length(const vec_t<T, n>& vec)
 {
-    return sqrtr(length_squared(vec));
+    return sqrtr(length_sq(vec));
 }
 
 template<typename T, size_t n>
@@ -96,7 +86,7 @@ bool equal(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs,
 {
     bool eq = true;
     for (size_t i = 0; i < n; ++i) {
-        eq &= as::equal(lhs[i], rhs[i], epsilon, epsilon);
+        eq = eq && as::equal(lhs[i], rhs[i], epsilon, epsilon);
         if (!eq) { break; }
     }
     return eq;
@@ -628,14 +618,14 @@ constexpr real_t dot(const quat_t& a, const quat_t& b)
     return a.w * b.w + a.x * b.x + a.y * b.y + a.z * b.z;
 }
 
-constexpr real_t length_squared(const quat_t& a)
+constexpr real_t length_sq(const quat_t& a)
 {
     return dot(a, a);
 }
 
 real_t length(const quat_t& a)
 {
-    return sqrtr(length_squared(a));
+    return sqrtr(length_sq(a));
 }
 
 quat_t normalize(const quat_t& a)
@@ -650,7 +640,7 @@ constexpr quat_t conjugate(const quat_t& a)
 
 quat_t inverse(const quat_t& a)
 {
-    return conjugate(a) / length_squared(a);
+    return conjugate(a) / length_sq(a);
 }
 
 vec3_t rotate(const quat_t& q, const vec3_t& v)

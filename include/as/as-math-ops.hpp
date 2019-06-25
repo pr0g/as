@@ -35,10 +35,7 @@ template<>
 inline real_t dot(const vec3_t& lhs, const vec3_t& rhs);
 
 template<typename T, size_t n>
-inline T length_squared(const vec_t<T, n>& vec);
-
-template<>
-inline real_t length_squared(const vec3_t& vec);
+inline T length_sq(const vec_t<T, n>& vec);
 
 template<typename T, size_t n>
 inline T length(const vec_t<T, n>& vec);
@@ -225,7 +222,7 @@ namespace quat
 constexpr inline quat_t identity() { return { 1.0f, 0.0f, 0.0f, 0.0f }; }
 
 constexpr inline real_t dot(const quat_t& a, const quat_t& b);
-constexpr inline real_t length_squared(const quat_t& a);
+constexpr inline real_t length_sq(const quat_t& a);
 constexpr inline quat_t conjugate(const quat_t& a);
 
 inline quat_t axis_angle(const vec3_t& axis, real_t radians);

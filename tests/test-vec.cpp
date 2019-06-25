@@ -1206,6 +1206,84 @@ TEST(as_vec, dot_vec3)
     }
 }
 
+TEST(as_vec, axes_vec2)
+{
+    using ::testing::ElementsAreArray;
+
+    constexpr real_t x_axis[] = { 1.0f, 0.0f };
+    EXPECT_THAT(x_axis, ElementsAreArray(as::vec2::axis_x().elems(), 2));
+
+    constexpr real_t y_axis[] = { 0.0f, 1.0f };
+    EXPECT_THAT(y_axis, ElementsAreArray(as::vec2::axis_y().elems(), 2));
+
+    constexpr real_t zero[] = { 0.0f, 0.0f };
+    EXPECT_THAT(zero, ElementsAreArray(as::vec2::zero().elems(), 2));
+
+    constexpr real_t one[] = { 1.0f, 1.0f };
+    EXPECT_THAT(one, ElementsAreArray(as::vec2::one().elems(), 2));
+
+    constexpr real_t max[] = { REAL_MAX, REAL_MAX };
+    EXPECT_THAT(max, ElementsAreArray(as::vec2::max().elems(), 2));
+
+    constexpr real_t min[] = { REAL_MIN, REAL_MIN };
+    EXPECT_THAT(min, ElementsAreArray(as::vec2::min().elems(), 2));
+}
+
+TEST(as_vec, axes_vec3)
+{
+    using ::testing::ElementsAreArray;
+
+    constexpr real_t x_axis[] = { 1.0f, 0.0f, 0.0f };
+    EXPECT_THAT(x_axis, ElementsAreArray(as::vec3::axis_x().elems(), 3));
+
+    constexpr real_t y_axis[] = { 0.0f, 1.0f, 0.0f };
+    EXPECT_THAT(y_axis, ElementsAreArray(as::vec3::axis_y().elems(), 3));
+
+    constexpr real_t z_axis[] = { 0.0f, 0.0f, 1.0f };
+    EXPECT_THAT(z_axis, ElementsAreArray(as::vec3::axis_z().elems(), 3));
+
+    constexpr real_t zero[] = { 0.0f, 0.0f, 0.0f };
+    EXPECT_THAT(zero, ElementsAreArray(as::vec3::zero().elems(), 3));
+
+    constexpr real_t one[] = { 1.0f, 1.0f, 1.0f };
+    EXPECT_THAT(one, ElementsAreArray(as::vec3::one().elems(), 3));
+
+    constexpr real_t max[] = { REAL_MAX, REAL_MAX, REAL_MAX };
+    EXPECT_THAT(max, ElementsAreArray(as::vec3::max().elems(), 3));
+
+    constexpr real_t min[] = { REAL_MIN, REAL_MIN, REAL_MIN };
+    EXPECT_THAT(min, ElementsAreArray(as::vec3::min().elems(), 3));
+}
+
+TEST(as_vec, axes_vec4)
+{
+    using ::testing::ElementsAreArray;
+
+    constexpr real_t x_axis[] = { 1.0f, 0.0f, 0.0f, 0.0f };
+    EXPECT_THAT(x_axis, ElementsAreArray(as::vec4::axis_x().elems(), 4));
+
+    constexpr real_t y_axis[] = { 0.0f, 1.0f, 0.0f, 0.0f };
+    EXPECT_THAT(y_axis, ElementsAreArray(as::vec4::axis_y().elems(), 4));
+
+    constexpr real_t z_axis[] = { 0.0f, 0.0f, 1.0f, 0.0f };
+    EXPECT_THAT(z_axis, ElementsAreArray(as::vec4::axis_z().elems(), 4));
+
+    constexpr real_t w_axis[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+    EXPECT_THAT(w_axis, ElementsAreArray(as::vec4::axis_w().elems(), 4));
+
+    constexpr real_t zero[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+    EXPECT_THAT(zero, ElementsAreArray(as::vec4::zero().elems(), 4));
+
+    constexpr real_t one[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+    EXPECT_THAT(one, ElementsAreArray(as::vec4::one().elems(), 4));
+
+    constexpr real_t max[] = { REAL_MAX, REAL_MAX, REAL_MAX, REAL_MAX };
+    EXPECT_THAT(max, ElementsAreArray(as::vec4::max().elems(), 4));
+
+    constexpr real_t min[] = { REAL_MIN, REAL_MIN, REAL_MIN, REAL_MIN };
+    EXPECT_THAT(min, ElementsAreArray(as::vec4::min().elems(), 4));
+}
+
 TEST(as_vec, cross)
 {
     // note: comparison values calculated using https://www.symbolab.com/solver/vector-cross-product-calculator
@@ -1511,14 +1589,22 @@ TEST(as_vec, lerp)
 
 TEST(as_vec, normalize_return_length)
 {
-    {
-        vec3_t vec(3.0f, 4.0f, 0.0f);
-        vec3_t vec_normalized;
-        real_t length = vec::normalize_return_length(vec, vec_normalized);
+    vec3_t vec(3.0f, 4.0f, 0.0f);
+    vec3_t vec_normalized;
+    real_t length = vec::normalize_return_length(vec, vec_normalized);
 
-        EXPECT_FLOAT_EQ(length, 5.0f) << "vec::normalize_return_length failed - length";
-        EXPECT_FLOAT_EQ(vec::length(vec_normalized), 1.0f) << "vec::normalize_return_length failed - normalize";
-    }
+    EXPECT_FLOAT_EQ(length, 5.0f) << "vec::normalize_return_length failed - length";
+    EXPECT_FLOAT_EQ(vec::length(vec_normalized), 1.0f) << "vec::normalize_return_length failed - normalize";
+}
+
+TEST(as_vec, length_squared)
+{
+    using vec5_t = vec_t<real_t, 5>;
+
+    vec3_t vec(3.0f, 4.0f, 0.0f);
+    real_t length_sq = vec::length_sq(vec);
+
+    EXPECT_NEAR(length_sq, 25.0f, 1e6f) << "vec::length_sq failed";
 }
 
 TEST(as_vec, select) {
@@ -1537,4 +1623,13 @@ TEST(as_vec, select) {
 
     EXPECT_TRUE(result[0] == 1 && result[1] == 2 && result[2] == 3) << "vec select failed";
     EXPECT_TRUE(result_byte[0] == 0 && result_byte[1] == 0 && result_byte[2] == 0 && result_byte[3] == 0) << "vec select failed";
+}
+
+TEST(as_vec, wedge_vec2)
+{
+    vec2_t vec1(2.0f, 0.0f);
+    vec2_t vec2(0.0f, 2.0f);
+    real_t result = as::vec2::wedge(vec1, vec2);
+
+    EXPECT_NEAR(result, 4.0f, 1e6f);
 }

@@ -11,7 +11,7 @@ using mat44_t = mat_t<real_t, 4, 4>;
 template<> struct mat_t<real_t, 4, 4>
 {
     real_t elem_rc[4][4];
-    static const size_t size = 4 * 4;
+    static constexpr size_t size = 4 * 4;
 
 #ifdef AS_ROW_MAJOR
     vec4_t row(size_t i) const { return vec4_t(elem_rc[i][0], elem_rc[i][1], elem_rc[i][2], elem_rc[i][3]); }
