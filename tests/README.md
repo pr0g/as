@@ -21,7 +21,7 @@ cd out
 open index.html # to view report
 
 # tom notes
-cmake .. -DDEV_LIB_DIR=/Users/tomhultonharrop/Documents/Projects/as-math/as-math
+cmake .. -DDEV_LIB_DIR=../../
 
 # repeated steps
 cmake --build . --target scrub
