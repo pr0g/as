@@ -1015,14 +1015,14 @@ TEST(as_vec, multiplication_scalar)
     // vec_t operator '*'
     {
         vec5_t vec = 5.0f * vec5_t{50.0f, 40.0f, 25.0f, 20.0f, 10.0f};
-        EXPECT_TRUE(vec::equal(vec, vec5_t(250.0f, 200.0f, 125.0, 100.0f, 50.0f)));
+        EXPECT_TRUE(vec::equal(vec, vec5_t(250.0f, 200.0f, 125.0f, 100.0f, 50.0f)));
     }
 
     // vec_t operator '*='
     {
         vec5_t vec = vec5_t{50.0f, 40.0f, 25.0f, 20.0f, 10.0f};
         vec *= 5.0f;
-        EXPECT_TRUE(vec::equal(vec, vec5_t(250.0f, 200.0f, 125.0, 100.0f, 50.0f)));
+        EXPECT_TRUE(vec::equal(vec, vec5_t(250.0f, 200.0f, 125.0f, 100.0f, 50.0f)));
     }
 }
 
