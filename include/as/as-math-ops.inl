@@ -332,8 +332,9 @@ mat_t<T, rc - 1, rc - 1> sub_matrix(
     size_t i = 0;
     for (size_t r = 0; r < rc; ++r) {
         for (size_t c = 0; c < rc; ++c) {
-            if (r == row || c == col)
+            if (r == row || c == col) {
                 continue;
+            }
             result[i++] = mat[r * rc + c];
         }
     }
@@ -681,12 +682,12 @@ vec3_t transform_dir(const affine_t& affine, const vec3_t& direction)
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
-vec3_t transform_pos(const affine_t& affine, const vec3_t& position_)
+vec3_t transform_pos(const affine_t& affine, const vec3_t& position)
 {
 #if defined AS_COL_MAJOR
-    return affine.rotation * position_ + affine.position;
+    return affine.rotation * position + affine.position;
 #elif defined AS_ROW_MAJOR
-    return position_ * affine.rotation + affine.position;
+    return position * affine.rotation + affine.position;
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
@@ -700,13 +701,13 @@ vec3_t inv_transform_dir(const affine_t& affine, const vec3_t& direction)
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
-vec3_t inv_transform_pos(const affine_t& affine, const vec3_t& position_)
+vec3_t inv_transform_pos(const affine_t& affine, const vec3_t& position)
 {
     const mat33_t invRotation = as::mat::inverse(affine.rotation);
 #if defined AS_COL_MAJOR
-    return invRotation * (position_ - affine.position);
+    return invRotation * (position - affine.position);
 #elif defined AS_ROW_MAJOR
-    return (position_ - affine.position) * invRotation;
+    return (position - affine.position) * invRotation;
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
