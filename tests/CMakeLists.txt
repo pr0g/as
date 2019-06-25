@@ -20,9 +20,20 @@ add_executable(
     test-mat.cpp test-point.cpp
     test-quat.cpp test-vec.cpp)
 
+target_compile_options(
+    ${CMAKE_PROJECT_NAME} PRIVATE "-g;-fprofile-arcs;-ftest-coverage;-O0;-fno-inline")
+target_link_options(
+    ${CMAKE_PROJECT_NAME} PRIVATE "-fprofile-instr-generate") # clang
+    # ${CMAKE_PROJECT_NAME} PRIVATE "-fprofile-generate") # gcc
 target_compile_features(
     ${PROJECT_NAME} PRIVATE cxx_std_17)
 target_compile_definitions(
     ${PROJECT_NAME} PRIVATE AS_PRECISION_FLOAT AS_COL_MAJOR)
 target_link_libraries(
     ${PROJECT_NAME} as::as GTest::GTest GTest::Main)
+
+add_custom_target(scrub
+    COMMAND ${CMAKE_MAKE_PROGRAM} clean
+    COMMAND rm -f ${CMAKE_BINARY_DIR}/CMakeFiles/as-test.dir/*.gcno
+    COMMAND rm -f ${CMAKE_BINARY_DIR}/CMakeFiles/as-test.dir/*.gcda
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
