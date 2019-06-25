@@ -20,11 +20,35 @@ add_executable(
     test-mat.cpp test-point.cpp
     test-quat.cpp test-vec.cpp)
 
+string(
+    APPEND build_options
+    "$<"
+        "$<AND:"
+            "$<COMPILE_LANGUAGE:CXX>,"
+            "$<OR:"
+                "$<CXX_COMPILER_ID:Clang>,"
+                "$<CXX_COMPILER_ID:AppleClang>,"
+                "$<CXX_COMPILER_ID:GNU>"
+            ">"
+        ">:"
+        "{options}"
+    ">"
+)
+
+string(
+    REPLACE "{options}" "-g;-fprofile-arcs;-ftest-coverage;-O0;-fno-inline"
+    compile_options "${build_options}"
+)
+
+string(
+    REPLACE "{options}" "-fprofile-instr-generate" # -fprofile-generate
+    link_options "${build_options}"
+)
+
 target_compile_options(
-    ${CMAKE_PROJECT_NAME} PRIVATE "-g;-fprofile-arcs;-ftest-coverage;-O0;-fno-inline")
+    ${CMAKE_PROJECT_NAME} PRIVATE "${compile_options}")
 target_link_options(
-    ${CMAKE_PROJECT_NAME} PRIVATE "-fprofile-instr-generate") # clang
-    # ${CMAKE_PROJECT_NAME} PRIVATE "-fprofile-generate") # gcc
+    ${CMAKE_PROJECT_NAME} PRIVATE "${link_options}")
 target_compile_features(
     ${PROJECT_NAME} PRIVATE cxx_std_17)
 target_compile_definitions(
