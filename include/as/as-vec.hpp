@@ -92,6 +92,8 @@ struct vec_t<T, 2> : internal::vec2_base_t<T>
 };
 
 using vec2_t = vec_t<real_t, 2>;
+using vec2f_t = vec_t<float, 2>;
+using vec2d_t = vec_t<double, 2>;
 using vec2i_t = vec_t<int32_t, 2>;
 using vec2l_t = vec_t<int64_t, 2>;
 
@@ -153,6 +155,8 @@ struct vec_t<T, 3> : internal::vec3_base_t<T>
 };
 
 using vec3_t = vec_t<real_t, 3>;
+using vec3f_t = vec_t<float, 3>;
+using vec3d_t = vec_t<double, 3>;
 using vec3i_t = vec_t<int32_t, 3>;
 using vec3l_t = vec_t<int64_t, 3>;
 
@@ -221,6 +225,8 @@ struct vec_t<T, 4> : internal::vec4_base_t<T>
 };
 
 using vec4_t = vec_t<real_t, 4>;
+using vec4f_t = vec_t<float, 4>;
+using vec4d_t = vec_t<double, 4>;
 using vec4i_t = vec_t<int32_t, 4>;
 using vec4l_t = vec_t<int64_t, 4>;
 

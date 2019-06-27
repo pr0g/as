@@ -604,6 +604,22 @@ TEST(as_vec, const_elem_access)
     EXPECT_THAT(vec_arr, ElementsAreArray(vec5.elems(), 5));
 }
 
+TEST(as_vec, elem_access)
+{
+    using ::testing::ElementsAreArray;
+
+    vec_t<real_t, 5> vec5(1.0f, 2.0f, 3.0f, 4.0f, 5.0f);
+
+    real_t elem_0 = vec5[0];
+    real_t elem_1 = vec5[1];
+    real_t elem_2 = vec5[2];
+    real_t elem_3 = vec5[3];
+    real_t elem_4 = vec5[4];
+
+    const real_t vec_arr[] = { elem_0, elem_1, elem_2, elem_3, elem_4 };
+    EXPECT_THAT(vec_arr, ElementsAreArray(vec5.elems(), 5));
+}
+
 TEST(as_vec, const_elem_access_v2_v3_v4)
 {
     using ::testing::ElementsAreArray;
@@ -1633,3 +1649,9 @@ TEST(as_vec, wedge_vec2)
 
     EXPECT_NEAR(result, 4.0f, 1e6f);
 }
+
+// explicit instantiations
+template struct as::vec_t<real_t, 2>;
+template struct as::vec_t<real_t, 3>;
+template struct as::vec_t<real_t, 4>;
+template struct as::vec_t<real_t, 5>;

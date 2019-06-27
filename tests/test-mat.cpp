@@ -441,3 +441,8 @@ TEST(as_mat, mat_mat44_from_mat33_and_vec3)
 
     EXPECT_THAT(mat33_and_vec3, ElementsAreArray(mat44.elems(), 16));
 }
+
+template struct as::mat_t<real_t, 2, 2>;
+template struct as::mat_t<real_t, 3, 3>;
+template struct as::mat_t<real_t, 4, 4>;
+template struct as::mat_t<real_t, 5, 5>;
