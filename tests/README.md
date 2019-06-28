@@ -4,6 +4,7 @@
 mkdir build && cd build
 # generate
 cmake .. -DDEV_LIB_DIR=<path/to/library/root> # that contains CMakeLists.txt
+# actual - cmake .. -DDEV_LIB_DIR=../../
 # build
 cmake --build .
 #run
@@ -19,11 +20,10 @@ lcov --capture --directory ../../ --output-file coverage.info
 genhtml coverage.info --output-directory out
 cd out
 open index.html # to view report
+```
 
-# tom notes
-cmake .. -DDEV_LIB_DIR=../../
-
-# repeated steps
+```bash
+# gcov method
 cmake --build . --target scrub
 cmake ..
 cmake --build .
@@ -33,4 +33,22 @@ gcov ../../test-vec.cpp -o ../CMakeFiles/as-test.dir/test-vec.cpp.gcno
 lcov --capture --directory ../../ --output-file coverage.info
 genhtml coverage.info --output-directory out
 open out/index.html
+```
+
+```bash
+# gcov alternate method
+mkdir coverage && cd coverage
+xcrun llvm-cov gcov -f -b ../CMakeFiles/as-test.dir/*.gcda
+lcov --capture --directory ../../ --output-file coverage.info
+genhtml coverage.info --output-directory out
+open out/index.html
+```
+
+```bash
+# llvm-cov method
+cmake ..
+cmake --build .
+./as-test
+xcrun llvm-profdata merge -o as-test.profdata default.profraw
+xcrun llvm-cov show ./as-test -instr-profile=as-test.profdata > as-test-out.txt
 ```
