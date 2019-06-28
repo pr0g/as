@@ -501,13 +501,34 @@ TEST(as_mat, odd_multiply)
     };
 
     mat42_t rhs {
-        1.0f, 2.0, 3.0f, 4.0f,
-        5.0f, 6.0f, 7.0f, 8.0f
+        1.0f, 2.0,
+        3.0f, 4.0f,
+        5.0f, 6.0f,
+        7.0f, 8.0f
     };
 
+    const real_t matt_arr_44[] = {
+        32.0f, 26.0f, 20.0f, 14.0f,
+        80.0f, 66.0f, 52.0f, 38.0f,
+        128.0f, 106.0f, 84.0f, 62.0f,
+        176.0f, 146.0f, 116.0f, 86.0f
+    };
+
+    const real_t matt_arr_22[] = { 188.0f, 240.0f, 60.0f, 80.0f };
+
+#ifdef AS_ROW_MAJOR
     mat22_t result22 = lhs * rhs;
+    EXPECT_THAT(matt_arr_22, ElementsAreArray(result22.elems(), 4));
 
     mat44_t result44 = rhs * lhs;
+    EXPECT_THAT(matt_arr_44, ElementsAreArray(result44.elems(), 16));
+#elif defined AS_COL_MAJOR
+    mat44_t result44 = lhs * rhs;
+    EXPECT_THAT(matt_arr_44, ElementsAreArray(result44.elems(), 16));
+
+    mat22_t result22 = rhs * lhs;
+    EXPECT_THAT(matt_arr_22, ElementsAreArray(result22.elems(), 4));
+#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 }
 
 // explicit instantiations (for coverage)

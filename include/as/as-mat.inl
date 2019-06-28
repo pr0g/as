@@ -2,20 +2,33 @@ namespace as
 {
 
 template <typename T, size_t lr, size_t lc, size_t rr, size_t rc>
-const mat_t<T, rc, rc> operator*(const mat_t<T, lr, lc>& lhs, const mat_t<T, rr, rc>& rhs)
+#if defined AS_ROW_MAJOR
+const mat_t<T, rc, rc>
+#elif defined AS_COL_MAJOR
+const mat_t<T, lc, lc>
+#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+operator*(const mat_t<T, lr, lc>& lhs, const mat_t<T, rr, rc>& rhs)
 {
+#if defined AS_ROW_MAJOR
     mat_t<T, rc, rc> result;
-// #ifdef AS_COL_MAJOR
-//     for (size_t colIndex = 0; colIndex < c; ++colIndex) {
-//         for (size_t rowIndex = 0; rowIndex < r; ++rowIndex) {
-//             T value = 0;
-//             for (size_t step = 0; step < r; ++step) {
-//                 value += lhs[rowIndex + c * step] * rhs[colIndex * r + step];
-//             }
-//             result[colIndex * c + rowIndex] = value;
-//         }
-//     }
-// #elif defined AS_ROW_MAJOR
+#elif defined AS_COL_MAJOR
+    mat_t<T, lc, lc> result;
+#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+
+#ifdef AS_COL_MAJOR
+    for (size_t rowIndex = 0; rowIndex < rr; ++rowIndex) {
+        for (size_t colIndex = 0; colIndex < lc; ++colIndex) {
+            T value = 0;
+            for (size_t step = 0; step < lr; ++step) {
+                const T left = lhs[colIndex + lc * step];
+                const T right = rhs[rowIndex * rc + step];
+                const T intermediate = left * right;
+                value += intermediate;
+            }
+            result[rowIndex * lc + colIndex] = value;
+        }
+    }
+#elif defined AS_ROW_MAJOR
     for (size_t rowIndex = 0; rowIndex < lr; ++rowIndex) {
         for (size_t colIndex = 0; colIndex < rc; ++colIndex) {
             T value = 0;
@@ -28,7 +41,7 @@ const mat_t<T, rc, rc> operator*(const mat_t<T, lr, lc>& lhs, const mat_t<T, rr,
             result[rowIndex * lr + colIndex] = value;
         }
     }
-// #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
     return result;
 }
 
