@@ -442,7 +442,74 @@ TEST(as_mat, mat_mat44_from_mat33_and_vec3)
     EXPECT_THAT(mat33_and_vec3, ElementsAreArray(mat44.elems(), 16));
 }
 
+TEST(as_mat, const_elem_access)
+{
+    using ::testing::ElementsAreArray;
+
+    const mat_t<real_t, 5, 5> mat55(
+        1.0f, 2.0f, 3.0f, 4.0f, 5.0f,
+        6.0f, 7.0f, 8.0f, 9.0f, 10.0f,
+        11.0f, 12.0f, 13.0f, 15.0f, 15.0f,
+        16.0f, 17.0f, 18.0f, 19.0f, 20.0f,
+        21.0f, 22.0f, 23.0f, 24.0f, 25.0f);
+
+    const real_t matt_arr[] = {
+        mat55[0], mat55[1], mat55[2], mat55[3], mat55[4],
+        mat55[5], mat55[6], mat55[7], mat55[8], mat55[9],
+        mat55[10], mat55[11], mat55[12], mat55[13], mat55[14],
+        mat55[15], mat55[16], mat55[17], mat55[18], mat55[19],
+        mat55[20], mat55[21], mat55[22], mat55[23], mat55[24] };
+
+    EXPECT_THAT(matt_arr, ElementsAreArray(mat55.elems(), 25));
+}
+
+TEST(as_mat, elem_access)
+{
+    using ::testing::ElementsAreArray;
+
+    mat_t<real_t, 5, 5> mat55(
+        1.0f, 2.0f, 3.0f, 4.0f, 5.0f,
+        6.0f, 7.0f, 8.0f, 9.0f, 10.0f,
+        11.0f, 12.0f, 13.0f, 15.0f, 15.0f,
+        16.0f, 17.0f, 18.0f, 19.0f, 20.0f,
+        21.0f, 22.0f, 23.0f, 24.0f, 25.0f);
+
+    mat55[15] = 100.0f;
+    mat55[20] = 200.0f;
+
+    const real_t matt_arr[] = {
+        mat55[0], mat55[1], mat55[2], mat55[3], mat55[4],
+        mat55[5], mat55[6], mat55[7], mat55[8], mat55[9],
+        mat55[10], mat55[11], mat55[12], mat55[13], mat55[14],
+        100.0f, mat55[16], mat55[17], mat55[18], mat55[19],
+        200.0f, mat55[21], mat55[22], mat55[23], mat55[24] };
+
+    EXPECT_THAT(matt_arr, ElementsAreArray(mat55.elems(), 25));
+}
+
+// explicit instantiations (for coverage)
+
+// types
 template struct as::mat_t<real_t, 2, 2>;
 template struct as::mat_t<real_t, 3, 3>;
 template struct as::mat_t<real_t, 4, 4>;
 template struct as::mat_t<real_t, 5, 5>;
+
+// matrix multiply
+template const as::mat_t<real_t, 3, 3> as::operator*(const mat_t<real_t, 3, 3>&, const mat_t<real_t, 3, 3>&);
+template const as::mat_t<real_t, 4, 4> as::operator*(const mat_t<real_t, 4, 4>&, const mat_t<real_t, 4, 4>&);
+
+// vector multiply
+#if defined AS_ROW_MAJOR
+template const as::vec_t<real_t, 3> as::operator*(const vec_t<real_t, 3>&, const mat_t<real_t, 3, 3>&);
+template const as::vec_t<real_t, 4> as::operator*(const vec_t<real_t, 4>&, const mat_t<real_t, 4, 4>&);
+#elif defined AS_COL_MAJOR
+template const as::vec_t<real_t, 3> as::operator*(const mat_t<real_t, 3, 3>&, const vec_t<real_t, 3>&);
+template const as::vec_t<real_t, 4> as::operator*(const mat_t<real_t, 4, 4>&, const vec_t<real_t, 4>&);
+#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+
+// scalar multiply
+template const as::mat_t<real_t, 3, 3> as::operator*(const mat_t<real_t, 3, 3>&, real_t scalar);
+template const as::mat_t<real_t, 4, 4> as::operator*(const mat_t<real_t, 4, 4>&, real_t scalar);
+template as::mat_t<real_t, 3, 3>& as::operator*=(mat_t<real_t, 3, 3>&, real_t scalar);
+template as::mat_t<real_t, 4, 4>& as::operator*=(mat_t<real_t, 4, 4>&, real_t scalar);
