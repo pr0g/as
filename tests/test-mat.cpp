@@ -563,6 +563,29 @@ TEST(as_mat, multiply_different_size)
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 }
 
+TEST(as_mat, multiply_vector)
+{
+    using ::testing::ElementsAreArray;
+
+    const mat33_t mat {
+        1.0f, 2.0f, 3.0f,
+        4.0f, 5.0f, 6.0f,
+        7.0f, 8.0f, 9.0f
+    };
+
+    const vec3_t vec { 11.0f, 12.0f, 13.0f };
+
+    vec3_t result;
+#ifdef AS_ROW_MAJOR
+    result = vec * mat;
+#elif defined AS_COL_MAJOR
+    result = mat * vec;
+#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+
+    const real_t vec_arr[] = { 150.0f, 186.0f, 222.0f };
+    EXPECT_THAT(vec_arr, ElementsAreArray(result.elems(), 3));
+}
+
 // explicit instantiations (for coverage)
 
 // types
