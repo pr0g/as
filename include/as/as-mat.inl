@@ -66,12 +66,8 @@ const vec_t<T, n> operator*(const mat_t<T, r, c>& mat, const vec_t<T, n>& v)
 template<typename T, size_t r, size_t c>
 const mat_t<T, r, c> operator*(const mat_t<T, r, c>& mat, T scalar)
 {
-    mat_t<T, r, c> result;
-    for (size_t rowIndex = 0; rowIndex < r; ++rowIndex) {
-        for (size_t colIndex = 0; colIndex < c; ++colIndex) {
-            result[rowIndex * c + colIndex] = mat[rowIndex * c + colIndex] * scalar;
-        }
-    }
+    mat_t<T, r, c> result { mat };
+    result *= scalar;
     return result;
 }
 

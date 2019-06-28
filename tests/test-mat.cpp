@@ -586,6 +586,45 @@ TEST(as_mat, multiply_vector)
     EXPECT_THAT(vec_arr, ElementsAreArray(result.elems(), 3));
 }
 
+TEST(as_mat, multiply_scalar)
+{
+    using ::testing::ElementsAreArray;
+
+    const mat33_t mat33 {
+        1.0f, 2.0f, 3.0f,
+        4.0f, 5.0f, 6.0f,
+        7.0f, 8.0f, 9.0f
+    };
+
+    mat33_t result33 = mat33 * 2.0f;
+
+    const real_t mat33_arr[] = {
+        2.0f, 4.0f, 6.0f,
+        8.0f, 10.0f, 12.0f,
+        14.0f, 16.0f, 18.0f
+    };
+
+    EXPECT_THAT(mat33_arr, ElementsAreArray(result33.elems(), 9));
+
+    const mat44_t mat44 {
+        2.0f, 4.0f, 6.0f, 8.0f,
+        10.0f, 12.0f, 14.0f, 16.0f,
+        18.0f, 20.0f, 22.0f, 24.0f,
+        26.0f, 28.0f, 30.0f, 32.0f
+    };
+
+    mat44_t result44 = mat44 * 2.0f;
+
+    const real_t mat44_arr[] = {
+        4.0f, 8.0f, 12.0f, 16.0f,
+        20.0f, 24.0f, 28.0f, 32.0f,
+        36.0f, 40.0f, 44.0f, 48.0f,
+        52.0f, 56.0f, 60.0f, 64.0f
+    };
+
+    EXPECT_THAT(mat44_arr, ElementsAreArray(result44.elems(), 16));
+}
+
 // explicit instantiations (for coverage)
 
 // types
