@@ -453,14 +453,14 @@ TEST(as_mat, const_elem_access)
         16.0f, 17.0f, 18.0f, 19.0f, 20.0f,
         21.0f, 22.0f, 23.0f, 24.0f, 25.0f);
 
-    const real_t matt_arr[] = {
+    const real_t mat_arr[] = {
         mat55[0], mat55[1], mat55[2], mat55[3], mat55[4],
         mat55[5], mat55[6], mat55[7], mat55[8], mat55[9],
         mat55[10], mat55[11], mat55[12], mat55[13], mat55[14],
         mat55[15], mat55[16], mat55[17], mat55[18], mat55[19],
         mat55[20], mat55[21], mat55[22], mat55[23], mat55[24] };
 
-    EXPECT_THAT(matt_arr, ElementsAreArray(mat55.elems(), 25));
+    EXPECT_THAT(mat_arr, ElementsAreArray(mat55.elems(), 25));
 }
 
 TEST(as_mat, elem_access)
@@ -477,17 +477,49 @@ TEST(as_mat, elem_access)
     mat55[15] = 100.0f;
     mat55[20] = 200.0f;
 
-    const real_t matt_arr[] = {
+    const real_t mat_arr[] = {
         mat55[0], mat55[1], mat55[2], mat55[3], mat55[4],
         mat55[5], mat55[6], mat55[7], mat55[8], mat55[9],
         mat55[10], mat55[11], mat55[12], mat55[13], mat55[14],
         100.0f, mat55[16], mat55[17], mat55[18], mat55[19],
         200.0f, mat55[21], mat55[22], mat55[23], mat55[24] };
 
-    EXPECT_THAT(matt_arr, ElementsAreArray(mat55.elems(), 25));
+    EXPECT_THAT(mat_arr, ElementsAreArray(mat55.elems(), 25));
 }
 
-TEST(as_mat, odd_multiply)
+TEST(as_mat, multiply_same_size)
+{
+    using ::testing::ElementsAreArray;
+
+    const mat33_t lhs {
+        1.0f, 2.0f, 3.0f,
+        4.0f, 5.0f, 6.0f,
+        7.0f, 8.0f, 9.0f
+    };
+
+    const mat33_t rhs {
+        9.0f, 8.0f, 7.0f,
+        6.0f, 5.0f, 4.0f,
+        3.0f, 2.0f, 1.0f
+    };
+
+    const real_t mat_arr[] = {
+        30.0f, 24.0f, 18.0f,
+        84.0f, 69.0f, 54.0f,
+        138.0f, 114.0f, 90.0f
+    };
+
+    mat33_t result;
+#ifdef AS_ROW_MAJOR
+    result = lhs * rhs;
+#elif defined AS_COL_MAJOR
+    result = rhs * lhs;
+#endif
+
+    EXPECT_THAT(mat_arr, ElementsAreArray(result.elems(), 9));
+}
+
+TEST(as_mat, multiply_different_size)
 {
     using ::testing::ElementsAreArray;
 
@@ -507,27 +539,27 @@ TEST(as_mat, odd_multiply)
         7.0f, 8.0f
     };
 
-    const real_t matt_arr_44[] = {
+    const real_t mat_arr_44[] = {
         32.0f, 26.0f, 20.0f, 14.0f,
         80.0f, 66.0f, 52.0f, 38.0f,
         128.0f, 106.0f, 84.0f, 62.0f,
         176.0f, 146.0f, 116.0f, 86.0f
     };
 
-    const real_t matt_arr_22[] = { 188.0f, 240.0f, 60.0f, 80.0f };
+    const real_t mat_arr_22[] = { 188.0f, 240.0f, 60.0f, 80.0f };
 
 #ifdef AS_ROW_MAJOR
     mat22_t result22 = lhs * rhs;
-    EXPECT_THAT(matt_arr_22, ElementsAreArray(result22.elems(), 4));
+    EXPECT_THAT(mat_arr_22, ElementsAreArray(result22.elems(), 4));
 
     mat44_t result44 = rhs * lhs;
-    EXPECT_THAT(matt_arr_44, ElementsAreArray(result44.elems(), 16));
+    EXPECT_THAT(mat_arr_44, ElementsAreArray(result44.elems(), 16));
 #elif defined AS_COL_MAJOR
     mat44_t result44 = lhs * rhs;
-    EXPECT_THAT(matt_arr_44, ElementsAreArray(result44.elems(), 16));
+    EXPECT_THAT(mat_arr_44, ElementsAreArray(result44.elems(), 16));
 
     mat22_t result22 = rhs * lhs;
-    EXPECT_THAT(matt_arr_22, ElementsAreArray(result22.elems(), 4));
+    EXPECT_THAT(mat_arr_22, ElementsAreArray(result22.elems(), 4));
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 }
 
