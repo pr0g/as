@@ -20,10 +20,7 @@ operator*(const mat_t<T, lr, lc>& lhs, const mat_t<T, rr, rc>& rhs)
         for (size_t colIndex = 0; colIndex < lc; ++colIndex) {
             T value = 0;
             for (size_t step = 0; step < lr; ++step) {
-                const T left = lhs[colIndex + lc * step];
-                const T right = rhs[rowIndex * rc + step];
-                const T intermediate = left * right;
-                value += intermediate;
+                value += lhs[colIndex + lc * step] * rhs[rowIndex * rc + step];
             }
             result[rowIndex * lc + colIndex] = value;
         }
@@ -33,10 +30,7 @@ operator*(const mat_t<T, lr, lc>& lhs, const mat_t<T, rr, rc>& rhs)
         for (size_t colIndex = 0; colIndex < rc; ++colIndex) {
             T value = 0;
             for (size_t step = 0; step < lc; ++step) {
-                const T left = lhs[rowIndex * lc + step];
-                const T right = rhs[colIndex + rc * step];
-                const T intermediate = left * right;
-                value += intermediate;
+                value += lhs[rowIndex * lc + step] * rhs[colIndex + rc * step];
             }
             result[rowIndex * lr + colIndex] = value;
         }
