@@ -1,33 +1,35 @@
 namespace as
 {
 
-template < typename T, size_t r, size_t c >
-const mat_t<T, r, c> operator*(const mat_t<T, r, c>& lhs, const mat_t<T, r, c>& rhs)
+template <typename T, size_t lr, size_t lc, size_t rr, size_t rc>
+const mat_t<T, rc, rc> operator*(const mat_t<T, lr, lc>& lhs, const mat_t<T, rr, rc>& rhs)
 {
-    mat_t<T, r, c> result;
-#ifdef AS_COL_MAJOR
-    for (size_t colIndex = 0; colIndex < c; ++colIndex) {
-        for (size_t rowIndex = 0; rowIndex < r; ++rowIndex) {
+    mat_t<T, rc, rc> result;
+// #ifdef AS_COL_MAJOR
+//     for (size_t colIndex = 0; colIndex < c; ++colIndex) {
+//         for (size_t rowIndex = 0; rowIndex < r; ++rowIndex) {
+//             T value = 0;
+//             for (size_t step = 0; step < r; ++step) {
+//                 value += lhs[rowIndex + c * step] * rhs[colIndex * r + step];
+//             }
+//             result[colIndex * c + rowIndex] = value;
+//         }
+//     }
+// #elif defined AS_ROW_MAJOR
+    for (size_t rowIndex = 0; rowIndex < lr; ++rowIndex) {
+        for (size_t colIndex = 0; colIndex < rc; ++colIndex) {
             T value = 0;
-            for (size_t step = 0; step < r; ++step) {
-                value += lhs[rowIndex + c * step] * rhs[colIndex * r + step];
+            for (size_t step = 0; step < lc; ++step) {
+                const T left = lhs[rowIndex * lc + step];
+                const T right = rhs[colIndex + rc * step];
+                const T intermediate = left * right;
+                value += intermediate;
             }
-            result[colIndex * c + rowIndex] = value;
+            result[rowIndex * lr + colIndex] = value;
         }
     }
+// #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
     return result;
-#elif defined AS_ROW_MAJOR
-    for (size_t rowIndex = 0; rowIndex < r; ++rowIndex) {
-        for (size_t colIndex = 0; colIndex < c; ++colIndex) {
-            T value = 0;
-            for (size_t step = 0; step < c; ++step) {
-                value += lhs[rowIndex * r + step] * rhs[colIndex + c * step];
-            }
-            result[rowIndex * c + colIndex] = value;
-        }
-    }
-    return result;
-#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 }
 
 template<typename T, size_t r, size_t c, size_t n>

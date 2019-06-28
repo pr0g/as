@@ -487,6 +487,29 @@ TEST(as_mat, elem_access)
     EXPECT_THAT(matt_arr, ElementsAreArray(mat55.elems(), 25));
 }
 
+TEST(as_mat, odd_multiply)
+{
+    using ::testing::ElementsAreArray;
+
+    using mat24_t = mat_t<real_t, 2, 4>;
+    using mat42_t = mat_t<real_t, 4, 2>;
+    using mat22_t = mat_t<real_t, 2, 2>;
+
+    mat24_t lhs {
+        16.0f, 14.0, 12.0f, 10.0f,
+        8.0f, 6.0f, 4.0f, 2.0f
+    };
+
+    mat42_t rhs {
+        1.0f, 2.0, 3.0f, 4.0f,
+        5.0f, 6.0f, 7.0f, 8.0f
+    };
+
+    mat22_t result22 = lhs * rhs;
+
+    mat44_t result44 = rhs * lhs;
+}
+
 // explicit instantiations (for coverage)
 
 // types
@@ -496,8 +519,8 @@ template struct as::mat_t<real_t, 4, 4>;
 template struct as::mat_t<real_t, 5, 5>;
 
 // matrix multiply
-template const as::mat_t<real_t, 3, 3> as::operator*(const mat_t<real_t, 3, 3>&, const mat_t<real_t, 3, 3>&);
-template const as::mat_t<real_t, 4, 4> as::operator*(const mat_t<real_t, 4, 4>&, const mat_t<real_t, 4, 4>&);
+// template const as::mat_t<real_t, 3, 3> as::operator*(const mat_t<real_t, 3, 3>&, const mat_t<real_t, 3, 3>&);
+// template const as::mat_t<real_t, 4, 4> as::operator*(const mat_t<real_t, 4, 4>&, const mat_t<real_t, 4, 4>&);
 
 // vector multiply
 #if defined AS_ROW_MAJOR
