@@ -317,12 +317,6 @@ namespace internal
 
 template<size_t> struct int2type {};
 
-template<typename T>
-T minor(const mat_t<T, 2, 2>& mat)
-{
-    return mat[0] * mat[3] - mat[2] * mat[1];
-}
-
 // where col and row are the rows to ignore
 template<typename T, size_t rc>
 mat_t<T, rc - 1, rc - 1> sub_matrix(
@@ -341,11 +335,20 @@ mat_t<T, rc - 1, rc - 1> sub_matrix(
     return result;
 }
 
+#pragma push_macro("minor")
+#undef minor
+
+template<typename T>
+T minor(const mat_t<T, 2, 2>& mat)
+{
+    return mat[0] * mat[3] - mat[2] * mat[1];
+}
+
 template<typename T, size_t rc, size_t I>
 T determinant_impl(const mat_t<T, rc, rc>& mat, int2type<I>)
 {
     T sign{ 1 };
-    T result = 0;
+    T result{ 0 };
     for (size_t i = 0; i < rc; ++i) {
         T minor = determinant_impl(sub_matrix(mat, i, 0), int2type<I - 1>{});
         result += (mat[i] * minor) * sign;
@@ -359,6 +362,8 @@ T determinant_impl(const mat_t<T, 2, 2>& mat, int2type<2>)
 {
     return minor(mat);
 };
+
+#pragma pop_macro("minor")
 
 template<typename T, size_t rc, size_t I>
 mat_t<T, rc, rc> minor_impl(const mat_t<T, rc, rc>& mat, int2type<I>)

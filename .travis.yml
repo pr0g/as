@@ -1,0 +1,34 @@
+dist: trusty
+language: cpp
+
+install:
+  # install more up to date cmake
+  # ref: https://riptutorial.com/cmake/example/4723/configure-travis-ci-with-newest-cmake
+  - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
+  - mkdir ${DEPS_DIR} && cd ${DEPS_DIR}
+  - travis_retry wget https://github.com/Kitware/CMake/releases/download/v3.14.5/cmake-3.14.5-Linux-x86_64.tar.gz
+  - tar -xvf cmake-3.14.5-Linux-x86_64.tar.gz > /dev/null
+  - mv cmake-3.14.5-Linux-x86_64 cmake-install
+  - PATH=${DEPS_DIR}/cmake-install:${DEPS_DIR}/cmake-install/bin:$PATH
+  - cd ${TRAVIS_BUILD_DIR}
+
+# get more up to date compiler
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-7
+      - g++-7
+
+script:
+  - export CC=gcc-7
+  - export CXX=g++-7
+  - tools/install-googletest.sh
+  - tools/install-as.sh
+  - cd tests/build/
+  - cmake -DDEV_LIB_DIR=../../ .. -DCMAKE_PREFIX_PATH=$(pwd)/as_install/\;$(pwd)/gtest_install/
+  - cmake --build .
+
+notifications:
+  email: false

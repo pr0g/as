@@ -3,8 +3,6 @@
 
 #include "as/as-math.hpp"
 
-#include <memory>
-
 using namespace as;
 
 TEST(as_math, smoothstep)

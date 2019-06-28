@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.13)
 
 project(as-test VERSION 0.0.1 LANGUAGES CXX)
 
@@ -54,7 +54,7 @@ target_compile_options(
 target_link_options(
     ${CMAKE_PROJECT_NAME} PRIVATE "${link_options}")
 target_compile_features(
-    ${PROJECT_NAME} PRIVATE cxx_std_17)
+    ${PROJECT_NAME} PRIVATE cxx_std_14)
 target_compile_definitions(
     ${PROJECT_NAME} PRIVATE AS_PRECISION_FLOAT AS_COL_MAJOR)
 target_link_libraries(
