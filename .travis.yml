@@ -29,7 +29,7 @@ script:
   - cd tests/build/
   - cmake -DDEV_LIB_DIR=../../ .. -DCMAKE_PREFIX_PATH=$(pwd)/as_install/\;$(pwd)/gtest_install/
   - cmake --build .
-  - as-test
+  - ./as-test
 
 notifications:
   email: false
