@@ -2,6 +2,8 @@
 
 `as` (short for _almost-something_) is an attempt at creating an easy to use header-only math library for prototype and hobby projects.
 
+[![Build Status](https://travis-ci.org/pr0g/as.svg?branch=master)](https://travis-ci.org/pr0g/as)
+
 ## Disclaimer
 
 This library is really just a dumb experimental thing meant for my own personal amusement. If you're curious please do have a poke around but I would strongly advise not using it for anything serious.
