@@ -519,6 +519,32 @@ TEST(as_mat, multiply_same_size)
     EXPECT_THAT(mat_arr, ElementsAreArray(result.elems(), 9));
 }
 
+TEST(as_mat, multiply_mats_as_vectors)
+{
+    using ::testing::ElementsAreArray;
+
+    using mat31_t = mat_t<real_t, 3, 1>;
+    using mat13_t = mat_t<real_t, 1, 3>;
+
+    const mat33_t mat_arr_33 {
+        32.0f, 26.0f, 20.0f,
+        80.0f, 66.0f, 52.0f,
+        128.0f, 106.0f, 84.0f
+    };
+
+    const real_t mat_arr_3[] = { 3168.0f, 2612.0f, 2056.0f };
+
+#ifdef AS_ROW_MAJOR
+    mat13_t row_vec { 16.0f, 14.0, 12.0f };
+    mat13_t result31 = row_vec * mat_arr_33;
+    EXPECT_THAT(mat_arr_3, ElementsAreArray(result31.elems(), 3));
+#elif defined AS_COL_MAJOR
+    mat31_t col_vec { 16.0f, 14.0, 12.0f };
+    mat31_t result13 = mat_arr_33 * col_vec;
+    EXPECT_THAT(mat_arr_3, ElementsAreArray(result13.elems(), 3));
+#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+}
+
 TEST(as_mat, multiply_different_size)
 {
     using ::testing::ElementsAreArray;
@@ -539,6 +565,8 @@ TEST(as_mat, multiply_different_size)
         7.0f, 8.0f
     };
 
+#ifdef AS_ROW_MAJOR
+    const real_t mat_arr_22[] = { 188.0f, 240.0f, 60.0f, 80.0f };
     const real_t mat_arr_44[] = {
         32.0f, 26.0f, 20.0f, 14.0f,
         80.0f, 66.0f, 52.0f, 38.0f,
@@ -546,20 +574,25 @@ TEST(as_mat, multiply_different_size)
         176.0f, 146.0f, 116.0f, 86.0f
     };
 
-    const real_t mat_arr_22[] = { 188.0f, 240.0f, 60.0f, 80.0f };
-
-#ifdef AS_ROW_MAJOR
     mat22_t result22 = lhs * rhs;
     EXPECT_THAT(mat_arr_22, ElementsAreArray(result22.elems(), 4));
 
     mat44_t result44 = rhs * lhs;
     EXPECT_THAT(mat_arr_44, ElementsAreArray(result44.elems(), 16));
 #elif defined AS_COL_MAJOR
-    mat44_t result44 = lhs * rhs;
-    EXPECT_THAT(mat_arr_44, ElementsAreArray(result44.elems(), 16));
+    const real_t mat_arr_22[] = { 120.0f, 40.0f, 328.0f, 120.0f };
+    const real_t mat_arr_44[] = {
+        32.0f, 26.0f, 20.0f, 14.0f,
+        80.0f, 66.0f, 52.0f, 38.0f,
+        128.0f, 106.0f, 84.0f, 62.0f,
+        176.0f, 146.0f, 116.0f, 86.0f
+    };
 
-    mat22_t result22 = rhs * lhs;
+    mat22_t result22 = lhs * rhs;
     EXPECT_THAT(mat_arr_22, ElementsAreArray(result22.elems(), 4));
+
+    mat44_t result44 = rhs * lhs;
+    EXPECT_THAT(mat_arr_44, ElementsAreArray(result44.elems(), 16));
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 }
 

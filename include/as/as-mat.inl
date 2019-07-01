@@ -1,38 +1,42 @@
 namespace as
 {
 
-template <typename T, size_t lr, size_t lc, size_t rr, size_t rc>
-#if defined AS_ROW_MAJOR
-const mat_t<T, rc, rc>
-#elif defined AS_COL_MAJOR
-const mat_t<T, lc, lc>
-#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
-operator*(const mat_t<T, lr, lc>& lhs, const mat_t<T, rr, rc>& rhs)
+template <typename T, size_t lh_r, size_t lh_c, size_t rh_r, size_t rh_c>
+const mat_t<T, lh_r, rh_c> operator*(const mat_t<T, lh_r, lh_c>& lhs, const mat_t<T, rh_r, rh_c>& rhs)
 {
-#if defined AS_ROW_MAJOR
-    mat_t<T, rc, rc> result;
-#elif defined AS_COL_MAJOR
-    mat_t<T, lc, lc> result;
-#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
-
+    mat_t<T, lh_r, rh_c> result;
 #ifdef AS_COL_MAJOR
-    for (size_t rowIndex = 0; rowIndex < rr; ++rowIndex) {
-        for (size_t colIndex = 0; colIndex < lc; ++colIndex) {
+    size_t lhr = lh_r;
+    size_t lhc = lh_c;
+    size_t rhr = rh_r;
+    size_t rhc = rh_c;
+    for (size_t colIndex = 0; colIndex < rh_c; ++colIndex) {
+        for (size_t rowIndex = 0; rowIndex < lh_r; ++rowIndex) {
             T value = 0;
-            for (size_t step = 0; step < lr; ++step) {
-                value += lhs[colIndex + lc * step] * rhs[rowIndex * rc + step];
+            for (size_t step = 0; step < rh_r; ++step) {
+                // size_t orhs = colIndex + rh_r * step;
+                size_t orhs = colIndex * rh_r + step;
+                // size_t orhs = colIndex * rh_c + step;
+                // size_t olhs = rowIndex * lh_r + step;
+                size_t olhs = rowIndex + lh_r * step;
+
+                real_t rr = rhs[olhs];
+                real_t ll = lhs[orhs];
+                value += ll * rr;
             }
-            result[rowIndex * lc + colIndex] = value;
+            // size_t f = rowIndex * rh_c + colIndex;
+            size_t f = colIndex * rh_c + rowIndex;
+            result[f] = value;
         }
     }
 #elif defined AS_ROW_MAJOR
-    for (size_t rowIndex = 0; rowIndex < lr; ++rowIndex) {
-        for (size_t colIndex = 0; colIndex < rc; ++colIndex) {
+    for (size_t rowIndex = 0; rowIndex < lh_r; ++rowIndex) {
+        for (size_t colIndex = 0; colIndex < rh_c; ++colIndex) {
             T value = 0;
-            for (size_t step = 0; step < lc; ++step) {
-                value += lhs[rowIndex * lc + step] * rhs[colIndex + rc * step];
+            for (size_t step = 0; step < lh_c; ++step) {
+                value += lhs[rowIndex * lh_c + step] * rhs[colIndex + rh_c * step];
             }
-            result[rowIndex * lr + colIndex] = value;
+            result[rowIndex * lh_r + colIndex] = value;
         }
     }
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR

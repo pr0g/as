@@ -46,14 +46,8 @@ struct mat_t
     }
 };
 
-template <typename T, size_t lr, size_t lc, size_t rr, size_t rc>
-inline
-#if defined AS_ROW_MAJOR
-const mat_t<T, rc, rc>
-#elif defined AS_COL_MAJOR
-const mat_t<T, lc, lc>
-#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
-operator*(const mat_t<T, lr, lc>& lhs, const mat_t<T, rr, rc>& rhs);
+template <typename T, size_t lh_r, size_t lh_c, size_t rh_r, size_t rh_c>
+inline const mat_t<T, lh_r, rh_c> operator*(const mat_t<T, lh_r, lh_c>& lhs, const mat_t<T, rh_r, rh_c>& rhs);
 
 template<typename T, size_t r, size_t c, size_t n>
 #if defined AS_ROW_MAJOR
