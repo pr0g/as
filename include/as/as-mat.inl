@@ -20,8 +20,9 @@ const mat_t<T, lh_r, rh_c> operator*(const mat_t<T, lh_r, lh_c>& lhs, const mat_
                 // size_t olhs = rowIndex * lh_r + step;
                 size_t olhs = rowIndex + lh_r * step;
 
-                real_t rr = rhs[olhs];
-                real_t ll = lhs[orhs];
+                // works with square and mat31, mat13 * mat33
+                real_t rr = rhs[orhs];
+                real_t ll = lhs[olhs];
                 value += ll * rr;
             }
             // size_t f = rowIndex * rh_c + colIndex;
