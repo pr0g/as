@@ -221,48 +221,48 @@ All functions are implemented as free functions. I wanted to avoid using static 
 For example if we want to be able to create a quaternion from a 3 by 3 matrix and vice versa, the api might look like this:
 
 ```c++
-mat33 m = // ... build some rotation
+mat3 m = // ... build some rotation
 quat q = m.to_quaternion(); // member
 // or
-quat q = mat33::to_quaternion(m); // static
+quat q = mat3::to_quaternion(m); // static
 
 ...
 
 quat q = // ... build some rotation
-mat33 m = q.to_mat33(); // member
+mat3 m = q.to_mat33(); // member
 // or
-mat33 m = quat::to_mat33(q); // static
+mat3 m = quat::to_mat33(q); // static
 ```
 
-The big problem with this is we get into a situation where `mat33.h` can't include `quat.h` and `quat.h` can't include `mat33.h` at the same time (we can get around this if we stick the implementation in a .cpp file and forward declare the type, but then we lose the ability to inline (forgetting LTO for the moment) and in doing so the ability to have a header-only library 😫).
+The big problem with this is we get into a situation where `mat3.h` can't include `quat.h` and `quat.h` can't include `mat3.h` at the same time (we can get around this if we stick the implementation in a .cpp file and forward declare the type, but then we lose the ability to inline (forgetting LTO for the moment) and in doing so the ability to have a header-only library 😫).
 
 So we're back to free functions. The lovely property about this is we can keep the `<type>.h` files quite light (we pretty much just have the special members and overloaded operators there) and all other functions can go into a separate file, which includes whatever types it likes. So we now have:
 
 ```c++
-mat33 m1 = // ... build some rotation
+mat3 m1 = // ... build some rotation
 quat q1 = to_quaternion(m1); // free
 quat q2 = // ... build some rotation
-mat33 m2 = to_mat33(q2); // free
+mat3 m2 = to_mat33(q2); // free
 ```
 
 When I first tried this, a big problem I ran into was how to logically group functions. One advantage to having static functions on a type is it's easy in most modern IDEs to type the name, hit the '`.`' operator, and see a list of available ~~methods~~ member/static functions. This advantage is really important and I wanted to try and find a way to do something similar.
 
-I realized I could take advantage of `C++` namespaces to group functions by type. Irritatingly using the name `vec3` or `mat44` for the namespace means I lose the ability to use them as type names 😖 however a workaround I decided to borrow from `C` and `C++` was to add a `_t` postfix to indicate the type itself and use the unadorned name as the namespace (I know any name ending with `_t` is technically reserved, in `C` at least, but as I'm keeping everything inside my own namespace I think I should be safe - failing that I could use `_s` instead for struct but I'm sticking with `_t` for now).
+I realized I could take advantage of `C++` namespaces to group functions by type. Irritatingly using the name `vec3` or `mat4` for the namespace means I lose the ability to use them as type names 😖 however a workaround I decided to borrow from `C` and `C++` was to add a `_t` postfix to indicate the type itself and use the unadorned name as the namespace (I know any name ending with `_t` is technically reserved, in `C` at least, but as I'm keeping everything inside my own namespace I think I should be safe - failing that I could use `_s` instead for struct but I'm sticking with `_t` for now).
 
 With this approach I can now do this:
 
 ```c++
 mat33_t m = // ... build some rotation
-quat_t q = mat33::to_quaternion(m); // free
+quat_t q = mat3::to_quaternion(m); // free
 ```
 
-When you type `mat33::` in an IDE you'll get the list of all operations supported for `mat33_t`. Another idea (which is perhaps more contentious) is to put all common/generic matrix operations in the `mat` namespace, and specific operations (like `rotation_xyz`) in the `mat33` namespace. This might actually hinder discoverabilty in certain cases but I like the preciseness of the grouping so again this will remain until I've had a chance to start hating it 😉.
+When you type `mat3::` in an IDE you'll get the list of all operations supported for `mat33_t`. Another idea (which is perhaps more contentious) is to put all common/generic matrix operations in the `mat` namespace, and specific operations (like `rotation_xyz`) in the `mat3` namespace. This might actually hinder discoverabilty in certain cases but I like the preciseness of the grouping so again this will remain until I've had a chance to start hating it 😉.
 
 ### Specializations
 
 The core idea of the library is to create types that are (_pretty_) generic and write all functions in terms of those generic versions. This is so in theory you could have a `vec_t<int, 10>` and ~~all~~ most of the operations you get with a friendly `vec3_t` all still work.
 
-The reality is 99.9% of the time people just want to use `vec3_t` and `mat33_t/mat44_t`. To make these common cases more ergonomic, I provide explicit (full) template specializations for the class templates `vec2/3/4_t` and `mat33/44_t`. The reason for doing this is purely for ease of use. I provide accessors for fields such as `x`, `y`, `z` and useful constructor overloads (I'll get on to function template specializations later which are done for performance reasons).
+The reality is 99.9% of the time people just want to use `vec3_t` and `mat33_t/mat44_t`. To make these common cases more ergonomic, I provide explicit (full) template specializations for the class templates `vec2/3/4_t` and `mat3/4_t`. The reason for doing this is purely for ease of use. I provide accessors for fields such as `x`, `y`, `z` and useful constructor overloads (I'll get on to function template specializations later which are done for performance reasons).
 
 This is most commonly done by using a `union` in `C/C++`.
 
@@ -382,11 +382,17 @@ The last thing to mention is the function template specializations. These were m
 
 ### Row/Column Major
 
-I wanted it to be possible to use the library with either row or column vectors and not get them accidentally mixed up. Different graphics APIs use different conventions (OpenGL uses column-major and DirectX uses row-major). Now the layout in memory (as far as `C++` is concerned) is always row-major (I recommend reading [this](http://seanmiddleditch.com/matrices-handedness-pre-and-post-multiplication-row-vs-column-major-and-notations/) article by Sean Middleditch \([@stmiddleditch](https://twitter.com/stmiddleditch)\) for a great treatment of this subject).
+I wanted it to be possible to use the library with either row or column vectors and not get them accidentally mixed up. Different graphics APIs use different conventions (OpenGL uses column-major and DirectX uses row-major). Now the layout in memory (as far as `C++` is concerned) is always row-major (I recommend reading [this](http://seanmiddleditch.com/matrices-handedness-pre-and-post-multiplication-row-vs-column-major-and-notations/) article by Sean Middleditch \([@stmiddleditch](https://twitter.com/stmiddleditch)\) for a great explanation of this subject).
 
 With row-major, when a vector is transformed by a matrix, the notation is to place the vector to the left of the matrix (so you multiply reading left to right) but with column-major the notation is to place the vector being transformed to the right of the matrix (in this case you multiply reading right to left). Now under the hood the multiplication is actually exactly the same, but I make sure to only enable the right overload for `operator *` when multiplying a vector and a matrix to make sure you can't get them the wrong way round (I do this by forcing you to pick the convention you want to use before you start using the library with a `#define` - you must define either `AS_COL_MAJOR` or `AS_ROW_MAJOR`).
 
 In the case of multiplying two matrices the multiplication order is different to account for the left-to-right or right-to-left convention when combining matrices.
+
+__UPDATE__: I realized attempting to support the row/column toggle with non-square matrices was actually impossible. I could either have square matrices with the row/column switch (_TLDR_: I picked this), non-square matrices with row-major layout only, or have non-square row-major matrices and square only column-major (I didn't really like this mismatch).
+
+The reason I wasn't able to support non-square column major matrices boils down to how you multiply matrices. Technically matrix multiplication is multiplying each row of the left matrix by each column of the right matrix. The resulting matrix will have the same number of rows as the left matrix and same number of columns as the right matrix - e.g. a `2x4 * 4x2` = `2x2` matrix and a `4x2 * 2x4 = 4x4` matrix). For matrix multiplication to be well defined (possible) the number of columns in the left matrix must equal the number of rows in the right matrix (see earlier examples). When trying to do things column-major, certain matrix sizes don't really work, you have to always start with the row in the left matrix. When `AS_COL_MAJOR` is defined I pull a bit of a trick under the hood where the data layout of the matrix doesn't change but the order in which elements are visited is (we multiply columns in the left matrix by rows in the right matrix) but this trick only really works when the matrices are square. It's the same effect as if the matrices were transposed and you did the normal row * col multiply. Remember to get the same answer as when in row-major you also have to swap the order of the matrices as `A * B != B * A` for matrices.
+
+ As square matrices are the most common and I wanted to keep the switch I've removed the ability to select row/column sizes in the matrix types and instead you just set a dimension (`d`).
 
 Also as a random aside [this](https://www.sebastiansylvan.com/post/matrix_naming_convention/) article by Sebastian Sylvan ([@ssylvan](https://twitter.com/ssylvan)) is pure genius and well worth a read to help simplify the naming of your transforms 😎
 
