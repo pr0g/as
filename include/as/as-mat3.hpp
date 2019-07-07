@@ -6,7 +6,7 @@ namespace as
 {
 
 template<typename T>
-struct mat_t<T, 3, 3>
+struct mat_t<T, 3>
 {
     T elem_rc[3][3];
     static constexpr size_t size = 3 * 3;
@@ -95,10 +95,10 @@ struct mat_t<T, 3, 3>
 #endif
 };
 
-using mat33_t = mat_t<real_t, 3, 3>;
-using mat33f_t = mat_t<float, 3, 3>;
-using mat33d_t = mat_t<double, 3, 3>;
-using mat33i_t = mat_t<int32_t, 3, 3>;
-using mat33l_t = mat_t<int64_t, 3, 3>;
+using mat3_t = mat_t<real_t, 3>;
+using mat3f_t = mat_t<float, 3>;
+using mat3d_t = mat_t<double, 3>;
+using mat3i_t = mat_t<int32_t, 3>;
+using mat3l_t = mat_t<int64_t, 3>;
 
 } // namespace as

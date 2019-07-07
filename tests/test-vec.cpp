@@ -1623,7 +1623,8 @@ TEST(as_vec, length_squared)
     EXPECT_NEAR(length_sq, 25.0f, 1e6f) << "vec::length_sq failed";
 }
 
-TEST(as_vec, select) {
+TEST(as_vec, select)
+{
     using int3 = vec_t<int, 3>;
 
     int3 a(1, 2, 3);

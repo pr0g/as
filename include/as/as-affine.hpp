@@ -15,10 +15,10 @@ struct affine_t
     ~affine_t() = default;
 
     constexpr affine_t(
-        const mat33_t& rotation, const vec3_t& position)
+        const mat3_t& rotation, const vec3_t& position)
         : rotation(rotation), position(position) {}
 
-    mat33_t rotation;
+    mat3_t rotation;
     vec3_t position;
 };
 

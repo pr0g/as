@@ -136,32 +136,32 @@ inline vec4_t from_arr(const real_t(&data)[4]);
 namespace mat
 {
 
-template<typename T, size_t r, size_t c>
-inline T* data(const mat_t<T, r, c>& mat);
+template<typename T, size_t d>
+inline T* data(const mat_t<T, d>& mat);
 
-template<typename T, size_t r, size_t c>
-inline const T* const_data(const mat_t<T, r, c>& mat);
+template<typename T, size_t d>
+inline const T* const_data(const mat_t<T, d>& mat);
 
-template<typename T, size_t r, size_t c>
-inline mat_t<T, r, c> from_arr(const T(&data)[r * c]);
+template<typename T, size_t d>
+inline mat_t<T, d> from_arr(const T(&data)[d * d]);
 
-template<typename T, size_t r, size_t c>
-inline mat_t<T, r, c> from_ptr(const T* data);
+template<typename T, size_t d>
+inline mat_t<T, d> from_ptr(const T* data);
 
-template<typename T, size_t r, size_t c>
-inline mat_t<T, r, c> transpose(const mat_t<T, r, c>& mat);
+template<typename T, size_t d>
+inline mat_t<T, d> transpose(const mat_t<T, d>& mat);
 
-template<typename T, size_t cr>
-constexpr inline mat_t<T, cr, cr> identity();
+template<typename T, size_t d>
+constexpr inline mat_t<T, d> identity();
 
-template<typename T, size_t cr>
-inline T determinant(const mat_t<T, cr, cr>& mat);
+template<typename T, size_t d>
+inline T determinant(const mat_t<T, d>& mat);
 
-template<typename T, size_t cr>
-inline mat_t<T, cr, cr> inverse(const mat_t<T, cr, cr>& mat);
+template<typename T, size_t d>
+inline mat_t<T, d> inverse(const mat_t<T, d>& mat);
 
-template<typename T, size_t cr>
-inline mat_t<T, cr, cr> gj_inverse(const mat_t<T, cr, cr>& mat);
+template<typename T, size_t d>
+inline mat_t<T, d> gj_inverse(const mat_t<T, d>& mat);
 
 } // namespace mat
 
@@ -171,20 +171,20 @@ namespace mat33
 constexpr inline size_t rows() { return 3; }
 constexpr inline size_t cols() { return 3; }
 
-constexpr inline mat33_t identity();
+constexpr inline mat3_t identity();
 
-inline mat33_t from_ptr(const real_t* data);
-inline mat33_t from_arr(const real_t(&data)[9]);
-constexpr inline mat33_t from_mat44(const mat44_t& transform);
+inline mat3_t from_ptr(const real_t* data);
+inline mat3_t from_arr(const real_t(&data)[9]);
+constexpr inline mat3_t from_mat44(const mat4_t& transform);
 
-inline mat33_t axis_angle(const vec3_t& axis, real_t radians);
-inline mat33_t rotation_xyz(real_t x, real_t y, real_t z);
-inline mat33_t rotation_zxy(real_t x, real_t y, real_t z);
-inline mat33_t rotation_x(real_t radians);
-inline mat33_t rotation_y(real_t radians);
-inline mat33_t rotation_z(real_t radians);
-inline mat33_t scale(real_t scale);
-inline mat33_t scale(const vec3_t& scale);
+inline mat3_t axis_angle(const vec3_t& axis, real_t radians);
+inline mat3_t rotation_xyz(real_t x, real_t y, real_t z);
+inline mat3_t rotation_zxy(real_t x, real_t y, real_t z);
+inline mat3_t rotation_x(real_t radians);
+inline mat3_t rotation_y(real_t radians);
+inline mat3_t rotation_z(real_t radians);
+inline mat3_t scale(real_t scale);
+inline mat3_t scale(const vec3_t& scale);
 
 } // namespace mat33
 
@@ -194,14 +194,14 @@ namespace mat44
 constexpr size_t rows() { return 4; }
 constexpr size_t cols() { return 4; }
 
-constexpr inline mat44_t identity();
+constexpr inline mat4_t identity();
 
-inline mat44_t from_ptr(const real_t* data);
-inline mat44_t from_arr(const real_t(&data)[16]);
+inline mat4_t from_ptr(const real_t* data);
+inline mat4_t from_arr(const real_t(&data)[16]);
 
-constexpr inline mat44_t from_vec3(const vec3_t& translation);
-constexpr inline mat44_t from_mat33(const mat33_t& rotation);
-constexpr inline mat44_t from_mat33_vec3(const mat33_t& rotation, const vec3_t& translation);
+constexpr inline mat4_t from_vec3(const vec3_t& translation);
+constexpr inline mat4_t from_mat33(const mat3_t& rotation);
+constexpr inline mat4_t from_mat33_vec3(const mat3_t& rotation, const vec3_t& translation);
 
 } // namespace mat44
 

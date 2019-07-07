@@ -15,11 +15,11 @@ namespace as
     static_assert(false, "Must define only AS_COL_MAJOR or AS_ROW_MAJOR");
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
-template<typename T, size_t r, size_t c>
+template<typename T, size_t d>
 struct mat_t
 {
-    T elem_rc[r][c];
-    static constexpr size_t size = r * c;
+    T elem_rc[d][d];
+    static constexpr size_t size = d * d;
 
     constexpr T& operator[](size_t i) { return elems()[i]; }
     constexpr const T& operator[](size_t i) const { return elems()[i]; }
@@ -46,21 +46,21 @@ struct mat_t
     }
 };
 
-template <typename T, size_t lh_r, size_t lh_c, size_t rh_r, size_t rh_c>
-inline const mat_t<T, lh_r, rh_c> operator*(const mat_t<T, lh_r, lh_c>& lhs, const mat_t<T, rh_r, rh_c>& rhs);
+template <typename T, size_t d>
+inline const mat_t<T, d> operator*(const mat_t<T, d>& lhs, const mat_t<T, d>& rhs);
 
-template<typename T, size_t r, size_t c, size_t n>
+template<typename T, size_t d>
 #if defined AS_ROW_MAJOR
-inline const vec_t<T, n> operator*(const vec_t<T, n>& v, const mat_t<T, r, c>& mat);
+inline const vec_t<T, d> operator*(const vec_t<T, d>& v, const mat_t<T, d>& mat);
 #elif defined AS_COL_MAJOR
-inline const vec_t<T, n> operator*(const mat_t<T, r, c>& mat, const vec_t<T, n>& v);
+inline const vec_t<T, d> operator*(const mat_t<T, d>& mat, const vec_t<T, d>& v);
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
-template<typename T, size_t r, size_t c>
-inline const mat_t<T, r, c> operator*(const mat_t<T, r, c>& mat, T scalar);
+template<typename T, size_t d>
+inline const mat_t<T, d> operator*(const mat_t<T, d>& mat, T scalar);
 
-template<typename T, size_t r, size_t c>
-inline mat_t<T, r, c>& operator*=(mat_t<T, r, c>& mat, T scalar);
+template<typename T, size_t d>
+inline mat_t<T, d>& operator*=(mat_t<T, d>& mat, T scalar);
 
 } // namespace as
 

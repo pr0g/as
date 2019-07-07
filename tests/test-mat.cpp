@@ -5,29 +5,12 @@
 
 using namespace as;
 
-TEST(as_mat, mat_initialization)
-{
-    using ::testing::ElementsAreArray;
-
-    mat_t<real_t, 2, 5> mat25 {
-        1.0f, 2.0f, 3.0f, 4.0f, 5.0f,
-        1.0f, 2.0f, 3.0f, 4.0f, 5.0f
-    };
-
-    const real_t arr[] = {
-        1.0f, 2.0f, 3.0f, 4.0f, 5.0f,
-        1.0f, 2.0f, 3.0f, 4.0f, 5.0f
-    };
-
-    EXPECT_THAT(arr, ElementsAreArray(mat25.elems(), 10));
-}
-
 TEST(as_mat, mat_row_col_access_mat33)
 {
     using ::testing::ElementsAreArray;
     using ::testing::ElementsAre;
 
-    mat33_t mat33 {
+    mat3_t mat33 {
         1.0f, 2.0f, 3.0f,
         4.0f, 5.0f, 6.0f,
         7.0f, 8.0f, 9.0f
@@ -83,8 +66,8 @@ TEST(as_mat, mat_row_col_access_mat33)
 
     EXPECT_THAT(elems, ElementsAreArray(mat33.elems(), 9));
 
-    mat33_t mat33_mult;
-    mat33_mult = mat33_t(
+    mat3_t mat33_mult;
+    mat33_mult = mat3_t(
         vec3_t(10.0f, 20.0f, 30.0f),
         vec3_t(40.0f, 50.0f, 60.0f),
         vec3_t(70.0f, 80.0f, 90.0f));
@@ -103,8 +86,8 @@ TEST(as_mat, mat_row_col_mutate_mat33)
     using ::testing::ElementsAreArray;
     using ::testing::ElementsAre;
 
-    mat33_t mat33;
-    mat33 = mat33_t {
+    mat3_t mat33;
+    mat33 = mat3_t {
         0.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 0.0f
@@ -202,7 +185,7 @@ TEST(as_mat, mat_row_col_access_mat44)
     using ::testing::ElementsAreArray;
     using ::testing::ElementsAre;
 
-    mat44_t mat44 {
+    mat4_t mat44 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         9.0f, 10.0f, 11.0f, 12.0f,
@@ -272,8 +255,8 @@ TEST(as_mat, mat_row_col_access_mat44)
 
     EXPECT_THAT(elems, ElementsAreArray(mat44.elems(), 16));
 
-    mat44_t mat44_mult;
-    mat44_mult = mat44_t(
+    mat4_t mat44_mult;
+    mat44_mult = mat4_t(
         vec4_t(10.0f, 20.0f, 30.0f, 40.0f),
         vec4_t(50.0f, 60.0f, 70.0f, 80.0f),
         vec4_t(90.0f, 100.0f, 110.0f, 120.0f),
@@ -294,8 +277,8 @@ TEST(as_mat, mat_row_col_mutate_mat44)
     using ::testing::ElementsAreArray;
     using ::testing::ElementsAre;
 
-    mat44_t mat44;
-    mat44 = mat44_t {
+    mat4_t mat44;
+    mat44 = mat4_t {
         0.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 0.0f, 0.0f,
@@ -421,7 +404,7 @@ TEST(as_mat, mat_mat44_from_mat33_and_vec3)
 {
     using ::testing::ElementsAreArray;
 
-    mat33_t mat33 {
+    mat3_t mat33 {
         1.0f, 2.0f, 3.0f,
         4.0f, 5.0f, 6.0f,
         7.0f, 8.0f, 9.0f
@@ -429,8 +412,8 @@ TEST(as_mat, mat_mat44_from_mat33_and_vec3)
 
     vec3_t vec3 { 10.0f, 11.0f, 12.0f };
 
-    mat44_t mat44;
-    mat44 = mat44_t{ mat33, vec3 };
+    mat4_t mat44;
+    mat44 = mat4_t{ mat33, vec3 };
 
     const real_t mat33_and_vec3[] = {
         1.0f, 2.0f, 3.0f, 0.0f,
@@ -446,7 +429,7 @@ TEST(as_mat, const_elem_access)
 {
     using ::testing::ElementsAreArray;
 
-    const mat_t<real_t, 5, 5> mat55(
+    const mat_t<real_t, 5> mat55(
         1.0f, 2.0f, 3.0f, 4.0f, 5.0f,
         6.0f, 7.0f, 8.0f, 9.0f, 10.0f,
         11.0f, 12.0f, 13.0f, 15.0f, 15.0f,
@@ -467,7 +450,7 @@ TEST(as_mat, elem_access)
 {
     using ::testing::ElementsAreArray;
 
-    mat_t<real_t, 5, 5> mat55(
+    mat_t<real_t, 5> mat55(
         1.0f, 2.0f, 3.0f, 4.0f, 5.0f,
         6.0f, 7.0f, 8.0f, 9.0f, 10.0f,
         11.0f, 12.0f, 13.0f, 15.0f, 15.0f,
@@ -491,13 +474,13 @@ TEST(as_mat, multiply_same_size)
 {
     using ::testing::ElementsAreArray;
 
-    const mat33_t lhs {
+    const mat3_t lhs {
         1.0f, 2.0f, 3.0f,
         4.0f, 5.0f, 6.0f,
         7.0f, 8.0f, 9.0f
     };
 
-    const mat33_t rhs {
+    const mat3_t rhs {
         9.0f, 8.0f, 7.0f,
         6.0f, 5.0f, 4.0f,
         3.0f, 2.0f, 1.0f
@@ -509,7 +492,7 @@ TEST(as_mat, multiply_same_size)
         138.0f, 114.0f, 90.0f
     };
 
-    mat33_t result;
+    mat3_t result;
 #ifdef AS_ROW_MAJOR
     result = lhs * rhs;
 #elif defined AS_COL_MAJOR
@@ -519,88 +502,11 @@ TEST(as_mat, multiply_same_size)
     EXPECT_THAT(mat_arr, ElementsAreArray(result.elems(), 9));
 }
 
-TEST(as_mat, multiply_mats_as_vectors)
-{
-    using ::testing::ElementsAreArray;
-
-    using mat31_t = mat_t<real_t, 3, 1>;
-    using mat13_t = mat_t<real_t, 1, 3>;
-
-    const mat33_t mat_arr_33 {
-        32.0f, 26.0f, 20.0f,
-        80.0f, 66.0f, 52.0f,
-        128.0f, 106.0f, 84.0f
-    };
-
-    const real_t mat_arr_3[] = { 3168.0f, 2612.0f, 2056.0f };
-
-#ifdef AS_ROW_MAJOR
-    mat13_t row_vec { 16.0f, 14.0, 12.0f };
-    mat13_t result31 = row_vec * mat_arr_33;
-    EXPECT_THAT(mat_arr_3, ElementsAreArray(result31.elems(), 3));
-#elif defined AS_COL_MAJOR
-    mat31_t col_vec { 16.0f, 14.0, 12.0f };
-    mat31_t result13 = mat_arr_33 * col_vec;
-    EXPECT_THAT(mat_arr_3, ElementsAreArray(result13.elems(), 3));
-#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
-}
-
-TEST(as_mat, multiply_different_size)
-{
-    using ::testing::ElementsAreArray;
-
-    using mat24_t = mat_t<real_t, 2, 4>;
-    using mat42_t = mat_t<real_t, 4, 2>;
-    using mat22_t = mat_t<real_t, 2, 2>;
-
-    mat24_t lhs {
-        16.0f, 14.0, 12.0f, 10.0f,
-        8.0f, 6.0f, 4.0f, 2.0f
-    };
-
-    mat42_t rhs {
-        1.0f, 2.0,
-        3.0f, 4.0f,
-        5.0f, 6.0f,
-        7.0f, 8.0f
-    };
-
-#ifdef AS_ROW_MAJOR
-    const real_t mat_arr_22[] = { 188.0f, 240.0f, 60.0f, 80.0f };
-    const real_t mat_arr_44[] = {
-        32.0f, 26.0f, 20.0f, 14.0f,
-        80.0f, 66.0f, 52.0f, 38.0f,
-        128.0f, 106.0f, 84.0f, 62.0f,
-        176.0f, 146.0f, 116.0f, 86.0f
-    };
-
-    mat22_t result22 = lhs * rhs;
-    EXPECT_THAT(mat_arr_22, ElementsAreArray(result22.elems(), 4));
-
-    mat44_t result44 = rhs * lhs;
-    EXPECT_THAT(mat_arr_44, ElementsAreArray(result44.elems(), 16));
-#elif defined AS_COL_MAJOR
-    const real_t mat_arr_22[] = { 120.0f, 40.0f, 328.0f, 120.0f };
-    const real_t mat_arr_44[] = {
-        32.0f, 26.0f, 20.0f, 14.0f,
-        80.0f, 66.0f, 52.0f, 38.0f,
-        128.0f, 106.0f, 84.0f, 62.0f,
-        176.0f, 146.0f, 116.0f, 86.0f
-    };
-
-    mat22_t result22 = lhs * rhs;
-    EXPECT_THAT(mat_arr_22, ElementsAreArray(result22.elems(), 4));
-
-    mat44_t result44 = rhs * lhs;
-    EXPECT_THAT(mat_arr_44, ElementsAreArray(result44.elems(), 16));
-#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
-}
-
 TEST(as_mat, multiply_vector)
 {
     using ::testing::ElementsAreArray;
 
-    const mat33_t mat {
+    const mat3_t mat {
         1.0f, 2.0f, 3.0f,
         4.0f, 5.0f, 6.0f,
         7.0f, 8.0f, 9.0f
@@ -623,13 +529,13 @@ TEST(as_mat, multiply_scalar)
 {
     using ::testing::ElementsAreArray;
 
-    const mat33_t mat33 {
+    const mat3_t mat33 {
         1.0f, 2.0f, 3.0f,
         4.0f, 5.0f, 6.0f,
         7.0f, 8.0f, 9.0f
     };
 
-    mat33_t result33 = mat33 * 2.0f;
+    mat3_t result33 = mat33 * 2.0f;
 
     const real_t mat33_arr[] = {
         2.0f, 4.0f, 6.0f,
@@ -639,14 +545,14 @@ TEST(as_mat, multiply_scalar)
 
     EXPECT_THAT(mat33_arr, ElementsAreArray(result33.elems(), 9));
 
-    const mat44_t mat44 {
+    const mat4_t mat44 {
         2.0f, 4.0f, 6.0f, 8.0f,
         10.0f, 12.0f, 14.0f, 16.0f,
         18.0f, 20.0f, 22.0f, 24.0f,
         26.0f, 28.0f, 30.0f, 32.0f
     };
 
-    mat44_t result44 = mat44 * 2.0f;
+    mat4_t result44 = mat44 * 2.0f;
 
     const real_t mat44_arr[] = {
         4.0f, 8.0f, 12.0f, 16.0f,
@@ -661,26 +567,26 @@ TEST(as_mat, multiply_scalar)
 // explicit instantiations (for coverage)
 
 // types
-template struct as::mat_t<real_t, 2, 2>;
-template struct as::mat_t<real_t, 3, 3>;
-template struct as::mat_t<real_t, 4, 4>;
-template struct as::mat_t<real_t, 5, 5>;
+template struct as::mat_t<real_t, 2>;
+template struct as::mat_t<real_t, 3>;
+template struct as::mat_t<real_t, 4>;
+template struct as::mat_t<real_t, 5>;
 
 // matrix multiply
-// template const as::mat_t<real_t, 3, 3> as::operator*(const mat_t<real_t, 3, 3>&, const mat_t<real_t, 3, 3>&);
-// template const as::mat_t<real_t, 4, 4> as::operator*(const mat_t<real_t, 4, 4>&, const mat_t<real_t, 4, 4>&);
+template const as::mat_t<real_t, 3> as::operator*(const mat_t<real_t, 3>&, const mat_t<real_t, 3>&);
+template const as::mat_t<real_t, 4> as::operator*(const mat_t<real_t, 4>&, const mat_t<real_t, 4>&);
 
 // vector multiply
 #if defined AS_ROW_MAJOR
-template const as::vec_t<real_t, 3> as::operator*(const vec_t<real_t, 3>&, const mat_t<real_t, 3, 3>&);
-template const as::vec_t<real_t, 4> as::operator*(const vec_t<real_t, 4>&, const mat_t<real_t, 4, 4>&);
+template const as::vec_t<real_t, 3> as::operator*(const vec_t<real_t, 3>&, const mat_t<real_t, 3>&);
+template const as::vec_t<real_t, 4> as::operator*(const vec_t<real_t, 4>&, const mat_t<real_t, 4>&);
 #elif defined AS_COL_MAJOR
-template const as::vec_t<real_t, 3> as::operator*(const mat_t<real_t, 3, 3>&, const vec_t<real_t, 3>&);
-template const as::vec_t<real_t, 4> as::operator*(const mat_t<real_t, 4, 4>&, const vec_t<real_t, 4>&);
+template const as::vec_t<real_t, 3> as::operator*(const mat_t<real_t, 3>&, const vec_t<real_t, 3>&);
+template const as::vec_t<real_t, 4> as::operator*(const mat_t<real_t, 4>&, const vec_t<real_t, 4>&);
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
 // scalar multiply
-template const as::mat_t<real_t, 3, 3> as::operator*(const mat_t<real_t, 3, 3>&, real_t scalar);
-template const as::mat_t<real_t, 4, 4> as::operator*(const mat_t<real_t, 4, 4>&, real_t scalar);
-template as::mat_t<real_t, 3, 3>& as::operator*=(mat_t<real_t, 3, 3>&, real_t scalar);
-template as::mat_t<real_t, 4, 4>& as::operator*=(mat_t<real_t, 4, 4>&, real_t scalar);
+template const as::mat_t<real_t, 3> as::operator*(const mat_t<real_t, 3>&, real_t scalar);
+template const as::mat_t<real_t, 4> as::operator*(const mat_t<real_t, 4>&, real_t scalar);
+template as::mat_t<real_t, 3>& as::operator*=(mat_t<real_t, 3>&, real_t scalar);
+template as::mat_t<real_t, 4>& as::operator*=(mat_t<real_t, 4>&, real_t scalar);

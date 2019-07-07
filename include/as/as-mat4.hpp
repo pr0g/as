@@ -7,7 +7,7 @@ namespace as
 {
 
 template<typename T>
-struct mat_t<T, 4, 4>
+struct mat_t<T, 4>
 {
     T elem_rc[4][4];
     static constexpr size_t size = 4 * 4;
@@ -109,7 +109,7 @@ struct mat_t<T, 4, 4>
         } {}
 #endif
 
-    constexpr mat_t(const mat33_t& mat, const vec_t<T, 3>& pos)
+    constexpr mat_t(const mat_t<T, 3>& mat, const vec_t<T, 3>& pos)
         : elem_rc {
             { mat.elem_rc[0][0], mat.elem_rc[0][1], mat.elem_rc[0][2], 0.0f },
             { mat.elem_rc[1][0], mat.elem_rc[1][1], mat.elem_rc[1][2], 0.0f },
@@ -118,10 +118,10 @@ struct mat_t<T, 4, 4>
         } {}
 };
 
-using mat44_t = mat_t<real_t, 4, 4>;
-using mat44f_t = mat_t<float, 4, 4>;
-using mat44d_t = mat_t<double, 4, 4>;
-using mat44i_t = mat_t<int32_t, 4, 4>;
-using mat44l_t = mat_t<int64_t, 4, 4>;
+using mat4_t = mat_t<real_t, 4>;
+using mat4f_t = mat_t<float, 4>;
+using mat4d_t = mat_t<double, 4>;
+using mat4i_t = mat_t<int32_t, 4>;
+using mat4l_t = mat_t<int64_t, 4>;
 
 } // namespace as
