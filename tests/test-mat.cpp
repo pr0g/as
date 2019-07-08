@@ -264,10 +264,10 @@ TEST(as_mat, mat_row_col_access_mat44)
     );
 
     real_t mult_elems[] = {
-        10.0f, 20.0f, 30.0f, 40.0f,
-        50.0f, 60.0f, 70.0f, 80.0f,
-        90.0f, 100.0f, 110.0f, 120.0f,
-        130.0f, 140.0f, 150.0f, 160.0f
+        10.0f, 20.0f, 30.0f, 40.0f,    //
+        50.0f, 60.0f, 70.0f, 80.0f,    //
+        90.0f, 100.0f, 110.0f, 120.0f, //
+        130.0f, 140.0f, 150.0f, 160.0f //
     };
 
     EXPECT_THAT(mult_elems, ElementsAreArray(mat44_mult.elems(), 16));
