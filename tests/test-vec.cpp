@@ -1309,8 +1309,8 @@ TEST(as_vec, cross)
 
         vec3_t cross_result = vec3::cross(vec1, vec2);
         EXPECT_NEAR(cross_result.x, -3.0f, epsilon) << "vec::cross failed";
-        EXPECT_NEAR(cross_result.y, 6.0f, epsilon) << "vec::cross failed";;
-        EXPECT_NEAR(cross_result.z, -3.0f, epsilon) << "vec::cross failed";;
+        EXPECT_NEAR(cross_result.y, 6.0f, epsilon) << "vec::cross failed";
+        EXPECT_NEAR(cross_result.z, -3.0f, epsilon) << "vec::cross failed";
     }
 
     {
@@ -1318,14 +1318,14 @@ TEST(as_vec, cross)
         vec3_t vec2(0.0f, 1.0f, 0.0f);
 
         vec3_t cross_result1 = vec3::cross(vec1, vec2);
-        EXPECT_NEAR(cross_result1.x, 0.0f, epsilon) << "vec::cross failed";;
-        EXPECT_NEAR(cross_result1.y, 0.0f, epsilon) << "vec::cross failed";;
-        EXPECT_NEAR(cross_result1.z, 1.0f, epsilon) << "vec::cross failed";;
+        EXPECT_NEAR(cross_result1.x, 0.0f, epsilon) << "vec::cross failed";
+        EXPECT_NEAR(cross_result1.y, 0.0f, epsilon) << "vec::cross failed";
+        EXPECT_NEAR(cross_result1.z, 1.0f, epsilon) << "vec::cross failed";
 
         vec3_t cross_result2 = vec3::cross(vec2, vec1);
-        EXPECT_NEAR(cross_result2.x, 0.0f, epsilon) << "vec::cross failed";;
-        EXPECT_NEAR(cross_result2.y, 0.0f, epsilon) << "vec::cross failed";;
-        EXPECT_NEAR(cross_result2.z, -1.0f, epsilon) << "vec::cross failed";;
+        EXPECT_NEAR(cross_result2.x, 0.0f, epsilon) << "vec::cross failed";
+        EXPECT_NEAR(cross_result2.y, 0.0f, epsilon) << "vec::cross failed";
+        EXPECT_NEAR(cross_result2.z, -1.0f, epsilon) << "vec::cross failed";
     }
 
     {
@@ -1333,9 +1333,9 @@ TEST(as_vec, cross)
         vec3_t vec2(0.0f, 0.0f, 12.0f);
 
         vec3_t cross_result = vec3::cross(vec1, vec2);
-        EXPECT_NEAR(cross_result.x, 60.0f, epsilon) << "vec::cross failed";;
-        EXPECT_NEAR(cross_result.y, 0.0f, epsilon) << "vec::cross failed";;
-        EXPECT_NEAR(cross_result.z, 0.0f, epsilon) << "vec::cross failed";;
+        EXPECT_NEAR(cross_result.x, 60.0f, epsilon) << "vec::cross failed";
+        EXPECT_NEAR(cross_result.y, 0.0f, epsilon) << "vec::cross failed";
+        EXPECT_NEAR(cross_result.z, 0.0f, epsilon) << "vec::cross failed";
     }
 
     {
@@ -1344,13 +1344,13 @@ TEST(as_vec, cross)
         vec3_t z(0.0f, 0.0f, 1.0f);
 
         vec3_t cross_result1 = vec3::cross(x, y);
-        EXPECT_NEAR(cross_result1.z, 1.0f, epsilon) << "vec::cross failed";;
+        EXPECT_NEAR(cross_result1.z, 1.0f, epsilon) << "vec::cross failed";
 
         vec3_t cross_result2 = vec3::cross(y, z);
-        EXPECT_NEAR(cross_result2.x, 1.0f, epsilon) << "vec::cross failed";;
+        EXPECT_NEAR(cross_result2.x, 1.0f, epsilon) << "vec::cross failed";
 
         vec3_t cross_result3 = vec3::cross(z, x);
-        EXPECT_NEAR(cross_result3.y, 1.0f, epsilon) << "vec::cross failed";;
+        EXPECT_NEAR(cross_result3.y, 1.0f, epsilon) << "vec::cross failed";
     }
 }
 

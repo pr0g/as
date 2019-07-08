@@ -11,9 +11,9 @@ TEST(as_mat, mat_row_col_access_mat33)
     using ::testing::ElementsAre;
 
     mat3_t mat33 {
-        1.0f, 2.0f, 3.0f,
-        4.0f, 5.0f, 6.0f,
-        7.0f, 8.0f, 9.0f
+        1.0f, 2.0f, 3.0f, //
+        4.0f, 5.0f, 6.0f, //
+        7.0f, 8.0f, 9.0f  //
     };
 
 #ifdef AS_COL_MAJOR
@@ -59,23 +59,23 @@ TEST(as_mat, mat_row_col_access_mat33)
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 
     real_t elems[] = {
-        1.0f, 2.0f, 3.0f,
-        4.0f, 5.0f, 6.0f,
-        7.0f, 8.0f, 9.0f
+        1.0f, 2.0f, 3.0f, //
+        4.0f, 5.0f, 6.0f, //
+        7.0f, 8.0f, 9.0f  //
     };
 
     EXPECT_THAT(elems, ElementsAreArray(mat33.elems(), 9));
 
     mat3_t mat33_mult;
     mat33_mult = mat3_t(
-        vec3_t(10.0f, 20.0f, 30.0f),
-        vec3_t(40.0f, 50.0f, 60.0f),
-        vec3_t(70.0f, 80.0f, 90.0f));
+        vec3_t(10.0f, 20.0f, 30.0f),  //
+        vec3_t(40.0f, 50.0f, 60.0f),  //
+        vec3_t(70.0f, 80.0f, 90.0f)); //
 
     real_t mult_elems[] = {
-        10.0f, 20.0f, 30.0f,
-        40.0f, 50.0f, 60.0f,
-        70.0f, 80.0f, 90.0f
+        10.0f, 20.0f, 30.0f, //
+        40.0f, 50.0f, 60.0f, //
+        70.0f, 80.0f, 90.0f  //
     };
 
     EXPECT_THAT(mult_elems, ElementsAreArray(mat33_mult.elems(), 9));
@@ -88,9 +88,9 @@ TEST(as_mat, mat_row_col_mutate_mat33)
 
     mat3_t mat33;
     mat33 = mat3_t {
-        0.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 0.0f
+        0.0f, 0.0f, 0.0f, //
+        0.0f, 0.0f, 0.0f, //
+        0.0f, 0.0f, 0.0f  //
     };
 
 #ifdef AS_COL_MAJOR
@@ -186,10 +186,10 @@ TEST(as_mat, mat_row_col_access_mat44)
     using ::testing::ElementsAre;
 
     mat4_t mat44 {
-        1.0f, 2.0f, 3.0f, 4.0f,
-        5.0f, 6.0f, 7.0f, 8.0f,
-        9.0f, 10.0f, 11.0f, 12.0f,
-        13.0f, 14.0f, 15.0f, 16.0f
+        1.0f, 2.0f, 3.0f, 4.0f,     //
+        5.0f, 6.0f, 7.0f, 8.0f,     //
+        9.0f, 10.0f, 11.0f, 12.0f,  //
+        13.0f, 14.0f, 15.0f, 16.0f  //
     };
 
 #ifdef AS_COL_MAJOR
@@ -247,20 +247,21 @@ TEST(as_mat, mat_row_col_access_mat44)
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 
     real_t elems[] = {
-        1.0f, 2.0f, 3.0f, 4.0f,
-        5.0f, 6.0f, 7.0f, 8.0f,
-        9.0f, 10.0f, 11.0f, 12.0f,
-        13.0f, 14.0f, 15.0f, 16.0f
+        1.0f, 2.0f, 3.0f, 4.0f,    //
+        5.0f, 6.0f, 7.0f, 8.0f,    //
+        9.0f, 10.0f, 11.0f, 12.0f, //
+        13.0f, 14.0f, 15.0f, 16.0f //
     };
 
     EXPECT_THAT(elems, ElementsAreArray(mat44.elems(), 16));
 
     mat4_t mat44_mult;
     mat44_mult = mat4_t(
-        vec4_t(10.0f, 20.0f, 30.0f, 40.0f),
-        vec4_t(50.0f, 60.0f, 70.0f, 80.0f),
-        vec4_t(90.0f, 100.0f, 110.0f, 120.0f),
-        vec4_t(130.0f, 140.0f, 150.0f, 160.0f));
+        vec4_t(10.0f, 20.0f, 30.0f, 40.0f),    //
+        vec4_t(50.0f, 60.0f, 70.0f, 80.0f),    //
+        vec4_t(90.0f, 100.0f, 110.0f, 120.0f), //
+        vec4_t(130.0f, 140.0f, 150.0f, 160.0f) //
+    );
 
     real_t mult_elems[] = {
         10.0f, 20.0f, 30.0f, 40.0f,
@@ -279,10 +280,10 @@ TEST(as_mat, mat_row_col_mutate_mat44)
 
     mat4_t mat44;
     mat44 = mat4_t {
-        0.0f, 0.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 0.0f, 0.0f
+        0.0f, 0.0f, 0.0f, 0.0f, //
+        0.0f, 0.0f, 0.0f, 0.0f, //
+        0.0f, 0.0f, 0.0f, 0.0f, //
+        0.0f, 0.0f, 0.0f, 0.0f  //
     };
 
 #ifdef AS_COL_MAJOR
@@ -405,9 +406,9 @@ TEST(as_mat, mat_mat44_from_mat33_and_vec3)
     using ::testing::ElementsAreArray;
 
     mat3_t mat33 {
-        1.0f, 2.0f, 3.0f,
-        4.0f, 5.0f, 6.0f,
-        7.0f, 8.0f, 9.0f
+        1.0f, 2.0f, 3.0f, //
+        4.0f, 5.0f, 6.0f, //
+        7.0f, 8.0f, 9.0f  //
     };
 
     vec3_t vec3 { 10.0f, 11.0f, 12.0f };
@@ -416,10 +417,10 @@ TEST(as_mat, mat_mat44_from_mat33_and_vec3)
     mat44 = mat4_t{ mat33, vec3 };
 
     const real_t mat33_and_vec3[] = {
-        1.0f, 2.0f, 3.0f, 0.0f,
-        4.0f, 5.0f, 6.0f, 0.0f,
-        7.0f, 8.0f, 9.0f, 0.0f,
-        10.0f, 11.0f, 12.0f, 1.0f
+        1.0f, 2.0f, 3.0f, 0.0f,   //
+        4.0f, 5.0f, 6.0f, 0.0f,   //
+        7.0f, 8.0f, 9.0f, 0.0f,   //
+        10.0f, 11.0f, 12.0f, 1.0f //
     };
 
     EXPECT_THAT(mat33_and_vec3, ElementsAreArray(mat44.elems(), 16));
@@ -430,18 +431,19 @@ TEST(as_mat, const_elem_access)
     using ::testing::ElementsAreArray;
 
     const mat_t<real_t, 5> mat55(
-        1.0f, 2.0f, 3.0f, 4.0f, 5.0f,
-        6.0f, 7.0f, 8.0f, 9.0f, 10.0f,
-        11.0f, 12.0f, 13.0f, 15.0f, 15.0f,
-        16.0f, 17.0f, 18.0f, 19.0f, 20.0f,
-        21.0f, 22.0f, 23.0f, 24.0f, 25.0f);
+        1.0f, 2.0f, 3.0f, 4.0f, 5.0f,       //
+        6.0f, 7.0f, 8.0f, 9.0f, 10.0f,      //
+        11.0f, 12.0f, 13.0f, 15.0f, 15.0f,  //
+        16.0f, 17.0f, 18.0f, 19.0f, 20.0f,  //
+        21.0f, 22.0f, 23.0f, 24.0f, 25.0f); //
 
     const real_t mat_arr[] = {
-        mat55[0], mat55[1], mat55[2], mat55[3], mat55[4],
-        mat55[5], mat55[6], mat55[7], mat55[8], mat55[9],
-        mat55[10], mat55[11], mat55[12], mat55[13], mat55[14],
-        mat55[15], mat55[16], mat55[17], mat55[18], mat55[19],
-        mat55[20], mat55[21], mat55[22], mat55[23], mat55[24] };
+        mat55[0], mat55[1], mat55[2], mat55[3], mat55[4],      //
+        mat55[5], mat55[6], mat55[7], mat55[8], mat55[9],      //
+        mat55[10], mat55[11], mat55[12], mat55[13], mat55[14], //
+        mat55[15], mat55[16], mat55[17], mat55[18], mat55[19], //
+        mat55[20], mat55[21], mat55[22], mat55[23], mat55[24]  //
+    };
 
     EXPECT_THAT(mat_arr, ElementsAreArray(mat55.elems(), 25));
 }
@@ -451,21 +453,23 @@ TEST(as_mat, elem_access)
     using ::testing::ElementsAreArray;
 
     mat_t<real_t, 5> mat55(
-        1.0f, 2.0f, 3.0f, 4.0f, 5.0f,
-        6.0f, 7.0f, 8.0f, 9.0f, 10.0f,
-        11.0f, 12.0f, 13.0f, 15.0f, 15.0f,
-        16.0f, 17.0f, 18.0f, 19.0f, 20.0f,
-        21.0f, 22.0f, 23.0f, 24.0f, 25.0f);
+        1.0f, 2.0f, 3.0f, 4.0f, 5.0f,      //
+        6.0f, 7.0f, 8.0f, 9.0f, 10.0f,     //
+        11.0f, 12.0f, 13.0f, 15.0f, 15.0f, //
+        16.0f, 17.0f, 18.0f, 19.0f, 20.0f, //
+        21.0f, 22.0f, 23.0f, 24.0f, 25.0f  //
+    );
 
     mat55[15] = 100.0f;
     mat55[20] = 200.0f;
 
     const real_t mat_arr[] = {
-        mat55[0], mat55[1], mat55[2], mat55[3], mat55[4],
-        mat55[5], mat55[6], mat55[7], mat55[8], mat55[9],
-        mat55[10], mat55[11], mat55[12], mat55[13], mat55[14],
-        100.0f, mat55[16], mat55[17], mat55[18], mat55[19],
-        200.0f, mat55[21], mat55[22], mat55[23], mat55[24] };
+        mat55[0], mat55[1], mat55[2], mat55[3], mat55[4],      //
+        mat55[5], mat55[6], mat55[7], mat55[8], mat55[9],      //
+        mat55[10], mat55[11], mat55[12], mat55[13], mat55[14], //
+        100.0f, mat55[16], mat55[17], mat55[18], mat55[19],    //
+        200.0f, mat55[21], mat55[22], mat55[23], mat55[24]     //
+    };
 
     EXPECT_THAT(mat_arr, ElementsAreArray(mat55.elems(), 25));
 }
@@ -475,21 +479,21 @@ TEST(as_mat, multiply_same_size)
     using ::testing::ElementsAreArray;
 
     const mat3_t lhs {
-        1.0f, 2.0f, 3.0f,
-        4.0f, 5.0f, 6.0f,
-        7.0f, 8.0f, 9.0f
+        1.0f, 2.0f, 3.0f, //
+        4.0f, 5.0f, 6.0f, //
+        7.0f, 8.0f, 9.0f  //
     };
 
     const mat3_t rhs {
-        9.0f, 8.0f, 7.0f,
-        6.0f, 5.0f, 4.0f,
-        3.0f, 2.0f, 1.0f
+        9.0f, 8.0f, 7.0f, //
+        6.0f, 5.0f, 4.0f, //
+        3.0f, 2.0f, 1.0f  //
     };
 
     const real_t mat_arr[] = {
-        30.0f, 24.0f, 18.0f,
-        84.0f, 69.0f, 54.0f,
-        138.0f, 114.0f, 90.0f
+        30.0f, 24.0f, 18.0f,  //
+        84.0f, 69.0f, 54.0f,  //
+        138.0f, 114.0f, 90.0f //
     };
 
     mat3_t result;
@@ -507,9 +511,9 @@ TEST(as_mat, multiply_vector)
     using ::testing::ElementsAreArray;
 
     const mat3_t mat {
-        1.0f, 2.0f, 3.0f,
-        4.0f, 5.0f, 6.0f,
-        7.0f, 8.0f, 9.0f
+        1.0f, 2.0f, 3.0f, //
+        4.0f, 5.0f, 6.0f, //
+        7.0f, 8.0f, 9.0f  //
     };
 
     const vec3_t vec { 11.0f, 12.0f, 13.0f };
@@ -530,35 +534,35 @@ TEST(as_mat, multiply_scalar)
     using ::testing::ElementsAreArray;
 
     const mat3_t mat33 {
-        1.0f, 2.0f, 3.0f,
-        4.0f, 5.0f, 6.0f,
-        7.0f, 8.0f, 9.0f
+        1.0f, 2.0f, 3.0f, //
+        4.0f, 5.0f, 6.0f, //
+        7.0f, 8.0f, 9.0f  //
     };
 
     mat3_t result33 = mat33 * 2.0f;
 
     const real_t mat33_arr[] = {
-        2.0f, 4.0f, 6.0f,
-        8.0f, 10.0f, 12.0f,
-        14.0f, 16.0f, 18.0f
+        2.0f, 4.0f, 6.0f,   //
+        8.0f, 10.0f, 12.0f, //
+        14.0f, 16.0f, 18.0f //
     };
 
     EXPECT_THAT(mat33_arr, ElementsAreArray(result33.elems(), 9));
 
     const mat4_t mat44 {
-        2.0f, 4.0f, 6.0f, 8.0f,
-        10.0f, 12.0f, 14.0f, 16.0f,
-        18.0f, 20.0f, 22.0f, 24.0f,
-        26.0f, 28.0f, 30.0f, 32.0f
+        2.0f, 4.0f, 6.0f, 8.0f,     //
+        10.0f, 12.0f, 14.0f, 16.0f, //
+        18.0f, 20.0f, 22.0f, 24.0f, //
+        26.0f, 28.0f, 30.0f, 32.0f  //
     };
 
     mat4_t result44 = mat44 * 2.0f;
 
     const real_t mat44_arr[] = {
-        4.0f, 8.0f, 12.0f, 16.0f,
-        20.0f, 24.0f, 28.0f, 32.0f,
-        36.0f, 40.0f, 44.0f, 48.0f,
-        52.0f, 56.0f, 60.0f, 64.0f
+        4.0f, 8.0f, 12.0f, 16.0f,   //
+        20.0f, 24.0f, 28.0f, 32.0f, //
+        36.0f, 40.0f, 44.0f, 48.0f, //
+        52.0f, 56.0f, 60.0f, 64.0f  //
     };
 
     EXPECT_THAT(mat44_arr, ElementsAreArray(result44.elems(), 16));
