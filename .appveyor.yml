@@ -1,0 +1,23 @@
+version: '{build}'
+
+image: Visual Studio 2017
+
+environment:
+  matrix:
+    - GENERATOR: "Visual Studio 15 Win64"
+      CONFIG: Release
+
+build_script:
+- mkdir googletest && cd googletest
+- git clone --depth=10 --branch=master https://github.com/google/googletest.git .
+- mkdir build && cd build
+- cmake -G "%GENERATOR%" -DCMAKE_INSTALL_PREFIX=../../tests/build/gtest_install/ -Dgtest_force_shared_crt=ON ..
+- cmake --build . --config "%CONFIG%" --target install
+- cd ../..
+- mkdir build && cd build
+- cmake -G "%GENERATOR%" -DCMAKE_INSTALL_PREFIX=../tests/build/as_install/ ..
+- cmake --build . --target install --config "%CONFIG%"
+- cd ../tests/build
+- cmake -G "%GENERATOR%" -DDEV_LIB_DIR=../../ .. -DCMAKE_PREFIX_PATH=%cd%\gtest_install;%cd%\as_install
+- cmake --build . --config "%CONFIG%"
+- "\"%CONFIG%\"\\as-test.exe"
