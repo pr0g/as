@@ -34,7 +34,7 @@ struct mat_t
     mat_t& operator=(mat_t&& mat) noexcept = default;
     ~mat_t() = default;
 
-    template<typename...> struct typelist;
+    template<typename...> struct typelist {};
     template<
         typename... Args,
         typename = std::enable_if_t<

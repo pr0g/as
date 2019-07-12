@@ -26,7 +26,7 @@ struct vec_t
     vec_t& operator=(vec_t&&) noexcept = default;
     ~vec_t() noexcept = default;
 
-    template<typename...> struct typelist;
+    template<typename...> struct typelist {};
     template<
         typename... Args,
         typename = std::enable_if_t<
