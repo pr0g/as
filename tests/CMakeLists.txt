@@ -37,14 +37,14 @@ string(
 )
 
 string(
-    REPLACE "{options}" "-fprofile-arcs;-ftest-coverage;-g;-O0;-fno-inline" # gcov
+    REPLACE "{options}" "-fprofile-arcs;-ftest-coverage;-g;-O0;-fno-inline;" # gcov
     # REPLACE "{options}" "-fprofile-instr-generate;-fcoverage-mapping;-g;-O0;-fno-inline;" # llmv-cov
     # REPLACE "{options}" "-fprofile-instr-use;-g;-O0;-fno-inline;" # llmv-cov
     compile_options "${coverage_options}"
 )
 
 string(
-    REPLACE "{options}" "-coverage" # gcc
+    REPLACE "{options}" "-coverage;" # gcc
     # REPLACE "{options}" "-fprofile-instr-generate" # llvm-cov
     link_options "${coverage_options}"
 )
