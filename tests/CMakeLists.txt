@@ -56,7 +56,7 @@ string(
             "$<COMPILE_LANGUAGE:CXX>,"
             "$<OR:"
                 "$<CXX_COMPILER_ID:Clang>,"
-                "$<CXX_COMPILER_ID:AppleClang>,"
+                "$<CXX_COMPILER_ID:AppleClang>"
             ">"
         ">:"
         "-Weverything;"
