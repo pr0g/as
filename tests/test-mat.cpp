@@ -95,84 +95,84 @@ TEST(as_mat, mat_row_col_mutate_mat33)
 
 #ifdef AS_COL_MAJOR
     const real_t col0[] = { 1.0f, 2.0f, 3.0f };
-    const as::vec3_t c0 = as::vec3::from_arr(col0);
+    const vec3_t c0 = vec3::from_arr(col0);
     mat33.col0(c0);
     EXPECT_THAT(col0, ElementsAreArray(mat33.col0().elems(), 3));
     mat33.col(0, c0);
     EXPECT_THAT(col0, ElementsAreArray(mat33.col(0).elems(), 3));
 
     const real_t col1[] = { 4.0f, 5.0f, 6.0f };
-    const as::vec3_t c1 = as::vec3::from_arr(col1);
+    const vec3_t c1 = vec3::from_arr(col1);
     mat33.col1(c1);
     EXPECT_THAT(col1, ElementsAreArray(mat33.col1().elems(), 3));
     mat33.col(1, c1);
     EXPECT_THAT(col1, ElementsAreArray(mat33.col(1).elems(), 3));
 
     const real_t col2[] = { 7.0f, 8.0f, 9.0f };
-    const as::vec3_t c2 = as::vec3::from_arr(col2);
+    const vec3_t c2 = vec3::from_arr(col2);
     mat33.col2(c2);
     EXPECT_THAT(col2, ElementsAreArray(mat33.col2().elems(), 3));
     mat33.col(2, c2);
     EXPECT_THAT(col2, ElementsAreArray(mat33.col(2).elems(), 3));
 
     const real_t row0[] = { 1.0f, 4.0f, 7.0f };
-    const as::vec3_t r0 = as::vec3::from_arr(row0);
+    const vec3_t r0 = vec3::from_arr(row0);
     mat33.row0(r0);
     EXPECT_THAT(row0, ElementsAreArray(mat33.row0().elems(), 3));
     mat33.row(0, r0);
     EXPECT_THAT(row0, ElementsAreArray(mat33.row(0).elems(), 3));
 
     const real_t row1[] = { 2.0f, 5.0f, 8.0f };
-    const as::vec3_t r1 = as::vec3::from_arr(row1);
+    const vec3_t r1 = vec3::from_arr(row1);
     mat33.row1(r1);
     EXPECT_THAT(row1, ElementsAreArray(mat33.row1().elems(), 3));
     mat33.row(1, r1);
     EXPECT_THAT(row1, ElementsAreArray(mat33.row(1).elems(), 3));
 
     const real_t row2[] = { 3.0f, 6.0f, 9.0f };
-    const as::vec3_t r2 = as::vec3::from_arr(row2);
+    const vec3_t r2 = vec3::from_arr(row2);
     mat33.row2(r2);
     EXPECT_THAT(row2, ElementsAreArray(mat33.row2().elems(), 3));
     mat33.row(2, r2);
     EXPECT_THAT(row2, ElementsAreArray(mat33.row(2).elems(), 3));
 #elif defined AS_ROW_MAJOR
     const real_t row0[] = { 1.0f, 2.0f, 3.0f };
-    const as::vec3_t r0 = as::vec3::from_arr(row0);
+    const vec3_t r0 = vec3::from_arr(row0);
     mat33.row0(r0);
     EXPECT_THAT(row0, ElementsAreArray(mat33.row0().elems(), 3));
     mat33.row(0, r0);
     EXPECT_THAT(row0, ElementsAreArray(mat33.row(0).elems(), 3));
 
     const real_t row1[] = { 4.0f, 5.0f, 6.0f };
-    const as::vec3_t r1 = as::vec3::from_arr(row1);
+    const vec3_t r1 = vec3::from_arr(row1);
     mat33.row1(r1);
     EXPECT_THAT(row1, ElementsAreArray(mat33.row1().elems(), 3));
     mat33.row(1, r1);
     EXPECT_THAT(row1, ElementsAreArray(mat33.row(1).elems(), 3));
 
     const real_t row2[] = { 7.0f, 8.0f, 9.0f };
-    const as::vec3_t r2 = as::vec3::from_arr(row2);
+    const vec3_t r2 = vec3::from_arr(row2);
     mat33.row2(r2);
     EXPECT_THAT(row2, ElementsAreArray(mat33.row2().elems(), 3));
     mat33.row(2, r2);
     EXPECT_THAT(row2, ElementsAreArray(mat33.row(2).elems(), 3));
 
     const real_t col0[] = { 1.0f, 4.0f, 7.0f };
-    const as::vec3_t c0 = as::vec3::from_arr(col0);
+    const vec3_t c0 = vec3::from_arr(col0);
     mat33.col0(c0);
     EXPECT_THAT(col0, ElementsAreArray(mat33.col0().elems(), 3));
     mat33.col(0, c0);
     EXPECT_THAT(col0, ElementsAreArray(mat33.col(0).elems(), 3));
 
     const real_t col1[] = { 2.0f, 5.0f, 9.0f };
-    const as::vec3_t c1 = as::vec3::from_arr(col1);
+    const vec3_t c1 = vec3::from_arr(col1);
     mat33.col1(c1);
     EXPECT_THAT(col1, ElementsAreArray(mat33.col1().elems(), 3));
     mat33.col(1, c1);
     EXPECT_THAT(col1, ElementsAreArray(mat33.col(1).elems(), 3));
 
     const real_t col2[] = { 3.0f, 6.0f, 9.0f };
-    const as::vec3_t c2 = as::vec3::from_arr(col2);
+    const vec3_t c2 = vec3::from_arr(col2);
     mat33.col2(c2);
     EXPECT_THAT(col2, ElementsAreArray(mat33.col2().elems(), 3));
     mat33.col(2, c2);
@@ -288,112 +288,112 @@ TEST(as_mat, mat_row_col_mutate_mat44)
 
 #ifdef AS_COL_MAJOR
     const real_t col0[] = { 1.0f, 2.0f, 3.0f, 4.0f };
-    const as::vec4_t c0 = as::vec4::from_arr(col0);
+    const vec4_t c0 = vec4::from_arr(col0);
     mat44.col0(c0);
     EXPECT_THAT(col0, ElementsAreArray(mat44.col0().elems(), 4));
     mat44.col(0, c0);
     EXPECT_THAT(col0, ElementsAreArray(mat44.col(0).elems(), 4));
 
     const real_t col1[] = { 5.0f, 6.0f, 7.0f, 8.0f };
-    const as::vec4_t c1 = as::vec4::from_arr(col1);
+    const vec4_t c1 = vec4::from_arr(col1);
     mat44.col1(c1);
     EXPECT_THAT(col1, ElementsAreArray(mat44.col1().elems(), 4));
     mat44.col(1, c1);
     EXPECT_THAT(col1, ElementsAreArray(mat44.col(1).elems(), 4));
 
     const real_t col2[] = { 9.0f, 10.0f, 11.0f, 12.0f };
-    const as::vec4_t c2 = as::vec4::from_arr(col2);
+    const vec4_t c2 = vec4::from_arr(col2);
     mat44.col2(c2);
     EXPECT_THAT(col2, ElementsAreArray(mat44.col2().elems(), 4));
     mat44.col(2, c2);
     EXPECT_THAT(col2, ElementsAreArray(mat44.col(2).elems(), 4));
 
     const real_t col3[] = { 13.0f, 14.0f, 15.0f, 16.0f };
-    const as::vec4_t c3 = as::vec4::from_arr(col3);
+    const vec4_t c3 = vec4::from_arr(col3);
     mat44.col3(c3);
     EXPECT_THAT(col3, ElementsAreArray(mat44.col3().elems(), 4));
     mat44.col(3, c3);
     EXPECT_THAT(col3, ElementsAreArray(mat44.col(3).elems(), 4));
 
     const real_t row0[] = { 1.0f, 5.0f, 9.0f, 13.0f };
-    const as::vec4_t r0 = as::vec4::from_arr(row0);
+    const vec4_t r0 = vec4::from_arr(row0);
     mat44.row0(r0);
     EXPECT_THAT(row0, ElementsAreArray(mat44.row0().elems(), 4));
     mat44.row(0, r0);
     EXPECT_THAT(row0, ElementsAreArray(mat44.row(0).elems(), 4));
 
     const real_t row1[] = { 2.0f, 6.0f, 10.0f, 14.0f };
-    const as::vec4_t r1 = as::vec4::from_arr(row1);
+    const vec4_t r1 = vec4::from_arr(row1);
     mat44.row1(r1);
     EXPECT_THAT(row1, ElementsAreArray(mat44.row1().elems(), 4));
     mat44.row(1, r1);
     EXPECT_THAT(row1, ElementsAreArray(mat44.row(1).elems(), 4));
 
     const real_t row2[] = { 3.0f, 7.0f, 11.0f, 15.0f };
-    const as::vec4_t r2 = as::vec4::from_arr(row2);
+    const vec4_t r2 = vec4::from_arr(row2);
     mat44.row2(r2);
     EXPECT_THAT(row2, ElementsAreArray(mat44.row2().elems(), 4));
     mat44.row(2, r2);
     EXPECT_THAT(row2, ElementsAreArray(mat44.row(2).elems(), 4));
 
     const real_t row3[] = { 4.0f, 8.0f, 12.0f, 16.0f };
-    const as::vec4_t r3 = as::vec4::from_arr(row3);
+    const vec4_t r3 = vec4::from_arr(row3);
     mat44.row3(r3);
     EXPECT_THAT(row3, ElementsAreArray(mat44.row3().elems(), 4));
     mat44.row(3, r3);
     EXPECT_THAT(row3, ElementsAreArray(mat44.row(3).elems(), 4));
 #elif defined AS_ROW_MAJOR
     const real_t row0[] = { 1.0f, 2.0f, 3.0f, 4.0f };
-    const as::vec4_t c0 = as::vec4::from_arr(row0);
+    const vec4_t c0 = vec4::from_arr(row0);
     mat44.row0(c0);
     EXPECT_THAT(row0, ElementsAreArray(mat44.row0().elems(), 4));
     mat44.row(0, c0);
     EXPECT_THAT(row0, ElementsAreArray(mat44.row(0).elems(), 4));
 
     const real_t row1[] = { 5.0f, 6.0f, 7.0f, 8.0f };
-    const as::vec4_t c1 = as::vec4::from_arr(row1);
+    const vec4_t c1 = vec4::from_arr(row1);
     mat44.row1(c1);
     EXPECT_THAT(row1, ElementsAreArray(mat44.row1().elems(), 4));
     mat44.row(1, c1);
     EXPECT_THAT(row1, ElementsAreArray(mat44.row(1).elems(), 4));
 
     const real_t row2[] = { 9.0f, 10.0f, 11.0f, 12.0f };
-    const as::vec4_t c2 = as::vec4::from_arr(row2);
+    const vec4_t c2 = vec4::from_arr(row2);
     mat44.row2(c2);
     EXPECT_THAT(row2, ElementsAreArray(mat44.row2().elems(), 4));
     mat44.row(2, c2);
     EXPECT_THAT(row2, ElementsAreArray(mat44.row(2).elems(), 4));
 
     const real_t row3[] = { 13.0f, 14.0f, 15.0f, 16.0f };
-    const as::vec4_t c3 = as::vec4::from_arr(row3);
+    const vec4_t c3 = vec4::from_arr(row3);
     mat44.row3(c3);
     EXPECT_THAT(row3, ElementsAreArray(mat44.row3().elems(), 4));
     mat44.row(3, c3);
     EXPECT_THAT(row3, ElementsAreArray(mat44.row(3).elems(), 4));
 
     const real_t col0[] = { 1.0f, 5.0f, 9.0f, 13.0f };
-    const as::vec4_t r0 = as::vec4::from_arr(col0);
+    const vec4_t r0 = vec4::from_arr(col0);
     mat44.col0(r0);
     EXPECT_THAT(col0, ElementsAreArray(mat44.col0().elems(), 4));
     mat44.col(0, r0);
     EXPECT_THAT(col0, ElementsAreArray(mat44.col(0).elems(), 4));
 
     const real_t col1[] = { 2.0f, 6.0f, 10.0f, 14.0f };
-    const as::vec4_t r1 = as::vec4::from_arr(col1);
+    const vec4_t r1 = vec4::from_arr(col1);
     mat44.col1(r1);
     EXPECT_THAT(col1, ElementsAreArray(mat44.col1().elems(), 4));
     mat44.col(1, r1);
     EXPECT_THAT(col1, ElementsAreArray(mat44.col(1).elems(), 4));
 
     const real_t col2[] = { 3.0f, 7.0f, 11.0f, 15.0f };
-    const as::vec4_t r2 = as::vec4::from_arr(col2);
+    const vec4_t r2 = vec4::from_arr(col2);
     mat44.col2(r2);
     EXPECT_THAT(col2, ElementsAreArray(mat44.col2().elems(), 4));
     mat44.col(2, r2);
     EXPECT_THAT(col2, ElementsAreArray(mat44.col(2).elems(), 4));
 
     const real_t col3[] = { 4.0f, 8.0f, 12.0f, 16.0f };
-    const as::vec4_t r3 = as::vec4::from_arr(col3);
+    const vec4_t r3 = vec4::from_arr(col3);
     mat44.col3(r3);
     EXPECT_THAT(col3, ElementsAreArray(mat44.col3().elems(), 4));
     mat44.col(3, r3);
@@ -436,6 +436,8 @@ TEST(as_mat, const_elem_access)
         11.0f, 12.0f, 13.0f, 15.0f, 15.0f,  //
         16.0f, 17.0f, 18.0f, 19.0f, 20.0f,  //
         21.0f, 22.0f, 23.0f, 24.0f, 25.0f); //
+
+    const mat_t<real_t, 5> matt55_copy = mat55;
 
     const real_t mat_arr[] = {
         mat55[0], mat55[1], mat55[2], mat55[3], mat55[4],      //
@@ -571,26 +573,26 @@ TEST(as_mat, multiply_scalar)
 // explicit instantiations (for coverage)
 
 // types
-template struct as::mat_t<real_t, 2>;
-template struct as::mat_t<real_t, 3>;
-template struct as::mat_t<real_t, 4>;
-template struct as::mat_t<real_t, 5>;
+template struct mat_t<real_t, 2>;
+template struct mat_t<real_t, 3>;
+template struct mat_t<real_t, 4>;
+template struct mat_t<real_t, 5>;
 
 // matrix multiply
-template const as::mat_t<real_t, 3> as::operator*(const mat_t<real_t, 3>&, const mat_t<real_t, 3>&);
-template const as::mat_t<real_t, 4> as::operator*(const mat_t<real_t, 4>&, const mat_t<real_t, 4>&);
+template const mat_t<real_t, 3> as::operator*(const mat_t<real_t, 3>&, const mat_t<real_t, 3>&);
+template const mat_t<real_t, 4> as::operator*(const mat_t<real_t, 4>&, const mat_t<real_t, 4>&);
 
 // vector multiply
 #if defined AS_ROW_MAJOR
-template const as::vec_t<real_t, 3> as::operator*(const vec_t<real_t, 3>&, const mat_t<real_t, 3>&);
-template const as::vec_t<real_t, 4> as::operator*(const vec_t<real_t, 4>&, const mat_t<real_t, 4>&);
+template const vec_t<real_t, 3> as::operator*(const vec_t<real_t, 3>&, const mat_t<real_t, 3>&);
+template const vec_t<real_t, 4> as::operator*(const vec_t<real_t, 4>&, const mat_t<real_t, 4>&);
 #elif defined AS_COL_MAJOR
-template const as::vec_t<real_t, 3> as::operator*(const mat_t<real_t, 3>&, const vec_t<real_t, 3>&);
-template const as::vec_t<real_t, 4> as::operator*(const mat_t<real_t, 4>&, const vec_t<real_t, 4>&);
+template const vec_t<real_t, 3> as::operator*(const mat_t<real_t, 3>&, const vec_t<real_t, 3>&);
+template const vec_t<real_t, 4> as::operator*(const mat_t<real_t, 4>&, const vec_t<real_t, 4>&);
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
 // scalar multiply
-template const as::mat_t<real_t, 3> as::operator*(const mat_t<real_t, 3>&, real_t scalar);
-template const as::mat_t<real_t, 4> as::operator*(const mat_t<real_t, 4>&, real_t scalar);
-template as::mat_t<real_t, 3>& as::operator*=(mat_t<real_t, 3>&, real_t scalar);
-template as::mat_t<real_t, 4>& as::operator*=(mat_t<real_t, 4>&, real_t scalar);
+template const mat_t<real_t, 3> as::operator*(const mat_t<real_t, 3>&, real_t scalar);
+template const mat_t<real_t, 4> as::operator*(const mat_t<real_t, 4>&, real_t scalar);
+template mat_t<real_t, 3>& as::operator*=(mat_t<real_t, 3>&, real_t scalar);
+template mat_t<real_t, 4>& as::operator*=(mat_t<real_t, 4>&, real_t scalar);
