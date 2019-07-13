@@ -757,7 +757,7 @@ TEST(as_vec, vec_data)
     {
         using short7 = vec_t<short, 7>;
         short7 short7_vec{
-            11_s16, 22_s16, -33_s16, -44_s16, -55_s16, 66_s16, 77_s16 };
+            short(11), short(22), short(-33), short(-44), short(-55), short(66), short(77) };
         const short* data = vec::const_data(short7_vec);
 
         EXPECT_EQ(short7_vec[0],  11);
@@ -1639,8 +1639,8 @@ TEST(as_vec, select)
 
     using byte4 = vec_t<u8, 4>;
 
-    byte4 c(255_u8, 255_u8, 255_u8, 255_u8);
-    byte4 d(0_u8, 0_u8, 0_u8, 0_u8);
+    byte4 c(u8(255), u8(255), u8(255), u8(255));
+    byte4 d(u8(0), u8(0), u8(0), u8(0));
 
     int3 result = vec::select(a, b, true);
     byte4 result_byte = vec::select(c, d, false);

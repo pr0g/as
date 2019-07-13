@@ -20,14 +20,6 @@ using u64 = uint64_t;
 using f32 = float;
 using f64 = double;
 
-// helpers for situations when literals want to be used as a smaller
-// size value without needing to use an old style C cast or verbose
-// C++ cast (e.g. with colors between 0-255)
-inline constexpr u8 operator "" _u8(unsigned long long v) noexcept;
-inline constexpr u16 operator "" _u16(unsigned long long v) noexcept;
-inline constexpr s8 operator "" _s8(unsigned long long v) noexcept;
-inline constexpr s16 operator "" _s16(unsigned long long v) noexcept;
-
 // static assert to check library floating point precision has been set correctly
 #if (!defined(AS_PRECISION_FLOAT) && !defined(AS_PRECISION_DOUBLE))
     static_assert(false, "Must define AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE");
@@ -80,5 +72,3 @@ using real_t = double;
 #endif // _MSC_VER ? __GNUC__
 
 } // namespace as
-
-#include "as-types.inl"
