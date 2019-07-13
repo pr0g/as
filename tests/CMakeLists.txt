@@ -22,7 +22,7 @@ add_executable(
     test-math.cpp)
 
 string(
-    APPEND build_options
+    APPEND coverage_options
     "$<"
         "$<AND:"
             "$<COMPILE_LANGUAGE:CXX>,"
@@ -40,13 +40,35 @@ string(
     REPLACE "{options}" "-fprofile-arcs;-ftest-coverage;-g;-O0;-fno-inline" # gcov
     # REPLACE "{options}" "-fprofile-instr-generate;-fcoverage-mapping;-g;-O0;-fno-inline;" # llmv-cov
     # REPLACE "{options}" "-fprofile-instr-use;-g;-O0;-fno-inline;" # llmv-cov
-    compile_options "${build_options}"
+    compile_options "${coverage_options}"
 )
 
 string(
     REPLACE "{options}" "-coverage" # gcc
     # REPLACE "{options}" "-fprofile-instr-generate" # llvm-cov
-    link_options "${build_options}"
+    link_options "${coverage_options}"
+)
+
+string(
+    APPEND compile_options
+    "$<"
+        "$<AND:"
+            "$<COMPILE_LANGUAGE:CXX>,"
+            "$<OR:"
+                "$<CXX_COMPILER_ID:Clang>,"
+                "$<CXX_COMPILER_ID:AppleClang>,"
+                "$<CXX_COMPILER_ID:GNU>"
+            ">"
+        ">:"
+        "-Weverything;"
+    ">"
+    "$<"
+        "$<AND:"
+            "$<COMPILE_LANGUAGE:CXX>,"
+            "$<CXX_COMPILER_ID:MSVC>"
+        ">:"
+        "/W4;/WX;"
+    ">"
 )
 
 target_compile_options(
