@@ -437,8 +437,6 @@ TEST(as_mat, const_elem_access)
         16.0f, 17.0f, 18.0f, 19.0f, 20.0f,  //
         21.0f, 22.0f, 23.0f, 24.0f, 25.0f); //
 
-    const mat_t<real_t, 5> matt55_copy = mat55;
-
     const real_t mat_arr[] = {
         mat55[0], mat55[1], mat55[2], mat55[3], mat55[4],      //
         mat55[5], mat55[6], mat55[7], mat55[8], mat55[9],      //

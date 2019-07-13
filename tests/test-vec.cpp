@@ -757,17 +757,16 @@ TEST(as_vec, vec_data)
     {
         using short7 = vec_t<short, 7>;
         short7 short7_vec{
-            (short)11, (short)22, (short)33, (short)44,
-            (short)55, (short)66, (short)77 };
+            11_s16, 22_s16, -33_s16, -44_s16, -55_s16, 66_s16, 77_s16 };
         const short* data = vec::const_data(short7_vec);
 
-        EXPECT_EQ(short7_vec[0], 11);
-        EXPECT_EQ(short7_vec[1], 22);
-        EXPECT_EQ(short7_vec[2], 33);
-        EXPECT_EQ(short7_vec[3], 44);
-        EXPECT_EQ(short7_vec[4], 55);
-        EXPECT_EQ(short7_vec[5], 66);
-        EXPECT_EQ(short7_vec[6], 77);
+        EXPECT_EQ(short7_vec[0],  11);
+        EXPECT_EQ(short7_vec[1],  22);
+        EXPECT_EQ(short7_vec[2], -33);
+        EXPECT_EQ(short7_vec[3], -44);
+        EXPECT_EQ(short7_vec[4], -55);
+        EXPECT_EQ(short7_vec[5],  66);
+        EXPECT_EQ(short7_vec[6],  77);
 
         for (size_t i = 0; i < short7::size; ++i) {
             EXPECT_EQ(short7_vec[i], data[i]);
@@ -930,8 +929,8 @@ TEST(as_vec, vec_make_from_ptr)
     // generic type check
     {
         std::unique_ptr<double[]> data = std::make_unique<double[]>(2);
-        data[0] = 2.0f;
-        data[1] = 4.0f;
+        data[0] = 2.0;
+        data[1] = 4.0;
         // does not compile - types do not match
         // vec_t<char, 2> char_2 = from_ptr<char, 2>(data.get());
         // vec2_t vec2 = from_ptr<float, 2>(data.get());
@@ -1463,14 +1462,14 @@ TEST(as_vec, min_elem)
         vec3_t vec{ -1.0f, 2.0f, -100.0f };
         real_t result = vec::min_elem(vec);
 
-        EXPECT_TRUE(result == -100.0f) << "vec::min_elem failed";
+        EXPECT_EQ(result, -100.0f) << "vec::min_elem failed";
     }
 
     {
         vec3_t vec{ 1.0f, 2.0f, 3.0f };
         real_t result = vec::min_elem(vec);
 
-        EXPECT_TRUE(result == 1.0f) << "vec::min_elem failed";
+        EXPECT_EQ(result, 1.0f) << "vec::min_elem failed";
     }
 }
 
@@ -1613,14 +1612,22 @@ TEST(as_vec, normalize_return_length)
     EXPECT_FLOAT_EQ(vec::length(vec_normalized), 1.0f) << "vec::normalize_return_length failed - normalize";
 }
 
-TEST(as_vec, length_squared)
+TEST(as_vec, length_squared_v3)
 {
-    using vec5_t = vec_t<real_t, 5>;
-
     vec3_t vec(3.0f, 4.0f, 0.0f);
     real_t length_sq = vec::length_sq(vec);
 
     EXPECT_NEAR(length_sq, 25.0f, 1e6f) << "vec::length_sq failed";
+}
+
+TEST(as_vec, length_squared_generic)
+{
+    using vec5_t = vec_t<real_t, 5>;
+
+    vec5_t vec(3.0f, 4.0f, 5.0f, 6.0f, 7.0f);
+    real_t length_sq = vec::length_sq(vec);
+
+    EXPECT_NEAR(length_sq, 135.0f, 1e6f) << "vec::length_sq failed";
 }
 
 TEST(as_vec, select)
@@ -1632,8 +1639,8 @@ TEST(as_vec, select)
 
     using byte4 = vec_t<u8, 4>;
 
-    byte4 c((u8)255, (u8)255, (u8)255, (u8)255);
-    byte4 d((u8)0, (u8)0, (u8)0, (u8)0);
+    byte4 c(255_u8, 255_u8, 255_u8, 255_u8);
+    byte4 d(0_u8, 0_u8, 0_u8, 0_u8);
 
     int3 result = vec::select(a, b, true);
     byte4 result_byte = vec::select(c, d, false);

@@ -59,7 +59,7 @@ string(
                 "$<CXX_COMPILER_ID:AppleClang>"
             ">"
         ">:"
-        "-Weverything;"
+        "-Weverything;-Wno-c++98-compat;-Wno-;-Wno-global-constructors;-Wno-"
     ">"
     "$<"
         "$<AND:"

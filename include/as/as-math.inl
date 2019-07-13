@@ -11,7 +11,7 @@ template<typename T>
 T smooth_step(T t, T v0, T v1)
 {
     T val = (t * t) * ((T)3 - (T)2 * t);
-    return lerp(v0, v1, val);
+    return lerp(val, v0, v1);
 }
 
 template<typename T>

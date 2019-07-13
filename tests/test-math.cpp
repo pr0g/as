@@ -7,7 +7,7 @@ using namespace as;
 
 TEST(as_math, smoothstep)
 {
-    constexpr real_t real_epsilon = 1e4f;
+    constexpr real_t real_epsilon = 1e-3f;
 
     const real_t quarter_value  = as::smooth_step(0.25f, 0.0f, 1.0f);
     EXPECT_NEAR(quarter_value, 0.156f, real_epsilon);
@@ -16,7 +16,7 @@ TEST(as_math, smoothstep)
     EXPECT_NEAR(mid_value, 0.5f, real_epsilon);
 
     const real_t three_quarter_value  = as::smooth_step(0.75f, 0.0f, 1.0f);
-    EXPECT_NEAR(quarter_value, 0.844f, real_epsilon);
+    EXPECT_NEAR(three_quarter_value, 0.844f, real_epsilon);
 }
 
 TEST(as_math, degrees_to_radians)
