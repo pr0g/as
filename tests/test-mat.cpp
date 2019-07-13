@@ -573,10 +573,10 @@ TEST(as_mat, multiply_scalar)
 // explicit instantiations (for coverage)
 
 // types
-template struct mat_t<real_t, 2>;
-template struct mat_t<real_t, 3>;
-template struct mat_t<real_t, 4>;
-template struct mat_t<real_t, 5>;
+template struct as::mat_t<real_t, 2>;
+template struct as::mat_t<real_t, 3>;
+template struct as::mat_t<real_t, 4>;
+template struct as::mat_t<real_t, 5>;
 
 // matrix multiply
 template const mat_t<real_t, 3> as::operator*(const mat_t<real_t, 3>&, const mat_t<real_t, 3>&);

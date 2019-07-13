@@ -1,7 +1,43 @@
+os: linux
 dist: trusty
 language: cpp
+notifications:
+  email: false
+
+matrix:
+  include:
+    - env: COMPILER=clang++-5.0 BUILD_TYPE=Debug
+      addons: &clang50
+        apt:
+          packages:
+            - clang-5.0
+            - g++-7
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-5.0
+            - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main'
+              key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
+
+    - env: COMPILER=clang++-5.0 BUILD_TYPE=Release
+      addons: *clang50
+
+    - env: COMPILER=g++-7 BUILD_TYPE=Debug
+      addons: &gcc7
+        apt:
+          packages: g++-7
+          sources:
+            - ubuntu-toolchain-r-test
+
+    - env: COMPILER=g++-7 BUILD_TYPE=Release
+      addons: *gcc7
 
 install:
+  - export CXX=${COMPILER}
+  - ${CXX} --version
+
+  # travis machines have 2 cores
+  - JOBS=2
+
   # install more up to date cmake
   # ref: https://riptutorial.com/cmake/example/4723/configure-travis-ci-with-newest-cmake
   - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
@@ -12,24 +48,12 @@ install:
   - PATH=${DEPS_DIR}/cmake-install:${DEPS_DIR}/cmake-install/bin:$PATH
   - cd ${TRAVIS_BUILD_DIR}
 
-# get more up to date compiler
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - gcc-7
-      - g++-7
-
-script:
-  - export CC=gcc-7
-  - export CXX=g++-7
+before_script:
   - tools/install-googletest.sh
   - tools/install-as.sh
   - cd tests/build/
-  - cmake -DDEV_LIB_DIR=../../ .. -DCMAKE_PREFIX_PATH=$(pwd)/as_install/\;$(pwd)/gtest_install/
-  - cmake --build .
-  - ./as-test
+  - cmake -DDEV_LIB_DIR=../../ .. -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_PREFIX_PATH=$(pwd)/as_install/\;$(pwd)/gtest_install/
 
-notifications:
-  email: false
+script:
+  - cmake --build . -j${JOBS}
+  - ./as-test
