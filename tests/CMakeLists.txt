@@ -57,7 +57,6 @@ string(
             "$<OR:"
                 "$<CXX_COMPILER_ID:Clang>,"
                 "$<CXX_COMPILER_ID:AppleClang>,"
-                "$<CXX_COMPILER_ID:GNU>"
             ">"
         ">:"
         "-Weverything;"
@@ -68,6 +67,13 @@ string(
             "$<CXX_COMPILER_ID:MSVC>"
         ">:"
         "/W4;/WX;"
+    ">"
+    "$<"
+        "$<AND:"
+            "$<COMPILE_LANGUAGE:CXX>,"
+            "$<CXX_COMPILER_ID:GNU>"
+        ">:"
+        "-Wall;-Wextra;-Wshadow;"
     ">"
 )
 
