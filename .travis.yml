@@ -24,7 +24,9 @@ matrix:
     - env: COMPILER=g++-7 BUILD_TYPE=Debug
       addons: &gcc7
         apt:
-          packages: g++-7
+          packages:
+            - g++-7
+            - lcov
           sources:
             - ubuntu-toolchain-r-test
 
@@ -57,3 +59,13 @@ before_script:
 script:
   - cmake --build . -j${JOBS}
   - ./as-test
+
+after_success:
+  # create lcov report
+  - |
+    if [ $BUILD_TYPE == "Debug" ] && [ $COMPILER == "g++-7" ]; then
+      lcov --capture --directory . --output-file coverage.info
+      lcov --remove coverage.info '/usr/local/include/gmock/*' '/usr/local/include/gtest/*' '*/v1/*' --output-file coverage.info # filter external files
+      lcov --list coverage.info # debug info
+      bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports" # uploading report to codecov
+    fi
