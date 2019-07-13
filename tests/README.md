@@ -52,3 +52,13 @@ cmake --build .
 xcrun llvm-profdata merge -o as-test.profdata default.profraw
 xcrun llvm-cov show ./as-test -instr-profile=as-test.profdata > as-test-out.txt
 ```
+
+```bash
+# lcov method (http://ltp.sourceforge.net/coverage/lcov/readme.php)
+# cd build/ folder
+lcov --directory . --zerocounters
+./as-test
+lcov --directory . --capture --output-file app.info
+lcov --remove app.info '/usr/local/include/gmock/*' '/usr/local/include/gtest/*' '*/v1/*' -o app-filtered.info
+genhtml app-filtered.info
+```
