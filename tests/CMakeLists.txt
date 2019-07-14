@@ -37,6 +37,7 @@ string(
 )
 
 string(
+    # -fno-inline-small-functions;-fno-default-inline; # extra gcc compile options for coverage
     REPLACE "{options}" "-fprofile-arcs;-ftest-coverage;-g;-O0;-fno-inline;" # gcov
     # REPLACE "{options}" "-fprofile-instr-generate;-fcoverage-mapping;-g;-O0;-fno-inline;" # llmv-cov
     # REPLACE "{options}" "-fprofile-instr-use;-g;-O0;-fno-inline;" # llmv-cov
