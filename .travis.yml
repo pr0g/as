@@ -21,7 +21,7 @@ matrix:
     - env: CXX_COMPILER=clang++-5.0 C_COMPILER=clang-5.0 BUILD_TYPE=Release
       addons: *clang50
 
-    - env: CXX_COMPILER=g++-7 C_COMPILER=clang-gcc-7 BUILD_TYPE=Debug
+    - env: CXX_COMPILER=g++-7 C_COMPILER=gcc-7 BUILD_TYPE=Debug
       addons: &gcc7
         apt:
           packages:
@@ -30,7 +30,7 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
 
-    - env: CXX_COMPILER=g++-7 C_COMPILER=clang-gcc-7 BUILD_TYPE=Release
+    - env: CXX_COMPILER=g++-7 C_COMPILER=gcc-7 BUILD_TYPE=Release
       addons: *gcc7
 
 install:
