@@ -2,7 +2,7 @@
 
 `as` (short for _almost-something_) is an attempt at creating an easy to use header-only math library for prototype and hobby projects.
 
-[![Build Status](https://travis-ci.org/pr0g/as.svg?branch=master)](https://travis-ci.org/pr0g/as) [![Build status](https://ci.appveyor.com/api/projects/status/4o38plt0xbo1ubc8/branch/master?svg=true)](https://ci.appveyor.com/project/pr0g/as/branch/appveyor) ![coverage](https://codecov.io/gh/pr0g/as/branch/master/graphs/badge.svg) (it's not... 🤣)
+[![Build Status](https://travis-ci.org/pr0g/as.svg?branch=master)](https://travis-ci.org/pr0g/as) [![Build status](https://ci.appveyor.com/api/projects/status/4o38plt0xbo1ubc8/branch/master?svg=true)](https://ci.appveyor.com/project/pr0g/as/branch/appveyor) [![codecov](https://codecov.io/gh/pr0g/as/branch/master/graphs/badge.svg)](https://codecov.io/gh/pr0g/as) (it's not... 🤣)
 
 ## Disclaimer
 
