@@ -66,7 +66,7 @@ genhtml app-filtered.info
 ```bash
 ./as-test
 lcov --directory . --capture --output-file app.info --gcov-tool=/usr/local/bin/gcov-7
-lcov --remove app.info '/usr/local/include/gmock/*' '/usr/local/include/gtest/*' '*/7.4.0/*' -o app-filtered.info --gcov-tool=/usr/local/bin/gcov-7
+lcov --remove app.info '/usr/local/include/gmock/*' '/usr/local/include/gtest/*' '*/7.4.0/*' '*/usr/include/*' -o app-filtered.info --gcov-tool=/usr/local/bin/gcov-7
 genhtml app-filtered.info
 ```
 

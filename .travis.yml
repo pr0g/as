@@ -65,7 +65,7 @@ after_success:
   - |
     if [ $BUILD_TYPE == "Debug" ] && [ $COMPILER == "g++-7" ]; then
       lcov --capture --directory . --output-file coverage.info
-      lcov --remove coverage.info '/usr/local/include/gmock/*' '/usr/local/include/gtest/*' '*/v1/*' --output-file coverage.info # filter external files
+      lcov --remove coverage.info '/usr/local/include/gmock/*' '/usr/local/include/gtest/*' '*/v1/*' '*/7.4.0/*' '*/usr/include/*' --output-file coverage.info # filter external files
       lcov --list coverage.info # debug info
       bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports" # uploading report to codecov
     fi
