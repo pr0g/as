@@ -35,7 +35,7 @@ matrix:
 
 install:
   - export CXX=${CXX_COMPILER}
-  - export C=${C_COMPILER}
+  - export CC=${C_COMPILER}
   - ${CXX} --version
 
   # travis machines have 2 cores
