@@ -52,21 +52,21 @@ install:
   - cd ${TRAVIS_BUILD_DIR}
 
 before_script:
-  - tools/install-googletest.sh
+  - tools/install-catch2.sh
   - tools/install-as.sh
   - cd tests/build/
-  - cmake -DDEV_LIB_DIR=../../ .. -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_PREFIX_PATH=$(pwd)/as_install/\;$(pwd)/gtest_install/
+  - cmake -DDEV_LIB_DIR=../../ .. -DCATCH_CONFIG_DISABLE_EXCEPTIONS=1 -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_PREFIX_PATH=$(pwd)/as_install/\;$(pwd)/catch2_install/
 
 script:
-  - cmake --build . -j${JOBS}
+  - cmake --build . -j${JOBS} -- VERBOSE=1
   - ./as-test
 
 after_success:
   # create lcov report
   - |
     if [ $BUILD_TYPE == "Debug" ] && [ $CXX_COMPILER == "g++-7" ]; then
-      lcov --capture --directory . --output-file coverage.info
-      lcov --remove coverage.info '/usr/local/include/gmock/*' '/usr/local/include/gtest/*' '*/v1/*' '*/7.4.0/*' '*/usr/include/*' --output-file coverage.info # filter external files
-      lcov --list coverage.info # debug info
+      lcov --capture --directory . --output-file coverage.info --gcov-tool=gcov-7
+      lcov --remove coverage.info '*/catch2/*' '*/7.4.0/*' '*/usr/include/*' '*/tests/test-*' '*/tests/catch-*' '*/tests/external/*' --output-file coverage.info --gcov-tool=gcov-7 # filter external files
+      lcov --list coverage.info --gcov-tool=gcov-7 # debug info
       bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports" # uploading report to codecov
     fi

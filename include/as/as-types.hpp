@@ -71,4 +71,10 @@ using real_t = double;
 #define AS_FORCE_INLINE inline __attribute__((__always_inline__))
 #endif // _MSC_VER ? __GNUC__
 
+#ifdef _MSC_VER
+#define AS_API
+#elif defined __GNUC__ && defined AS_COVERAGE
+#define AS_API __attribute__((__used__))
+#endif // _MSC_VER ? __GNUC__ && AS_COVERAGE
+
 } // namespace as

@@ -1,16 +1,15 @@
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
+#include "catch2/catch.hpp"
+#include "catch-matchers.hpp"
 
 #include "as/as-math-ops.hpp"
 
 using namespace as;
 
-TEST(as_mat, mat_row_col_access_mat33)
+TEST_CASE("mat_row_col_access_mat3", "[as_mat]")
 {
-    using ::testing::ElementsAreArray;
-    using ::testing::ElementsAre;
+    using namespace gsl;
 
-    mat3_t mat33 {
+    mat3_t mat3 {
         1.0f, 2.0f, 3.0f, //
         4.0f, 5.0f, 6.0f, //
         7.0f, 8.0f, 9.0f  //
@@ -18,44 +17,44 @@ TEST(as_mat, mat_row_col_access_mat33)
 
 #ifdef AS_COL_MAJOR
     const real_t col0[] = { 1.0f, 2.0f, 3.0f };
-    EXPECT_THAT(col0, ElementsAreArray(mat33.col0().elems(), 3));
-    EXPECT_THAT(col0, ElementsAreArray(mat33.col(0).elems(), 3));
+    CHECK_THAT(span(col0), ElementsAreSpan(mat3.col0().elems(), 3));
+    CHECK_THAT(span(col0), ElementsAreSpan(mat3.col(0).elems(), 3));
     const real_t col1[] = { 4.0f, 5.0f, 6.0f };
-    EXPECT_THAT(col1, ElementsAreArray(mat33.col1().elems(), 3));
-    EXPECT_THAT(col1, ElementsAreArray(mat33.col(1).elems(), 3));
+    CHECK_THAT(span(col1), ElementsAreSpan(mat3.col1().elems(), 3));
+    CHECK_THAT(span(col1), ElementsAreSpan(mat3.col(1).elems(), 3));
     const real_t col2[] = { 7.0f, 8.0f, 9.0f };
-    EXPECT_THAT(col2, ElementsAreArray(mat33.col2().elems(), 3));
-    EXPECT_THAT(col2, ElementsAreArray(mat33.col(2).elems(), 3));
+    CHECK_THAT(span(col2), ElementsAreSpan(mat3.col2().elems(), 3));
+    CHECK_THAT(span(col2), ElementsAreSpan(mat3.col(2).elems(), 3));
 
     const real_t row0[] = { 1.0f, 4.0f, 7.0f };
-    EXPECT_THAT(row0, ElementsAreArray(mat33.row0().elems(), 3));
-    EXPECT_THAT(row0, ElementsAreArray(mat33.row(0).elems(), 3));
+    CHECK_THAT(span(row0), ElementsAreSpan(mat3.row0().elems(), 3));
+    CHECK_THAT(span(row0), ElementsAreSpan(mat3.row(0).elems(), 3));
     const real_t row1[] = { 2.0f, 5.0f, 8.0f };
-    EXPECT_THAT(row1, ElementsAreArray(mat33.row1().elems(), 3));
-    EXPECT_THAT(row1, ElementsAreArray(mat33.row(1).elems(), 3));
+    CHECK_THAT(span(row1), ElementsAreSpan(mat3.row1().elems(), 3));
+    CHECK_THAT(span(row1), ElementsAreSpan(mat3.row(1).elems(), 3));
     const real_t row2[] = { 3.0f, 6.0f, 9.0f };
-    EXPECT_THAT(row2, ElementsAreArray(mat33.row2().elems(), 3));
-    EXPECT_THAT(row2, ElementsAreArray(mat33.row(2).elems(), 3));
+    CHECK_THAT(span(row2), ElementsAreSpan(mat3.row2().elems(), 3));
+    CHECK_THAT(span(row2), ElementsAreSpan(mat3.row(2).elems(), 3));
 #elif defined AS_ROW_MAJOR
     const real_t row0[] = { 1.0f, 2.0f, 3.0f };
-    EXPECT_THAT(row0, ElementsAreArray(mat33.row0().elems(), 3));
-    EXPECT_THAT(row0, ElementsAreArray(mat33.row(0).elems(), 3));
+    CHECK_THAT(span(row0), ElementsAreSpan(mat3.row0().elems(), 3));
+    CHECK_THAT(span(row0), ElementsAreSpan(mat3.row(0).elems(), 3));
     const real_t row1[] = { 4.0f, 5.0f, 6.0f };
-    EXPECT_THAT(row1, ElementsAreArray(mat33.row1().elems(), 3));
-    EXPECT_THAT(row1, ElementsAreArray(mat33.row(1).elems(), 3));
+    CHECK_THAT(span(row1), ElementsAreSpan(mat3.row1().elems(), 3));
+    CHECK_THAT(span(row1), ElementsAreSpan(mat3.row(1).elems(), 3));
     const real_t row2[] = { 7.0f, 8.0f, 9.0f };
-    EXPECT_THAT(row2, ElementsAreArray(mat33.row2().elems(), 3));
-    EXPECT_THAT(row2, ElementsAreArray(mat33.row(2).elems(), 3));
+    CHECK_THAT(span(row2), ElementsAreSpan(mat3.row2().elems(), 3));
+    CHECK_THAT(span(row2), ElementsAreSpan(mat3.row(2).elems(), 3));
 
     const real_t col0[] = { 1.0f, 4.0f, 7.0f };
-    EXPECT_THAT(col0, ElementsAreArray(mat33.col0().elems(), 3));
-    EXPECT_THAT(col0, ElementsAreArray(mat33.col(0).elems(), 3));
+    CHECK_THAT(span(col0), ElementsAreSpan(mat3.col0().elems(), 3));
+    CHECK_THAT(span(col0), ElementsAreSpan(mat3.col(0).elems(), 3));
     const real_t col1[] = { 2.0f, 5.0f, 8.0f };
-    EXPECT_THAT(col1, ElementsAreArray(mat33.col1().elems(), 3));
-    EXPECT_THAT(col1, ElementsAreArray(mat33.col(1).elems(), 3));
+    CHECK_THAT(span(col1), ElementsAreSpan(mat3.col1().elems(), 3));
+    CHECK_THAT(span(col1), ElementsAreSpan(mat3.col(1).elems(), 3));
     const real_t col2[] = { 3.0f, 6.0f, 9.0f };
-    EXPECT_THAT(col2, ElementsAreArray(mat33.col2().elems(), 3));
-    EXPECT_THAT(col2, ElementsAreArray(mat33.col(2).elems(), 3));
+    CHECK_THAT(span(col2), ElementsAreSpan(mat3.col2().elems(), 3));
+    CHECK_THAT(span(col2), ElementsAreSpan(mat3.col(2).elems(), 3));
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 
     real_t elems[] = {
@@ -64,10 +63,10 @@ TEST(as_mat, mat_row_col_access_mat33)
         7.0f, 8.0f, 9.0f  //
     };
 
-    EXPECT_THAT(elems, ElementsAreArray(mat33.elems(), 9));
+    CHECK_THAT(span(elems), ElementsAreSpan(mat3.elems(), 9));
 
-    mat3_t mat33_mult;
-    mat33_mult = mat3_t(
+    mat3_t mat3_mult;
+    mat3_mult = mat3_t(
         vec3_t(10.0f, 20.0f, 30.0f),  //
         vec3_t(40.0f, 50.0f, 60.0f),  //
         vec3_t(70.0f, 80.0f, 90.0f)); //
@@ -78,16 +77,15 @@ TEST(as_mat, mat_row_col_access_mat33)
         70.0f, 80.0f, 90.0f  //
     };
 
-    EXPECT_THAT(mult_elems, ElementsAreArray(mat33_mult.elems(), 9));
+    CHECK_THAT(span(mult_elems), ElementsAreSpan(mat3_mult.elems(), 9));
 }
 
-TEST(as_mat, mat_row_col_mutate_mat33)
+TEST_CASE("mat_row_col_mutate_mat3", "[as_mat]")
 {
-    using ::testing::ElementsAreArray;
-    using ::testing::ElementsAre;
+    using namespace gsl;
 
-    mat3_t mat33;
-    mat33 = mat3_t {
+    mat3_t mat3;
+    mat3 = mat3_t {
         0.0f, 0.0f, 0.0f, //
         0.0f, 0.0f, 0.0f, //
         0.0f, 0.0f, 0.0f  //
@@ -96,96 +94,95 @@ TEST(as_mat, mat_row_col_mutate_mat33)
 #ifdef AS_COL_MAJOR
     const real_t col0[] = { 1.0f, 2.0f, 3.0f };
     const vec3_t c0 = vec3::from_arr(col0);
-    mat33.col0(c0);
-    EXPECT_THAT(col0, ElementsAreArray(mat33.col0().elems(), 3));
-    mat33.col(0, c0);
-    EXPECT_THAT(col0, ElementsAreArray(mat33.col(0).elems(), 3));
+    mat3.col0(c0);
+    CHECK_THAT(span(col0), ElementsAreSpan(mat3.col0().elems(), 3));
+    mat3.col(0, c0);
+    CHECK_THAT(span(col0), ElementsAreSpan(mat3.col(0).elems(), 3));
 
     const real_t col1[] = { 4.0f, 5.0f, 6.0f };
     const vec3_t c1 = vec3::from_arr(col1);
-    mat33.col1(c1);
-    EXPECT_THAT(col1, ElementsAreArray(mat33.col1().elems(), 3));
-    mat33.col(1, c1);
-    EXPECT_THAT(col1, ElementsAreArray(mat33.col(1).elems(), 3));
+    mat3.col1(c1);
+    CHECK_THAT(span(col1), ElementsAreSpan(mat3.col1().elems(), 3));
+    mat3.col(1, c1);
+    CHECK_THAT(span(col1), ElementsAreSpan(mat3.col(1).elems(), 3));
 
     const real_t col2[] = { 7.0f, 8.0f, 9.0f };
     const vec3_t c2 = vec3::from_arr(col2);
-    mat33.col2(c2);
-    EXPECT_THAT(col2, ElementsAreArray(mat33.col2().elems(), 3));
-    mat33.col(2, c2);
-    EXPECT_THAT(col2, ElementsAreArray(mat33.col(2).elems(), 3));
+    mat3.col2(c2);
+    CHECK_THAT(span(col2), ElementsAreSpan(mat3.col2().elems(), 3));
+    mat3.col(2, c2);
+    CHECK_THAT(span(col2), ElementsAreSpan(mat3.col(2).elems(), 3));
 
     const real_t row0[] = { 1.0f, 4.0f, 7.0f };
     const vec3_t r0 = vec3::from_arr(row0);
-    mat33.row0(r0);
-    EXPECT_THAT(row0, ElementsAreArray(mat33.row0().elems(), 3));
-    mat33.row(0, r0);
-    EXPECT_THAT(row0, ElementsAreArray(mat33.row(0).elems(), 3));
+    mat3.row0(r0);
+    CHECK_THAT(span(row0), ElementsAreSpan(mat3.row0().elems(), 3));
+    mat3.row(0, r0);
+    CHECK_THAT(span(row0), ElementsAreSpan(mat3.row(0).elems(), 3));
 
     const real_t row1[] = { 2.0f, 5.0f, 8.0f };
     const vec3_t r1 = vec3::from_arr(row1);
-    mat33.row1(r1);
-    EXPECT_THAT(row1, ElementsAreArray(mat33.row1().elems(), 3));
-    mat33.row(1, r1);
-    EXPECT_THAT(row1, ElementsAreArray(mat33.row(1).elems(), 3));
+    mat3.row1(r1);
+    CHECK_THAT(span(row1), ElementsAreSpan(mat3.row1().elems(), 3));
+    mat3.row(1, r1);
+    CHECK_THAT(span(row1), ElementsAreSpan(mat3.row(1).elems(), 3));
 
     const real_t row2[] = { 3.0f, 6.0f, 9.0f };
     const vec3_t r2 = vec3::from_arr(row2);
-    mat33.row2(r2);
-    EXPECT_THAT(row2, ElementsAreArray(mat33.row2().elems(), 3));
-    mat33.row(2, r2);
-    EXPECT_THAT(row2, ElementsAreArray(mat33.row(2).elems(), 3));
+    mat3.row2(r2);
+    CHECK_THAT(span(row2), ElementsAreSpan(mat3.row2().elems(), 3));
+    mat3.row(2, r2);
+    CHECK_THAT(span(row2), ElementsAreSpan(mat3.row(2).elems(), 3));
 #elif defined AS_ROW_MAJOR
     const real_t row0[] = { 1.0f, 2.0f, 3.0f };
     const vec3_t r0 = vec3::from_arr(row0);
-    mat33.row0(r0);
-    EXPECT_THAT(row0, ElementsAreArray(mat33.row0().elems(), 3));
-    mat33.row(0, r0);
-    EXPECT_THAT(row0, ElementsAreArray(mat33.row(0).elems(), 3));
+    mat3.row0(r0);
+    CHECK_THAT(span(row0), ElementsAreSpan(mat3.row0().elems(), 3));
+    mat3.row(0, r0);
+    CHECK_THAT(span(row0), ElementsAreSpan(mat3.row(0).elems(), 3));
 
     const real_t row1[] = { 4.0f, 5.0f, 6.0f };
     const vec3_t r1 = vec3::from_arr(row1);
-    mat33.row1(r1);
-    EXPECT_THAT(row1, ElementsAreArray(mat33.row1().elems(), 3));
-    mat33.row(1, r1);
-    EXPECT_THAT(row1, ElementsAreArray(mat33.row(1).elems(), 3));
+    mat3.row1(r1);
+    CHECK_THAT(span(row1), ElementsAreSpan(mat3.row1().elems(), 3));
+    mat3.row(1, r1);
+    CHECK_THAT(span(row1), ElementsAreSpan(mat3.row(1).elems(), 3));
 
     const real_t row2[] = { 7.0f, 8.0f, 9.0f };
     const vec3_t r2 = vec3::from_arr(row2);
-    mat33.row2(r2);
-    EXPECT_THAT(row2, ElementsAreArray(mat33.row2().elems(), 3));
-    mat33.row(2, r2);
-    EXPECT_THAT(row2, ElementsAreArray(mat33.row(2).elems(), 3));
+    mat3.row2(r2);
+    CHECK_THAT(span(row2), ElementsAreSpan(mat3.row2().elems(), 3));
+    mat3.row(2, r2);
+    CHECK_THAT(span(row2), ElementsAreSpan(mat3.row(2).elems(), 3));
 
     const real_t col0[] = { 1.0f, 4.0f, 7.0f };
     const vec3_t c0 = vec3::from_arr(col0);
-    mat33.col0(c0);
-    EXPECT_THAT(col0, ElementsAreArray(mat33.col0().elems(), 3));
-    mat33.col(0, c0);
-    EXPECT_THAT(col0, ElementsAreArray(mat33.col(0).elems(), 3));
+    mat3.col0(c0);
+    CHECK_THAT(span(col0), ElementsAreSpan(mat3.col0().elems(), 3));
+    mat3.col(0, c0);
+    CHECK_THAT(span(col0), ElementsAreSpan(mat3.col(0).elems(), 3));
 
     const real_t col1[] = { 2.0f, 5.0f, 9.0f };
     const vec3_t c1 = vec3::from_arr(col1);
-    mat33.col1(c1);
-    EXPECT_THAT(col1, ElementsAreArray(mat33.col1().elems(), 3));
-    mat33.col(1, c1);
-    EXPECT_THAT(col1, ElementsAreArray(mat33.col(1).elems(), 3));
+    mat3.col1(c1);
+    CHECK_THAT(span(col1), ElementsAreSpan(mat3.col1().elems(), 3));
+    mat3.col(1, c1);
+    CHECK_THAT(span(col1), ElementsAreSpan(mat3.col(1).elems(), 3));
 
     const real_t col2[] = { 3.0f, 6.0f, 9.0f };
     const vec3_t c2 = vec3::from_arr(col2);
-    mat33.col2(c2);
-    EXPECT_THAT(col2, ElementsAreArray(mat33.col2().elems(), 3));
-    mat33.col(2, c2);
-    EXPECT_THAT(col2, ElementsAreArray(mat33.col(2).elems(), 3));
+    mat3.col2(c2);
+    CHECK_THAT(span(col2), ElementsAreSpan(mat3.col2().elems(), 3));
+    mat3.col(2, c2);
+    CHECK_THAT(span(col2), ElementsAreSpan(mat3.col(2).elems(), 3));
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
-TEST(as_mat, mat_row_col_access_mat44)
+TEST_CASE("mat_row_col_access_mat4", "[as_mat]")
 {
-    using ::testing::ElementsAreArray;
-    using ::testing::ElementsAre;
+    using namespace gsl;
 
-    mat4_t mat44 {
+    mat4_t mat4 {
         1.0f, 2.0f, 3.0f, 4.0f,     //
         5.0f, 6.0f, 7.0f, 8.0f,     //
         9.0f, 10.0f, 11.0f, 12.0f,  //
@@ -194,56 +191,56 @@ TEST(as_mat, mat_row_col_access_mat44)
 
 #ifdef AS_COL_MAJOR
     const real_t col0[] = { 1.0f, 2.0f, 3.0f, 4.0f };
-    EXPECT_THAT(col0, ElementsAreArray(mat44.col0().elems(), 4));
-    EXPECT_THAT(col0, ElementsAreArray(mat44.col(0).elems(), 4));
+    CHECK_THAT(span(col0), ElementsAreSpan(mat4.col0().elems(), 4));
+    CHECK_THAT(span(col0), ElementsAreSpan(mat4.col(0).elems(), 4));
     const real_t col1[] = { 5.0f, 6.0f, 7.0f, 8.0f };
-    EXPECT_THAT(col1, ElementsAreArray(mat44.col1().elems(), 4));
-    EXPECT_THAT(col1, ElementsAreArray(mat44.col(1).elems(), 4));
+    CHECK_THAT(span(col1), ElementsAreSpan(mat4.col1().elems(), 4));
+    CHECK_THAT(span(col1), ElementsAreSpan(mat4.col(1).elems(), 4));
     const real_t col2[] = { 9.0f, 10.0f, 11.0f, 12.0f };
-    EXPECT_THAT(col2, ElementsAreArray(mat44.col2().elems(), 4));
-    EXPECT_THAT(col2, ElementsAreArray(mat44.col(2).elems(), 4));
+    CHECK_THAT(span(col2), ElementsAreSpan(mat4.col2().elems(), 4));
+    CHECK_THAT(span(col2), ElementsAreSpan(mat4.col(2).elems(), 4));
     const real_t col3[] = { 13.0f, 14.0f, 15.0f, 16.0f };
-    EXPECT_THAT(col3, ElementsAreArray(mat44.col3().elems(), 4));
-    EXPECT_THAT(col3, ElementsAreArray(mat44.col(3).elems(), 4));
+    CHECK_THAT(span(col3), ElementsAreSpan(mat4.col3().elems(), 4));
+    CHECK_THAT(span(col3), ElementsAreSpan(mat4.col(3).elems(), 4));
 
     const real_t row0[] = { 1.0f, 5.0f, 9.0f, 13.0f };
-    EXPECT_THAT(row0, ElementsAreArray(mat44.row0().elems(), 4));
-    EXPECT_THAT(row0, ElementsAreArray(mat44.row(0).elems(), 4));
+    CHECK_THAT(span(row0), ElementsAreSpan(mat4.row0().elems(), 4));
+    CHECK_THAT(span(row0), ElementsAreSpan(mat4.row(0).elems(), 4));
     const real_t row1[] = { 2.0f, 6.0f, 10.0f, 14.0f };
-    EXPECT_THAT(row1, ElementsAreArray(mat44.row1().elems(), 4));
-    EXPECT_THAT(row1, ElementsAreArray(mat44.row(1).elems(), 4));
+    CHECK_THAT(span(row1), ElementsAreSpan(mat4.row1().elems(), 4));
+    CHECK_THAT(span(row1), ElementsAreSpan(mat4.row(1).elems(), 4));
     const real_t row2[] = { 3.0f, 7.0f, 11.0f, 15.0f };
-    EXPECT_THAT(row2, ElementsAreArray(mat44.row2().elems(), 4));
-    EXPECT_THAT(row2, ElementsAreArray(mat44.row(2).elems(), 4));
+    CHECK_THAT(span(row2), ElementsAreSpan(mat4.row2().elems(), 4));
+    CHECK_THAT(span(row2), ElementsAreSpan(mat4.row(2).elems(), 4));
     const real_t row3[] = { 4.0f, 8.0f, 12.0f, 16.0f };
-    EXPECT_THAT(row3, ElementsAreArray(mat44.row3().elems(), 4));
-    EXPECT_THAT(row3, ElementsAreArray(mat44.row(3).elems(), 4));
+    CHECK_THAT(span(row3), ElementsAreSpan(mat4.row3().elems(), 4));
+    CHECK_THAT(span(row3), ElementsAreSpan(mat4.row(3).elems(), 4));
 #elif defined AS_ROW_MAJOR
     const real_t row0[] = { 1.0f, 2.0f, 3.0f, 4.0f };
-    EXPECT_THAT(row0, ElementsAreArray(mat44.row0().elems(), 4));
-    EXPECT_THAT(row0, ElementsAreArray(mat44.row(0).elems(), 4));
+    CHECK_THAT(span(row0), ElementsAreSpan(mat4.row0().elems(), 4));
+    CHECK_THAT(span(row0), ElementsAreSpan(mat4.row(0).elems(), 4));
     const real_t row1[] = { 5.0f, 6.0f, 7.0f, 8.0f };
-    EXPECT_THAT(row1, ElementsAreArray(mat44.row1().elems(), 4));
-    EXPECT_THAT(row1, ElementsAreArray(mat44.row(1).elems(), 4));
+    CHECK_THAT(span(row1), ElementsAreSpan(mat4.row1().elems(), 4));
+    CHECK_THAT(span(row1), ElementsAreSpan(mat4.row(1).elems(), 4));
     const real_t row2[] = { 9.0f, 10.0f, 11.0f, 12.0f };
-    EXPECT_THAT(row2, ElementsAreArray(mat44.row2().elems(), 4));
-    EXPECT_THAT(row2, ElementsAreArray(mat44.row(2).elems(), 4));
+    CHECK_THAT(span(row2), ElementsAreSpan(mat4.row2().elems(), 4));
+    CHECK_THAT(span(row2), ElementsAreSpan(mat4.row(2).elems(), 4));
     const real_t row3[] = { 13.0f, 14.0f, 15.0f, 16.0f };
-    EXPECT_THAT(row3, ElementsAreArray(mat44.row3().elems(), 4));
-    EXPECT_THAT(row3, ElementsAreArray(mat44.row(3).elems(), 4));
+    CHECK_THAT(span(row3), ElementsAreSpan(mat4.row3().elems(), 4));
+    CHECK_THAT(span(row3), ElementsAreSpan(mat4.row(3).elems(), 4));
 
     const real_t col0[] = { 1.0f, 5.0f, 9.0f, 13.0f };
-    EXPECT_THAT(col0, ElementsAreArray(mat44.col0().elems(), 4));
-    EXPECT_THAT(col0, ElementsAreArray(mat44.col(0).elems(), 4));
+    CHECK_THAT(span(col0), ElementsAreSpan(mat4.col0().elems(), 4));
+    CHECK_THAT(span(col0), ElementsAreSpan(mat4.col(0).elems(), 4));
     const real_t col1[] = { 2.0f, 6.0f, 10.0f, 14.0f };
-    EXPECT_THAT(col1, ElementsAreArray(mat44.col1().elems(), 4));
-    EXPECT_THAT(col1, ElementsAreArray(mat44.col(1).elems(), 4));
+    CHECK_THAT(span(col1), ElementsAreSpan(mat4.col1().elems(), 4));
+    CHECK_THAT(span(col1), ElementsAreSpan(mat4.col(1).elems(), 4));
     const real_t col2[] = { 3.0f, 7.0f, 11.0f, 15.0f };
-    EXPECT_THAT(col2, ElementsAreArray(mat44.col2().elems(), 4));
-    EXPECT_THAT(col2, ElementsAreArray(mat44.col(2).elems(), 4));
+    CHECK_THAT(span(col2), ElementsAreSpan(mat4.col2().elems(), 4));
+    CHECK_THAT(span(col2), ElementsAreSpan(mat4.col(2).elems(), 4));
     const real_t col3[] = { 4.0f, 8.0f, 12.0f, 16.0f };
-    EXPECT_THAT(col3, ElementsAreArray(mat44.col3().elems(), 4));
-    EXPECT_THAT(col3, ElementsAreArray(mat44.col(3).elems(), 4));
+    CHECK_THAT(span(col3), ElementsAreSpan(mat4.col3().elems(), 4));
+    CHECK_THAT(span(col3), ElementsAreSpan(mat4.col(3).elems(), 4));
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 
     real_t elems[] = {
@@ -253,10 +250,10 @@ TEST(as_mat, mat_row_col_access_mat44)
         13.0f, 14.0f, 15.0f, 16.0f //
     };
 
-    EXPECT_THAT(elems, ElementsAreArray(mat44.elems(), 16));
+    CHECK_THAT(span(elems), ElementsAreSpan(mat4.elems(), 16));
 
-    mat4_t mat44_mult;
-    mat44_mult = mat4_t(
+    mat4_t mat4_mult;
+    mat4_mult = mat4_t(
         vec4_t(10.0f, 20.0f, 30.0f, 40.0f),    //
         vec4_t(50.0f, 60.0f, 70.0f, 80.0f),    //
         vec4_t(90.0f, 100.0f, 110.0f, 120.0f), //
@@ -270,16 +267,15 @@ TEST(as_mat, mat_row_col_access_mat44)
         130.0f, 140.0f, 150.0f, 160.0f //
     };
 
-    EXPECT_THAT(mult_elems, ElementsAreArray(mat44_mult.elems(), 16));
+    CHECK_THAT(span(mult_elems), ElementsAreSpan(mat4_mult.elems(), 16));
 }
 
-TEST(as_mat, mat_row_col_mutate_mat44)
+TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
 {
-    using ::testing::ElementsAreArray;
-    using ::testing::ElementsAre;
+    using namespace gsl;
 
-    mat4_t mat44;
-    mat44 = mat4_t {
+    mat4_t mat4;
+    mat4 = mat4_t {
         0.0f, 0.0f, 0.0f, 0.0f, //
         0.0f, 0.0f, 0.0f, 0.0f, //
         0.0f, 0.0f, 0.0f, 0.0f, //
@@ -289,123 +285,123 @@ TEST(as_mat, mat_row_col_mutate_mat44)
 #ifdef AS_COL_MAJOR
     const real_t col0[] = { 1.0f, 2.0f, 3.0f, 4.0f };
     const vec4_t c0 = vec4::from_arr(col0);
-    mat44.col0(c0);
-    EXPECT_THAT(col0, ElementsAreArray(mat44.col0().elems(), 4));
-    mat44.col(0, c0);
-    EXPECT_THAT(col0, ElementsAreArray(mat44.col(0).elems(), 4));
+    mat4.col0(c0);
+    CHECK_THAT(span(col0), ElementsAreSpan(mat4.col0().elems(), 4));
+    mat4.col(0, c0);
+    CHECK_THAT(span(col0), ElementsAreSpan(mat4.col(0).elems(), 4));
 
     const real_t col1[] = { 5.0f, 6.0f, 7.0f, 8.0f };
     const vec4_t c1 = vec4::from_arr(col1);
-    mat44.col1(c1);
-    EXPECT_THAT(col1, ElementsAreArray(mat44.col1().elems(), 4));
-    mat44.col(1, c1);
-    EXPECT_THAT(col1, ElementsAreArray(mat44.col(1).elems(), 4));
+    mat4.col1(c1);
+    CHECK_THAT(span(col1), ElementsAreSpan(mat4.col1().elems(), 4));
+    mat4.col(1, c1);
+    CHECK_THAT(span(col1), ElementsAreSpan(mat4.col(1).elems(), 4));
 
     const real_t col2[] = { 9.0f, 10.0f, 11.0f, 12.0f };
     const vec4_t c2 = vec4::from_arr(col2);
-    mat44.col2(c2);
-    EXPECT_THAT(col2, ElementsAreArray(mat44.col2().elems(), 4));
-    mat44.col(2, c2);
-    EXPECT_THAT(col2, ElementsAreArray(mat44.col(2).elems(), 4));
+    mat4.col2(c2);
+    CHECK_THAT(span(col2), ElementsAreSpan(mat4.col2().elems(), 4));
+    mat4.col(2, c2);
+    CHECK_THAT(span(col2), ElementsAreSpan(mat4.col(2).elems(), 4));
 
     const real_t col3[] = { 13.0f, 14.0f, 15.0f, 16.0f };
     const vec4_t c3 = vec4::from_arr(col3);
-    mat44.col3(c3);
-    EXPECT_THAT(col3, ElementsAreArray(mat44.col3().elems(), 4));
-    mat44.col(3, c3);
-    EXPECT_THAT(col3, ElementsAreArray(mat44.col(3).elems(), 4));
+    mat4.col3(c3);
+    CHECK_THAT(span(col3), ElementsAreSpan(mat4.col3().elems(), 4));
+    mat4.col(3, c3);
+    CHECK_THAT(span(col3), ElementsAreSpan(mat4.col(3).elems(), 4));
 
     const real_t row0[] = { 1.0f, 5.0f, 9.0f, 13.0f };
     const vec4_t r0 = vec4::from_arr(row0);
-    mat44.row0(r0);
-    EXPECT_THAT(row0, ElementsAreArray(mat44.row0().elems(), 4));
-    mat44.row(0, r0);
-    EXPECT_THAT(row0, ElementsAreArray(mat44.row(0).elems(), 4));
+    mat4.row0(r0);
+    CHECK_THAT(span(row0), ElementsAreSpan(mat4.row0().elems(), 4));
+    mat4.row(0, r0);
+    CHECK_THAT(span(row0), ElementsAreSpan(mat4.row(0).elems(), 4));
 
     const real_t row1[] = { 2.0f, 6.0f, 10.0f, 14.0f };
     const vec4_t r1 = vec4::from_arr(row1);
-    mat44.row1(r1);
-    EXPECT_THAT(row1, ElementsAreArray(mat44.row1().elems(), 4));
-    mat44.row(1, r1);
-    EXPECT_THAT(row1, ElementsAreArray(mat44.row(1).elems(), 4));
+    mat4.row1(r1);
+    CHECK_THAT(span(row1), ElementsAreSpan(mat4.row1().elems(), 4));
+    mat4.row(1, r1);
+    CHECK_THAT(span(row1), ElementsAreSpan(mat4.row(1).elems(), 4));
 
     const real_t row2[] = { 3.0f, 7.0f, 11.0f, 15.0f };
     const vec4_t r2 = vec4::from_arr(row2);
-    mat44.row2(r2);
-    EXPECT_THAT(row2, ElementsAreArray(mat44.row2().elems(), 4));
-    mat44.row(2, r2);
-    EXPECT_THAT(row2, ElementsAreArray(mat44.row(2).elems(), 4));
+    mat4.row2(r2);
+    CHECK_THAT(span(row2), ElementsAreSpan(mat4.row2().elems(), 4));
+    mat4.row(2, r2);
+    CHECK_THAT(span(row2), ElementsAreSpan(mat4.row(2).elems(), 4));
 
     const real_t row3[] = { 4.0f, 8.0f, 12.0f, 16.0f };
     const vec4_t r3 = vec4::from_arr(row3);
-    mat44.row3(r3);
-    EXPECT_THAT(row3, ElementsAreArray(mat44.row3().elems(), 4));
-    mat44.row(3, r3);
-    EXPECT_THAT(row3, ElementsAreArray(mat44.row(3).elems(), 4));
+    mat4.row3(r3);
+    CHECK_THAT(span(row3), ElementsAreSpan(mat4.row3().elems(), 4));
+    mat4.row(3, r3);
+    CHECK_THAT(span(row3), ElementsAreSpan(mat4.row(3).elems(), 4));
 #elif defined AS_ROW_MAJOR
     const real_t row0[] = { 1.0f, 2.0f, 3.0f, 4.0f };
     const vec4_t c0 = vec4::from_arr(row0);
-    mat44.row0(c0);
-    EXPECT_THAT(row0, ElementsAreArray(mat44.row0().elems(), 4));
-    mat44.row(0, c0);
-    EXPECT_THAT(row0, ElementsAreArray(mat44.row(0).elems(), 4));
+    mat4.row0(c0);
+    CHECK_THAT(span(row0), ElementsAreSpan(mat4.row0().elems(), 4));
+    mat4.row(0, c0);
+    CHECK_THAT(span(row0), ElementsAreSpan(mat4.row(0).elems(), 4));
 
     const real_t row1[] = { 5.0f, 6.0f, 7.0f, 8.0f };
     const vec4_t c1 = vec4::from_arr(row1);
-    mat44.row1(c1);
-    EXPECT_THAT(row1, ElementsAreArray(mat44.row1().elems(), 4));
-    mat44.row(1, c1);
-    EXPECT_THAT(row1, ElementsAreArray(mat44.row(1).elems(), 4));
+    mat4.row1(c1);
+    CHECK_THAT(span(row1), ElementsAreSpan(mat4.row1().elems(), 4));
+    mat4.row(1, c1);
+    CHECK_THAT(span(row1), ElementsAreSpan(mat4.row(1).elems(), 4));
 
     const real_t row2[] = { 9.0f, 10.0f, 11.0f, 12.0f };
     const vec4_t c2 = vec4::from_arr(row2);
-    mat44.row2(c2);
-    EXPECT_THAT(row2, ElementsAreArray(mat44.row2().elems(), 4));
-    mat44.row(2, c2);
-    EXPECT_THAT(row2, ElementsAreArray(mat44.row(2).elems(), 4));
+    mat4.row2(c2);
+    CHECK_THAT(span(row2), ElementsAreSpan(mat4.row2().elems(), 4));
+    mat4.row(2, c2);
+    CHECK_THAT(span(row2), ElementsAreSpan(mat4.row(2).elems(), 4));
 
     const real_t row3[] = { 13.0f, 14.0f, 15.0f, 16.0f };
     const vec4_t c3 = vec4::from_arr(row3);
-    mat44.row3(c3);
-    EXPECT_THAT(row3, ElementsAreArray(mat44.row3().elems(), 4));
-    mat44.row(3, c3);
-    EXPECT_THAT(row3, ElementsAreArray(mat44.row(3).elems(), 4));
+    mat4.row3(c3);
+    CHECK_THAT(span(row3), ElementsAreSpan(mat4.row3().elems(), 4));
+    mat4.row(3, c3);
+    CHECK_THAT(span(row3), ElementsAreSpan(mat4.row(3).elems(), 4));
 
     const real_t col0[] = { 1.0f, 5.0f, 9.0f, 13.0f };
     const vec4_t r0 = vec4::from_arr(col0);
-    mat44.col0(r0);
-    EXPECT_THAT(col0, ElementsAreArray(mat44.col0().elems(), 4));
-    mat44.col(0, r0);
-    EXPECT_THAT(col0, ElementsAreArray(mat44.col(0).elems(), 4));
+    mat4.col0(r0);
+    CHECK_THAT(span(col0), ElementsAreSpan(mat4.col0().elems(), 4));
+    mat4.col(0, r0);
+    CHECK_THAT(span(col0), ElementsAreSpan(mat4.col(0).elems(), 4));
 
     const real_t col1[] = { 2.0f, 6.0f, 10.0f, 14.0f };
     const vec4_t r1 = vec4::from_arr(col1);
-    mat44.col1(r1);
-    EXPECT_THAT(col1, ElementsAreArray(mat44.col1().elems(), 4));
-    mat44.col(1, r1);
-    EXPECT_THAT(col1, ElementsAreArray(mat44.col(1).elems(), 4));
+    mat4.col1(r1);
+    CHECK_THAT(span(col1), ElementsAreSpan(mat4.col1().elems(), 4));
+    mat4.col(1, r1);
+    CHECK_THAT(span(col1), ElementsAreSpan(mat4.col(1).elems(), 4));
 
     const real_t col2[] = { 3.0f, 7.0f, 11.0f, 15.0f };
     const vec4_t r2 = vec4::from_arr(col2);
-    mat44.col2(r2);
-    EXPECT_THAT(col2, ElementsAreArray(mat44.col2().elems(), 4));
-    mat44.col(2, r2);
-    EXPECT_THAT(col2, ElementsAreArray(mat44.col(2).elems(), 4));
+    mat4.col2(r2);
+    CHECK_THAT(span(col2), ElementsAreSpan(mat4.col2().elems(), 4));
+    mat4.col(2, r2);
+    CHECK_THAT(span(col2), ElementsAreSpan(mat4.col(2).elems(), 4));
 
     const real_t col3[] = { 4.0f, 8.0f, 12.0f, 16.0f };
     const vec4_t r3 = vec4::from_arr(col3);
-    mat44.col3(r3);
-    EXPECT_THAT(col3, ElementsAreArray(mat44.col3().elems(), 4));
-    mat44.col(3, r3);
-    EXPECT_THAT(col3, ElementsAreArray(mat44.col(3).elems(), 4));
+    mat4.col3(r3);
+    CHECK_THAT(span(col3), ElementsAreSpan(mat4.col3().elems(), 4));
+    mat4.col(3, r3);
+    CHECK_THAT(span(col3), ElementsAreSpan(mat4.col(3).elems(), 4));
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
-TEST(as_mat, mat_mat44_from_mat33_and_vec3)
+TEST_CASE("mat_mat4_from_mat3_and_vec3", "[as_mat]")
 {
-    using ::testing::ElementsAreArray;
+    using namespace gsl;
 
-    mat3_t mat33 {
+    mat3_t mat3 {
         1.0f, 2.0f, 3.0f, //
         4.0f, 5.0f, 6.0f, //
         7.0f, 8.0f, 9.0f  //
@@ -413,24 +409,24 @@ TEST(as_mat, mat_mat44_from_mat33_and_vec3)
 
     vec3_t vec3 { 10.0f, 11.0f, 12.0f };
 
-    mat4_t mat44;
-    mat44 = mat4_t{ mat33, vec3 };
+    mat4_t mat4;
+    mat4 = mat4_t{ mat3, vec3 };
 
-    const real_t mat33_and_vec3[] = {
+    const real_t mat3_and_vec3[] = {
         1.0f, 2.0f, 3.0f, 0.0f,   //
         4.0f, 5.0f, 6.0f, 0.0f,   //
         7.0f, 8.0f, 9.0f, 0.0f,   //
         10.0f, 11.0f, 12.0f, 1.0f //
     };
 
-    EXPECT_THAT(mat33_and_vec3, ElementsAreArray(mat44.elems(), 16));
+    CHECK_THAT(span(mat3_and_vec3), ElementsAreSpan(mat4.elems(), 16));
 }
 
-TEST(as_mat, const_elem_access)
+TEST_CASE("const_elem_access_mat_const", "[as_mat]")
 {
-    using ::testing::ElementsAreArray;
+    using namespace gsl;
 
-    const mat_t<real_t, 5> mat55(
+    const mat_t<real_t, 5> mat5(
         1.0f, 2.0f, 3.0f, 4.0f, 5.0f,       //
         6.0f, 7.0f, 8.0f, 9.0f, 10.0f,      //
         11.0f, 12.0f, 13.0f, 15.0f, 15.0f,  //
@@ -438,21 +434,21 @@ TEST(as_mat, const_elem_access)
         21.0f, 22.0f, 23.0f, 24.0f, 25.0f); //
 
     const real_t mat_arr[] = {
-        mat55[0], mat55[1], mat55[2], mat55[3], mat55[4],      //
-        mat55[5], mat55[6], mat55[7], mat55[8], mat55[9],      //
-        mat55[10], mat55[11], mat55[12], mat55[13], mat55[14], //
-        mat55[15], mat55[16], mat55[17], mat55[18], mat55[19], //
-        mat55[20], mat55[21], mat55[22], mat55[23], mat55[24]  //
+        mat5[0], mat5[1], mat5[2], mat5[3], mat5[4],      //
+        mat5[5], mat5[6], mat5[7], mat5[8], mat5[9],      //
+        mat5[10], mat5[11], mat5[12], mat5[13], mat5[14], //
+        mat5[15], mat5[16], mat5[17], mat5[18], mat5[19], //
+        mat5[20], mat5[21], mat5[22], mat5[23], mat5[24]  //
     };
 
-    EXPECT_THAT(mat_arr, ElementsAreArray(mat55.elems(), 25));
+    CHECK_THAT(span(mat_arr), ElementsAreSpan(mat5.elems(), 25));
 }
 
-TEST(as_mat, elem_access)
+TEST_CASE("elem_access_mat", "[as_mat]")
 {
-    using ::testing::ElementsAreArray;
+    using namespace gsl;
 
-    mat_t<real_t, 5> mat55(
+    mat_t<real_t, 5> mat5(
         1.0f, 2.0f, 3.0f, 4.0f, 5.0f,      //
         6.0f, 7.0f, 8.0f, 9.0f, 10.0f,     //
         11.0f, 12.0f, 13.0f, 15.0f, 15.0f, //
@@ -460,23 +456,48 @@ TEST(as_mat, elem_access)
         21.0f, 22.0f, 23.0f, 24.0f, 25.0f  //
     );
 
-    mat55[15] = 100.0f;
-    mat55[20] = 200.0f;
+    mat5[15] = 100.0f;
+    mat5[20] = 200.0f;
 
     const real_t mat_arr[] = {
-        mat55[0], mat55[1], mat55[2], mat55[3], mat55[4],      //
-        mat55[5], mat55[6], mat55[7], mat55[8], mat55[9],      //
-        mat55[10], mat55[11], mat55[12], mat55[13], mat55[14], //
-        100.0f, mat55[16], mat55[17], mat55[18], mat55[19],    //
-        200.0f, mat55[21], mat55[22], mat55[23], mat55[24]     //
+        mat5[0], mat5[1], mat5[2], mat5[3], mat5[4],      //
+        mat5[5], mat5[6], mat5[7], mat5[8], mat5[9],      //
+        mat5[10], mat5[11], mat5[12], mat5[13], mat5[14], //
+        100.0f, mat5[16], mat5[17], mat5[18], mat5[19],    //
+        200.0f, mat5[21], mat5[22], mat5[23], mat5[24]     //
     };
 
-    EXPECT_THAT(mat_arr, ElementsAreArray(mat55.elems(), 25));
+    CHECK_THAT(span(mat_arr), ElementsAreSpan(mat5.elems(), 25));
 }
 
-TEST(as_mat, multiply_same_size)
+TEST_CASE("elem_access_mat4_const", "[as_mat]")
 {
-    using ::testing::ElementsAreArray;
+    using namespace gsl;
+
+    const mat4_t mat4(
+        1.0f, 2.0f, 3.0f, 4.0f,     //
+        5.0f, 6.0f, 7.0f, 8.0f,     //
+        9.0f, 10.0f, 11.0f, 12.0f,  //
+        13.0f, 14.0f, 15.0f, 16.0f  //
+    );
+
+    const real_t mat_arr[] = {
+        1.0f, 2.0f, 3.0f, 4.0f,     //
+        5.0f, 6.0f, 7.0f, 8.0f,     //
+        9.0f, 10.0f, 11.0f, 12.0f,  //
+        13.0f, 14.0f, 15.0f, 16.0f, //
+    };
+
+    const real_t mat4_8 = mat4[8];
+    CHECK(mat4_8 == mat_arr[8]);
+    CHECK(mat4_8 == 9.0f);
+
+    CHECK_THAT(span(mat_arr), ElementsAreSpan(mat4.elems(), 16));
+}
+
+TEST_CASE("multiply_same_size", "[as_mat]")
+{
+    using namespace gsl;
 
     const mat3_t lhs {
         1.0f, 2.0f, 3.0f, //
@@ -503,12 +524,12 @@ TEST(as_mat, multiply_same_size)
     result = rhs * lhs;
 #endif
 
-    EXPECT_THAT(mat_arr, ElementsAreArray(result.elems(), 9));
+    CHECK_THAT(span(mat_arr), ElementsAreSpan(result.elems(), 9));
 }
 
-TEST(as_mat, multiply_vector)
+TEST_CASE("multiply_vector", "[as_mat]")
 {
-    using ::testing::ElementsAreArray;
+    using namespace gsl;
 
     const mat3_t mat {
         1.0f, 2.0f, 3.0f, //
@@ -526,46 +547,46 @@ TEST(as_mat, multiply_vector)
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
     const real_t vec_arr[] = { 150.0f, 186.0f, 222.0f };
-    EXPECT_THAT(vec_arr, ElementsAreArray(result.elems(), 3));
+    CHECK_THAT(span(vec_arr), ElementsAreSpan(result.elems(), 3));
 }
 
-TEST(as_mat, multiply_scalar)
+TEST_CASE("multiply_scalar", "[as_mat]")
 {
-    using ::testing::ElementsAreArray;
+    using namespace gsl;
 
-    const mat3_t mat33 {
+    const mat3_t mat3 {
         1.0f, 2.0f, 3.0f, //
         4.0f, 5.0f, 6.0f, //
         7.0f, 8.0f, 9.0f  //
     };
 
-    mat3_t result33 = mat33 * 2.0f;
+    mat3_t result33 = mat3 * 2.0f;
 
-    const real_t mat33_arr[] = {
+    const real_t mat3_arr[] = {
         2.0f, 4.0f, 6.0f,   //
         8.0f, 10.0f, 12.0f, //
         14.0f, 16.0f, 18.0f //
     };
 
-    EXPECT_THAT(mat33_arr, ElementsAreArray(result33.elems(), 9));
+    CHECK_THAT(span(mat3_arr), ElementsAreSpan(result33.elems(), 9));
 
-    const mat4_t mat44 {
+    const mat4_t mat4 {
         2.0f, 4.0f, 6.0f, 8.0f,     //
         10.0f, 12.0f, 14.0f, 16.0f, //
         18.0f, 20.0f, 22.0f, 24.0f, //
         26.0f, 28.0f, 30.0f, 32.0f  //
     };
 
-    mat4_t result44 = mat44 * 2.0f;
+    const mat4_t result44 = mat4 * 2.0f;
 
-    const real_t mat44_arr[] = {
+    const real_t mat4_arr[] = {
         4.0f, 8.0f, 12.0f, 16.0f,   //
         20.0f, 24.0f, 28.0f, 32.0f, //
         36.0f, 40.0f, 44.0f, 48.0f, //
         52.0f, 56.0f, 60.0f, 64.0f  //
     };
 
-    EXPECT_THAT(mat44_arr, ElementsAreArray(result44.elems(), 16));
+    CHECK_THAT(span(mat4_arr), ElementsAreSpan(result44.elems(), 16));
 }
 
 // explicit instantiations (for coverage)
@@ -576,9 +597,21 @@ template struct as::mat_t<real_t, 3>;
 template struct as::mat_t<real_t, 4>;
 template struct as::mat_t<real_t, 5>;
 
+// constructor
+template as::mat_t<real_t, 5>::mat_t(
+    real_t, real_t, real_t, real_t, real_t,  //
+    real_t, real_t, real_t, real_t, real_t,  //
+    real_t, real_t, real_t, real_t, real_t,  //
+    real_t, real_t, real_t, real_t, real_t,  //
+    real_t, real_t, real_t, real_t, real_t); //
+
 // matrix multiply
 template const mat_t<real_t, 3> as::operator*(const mat_t<real_t, 3>&, const mat_t<real_t, 3>&);
 template const mat_t<real_t, 4> as::operator*(const mat_t<real_t, 4>&, const mat_t<real_t, 4>&);
+
+// data access
+template real_t* as::mat::data<real_t, 3>(mat_t<real_t, 3>&);
+template const real_t* as::mat::const_data<real_t, 3>(const mat_t<real_t, 3>&);
 
 // vector multiply
 #if defined AS_ROW_MAJOR

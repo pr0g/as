@@ -12,7 +12,7 @@ include(autoinstall.cmake)
 install_it(${DEV_LIB_DIR})
 
 find_package(as REQUIRED)
-find_package(GTest REQUIRED)
+find_package(Catch2 REQUIRED)
 
 add_executable(
     ${PROJECT_NAME}
@@ -33,8 +33,6 @@ string(
 )
 
 string(
-    # remove -fkeep-inline-functions; - could not get to play nice with linker
-    # -fno-inline-small-functions;-fno-default-inline; # extra gcc compile options for coverage
     REPLACE "{options}" "-coverage;-g;-O0;-fno-inline;" # gcov
     # REPLACE "{options}" "-fprofile-instr-generate;-fcoverage-mapping;-g;-O0;-fno-inline;" # llmv-cov
     # REPLACE "{options}" "-fprofile-instr-use;-g;-O0;-fno-inline;" # llmv-cov
@@ -79,12 +77,19 @@ target_compile_options(
     ${CMAKE_PROJECT_NAME} PRIVATE "${compile_options}")
 target_link_options(
     ${CMAKE_PROJECT_NAME} PRIVATE "${link_options}")
+set_target_properties(
+    ${PROJECT_NAME} PROPERTIES
+        CXX_STANDARD 17
+        CXX_STANDARD_REQUIRED YES
+        CXX_EXTENSIONS NO)
 target_compile_features(
-    ${PROJECT_NAME} PRIVATE cxx_std_14)
+    ${PROJECT_NAME} PRIVATE cxx_std_17)
 target_compile_definitions(
-    ${PROJECT_NAME} PRIVATE AS_PRECISION_FLOAT AS_COL_MAJOR)
+    ${PROJECT_NAME} PRIVATE AS_PRECISION_FLOAT AS_COL_MAJOR AS_COVERAGE)
 target_link_libraries(
-    ${PROJECT_NAME} as::as GTest::GTest GTest::Main)
+    ${PROJECT_NAME} as::as Catch2::Catch2)
+target_include_directories(
+    ${PROJECT_NAME} PRIVATE external/include/)
 
 add_custom_target(scrub
     COMMAND ${CMAKE_MAKE_PROGRAM} clean

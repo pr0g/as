@@ -66,14 +66,14 @@ struct mat_t<T, 4>
     constexpr const T* elems() const { return &elem_rc[0][0]; }
 
     constexpr T& operator[](size_t i) { return elems()[i]; }
-    constexpr T operator[](size_t i) const { return elems()[i]; }
+    constexpr const T& operator[](size_t i) const { return elems()[i]; }
 
     mat_t() = default;
     mat_t(const mat_t& mat) = default;
     mat_t& operator=(const mat_t& mat) = default;
     mat_t(mat_t&& mat) noexcept = default;
     mat_t& operator=(mat_t&& mat) noexcept = default;
-    ~mat_t() = default;
+    ~mat_t() noexcept = default;
 
     constexpr mat_t(
         T x0, T y0, T z0, T w0,

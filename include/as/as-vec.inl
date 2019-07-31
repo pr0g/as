@@ -10,7 +10,7 @@ const vec_t<T, n> operator+(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 }
 
 template<>
-const vec3_t operator+(const vec3_t& lhs, const vec3_t& rhs)
+inline const vec3_t operator+(const vec3_t& lhs, const vec3_t& rhs)
 {
     return { lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z };
 }
@@ -25,7 +25,7 @@ vec_t<T, n>& operator+=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 }
 
 template<>
-vec3_t& operator+=(vec3_t& lhs, const vec3_t& rhs)
+inline vec3_t& operator+=(vec3_t& lhs, const vec3_t& rhs)
 {
     lhs.x += rhs.x;
     lhs.y += rhs.y;
@@ -42,7 +42,7 @@ const vec_t<T, n> operator-(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 }
 
 template<>
-const vec3_t operator-(const vec3_t& lhs, const vec3_t& rhs)
+inline const vec3_t operator-(const vec3_t& lhs, const vec3_t& rhs)
 {
     return { lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z };
 }
@@ -57,7 +57,7 @@ vec_t<T, n>& operator-=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 }
 
 template<>
-vec3_t& operator-=(vec3_t& lhs, const vec3_t& rhs)
+inline vec3_t& operator-=(vec3_t& lhs, const vec3_t& rhs)
 {
     lhs.x -= rhs.x;
     lhs.y -= rhs.y;
@@ -76,7 +76,7 @@ const vec_t<T, n> operator-(const vec_t<T, n>& rhs)
 }
 
 template<>
-const vec3_t operator-(const vec3_t& rhs)
+inline const vec3_t operator-(const vec3_t& rhs)
 {
     return { -rhs.x, -rhs.y, -rhs.z };
 }
@@ -84,15 +84,13 @@ const vec3_t operator-(const vec3_t& rhs)
 template<typename T, size_t n>
 const vec_t<T, n> operator*(const vec_t<T, n>& lhs, T val)
 {
-    vec_t<T, n> result;
-    for (size_t i = 0; i < n; ++i) {
-        result[i] = lhs[i] * val;
-    }
+    vec_t<T, n> result { lhs };
+    result *= val;
     return result;
 }
 
 template<>
-const vec3_t operator*(const vec3_t& lhs, real_t val)
+inline const vec3_t operator*(const vec3_t& lhs, real_t val)
 {
     return { lhs.x * val, lhs.y * val, lhs.z * val };
 }
@@ -104,7 +102,7 @@ const vec_t<T, n> operator*(T val, const vec_t<T, n>& rhs)
 }
 
 template<>
-const vec3_t operator*(real_t val, const vec3_t& rhs)
+inline const vec3_t operator*(real_t val, const vec3_t& rhs)
 {
     return rhs * val;
 }
@@ -119,7 +117,7 @@ vec_t<T, n>& operator*=(vec_t<T, n>& lhs, T val)
 }
 
 template<>
-vec3_t& operator*=(vec3_t& lhs, real_t val)
+inline vec3_t& operator*=(vec3_t& lhs, real_t val)
 {
     lhs.x *= val;
     lhs.y *= val;
@@ -136,7 +134,7 @@ const vec_t<T, n> operator*(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 }
 
 template<>
-const vec3_t operator*(const vec3_t& lhs, const vec3_t& rhs)
+inline const vec3_t operator*(const vec3_t& lhs, const vec3_t& rhs)
 {
     return { lhs.x * rhs.x, lhs.y * rhs.y, lhs.z * rhs.z };
 }
@@ -151,7 +149,7 @@ vec_t<T, n>& operator*=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 }
 
 template<>
-vec3_t& operator*=(vec3_t& lhs, const vec3_t& rhs)
+inline vec3_t& operator*=(vec3_t& lhs, const vec3_t& rhs)
 {
     lhs.x *= rhs.x;
     lhs.y *= rhs.y;
@@ -162,13 +160,13 @@ vec3_t& operator*=(vec3_t& lhs, const vec3_t& rhs)
 template<typename T, size_t n>
 const vec_t<T, n> operator/(const vec_t<T, n>& lhs, T val)
 {
-    vec_t<T, n> result = lhs;
+    vec_t<T, n> result { lhs };
     result /= val;
     return result;
 }
 
 template<>
-const vec3_t operator/(const vec3_t& lhs, real_t val)
+inline const vec3_t operator/(const vec3_t& lhs, real_t val)
 {
     return { lhs.x / val, lhs.y / val, lhs.z / val };
 }
@@ -183,7 +181,7 @@ vec_t<T, n>& operator/=(vec_t<T, n>& lhs, T val)
 }
 
 template<>
-vec3_t& operator/=(vec3_t& lhs, real_t val)
+inline vec3_t& operator/=(vec3_t& lhs, real_t val)
 {
     lhs.x /= val;
     lhs.y /= val;
@@ -200,7 +198,7 @@ const vec_t<T, n> operator/(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 }
 
 template<>
-const vec3_t operator/(const vec3_t& lhs, const vec3_t& rhs)
+inline const vec3_t operator/(const vec3_t& lhs, const vec3_t& rhs)
 {
     return { lhs.x / rhs.x, lhs.y / rhs.y, lhs.z / rhs.z };
 }
@@ -215,7 +213,7 @@ vec_t<T, n>& operator/=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 }
 
 template<>
-vec3_t& operator/=(vec3_t& lhs, const vec3_t& rhs)
+inline vec3_t& operator/=(vec3_t& lhs, const vec3_t& rhs)
 {
     lhs.x /= rhs.x;
     lhs.y /= rhs.y;

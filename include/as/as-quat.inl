@@ -17,27 +17,27 @@ constexpr quat_t& operator*=(quat_t& lhs, const quat_t& rhs)
     return lhs;
 }
 
-const quat_t operator+(const quat_t& lhs, const quat_t& rhs)
+inline const quat_t operator+(const quat_t& lhs, const quat_t& rhs)
 {
     return { lhs.w + rhs.w, lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z };
 }
 
-const quat_t operator-(const quat_t& lhs, const quat_t& rhs)
+inline const quat_t operator-(const quat_t& lhs, const quat_t& rhs)
 {
     return { lhs.w - rhs.w, lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z };
 }
 
-const quat_t operator-(const quat_t& q)
+inline const quat_t operator-(const quat_t& q)
 {
     return { -q.w, -q.x, -q.y, -q.z };
 }
 
-const quat_t operator/(const quat_t& lhs, real_t rhs)
+inline const quat_t operator/(const quat_t& lhs, real_t rhs)
 {
     return { lhs.w / rhs, lhs.x / rhs, lhs.y / rhs, lhs.z / rhs };
 }
 
-const quat_t operator*(const quat_t& lhs, real_t rhs)
+inline const quat_t operator*(const quat_t& lhs, real_t rhs)
 {
     return { lhs.w * rhs, lhs.x * rhs, lhs.y * rhs, lhs.z * rhs };
 }

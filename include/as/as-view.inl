@@ -5,7 +5,7 @@ namespace view
 {
 
 // openGL default
-mat44_t perspective_gl_rh(real_t fovy, real_t aspect, real_t n, real_t f)
+inline mat44_t perspective_gl_rh(real_t fovy, real_t aspect, real_t n, real_t f)
 {
     real_t e = 1.0f / tanr(fovy * 0.5f);
 
@@ -17,7 +17,7 @@ mat44_t perspective_gl_rh(real_t fovy, real_t aspect, real_t n, real_t f)
     };
 }
 
-mat44_t perspective_gl_lh(real_t fovy, real_t aspect, real_t n, real_t f)
+inline mat44_t perspective_gl_lh(real_t fovy, real_t aspect, real_t n, real_t f)
 {
     real_t e = 1.0f / tanr(fovy * 0.5f);
 
@@ -30,7 +30,7 @@ mat44_t perspective_gl_lh(real_t fovy, real_t aspect, real_t n, real_t f)
 }
 
 // directX default
-mat44_t perspective_d3d_lh(real_t fovy, real_t aspect, real_t n, real_t f)
+inline mat44_t perspective_d3d_lh(real_t fovy, real_t aspect, real_t n, real_t f)
 {
     real_t e = 1.0f / tanr(fovy * 0.5f);
 
@@ -42,7 +42,7 @@ mat44_t perspective_d3d_lh(real_t fovy, real_t aspect, real_t n, real_t f)
     };
 }
 
-mat44_t perspective_d3d_rh(real_t fovy, real_t aspect, real_t n, real_t f)
+inline mat44_t perspective_d3d_rh(real_t fovy, real_t aspect, real_t n, real_t f)
 {
     real_t e = 1.0f / tanr(fovy * 0.5f);
 
@@ -55,7 +55,7 @@ mat44_t perspective_d3d_rh(real_t fovy, real_t aspect, real_t n, real_t f)
 }
 
 // vulkan default
-mat44_t perspective_vulkan_rh(real_t fovy, real_t aspect, real_t n, real_t f)
+inline mat44_t perspective_vulkan_rh(real_t fovy, real_t aspect, real_t n, real_t f)
 {
     // vulkan clip space has inverted Y and half z
     const mat44_t clip{
@@ -68,7 +68,7 @@ mat44_t perspective_vulkan_rh(real_t fovy, real_t aspect, real_t n, real_t f)
     return clip * perspective_gl_rh(fovy, aspect, n, f);
 }
 
-mat44_t perspective_vulkan_lh(real_t fovy, real_t aspect, real_t n, real_t f)
+inline mat44_t perspective_vulkan_lh(real_t fovy, real_t aspect, real_t n, real_t f)
 {
     // vulkan clip space has inverted Y and half z
     const mat44_t clip{
@@ -82,7 +82,7 @@ mat44_t perspective_vulkan_lh(real_t fovy, real_t aspect, real_t n, real_t f)
 }
 
 // openGL default
-mat44_t ortho_gl_rh(real_t l, real_t r, real_t b, real_t t, real_t n, real_t f)
+inline mat44_t ortho_gl_rh(real_t l, real_t r, real_t b, real_t t, real_t n, real_t f)
 {
     const real_t x = 1.0f / (r - l);
     const real_t y = 1.0f / (t - b);
@@ -97,7 +97,7 @@ mat44_t ortho_gl_rh(real_t l, real_t r, real_t b, real_t t, real_t n, real_t f)
 }
 
 // directx default
-mat44_t ortho_d3d_lh(real_t l, real_t r, real_t b, real_t t, real_t n, real_t f)
+inline mat44_t ortho_d3d_lh(real_t l, real_t r, real_t b, real_t t, real_t n, real_t f)
 {
     const real_t x = 1.0f / (r - l);
     const real_t y = 1.0f / (t - b);
