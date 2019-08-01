@@ -1237,11 +1237,11 @@ TEST_CASE("axes_vec2", "[as_vec]")
     constexpr real_t one[] = { 1.0f, 1.0f };
     CHECK_THAT(span(one), ElementsAreSpan(as::vec2::one().elems(), 2));
 
-    constexpr real_t max[] = { REAL_MAX, REAL_MAX };
-    CHECK_THAT(span(max), ElementsAreSpan(as::vec2::max().elems(), 2));
+    constexpr real_t max_val[] = { REAL_MAX, REAL_MAX };
+    CHECK_THAT(span(max_val), ElementsAreSpan(as::vec2::max().elems(), 2));
 
-    constexpr real_t min[] = { REAL_MIN, REAL_MIN };
-    CHECK_THAT(span(min), ElementsAreSpan(as::vec2::min().elems(), 2));
+    constexpr real_t min_val[] = { REAL_MIN, REAL_MIN };
+    CHECK_THAT(span(min_val), ElementsAreSpan(as::vec2::min().elems(), 2));
 }
 
 TEST_CASE("axes_vec3", "[as_vec]")
@@ -1263,11 +1263,11 @@ TEST_CASE("axes_vec3", "[as_vec]")
     constexpr real_t one[] = { 1.0f, 1.0f, 1.0f };
     CHECK_THAT(span(one), ElementsAreSpan(as::vec3::one().elems(), 3));
 
-    constexpr real_t max[] = { REAL_MAX, REAL_MAX, REAL_MAX };
-    CHECK_THAT(span(max), ElementsAreSpan(as::vec3::max().elems(), 3));
+    constexpr real_t max_val[] = { REAL_MAX, REAL_MAX, REAL_MAX };
+    CHECK_THAT(span(max_val), ElementsAreSpan(as::vec3::max().elems(), 3));
 
-    constexpr real_t min[] = { REAL_MIN, REAL_MIN, REAL_MIN };
-    CHECK_THAT(span(min), ElementsAreSpan(as::vec3::min().elems(), 3));
+    constexpr real_t min_val[] = { REAL_MIN, REAL_MIN, REAL_MIN };
+    CHECK_THAT(span(min_val), ElementsAreSpan(as::vec3::min().elems(), 3));
 }
 
 TEST_CASE("axes_vec4", "[as_vec]")
@@ -1292,11 +1292,11 @@ TEST_CASE("axes_vec4", "[as_vec]")
     constexpr real_t one[] = { 1.0f, 1.0f, 1.0f, 1.0f };
     CHECK_THAT(span(one), ElementsAreSpan(as::vec4::one().elems(), 4));
 
-    constexpr real_t max[] = { REAL_MAX, REAL_MAX, REAL_MAX, REAL_MAX };
-    CHECK_THAT(span(max), ElementsAreSpan(as::vec4::max().elems(), 4));
+    constexpr real_t max_val[] = { REAL_MAX, REAL_MAX, REAL_MAX, REAL_MAX };
+    CHECK_THAT(span(max_val), ElementsAreSpan(as::vec4::max().elems(), 4));
 
-    constexpr real_t min[] = { REAL_MIN, REAL_MIN, REAL_MIN, REAL_MIN };
-    CHECK_THAT(span(min), ElementsAreSpan(as::vec4::min().elems(), 4));
+    constexpr real_t min_val[] = { REAL_MIN, REAL_MIN, REAL_MIN, REAL_MIN };
+    CHECK_THAT(span(min_val), ElementsAreSpan(as::vec4::min().elems(), 4));
 }
 
 TEST_CASE("cross", "[as_vec]")
@@ -1518,46 +1518,46 @@ TEST_CASE("max_elem", "[as_vec]")
 TEST_CASE("clamp", "[as_vec]")
 {
     {
-        vec3_t min(50.0f, 50.0f, 50.0f);
-        vec3_t max(100.0f, 100.0f, 100.0f);
+        vec3_t min_val(50.0f, 50.0f, 50.0f);
+        vec3_t max_val(100.0f, 100.0f, 100.0f);
 
         vec3_t vec(20.0f, 20.0f, 20.0f);
 
-        vec3_t result = vec::clamp(vec, min, max);
+        vec3_t result = vec::clamp(vec, min_val, max_val);
 
-        CHECK(vec::equal(result, min));
+        CHECK(vec::equal(result, min_val));
     }
 
     {
-        vec3_t min(50.0f, 50.0f, 50.0f);
-        vec3_t max(100.0f, 100.0f, 100.0f);
+        vec3_t min_val(50.0f, 50.0f, 50.0f);
+        vec3_t max_val(100.0f, 100.0f, 100.0f);
 
         vec3_t vec(120.0f, 200.0f, 300.0f);
 
-        vec3_t result = vec::clamp(vec, min, max);
+        vec3_t result = vec::clamp(vec, min_val, max_val);
 
-        CHECK(vec::equal(result, max));
+        CHECK(vec::equal(result, max_val));
     }
 
     {
-        vec3_t min(50.0f, 50.0f, 50.0f);
-        vec3_t max(100.0f, 100.0f, 100.0f);
+        vec3_t min_val(50.0f, 50.0f, 50.0f);
+        vec3_t max_val(100.0f, 100.0f, 100.0f);
 
         vec3_t vec(20.0f, 120.0f, 20.0f);
         vec3_t vec_reference(50.0f, 100.0f, 50.0f);
 
-        vec3_t result = vec::clamp(vec, min, max);
+        vec3_t result = vec::clamp(vec, min_val, max_val);
 
         CHECK(vec::equal(result, vec_reference));
     }
 
     {
-        vec3_t min(50.0f, 50.0f, 50.0f);
-        vec3_t max(100.0f, 100.0f, 100.0f);
+        vec3_t min_val(50.0f, 50.0f, 50.0f);
+        vec3_t max_val(100.0f, 100.0f, 100.0f);
 
         vec3_t vec(62.0f, 56.0f, 72.0f);
 
-        vec3_t result = vec::clamp(vec, min, max);
+        vec3_t result = vec::clamp(vec, min_val, max_val);
 
         CHECK(vec::equal(result, vec));
     }
