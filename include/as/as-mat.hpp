@@ -27,12 +27,12 @@ struct mat_t
     constexpr T* elems() { return &elem_rc[0][0]; }
     constexpr const T* elems() const { return &elem_rc[0][0]; }
 
-    mat_t() = default;
-    mat_t(const mat_t& mat) = default;
-    mat_t& operator=(const mat_t& mat) = default;
+    mat_t() noexcept = default;
+    mat_t(const mat_t& mat) noexcept = default;
+    mat_t& operator=(const mat_t& mat) noexcept = default;
     mat_t(mat_t&& mat) noexcept = default;
     mat_t& operator=(mat_t&& mat) noexcept = default;
-    ~mat_t() noexcept = default;
+    ~mat_t() = default;
 
     template<typename...> struct typelist {};
     template<

@@ -1680,7 +1680,7 @@ template struct as::vec_t<real_t, 4>;
 template struct as::vec_t<real_t, 5>;
 
 // constructor
-template as::vec_t<real_t, 5>::vec_t(real_t, real_t, real_t, real_t, real_t);
+template as::vec_t<real_t, 5>::vec_t(real_t, real_t, real_t, real_t, real_t) noexcept;
 
 // operators
 template const vec_t<real_t, 5> as::operator+(const vec_t<real_t, 5>&, const vec_t<real_t, 5>&);

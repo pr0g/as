@@ -599,11 +599,11 @@ template struct as::mat_t<real_t, 5>;
 
 // constructor
 template as::mat_t<real_t, 5>::mat_t(
-    real_t, real_t, real_t, real_t, real_t,  //
-    real_t, real_t, real_t, real_t, real_t,  //
-    real_t, real_t, real_t, real_t, real_t,  //
-    real_t, real_t, real_t, real_t, real_t,  //
-    real_t, real_t, real_t, real_t, real_t); //
+    real_t, real_t, real_t, real_t, real_t,             //
+    real_t, real_t, real_t, real_t, real_t,             //
+    real_t, real_t, real_t, real_t, real_t,             //
+    real_t, real_t, real_t, real_t, real_t,             //
+    real_t, real_t, real_t, real_t, real_t) noexcept;   //
 
 // matrix multiply
 template const mat_t<real_t, 3> as::operator*(const mat_t<real_t, 3>&, const mat_t<real_t, 3>&);

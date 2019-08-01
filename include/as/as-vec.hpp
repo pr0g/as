@@ -20,12 +20,12 @@ struct vec_t
     constexpr T* elems() { return elem; }
     constexpr const T* elems() const { return elem; }
 
-    vec_t() = default;
-    vec_t(const vec_t&) = default;
-    vec_t& operator=(const vec_t&) = default;
+    vec_t() noexcept = default;
+    vec_t(const vec_t&) noexcept = default;
+    vec_t& operator=(const vec_t&) noexcept = default;
     vec_t(vec_t&&) noexcept = default;
     vec_t& operator=(vec_t&&) noexcept = default;
-    ~vec_t() noexcept = default;
+    ~vec_t() = default;
 
     template<typename...> struct typelist {};
     template<
@@ -55,12 +55,12 @@ struct vec2_base_t
     AS_API T* elems() { return &(this->*elem[0]); }
     AS_API const T* elems() const { return &(this->*elem[0]); }
 
-    vec2_base_t() = default;
+    vec2_base_t() noexcept = default;
     vec2_base_t(const vec2_base_t&) = default;
     vec2_base_t& operator=(const vec2_base_t&) = default;
     vec2_base_t(vec2_base_t&&) noexcept = default;
     vec2_base_t& operator=(vec2_base_t&&) noexcept = default;
-    ~vec2_base_t() noexcept = default;
+    ~vec2_base_t() = default;
 
     AS_API constexpr explicit vec2_base_t(T xy) : x(xy), y(xy) {}
     AS_API constexpr vec2_base_t(T x, T y) : x(x), y(y) {}
@@ -81,12 +81,12 @@ T vec2_base_t<T>::*vec2_base_t<T>::elem[2] =
 template<typename T>
 struct vec_t<T, 2> : internal::vec2_base_t<T>
 {
-    vec_t() = default;
-    vec_t(const vec_t&) = default;
-    vec_t& operator=(const vec_t&) = default;
+    vec_t() noexcept = default;
+    vec_t(const vec_t&) noexcept = default;
+    vec_t& operator=(const vec_t&) noexcept = default;
     vec_t(vec_t&&) noexcept = default;
     vec_t& operator=(vec_t&&) noexcept = default;
-    ~vec_t() noexcept = default;
+    ~vec_t() = default;
 
     AS_API constexpr explicit vec_t(T xy) : internal::vec2_base_t<T>(xy) {}
     AS_API constexpr vec_t(T x, T y) : internal::vec2_base_t<T>(x, y) {}
@@ -113,12 +113,12 @@ struct vec3_base_t
     AS_API T* elems() { return &(this->*elem[0]); }
     AS_API const T* elems() const { return &(this->*elem[0]); }
 
-    vec3_base_t() = default;
+    vec3_base_t() noexcept = default;
     vec3_base_t(const vec3_base_t&) = default;
     vec3_base_t& operator=(const vec3_base_t&) = default;
     vec3_base_t(vec3_base_t&&) noexcept = default;
     vec3_base_t& operator=(vec3_base_t&&) noexcept = default;
-    ~vec3_base_t() noexcept = default;
+    ~vec3_base_t() = default;
 
     AS_API constexpr explicit vec3_base_t(T xyz) : x(xyz), y(xyz), z(xyz) {}
     AS_API constexpr vec3_base_t(const vec_t<T, 2>& xy, T z) : x(xy.x), y(xy.y), z(z) {}
@@ -143,12 +143,12 @@ T vec3_base_t<T>::*vec3_base_t<T>::elem[3] =
 template<typename T>
 struct vec_t<T, 3> : internal::vec3_base_t<T>
 {
-    vec_t() = default;
-    vec_t(const vec_t&) = default;
-    vec_t& operator=(const vec_t&) = default;
+    vec_t() noexcept = default;
+    vec_t(const vec_t&) noexcept = default;
+    vec_t& operator=(const vec_t&) noexcept = default;
     vec_t(vec_t&&) noexcept = default;
     vec_t& operator=(vec_t&&) noexcept = default;
-    ~vec_t() noexcept = default;
+    ~vec_t() = default;
 
     AS_API constexpr explicit vec_t(T xyz) : internal::vec3_base_t<T>(xyz) {}
     AS_API constexpr vec_t(const vec_t<T, 2>& xy, T z) : internal::vec3_base_t<T>(xy, z) {}
@@ -176,12 +176,12 @@ struct vec4_base_t
     AS_API T* elems() { return &(this->*elem[0]); }
     AS_API const T* elems() const { return &(this->*elem[0]); }
 
-    vec4_base_t() = default;
+    vec4_base_t() noexcept = default;
     vec4_base_t(const vec4_base_t&) = default;
     vec4_base_t& operator=(const vec4_base_t&) = default;
     vec4_base_t(vec4_base_t&&) noexcept = default;
     vec4_base_t& operator=(vec4_base_t&&) noexcept = default;
-    ~vec4_base_t() noexcept = default;
+    ~vec4_base_t() = default;
 
     AS_API constexpr explicit vec4_base_t(T xyzw) : x(xyzw), y(xyzw), z(xyzw), w(xyzw) {}
     AS_API constexpr vec4_base_t(const vec_t<T, 3>& xyz, T w) : x(xyz.x), y(xyz.y), z(xyz.z), w(w) {}
@@ -211,12 +211,12 @@ T vec4_base_t<T>::*vec4_base_t<T>::elem[4] =
 template<typename T>
 struct vec_t<T, 4> : internal::vec4_base_t<T>
 {
-    vec_t() = default;
-    vec_t(const vec_t&) = default;
-    vec_t& operator=(const vec_t&) = default;
+    vec_t() noexcept = default;
+    vec_t(const vec_t&) noexcept = default;
+    vec_t& operator=(const vec_t&) noexcept = default;
     vec_t(vec_t&&) noexcept = default;
     vec_t& operator=(vec_t&&) noexcept = default;
-    ~vec_t() noexcept = default;
+    ~vec_t() = default;
 
     AS_API constexpr explicit vec_t(T xyzw) : internal::vec4_base_t<T>(xyzw) {}
     AS_API constexpr vec_t(const vec_t<T, 3>& xyz, T w) : internal::vec4_base_t<T>(xyz, w) {}
