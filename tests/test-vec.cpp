@@ -699,38 +699,38 @@ TEST_CASE("vec_data", "[as_vec]")
     // data mutable
     {
         vec2_t vec2(5.0f, 10.0f);
-        real_t *data = vec::data(vec2);
+        real_t* vec_data = vec::data(vec2);
 
-        CHECK(data[0] == 5.0f);
-        CHECK(data[1] == 10.0f);
+        CHECK(vec_data[0] == 5.0f);
+        CHECK(vec_data[1] == 10.0f);
     }
 
     // data const
     {
         vec4_t vec4(1.0f, 2.0f, 3.0f, 4.0f);
-        const real_t* data = vec::const_data(vec4);
+        const real_t* vec_data = vec::const_data(vec4);
 
-        CHECK(data[0] == 1.0f);
-        CHECK(data[1] == 2.0f);
-        CHECK(data[2] == 3.0f);
-        CHECK(data[3] == 4.0f);
+        CHECK(vec_data[0] == 1.0f);
+        CHECK(vec_data[1] == 2.0f);
+        CHECK(vec_data[2] == 3.0f);
+        CHECK(vec_data[3] == 4.0f);
     }
 
     // r-value - will not compile
     {
-        // data(vec3_t(1.0f, 2.0f, 3.0f));
+        // vec::data(vec3_t(1.0f, 2.0f, 3.0f));
     }
 
     // data mutable
     {
         vec2_t vec2(20.0f, 40.0f);
-        real_t* data = vec::data(vec2);
+        real_t* vec_data = vec::data(vec2);
 
-        CHECK(data[0] == 20.0f);
-        CHECK(data[1] == 40.0f);
+        CHECK(vec_data[0] == 20.0f);
+        CHECK(vec_data[1] == 40.0f);
 
-        data[0] = 100.0f;
-        data[1] = 200.0f;
+        vec_data[0] = 100.0f;
+        vec_data[1] = 200.0f;
 
         CHECK(vec2.x == Approx(100.0f).epsilon(epsilon));
         CHECK(vec2.y == Approx(200.0f).epsilon(epsilon));
@@ -740,7 +740,7 @@ TEST_CASE("vec_data", "[as_vec]")
     {
         using int5 = vec_t<int, 5>;
         int5 int5_vec{ 11, 12, 13, 14, 15 };
-        int* data = vec::data(int5_vec);
+        int* vec_data = vec::data(int5_vec);
 
         CHECK(int5_vec[0] == 11);
         CHECK(int5_vec[1] == 12);
@@ -748,7 +748,7 @@ TEST_CASE("vec_data", "[as_vec]")
         CHECK(int5_vec[3] == 14);
         CHECK(int5_vec[4] == 15);
 
-        data[3] = 22;
+        vec_data[3] = 22;
 
         CHECK(int5_vec[3] == 22);
     }
@@ -758,7 +758,7 @@ TEST_CASE("vec_data", "[as_vec]")
         using short7 = vec_t<short, 7>;
         short7 short7_vec{
             short(11), short(22), short(-33), short(-44), short(-55), short(66), short(77) };
-        const short* data = vec::const_data(short7_vec);
+        const short* vec_data = vec::const_data(short7_vec);
 
         CHECK(short7_vec[0] ==  11);
         CHECK(short7_vec[1] ==  22);
@@ -769,7 +769,7 @@ TEST_CASE("vec_data", "[as_vec]")
         CHECK(short7_vec[6] ==  77);
 
         for (size_t i = 0; i < short7::size; ++i) {
-            CHECK(short7_vec[i] == data[i]);
+            CHECK(short7_vec[i] == vec_data[i]);
         }
     }
 }
@@ -778,20 +778,20 @@ TEST_CASE("vec_make_from_arr", "[as_vec]")
 {
     // generic make_from_arr vec2_t
     {
-        real_t data[2] = { 2.0f, 4.0f };
-        vec2_t vec2 = vec::from_arr(data);
+        real_t vec_data[2] = { 2.0f, 4.0f };
+        vec2_t vec2 = vec::from_arr(vec_data);
 
         CHECK(vec2.x == Approx(2.0f).epsilon(epsilon));
         CHECK(vec2.y == Approx(4.0f).epsilon(epsilon));
 
         // won't compile (array length 2 to vec3_t)
-        // vec3_t vec3 = make_from(data);
+        // vec3_t vec3 = make_from(vec_data);
     }
 
     // generic make_from_arr vec3_t
     {
-        real_t data[3] = { 1.0f, 2.0f, 3.0f };
-        vec3_t vec3 = vec::from_arr(data);
+        real_t vec_data[3] = { 1.0f, 2.0f, 3.0f };
+        vec3_t vec3 = vec::from_arr(vec_data);
 
         CHECK(vec3.x == Approx(1.0f).epsilon(epsilon));
         CHECK(vec3.y == Approx(2.0f).epsilon(epsilon));
@@ -800,8 +800,8 @@ TEST_CASE("vec_make_from_arr", "[as_vec]")
 
     // generic make_from_arr <char, 6>
     {
-        char data[6] = { 11, 12, 13, 14, 15, 16 };
-        vec_t<char, 6> char_6 = vec::from_arr(data);
+        char vec_data[6] = { 11, 12, 13, 14, 15, 16 };
+        vec_t<char, 6> char_6 = vec::from_arr(vec_data);
 
         CHECK(char_6[0] == 11);
         CHECK(char_6[1] == 12);
@@ -813,8 +813,8 @@ TEST_CASE("vec_make_from_arr", "[as_vec]")
 
     // vec2::make_from_arr
     {
-        real_t data[2] = { 2.0f, 4.0f };
-        vec2_t vec2 = vec2::from_arr(data);
+        real_t vec_data[2] = { 2.0f, 4.0f };
+        vec2_t vec2 = vec2::from_arr(vec_data);
 
         CHECK(vec2.x == Approx(2.0f).epsilon(epsilon));
         CHECK(vec2.y == Approx(4.0f).epsilon(epsilon));
@@ -822,8 +822,8 @@ TEST_CASE("vec_make_from_arr", "[as_vec]")
 
     // vec3_make_from_arr
     {
-        real_t data[3] = { 1.0f, 2.0f, 3.0f };
-        vec3_t vec3 = vec3::from_arr(data);
+        real_t vec_data[3] = { 1.0f, 2.0f, 3.0f };
+        vec3_t vec3 = vec3::from_arr(vec_data);
 
         CHECK(vec3.x == Approx(1.0f).epsilon(epsilon));
         CHECK(vec3.y == Approx(2.0f).epsilon(epsilon));
@@ -832,8 +832,8 @@ TEST_CASE("vec_make_from_arr", "[as_vec]")
 
     // vec4_make_from_arr
     {
-        real_t data[4] = { 4.0f, 8.0f, 12.0f, 16.0f };
-        vec4_t vec4 = vec4::from_arr(data);
+        real_t vec_data[4] = { 4.0f, 8.0f, 12.0f, 16.0f };
+        vec4_t vec4 = vec4::from_arr(vec_data);
 
         CHECK(vec4.x == Approx(4.0f).epsilon(epsilon));
         CHECK(vec4.y == Approx(8.0f).epsilon(epsilon));
@@ -846,10 +846,10 @@ TEST_CASE("vec_make_from_ptr", "[as_vec]")
 {
     // generic make_from_ptr vec2_t
     {
-        std::unique_ptr<real_t[]> data = std::make_unique<real_t[]>(2);
-        data[0] = 2.0f;
-        data[1] = 4.0f;
-        vec2_t vec2 = vec::from_ptr<real_t, 2>(data.get());
+        std::unique_ptr<real_t[]> vec_data = std::make_unique<real_t[]>(2);
+        vec_data[0] = 2.0f;
+        vec_data[1] = 4.0f;
+        vec2_t vec2 = vec::from_ptr<real_t, 2>(vec_data.get());
 
         CHECK(vec2.x == Approx(2.0f).epsilon(epsilon));
         CHECK(vec2.y == Approx(4.0f).epsilon(epsilon));
@@ -857,11 +857,11 @@ TEST_CASE("vec_make_from_ptr", "[as_vec]")
 
     // generic make_from_ptr vec3_t
     {
-        std::unique_ptr<real_t[]> data = std::make_unique<real_t[]>(3);
-        data[0] = 1.0f;
-        data[1] = 2.0f;
-        data[2] = 3.0f;
-        vec3_t vec3 = vec::from_ptr<real_t, 3>(data.get());
+        std::unique_ptr<real_t[]> vec_data = std::make_unique<real_t[]>(3);
+        vec_data[0] = 1.0f;
+        vec_data[1] = 2.0f;
+        vec_data[2] = 3.0f;
+        vec3_t vec3 = vec::from_ptr<real_t, 3>(vec_data.get());
 
         CHECK(vec3.x == Approx(1.0f).epsilon(epsilon));
         CHECK(vec3.y == Approx(2.0f).epsilon(epsilon));
@@ -870,14 +870,14 @@ TEST_CASE("vec_make_from_ptr", "[as_vec]")
 
     // generic make_from_ptr <char, 6>
     {
-        std::unique_ptr<char[]> data = std::make_unique<char[]>(6);
-        data[0] = 11;
-        data[1] = 12;
-        data[2] = 13;
-        data[3] = 14;
-        data[4] = 15;
-        data[5] = 16;
-        vec_t<char, 6> char_6 = vec::from_ptr<char, 6>(data.get());
+        std::unique_ptr<char[]> vec_data = std::make_unique<char[]>(6);
+        vec_data[0] = 11;
+        vec_data[1] = 12;
+        vec_data[2] = 13;
+        vec_data[3] = 14;
+        vec_data[4] = 15;
+        vec_data[5] = 16;
+        vec_t<char, 6> char_6 = vec::from_ptr<char, 6>(vec_data.get());
 
         CHECK(char_6[0] == 11);
         CHECK(char_6[1] == 12);
@@ -889,10 +889,10 @@ TEST_CASE("vec_make_from_ptr", "[as_vec]")
 
     // vec2::make_from_ptr
     {
-        std::unique_ptr<real_t[]> data = std::make_unique<real_t[]>(2);
-        data[0] = 2.0f;
-        data[1] = 4.0f;
-        vec2_t vec2 = vec2::from_ptr(data.get());
+        std::unique_ptr<real_t[]> vec_data = std::make_unique<real_t[]>(2);
+        vec_data[0] = 2.0f;
+        vec_data[1] = 4.0f;
+        vec2_t vec2 = vec2::from_ptr(vec_data.get());
 
         CHECK(vec2.x == Approx(2.0f).epsilon(epsilon));
         CHECK(vec2.y == Approx(4.0f).epsilon(epsilon));
@@ -900,11 +900,11 @@ TEST_CASE("vec_make_from_ptr", "[as_vec]")
 
     // vec3_make_from_ptr
     {
-        std::unique_ptr<real_t[]> data = std::make_unique<real_t[]>(3);
-        data[0] = 1.0f;
-        data[1] = 2.0f;
-        data[2] = 3.0f;
-        vec3_t vec3 = vec3::from_ptr(data.get());
+        std::unique_ptr<real_t[]> vec_data = std::make_unique<real_t[]>(3);
+        vec_data[0] = 1.0f;
+        vec_data[1] = 2.0f;
+        vec_data[2] = 3.0f;
+        vec3_t vec3 = vec3::from_ptr(vec_data.get());
 
         CHECK(vec3.x == Approx(1.0f).epsilon(epsilon));
         CHECK(vec3.y == Approx(2.0f).epsilon(epsilon));
@@ -913,12 +913,12 @@ TEST_CASE("vec_make_from_ptr", "[as_vec]")
 
     // vec4_make_from_ptr
     {
-        std::unique_ptr<real_t[]> data = std::make_unique<real_t[]>(4);
-        data[0] = 4.0f;
-        data[1] = 8.0f;
-        data[2] = 12.0f;
-        data[3] = 16.0f;
-        vec4_t vec4 = vec4::from_ptr(data.get());
+        std::unique_ptr<real_t[]> vec_data = std::make_unique<real_t[]>(4);
+        vec_data[0] = 4.0f;
+        vec_data[1] = 8.0f;
+        vec_data[2] = 12.0f;
+        vec_data[3] = 16.0f;
+        vec4_t vec4 = vec4::from_ptr(vec_data.get());
 
         CHECK(vec4.x == Approx(4.0f).epsilon(epsilon));
         CHECK(vec4.y == Approx(8.0f).epsilon(epsilon));
@@ -928,13 +928,13 @@ TEST_CASE("vec_make_from_ptr", "[as_vec]")
 
     // generic type check
     {
-        std::unique_ptr<double[]> data = std::make_unique<double[]>(2);
-        data[0] = 2.0;
-        data[1] = 4.0;
+        std::unique_ptr<double[]> vec_data = std::make_unique<double[]>(2);
+        vec_data[0] = 2.0;
+        vec_data[1] = 4.0;
         // does not compile - types do not match
-        // vec_t<char, 2> char_2 = from_ptr<char, 2>(data.get());
-        // vec2_t vec2 = from_ptr<float, 2>(data.get());
-        vec_t<double, 2> vec2 = vec::from_ptr<double, 2>(data.get());
+        // vec_t<char, 2> char_2 = from_ptr<char, 2>(vec_data.get());
+        // vec2_t vec2 = from_ptr<float, 2>(vec_data.get());
+        vec_t<double, 2> vec2 = vec::from_ptr<double, 2>(vec_data.get());
         (void)vec2;
     }
 }
