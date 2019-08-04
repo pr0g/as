@@ -577,7 +577,7 @@ TEST_CASE("multiply_scalar", "[as_mat]")
         26.0f, 28.0f, 30.0f, 32.0f  //
     };
 
-    const mat4_t result44 = mat4 * 2.0f;
+    const mat4_t result4 = mat4 * 2.0f;
 
     const real_t mat4_arr[] = {
         4.0f, 8.0f, 12.0f, 16.0f,   //
@@ -586,7 +586,7 @@ TEST_CASE("multiply_scalar", "[as_mat]")
         52.0f, 56.0f, 60.0f, 64.0f  //
     };
 
-    CHECK_THAT(span(mat4_arr), ElementsAreSubscript(result44, 16));
+    CHECK_THAT(span(mat4_arr), ElementsAreSubscript(result4, 16));
 }
 
 // explicit instantiations (for coverage)

@@ -23,9 +23,9 @@ struct mat_t
     static constexpr size_t size = d * d;
     using type = T;
 
-    constexpr T& operator[](size_t i) & { return *(&elem_rc[0][0] + i); }
-    constexpr const T& operator[](size_t i) const& { return *(&elem_rc[0][0] + i); }
-    constexpr const T operator[](size_t i) && { return *(&elem_rc[0][0] + i); }
+    constexpr T& operator[](size_t i) & { return elem_rc[0][i]; }
+    constexpr const T& operator[](size_t i) const& { return elem_rc[0][i]; }
+    constexpr const T operator[](size_t i) && { return elem_rc[0][i]; }
 
     mat_t() noexcept = default;
     mat_t(const mat_t&) noexcept = default;

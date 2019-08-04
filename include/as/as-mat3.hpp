@@ -79,9 +79,9 @@ struct mat_t<T, 3>
     void row2(const vec_t<T, 3>& row_) { row(2, row_); }
 #endif
 
-    constexpr T& operator[](size_t i) & { return *(&elem_rc[0][0] + i); }
-    constexpr const T& operator[](size_t i) const& { return *(&elem_rc[0][0] + i); }
-    constexpr const T operator[](size_t i) && { return *(&elem_rc[0][0] + i); }
+    constexpr T& operator[](size_t i) & { return elem_rc[0][i]; }
+    constexpr const T& operator[](size_t i) const& { return elem_rc[0][i]; }
+    constexpr const T operator[](size_t i) && { return elem_rc[0][i]; }
 
     mat_t() noexcept = default;
     mat_t(const mat_t&) noexcept = default;
