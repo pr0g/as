@@ -79,9 +79,10 @@ target_link_options(
     ${CMAKE_PROJECT_NAME} PRIVATE "${link_options}")
 set_target_properties(
     ${PROJECT_NAME} PROPERTIES
-        CXX_STANDARD 17
-        CXX_STANDARD_REQUIRED YES
-        CXX_EXTENSIONS NO)
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED YES
+    CXX_EXTENSIONS NO
+    NO_SYSTEM_FROM_IMPORTED true)
 target_compile_features(
     ${PROJECT_NAME} PRIVATE cxx_std_17)
 target_compile_definitions(

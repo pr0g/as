@@ -454,13 +454,6 @@ TEST_CASE("vec2_accessors", "[as_vec]")
         CHECK(vec2.y == Approx(vec2[1]).epsilon(epsilon));
     }
 
-    // member pointer and subscript operator - explicit construction
-    {
-        vec2_t vec2(1.0f, 2.0f);
-        CHECK(vec2.elems()[0] == Approx(vec2[0]).epsilon(epsilon));
-        CHECK(vec2.elems()[1] == Approx(vec2[1]).epsilon(epsilon));
-    }
-
     // member and const subscript operator - explicit construction
     {
         vec2_t vec2(1.0f, 2.0f);
@@ -498,14 +491,6 @@ TEST_CASE("vec3_accessors", "[as_vec]")
         CHECK(vec3.xy().x == Approx(vec3.x).epsilon(epsilon));
         CHECK(vec3.xy().y == Approx(vec3.y).epsilon(epsilon));
         CHECK(vec3.z == Approx(vec3[2]).epsilon(epsilon));
-    }
-
-    // member pointer and subscript operator - explicit construction
-    {
-        vec3_t vec3(2.0f, 4.0f, 6.0f);
-        CHECK(vec3.elems()[0] == Approx(vec3[0]).epsilon(epsilon));
-        CHECK(vec3.elems()[1] == Approx(vec3[1]).epsilon(epsilon));
-        CHECK(vec3.elems()[2] == Approx(vec3[2]).epsilon(epsilon));
     }
 
     // member and const subscript operator - explicit construction
@@ -553,15 +538,6 @@ TEST_CASE("vec4_accessors", "[as_vec]")
         CHECK(vec4.xyz()[2] == Approx(vec4[2]).epsilon(epsilon));
         CHECK(vec4.w == Approx(vec4[3]).epsilon(epsilon));
     }
-
-    // member pointer and subscript operator - explicit construction
-    {
-        vec4_t vec4(1.0f, 2.0f, 3.0f, 4.0f);
-        CHECK(vec4.elems()[0] == Approx(vec4[0]).epsilon(epsilon));
-        CHECK(vec4.elems()[1] == Approx(vec4[1]).epsilon(epsilon));
-        CHECK(vec4.elems()[2] == Approx(vec4[2]).epsilon(epsilon));
-        CHECK(vec4.elems()[3] == Approx(vec4[3]).epsilon(epsilon));
-    }
 }
 
 TEST_CASE("vec2_vec3_vec4_accessors", "[as_vec]")
@@ -601,8 +577,7 @@ TEST_CASE("const_elem_access_vec_const", "[as_vec]")
     const real_t elem_4 = vec5[4];
 
     const real_t vec_arr[] = { elem_0, elem_1, elem_2, elem_3, elem_4 };
-
-    CHECK_THAT(span(vec_arr), ElementsAreSpan(vec5.elems(), 5));
+    CHECK_THAT(span(vec_arr), ElementsAreSubscript(vec5, 5));
 }
 
 TEST_CASE("elem_access_vec", "[as_vec]")
@@ -617,7 +592,7 @@ TEST_CASE("elem_access_vec", "[as_vec]")
     real_t elem_4 = vec5[4];
 
     const real_t vec_arr[] = { elem_0, elem_1, elem_2, elem_3, elem_4 };
-    CHECK_THAT(span(vec_arr), ElementsAreSpan(vec5.elems(), 5));
+    CHECK_THAT(span(vec_arr), ElementsAreSubscript(vec5, 5));
 }
 
 TEST_CASE("const_elem_access_vec2_3_4", "[as_vec]")
@@ -631,7 +606,7 @@ TEST_CASE("const_elem_access_vec2_3_4", "[as_vec]")
         const real_t elem_1 = vec2[1];
 
         const real_t vec_arr[] = { elem_0, elem_1 };
-        CHECK_THAT(span(vec_arr), ElementsAreSpan(vec2.elems(), 2));
+        CHECK_THAT(span(vec_arr), ElementsAreSubscript(vec2, 2));
     }
 
     {
@@ -642,7 +617,7 @@ TEST_CASE("const_elem_access_vec2_3_4", "[as_vec]")
         const real_t elem_2 = vec3[2];
 
         const real_t vec_arr[] = { elem_0, elem_1, elem_2 };
-        CHECK_THAT(span(vec_arr), ElementsAreSpan(vec3.elems(), 3));
+        CHECK_THAT(span(vec_arr), ElementsAreSubscript(vec3, 3));
     }
 
     {
@@ -655,7 +630,7 @@ TEST_CASE("const_elem_access_vec2_3_4", "[as_vec]")
         const real_t elem_3 = vec4[3];
 
         const real_t vec_arr[] = { elem_0, elem_1, elem_2, elem_3 };
-        CHECK_THAT(span(vec_arr), ElementsAreSpan(vec4.elems(), 4));
+        CHECK_THAT(span(vec_arr), ElementsAreSubscript(vec4, 4));
     }
 }
 
@@ -692,86 +667,6 @@ TEST_CASE("vec_size", "[as_vec]")
     size_t int5_size = int5::size;
     CHECK(int5_size == static_cast<size_t>(5));
     CHECK(vec_short5_inst_size == Approx(int5_size).epsilon(epsilon));
-}
-
-TEST_CASE("vec_data", "[as_vec]")
-{
-    // data mutable
-    {
-        vec2_t vec2(5.0f, 10.0f);
-        real_t* vec_data = vec::data(vec2);
-
-        CHECK(vec_data[0] == 5.0f);
-        CHECK(vec_data[1] == 10.0f);
-    }
-
-    // data const
-    {
-        vec4_t vec4(1.0f, 2.0f, 3.0f, 4.0f);
-        const real_t* vec_data = vec::const_data(vec4);
-
-        CHECK(vec_data[0] == 1.0f);
-        CHECK(vec_data[1] == 2.0f);
-        CHECK(vec_data[2] == 3.0f);
-        CHECK(vec_data[3] == 4.0f);
-    }
-
-    // r-value - will not compile
-    {
-        // vec::data(vec3_t(1.0f, 2.0f, 3.0f));
-    }
-
-    // data mutable
-    {
-        vec2_t vec2(20.0f, 40.0f);
-        real_t* vec_data = vec::data(vec2);
-
-        CHECK(vec_data[0] == 20.0f);
-        CHECK(vec_data[1] == 40.0f);
-
-        vec_data[0] = 100.0f;
-        vec_data[1] = 200.0f;
-
-        CHECK(vec2.x == Approx(100.0f).epsilon(epsilon));
-        CHECK(vec2.y == Approx(200.0f).epsilon(epsilon));
-    }
-
-    // generic data mutable
-    {
-        using int5 = vec_t<int, 5>;
-        int5 int5_vec{ 11, 12, 13, 14, 15 };
-        int* vec_data = vec::data(int5_vec);
-
-        CHECK(int5_vec[0] == 11);
-        CHECK(int5_vec[1] == 12);
-        CHECK(int5_vec[2] == 13);
-        CHECK(int5_vec[3] == 14);
-        CHECK(int5_vec[4] == 15);
-
-        vec_data[3] = 22;
-
-        CHECK(int5_vec[3] == 22);
-    }
-
-    // data const
-    {
-        using short7 = vec_t<short, 7>;
-        short7 short7_vec{
-            short(11), short(22), short(-33), short(-44), short(-55), short(66), short(77) };
-        const short* vec_data = vec::const_data(short7_vec);
-
-        CHECK(short7_vec[0] ==  11);
-        CHECK(short7_vec[1] ==  22);
-        CHECK(short7_vec[2] == -33);
-        CHECK(short7_vec[3] == -44);
-        CHECK(short7_vec[4] == -55);
-        CHECK(short7_vec[5] ==  66);
-        CHECK(short7_vec[6] ==  77);
-
-        for (size_t i = 0; i < short7::size; ++i) {
-            CHECK(short7_vec[i] == vec_data[i]);
-        }
-    }
 }
 
 TEST_CASE("vec_make_from_arr", "[as_vec]")
@@ -945,7 +840,10 @@ TEST_CASE("addition", "[as_vec]")
 
     // vec_t operator '+'
     {
-        vec5_t vec = vec5_t{10.0f, 20.0f, 30.0f, 40.0f, 50.0f} + vec5_t{40.0f, 30.0f, 20.0f, 10.0f, 0.0f};
+        vec5_t vec =
+            vec5_t{10.0f, 20.0f, 30.0f, 40.0f, 50.0f} +
+            vec5_t{40.0f, 30.0f, 20.0f, 10.0f, 0.0f};
+
         CHECK(vec::equal(vec, vec5_t(50.0f, 50.0f, 50.0f, 50.0f, 50.0f)));
     }
 
@@ -979,7 +877,10 @@ TEST_CASE("substraction", "[as_vec]")
 
     // vec_t operator '-'
     {
-        vec5_t vec = vec5_t{40.0f, 30.0f, 20.0f, 10.0f, 0.0f} - vec5_t{10.0f, 20.0f, 30.0f, 40.0f, 50.0f};
+        vec5_t vec =
+            vec5_t{40.0f, 30.0f, 20.0f, 10.0f, 0.0f} -
+            vec5_t{10.0f, 20.0f, 30.0f, 40.0f, 50.0f};
+
         CHECK(vec::equal(vec, vec5_t(30.0f, 10.0f, -10.0f, -30.0f, -50.0f)));
     }
 
@@ -1063,7 +964,10 @@ TEST_CASE("multiplication_vector", "[as_vec]")
 
     // vec_t operator '*'
     {
-        vec5_t vec = vec5_t{ 2.0f, 3.0f, 4.0f, 5.0f, 0.5f } * vec5_t{ 50.0f, 40.0f, 25.0f, 20.0f, 10.0f };
+        vec5_t vec =
+            vec5_t{ 2.0f, 3.0f, 4.0f, 5.0f, 0.5f } *
+            vec5_t{ 50.0f, 40.0f, 25.0f, 20.0f, 10.0f };
+
         CHECK(vec::equal(vec, vec5_t(100.0f, 120.0f, 100.0f, 100.0f, 5.0f)));
     }
 
@@ -1133,7 +1037,10 @@ TEST_CASE("divide_vector", "[as_vec]")
 
     // vec_t operator '/'
     {
-        vec5_t vec = vec5_t{ 33.0f, 48.0f, 10.0f, 120.0f, 2.0f } / vec5_t{ 3.0f, 6.0f, 2.0f, 3.0f, 0.5f };
+        vec5_t vec =
+            vec5_t{ 33.0f, 48.0f, 10.0f, 120.0f, 2.0f } /
+            vec5_t{ 3.0f, 6.0f, 2.0f, 3.0f, 0.5f };
+
         CHECK(vec::equal(vec, vec5_t(11.0f, 8.0f, 5.0f, 40.0f, 4.0f)));
     }
 
@@ -1226,22 +1133,22 @@ TEST_CASE("axes_vec2", "[as_vec]")
     using namespace gsl;
 
     constexpr real_t x_axis[] = { 1.0f, 0.0f };
-    CHECK_THAT(span(x_axis), ElementsAreSpan(as::vec2::axis_x().elems(), 2));
+    CHECK_THAT(span(x_axis), ElementsAreSubscript(as::vec2::axis_x(), 2));
 
     constexpr real_t y_axis[] = { 0.0f, 1.0f };
-    CHECK_THAT(span(y_axis), ElementsAreSpan(as::vec2::axis_y().elems(), 2));
+    CHECK_THAT(span(y_axis), ElementsAreSubscript(as::vec2::axis_y(), 2));
 
     constexpr real_t zero[] = { 0.0f, 0.0f };
-    CHECK_THAT(span(zero), ElementsAreSpan(as::vec2::zero().elems(), 2));
+    CHECK_THAT(span(zero), ElementsAreSubscript(as::vec2::zero(), 2));
 
     constexpr real_t one[] = { 1.0f, 1.0f };
-    CHECK_THAT(span(one), ElementsAreSpan(as::vec2::one().elems(), 2));
+    CHECK_THAT(span(one), ElementsAreSubscript(as::vec2::one(), 2));
 
     constexpr real_t max_val[] = { REAL_MAX, REAL_MAX };
-    CHECK_THAT(span(max_val), ElementsAreSpan(as::vec2::max().elems(), 2));
+    CHECK_THAT(span(max_val), ElementsAreSubscript(as::vec2::max(), 2));
 
     constexpr real_t min_val[] = { REAL_MIN, REAL_MIN };
-    CHECK_THAT(span(min_val), ElementsAreSpan(as::vec2::min().elems(), 2));
+    CHECK_THAT(span(min_val), ElementsAreSubscript(as::vec2::min(), 2));
 }
 
 TEST_CASE("axes_vec3", "[as_vec]")
@@ -1249,25 +1156,25 @@ TEST_CASE("axes_vec3", "[as_vec]")
     using namespace gsl;
 
     constexpr real_t x_axis[] = { 1.0f, 0.0f, 0.0f };
-    CHECK_THAT(span(x_axis), ElementsAreSpan(as::vec3::axis_x().elems(), 3));
+    CHECK_THAT(span(x_axis), ElementsAreSubscript(as::vec3::axis_x(), 3));
 
     constexpr real_t y_axis[] = { 0.0f, 1.0f, 0.0f };
-    CHECK_THAT(span(y_axis), ElementsAreSpan(as::vec3::axis_y().elems(), 3));
+    CHECK_THAT(span(y_axis), ElementsAreSubscript(as::vec3::axis_y(), 3));
 
     constexpr real_t z_axis[] = { 0.0f, 0.0f, 1.0f };
-    CHECK_THAT(span(z_axis), ElementsAreSpan(as::vec3::axis_z().elems(), 3));
+    CHECK_THAT(span(z_axis), ElementsAreSubscript(as::vec3::axis_z(), 3));
 
     constexpr real_t zero[] = { 0.0f, 0.0f, 0.0f };
-    CHECK_THAT(span(zero), ElementsAreSpan(as::vec3::zero().elems(), 3));
+    CHECK_THAT(span(zero), ElementsAreSubscript(as::vec3::zero(), 3));
 
     constexpr real_t one[] = { 1.0f, 1.0f, 1.0f };
-    CHECK_THAT(span(one), ElementsAreSpan(as::vec3::one().elems(), 3));
+    CHECK_THAT(span(one), ElementsAreSubscript(as::vec3::one(), 3));
 
     constexpr real_t max_val[] = { REAL_MAX, REAL_MAX, REAL_MAX };
-    CHECK_THAT(span(max_val), ElementsAreSpan(as::vec3::max().elems(), 3));
+    CHECK_THAT(span(max_val), ElementsAreSubscript(as::vec3::max(), 3));
 
     constexpr real_t min_val[] = { REAL_MIN, REAL_MIN, REAL_MIN };
-    CHECK_THAT(span(min_val), ElementsAreSpan(as::vec3::min().elems(), 3));
+    CHECK_THAT(span(min_val), ElementsAreSubscript(as::vec3::min(), 3));
 }
 
 TEST_CASE("axes_vec4", "[as_vec]")
@@ -1275,33 +1182,34 @@ TEST_CASE("axes_vec4", "[as_vec]")
     using namespace gsl;
 
     constexpr real_t x_axis[] = { 1.0f, 0.0f, 0.0f, 0.0f };
-    CHECK_THAT(span(x_axis), ElementsAreSpan(as::vec4::axis_x().elems(), 4));
+    CHECK_THAT(span(x_axis), ElementsAreSubscript(as::vec4::axis_x(), 4));
 
     constexpr real_t y_axis[] = { 0.0f, 1.0f, 0.0f, 0.0f };
-    CHECK_THAT(span(y_axis), ElementsAreSpan(as::vec4::axis_y().elems(), 4));
+    CHECK_THAT(span(y_axis), ElementsAreSubscript(as::vec4::axis_y(), 4));
 
     constexpr real_t z_axis[] = { 0.0f, 0.0f, 1.0f, 0.0f };
-    CHECK_THAT(span(z_axis), ElementsAreSpan(as::vec4::axis_z().elems(), 4));
+    CHECK_THAT(span(z_axis), ElementsAreSubscript(as::vec4::axis_z(), 4));
 
     constexpr real_t w_axis[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-    CHECK_THAT(span(w_axis), ElementsAreSpan(as::vec4::axis_w().elems(), 4));
+    CHECK_THAT(span(w_axis), ElementsAreSubscript(as::vec4::axis_w(), 4));
 
     constexpr real_t zero[] = { 0.0f, 0.0f, 0.0f, 0.0f };
-    CHECK_THAT(span(zero), ElementsAreSpan(as::vec4::zero().elems(), 4));
+    CHECK_THAT(span(zero), ElementsAreSubscript(as::vec4::zero(), 4));
 
     constexpr real_t one[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-    CHECK_THAT(span(one), ElementsAreSpan(as::vec4::one().elems(), 4));
+    CHECK_THAT(span(one), ElementsAreSubscript(as::vec4::one(), 4));
 
     constexpr real_t max_val[] = { REAL_MAX, REAL_MAX, REAL_MAX, REAL_MAX };
-    CHECK_THAT(span(max_val), ElementsAreSpan(as::vec4::max().elems(), 4));
+    CHECK_THAT(span(max_val), ElementsAreSubscript(as::vec4::max(), 4));
 
     constexpr real_t min_val[] = { REAL_MIN, REAL_MIN, REAL_MIN, REAL_MIN };
-    CHECK_THAT(span(min_val), ElementsAreSpan(as::vec4::min().elems(), 4));
+    CHECK_THAT(span(min_val), ElementsAreSubscript(as::vec4::min(), 4));
 }
 
 TEST_CASE("cross", "[as_vec]")
 {
-    // note: comparison values calculated using https://www.symbolab.com/solver/vector-cross-product-calculator
+    // note: comparison values calculated using
+    // https://www.symbolab.com/solver/vector-cross-product-calculator
     {
         vec3_t vec1(1.0f, 2.0f, 3.0f);
         vec3_t vec2(4.0f, 5.0f, 6.0f);
@@ -1599,13 +1507,13 @@ TEST_CASE("lerp", "[as_vec]")
         vec3_t result_end = vec::lerp(1.0f, start, end);
 
         const real_t result_begin_arr[] = {0.0f, 10.0f, 20.0f};
-        CHECK_THAT(span(result_begin_arr), ElementsAreSpan(result_begin.elems(), 3));
+        CHECK_THAT(span(result_begin_arr), ElementsAreSubscript(result_begin, 3));
 
         const real_t result_mid_arr[] = {5.0f, 25.0f, 60.0f};
-        CHECK_THAT(span(result_mid_arr), ElementsAreSpan(result_mid.elems(), 3));
+        CHECK_THAT(span(result_mid_arr), ElementsAreSubscript(result_mid, 3));
 
         const real_t result_end_arr[] = {10.0f, 40.0f, 100.0f};
-        CHECK_THAT(span(result_end_arr), ElementsAreSpan(result_end.elems(), 3));
+        CHECK_THAT(span(result_end_arr), ElementsAreSubscript(result_end, 3));
     }
 }
 
@@ -1693,9 +1601,8 @@ template const vec_t<real_t, 5> as::operator/(const vec_t<real_t, 5>&, real_t);
 template const vec_t<real_t, 5> as::operator/(const vec_t<real_t, 5>&, const vec_t<real_t, 5>&);
 
 // functions
+template void as::vec::to_arr(const vec_t<real_t, 5>& vec, real_t(&data)[5]);
 template size_t as::vec::size<real_t, 5>(const as::vec_t<real_t, 5>&);
-template real_t* as::vec::data(vec_t<real_t, 5>&);
-template const real_t* as::vec::const_data(const vec_t<real_t, 5>&);
 template real_t as::vec::dot(const vec_t<real_t, 5>&, const vec_t<real_t, 5>&);
 template real_t as::vec::normalize_return_length(const vec_t<real_t, 5>&, vec_t<real_t, 5>&);
 template vec_t<real_t, 5> as::vec::min(const vec_t<real_t, 5>&, const vec_t<real_t, 5>&);
@@ -1703,7 +1610,10 @@ template real_t as::vec::min_elem(const vec_t<real_t, 5>&);
 template vec_t<real_t, 5> as::vec::max(const vec_t<real_t, 5>&, const vec_t<real_t, 5>&);
 template real_t as::vec::max_elem(const vec_t<real_t, 5>&);
 template vec_t<real_t, 5> as::vec::abs(const vec_t<real_t, 5>&);
-template vec_t<real_t, 5> as::vec::clamp(const vec_t<real_t, 5>&, const vec_t<real_t, 5>&, const vec_t<real_t, 5>&);
+template vec_t<real_t, 5> as::vec::clamp(
+    const vec_t<real_t, 5>&,
+    const vec_t<real_t, 5>&,
+    const vec_t<real_t, 5>&);
 template vec_t<real_t, 5> as::vec::saturate(const vec_t<real_t, 5>&);
 template vec_t<real_t, 5> as::vec::lerp(real_t t, const vec_t<real_t, 5>&, const vec_t<real_t, 5>&);
 template vec_t<real_t, 5> as::vec::select(const vec_t<real_t, 5>&, const vec_t<real_t, 5>&, bool);

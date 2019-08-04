@@ -10,69 +10,109 @@ template<typename T>
 struct mat_t<T, 4>
 {
     T elem_rc[4][4];
+
     static constexpr size_t size = 4 * 4;
+    using type = T;
 
 #ifdef AS_ROW_MAJOR
-    vec_t<T, 4> row(size_t i) const { return vec_t<T, 4>(elem_rc[i][0], elem_rc[i][1], elem_rc[i][2], elem_rc[i][3]); }
-    vec_t<T, 4> row0() const { return vec_t<T, 4>(elem_rc[0][0], elem_rc[0][1], elem_rc[0][2], elem_rc[0][3]); }
-    vec_t<T, 4> row1() const { return vec_t<T, 4>(elem_rc[1][0], elem_rc[1][1], elem_rc[1][2], elem_rc[1][3]); }
-    vec_t<T, 4> row2() const { return vec_t<T, 4>(elem_rc[2][0], elem_rc[2][1], elem_rc[2][2], elem_rc[2][3]); }
-    vec_t<T, 4> row3() const { return vec_t<T, 4>(elem_rc[3][0], elem_rc[3][1], elem_rc[3][2], elem_rc[3][3]); }
+    vec_t<T, 4> row(size_t i) const {
+        return vec_t<T, 4>{
+            elem_rc[i][0], elem_rc[i][1],
+            elem_rc[i][2], elem_rc[i][3]
+        };
+    }
 
-    void row(size_t i, const vec_t<T, 4>& row) { elem_rc[i][0] = row.x; elem_rc[i][1] = row.y; elem_rc[i][2] = row.z; elem_rc[i][3] = row.w; }
-    void row0(const vec_t<T, 4>& row) { elem_rc[0][0] = row.x; elem_rc[0][1] = row.y; elem_rc[0][2] = row.z; elem_rc[0][3] = row.w; }
-    void row1(const vec_t<T, 4>& row) { elem_rc[1][0] = row.x; elem_rc[1][1] = row.y; elem_rc[1][2] = row.z; elem_rc[1][3] = row.w; }
-    void row2(const vec_t<T, 4>& row) { elem_rc[2][0] = row.x; elem_rc[2][1] = row.y; elem_rc[2][2] = row.z; elem_rc[2][3] = row.w; }
-    void row3(const vec_t<T, 4>& row) { elem_rc[3][0] = row.x; elem_rc[3][1] = row.y; elem_rc[3][2] = row.z; elem_rc[3][3] = row.w; }
+    const vec_t<T, 4> row0() const { return row(0); }
+    const vec_t<T, 4> row1() const { return row(1); }
+    const vec_t<T, 4> row2() const { return row(2); }
+    const vec_t<T, 4> row3() const { return row(3); }
 
-    vec_t<T, 4> col(size_t i) const { return vec_t<T, 4>(elem_rc[0][i], elem_rc[1][i], elem_rc[2][i], elem_rc[3][i]); }
-    vec_t<T, 4> col0() const { return vec_t<T, 4>(elem_rc[0][0], elem_rc[1][0], elem_rc[2][0], elem_rc[3][0]); }
-    vec_t<T, 4> col1() const { return vec_t<T, 4>(elem_rc[0][1], elem_rc[1][1], elem_rc[2][1], elem_rc[3][1]); }
-    vec_t<T, 4> col2() const { return vec_t<T, 4>(elem_rc[0][2], elem_rc[1][2], elem_rc[2][2], elem_rc[3][2]); }
-    vec_t<T, 4> col3() const { return vec_t<T, 4>(elem_rc[0][3], elem_rc[1][3], elem_rc[2][3], elem_rc[3][3]); }
+    void row(size_t i, const vec_t<T, 4>& row) {
+        elem_rc[i][0] = row.x; elem_rc[i][1] = row.y;
+        elem_rc[i][2] = row.z; elem_rc[i][3] = row.w;
+    }
 
-    void col(size_t i, const vec_t<T, 4>& col) { elem_rc[0][i] = col.x; elem_rc[1][i] = col.y; elem_rc[2][i] = col.z; elem_rc[3][i] = col.w; }
-    void col0(const vec_t<T, 4>& col) { elem_rc[0][0] = col.x; elem_rc[1][0] = col.y; elem_rc[2][0] = col.z; elem_rc[3][0] = col.w; }
-    void col1(const vec_t<T, 4>& col) { elem_rc[0][1] = col.x; elem_rc[1][1] = col.y; elem_rc[2][1] = col.z; elem_rc[3][1] = col.w; }
-    void col2(const vec_t<T, 4>& col) { elem_rc[0][2] = col.x; elem_rc[1][2] = col.y; elem_rc[2][2] = col.z; elem_rc[3][2] = col.w; }
-    void col3(const vec_t<T, 4>& col) { elem_rc[0][3] = col.x; elem_rc[1][3] = col.y; elem_rc[2][3] = col.z; elem_rc[3][3] = col.w; }
+    void row0(const vec_t<T, 4>& row_) { row(0, row_); }
+    void row1(const vec_t<T, 4>& row_) { row(1, row_); }
+    void row2(const vec_t<T, 4>& row_) { row(2, row_); }
+    void row3(const vec_t<T, 4>& row_) { row(3, row_); }
+
+    vec_t<T, 4> col(size_t i) const {
+        return vec_t<T, 4>{
+            elem_rc[0][i], elem_rc[1][i],
+            elem_rc[2][i], elem_rc[3][i]
+        };
+    }
+
+    const vec_t<T, 4> col0() const { return col(0); }
+    const vec_t<T, 4> col1() const { return col(1); }
+    const vec_t<T, 4> col2() const { return col(2); }
+    const vec_t<T, 4> col3() const { return col(3); }
+
+    void col(size_t i, const vec_t<T, 4>& col) {
+        elem_rc[0][i] = col.x; elem_rc[1][i] = col.y;
+        elem_rc[2][i] = col.z; elem_rc[3][i] = col.w;
+    }
+
+    void col0(const vec_t<T, 4>& col_) { col(0, col_); }
+    void col1(const vec_t<T, 4>& col_) { col(1, col_); }
+    void col2(const vec_t<T, 4>& col_) { col(2, col_); }
+    void col3(const vec_t<T, 4>& col_) { col(3, col_); }
 #elif defined AS_COL_MAJOR
-    vec_t<T, 4> col(size_t i) const { return vec_t<T, 4>(elem_rc[i][0], elem_rc[i][1], elem_rc[i][2], elem_rc[i][3]); }
-    vec_t<T, 4> col0() const { return vec_t<T, 4>(elem_rc[0][0], elem_rc[0][1], elem_rc[0][2], elem_rc[0][3]); }
-    vec_t<T, 4> col1() const { return vec_t<T, 4>(elem_rc[1][0], elem_rc[1][1], elem_rc[1][2], elem_rc[1][3]); }
-    vec_t<T, 4> col2() const { return vec_t<T, 4>(elem_rc[2][0], elem_rc[2][1], elem_rc[2][2], elem_rc[2][3]); }
-    vec_t<T, 4> col3() const { return vec_t<T, 4>(elem_rc[3][0], elem_rc[3][1], elem_rc[3][2], elem_rc[3][3]); }
+    vec_t<T, 4> col(size_t i) const {
+        return vec_t<T, 4>{
+            elem_rc[i][0], elem_rc[i][1],
+            elem_rc[i][2], elem_rc[i][3]
+        };
+    }
 
-    void col(size_t i, const vec_t<T, 4>& col) { elem_rc[i][0] = col.x; elem_rc[i][1] = col.y; elem_rc[i][2] = col.z; elem_rc[i][3] = col.w; }
-    void col0(const vec_t<T, 4>& col) { elem_rc[0][0] = col.x; elem_rc[0][1] = col.y; elem_rc[0][2] = col.z; elem_rc[0][3] = col.w; }
-    void col1(const vec_t<T, 4>& col) { elem_rc[1][0] = col.x; elem_rc[1][1] = col.y; elem_rc[1][2] = col.z; elem_rc[1][3] = col.w; }
-    void col2(const vec_t<T, 4>& col) { elem_rc[2][0] = col.x; elem_rc[2][1] = col.y; elem_rc[2][2] = col.z; elem_rc[2][3] = col.w; }
-    void col3(const vec_t<T, 4>& col) { elem_rc[3][0] = col.x; elem_rc[3][1] = col.y; elem_rc[3][2] = col.z; elem_rc[3][3] = col.w; }
+    const vec_t<T, 4> col0() const { return col(0); }
+    const vec_t<T, 4> col1() const { return col(1); }
+    const vec_t<T, 4> col2() const { return col(2); }
+    const vec_t<T, 4> col3() const { return col(3); }
 
-    vec_t<T, 4> row(size_t i) const { return vec_t<T, 4>(elem_rc[0][i], elem_rc[1][i], elem_rc[2][i], elem_rc[3][i]); }
-    vec_t<T, 4> row0() const { return vec_t<T, 4>(elem_rc[0][0], elem_rc[1][0], elem_rc[2][0], elem_rc[3][0]); }
-    vec_t<T, 4> row1() const { return vec_t<T, 4>(elem_rc[0][1], elem_rc[1][1], elem_rc[2][1], elem_rc[3][1]); }
-    vec_t<T, 4> row2() const { return vec_t<T, 4>(elem_rc[0][2], elem_rc[1][2], elem_rc[2][2], elem_rc[3][2]); }
-    vec_t<T, 4> row3() const { return vec_t<T, 4>(elem_rc[0][3], elem_rc[1][3], elem_rc[2][3], elem_rc[3][3]); }
+    void col(size_t i, const vec_t<T, 4>& col) {
+        elem_rc[i][0] = col.x; elem_rc[i][1] = col.y;
+        elem_rc[i][2] = col.z; elem_rc[i][3] = col.w;
+    }
 
-    void row(size_t i, const vec_t<T, 4>& row) { elem_rc[0][i] = row.x; elem_rc[1][i] = row.y; elem_rc[2][i] = row.z; elem_rc[3][i] = row.w; }
-    void row0(const vec_t<T, 4>& row) { elem_rc[0][0] = row.x; elem_rc[1][0] = row.y; elem_rc[2][0] = row.z; elem_rc[3][0] = row.w; }
-    void row1(const vec_t<T, 4>& row) { elem_rc[0][1] = row.x; elem_rc[1][1] = row.y; elem_rc[2][1] = row.z; elem_rc[3][1] = row.w; }
-    void row2(const vec_t<T, 4>& row) { elem_rc[0][2] = row.x; elem_rc[1][2] = row.y; elem_rc[2][2] = row.z; elem_rc[3][2] = row.w; }
-    void row3(const vec_t<T, 4>& row) { elem_rc[0][3] = row.x; elem_rc[1][3] = row.y; elem_rc[2][3] = row.z; elem_rc[3][3] = row.w; }
+    void col0(const vec_t<T, 4>& col_) { col(0, col_); }
+    void col1(const vec_t<T, 4>& col_) { col(1, col_); }
+    void col2(const vec_t<T, 4>& col_) { col(2, col_); }
+    void col3(const vec_t<T, 4>& col_) { col(3, col_); }
+
+    vec_t<T, 4> row(size_t i) const {
+        return vec_t<T, 4>{
+            elem_rc[0][i], elem_rc[1][i],
+            elem_rc[2][i], elem_rc[3][i]
+        };
+    }
+
+    const vec_t<T, 4> row0() const { return row(0); }
+    const vec_t<T, 4> row1() const { return row(1); }
+    const vec_t<T, 4> row2() const { return row(2); }
+    const vec_t<T, 4> row3() const { return row(3); }
+
+    void row(size_t i, const vec_t<T, 4>& row) {
+        elem_rc[0][i] = row.x; elem_rc[1][i] = row.y;
+        elem_rc[2][i] = row.z; elem_rc[3][i] = row.w;
+    }
+
+    void row0(const vec_t<T, 4>& row_) { row(0, row_); }
+    void row1(const vec_t<T, 4>& row_) { row(1, row_); }
+    void row2(const vec_t<T, 4>& row_) { row(2, row_); }
+    void row3(const vec_t<T, 4>& row_) { row(3, row_); }
 #endif
 
-    constexpr T* elems() { return &elem_rc[0][0]; }
-    constexpr const T* elems() const { return &elem_rc[0][0]; }
-
-    constexpr T& operator[](size_t i) { return elems()[i]; }
-    constexpr const T& operator[](size_t i) const { return elems()[i]; }
+    constexpr T& operator[](size_t i) & { return *(&elem_rc[0][0] + i); }
+    constexpr const T& operator[](size_t i) const& { return *(&elem_rc[0][0] + i); }
+    constexpr const T operator[](size_t i) && { return *(&elem_rc[0][0] + i); }
 
     mat_t() noexcept = default;
-    mat_t(const mat_t& mat) noexcept = default;
-    mat_t& operator=(const mat_t& mat) noexcept = default;
-    mat_t(mat_t&& mat) noexcept = default;
-    mat_t& operator=(mat_t&& mat) noexcept = default;
+    mat_t(const mat_t&) noexcept = default;
+    mat_t& operator=(const mat_t&) noexcept = default;
+    mat_t(mat_t&&) noexcept = default;
+    mat_t& operator=(mat_t&&) noexcept = default;
     ~mat_t() = default;
 
     constexpr mat_t(
@@ -109,12 +149,12 @@ struct mat_t<T, 4>
         } {}
 #endif
 
-    constexpr mat_t(const mat_t<T, 3>& mat, const vec_t<T, 3>& pos)
+    constexpr mat_t(const mat_t<T, 3>& mat_, const vec_t<T, 3>& pos_)
         : elem_rc {
-            { mat.elem_rc[0][0], mat.elem_rc[0][1], mat.elem_rc[0][2], 0.0f },
-            { mat.elem_rc[1][0], mat.elem_rc[1][1], mat.elem_rc[1][2], 0.0f },
-            { mat.elem_rc[2][0], mat.elem_rc[2][1], mat.elem_rc[2][2], 0.0f },
-            { pos.x, pos.y, pos.z, 1.0f }
+            { mat_.elem_rc[0][0], mat_.elem_rc[0][1], mat_.elem_rc[0][2], 0.0f },
+            { mat_.elem_rc[1][0], mat_.elem_rc[1][1], mat_.elem_rc[1][2], 0.0f },
+            { mat_.elem_rc[2][0], mat_.elem_rc[2][1], mat_.elem_rc[2][2], 0.0f },
+            { pos_.x, pos_.y, pos_.z, 1.0f }
         } {}
 };
 

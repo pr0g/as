@@ -19,19 +19,19 @@ template<typename T, size_t d>
 struct mat_t
 {
     T elem_rc[d][d];
+
     static constexpr size_t size = d * d;
+    using type = T;
 
-    constexpr T& operator[](size_t i) { return elems()[i]; }
-    constexpr const T& operator[](size_t i) const { return elems()[i]; }
-
-    constexpr T* elems() { return &elem_rc[0][0]; }
-    constexpr const T* elems() const { return &elem_rc[0][0]; }
+    constexpr T& operator[](size_t i) & { return *(&elem_rc[0][0] + i); }
+    constexpr const T& operator[](size_t i) const& { return *(&elem_rc[0][0] + i); }
+    constexpr const T operator[](size_t i) && { return *(&elem_rc[0][0] + i); }
 
     mat_t() noexcept = default;
-    mat_t(const mat_t& mat) noexcept = default;
-    mat_t& operator=(const mat_t& mat) noexcept = default;
-    mat_t(mat_t&& mat) noexcept = default;
-    mat_t& operator=(mat_t&& mat) noexcept = default;
+    mat_t(const mat_t&) noexcept = default;
+    mat_t& operator=(const mat_t&) noexcept = default;
+    mat_t(mat_t&&) noexcept = default;
+    mat_t& operator=(mat_t&&) noexcept = default;
     ~mat_t() = default;
 
     template<typename...> struct typelist {};

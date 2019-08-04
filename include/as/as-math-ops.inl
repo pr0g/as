@@ -11,31 +11,27 @@ size_t size(const vec_t<T, n>&)
 }
 
 template<typename T, size_t n>
-T* data(vec_t<T, n>& vec)
-{
-    return vec.elems();
-}
-
-template<typename T, size_t n>
-const T* const_data(const vec_t<T, n>& vec)
-{
-    return vec.elems();
-}
-
-template<typename T, size_t n>
 vec_t<T, n> from_arr(const T(&data)[n])
 {
-    vec_t<T, n> result;
-    std::copy(std::begin(data), std::end(data), result.elems());
-    return result;
+    return from_ptr<T, n>(&data[0]);
 }
 
 template<typename T, size_t n>
 vec_t<T, n> from_ptr(const T* data)
 {
     vec_t<T, n> result;
-    std::copy(data, data + n, result.elems());
+    for (size_t i = 0; i < n; ++i) {
+        result[i] = data[i];
+    }
     return result;
+}
+
+template<typename T, size_t n>
+void to_arr(const vec_t<T, n>& vec, T(&data)[n])
+{
+    for (size_t i = 0; i < n; ++i) {
+        data[i] = vec[i];
+    }
 }
 
 template<typename T, size_t n>
@@ -262,30 +258,18 @@ namespace mat
 {
 
 template<typename T, size_t d>
-T* data(mat_t<T, d>& mat)
-{
-    return mat.elems();
-}
-
-template<typename T, size_t d>
-const T* const_data(const mat_t<T, d>& mat)
-{
-    return mat.elems();
-}
-
-template<typename T, size_t d>
 mat_t<T, d> from_arr(const T(&data)[d * d])
 {
-    mat_t<T, d> result;
-    std::copy(std::begin(data), std::end(data), result.elems());
-    return result;
+    return from_ptr<T, d>(&data[0]);
 }
 
 template<typename T, size_t d>
 mat_t<T, d> from_ptr(const T* data)
 {
     mat_t<T, d> result;
-    std::copy(data, data + d * d, result.elems());
+    for (size_t i = 0; i < d * d; ++i) {
+        result[i] = data[i];
+    }
     return result;
 }
 

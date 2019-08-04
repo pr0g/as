@@ -9,61 +9,85 @@ template<typename T>
 struct mat_t<T, 3>
 {
     T elem_rc[3][3];
+
     static constexpr size_t size = 3 * 3;
+    using type = T;
 
 #ifdef AS_ROW_MAJOR
-    vec_t<T, 3> row(size_t i) const { return vec_t<T, 3>(elem_rc[i][0], elem_rc[i][1], elem_rc[i][2]); }
-    vec_t<T, 3> row0() const { return vec_t<T, 3>(elem_rc[0][0], elem_rc[0][1], elem_rc[0][2]); }
-    vec_t<T, 3> row1() const { return vec_t<T, 3>(elem_rc[1][0], elem_rc[1][1], elem_rc[1][2]); }
-    vec_t<T, 3> row2() const { return vec_t<T, 3>(elem_rc[2][0], elem_rc[2][1], elem_rc[2][2]); }
+    vec_t<T, 3> row(size_t i) const {
+        return vec_t<T, 3>{elem_rc[i][0], elem_rc[i][1], elem_rc[i][2]};
+    }
 
-    void row(size_t i, const vec_t<T, 3>& row) { elem_rc[i][0] = row.x; elem_rc[i][1] = row.y; elem_rc[i][2] = row.z; }
-    void row0(const vec_t<T, 3>& row) { elem_rc[0][0] = row.x; elem_rc[0][1] = row.y, elem_rc[0][2] = row.z; }
-    void row1(const vec_t<T, 3>& row) { elem_rc[1][0] = row.x; elem_rc[1][1] = row.y, elem_rc[1][2] = row.z; }
-    void row2(const vec_t<T, 3>& row) { elem_rc[2][0] = row.x; elem_rc[2][1] = row.y, elem_rc[2][2] = row.z; }
+    const vec_t<T, 3> row0() const { return row(0); }
+    const vec_t<T, 3> row1() const { return row(1); }
+    const vec_t<T, 3> row2() const { return row(2); }
 
-    vec_t<T, 3> col(size_t i) const { return vec_t<T, 3>(elem_rc[0][i], elem_rc[1][i], elem_rc[2][i]); }
-    vec_t<T, 3> col0() const { return vec_t<T, 3>(elem_rc[0][0], elem_rc[1][0], elem_rc[2][0]); }
-    vec_t<T, 3> col1() const { return vec_t<T, 3>(elem_rc[0][1], elem_rc[1][1], elem_rc[2][1]); }
-    vec_t<T, 3> col2() const { return vec_t<T, 3>(elem_rc[0][2], elem_rc[1][2], elem_rc[2][2]); }
+    void row(size_t i, const vec_t<T, 3>& row) {
+        elem_rc[i][0] = row.x; elem_rc[i][1] = row.y; elem_rc[i][2] = row.z;
+    }
 
-    void col(size_t i, const vec_t<T, 3>& col) { elem_rc[0][i] = col.x; elem_rc[1][i] = col.y; elem_rc[2][i] = col.z; }
-    void col0(const vec_t<T, 3>& col) { elem_rc[0][0] = col.x; elem_rc[1][0] = col.y; elem_rc[2][0] = col.z; }
-    void col1(const vec_t<T, 3>& col) { elem_rc[0][1] = col.x; elem_rc[1][1] = col.y; elem_rc[2][1] = col.z; }
-    void col2(const vec_t<T, 3>& col) { elem_rc[0][2] = col.x; elem_rc[1][2] = col.y; elem_rc[2][2] = col.z; }
+    void row0(const vec_t<T, 3>& row_) { row(0, row_); }
+    void row1(const vec_t<T, 3>& row_) { row(1, row_); }
+    void row2(const vec_t<T, 3>& row_) { row(2, row_); }
+
+    vec_t<T, 3> col(size_t i) const {
+        return vec_t<T, 3>{elem_rc[0][i], elem_rc[1][i], elem_rc[2][i]};
+    }
+
+    const vec_t<T, 3> col0() const { return col(0); }
+    const vec_t<T, 3> col1() const { return col(1); }
+    const vec_t<T, 3> col2() const { return col(2); }
+
+    void col(size_t i, const vec_t<T, 3>& col) {
+        elem_rc[0][i] = col.x; elem_rc[1][i] = col.y; elem_rc[2][i] = col.z;
+    }
+
+    void col0(const vec_t<T, 3>& col_) { col(0, col_); }
+    void col1(const vec_t<T, 3>& col_) { col(1, col_); }
+    void col2(const vec_t<T, 3>& col_) { col(2, col_); }
 #elif defined AS_COL_MAJOR
-    vec_t<T, 3> col(size_t i) const { return vec_t<T, 3>(elem_rc[i][0], elem_rc[i][1], elem_rc[i][2]); }
-    vec_t<T, 3> col0() const { return vec_t<T, 3>(elem_rc[0][0], elem_rc[0][1], elem_rc[0][2]); }
-    vec_t<T, 3> col1() const { return vec_t<T, 3>(elem_rc[1][0], elem_rc[1][1], elem_rc[1][2]); }
-    vec_t<T, 3> col2() const { return vec_t<T, 3>(elem_rc[2][0], elem_rc[2][1], elem_rc[2][2]); }
+    vec_t<T, 3> col(size_t i) const {
+        return vec_t<T, 3>{elem_rc[i][0], elem_rc[i][1], elem_rc[i][2]};
+    }
 
-    void col(size_t i, const vec_t<T, 3>& col) { elem_rc[i][0] = col.x; elem_rc[i][1] = col.y; elem_rc[i][2] = col.z; }
-    void col0(const vec_t<T, 3>& col) { elem_rc[0][0] = col.x; elem_rc[0][1] = col.y; elem_rc[0][2] = col.z; }
-    void col1(const vec_t<T, 3>& col) { elem_rc[1][0] = col.x; elem_rc[1][1] = col.y; elem_rc[1][2] = col.z; }
-    void col2(const vec_t<T, 3>& col) { elem_rc[2][0] = col.x; elem_rc[2][1] = col.y; elem_rc[2][2] = col.z; }
+    const vec_t<T, 3> col0() const { return col(0); }
+    const vec_t<T, 3> col1() const { return col(1); }
+    const vec_t<T, 3> col2() const { return col(2); }
 
-    vec_t<T, 3> row(size_t i) const { return vec_t<T, 3>(elem_rc[0][i], elem_rc[1][i], elem_rc[2][i]); }
-    vec_t<T, 3> row0() const { return vec_t<T, 3>(elem_rc[0][0], elem_rc[1][0], elem_rc[2][0]); }
-    vec_t<T, 3> row1() const { return vec_t<T, 3>(elem_rc[0][1], elem_rc[1][1], elem_rc[2][1]); }
-    vec_t<T, 3> row2() const { return vec_t<T, 3>(elem_rc[0][2], elem_rc[1][2], elem_rc[2][2]); }
+    void col(size_t i, const vec_t<T, 3>& col) {
+        elem_rc[i][0] = col.x; elem_rc[i][1] = col.y; elem_rc[i][2] = col.z;
+    }
 
-    void row(size_t i, const vec_t<T, 3>& row) { elem_rc[0][i] = row.x; elem_rc[1][i] = row.y; elem_rc[2][i] = row.z; }
-    void row0(const vec_t<T, 3>& row) { elem_rc[0][0] = row.x; elem_rc[1][0] = row.y; elem_rc[2][0] = row.z; }
-    void row1(const vec_t<T, 3>& row) { elem_rc[0][1] = row.x; elem_rc[1][1] = row.y; elem_rc[2][1] = row.z; }
-    void row2(const vec_t<T, 3>& row) { elem_rc[0][2] = row.x; elem_rc[1][2] = row.y; elem_rc[2][2] = row.z; }
+    void col0(const vec_t<T, 3>& col_) { col(0, col_); }
+    void col1(const vec_t<T, 3>& col_) { col(1, col_); }
+    void col2(const vec_t<T, 3>& col_) { col(2, col_); }
+
+    vec_t<T, 3> row(size_t i) const {
+        return vec_t<T, 3>{elem_rc[0][i], elem_rc[1][i], elem_rc[2][i]};
+    }
+
+    const vec_t<T, 3> row0() const { return row(0); }
+    const vec_t<T, 3> row1() const { return row(1); }
+    const vec_t<T, 3> row2() const { return row(2); }
+
+    void row(size_t i, const vec_t<T, 3>& row) {
+        elem_rc[0][i] = row.x; elem_rc[1][i] = row.y; elem_rc[2][i] = row.z;
+    }
+
+    void row0(const vec_t<T, 3>& row_) { row(0, row_); }
+    void row1(const vec_t<T, 3>& row_) { row(1, row_); }
+    void row2(const vec_t<T, 3>& row_) { row(2, row_); }
 #endif
 
-    constexpr T* elems() { return &elem_rc[0][0]; }
-    constexpr const T* elems() const { return &elem_rc[0][0]; }
-
-    constexpr T& operator[](size_t i) { return elems()[i]; }
-    constexpr const T& operator[](size_t i) const { return elems()[i]; }
+    constexpr T& operator[](size_t i) & { return *(&elem_rc[0][0] + i); }
+    constexpr const T& operator[](size_t i) const& { return *(&elem_rc[0][0] + i); }
+    constexpr const T operator[](size_t i) && { return *(&elem_rc[0][0] + i); }
 
     mat_t() noexcept = default;
-    mat_t(const mat_t& mat) noexcept = default;
-    mat_t& operator=(const mat_t& mat) noexcept = default;
-    mat_t(mat_t&& mat) noexcept = default;
-    mat_t& operator=(mat_t&& mat) noexcept = default;
+    mat_t(const mat_t&) noexcept = default;
+    mat_t& operator=(const mat_t&) noexcept = default;
+    mat_t(mat_t&&) noexcept = default;
+    mat_t& operator=(mat_t&&) noexcept = default;
     ~mat_t() = default;
 
     constexpr mat_t(

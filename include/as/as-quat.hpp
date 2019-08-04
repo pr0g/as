@@ -16,8 +16,11 @@ struct quat_t
     quat_t& operator=(quat_t&&) noexcept = default;
     ~quat_t() = default;
 
-    AS_API constexpr quat_t(real_t w, real_t x, real_t y, real_t z) : w(w), x(x), y(y), z(z) {}
-    AS_API constexpr quat_t(real_t w, const vec3_t& xyz) : w(w), x(xyz.x), y(xyz.y), z(xyz.z) {}
+    AS_API constexpr quat_t(real_t w_, real_t x_, real_t y_, real_t z_)
+        : w(w_), x(x_), y(y_), z(z_) {}
+
+    AS_API constexpr quat_t(real_t w_, const vec3_t& xyz_)
+        : w(w_), x(xyz_.x), y(xyz_.y), z(xyz_.z) {}
 };
 
 AS_API constexpr const quat_t operator*(const quat_t& lhs, const quat_t& rhs);

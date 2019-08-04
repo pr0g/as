@@ -10,8 +10,9 @@ struct point2_t
 {
     vec2_t v;
 
-    AS_API real_t& operator[](size_t i) { return v[i]; }
-    AS_API const real_t& operator[](size_t i) const { return v[i]; }
+    AS_API real_t& operator[](size_t i) & { return v[i]; }
+    AS_API const real_t& operator[](size_t i) const& { return v[i]; }
+    AS_API real_t operator[](size_t i) && { return v[i]; }
 
     point2_t() = default;
     point2_t(const point2_t&) = default;
@@ -20,17 +21,18 @@ struct point2_t
     point2_t& operator=(point2_t&&) noexcept = default;
     ~point2_t() = default;
 
-    AS_API constexpr explicit point2_t(real_t xy) : v { xy, xy } {}
-    AS_API constexpr explicit point2_t(const vec2_t& v) : v(v) {}
-    AS_API constexpr point2_t(real_t x, real_t y) : v { x, y } {}
+    AS_API constexpr explicit point2_t(real_t xy_) : v { xy_, xy_ } {}
+    AS_API constexpr explicit point2_t(const vec2_t& v_) : v(v_) {}
+    AS_API constexpr point2_t(real_t x_, real_t y_) : v { x_, y_ } {}
 };
 
 struct point3_t
 {
     vec3_t v;
 
-    AS_API real_t& operator[](size_t i) { return v[i]; }
-    AS_API const real_t& operator[](size_t i) const { return v[i]; }
+    AS_API real_t& operator[](size_t i) & { return v[i]; }
+    AS_API const real_t& operator[](size_t i) const& { return v[i]; }
+    AS_API real_t operator[](size_t i) && { return v[i]; }
 
     point3_t() = default;
     point3_t(const point3_t&) = default;
@@ -39,10 +41,10 @@ struct point3_t
     point3_t& operator=(point3_t&&) noexcept = default;
     ~point3_t() = default;
 
-    AS_API constexpr explicit point3_t(real_t xyz) : v { xyz, xyz, xyz } {}
-    AS_API constexpr explicit point3_t(const vec3_t& v) : v(v) {}
-    AS_API constexpr point3_t(real_t x, real_t y, real_t z) : v { x, y, z } {}
-    AS_API constexpr point3_t(const vec2_t& xy, real_t z) : v { xy.x, xy.y, z } {}
+    AS_API constexpr explicit point3_t(real_t xyz_) : v { xyz_, xyz_, xyz_ } {}
+    AS_API constexpr explicit point3_t(const vec3_t& v_) : v(v_) {}
+    AS_API constexpr point3_t(real_t x_, real_t y_, real_t z_) : v { x_, y_, z_ } {}
+    AS_API constexpr point3_t(const vec2_t& xy_, real_t z_) : v { xy_.x, xy_.y, z_ } {}
 };
 
 AS_API const vec2_t operator-(const point2_t& lhs, const point2_t& rhs);

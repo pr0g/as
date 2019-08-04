@@ -19,16 +19,13 @@ template<typename T, size_t n>
 AS_API size_t size(const vec_t<T, n>& vec);
 
 template<typename T, size_t n>
-AS_API T* data(vec_t<T, n>& vec);
-
-template<typename T, size_t n>
-AS_API const T* const_data(const vec_t<T, n>& vec);
-
-template<typename T, size_t n>
 AS_API vec_t<T, n> from_arr(const T(&data)[n]);
 
 template<typename T, size_t n>
 AS_API vec_t<T, n> from_ptr(const T* data);
+
+template<typename T, size_t n>
+AS_API void to_arr(const vec_t<T, n>& vec, T(&data)[n]);
 
 template<typename T, size_t n>
 AS_API T dot(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);

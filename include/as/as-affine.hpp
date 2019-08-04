@@ -15,8 +15,8 @@ struct affine_t
     ~affine_t() = default;
 
     AS_API constexpr affine_t(
-        const mat3_t& rotation, const vec3_t& position)
-        : rotation(rotation), position(position) {}
+        const mat3_t& rotation_, const vec3_t& position_)
+        : rotation(rotation_), position(position_) {}
 
     mat3_t rotation;
     vec3_t position;
