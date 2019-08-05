@@ -7,7 +7,7 @@
 
 using namespace as;
 
-const real_t epsilon = std::numeric_limits<real_t>::epsilon();
+const real_t g_epsilon = std::numeric_limits<real_t>::epsilon();
 
 TEST_CASE("vec2_initialization", "[as_vec]")
 {
@@ -20,81 +20,81 @@ TEST_CASE("vec2_initialization", "[as_vec]")
     // zero initialization
     {
         vec2_t vec2{};
-        CHECK(vec2.x == Approx(0.0f).epsilon(epsilon));
-        CHECK(vec2.y == Approx(0.0f).epsilon(epsilon));
+        CHECK(vec2.x == Approx(0.0f).epsilon(g_epsilon));
+        CHECK(vec2.y == Approx(0.0f).epsilon(g_epsilon));
     }
 
     // value initialization
     {
         vec2_t vec2 = vec2_t();
-        CHECK(vec2.x == Approx(0.0f).epsilon(epsilon));
-        CHECK(vec2.y == Approx(0.0f).epsilon(epsilon));
+        CHECK(vec2.x == Approx(0.0f).epsilon(g_epsilon));
+        CHECK(vec2.y == Approx(0.0f).epsilon(g_epsilon));
     }
 
     // direct initialization (braces)
     {
         vec2_t vec2{1.0f, 2.0f};
-        CHECK(vec2.x == Approx(1.0f).epsilon(epsilon));
-        CHECK(vec2.y == Approx(2.0f).epsilon(epsilon));
+        CHECK(vec2.x == Approx(1.0f).epsilon(g_epsilon));
+        CHECK(vec2.y == Approx(2.0f).epsilon(g_epsilon));
     }
 
     // direct initialization - single argument (braces)
     {
         vec2_t vec2{5.0f};
-        CHECK(vec2.x == Approx(5.0f).epsilon(epsilon));
-        CHECK(vec2.y == Approx(5.0f).epsilon(epsilon));
+        CHECK(vec2.x == Approx(5.0f).epsilon(g_epsilon));
+        CHECK(vec2.y == Approx(5.0f).epsilon(g_epsilon));
     }
 
     // direct initialization (parens)
     {
         vec2_t vec2(5.0f, 10.0f);
-        CHECK(vec2.x == Approx(5.0f).epsilon(epsilon));
-        CHECK(vec2.y == Approx(10.0f).epsilon(epsilon));
+        CHECK(vec2.x == Approx(5.0f).epsilon(g_epsilon));
+        CHECK(vec2.y == Approx(10.0f).epsilon(g_epsilon));
     }
 
     // direct initialization - single argument (parens)
     {
         vec2_t vec2;
         vec2 = vec2_t(5.0f);
-        CHECK(vec2.x == Approx(5.0f).epsilon(epsilon));
-        CHECK(vec2.y == Approx(5.0f).epsilon(epsilon));
+        CHECK(vec2.x == Approx(5.0f).epsilon(g_epsilon));
+        CHECK(vec2.y == Approx(5.0f).epsilon(g_epsilon));
     }
 
     // direct/copy initialization (braces)
     {
         vec2_t vec2 = vec2_t{3.0f, 4.0f};
-        CHECK(vec2.x == Approx(3.0f).epsilon(epsilon));
-        CHECK(vec2.y == Approx(4.0f).epsilon(epsilon));
+        CHECK(vec2.x == Approx(3.0f).epsilon(g_epsilon));
+        CHECK(vec2.y == Approx(4.0f).epsilon(g_epsilon));
     }
 
     // direct/copy initialization (parens)
     {
         vec2_t vec2 = vec2_t(3.0f, 4.0f);
-        CHECK(vec2.x == Approx(3.0f).epsilon(epsilon));
-        CHECK(vec2.y == Approx(4.0f).epsilon(epsilon));
+        CHECK(vec2.x == Approx(3.0f).epsilon(g_epsilon));
+        CHECK(vec2.y == Approx(4.0f).epsilon(g_epsilon));
     }
 
     // direct/copy initialization - single argument (braces)
     {
         const real_t value { 123.0f };
         vec2_t vec2 = vec2_t{ value };
-        CHECK(vec2.x == Approx(123.0f).epsilon(epsilon));
-        CHECK(vec2.y == Approx(123.0f).epsilon(epsilon));
+        CHECK(vec2.x == Approx(123.0f).epsilon(g_epsilon));
+        CHECK(vec2.y == Approx(123.0f).epsilon(g_epsilon));
     }
 
     // direct/copy initialization - single argument (parens)
     {
         vec2_t vec2 = vec2_t(25.0f);
-        CHECK(vec2.x == Approx(25.0f).epsilon(epsilon));
-        CHECK(vec2.y == Approx(25.0f).epsilon(epsilon));
+        CHECK(vec2.x == Approx(25.0f).epsilon(g_epsilon));
+        CHECK(vec2.y == Approx(25.0f).epsilon(g_epsilon));
     }
 
     // assignment initialization - single argument (braces)
     {
         vec2_t vec2;
         vec2 = vec2_t{ 75.0f };
-        CHECK(vec2.x == Approx(75.0f).epsilon(epsilon));
-        CHECK(vec2.y == Approx(75.0f).epsilon(epsilon));
+        CHECK(vec2.x == Approx(75.0f).epsilon(g_epsilon));
+        CHECK(vec2.y == Approx(75.0f).epsilon(g_epsilon));
     }
 
     // direct + copy initialization
@@ -102,8 +102,8 @@ TEST_CASE("vec2_initialization", "[as_vec]")
         vec2_t vec2_a(300.0f, 400.0f);
         vec2_t vec2_b(vec2_a);
 
-        CHECK(vec2_b.x == Approx(300.0f).epsilon(epsilon));
-        CHECK(vec2_b.y == Approx(400.0f).epsilon(epsilon));
+        CHECK(vec2_b.x == Approx(300.0f).epsilon(g_epsilon));
+        CHECK(vec2_b.y == Approx(400.0f).epsilon(g_epsilon));
     }
 
     // direct + copy initialization (assignment)
@@ -111,8 +111,8 @@ TEST_CASE("vec2_initialization", "[as_vec]")
         vec2_t vec2_a(100.0f, 200.0f);
         vec2_t vec2_b = vec2_a;
 
-        CHECK(vec2_b.x == Approx(100.0f).epsilon(epsilon));
-        CHECK(vec2_b.y == Approx(200.0f).epsilon(epsilon));
+        CHECK(vec2_b.x == Approx(100.0f).epsilon(g_epsilon));
+        CHECK(vec2_b.y == Approx(200.0f).epsilon(g_epsilon));
     }
 
     // direct + copy initialization (assignment)
@@ -122,8 +122,8 @@ TEST_CASE("vec2_initialization", "[as_vec]")
 
         vec2_b = vec2_a;
 
-        CHECK(vec2_b.x == Approx(500.0f).epsilon(epsilon));
-        CHECK(vec2_b.y == Approx(600.0f).epsilon(epsilon));
+        CHECK(vec2_b.x == Approx(500.0f).epsilon(g_epsilon));
+        CHECK(vec2_b.y == Approx(600.0f).epsilon(g_epsilon));
     }
 }
 
@@ -138,91 +138,91 @@ TEST_CASE("vec3_initialization", "[as_vec]")
     // zero initialization
     {
         vec3_t vec3{};
-        CHECK(vec3.x == Approx(0.0f).epsilon(epsilon));
-        CHECK(vec3.y == Approx(0.0f).epsilon(epsilon));
-        CHECK(vec3.z == Approx(0.0f).epsilon(epsilon));
+        CHECK(vec3.x == Approx(0.0f).epsilon(g_epsilon));
+        CHECK(vec3.y == Approx(0.0f).epsilon(g_epsilon));
+        CHECK(vec3.z == Approx(0.0f).epsilon(g_epsilon));
     }
 
     // value initialization
     {
         vec3_t vec3 = vec3_t();
-        CHECK(vec3.x == Approx(0.0f).epsilon(epsilon));
-        CHECK(vec3.y == Approx(0.0f).epsilon(epsilon));
-        CHECK(vec3.z == Approx(0.0f).epsilon(epsilon));
+        CHECK(vec3.x == Approx(0.0f).epsilon(g_epsilon));
+        CHECK(vec3.y == Approx(0.0f).epsilon(g_epsilon));
+        CHECK(vec3.z == Approx(0.0f).epsilon(g_epsilon));
     }
 
     // direct initialization (braces)
     {
         vec3_t vec3{1.0f, 2.0f, 3.0f};
-        CHECK(vec3.x == Approx(1.0f).epsilon(epsilon));
-        CHECK(vec3.y == Approx(2.0f).epsilon(epsilon));
-        CHECK(vec3.z == Approx(3.0f).epsilon(epsilon));
+        CHECK(vec3.x == Approx(1.0f).epsilon(g_epsilon));
+        CHECK(vec3.y == Approx(2.0f).epsilon(g_epsilon));
+        CHECK(vec3.z == Approx(3.0f).epsilon(g_epsilon));
     }
 
     // direct initialization (parens)
     {
         vec3_t vec3(5.0f, 10.0f, 15.0f);
-        CHECK(vec3.x == Approx(5.0f).epsilon(epsilon));
-        CHECK(vec3.y == Approx(10.0f).epsilon(epsilon));
-        CHECK(vec3.z == Approx(15.0f).epsilon(epsilon));
+        CHECK(vec3.x == Approx(5.0f).epsilon(g_epsilon));
+        CHECK(vec3.y == Approx(10.0f).epsilon(g_epsilon));
+        CHECK(vec3.z == Approx(15.0f).epsilon(g_epsilon));
     }
 
     // direct/copy initialization (braces)
     {
         vec3_t vec3 = vec3_t{1.0f, 2.0f, 3.0f};
-        CHECK(vec3.x == Approx(1.0f).epsilon(epsilon));
-        CHECK(vec3.y == Approx(2.0f).epsilon(epsilon));
-        CHECK(vec3.z == Approx(3.0f).epsilon(epsilon));
+        CHECK(vec3.x == Approx(1.0f).epsilon(g_epsilon));
+        CHECK(vec3.y == Approx(2.0f).epsilon(g_epsilon));
+        CHECK(vec3.z == Approx(3.0f).epsilon(g_epsilon));
     }
 
     // direct/copy initialization (parens)
     {
         vec3_t vec3 = vec3_t(3.0f, 4.0f, 5.0f);
-        CHECK(vec3.x == Approx(3.0f).epsilon(epsilon));
-        CHECK(vec3.y == Approx(4.0f).epsilon(epsilon));
-        CHECK(vec3.z == Approx(5.0f).epsilon(epsilon));
+        CHECK(vec3.x == Approx(3.0f).epsilon(g_epsilon));
+        CHECK(vec3.y == Approx(4.0f).epsilon(g_epsilon));
+        CHECK(vec3.z == Approx(5.0f).epsilon(g_epsilon));
     }
 
     // direct/copy initialization - single argument (braces)
     {
         vec3_t vec3 = vec3_t{ 50.0f };
-        CHECK(vec3.x == Approx(50.0f).epsilon(epsilon));
-        CHECK(vec3.y == Approx(50.0f).epsilon(epsilon));
-        CHECK(vec3.z == Approx(50.0f).epsilon(epsilon));
+        CHECK(vec3.x == Approx(50.0f).epsilon(g_epsilon));
+        CHECK(vec3.y == Approx(50.0f).epsilon(g_epsilon));
+        CHECK(vec3.z == Approx(50.0f).epsilon(g_epsilon));
     }
 
     // assignment initialization - single argument (braces)
     {
         vec3_t vec3;
         vec3 = vec3_t{ 50.0f };
-        CHECK(vec3.x == Approx(50.0f).epsilon(epsilon));
-        CHECK(vec3.y == Approx(50.0f).epsilon(epsilon));
-        CHECK(vec3.z == Approx(50.0f).epsilon(epsilon));
+        CHECK(vec3.x == Approx(50.0f).epsilon(g_epsilon));
+        CHECK(vec3.y == Approx(50.0f).epsilon(g_epsilon));
+        CHECK(vec3.z == Approx(50.0f).epsilon(g_epsilon));
     }
 
     // direct/copy initialization - single argument (parens)
     {
         vec3_t vec3 = vec3_t(25.0f);
-        CHECK(vec3.x == Approx(25.0f).epsilon(epsilon));
-        CHECK(vec3.y == Approx(25.0f).epsilon(epsilon));
-        CHECK(vec3.z == Approx(25.0f).epsilon(epsilon));
+        CHECK(vec3.x == Approx(25.0f).epsilon(g_epsilon));
+        CHECK(vec3.y == Approx(25.0f).epsilon(g_epsilon));
+        CHECK(vec3.z == Approx(25.0f).epsilon(g_epsilon));
     }
 
     // direct/copy initialization - double argument (braces)
     {
         vec3_t vec3 = vec3_t{vec2_t{1.0f, 2.0f}, 3.0f};
-        CHECK(vec3.x == Approx(1.0f).epsilon(epsilon));
-        CHECK(vec3.y == Approx(2.0f).epsilon(epsilon));
-        CHECK(vec3.z == Approx(3.0f).epsilon(epsilon));
+        CHECK(vec3.x == Approx(1.0f).epsilon(g_epsilon));
+        CHECK(vec3.y == Approx(2.0f).epsilon(g_epsilon));
+        CHECK(vec3.z == Approx(3.0f).epsilon(g_epsilon));
     }
 
     // direct/copy initialization - double argument (parens)
     {
         vec2_t vec2 = vec2_t(1.0f, 2.0f);
         vec3_t vec3 = vec3_t(vec2, 3.0f);
-        CHECK(vec3.x == Approx(1.0f).epsilon(epsilon));
-        CHECK(vec3.y == Approx(2.0f).epsilon(epsilon));
-        CHECK(vec3.z == Approx(3.0f).epsilon(epsilon));
+        CHECK(vec3.x == Approx(1.0f).epsilon(g_epsilon));
+        CHECK(vec3.y == Approx(2.0f).epsilon(g_epsilon));
+        CHECK(vec3.z == Approx(3.0f).epsilon(g_epsilon));
     }
 
     // direct + copy initialization
@@ -230,9 +230,9 @@ TEST_CASE("vec3_initialization", "[as_vec]")
         vec3_t vec3_a(100.0f, 200.0f, 300.0f);
         vec3_t vec3_b(vec3_a);
 
-        CHECK(vec3_b.x == Approx(100.0f).epsilon(epsilon));
-        CHECK(vec3_b.y == Approx(200.0f).epsilon(epsilon));
-        CHECK(vec3_b.z == Approx(300.0f).epsilon(epsilon));
+        CHECK(vec3_b.x == Approx(100.0f).epsilon(g_epsilon));
+        CHECK(vec3_b.y == Approx(200.0f).epsilon(g_epsilon));
+        CHECK(vec3_b.z == Approx(300.0f).epsilon(g_epsilon));
     }
 
     // direct + copy initialization
@@ -240,9 +240,9 @@ TEST_CASE("vec3_initialization", "[as_vec]")
         vec3_t vec3_a(400.0f, 500.0f, 600.0f);
         vec3_t vec3_b = vec3_a;
 
-        CHECK(vec3_b.x == Approx(400.0f).epsilon(epsilon));
-        CHECK(vec3_b.y == Approx(500.0f).epsilon(epsilon));
-        CHECK(vec3_b.z == Approx(600.0f).epsilon(epsilon));
+        CHECK(vec3_b.x == Approx(400.0f).epsilon(g_epsilon));
+        CHECK(vec3_b.y == Approx(500.0f).epsilon(g_epsilon));
+        CHECK(vec3_b.z == Approx(600.0f).epsilon(g_epsilon));
     }
 
     // direct + copy initialization (assignment)
@@ -252,9 +252,9 @@ TEST_CASE("vec3_initialization", "[as_vec]")
 
         vec3_b = vec3_a;
 
-        CHECK(vec3_b.x == Approx(500.0f).epsilon(epsilon));
-        CHECK(vec3_b.y == Approx(600.0f).epsilon(epsilon));
-        CHECK(vec3_b.z == Approx(700.0f).epsilon(epsilon));
+        CHECK(vec3_b.x == Approx(500.0f).epsilon(g_epsilon));
+        CHECK(vec3_b.y == Approx(600.0f).epsilon(g_epsilon));
+        CHECK(vec3_b.z == Approx(700.0f).epsilon(g_epsilon));
     }
 }
 
@@ -269,137 +269,137 @@ TEST_CASE("vec4_initialization", "[as_vec]")
     // zero initialization
     {
         vec4_t vec4{};
-        CHECK(vec4.x == Approx(0.0f).epsilon(epsilon));
-        CHECK(vec4.y == Approx(0.0f).epsilon(epsilon));
-        CHECK(vec4.z == Approx(0.0f).epsilon(epsilon));
-        CHECK(vec4.w == Approx(0.0f).epsilon(epsilon));
+        CHECK(vec4.x == Approx(0.0f).epsilon(g_epsilon));
+        CHECK(vec4.y == Approx(0.0f).epsilon(g_epsilon));
+        CHECK(vec4.z == Approx(0.0f).epsilon(g_epsilon));
+        CHECK(vec4.w == Approx(0.0f).epsilon(g_epsilon));
     }
 
     // value initialization
     {
         vec4_t vec4 = vec4_t();
-        CHECK(vec4.x == Approx(0.0f).epsilon(epsilon));
-        CHECK(vec4.y == Approx(0.0f).epsilon(epsilon));
-        CHECK(vec4.z == Approx(0.0f).epsilon(epsilon));
-        CHECK(vec4.w == Approx(0.0f).epsilon(epsilon));
+        CHECK(vec4.x == Approx(0.0f).epsilon(g_epsilon));
+        CHECK(vec4.y == Approx(0.0f).epsilon(g_epsilon));
+        CHECK(vec4.z == Approx(0.0f).epsilon(g_epsilon));
+        CHECK(vec4.w == Approx(0.0f).epsilon(g_epsilon));
     }
 
     // direct initialization (braces)
     {
         vec4_t vec4{1.0f, 2.0f, 3.0f, 4.0f};
-        CHECK(vec4.x == Approx(1.0f).epsilon(epsilon));
-        CHECK(vec4.y == Approx(2.0f).epsilon(epsilon));
-        CHECK(vec4.z == Approx(3.0f).epsilon(epsilon));
-        CHECK(vec4.w == Approx(4.0f).epsilon(epsilon));
+        CHECK(vec4.x == Approx(1.0f).epsilon(g_epsilon));
+        CHECK(vec4.y == Approx(2.0f).epsilon(g_epsilon));
+        CHECK(vec4.z == Approx(3.0f).epsilon(g_epsilon));
+        CHECK(vec4.w == Approx(4.0f).epsilon(g_epsilon));
     }
 
     // direct initialization (parens)
     {
         vec4_t vec4(1.0f, 2.0f, 3.0f, 4.0f);
-        CHECK(vec4.x == Approx(1.0f).epsilon(epsilon));
-        CHECK(vec4.y == Approx(2.0f).epsilon(epsilon));
-        CHECK(vec4.z == Approx(3.0f).epsilon(epsilon));
-        CHECK(vec4.w == Approx(4.0f).epsilon(epsilon));
+        CHECK(vec4.x == Approx(1.0f).epsilon(g_epsilon));
+        CHECK(vec4.y == Approx(2.0f).epsilon(g_epsilon));
+        CHECK(vec4.z == Approx(3.0f).epsilon(g_epsilon));
+        CHECK(vec4.w == Approx(4.0f).epsilon(g_epsilon));
     }
 
     // direct/copy initialization (braces)
     {
         vec4_t vec4 = vec4_t{3.0f, 4.0f, 5.0f, 6.0f};
-        CHECK(vec4.x == Approx(3.0f).epsilon(epsilon));
-        CHECK(vec4.y == Approx(4.0f).epsilon(epsilon));
-        CHECK(vec4.z == Approx(5.0f).epsilon(epsilon));
-        CHECK(vec4.w == Approx(6.0f).epsilon(epsilon));
+        CHECK(vec4.x == Approx(3.0f).epsilon(g_epsilon));
+        CHECK(vec4.y == Approx(4.0f).epsilon(g_epsilon));
+        CHECK(vec4.z == Approx(5.0f).epsilon(g_epsilon));
+        CHECK(vec4.w == Approx(6.0f).epsilon(g_epsilon));
     }
 
     // direct/copy initialization (parens)
     {
         vec4_t vec4 = vec4_t(3.0f, 4.0f, 5.0f, 6.0f);
-        CHECK(vec4.x == Approx(3.0f).epsilon(epsilon));
-        CHECK(vec4.y == Approx(4.0f).epsilon(epsilon));
-        CHECK(vec4.z == Approx(5.0f).epsilon(epsilon));
-        CHECK(vec4.w == Approx(6.0f).epsilon(epsilon));
+        CHECK(vec4.x == Approx(3.0f).epsilon(g_epsilon));
+        CHECK(vec4.y == Approx(4.0f).epsilon(g_epsilon));
+        CHECK(vec4.z == Approx(5.0f).epsilon(g_epsilon));
+        CHECK(vec4.w == Approx(6.0f).epsilon(g_epsilon));
     }
 
     // direct/copy initialization - single argument (braces)
     {
         vec4_t vec4 = vec4_t{50.0f};
-        CHECK(vec4.x == Approx(50.0f).epsilon(epsilon));
-        CHECK(vec4.y == Approx(50.0f).epsilon(epsilon));
-        CHECK(vec4.z == Approx(50.0f).epsilon(epsilon));
-        CHECK(vec4.w == Approx(50.0f).epsilon(epsilon));
+        CHECK(vec4.x == Approx(50.0f).epsilon(g_epsilon));
+        CHECK(vec4.y == Approx(50.0f).epsilon(g_epsilon));
+        CHECK(vec4.z == Approx(50.0f).epsilon(g_epsilon));
+        CHECK(vec4.w == Approx(50.0f).epsilon(g_epsilon));
     }
 
     // assignment initialization - single argument (braces)
     {
         vec4_t vec4;
         vec4 = vec4_t{ 99.0f };
-        CHECK(vec4.x == Approx(99.0f).epsilon(epsilon));
-        CHECK(vec4.y == Approx(99.0f).epsilon(epsilon));
-        CHECK(vec4.z == Approx(99.0f).epsilon(epsilon));
-        CHECK(vec4.w == Approx(99.0f).epsilon(epsilon));
+        CHECK(vec4.x == Approx(99.0f).epsilon(g_epsilon));
+        CHECK(vec4.y == Approx(99.0f).epsilon(g_epsilon));
+        CHECK(vec4.z == Approx(99.0f).epsilon(g_epsilon));
+        CHECK(vec4.w == Approx(99.0f).epsilon(g_epsilon));
     }
 
     // direct/copy initialization - single argument (parens)
     {
         vec4_t vec4 = vec4_t(25.0f);
-        CHECK(vec4.x == Approx(25.0f).epsilon(epsilon));
-        CHECK(vec4.y == Approx(25.0f).epsilon(epsilon));
-        CHECK(vec4.z == Approx(25.0f).epsilon(epsilon));
-        CHECK(vec4.w == Approx(25.0f).epsilon(epsilon));
+        CHECK(vec4.x == Approx(25.0f).epsilon(g_epsilon));
+        CHECK(vec4.y == Approx(25.0f).epsilon(g_epsilon));
+        CHECK(vec4.z == Approx(25.0f).epsilon(g_epsilon));
+        CHECK(vec4.w == Approx(25.0f).epsilon(g_epsilon));
     }
 
     // direct/copy initialization - double argument (braces)
     {
         vec4_t vec4 = vec4_t{vec3_t{1.0f, 2.0f, 3.0f}, 4.0f};
-        CHECK(vec4.x == Approx(1.0f).epsilon(epsilon));
-        CHECK(vec4.y == Approx(2.0f).epsilon(epsilon));
-        CHECK(vec4.z == Approx(3.0f).epsilon(epsilon));
-        CHECK(vec4.w == Approx(4.0f).epsilon(epsilon));
+        CHECK(vec4.x == Approx(1.0f).epsilon(g_epsilon));
+        CHECK(vec4.y == Approx(2.0f).epsilon(g_epsilon));
+        CHECK(vec4.z == Approx(3.0f).epsilon(g_epsilon));
+        CHECK(vec4.w == Approx(4.0f).epsilon(g_epsilon));
     }
 
     // direct/copy initialization - double argument (parens)
     {
         vec4_t vec4 = vec4_t(vec3_t(1.0f, 2.0f, 3.0f), 4.0f);
-        CHECK(vec4.x == Approx(1.0f).epsilon(epsilon));
-        CHECK(vec4.y == Approx(2.0f).epsilon(epsilon));
-        CHECK(vec4.z == Approx(3.0f).epsilon(epsilon));
-        CHECK(vec4.w == Approx(4.0f).epsilon(epsilon));
+        CHECK(vec4.x == Approx(1.0f).epsilon(g_epsilon));
+        CHECK(vec4.y == Approx(2.0f).epsilon(g_epsilon));
+        CHECK(vec4.z == Approx(3.0f).epsilon(g_epsilon));
+        CHECK(vec4.w == Approx(4.0f).epsilon(g_epsilon));
     }
 
     // direct/copy initialization - double argument (braces)
     {
         vec4_t vec4 = vec4_t{vec2_t{1.0f, 2.0f}, vec2_t{3.0f, 4.0f}};
-        CHECK(vec4.x == Approx(1.0f).epsilon(epsilon));
-        CHECK(vec4.y == Approx(2.0f).epsilon(epsilon));
-        CHECK(vec4.z == Approx(3.0f).epsilon(epsilon));
-        CHECK(vec4.w == Approx(4.0f).epsilon(epsilon));
+        CHECK(vec4.x == Approx(1.0f).epsilon(g_epsilon));
+        CHECK(vec4.y == Approx(2.0f).epsilon(g_epsilon));
+        CHECK(vec4.z == Approx(3.0f).epsilon(g_epsilon));
+        CHECK(vec4.w == Approx(4.0f).epsilon(g_epsilon));
     }
 
     // direct/copy initialization - double argument (parens)
     {
         vec4_t vec4 = vec4_t(vec2_t(1.0f, 2.0f), vec2_t(3.0f, 4.0f));
-        CHECK(vec4.x == Approx(1.0f).epsilon(epsilon));
-        CHECK(vec4.y == Approx(2.0f).epsilon(epsilon));
-        CHECK(vec4.z == Approx(3.0f).epsilon(epsilon));
-        CHECK(vec4.w == Approx(4.0f).epsilon(epsilon));
+        CHECK(vec4.x == Approx(1.0f).epsilon(g_epsilon));
+        CHECK(vec4.y == Approx(2.0f).epsilon(g_epsilon));
+        CHECK(vec4.z == Approx(3.0f).epsilon(g_epsilon));
+        CHECK(vec4.w == Approx(4.0f).epsilon(g_epsilon));
     }
 
     // direct/copy initialization - triple argument (braces)
     {
         vec4_t vec4 = vec4_t{vec2_t{1.0f, 2.0f}, 3.0f, 4.0f};
-        CHECK(vec4.x == Approx(1.0f).epsilon(epsilon));
-        CHECK(vec4.y == Approx(2.0f).epsilon(epsilon));
-        CHECK(vec4.z == Approx(3.0f).epsilon(epsilon));
-        CHECK(vec4.w == Approx(4.0f).epsilon(epsilon));
+        CHECK(vec4.x == Approx(1.0f).epsilon(g_epsilon));
+        CHECK(vec4.y == Approx(2.0f).epsilon(g_epsilon));
+        CHECK(vec4.z == Approx(3.0f).epsilon(g_epsilon));
+        CHECK(vec4.w == Approx(4.0f).epsilon(g_epsilon));
     }
 
     // direct/copy initialization - triple argument (parens)
     {
         vec4_t vec4 = vec4_t(vec2_t(1.0f, 2.0f), 3.0f, 4.0f);
-        CHECK(vec4.x == Approx(1.0f).epsilon(epsilon));
-        CHECK(vec4.y == Approx(2.0f).epsilon(epsilon));
-        CHECK(vec4.z == Approx(3.0f).epsilon(epsilon));
-        CHECK(vec4.w == Approx(4.0f).epsilon(epsilon));
+        CHECK(vec4.x == Approx(1.0f).epsilon(g_epsilon));
+        CHECK(vec4.y == Approx(2.0f).epsilon(g_epsilon));
+        CHECK(vec4.z == Approx(3.0f).epsilon(g_epsilon));
+        CHECK(vec4.w == Approx(4.0f).epsilon(g_epsilon));
     }
 
     // direct + copy initialization
@@ -407,10 +407,10 @@ TEST_CASE("vec4_initialization", "[as_vec]")
         vec4_t vec4_a(100.0f, 200.0f, 300.0f, 400.0f);
         vec4_t vec4_b(vec4_a);
 
-        CHECK(vec4_b.x == Approx(100.0f).epsilon(epsilon));
-        CHECK(vec4_b.y == Approx(200.0f).epsilon(epsilon));
-        CHECK(vec4_b.z == Approx(300.0f).epsilon(epsilon));
-        CHECK(vec4_b.w == Approx(400.0f).epsilon(epsilon));
+        CHECK(vec4_b.x == Approx(100.0f).epsilon(g_epsilon));
+        CHECK(vec4_b.y == Approx(200.0f).epsilon(g_epsilon));
+        CHECK(vec4_b.z == Approx(300.0f).epsilon(g_epsilon));
+        CHECK(vec4_b.w == Approx(400.0f).epsilon(g_epsilon));
     }
 
     // direct + copy initialization
@@ -418,10 +418,10 @@ TEST_CASE("vec4_initialization", "[as_vec]")
         vec4_t vec4_a(500.0f, 600.0f, 700.0f, 800.0f);
         vec4_t vec4_b = vec4_a;
 
-        CHECK(vec4_b.x == Approx(500.0f).epsilon(epsilon));
-        CHECK(vec4_b.y == Approx(600.0f).epsilon(epsilon));
-        CHECK(vec4_b.z == Approx(700.0f).epsilon(epsilon));
-        CHECK(vec4_b.w == Approx(800.0f).epsilon(epsilon));
+        CHECK(vec4_b.x == Approx(500.0f).epsilon(g_epsilon));
+        CHECK(vec4_b.y == Approx(600.0f).epsilon(g_epsilon));
+        CHECK(vec4_b.z == Approx(700.0f).epsilon(g_epsilon));
+        CHECK(vec4_b.w == Approx(800.0f).epsilon(g_epsilon));
     }
 
     // direct + copy initialization (assignment)
@@ -431,10 +431,10 @@ TEST_CASE("vec4_initialization", "[as_vec]")
 
         vec4_b = vec4_a;
 
-        CHECK(vec4_b.x == Approx(500.0f).epsilon(epsilon));
-        CHECK(vec4_b.y == Approx(600.0f).epsilon(epsilon));
-        CHECK(vec4_b.z == Approx(700.0f).epsilon(epsilon));
-        CHECK(vec4_b.w == Approx(800.0f).epsilon(epsilon));
+        CHECK(vec4_b.x == Approx(500.0f).epsilon(g_epsilon));
+        CHECK(vec4_b.y == Approx(600.0f).epsilon(g_epsilon));
+        CHECK(vec4_b.z == Approx(700.0f).epsilon(g_epsilon));
+        CHECK(vec4_b.w == Approx(800.0f).epsilon(g_epsilon));
     }
 }
 
@@ -443,15 +443,15 @@ TEST_CASE("vec2_accessors", "[as_vec]")
     // member and subscript operator - zero initializer
     {
         vec2_t vec2{};
-        CHECK(vec2.x == Approx(vec2[0]).epsilon(epsilon));
-        CHECK(vec2.y == Approx(vec2[1]).epsilon(epsilon));
+        CHECK(vec2.x == Approx(vec2[0]).epsilon(g_epsilon));
+        CHECK(vec2.y == Approx(vec2[1]).epsilon(g_epsilon));
     }
 
     // member and subscript operator - explicit construction
     {
         vec2_t vec2(1.0f, 2.0f);
-        CHECK(vec2.x == Approx(vec2[0]).epsilon(epsilon));
-        CHECK(vec2.y == Approx(vec2[1]).epsilon(epsilon));
+        CHECK(vec2.x == Approx(vec2[0]).epsilon(g_epsilon));
+        CHECK(vec2.y == Approx(vec2[1]).epsilon(g_epsilon));
     }
 
     // member and const subscript operator - explicit construction
@@ -460,8 +460,8 @@ TEST_CASE("vec2_accessors", "[as_vec]")
         const real_t& x = vec2[0];
         const real_t& y = vec2[1];
 
-        CHECK(vec2.x == Approx(x).epsilon(epsilon));
-        CHECK(vec2.y == Approx(y).epsilon(epsilon));
+        CHECK(vec2.x == Approx(x).epsilon(g_epsilon));
+        CHECK(vec2.y == Approx(y).epsilon(g_epsilon));
     }
 }
 
@@ -470,27 +470,27 @@ TEST_CASE("vec3_accessors", "[as_vec]")
     // member and subscript operator - zero initializer
     {
         vec3_t vec3{};
-        CHECK(vec3.x == Approx(vec3[0]).epsilon(epsilon));
-        CHECK(vec3.y == Approx(vec3[1]).epsilon(epsilon));
-        CHECK(vec3.z == Approx(vec3[2]).epsilon(epsilon));
+        CHECK(vec3.x == Approx(vec3[0]).epsilon(g_epsilon));
+        CHECK(vec3.y == Approx(vec3[1]).epsilon(g_epsilon));
+        CHECK(vec3.z == Approx(vec3[2]).epsilon(g_epsilon));
     }
 
     // member and subscript operator - explicit construction
     {
         vec3_t vec3(1.0f, 2.0f, 3.0f);
-        CHECK(vec3.x == Approx(vec3[0]).epsilon(epsilon));
-        CHECK(vec3.y == Approx(vec3[1]).epsilon(epsilon));
-        CHECK(vec3.z == Approx(vec3[2]).epsilon(epsilon));
+        CHECK(vec3.x == Approx(vec3[0]).epsilon(g_epsilon));
+        CHECK(vec3.y == Approx(vec3[1]).epsilon(g_epsilon));
+        CHECK(vec3.z == Approx(vec3[2]).epsilon(g_epsilon));
     }
 
     // member and subscript operator - explicit construction
     {
         vec3_t vec3(1.0f, 2.0f, 3.0f);
-        CHECK(vec3.xy()[0] == Approx(vec3.x).epsilon(epsilon));
-        CHECK(vec3.xy()[1] == Approx(vec3.y).epsilon(epsilon));
-        CHECK(vec3.xy().x == Approx(vec3.x).epsilon(epsilon));
-        CHECK(vec3.xy().y == Approx(vec3.y).epsilon(epsilon));
-        CHECK(vec3.z == Approx(vec3[2]).epsilon(epsilon));
+        CHECK(vec3.xy()[0] == Approx(vec3.x).epsilon(g_epsilon));
+        CHECK(vec3.xy()[1] == Approx(vec3.y).epsilon(g_epsilon));
+        CHECK(vec3.xy().x == Approx(vec3.x).epsilon(g_epsilon));
+        CHECK(vec3.xy().y == Approx(vec3.y).epsilon(g_epsilon));
+        CHECK(vec3.z == Approx(vec3[2]).epsilon(g_epsilon));
     }
 
     // member and const subscript operator - explicit construction
@@ -500,9 +500,9 @@ TEST_CASE("vec3_accessors", "[as_vec]")
         const real_t& y = vec3[1];
         const real_t& z = vec3[2];
 
-        CHECK(vec3.x == Approx(x).epsilon(epsilon));
-        CHECK(vec3.y == Approx(y).epsilon(epsilon));
-        CHECK(vec3.z == Approx(z).epsilon(epsilon));
+        CHECK(vec3.x == Approx(x).epsilon(g_epsilon));
+        CHECK(vec3.y == Approx(y).epsilon(g_epsilon));
+        CHECK(vec3.z == Approx(z).epsilon(g_epsilon));
     }
 }
 
@@ -511,32 +511,32 @@ TEST_CASE("vec4_accessors", "[as_vec]")
     // member and subscript operator - zero initializer
     {
         vec4_t vec4{};
-        CHECK(vec4.x == Approx(vec4[0]).epsilon(epsilon));
-        CHECK(vec4.y == Approx(vec4[1]).epsilon(epsilon));
-        CHECK(vec4.z == Approx(vec4[2]).epsilon(epsilon));
-        CHECK(vec4.w == Approx(vec4[3]).epsilon(epsilon));
+        CHECK(vec4.x == Approx(vec4[0]).epsilon(g_epsilon));
+        CHECK(vec4.y == Approx(vec4[1]).epsilon(g_epsilon));
+        CHECK(vec4.z == Approx(vec4[2]).epsilon(g_epsilon));
+        CHECK(vec4.w == Approx(vec4[3]).epsilon(g_epsilon));
     }
 
     // member and subscript operator - explicit construction
     {
         vec4_t vec4(1.0f, 2.0f, 3.0f, 4.0f);
-        CHECK(vec4.x == Approx(vec4[0]).epsilon(epsilon));
-        CHECK(vec4.y == Approx(vec4[1]).epsilon(epsilon));
-        CHECK(vec4.z == Approx(vec4[2]).epsilon(epsilon));
-        CHECK(vec4.w == Approx(vec4[3]).epsilon(epsilon));
+        CHECK(vec4.x == Approx(vec4[0]).epsilon(g_epsilon));
+        CHECK(vec4.y == Approx(vec4[1]).epsilon(g_epsilon));
+        CHECK(vec4.z == Approx(vec4[2]).epsilon(g_epsilon));
+        CHECK(vec4.w == Approx(vec4[3]).epsilon(g_epsilon));
     }
 
     // member and subscript operator - explicit construction
     {
         vec4_t vec4(1.0f, 2.0f, 3.0f, 4.0f);
-        CHECK(vec4.xy()[0] == Approx(vec4[0]).epsilon(epsilon));
-        CHECK(vec4.xy()[1] == Approx(vec4[1]).epsilon(epsilon));
-        CHECK(vec4.zw()[0] == Approx(vec4[2]).epsilon(epsilon));
-        CHECK(vec4.zw()[1] == Approx(vec4[3]).epsilon(epsilon));
-        CHECK(vec4.xyz()[0] == Approx(vec4[0]).epsilon(epsilon));
-        CHECK(vec4.xyz()[1] == Approx(vec4[1]).epsilon(epsilon));
-        CHECK(vec4.xyz()[2] == Approx(vec4[2]).epsilon(epsilon));
-        CHECK(vec4.w == Approx(vec4[3]).epsilon(epsilon));
+        CHECK(vec4.xy()[0] == Approx(vec4[0]).epsilon(g_epsilon));
+        CHECK(vec4.xy()[1] == Approx(vec4[1]).epsilon(g_epsilon));
+        CHECK(vec4.zw()[0] == Approx(vec4[2]).epsilon(g_epsilon));
+        CHECK(vec4.zw()[1] == Approx(vec4[3]).epsilon(g_epsilon));
+        CHECK(vec4.xyz()[0] == Approx(vec4[0]).epsilon(g_epsilon));
+        CHECK(vec4.xyz()[1] == Approx(vec4[1]).epsilon(g_epsilon));
+        CHECK(vec4.xyz()[2] == Approx(vec4[2]).epsilon(g_epsilon));
+        CHECK(vec4.w == Approx(vec4[3]).epsilon(g_epsilon));
     }
 }
 
@@ -550,18 +550,18 @@ TEST_CASE("vec2_vec3_vec4_accessors", "[as_vec]")
     vec4_t vec4_c(vec3, 4.0f);
 
     // member accessors
-    CHECK(vec4_a.x == Approx(vec2.x).epsilon(epsilon));
-    CHECK(vec4_a.y == Approx(vec2.y).epsilon(epsilon));
+    CHECK(vec4_a.x == Approx(vec2.x).epsilon(g_epsilon));
+    CHECK(vec4_a.y == Approx(vec2.y).epsilon(g_epsilon));
 
-    CHECK(vec4_b.x == Approx(vec2.x).epsilon(epsilon));
-    CHECK(vec4_b.y == Approx(vec2.y).epsilon(epsilon));
-    CHECK(vec4_b.z == Approx(vec2.x).epsilon(epsilon));
-    CHECK(vec4_b.w == Approx(vec2.y).epsilon(epsilon));
+    CHECK(vec4_b.x == Approx(vec2.x).epsilon(g_epsilon));
+    CHECK(vec4_b.y == Approx(vec2.y).epsilon(g_epsilon));
+    CHECK(vec4_b.z == Approx(vec2.x).epsilon(g_epsilon));
+    CHECK(vec4_b.w == Approx(vec2.y).epsilon(g_epsilon));
 
-    CHECK(vec4_c.x == Approx(vec2.x).epsilon(epsilon));
-    CHECK(vec4_c.y == Approx(vec2.y).epsilon(epsilon));
-    CHECK(vec4_c.z == Approx(vec4_a.z).epsilon(epsilon));
-    CHECK(vec4_c.w == Approx(vec4_a.w).epsilon(epsilon));
+    CHECK(vec4_c.x == Approx(vec2.x).epsilon(g_epsilon));
+    CHECK(vec4_c.y == Approx(vec2.y).epsilon(g_epsilon));
+    CHECK(vec4_c.z == Approx(vec4_a.z).epsilon(g_epsilon));
+    CHECK(vec4_c.w == Approx(vec4_a.w).epsilon(g_epsilon));
 }
 
 TEST_CASE("const_elem_access_vec_const", "[as_vec]")
@@ -640,33 +640,33 @@ TEST_CASE("vec_size", "[as_vec]")
     vec2_t vec2;
     size_t vec2_inst_size = vec::size(vec2);
     CHECK(vec2_size == static_cast<size_t>(2));
-    CHECK(vec2_inst_size == Approx(vec2_size).epsilon(epsilon));
+    CHECK(vec2_inst_size == Approx(vec2_size).epsilon(g_epsilon));
 
     size_t vec3_size = vec3_t::size;
     vec3_t vec3;
     size_t vec3_inst_size = vec::size(vec3);
     CHECK(vec3_size == static_cast<size_t>(3));
-    CHECK(vec3_inst_size == Approx(vec3_size).epsilon(epsilon));
+    CHECK(vec3_inst_size == Approx(vec3_size).epsilon(g_epsilon));
 
     size_t vec4_size = vec4_t::size;
     vec4_t vec4;
     size_t vec4_inst_size = vec::size(vec4);
     CHECK(vec4_size == static_cast<size_t>(4));
-    CHECK(vec4_inst_size == Approx(vec4_size).epsilon(epsilon));
+    CHECK(vec4_inst_size == Approx(vec4_size).epsilon(g_epsilon));
 
     using short7 = vec_t<short, 7>;
     short7 vec_short7;
     size_t vec_short7_inst_size = vec::size(vec_short7);
     size_t short7_size = short7::size;
     CHECK(short7_size == static_cast<size_t>(7));
-    CHECK(vec_short7_inst_size == Approx(short7_size).epsilon(epsilon));
+    CHECK(vec_short7_inst_size == Approx(short7_size).epsilon(g_epsilon));
 
     using int5 = vec_t<int, 5>;
     int5 vec_short5;
     size_t vec_short5_inst_size = vec::size(vec_short5);
     size_t int5_size = int5::size;
     CHECK(int5_size == static_cast<size_t>(5));
-    CHECK(vec_short5_inst_size == Approx(int5_size).epsilon(epsilon));
+    CHECK(vec_short5_inst_size == Approx(int5_size).epsilon(g_epsilon));
 }
 
 TEST_CASE("vec_make_from_arr", "[as_vec]")
@@ -676,8 +676,8 @@ TEST_CASE("vec_make_from_arr", "[as_vec]")
         real_t vec_data[2] = { 2.0f, 4.0f };
         vec2_t vec2 = vec::from_arr(vec_data);
 
-        CHECK(vec2.x == Approx(2.0f).epsilon(epsilon));
-        CHECK(vec2.y == Approx(4.0f).epsilon(epsilon));
+        CHECK(vec2.x == Approx(2.0f).epsilon(g_epsilon));
+        CHECK(vec2.y == Approx(4.0f).epsilon(g_epsilon));
 
         // won't compile (array length 2 to vec3_t)
         // vec3_t vec3 = make_from(vec_data);
@@ -688,9 +688,9 @@ TEST_CASE("vec_make_from_arr", "[as_vec]")
         real_t vec_data[3] = { 1.0f, 2.0f, 3.0f };
         vec3_t vec3 = vec::from_arr(vec_data);
 
-        CHECK(vec3.x == Approx(1.0f).epsilon(epsilon));
-        CHECK(vec3.y == Approx(2.0f).epsilon(epsilon));
-        CHECK(vec3.z == Approx(3.0f).epsilon(epsilon));
+        CHECK(vec3.x == Approx(1.0f).epsilon(g_epsilon));
+        CHECK(vec3.y == Approx(2.0f).epsilon(g_epsilon));
+        CHECK(vec3.z == Approx(3.0f).epsilon(g_epsilon));
     }
 
     // generic make_from_arr <char, 6>
@@ -711,8 +711,8 @@ TEST_CASE("vec_make_from_arr", "[as_vec]")
         real_t vec_data[2] = { 2.0f, 4.0f };
         vec2_t vec2 = vec2::from_arr(vec_data);
 
-        CHECK(vec2.x == Approx(2.0f).epsilon(epsilon));
-        CHECK(vec2.y == Approx(4.0f).epsilon(epsilon));
+        CHECK(vec2.x == Approx(2.0f).epsilon(g_epsilon));
+        CHECK(vec2.y == Approx(4.0f).epsilon(g_epsilon));
     }
 
     // vec3_make_from_arr
@@ -720,9 +720,9 @@ TEST_CASE("vec_make_from_arr", "[as_vec]")
         real_t vec_data[3] = { 1.0f, 2.0f, 3.0f };
         vec3_t vec3 = vec3::from_arr(vec_data);
 
-        CHECK(vec3.x == Approx(1.0f).epsilon(epsilon));
-        CHECK(vec3.y == Approx(2.0f).epsilon(epsilon));
-        CHECK(vec3.z == Approx(3.0f).epsilon(epsilon));
+        CHECK(vec3.x == Approx(1.0f).epsilon(g_epsilon));
+        CHECK(vec3.y == Approx(2.0f).epsilon(g_epsilon));
+        CHECK(vec3.z == Approx(3.0f).epsilon(g_epsilon));
     }
 
     // vec4_make_from_arr
@@ -730,10 +730,10 @@ TEST_CASE("vec_make_from_arr", "[as_vec]")
         real_t vec_data[4] = { 4.0f, 8.0f, 12.0f, 16.0f };
         vec4_t vec4 = vec4::from_arr(vec_data);
 
-        CHECK(vec4.x == Approx(4.0f).epsilon(epsilon));
-        CHECK(vec4.y == Approx(8.0f).epsilon(epsilon));
-        CHECK(vec4.z == Approx(12.0f).epsilon(epsilon));
-        CHECK(vec4.w == Approx(16.0f).epsilon(epsilon));
+        CHECK(vec4.x == Approx(4.0f).epsilon(g_epsilon));
+        CHECK(vec4.y == Approx(8.0f).epsilon(g_epsilon));
+        CHECK(vec4.z == Approx(12.0f).epsilon(g_epsilon));
+        CHECK(vec4.w == Approx(16.0f).epsilon(g_epsilon));
     }
 }
 
@@ -746,8 +746,8 @@ TEST_CASE("vec_make_from_ptr", "[as_vec]")
         vec_data[1] = 4.0f;
         vec2_t vec2 = vec::from_ptr<real_t, 2>(vec_data.get());
 
-        CHECK(vec2.x == Approx(2.0f).epsilon(epsilon));
-        CHECK(vec2.y == Approx(4.0f).epsilon(epsilon));
+        CHECK(vec2.x == Approx(2.0f).epsilon(g_epsilon));
+        CHECK(vec2.y == Approx(4.0f).epsilon(g_epsilon));
     }
 
     // generic make_from_ptr vec3_t
@@ -758,9 +758,9 @@ TEST_CASE("vec_make_from_ptr", "[as_vec]")
         vec_data[2] = 3.0f;
         vec3_t vec3 = vec::from_ptr<real_t, 3>(vec_data.get());
 
-        CHECK(vec3.x == Approx(1.0f).epsilon(epsilon));
-        CHECK(vec3.y == Approx(2.0f).epsilon(epsilon));
-        CHECK(vec3.z == Approx(3.0f).epsilon(epsilon));
+        CHECK(vec3.x == Approx(1.0f).epsilon(g_epsilon));
+        CHECK(vec3.y == Approx(2.0f).epsilon(g_epsilon));
+        CHECK(vec3.z == Approx(3.0f).epsilon(g_epsilon));
     }
 
     // generic make_from_ptr <char, 6>
@@ -789,8 +789,8 @@ TEST_CASE("vec_make_from_ptr", "[as_vec]")
         vec_data[1] = 4.0f;
         vec2_t vec2 = vec2::from_ptr(vec_data.get());
 
-        CHECK(vec2.x == Approx(2.0f).epsilon(epsilon));
-        CHECK(vec2.y == Approx(4.0f).epsilon(epsilon));
+        CHECK(vec2.x == Approx(2.0f).epsilon(g_epsilon));
+        CHECK(vec2.y == Approx(4.0f).epsilon(g_epsilon));
     }
 
     // vec3_make_from_ptr
@@ -801,9 +801,9 @@ TEST_CASE("vec_make_from_ptr", "[as_vec]")
         vec_data[2] = 3.0f;
         vec3_t vec3 = vec3::from_ptr(vec_data.get());
 
-        CHECK(vec3.x == Approx(1.0f).epsilon(epsilon));
-        CHECK(vec3.y == Approx(2.0f).epsilon(epsilon));
-        CHECK(vec3.z == Approx(3.0f).epsilon(epsilon));
+        CHECK(vec3.x == Approx(1.0f).epsilon(g_epsilon));
+        CHECK(vec3.y == Approx(2.0f).epsilon(g_epsilon));
+        CHECK(vec3.z == Approx(3.0f).epsilon(g_epsilon));
     }
 
     // vec4_make_from_ptr
@@ -815,10 +815,10 @@ TEST_CASE("vec_make_from_ptr", "[as_vec]")
         vec_data[3] = 16.0f;
         vec4_t vec4 = vec4::from_ptr(vec_data.get());
 
-        CHECK(vec4.x == Approx(4.0f).epsilon(epsilon));
-        CHECK(vec4.y == Approx(8.0f).epsilon(epsilon));
-        CHECK(vec4.z == Approx(12.0f).epsilon(epsilon));
-        CHECK(vec4.w == Approx(16.0f).epsilon(epsilon));
+        CHECK(vec4.x == Approx(4.0f).epsilon(g_epsilon));
+        CHECK(vec4.y == Approx(8.0f).epsilon(g_epsilon));
+        CHECK(vec4.z == Approx(12.0f).epsilon(g_epsilon));
+        CHECK(vec4.w == Approx(16.0f).epsilon(g_epsilon));
     }
 
     // generic type check
@@ -1080,7 +1080,7 @@ TEST_CASE("dot", "[as_vec]")
         const vec5_t vec2(4.0f, 5.0f, 6.0f, 8.0f, 4.0f);
 
         const real_t dot_result = vec::dot(vec1, vec2);
-        CHECK(dot_result == Approx(84.0f).epsilon(epsilon));
+        CHECK(dot_result == Approx(84.0f).epsilon(g_epsilon));
     }
 
     {
@@ -1088,7 +1088,7 @@ TEST_CASE("dot", "[as_vec]")
         const vec5_t vec2(-1.0f, -7.0f, 4.0f, 2.0f, 0.5f);
 
         const real_t dot_result = vec::dot(vec1, vec2);
-        CHECK(dot_result == Approx(-30.5).epsilon(epsilon));
+        CHECK(dot_result == Approx(-30.5).epsilon(g_epsilon));
     }
 
     {
@@ -1096,7 +1096,7 @@ TEST_CASE("dot", "[as_vec]")
         const vec5_t vec2(-123.456f, -7.732f, 2.491f, -1.321f, -0.261f);
 
         const real_t dot_result = vec::dot(vec1, vec2);
-        CHECK(dot_result == Approx(3379.709579f).epsilon(epsilon));
+        CHECK(dot_result == Approx(3379.709579f).epsilon(g_epsilon));
     }
 }
 
@@ -1108,7 +1108,7 @@ TEST_CASE("dot_vec3", "[as_vec]")
         const vec3_t vec2(4.0f, 5.0f, 6.0f);
 
         const real_t dot_result = vec::dot(vec1, vec2);
-        CHECK(dot_result == Approx(32.0f).epsilon(epsilon));
+        CHECK(dot_result == Approx(32.0f).epsilon(g_epsilon));
     }
 
     {
@@ -1116,7 +1116,7 @@ TEST_CASE("dot_vec3", "[as_vec]")
         const vec3_t vec2(-1.0f, -7.0f, 4.0f);
 
         const real_t dot_result = vec::dot(vec1, vec2);
-        CHECK(dot_result == Approx(-54.0f).epsilon(epsilon));
+        CHECK(dot_result == Approx(-54.0f).epsilon(g_epsilon));
     }
 
     {
@@ -1124,7 +1124,7 @@ TEST_CASE("dot_vec3", "[as_vec]")
         const vec3_t vec2(-123.456f, -7.732f, 2.491f);
 
         const real_t dot_result = vec::dot(vec1, vec2);
-        CHECK(dot_result == Approx(3380.013785f).epsilon(epsilon));
+        CHECK(dot_result == Approx(3380.013785f).epsilon(g_epsilon));
     }
 }
 
@@ -1215,9 +1215,9 @@ TEST_CASE("cross", "[as_vec]")
         vec3_t vec2(4.0f, 5.0f, 6.0f);
 
         vec3_t cross_result = vec3::cross(vec1, vec2);
-        CHECK(cross_result.x == Approx(-3.0f).epsilon(epsilon));
-        CHECK(cross_result.y == Approx(6.0f).epsilon(epsilon));
-        CHECK(cross_result.z == Approx(-3.0f).epsilon(epsilon));
+        CHECK(cross_result.x == Approx(-3.0f).epsilon(g_epsilon));
+        CHECK(cross_result.y == Approx(6.0f).epsilon(g_epsilon));
+        CHECK(cross_result.z == Approx(-3.0f).epsilon(g_epsilon));
     }
 
     {
@@ -1225,14 +1225,14 @@ TEST_CASE("cross", "[as_vec]")
         vec3_t vec2(0.0f, 1.0f, 0.0f);
 
         vec3_t cross_result1 = vec3::cross(vec1, vec2);
-        CHECK(cross_result1.x == Approx(0.0f).epsilon(epsilon));
-        CHECK(cross_result1.y == Approx(0.0f).epsilon(epsilon));
-        CHECK(cross_result1.z == Approx(1.0f).epsilon(epsilon));
+        CHECK(cross_result1.x == Approx(0.0f).epsilon(g_epsilon));
+        CHECK(cross_result1.y == Approx(0.0f).epsilon(g_epsilon));
+        CHECK(cross_result1.z == Approx(1.0f).epsilon(g_epsilon));
 
         vec3_t cross_result2 = vec3::cross(vec2, vec1);
-        CHECK(cross_result2.x == Approx(0.0f).epsilon(epsilon));
-        CHECK(cross_result2.y == Approx(0.0f).epsilon(epsilon));
-        CHECK(cross_result2.z == Approx(-1.0f).epsilon(epsilon));
+        CHECK(cross_result2.x == Approx(0.0f).epsilon(g_epsilon));
+        CHECK(cross_result2.y == Approx(0.0f).epsilon(g_epsilon));
+        CHECK(cross_result2.z == Approx(-1.0f).epsilon(g_epsilon));
     }
 
     {
@@ -1240,9 +1240,9 @@ TEST_CASE("cross", "[as_vec]")
         vec3_t vec2(0.0f, 0.0f, 12.0f);
 
         vec3_t cross_result = vec3::cross(vec1, vec2);
-        CHECK(cross_result.x == Approx(60.0f).epsilon(epsilon));
-        CHECK(cross_result.y == Approx(0.0f).epsilon(epsilon));
-        CHECK(cross_result.z == Approx(0.0f).epsilon(epsilon));
+        CHECK(cross_result.x == Approx(60.0f).epsilon(g_epsilon));
+        CHECK(cross_result.y == Approx(0.0f).epsilon(g_epsilon));
+        CHECK(cross_result.z == Approx(0.0f).epsilon(g_epsilon));
     }
 
     {
@@ -1251,13 +1251,13 @@ TEST_CASE("cross", "[as_vec]")
         vec3_t z(0.0f, 0.0f, 1.0f);
 
         vec3_t cross_result1 = vec3::cross(x, y);
-        CHECK(cross_result1.z == Approx(1.0f).epsilon(epsilon));
+        CHECK(cross_result1.z == Approx(1.0f).epsilon(g_epsilon));
 
         vec3_t cross_result2 = vec3::cross(y, z);
-        CHECK(cross_result2.x == Approx(1.0f).epsilon(epsilon));
+        CHECK(cross_result2.x == Approx(1.0f).epsilon(g_epsilon));
 
         vec3_t cross_result3 = vec3::cross(z, x);
-        CHECK(cross_result3.y == Approx(1.0f).epsilon(epsilon));
+        CHECK(cross_result3.y == Approx(1.0f).epsilon(g_epsilon));
     }
 }
 
@@ -1269,13 +1269,13 @@ TEST_CASE("right_and_up", "[as_vec]")
         vec3_t across_lh, up_lh;
         vec3::right_and_up_lh(dir, across_lh, up_lh);
 
-        CHECK(across_lh.x == Approx(1.0f).epsilon(epsilon));
-        CHECK(across_lh.y == Approx(0.0f).epsilon(epsilon));
-        CHECK(across_lh.z == Approx(0.0f).epsilon(epsilon));
+        CHECK(across_lh.x == Approx(1.0f).epsilon(g_epsilon));
+        CHECK(across_lh.y == Approx(0.0f).epsilon(g_epsilon));
+        CHECK(across_lh.z == Approx(0.0f).epsilon(g_epsilon));
 
-        CHECK(up_lh.x == Approx(0.0f).epsilon(epsilon));
-        CHECK(up_lh.y == Approx(1.0f).epsilon(epsilon));
-        CHECK(up_lh.z == Approx(0.0f).epsilon(epsilon));
+        CHECK(up_lh.x == Approx(0.0f).epsilon(g_epsilon));
+        CHECK(up_lh.y == Approx(1.0f).epsilon(g_epsilon));
+        CHECK(up_lh.z == Approx(0.0f).epsilon(g_epsilon));
     }
 
     {
@@ -1284,13 +1284,13 @@ TEST_CASE("right_and_up", "[as_vec]")
         vec3_t across_rh, up_rh;
         vec3::right_and_up_rh(dir, across_rh, up_rh);
 
-        CHECK(across_rh.x == Approx(-1.0f).epsilon(epsilon));
-        CHECK(across_rh.y == Approx(0.0f).epsilon(epsilon));
-        CHECK(across_rh.z == Approx(0.0f).epsilon(epsilon));
+        CHECK(across_rh.x == Approx(-1.0f).epsilon(g_epsilon));
+        CHECK(across_rh.y == Approx(0.0f).epsilon(g_epsilon));
+        CHECK(across_rh.z == Approx(0.0f).epsilon(g_epsilon));
 
-        CHECK(up_rh.x == Approx(0.0f).epsilon(epsilon));
-        CHECK(up_rh.y == Approx(1.0f).epsilon(epsilon));
-        CHECK(up_rh.z == Approx(0.0f).epsilon(epsilon));
+        CHECK(up_rh.x == Approx(0.0f).epsilon(g_epsilon));
+        CHECK(up_rh.y == Approx(1.0f).epsilon(g_epsilon));
+        CHECK(up_rh.z == Approx(0.0f).epsilon(g_epsilon));
     }
 }
 
@@ -1370,14 +1370,14 @@ TEST_CASE("min_elem", "[as_vec]")
         vec3_t vec{ -1.0f, 2.0f, -100.0f };
         real_t result = vec::min_elem(vec);
 
-        CHECK(result == Approx(-100.0f).epsilon(epsilon));
+        CHECK(result == Approx(-100.0f).epsilon(g_epsilon));
     }
 
     {
         vec3_t vec{ 1.0f, 2.0f, 3.0f };
         real_t result = vec::min_elem(vec);
 
-        CHECK(result == Approx(1.0f).epsilon(epsilon));
+        CHECK(result == Approx(1.0f).epsilon(g_epsilon));
     }
 }
 
@@ -1412,14 +1412,14 @@ TEST_CASE("max_elem", "[as_vec]")
         vec3_t vec{ -1.0f, 2.0f, -100.0f };
         real_t result = vec::max_elem(vec);
 
-        CHECK(result == 2.0f);
+        CHECK(result == Approx(2.0f).epsilon(g_epsilon));
     }
 
     {
         vec3_t vec{ 1.0f, 2.0f, 3.0f };
         real_t result = vec::max_elem(vec);
 
-        CHECK(result == 3.0f);
+        CHECK(result == Approx(3.0f).epsilon(g_epsilon));
     }
 }
 
@@ -1523,8 +1523,8 @@ TEST_CASE("normalize_return_length", "[as_vec]")
     vec3_t vec_normalized;
     const real_t length = vec::normalize_return_length(vec, vec_normalized);
 
-    CHECK(length == Approx(5.0f).epsilon(epsilon));
-    CHECK(vec::length(vec_normalized) == Approx(1.0f).epsilon(epsilon));
+    CHECK(length == Approx(5.0f).epsilon(g_epsilon));
+    CHECK(vec::length(vec_normalized) == Approx(1.0f).epsilon(g_epsilon));
 }
 
 TEST_CASE("length_squared_v3", "[as_vec]")
@@ -1532,7 +1532,7 @@ TEST_CASE("length_squared_v3", "[as_vec]")
     const vec3_t vec(3.0f, 4.0f, 0.0f);
     const real_t length_sq = vec::length_sq(vec);
 
-    CHECK(length_sq == Approx(25.0f).epsilon(epsilon));
+    CHECK(length_sq == Approx(25.0f).epsilon(g_epsilon));
 }
 
 TEST_CASE("length_squared_generic", "[as_vec]")
@@ -1542,7 +1542,7 @@ TEST_CASE("length_squared_generic", "[as_vec]")
     const vec5_t vec(3.0f, 4.0f, 5.0f, 6.0f, 7.0f);
     const real_t length_sq = vec::length_sq(vec);
 
-    CHECK(length_sq == Approx(135.0f).epsilon(epsilon));
+    CHECK(length_sq == Approx(135.0f).epsilon(g_epsilon));
 }
 
 TEST_CASE("select", "[as_vec]")
@@ -1576,7 +1576,7 @@ TEST_CASE("wedge_vec2", "[as_vec]")
     const vec2_t vec2(0.0f, 2.0f);
     const real_t result = as::vec2::wedge(vec1, vec2);
 
-    CHECK(result == Approx(4.0f).epsilon(epsilon));
+    CHECK(result == Approx(4.0f).epsilon(g_epsilon));
 }
 
 // explicit instantiations (for coverage)

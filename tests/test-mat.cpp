@@ -5,6 +5,8 @@
 
 using namespace as;
 
+const real_t g_epsilon = std::numeric_limits<real_t>::epsilon();
+
 TEST_CASE("mat_row_col_access_mat3", "[as_mat]")
 {
     using namespace gsl;
@@ -489,8 +491,8 @@ TEST_CASE("elem_access_mat4_const", "[as_mat]")
     };
 
     const real_t mat4_8 = mat4[8];
-    CHECK(mat4_8 == mat_arr[8]);
-    CHECK(mat4_8 == 9.0f);
+    CHECK(mat4_8 == Approx(mat_arr[8]).epsilon(g_epsilon));
+    CHECK(mat4_8 == Approx(9.0f).epsilon(g_epsilon));
 
     CHECK_THAT(span(mat_arr), ElementsAreSubscript(mat4, 16));
 }

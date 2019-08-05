@@ -534,9 +534,9 @@ inline mat3_t scale(const vec3_t& scale)
 constexpr mat3_t from_mat44(const mat4_t& transform)
 {
     return {
-        transform.elem_rc[0][0], transform.elem_rc[0][1], transform.elem_rc[0][2],
-        transform.elem_rc[1][0], transform.elem_rc[1][1], transform.elem_rc[1][2],
-        transform.elem_rc[2][0], transform.elem_rc[2][1], transform.elem_rc[2][2],
+        transform[0], transform[1], transform[2],
+        transform[3], transform[4], transform[5],
+        transform[6], transform[7], transform[8],
     };
 }
 

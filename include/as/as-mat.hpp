@@ -18,14 +18,14 @@ namespace as
 template<typename T, size_t d>
 struct mat_t
 {
-    T elem_rc[d][d];
-
     static constexpr size_t size = d * d;
     using type = T;
 
-    constexpr T& operator[](size_t i) & { return elem_rc[0][i]; }
-    constexpr const T& operator[](size_t i) const& { return elem_rc[0][i]; }
-    constexpr const T operator[](size_t i) && { return elem_rc[0][i]; }
+    T elem_rc[size];
+
+    constexpr T& operator[](size_t i) & { return elem_rc[i]; }
+    constexpr const T& operator[](size_t i) const& { return elem_rc[i]; }
+    constexpr const T operator[](size_t i) && { return elem_rc[i]; }
 
     mat_t() noexcept = default;
     mat_t(const mat_t&) noexcept = default;
