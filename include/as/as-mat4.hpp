@@ -6,19 +6,24 @@
 namespace as
 {
 
+namespace mat4
+{
+    size_t rc(size_t r, size_t c);
+}
+
 template<typename T>
 struct mat_t<T, 4>
 {
     static constexpr size_t size = 4 * 4;
-    using type = T;
+    using value_type = T;
 
     T elem_rc[size];
 
 #ifdef AS_ROW_MAJOR
-    vec_t<T, 4> row(size_t i) const {
+    vec_t<T, 4> row(size_t r) const {
         return vec_t<T, 4>{
-            elem_rc[i * 4 + 0], elem_rc[i * 4 + 1],
-            elem_rc[i * 4 + 2], elem_rc[i * 4 + 3]
+            elem_rc[mat4::rc(r, 0)], elem_rc[mat4::rc(r, 1)],
+            elem_rc[mat4::rc(r, 2)], elem_rc[mat4::rc(r, 3)]
         };
     }
 
@@ -27,9 +32,9 @@ struct mat_t<T, 4>
     const vec_t<T, 4> row2() const { return row(2); }
     const vec_t<T, 4> row3() const { return row(3); }
 
-    void row(size_t i, const vec_t<T, 4>& row) {
-        elem_rc[i * 4 + 0] = row.x; elem_rc[i * 4 + 1] = row.y;
-        elem_rc[i * 4 + 2] = row.z; elem_rc[i * 4 + 3] = row.w;
+    void row(size_t r, const vec_t<T, 4>& row) {
+        elem_rc[mat4::rc(r, 0)] = row.x; elem_rc[mat4::rc(r, 1)] = row.y;
+        elem_rc[mat4::rc(r, 2)] = row.z; elem_rc[mat4::rc(r, 3)] = row.w;
     }
 
     void row0(const vec_t<T, 4>& row_) { row(0, row_); }
@@ -37,10 +42,10 @@ struct mat_t<T, 4>
     void row2(const vec_t<T, 4>& row_) { row(2, row_); }
     void row3(const vec_t<T, 4>& row_) { row(3, row_); }
 
-    vec_t<T, 4> col(size_t i) const {
+    vec_t<T, 4> col(size_t c) const {
         return vec_t<T, 4>{
-            elem_rc[0 * 4 + i], elem_rc[1 * 4 +i],
-            elem_rc[2 * 4 + i], elem_rc[3 * 4 +i]
+            elem_rc[mat4::rc(0, c)], elem_rc[mat4::rc(1, c)],
+            elem_rc[mat4::rc(2, c)], elem_rc[mat4::rc(3, c)]
         };
     }
 
@@ -49,9 +54,9 @@ struct mat_t<T, 4>
     const vec_t<T, 4> col2() const { return col(2); }
     const vec_t<T, 4> col3() const { return col(3); }
 
-    void col(size_t i, const vec_t<T, 4>& col) {
-        elem_rc[0 * 4 + i] = col.x; elem_rc[1 * 4 + i] = col.y;
-        elem_rc[2 * 4 + i] = col.z; elem_rc[3 * 4 + i] = col.w;
+    void col(size_t c, const vec_t<T, 4>& col) {
+        elem_rc[mat4::rc(0, c)] = col.x; elem_rc[mat4::rc(1, c)] = col.y;
+        elem_rc[mat4::rc(2, c)] = col.z; elem_rc[mat4::rc(3, c)] = col.w;
     }
 
     void col0(const vec_t<T, 4>& col_) { col(0, col_); }
@@ -59,10 +64,10 @@ struct mat_t<T, 4>
     void col2(const vec_t<T, 4>& col_) { col(2, col_); }
     void col3(const vec_t<T, 4>& col_) { col(3, col_); }
 #elif defined AS_COL_MAJOR
-    vec_t<T, 4> col(size_t i) const {
+    vec_t<T, 4> col(size_t c) const {
         return vec_t<T, 4>{
-            elem_rc[i * 4 + 0], elem_rc[i * 4 + 1],
-            elem_rc[i * 4 + 2], elem_rc[i * 4 + 3]
+            elem_rc[mat4::rc(0, c)], elem_rc[mat4::rc(1, c)],
+            elem_rc[mat4::rc(2, c)], elem_rc[mat4::rc(3, c)]
         };
     }
 
@@ -71,9 +76,9 @@ struct mat_t<T, 4>
     const vec_t<T, 4> col2() const { return col(2); }
     const vec_t<T, 4> col3() const { return col(3); }
 
-    void col(size_t i, const vec_t<T, 4>& col) {
-        elem_rc[i * 4 + 0] = col.x; elem_rc[i * 4 + 1] = col.y;
-        elem_rc[i * 4 + 2] = col.z; elem_rc[i * 4 + 3] = col.w;
+    void col(size_t c, const vec_t<T, 4>& col) {
+        elem_rc[mat4::rc(0, c)] = col.x; elem_rc[mat4::rc(1, c)] = col.y;
+        elem_rc[mat4::rc(2, c)] = col.z; elem_rc[mat4::rc(3, c)] = col.w;
     }
 
     void col0(const vec_t<T, 4>& col_) { col(0, col_); }
@@ -81,10 +86,10 @@ struct mat_t<T, 4>
     void col2(const vec_t<T, 4>& col_) { col(2, col_); }
     void col3(const vec_t<T, 4>& col_) { col(3, col_); }
 
-    vec_t<T, 4> row(size_t i) const {
+    vec_t<T, 4> row(size_t r) const {
         return vec_t<T, 4>{
-            elem_rc[0 * 4 + i], elem_rc[1 * 4 + i],
-            elem_rc[2 * 4 + i], elem_rc[3 * 4 + i]
+            elem_rc[mat4::rc(r, 0)], elem_rc[mat4::rc(r, 1)],
+            elem_rc[mat4::rc(r, 2)], elem_rc[mat4::rc(r, 3)]
         };
     }
 
@@ -93,9 +98,9 @@ struct mat_t<T, 4>
     const vec_t<T, 4> row2() const { return row(2); }
     const vec_t<T, 4> row3() const { return row(3); }
 
-    void row(size_t i, const vec_t<T, 4>& row) {
-        elem_rc[0 * 4 + i] = row.x; elem_rc[1 * 4 + i] = row.y;
-        elem_rc[2 * 4 + i] = row.z; elem_rc[3 * 4 + i] = row.w;
+    void row(size_t r, const vec_t<T, 4>& row) {
+        elem_rc[mat4::rc(r, 0)] = row.x; elem_rc[mat4::rc(r, 1)] = row.y;
+        elem_rc[mat4::rc(r, 2)] = row.z; elem_rc[mat4::rc(r, 3)] = row.w;
     }
 
     void row0(const vec_t<T, 4>& row_) { row(0, row_); }
@@ -163,5 +168,13 @@ using mat4f_t = mat_t<float, 4>;
 using mat4d_t = mat_t<double, 4>;
 using mat4i_t = mat_t<int32_t, 4>;
 using mat4l_t = mat_t<int64_t, 4>;
+
+namespace mat4
+{
+    inline size_t rc(const size_t r, const size_t c)
+    {
+        return mat::rc(r, c, 4);
+    }
+}
 
 } // namespace as

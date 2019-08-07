@@ -15,11 +15,16 @@ namespace as
     static_assert(false, "Must define only AS_COL_MAJOR or AS_ROW_MAJOR");
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
+namespace mat
+{
+    size_t rc(size_t r, size_t c, size_t d);
+}
+
 template<typename T, size_t d>
 struct mat_t
 {
     static constexpr size_t size = d * d;
-    using type = T;
+    using value_type = T;
 
     T elem_rc[size];
 

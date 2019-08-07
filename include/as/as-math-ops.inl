@@ -289,8 +289,7 @@ template<typename T, size_t d>
 constexpr mat_t<T, d> identity()
 {
     mat_t<T, d> identity{};
-    const size_t size = d * d;
-    for (size_t i = 0; i < size; i += d + 1) {
+    for (size_t i = 0; i < mat_t<T, d>::size; i += d + 1) {
         identity[i] = 1.0f;
     }
     return identity;

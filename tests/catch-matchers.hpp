@@ -34,7 +34,7 @@ public:
 
 template<typename Sub>
 class ElementsAreSubscript
-    : public Catch::MatcherBase<gsl::span<const typename Sub::type>>
+    : public Catch::MatcherBase<gsl::span<const typename Sub::value_type>>
 {
     Sub m_subscriptable;
     gsl::index m_len;
@@ -42,7 +42,7 @@ public:
     ElementsAreSubscript(const Sub& subscriptable, const gsl::index len)
         : m_subscriptable(subscriptable), m_len(len) {}
 
-    bool match(const gsl::span<const typename Sub::type>& span) const override {
+    bool match(const gsl::span<const typename Sub::value_type>& span) const override {
         for (gsl::index i = 0; i < span.size(); ++i) {
             if (m_subscriptable[i] != span[i]) {
                 return false;

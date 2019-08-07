@@ -66,4 +66,16 @@ mat_t<T, d>& operator*=(mat_t<T, d>& mat, T scalar)
     return mat;
 }
 
+namespace mat
+{
+    inline size_t rc(const size_t r, const size_t c, const size_t d)
+    {
+#if defined AS_COL_MAJOR
+        return c * d + r;
+#elif defined AS_ROW_MAJOR
+        return r * d + c;
+#endif // AS_COL_MAJOR ? AS_ROW_MAJOR
+    }
+}
+
 } // namespace as

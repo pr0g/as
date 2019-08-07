@@ -14,7 +14,7 @@ struct vec_t
     T elem[n];
 
     static constexpr size_t size = n;
-    using type = T;
+    using value_type = T;
 
     constexpr T& operator[](size_t i) & { return elem[i]; }
     constexpr const T& operator[](size_t i) const& { return elem[i]; }
@@ -48,7 +48,7 @@ struct vec2_base_t
     T x, y;
 
     static constexpr size_t size = 2;
-    using type = T;
+    using value_type = T;
 
     AS_API T& operator[](size_t i) & { return this->*elem[i]; }
     AS_API const T& operator[](size_t i) const& { return this->*elem[i]; }
@@ -110,7 +110,7 @@ struct vec3_base_t
     T x, y, z;
 
     static constexpr size_t size = 3;
-    using type = T;
+    using value_type = T;
 
     AS_API T& operator[](size_t i) & { return this->*elem[i]; }
     AS_API const T& operator[](size_t i) const& { return this->*elem[i]; }
@@ -179,7 +179,7 @@ struct vec4_base_t
     T x, y, z, w;
 
     static constexpr size_t size = 4;
-    using type = T;
+    using value_type = T;
 
     AS_API T& operator[](size_t i) & { return this->*elem[i]; }
     AS_API const T& operator[](size_t i) const& { return this->*elem[i]; }
