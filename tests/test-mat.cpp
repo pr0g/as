@@ -538,6 +538,18 @@ TEST_CASE("rvalue_elem_access_mat2_3_4", "[as_mat]")
     CHECK(make_mat4()[15] == Approx(16.0f).epsilon(g_epsilon));
 }
 
+TEST_CASE("mat_dimensions_are_valid", "[as_mat]")
+{
+    CHECK(mat3::rows() == 3);
+    CHECK(mat3::cols() == 3);
+    CHECK(mat4::rows() == 4);
+    CHECK(mat4::cols() == 4);
+
+    mat_t<real_t, 5> mat5;
+    CHECK(mat5.dim == 5);
+    CHECK(mat_t<real_t, 5>::dim == 5);
+}
+
 TEST_CASE("multiply_same_size", "[as_mat]")
 {
     using namespace gsl;

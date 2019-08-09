@@ -23,6 +23,7 @@ namespace mat
 template<typename T, size_t d>
 struct mat_t
 {
+    static constexpr size_t dim = d;
     static constexpr size_t size = d * d;
     using value_type = T;
 

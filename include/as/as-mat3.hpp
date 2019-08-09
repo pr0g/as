@@ -13,7 +13,8 @@ namespace mat3
 template<typename T>
 struct mat_t<T, 3>
 {
-    static constexpr size_t size = 3 * 3;
+    static constexpr size_t dim = 3;
+    static constexpr size_t size = dim * dim;
     using value_type = T;
 
     T elem_rc[size];

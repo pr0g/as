@@ -14,6 +14,7 @@ namespace mat4
 template<typename T>
 struct mat_t<T, 4>
 {
+    static constexpr size_t dim = 4;
     static constexpr size_t size = 4 * 4;
     using value_type = T;
 

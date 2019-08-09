@@ -167,8 +167,8 @@ AS_API mat_t<T, d> gj_inverse(const mat_t<T, d>& mat);
 namespace mat3
 {
 
-AS_API constexpr size_t rows() { return 3; }
-AS_API constexpr size_t cols() { return 3; }
+AS_API constexpr size_t rows() { return mat3_t::dim; }
+AS_API constexpr size_t cols() { return mat3_t::dim; }
 
 AS_API constexpr mat3_t identity();
 
@@ -190,8 +190,8 @@ AS_API mat3_t scale(const vec3_t& scale);
 namespace mat4
 {
 
-AS_API constexpr size_t rows() { return 4; }
-AS_API constexpr size_t cols() { return 4; }
+AS_API constexpr size_t rows() { return mat4_t::dim; }
+AS_API constexpr size_t cols() { return mat4_t::dim; }
 
 AS_API constexpr mat4_t identity();
 
