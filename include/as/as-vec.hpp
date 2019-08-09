@@ -55,8 +55,8 @@ struct vec2_base_t
     AS_API const T operator[](size_t i) && { return this->*elem[i]; }
 
     vec2_base_t() noexcept = default;
-    vec2_base_t(const vec2_base_t&) = default;
-    vec2_base_t& operator=(const vec2_base_t&) = default;
+    vec2_base_t(const vec2_base_t&) noexcept  = default;
+    vec2_base_t& operator=(const vec2_base_t&) noexcept  = default;
     vec2_base_t(vec2_base_t&&) noexcept = default;
     vec2_base_t& operator=(vec2_base_t&&) noexcept = default;
     ~vec2_base_t() = default;
@@ -117,8 +117,8 @@ struct vec3_base_t
     AS_API const T operator[](size_t i) && { return this->*elem[i]; }
 
     vec3_base_t() noexcept = default;
-    vec3_base_t(const vec3_base_t&) = default;
-    vec3_base_t& operator=(const vec3_base_t&) = default;
+    vec3_base_t(const vec3_base_t&) noexcept = default;
+    vec3_base_t& operator=(const vec3_base_t&) noexcept = default;
     vec3_base_t(vec3_base_t&&) noexcept = default;
     vec3_base_t& operator=(vec3_base_t&&) noexcept = default;
     ~vec3_base_t() = default;
@@ -186,8 +186,8 @@ struct vec4_base_t
     AS_API const T operator[](size_t i) && { return this->*elem[i]; }
 
     vec4_base_t() noexcept = default;
-    vec4_base_t(const vec4_base_t&) = default;
-    vec4_base_t& operator=(const vec4_base_t&) = default;
+    vec4_base_t(const vec4_base_t&) noexcept  = default;
+    vec4_base_t& operator=(const vec4_base_t&) noexcept  = default;
     vec4_base_t(vec4_base_t&&) noexcept = default;
     vec4_base_t& operator=(vec4_base_t&&) noexcept = default;
     ~vec4_base_t() = default;

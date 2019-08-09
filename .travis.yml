@@ -6,7 +6,10 @@ notifications:
 
 matrix:
   include:
-    - env: C_COMPILER=clang-5.0 CXX_COMPILER=clang++-5.0 BUILD_TYPE=Debug
+    - env: >
+        C_COMPILER=clang-5.0 CXX_COMPILER=clang++-5.0 BUILD_TYPE=Debug
+        PRECISION="-DAS_PRECISION_FLOAT=ON"
+        ORDER="-DAS_COL_MAJOR=ON"
       addons: &clang50
         apt:
           packages:
@@ -18,10 +21,29 @@ matrix:
             - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main'
               key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
 
-    - env: C_COMPILER=clang-5.0 CXX_COMPILER=clang++-5.0 BUILD_TYPE=Release
+    - env: >
+        C_COMPILER=clang-5.0 CXX_COMPILER=clang++-5.0 BUILD_TYPE=Release
+        PRECISION="-DAS_PRECISION_FLOAT=ON"
+        ORDER="-DAS_COL_MAJOR=ON"
       addons: *clang50
 
-    - env: C_COMPILER=gcc-7 CXX_COMPILER=g++-7 BUILD_TYPE=Debug
+    - env: >
+        C_COMPILER=clang-5.0 CXX_COMPILER=clang++-5.0 BUILD_TYPE=Debug
+        PRECISION="-DAS_PRECISION_FLOAT=ON"
+        ORDER="-DAS_ROW_MAJOR=ON"
+      addons: *clang50
+
+    - env: >
+        C_COMPILER=clang-5.0 CXX_COMPILER=clang++-5.0 BUILD_TYPE=Release
+        PRECISION=-DAS_PRECISION_DOUBLE=ON
+        ORDER="-DAS_ROW_MAJOR=ON"
+      addons: *clang50
+
+    - env: >
+        C_COMPILER=gcc-7 CXX_COMPILER=g++-7 BUILD_TYPE=Debug
+        PRECISION="-DAS_PRECISION_FLOAT=ON"
+        ORDER="-DAS_COL_MAJOR=ON"
+        COVERAGE="-DAS_COVERAGE=ON"
       addons: &gcc7
         apt:
           packages:
@@ -30,7 +52,25 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
 
-    - env: C_COMPILER=gcc-7 CXX_COMPILER=g++-7 BUILD_TYPE=Release
+    - env: >
+        C_COMPILER=gcc-7 CXX_COMPILER=g++-7 BUILD_TYPE=Release
+        PRECISION="-DAS_PRECISION_FLOAT=ON"
+        ORDER="-DAS_COL_MAJOR=ON"
+        COVERAGE="-DAS_COVERAGE=ON"
+      addons: *gcc7
+
+    - env: >
+        C_COMPILER=gcc-7 CXX_COMPILER=g++-7 BUILD_TYPE=Debug
+        PRECISION="-DAS_PRECISION_FLOAT=ON"
+        ORDER="-DAS_ROW_MAJOR=ON"
+        COVERAGE="-DAS_COVERAGE=ON"
+      addons: *gcc7
+
+    - env: >
+        C_COMPILER=gcc-7 CXX_COMPILER=g++-7 BUILD_TYPE=Release
+        PRECISION=-DAS_PRECISION_DOUBLE=ON
+        ORDER="-DAS_COL_MAJOR=ON"
+        COVERAGE="-DAS_COVERAGE=ON"
       addons: *gcc7
 
 install:
@@ -55,7 +95,10 @@ before_script:
   - tools/install-catch2.sh
   - tools/install-as.sh
   - cd tests/build/
-  - cmake -DDEV_LIB_DIR=../../ .. -DCATCH_CONFIG_DISABLE_EXCEPTIONS=1 -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_PREFIX_PATH=$(pwd)/as_install/\;$(pwd)/catch2_install/
+  - >
+    cmake -DDEV_LIB_DIR=../../ .. -DCATCH_CONFIG_DISABLE_EXCEPTIONS=1
+    -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_PREFIX_PATH=$(pwd)/as_install/\;$(pwd)/catch2_install/
+    ${PRECISION} ${ORDER} ${COVERAGE}
 
 script:
   - cmake --build . -j${JOBS} -- VERBOSE=1

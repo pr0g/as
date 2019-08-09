@@ -7,7 +7,8 @@
 
 using namespace as;
 
-const real_t g_epsilon = std::numeric_limits<real_t>::epsilon();
+// use float epsilon for comparisons
+const real_t g_epsilon = std::numeric_limits<float>::epsilon();
 
 TEST_CASE("vec2_initialization", "[as_vec]")
 {
@@ -634,6 +635,33 @@ TEST_CASE("const_elem_access_vec2_3_4", "[as_vec]")
     }
 }
 
+TEST_CASE("rvalue_elem_access_vec2_3_4_5", "[as_vec]")
+{
+    using namespace gsl;
+
+    auto make_vec2 = [](){ return as::vec2_t{ 5.0f, 10.0f }; };
+    CHECK(make_vec2()[0] == Approx(5.0f).epsilon(g_epsilon));
+    CHECK(make_vec2()[1] == Approx(10.0f).epsilon(g_epsilon));
+
+    auto make_vec3 = [](){ return as::vec3_t{ 5.0f, 10.0f, 15.0f }; };
+    CHECK(make_vec3()[0] == Approx(5.0f).epsilon(g_epsilon));
+    CHECK(make_vec3()[1] == Approx(10.0f).epsilon(g_epsilon));
+    CHECK(make_vec3()[2] == Approx(15.0f).epsilon(g_epsilon));
+
+    auto make_vec4 = [](){ return as::vec4_t{ 7.0f, 14.0f, 21.0f, 28.0f }; };
+    CHECK(make_vec4()[0] == Approx(7.0f).epsilon(g_epsilon));
+    CHECK(make_vec4()[1] == Approx(14.0f).epsilon(g_epsilon));
+    CHECK(make_vec4()[2] == Approx(21.0f).epsilon(g_epsilon));
+    CHECK(make_vec4()[3] == Approx(28.0f).epsilon(g_epsilon));
+
+    auto make_vec5 = [](){ return as::vec_t<real_t, 5>{ 1.0f, 2.0f, 3.0f, 4.0f, 5.0f }; };
+    CHECK(make_vec5()[0] == Approx(1.0f).epsilon(g_epsilon));
+    CHECK(make_vec5()[1] == Approx(2.0f).epsilon(g_epsilon));
+    CHECK(make_vec5()[2] == Approx(3.0f).epsilon(g_epsilon));
+    CHECK(make_vec5()[3] == Approx(4.0f).epsilon(g_epsilon));
+    CHECK(make_vec5()[4] == Approx(5.0f).epsilon(g_epsilon));
+}
+
 TEST_CASE("vec_size", "[as_vec]")
 {
     size_t vec2_size = vec2_t::size;
@@ -930,14 +958,14 @@ TEST_CASE("multiplication_scalar", "[as_vec]")
 
     // vec_t operator '*'
     {
-        vec5_t vec = 5.0f * vec5_t{50.0f, 40.0f, 25.0f, 20.0f, 10.0f};
+        vec5_t vec = real_t(5.0) * vec5_t{50.0f, 40.0f, 25.0f, 20.0f, 10.0f};
         CHECK(vec::equal(vec, vec5_t(250.0f, 200.0f, 125.0f, 100.0f, 50.0f)));
     }
 
     // vec_t operator '*='
     {
         vec5_t vec = vec5_t{50.0f, 40.0f, 25.0f, 20.0f, 10.0f};
-        vec *= 5.0f;
+        vec *= real_t(5.0);
         CHECK(vec::equal(vec, vec5_t(250.0f, 200.0f, 125.0f, 100.0f, 50.0f)));
     }
 }
@@ -946,14 +974,14 @@ TEST_CASE("multiplication_scalar_vec3", "[as_vec]")
 {
     // vec3_t operator '*'
     {
-        vec3_t vec = 5.0f * vec3_t{50.0f, 40.0f, 25.0f};
+        vec3_t vec = real_t(5.0) * vec3_t{50.0f, 40.0f, 25.0f};
         CHECK(vec::equal(vec, vec3_t(250.0f, 200.0f, 125.0)));
     }
 
     // vec3_t operator '*='
     {
         vec3_t vec = vec3_t{50.0f, 40.0f, 25.0f};
-        vec *= 5.0f;
+        vec *= real_t(5.0);
         CHECK(vec::equal(vec, vec3_t(250.0f, 200.0f, 125.0)));
     }
 }
@@ -1003,14 +1031,14 @@ TEST_CASE("divide_scalar", "[as_vec]")
 
     // vec_t operator '/'
     {
-        vec5_t vec = vec5_t{ 50.0f, 40.0f, 25.0f, 20.0f, 10.0f } / 5.0f;
+        vec5_t vec = vec5_t{ 50.0f, 40.0f, 25.0f, 20.0f, 10.0f } / real_t(5.0);
         CHECK(vec::equal(vec, vec5_t(10.0f, 8.0f, 5.0f, 4.0f, 2.0f)));
     }
 
     // vec_t operator '/='
     {
         vec5_t vec = vec5_t{50.0f, 40.0f, 25.0f, 20.0f, 10.0f};
-        vec /= 5.0f;
+        vec /= real_t(5.0f);
         CHECK(vec::equal(vec, vec5_t(10.0f, 8.0f, 5.0f, 4.0f, 2.0f)));
     }
 }
@@ -1019,14 +1047,14 @@ TEST_CASE("divide_scalar_vec3", "[as_vec]")
 {
     // vec_t operator '/'
     {
-        vec3_t vec = vec3_t{ 50.0f, 40.0f, 25.0f } / 5.0f;
+        vec3_t vec = vec3_t{ 50.0f, 40.0f, 25.0f } / real_t(5.0);
         CHECK(vec::equal(vec, vec3_t(10.0f, 8.0f, 5.0f)));
     }
 
     // vec_t operator '/='
     {
         vec3_t vec = vec3_t{50.0f, 40.0f, 25.0f};
-        vec /= 5.0f;
+        vec /= real_t(5.0);
         CHECK(vec::equal(vec, vec3_t(10.0f, 8.0f, 5.0f)));
     }
 }
@@ -1092,11 +1120,11 @@ TEST_CASE("dot", "[as_vec]")
     }
 
     {
-        const vec5_t vec1(-27.367f, 0.1165f, 0.921f, 0.123f, 0.543f);
-        const vec5_t vec2(-123.456f, -7.732f, 2.491f, -1.321f, -0.261f);
+        const vec5_t vec1(-2.3f, 0.1f, 0.92f, 0.123f, 0.543f);
+        const vec5_t vec2(-1.456f, -7.732f, 2.491f, -1.321f, -0.261f);
 
         const real_t dot_result = vec::dot(vec1, vec2);
-        CHECK(dot_result == Approx(3379.709579f).epsilon(g_epsilon));
+        CHECK(dot_result == Approx(4.563114f).epsilon(g_epsilon));
     }
 }
 
@@ -1120,11 +1148,11 @@ TEST_CASE("dot_vec3", "[as_vec]")
     }
 
     {
-        const vec3_t vec1(-27.367f, 0.1165f, 0.921f);
-        const vec3_t vec2(-123.456f, -7.732f, 2.491f);
+        const vec3_t vec1(-2.3f, 0.1f, 0.92f);
+        const vec3_t vec2(-1.456f, -7.732f, 2.491f);
 
         const real_t dot_result = vec::dot(vec1, vec2);
-        CHECK(dot_result == Approx(3380.013785f).epsilon(g_epsilon));
+        CHECK(dot_result == Approx(4.86732f).epsilon(g_epsilon));
     }
 }
 
@@ -1492,8 +1520,6 @@ TEST_CASE("saturate", "[as_vec]")
     }
 }
 
-// ---
-
 TEST_CASE("lerp", "[as_vec]")
 {
     {
@@ -1502,9 +1528,9 @@ TEST_CASE("lerp", "[as_vec]")
         vec3_t start(0.0f, 10.0f, 20.0f);
         vec3_t end(10.0f, 40.0f, 100.0f);
 
-        vec3_t result_begin = vec::lerp(0.0f, start, end);
-        vec3_t result_mid = vec::lerp(0.5f, start, end);
-        vec3_t result_end = vec::lerp(1.0f, start, end);
+        vec3_t result_begin = vec::lerp(real_t(0.0), start, end);
+        vec3_t result_mid = vec::lerp(real_t(0.5), start, end);
+        vec3_t result_end = vec::lerp(real_t(1.0), start, end);
 
         const real_t result_begin_arr[] = {0.0f, 10.0f, 20.0f};
         CHECK_THAT(span(result_begin_arr), ElementsAreSubscript(result_begin, 3));
@@ -1587,8 +1613,10 @@ template struct as::vec_t<real_t, 3>;
 template struct as::vec_t<real_t, 4>;
 template struct as::vec_t<real_t, 5>;
 
+#ifdef __GNUC__
 // constructor
 template as::vec_t<real_t, 5>::vec_t(real_t, real_t, real_t, real_t, real_t) noexcept;
+#endif // __GNUC__
 
 // operators
 template const vec_t<real_t, 5> as::operator+(const vec_t<real_t, 5>&, const vec_t<real_t, 5>&);

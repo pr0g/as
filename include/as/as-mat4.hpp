@@ -8,7 +8,7 @@ namespace as
 
 namespace mat4
 {
-    size_t rc(size_t r, size_t c);
+    AS_API size_t rc(size_t r, size_t c);
 }
 
 template<typename T>

@@ -3,9 +3,18 @@ version: '{build}'
 image: Visual Studio 2017
 
 environment:
+  GENERATOR: "Visual Studio 15 Win64"
+  CONFIG: Release
+
   matrix:
-    - GENERATOR: "Visual Studio 15 Win64"
-      CONFIG: Release
+    - PRECISION: -DAS_PRECISION_FLOAT=ON
+      ORDER: -DAS_COL_MAJOR=ON
+    - PRECISION: -DAS_PRECISION_FLOAT=ON
+      ORDER: -DAS_ROW_MAJOR=ON
+    - PRECISION: -DAS_PRECISION_DOUBLE=ON
+      ORDER: -DAS_COL_MAJOR=ON
+    - PRECISION: -DAS_PRECISION_DOUBLE=ON
+      ORDER: -DAS_ROW_MAJOR=ON
 
 build_script:
 - mkdir catch2 && cd catch2
@@ -18,6 +27,6 @@ build_script:
 - cmake -G "%GENERATOR%" -DCMAKE_INSTALL_PREFIX=../tests/build/as_install/ ..
 - cmake --build . --target install --config "%CONFIG%"
 - cd ../tests/build
-- cmake -G "%GENERATOR%" -DDEV_LIB_DIR=../../ .. -DCMAKE_PREFIX_PATH=%cd%\catch2_install;%cd%\as_install
+- cmake -G "%GENERATOR%" "%PRECISION%" "%ORDER%" -DDEV_LIB_DIR=../../ .. -DCMAKE_PREFIX_PATH=%cd%\catch2_install;%cd%\as_install
 - cmake --build . --config "%CONFIG%"
 - "\"%CONFIG%\"\\as-test.exe"

@@ -75,6 +75,8 @@ using real_t = double;
 #define AS_API
 #elif defined __GNUC__ && defined AS_COVERAGE
 #define AS_API __attribute__((__used__))
+#elif defined __GNUC__
+#define AS_API
 #endif // _MSC_VER ? __GNUC__ && AS_COVERAGE
 
 } // namespace as

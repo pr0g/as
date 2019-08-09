@@ -17,7 +17,7 @@ namespace as
 
 namespace mat
 {
-    size_t rc(size_t r, size_t c, size_t d);
+    AS_API size_t rc(size_t r, size_t c, size_t d);
 }
 
 template<typename T, size_t d>

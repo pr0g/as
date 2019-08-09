@@ -154,7 +154,7 @@ vec_t<T, n> saturate(const vec_t<T, n>& vec)
 {
     vec_t<T, n> result;
     for (size_t i = 0; i < n; ++i) {
-        result[i] = as::clamp(vec[i], 0.0f, 1.0f);
+        result[i] = as::clamp(vec[i], real_t(0.0), real_t(1.0));
     }
     return result;
 }

@@ -562,7 +562,7 @@ TEST_CASE("multiply_scalar", "[as_mat]")
         7.0f, 8.0f, 9.0f  //
     };
 
-    mat3_t result33 = mat3 * 2.0f;
+    mat3_t result33 = mat3 * real_t(2.0);
 
     const real_t mat3_arr[] = {
         2.0f, 4.0f, 6.0f,   //
@@ -579,7 +579,7 @@ TEST_CASE("multiply_scalar", "[as_mat]")
         26.0f, 28.0f, 30.0f, 32.0f  //
     };
 
-    const mat4_t result4 = mat4 * 2.0f;
+    const mat4_t result4 = mat4 * real_t(2.0);
 
     const real_t mat4_arr[] = {
         4.0f, 8.0f, 12.0f, 16.0f,   //
@@ -599,6 +599,7 @@ template struct as::mat_t<real_t, 3>;
 template struct as::mat_t<real_t, 4>;
 template struct as::mat_t<real_t, 5>;
 
+#ifdef __GNUC__
 // constructor
 template as::mat_t<real_t, 5>::mat_t(
     real_t, real_t, real_t, real_t, real_t,             //
@@ -606,6 +607,7 @@ template as::mat_t<real_t, 5>::mat_t(
     real_t, real_t, real_t, real_t, real_t,             //
     real_t, real_t, real_t, real_t, real_t,             //
     real_t, real_t, real_t, real_t, real_t) noexcept;   //
+#endif // __GNUC__
 
 // matrix multiply
 template const mat_t<real_t, 3> as::operator*(const mat_t<real_t, 3>&, const mat_t<real_t, 3>&);

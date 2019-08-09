@@ -26,7 +26,8 @@ string(
     "$<"
         "$<AND:"
             "$<COMPILE_LANGUAGE:CXX>,"
-            "$<CXX_COMPILER_ID:GNU>"
+            "$<CXX_COMPILER_ID:GNU>,"
+            "$<BOOL:${AS_COVERAGE}>"
         ">:"
         "{options}"
     ">"
@@ -34,14 +35,11 @@ string(
 
 string(
     REPLACE "{options}" "-coverage;-g;-O0;-fno-inline;" # gcov
-    # REPLACE "{options}" "-fprofile-instr-generate;-fcoverage-mapping;-g;-O0;-fno-inline;" # llmv-cov
-    # REPLACE "{options}" "-fprofile-instr-use;-g;-O0;-fno-inline;" # llmv-cov
     compile_options "${coverage_options}"
 )
 
 string(
     REPLACE "{options}" "-coverage;" # gcc
-    # REPLACE "{options}" "-fprofile-instr-generate" # llvm-cov
     link_options "${coverage_options}"
 )
 
@@ -86,7 +84,12 @@ set_target_properties(
 target_compile_features(
     ${PROJECT_NAME} PRIVATE cxx_std_17)
 target_compile_definitions(
-    ${PROJECT_NAME} PRIVATE AS_PRECISION_FLOAT AS_COL_MAJOR AS_COVERAGE)
+    ${PROJECT_NAME} PRIVATE
+    $<$<BOOL:${AS_PRECISION_FLOAT}>:AS_PRECISION_FLOAT>
+    $<$<BOOL:${AS_PRECISION_DOUBLE}>:AS_PRECISION_DOUBLE>
+    $<$<BOOL:${AS_COL_MAJOR}>:AS_COL_MAJOR>
+    $<$<BOOL:${AS_ROW_MAJOR}>:AS_ROW_MAJOR>
+    $<$<BOOL:${AS_COVERAGE}>:AS_COVERAGE>)
 target_link_libraries(
     ${PROJECT_NAME} as::as Catch2::Catch2)
 target_include_directories(
