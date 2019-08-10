@@ -352,7 +352,7 @@ template<typename T>
 T determinant_impl(const mat_t<T, 2>& mat, int2type<2>)
 {
     return minor(mat);
-};
+}
 
 #pragma pop_macro("minor")
 

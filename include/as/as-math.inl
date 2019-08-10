@@ -4,13 +4,13 @@ namespace as
 template<typename T>
 T lerp(T t, T v0, T v1)
 {
-    return ((T)1 - t) * v0 + t * v1;
+    return (T{1} - t) * v0 + t * v1;
 }
 
 template<typename T>
 T smooth_step(T t, T v0, T v1)
 {
-    T val = (t * t) * ((T)3 - (T)2 * t);
+    T val = (t * t) * (T{3} - T{2} * t);
     return lerp(val, v0, v1);
 }
 

@@ -19,6 +19,7 @@ using u32 = uint32_t;
 using u64 = uint64_t;
 using f32 = float;
 using f64 = double;
+using index = ptrdiff_t;
 
 // static assert to check library floating point precision has been set correctly
 #if (!defined(AS_PRECISION_FLOAT) && !defined(AS_PRECISION_DOUBLE))

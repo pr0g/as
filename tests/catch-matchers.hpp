@@ -37,13 +37,13 @@ class ElementsAreSubscript
     : public Catch::MatcherBase<gsl::span<const typename Sub::value_type>>
 {
     Sub m_subscriptable;
-    gsl::index m_len;
     float m_epsilon = std::numeric_limits<float>::epsilon();
+    gsl::index m_len;
 public:
     ElementsAreSubscript(
         const Sub& subscriptable, const gsl::index len,
         const float epsilon = std::numeric_limits<float>::epsilon())
-            : m_subscriptable(subscriptable), m_len(len), m_epsilon(epsilon) {}
+            : m_subscriptable(subscriptable), m_epsilon(epsilon), m_len(len) {}
 
     bool match(const gsl::span<const typename Sub::value_type>& span) const override {
         for (gsl::index i = 0; i < span.size(); ++i) {
