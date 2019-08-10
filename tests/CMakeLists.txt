@@ -13,6 +13,7 @@ install_it(${DEV_LIB_DIR})
 
 find_package(as REQUIRED)
 find_package(Catch2 REQUIRED)
+find_package(MicrosoftGSL REQUIRED)
 
 add_executable(
     ${PROJECT_NAME}
@@ -91,9 +92,8 @@ target_compile_definitions(
     $<$<BOOL:${AS_ROW_MAJOR}>:AS_ROW_MAJOR>
     $<$<BOOL:${AS_COVERAGE}>:AS_COVERAGE>)
 target_link_libraries(
-    ${PROJECT_NAME} as::as Catch2::Catch2)
-target_include_directories(
-    ${PROJECT_NAME} PRIVATE external/include/)
+    ${PROJECT_NAME}
+    as::as Catch2::Catch2 MicrosoftGSL::GSL)
 
 add_custom_target(scrub
     COMMAND ${CMAKE_MAKE_PROGRAM} clean
