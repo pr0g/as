@@ -323,7 +323,7 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
     CHECK_THAT(span(row0), ElementsAreSubscript(mat4.row0(), 4));
     mat4.row(0, r0);
     CHECK_THAT(span(row0), ElementsAreSubscript(mat4.row(0), 4));
-    CHECK(row0[0] == Approx(mat4.row0(0)[0]).epsilon(g_epsilon));
+    CHECK(row0[0] == Approx(mat4.row(0)[0]).epsilon(g_epsilon));
 
     const real_t row1[] = { 2.0f, 6.0f, 10.0f, 14.0f };
     const vec4_t r1 = vec4::from_arr(row1);
@@ -331,7 +331,7 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
     CHECK_THAT(span(row1), ElementsAreSubscript(mat4.row1(), 4));
     mat4.row(1, r1);
     CHECK_THAT(span(row1), ElementsAreSubscript(mat4.row(1), 4));
-    CHECK(row1[1] == Approx(mat4.row1(1)[1]).epsilon(g_epsilon));
+    CHECK(row1[1] == Approx(mat4.row(1)[1]).epsilon(g_epsilon));
 
     const real_t row2[] = { 3.0f, 7.0f, 11.0f, 15.0f };
     const vec4_t r2 = vec4::from_arr(row2);
@@ -339,7 +339,7 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
     CHECK_THAT(span(row2), ElementsAreSubscript(mat4.row2(), 4));
     mat4.row(2, r2);
     CHECK_THAT(span(row2), ElementsAreSubscript(mat4.row(2), 4));
-    CHECK(row2[2] == Approx(mat4.row2(2)[2]).epsilon(g_epsilon));
+    CHECK(row2[2] == Approx(mat4.row(2)[2]).epsilon(g_epsilon));
 
     const real_t row3[] = { 4.0f, 8.0f, 12.0f, 16.0f };
     const vec4_t r3 = vec4::from_arr(row3);
@@ -347,7 +347,7 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
     CHECK_THAT(span(row3), ElementsAreSubscript(mat4.row3(), 4));
     mat4.row(3, r3);
     CHECK_THAT(span(row3), ElementsAreSubscript(mat4.row(3), 4));
-    CHECK(row3[3] == Approx(mat4.row3(3)[3]).epsilon(g_epsilon));
+    CHECK(row3[3] == Approx(mat4.row(3)[3]).epsilon(g_epsilon));
 #elif defined AS_ROW_MAJOR
     const real_t row0[] = { 1.0f, 2.0f, 3.0f, 4.0f };
     const vec4_t c0 = vec4::from_arr(row0);
