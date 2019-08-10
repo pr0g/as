@@ -177,7 +177,7 @@ AS_API constexpr mat3_t identity();
 
 AS_API mat3_t from_ptr(const real_t* data);
 AS_API mat3_t from_arr(const real_t(&data)[9]);
-AS_API constexpr mat3_t from_mat44(const mat4_t& transform);
+AS_API constexpr mat3_t from_mat4(const mat4_t& transform);
 
 AS_API mat3_t axis_angle(const vec3_t& axis, real_t radians);
 AS_API mat3_t rotation_xyz(real_t x, real_t y, real_t z);
@@ -202,8 +202,8 @@ AS_API mat4_t from_ptr(const real_t* data);
 AS_API mat4_t from_arr(const real_t(&data)[16]);
 
 AS_API constexpr mat4_t from_vec3(const vec3_t& translation);
-AS_API constexpr mat4_t from_mat33(const mat3_t& rotation);
-AS_API constexpr mat4_t from_mat33_vec3(const mat3_t& rotation, const vec3_t& translation);
+AS_API constexpr mat4_t from_mat3(const mat3_t& rotation);
+AS_API constexpr mat4_t from_mat3_vec3(const mat3_t& rotation, const vec3_t& translation);
 
 } // namespace mat4
 

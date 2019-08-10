@@ -38,13 +38,16 @@ class ElementsAreSubscript
 {
     Sub m_subscriptable;
     gsl::index m_len;
+    float m_epsilon = std::numeric_limits<float>::epsilon();
 public:
-    ElementsAreSubscript(const Sub& subscriptable, const gsl::index len)
-        : m_subscriptable(subscriptable), m_len(len) {}
+    ElementsAreSubscript(
+        const Sub& subscriptable, const gsl::index len,
+        const float epsilon = std::numeric_limits<float>::epsilon())
+            : m_subscriptable(subscriptable), m_len(len), m_epsilon(epsilon) {}
 
     bool match(const gsl::span<const typename Sub::value_type>& span) const override {
         for (gsl::index i = 0; i < span.size(); ++i) {
-            if (m_subscriptable[i] != span[i]) {
+            if (m_subscriptable[i] != Approx(span[i]).epsilon(m_epsilon)) {
                 return false;
             }
         }

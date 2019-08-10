@@ -426,9 +426,6 @@ TEST_CASE("mat_mat4_from_mat3_and_vec3", "[as_mat]")
 
     vec3_t vec3 { 10.0f, 11.0f, 12.0f };
 
-    mat4_t mat4;
-    mat4 = mat4_t{ mat3, vec3 };
-
     const real_t mat3_and_vec3[] = {
         1.0f, 2.0f, 3.0f, 0.0f,   //
         4.0f, 5.0f, 6.0f, 0.0f,   //
@@ -436,7 +433,47 @@ TEST_CASE("mat_mat4_from_mat3_and_vec3", "[as_mat]")
         10.0f, 11.0f, 12.0f, 1.0f //
     };
 
-    CHECK_THAT(span(mat3_and_vec3), ElementsAreSubscript(mat4, 16));
+    {
+        mat4_t mat4;
+        mat4 = mat4_t{ mat3, vec3 };
+
+        CHECK_THAT(span(mat3_and_vec3), ElementsAreSubscript(mat4, 16));
+    }
+
+    {
+        mat4_t mat4;
+        mat4 = as::mat4::from_mat3_vec3(mat3, vec3);
+
+        CHECK_THAT(span(mat3_and_vec3), ElementsAreSubscript(mat4, 16));
+    }
+
+    {
+        mat4_t mat4;
+        mat4 = as::mat4::from_mat3(mat3);
+
+        const real_t mat3_and_zero[] = {
+            1.0f, 2.0f, 3.0f, 0.0f, //
+            4.0f, 5.0f, 6.0f, 0.0f, //
+            7.0f, 8.0f, 9.0f, 0.0f, //
+            0.0f, 0.0f, 0.0f, 1.0f  //
+        };
+
+        CHECK_THAT(span(mat3_and_zero), ElementsAreSubscript(mat4, 16));
+    }
+
+    {
+        mat4_t mat4;
+        mat4 = as::mat4::from_vec3(vec3_t{ 10.f, 20.0f, 30.0f});
+
+        const real_t zero_and_vec3[] = {
+            1.0f, 0.0f, 0.0f, 0.0f, //
+            0.0f, 1.0f, 0.0f, 0.0f, //
+            0.0f, 0.0f, 1.0f, 0.0f, //
+            10.0f, 20.0f, 30.0f, 1.0f  //
+        };
+
+        CHECK_THAT(span(zero_and_vec3), ElementsAreSubscript(mat4, 16));
+    }
 }
 
 TEST_CASE("const_elem_access_mat_const", "[as_mat]")
@@ -801,6 +838,113 @@ TEST_CASE("mat_identity", "[as_mat]")
 
         CHECK_THAT(span(mat4_identity_ref), ElementsAreSubscript(mat4_identity, 16));
     }
+}
+
+TEST_CASE("mat_inverse", "[as_mat]")
+{
+    using namespace gsl;
+
+    {
+        using mat2_t = mat_t<real_t, 2>;
+
+        const mat2_t mat2 {
+            1.0f, 2.0f,
+            3.0f, 4.0f
+        };
+
+        const mat2_t mat2_inverse = as::mat::inverse(mat2);
+
+        const real_t mat2_inverse_ref[] {
+            -2.0f, 1.0f,
+            3.0f/2.0f, -1.0f/2.0f
+        };
+
+        CHECK_THAT(span(mat2_inverse_ref), ElementsAreSubscript(mat2_inverse, 4));
+    }
+
+    {
+        const mat3_t mat3 {
+            1.0f, 2.0f, 3.0f, //
+            4.0f, 5.0f, 6.0f, //
+            7.0f, 2.0f, 9.0f  //
+        };
+
+        const mat3_t mat3_inverse = as::mat::inverse(mat3);
+
+        const real_t mat3_inverse_ref[] {
+            -11.0f/12.0f, 1.0f/3.0f, 1.0f/12.0f, //
+            -1.0f/6.0f, 1.0f/3.0f, -1.0f/6.0f, //
+            3.0f/4.0f, -1.0f/3.0f, 1.0f/12.0f  //
+        };
+
+        CHECK_THAT(span(mat3_inverse_ref), ElementsAreSubscript(mat3_inverse, 9));
+    }
+
+    {
+        const mat4_t mat4 = {
+            1.0f, 3.0f, 5.0f, 9.0f, //
+            1.0f, 3.0f, 1.0f, 7.0f, //
+            4.0f, 3.0f, 9.0f, 7.0f, //
+            5.0f, 2.0f, 0.0f, 9.0f  //
+        };
+
+        const mat4_t mat4_inverse = as::mat::inverse(mat4);
+
+        const real_t mat4_inverse_reference[] {
+            -13.0f/47.0f, 2.0f/47.0f, 7.0f/47.0f, 6.0f/47.0f,           //
+            -5.0f/8.0f, 7.0f/8.0f, 1.0f/4.0f, -1.0f/4.0f,               //
+            39.0f/376.0f, -53.0f/376.0f, 13.0f/188.0f, -9.0f/188.0f,    //
+            55.0f/188.0f, -41.0f/188.0f, -13.0f/94.0f, 9.0f/94.0f       //
+        };
+
+        CHECK_THAT(span(mat4_inverse_reference), ElementsAreSubscript(mat4_inverse, 16));
+    }
+}
+
+TEST_CASE("mat_scale", "[as_mat]")
+{
+    using namespace gsl;
+
+    as::mat3_t scale;
+    scale = as::mat3::scale(as::vec3_t{ 1.0f, 2.0f, 3.0f});
+
+    const real_t mat3_scale_reference[] {
+        1.0f, 0.0f, 0.0f, //
+        0.0f, 2.0f, 0.0f, //
+        0.0f, 0.0f, 3.0f  //
+    };
+
+    CHECK_THAT(span(mat3_scale_reference), ElementsAreSubscript(scale, 9));
+
+    as::mat3_t uniform_scale;
+    uniform_scale = as::mat3::scale(5.0f);
+
+    const real_t mat3_uniform_scale_reference[] {
+        5.0f, 0.0f, 0.0f, //
+        0.0f, 5.0f, 0.0f, //
+        0.0f, 0.0f, 5.0f  //
+    };
+
+    CHECK_THAT(span(mat3_uniform_scale_reference), ElementsAreSubscript(uniform_scale, 9));
+}
+
+TEST_CASE("mat3_from_mat4", "[as_mat]")
+{
+    using namespace gsl;
+
+    as::mat4_t mat4;
+    mat4 = as::mat4::identity();
+
+    as::mat3_t mat3;
+    mat3 = as::mat3::from_mat4(mat4);
+
+    const real_t mat3_identity_ref[] {
+        1.0f, 0.0f, 0.0f, //
+        0.0f, 1.0f, 0.0f, //
+        0.0f, 0.0f, 1.0f  //
+    };
+
+    CHECK_THAT(span(mat3_identity_ref), ElementsAreSubscript(mat3, 9));
 }
 
 // explicit instantiations (for coverage)

@@ -338,12 +338,12 @@ T minor(const mat_t<T, 2>& mat)
 template<typename T, size_t d, size_t I>
 T determinant_impl(const mat_t<T, d>& mat, int2type<I>)
 {
-    T sign{ 1 };
-    T result{ 0 };
+    T sign { 1.0f };
+    T result{ 0.0f };
     for (size_t i = 0; i < d; ++i) {
         T minor = determinant_impl(sub_matrix(mat, i, 0), int2type<I - 1>{});
         result += (mat[i] * minor) * sign;
-        sign *= T{ -1 };
+        sign *= T { -1.0f };
     }
     return result;
 }
@@ -360,17 +360,17 @@ template<typename T, size_t d, size_t I>
 mat_t<T, d> minor_impl(const mat_t<T, d>& mat, int2type<I>)
 {
     mat_t<T, d> result;
-    T outerSign = T{ 1 };
+    T outerSign = T { 1.0f };
     for (size_t i = 0; i < d; ++i) {
-        T innerSign = outerSign;
+        T innerSign { outerSign };
         for (size_t j = 0; j < d; ++j) {
             T minor = determinant_impl<T>(
                 internal::sub_matrix(mat, j, i),
                 int2type<d - 1>{});
             result[j + i * d] = minor * innerSign;
-            innerSign *= T{ -1 };
+            innerSign *= T{ -1.0f };
         }
-        outerSign *= T{ -1 };
+        outerSign *= T { -1.0f };
     }
     return result;
 }
@@ -390,9 +390,18 @@ mat_t<T, d> inverse(const mat_t<T, d>& mat)
 
     result = internal::minor_impl(mat, internal::int2type<d>{});
     result = transpose(result);
-    result *= 1.0f / determinant(mat);
+    result *= real_t(1.0f) / determinant(mat);
 
     return result;
+}
+
+template<typename T>
+mat_t<T, 2> inverse(const mat_t<T, 2>& mat)
+{
+    return mat_t<T, 2> {
+        mat[3], -mat[1],
+        -mat[2], mat[0]
+    } * (real_t(1.0f) / determinant(mat));
 }
 
 template<typename T, size_t d>
@@ -522,11 +531,7 @@ inline mat3_t rotation_z(const real_t radians)
 
 inline mat3_t scale(const real_t scale)
 {
-    return {
-        scale, 0.0f, 0.0f,
-        0.0f, scale, 0.0f,
-        0.0f, 0.0f, scale
-    };
+    return mat3::scale(vec3_t{ scale });
 }
 
 inline mat3_t scale(const vec3_t& scale)
@@ -538,12 +543,12 @@ inline mat3_t scale(const vec3_t& scale)
     };
 }
 
-constexpr mat3_t from_mat44(const mat4_t& transform)
+constexpr mat3_t from_mat4(const mat4_t& transform)
 {
     return {
         transform[0], transform[1], transform[2],
-        transform[3], transform[4], transform[5],
-        transform[6], transform[7], transform[8],
+        transform[4], transform[5], transform[6],
+        transform[8], transform[9], transform[10],
     };
 }
 
@@ -569,20 +574,15 @@ inline mat4_t from_arr(const real_t(&data)[16])
 
 constexpr mat4_t from_vec3(const vec3_t& translation)
 {
-    return {
-        vec4::axis_x(),
-        vec4::axis_y(),
-        vec4::axis_z(),
-        { translation, 1.0f }
-    };
+    return { as::mat3::identity(), translation };
 }
 
-constexpr mat4_t from_mat33(const mat3_t& rotation)
+constexpr mat4_t from_mat3(const mat3_t& rotation)
 {
     return { rotation, vec3::zero() };
 }
 
-constexpr mat4_t from_mat33_vec3(
+constexpr mat4_t from_mat3_vec3(
     const mat3_t& rotation, const vec3_t& translation)
 {
     return { rotation, translation };
