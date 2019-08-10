@@ -644,6 +644,165 @@ TEST_CASE("multiply_scalar", "[as_mat]")
     CHECK_THAT(span(mat4_arr), ElementsAreSubscript(result4, 16));
 }
 
+TEST_CASE("mat_from_arr", "[as_mat]")
+{
+    using namespace gsl;
+
+    {
+        real_t elems[] = {
+            1.0f, 2.0f, 3.0f, 4.0f,    //
+            5.0f, 6.0f, 7.0f, 8.0f,    //
+            9.0f, 10.0f, 11.0f, 12.0f, //
+            13.0f, 14.0f, 15.0f, 16.0f //
+        };
+
+        const mat4_t mat4_a = as::mat::from_arr<real_t, 4>(elems);
+        CHECK_THAT(span(elems), ElementsAreSubscript(mat4_a, 16));
+
+        const mat4_t mat4_b = as::mat4::from_arr(elems);
+        CHECK_THAT(span(elems), ElementsAreSubscript(mat4_b, 16));
+    }
+
+    {
+        real_t elems[] = {
+            1.0f, 2.0f, 3.0f,   //
+            4.0f, 5.0f, 6.0f,   //
+            7.0f, 8.0f, 9.0f    //
+        };
+
+        const mat3_t mat3_a = as::mat::from_arr<real_t, 3>(elems);
+        CHECK_THAT(span(elems), ElementsAreSubscript(mat3_a, 9));
+
+        const mat3_t mat3_b = as::mat3::from_arr(elems);
+        CHECK_THAT(span(elems), ElementsAreSubscript(mat3_b, 9));
+    }
+}
+
+TEST_CASE("mat_from_ptr", "[as_mat]")
+{
+    using namespace gsl;
+
+    {
+        real_t elems[] = {
+            1.0f, 2.0f, 3.0f, 4.0f,    //
+            5.0f, 6.0f, 7.0f, 8.0f,    //
+            9.0f, 10.0f, 11.0f, 12.0f, //
+            13.0f, 14.0f, 15.0f, 16.0f //
+        };
+
+        const mat4_t mat4_a = as::mat::from_ptr<real_t, 4>(elems);
+        CHECK_THAT(span(elems), ElementsAreSubscript(mat4_a, 16));
+
+        const mat4_t mat4_b = as::mat4::from_ptr(elems);
+        CHECK_THAT(span(elems), ElementsAreSubscript(mat4_b, 16));
+    }
+
+    {
+        real_t elems[] = {
+            1.0f, 2.0f, 3.0f,   //
+            4.0f, 5.0f, 6.0f,   //
+            7.0f, 8.0f, 9.0f    //
+        };
+
+        const mat3_t mat3_a = as::mat::from_ptr<real_t, 3>(elems);
+        CHECK_THAT(span(elems), ElementsAreSubscript(mat3_a, 9));
+
+        const mat3_t mat3_b = as::mat3::from_ptr(elems);
+        CHECK_THAT(span(elems), ElementsAreSubscript(mat3_b, 9));
+    }
+}
+
+TEST_CASE("mat_to_arr", "[as_mat]")
+{
+    using namespace gsl;
+
+    const mat3_t mat3 {
+        1.0f, 2.0f, 3.0f, //
+        4.0f, 5.0f, 6.0f, //
+        7.0f, 8.0f, 9.0f  //
+    };
+
+    real_t mat3_arr[9];
+    as::mat::to_arr(mat3, mat3_arr);
+
+    CHECK_THAT(span(mat3_arr), ElementsAreSubscript(mat3, 9));
+}
+
+TEST_CASE("mat_transpose", "[as_mat]")
+{
+    using namespace gsl;
+
+    {
+        const mat3_t mat3 {
+            1.0f, 2.0f, 3.0f, //
+            4.0f, 5.0f, 6.0f, //
+            7.0f, 8.0f, 9.0f  //
+        };
+
+        const mat3_t mat3_transposed = as::mat::transpose(mat3);
+
+        const real_t mat3_transposed_ref[] {
+            1.0f, 4.0f, 7.0f, //
+            2.0f, 5.0f, 8.0f, //
+            3.0f, 6.0f, 9.0f  //
+        };
+
+        CHECK_THAT(span(mat3_transposed_ref), ElementsAreSubscript(mat3_transposed, 9));
+    }
+
+    {
+        const mat4_t mat4 = {
+            1.0f, 2.0f, 3.0f, 4.0f,    //
+            5.0f, 6.0f, 7.0f, 8.0f,    //
+            9.0f, 10.0f, 11.0f, 12.0f, //
+            13.0f, 14.0f, 15.0f, 16.0f //
+        };
+
+        const mat4_t mat4_transposed = as::mat::transpose(mat4);
+
+        const real_t mat4_transposed_reference[] {
+            1.0f, 5.0f, 9.0f, 13.0f,    //
+            2.0f, 6.0f, 10.0f, 14.0f,   //
+            3.0f, 7.0f, 11.0f, 15.0f,   //
+            4.0f, 8.0f, 12.0f, 16.0f    //
+        };
+
+        CHECK_THAT(span(mat4_transposed_reference), ElementsAreSubscript(mat4_transposed, 16));
+    }
+}
+
+TEST_CASE("mat_identity", "[as_mat]")
+{
+    using namespace gsl;
+
+    {
+        mat3_t mat3_identity;
+        mat3_identity = as::mat3::identity();
+
+        const real_t mat3_identity_ref[] {
+            1.0f, 0.0f, 0.0f, //
+            0.0f, 1.0f, 0.0f, //
+            0.0f, 0.0f, 1.0f  //
+        };
+
+        CHECK_THAT(span(mat3_identity_ref), ElementsAreSubscript(mat3_identity, 9));
+    }
+
+    {
+        mat4_t mat4_identity;
+        mat4_identity = as::mat4::identity();
+
+        const real_t mat4_identity_ref[] {
+            1.0f, 0.0f, 0.0f, 0.0f, //
+            0.0f, 1.0f, 0.0f, 0.0f, //
+            0.0f, 0.0f, 1.0f, 0.0f, //
+            0.0f, 0.0f, 0.0f, 1.0f  //
+        };
+
+        CHECK_THAT(span(mat4_identity_ref), ElementsAreSubscript(mat4_identity, 16));
+    }
+}
+
 // explicit instantiations (for coverage)
 
 // types

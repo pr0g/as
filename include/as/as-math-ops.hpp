@@ -148,6 +148,9 @@ template<typename T, size_t d>
 AS_API mat_t<T, d> from_ptr(const T* data);
 
 template<typename T, size_t d>
+AS_API void to_arr(const mat_t<T, d>& mat, T(&data)[d]);
+
+template<typename T, size_t d>
 AS_API mat_t<T, d> transpose(const mat_t<T, d>& mat);
 
 template<typename T, size_t d>

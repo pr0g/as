@@ -1605,6 +1605,18 @@ TEST_CASE("wedge_vec2", "[as_vec]")
     CHECK(result == Approx(4.0f).epsilon(g_epsilon));
 }
 
+TEST_CASE("vec_to_arr", "[as_vec]")
+{
+    using namespace gsl;
+
+    as::vec_t<real_t, 5> vec5 { 1.0f, 2.0f, 3.0f, 4.0f, 5.0f };
+
+    real_t vec5_arr[5];
+    as::vec::to_arr(vec5, vec5_arr);
+
+    CHECK_THAT(span(vec5_arr), ElementsAreSubscript(vec5, 5));
+}
+
 // explicit instantiations (for coverage)
 
 // types

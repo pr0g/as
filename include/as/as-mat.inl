@@ -11,9 +11,9 @@ const mat_t<T, d> operator*(const mat_t<T, d>& lhs, const mat_t<T, d>& rhs)
             T value { 0 };
             for (size_t step = 0; step < d; ++step) {
                 value += lhs[rowIndex + d * step] * rhs[colIndex * d + step];
-             }
+            }
             result[colIndex * d + rowIndex] = value;
-         }
+        }
      }
 #elif defined AS_ROW_MAJOR
     for (size_t rowIndex = 0; rowIndex < d; ++rowIndex) {
