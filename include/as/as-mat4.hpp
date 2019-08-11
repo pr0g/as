@@ -8,8 +8,10 @@ namespace as
 
 namespace mat4
 {
-    AS_API size_t rc(size_t r, size_t c);
-}
+
+AS_API size_t rc(size_t r, size_t c);
+
+} // namespace mat4
 
 template<typename T>
 struct mat_t<T, 4>
@@ -172,10 +174,12 @@ using mat4l_t = mat_t<int64_t, 4>;
 
 namespace mat4
 {
-    inline size_t rc(const size_t r, const size_t c)
-    {
-        return mat::rc(r, c, 4);
-    }
+
+inline size_t rc(const size_t r, const size_t c)
+{
+    return mat::rc(r, c, 4);
 }
+
+} // namespace mat4
 
 } // namespace as

@@ -17,8 +17,10 @@ namespace as
 
 namespace mat
 {
-    AS_API size_t rc(size_t r, size_t c, size_t d);
-}
+
+AS_API size_t rc(size_t r, size_t c, size_t d);
+
+} // namespace mat
 
 template<typename T, size_t d>
 struct mat_t

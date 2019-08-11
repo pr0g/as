@@ -553,13 +553,20 @@ TEST_CASE("rvalue_elem_access_mat2_3_4", "[as_mat]")
 {
     using namespace gsl;
 
-    auto make_mat2 = [](){ return as::mat_t<real_t, 2>{ 5.0f, 10.0f, 15.0f, 20.0f }; };
+    auto make_mat2 = []() { return as::mat_t<real_t, 2>{ 5.0f, 10.0f, 15.0f, 20.0f }; };
     CHECK(make_mat2()[0] == Approx(5.0f).epsilon(g_epsilon));
     CHECK(make_mat2()[1] == Approx(10.0f).epsilon(g_epsilon));
     CHECK(make_mat2()[2] == Approx(15.0f).epsilon(g_epsilon));
     CHECK(make_mat2()[3] == Approx(20.0f).epsilon(g_epsilon));
 
-    auto make_mat3 = [](){ return as::mat3_t{ 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f }; };
+    auto make_mat3 = []() {
+        return as::mat3_t{
+            1.0f, 2.0f, 3.0f,   //
+            4.0f, 5.0f, 6.0f,   //
+            7.0f, 8.0f, 9.0f    //
+        };
+    };
+
     CHECK(make_mat3()[4] == Approx(5.0f).epsilon(g_epsilon));
 
     auto make_mat4 = [](){

@@ -7,8 +7,10 @@ namespace as
 
 namespace mat3
 {
-    AS_API size_t rc(size_t r, size_t c);
-}
+
+AS_API size_t rc(size_t r, size_t c);
+
+} // namespace mat3
 
 template<typename T>
 struct mat_t<T, 3>
@@ -157,10 +159,12 @@ using mat3l_t = mat_t<int64_t, 3>;
 
 namespace mat3
 {
-    inline size_t rc(const size_t r, const size_t c)
-    {
-        return mat::rc(r, c, 3);
-    }
+
+inline size_t rc(const size_t r, const size_t c)
+{
+    return mat::rc(r, c, 3);
 }
+
+} // namespace mat3
 
 } // namespace as
