@@ -459,16 +459,19 @@ inline mat3_t from_arr(const real_t(&data)[9])
 
 inline mat3_t axis_angle(const vec3_t& axis, const real_t radians)
 {
+    const real_t cosr_radians = cosr(radians);
+    const real_t sinr_radians = sinr(radians);
+
     return {
-        cosr(radians) + ((axis.x * axis.x) * (1.0f - cosr(radians))),
-        (axis.y * axis.x * (1.0f - cosr(radians))) + (axis.z * sinr(radians)),
-        (axis.z * axis.x * (1.0f - cosr(radians))) - (axis.y * sinr(radians)),
-        (axis.x * axis.y) * (1.0f - cosr(radians)) - (axis.z * sinr(radians)),
-        cosr(radians) + ((axis.y * axis.y) * (1.0f - cosr(radians))),
-        (axis.z * axis.y * (1.0f - cosr(radians))) + (axis.x * sinr(radians)),
-        (axis.x * axis.z * (1.0f - cosr(radians))) + (axis.y * sinr(radians)),
-        (axis.y * axis.z * (1.0f - cosr(radians))) - (axis.x * sinr(radians)),
-        cosr(radians) + ((axis.z * axis.z) * (1.0f - cosr(radians)))
+        cosr_radians + ((axis.x * axis.x) * (1.0f - cosr_radians)),
+        (axis.y * axis.x * (1.0f - cosr_radians)) + (axis.z * sinr_radians),
+        (axis.z * axis.x * (1.0f - cosr_radians)) - (axis.y * sinr_radians),
+        (axis.x * axis.y * (1.0f - cosr_radians)) - (axis.z * sinr_radians),
+        cosr_radians + ((axis.y * axis.y) * (1.0f - cosr_radians)),
+        (axis.z * axis.y * (1.0f - cosr_radians)) + (axis.x * sinr_radians),
+        (axis.x * axis.z * (1.0f - cosr_radians)) + (axis.y * sinr_radians),
+        (axis.y * axis.z * (1.0f - cosr_radians)) - (axis.x * sinr_radians),
+        cosr_radians + ((axis.z * axis.z) * (1.0f - cosr_radians))
     };
 }
 

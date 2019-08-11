@@ -38,16 +38,32 @@ class ElementsAreSubscript
 {
     Sub m_subscriptable;
     float m_epsilon = std::numeric_limits<float>::epsilon();
+    float m_margin = 0.0f;
     gsl::index m_len;
 public:
     ElementsAreSubscript(
-        const Sub& subscriptable, const gsl::index len,
-        const float epsilon = std::numeric_limits<float>::epsilon())
-            : m_subscriptable(subscriptable), m_epsilon(epsilon), m_len(len) {}
+        const Sub& subscriptable, const gsl::index len)
+            : m_subscriptable(subscriptable), m_len(len) {}
+
+    ElementsAreSubscript& epsilon(const float epsilon) {
+        m_epsilon = epsilon;
+        return *this;
+    }
+
+    ElementsAreSubscript& margin(const float margin) {
+        m_margin = margin;
+        return *this;
+    }
 
     bool match(const gsl::span<const typename Sub::value_type>& span) const override {
         for (gsl::index i = 0; i < span.size(); ++i) {
-            if (m_subscriptable[i] != Approx(span[i]).epsilon(m_epsilon)) {
+            const auto approxElem {
+                Approx(span[i])
+                    .epsilon(m_epsilon)
+                    .margin(m_margin)
+            };
+
+            if (m_subscriptable[i] != approxElem) {
                 return false;
             }
         }
@@ -56,9 +72,9 @@ public:
 
     std::string describe() const override {
         std::ostringstream ss;
-        ss << "actual, expected: { ";
+        ss << "was expected, actual: { ";
         for (gsl::index i = 0; i < m_len; ++i) {
-            ss << m_subscriptable[i] << ", ";
+            ss << std::fixed << m_subscriptable[i] << ", ";
         }
         ss << "}";
         return ss.str();
