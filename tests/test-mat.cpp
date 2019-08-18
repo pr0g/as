@@ -997,6 +997,49 @@ TEST_CASE("mat3_axis_angle", "[as-mat]")
     }
 }
 
+TEST_CASE("mat3_rotate_xyz", "[as-mat]")
+{
+    using namespace gsl;
+
+    {
+        as::mat3_t axis_angle =
+            as::mat3::rotation_xyz(as::deg_to_rad(45.0f), as::deg_to_rad(90.0f), as::deg_to_rad(45.0f));
+        as::real_t result_reference[] = { 0.0f, 1.0f, 0.0f };
+
+        as::vec3_t result;
+#ifdef AS_ROW_MAJOR
+        result = as::vec3::axis_y() * axis_angle;
+#elif defined AS_COL_MAJOR
+        result = axis_angle * as::vec3::axis_y();
+#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+
+        // note - checking against 0.0f requires margin
+        CHECK_THAT(
+            span(result_reference),
+            ElementsAreSubscript(result, 3).margin(std::numeric_limits<float>::epsilon())
+        );
+    }
+
+    {
+        as::mat3_t axis_angle =
+            as::mat3::rotation_xyz(as::deg_to_rad(-180.0f), as::deg_to_rad(90.0f), as::deg_to_rad(-90.0f));
+        as::real_t result_reference[] = { 0.0f, 1.0f, 0.0f };
+
+        as::vec3_t result;
+#ifdef AS_ROW_MAJOR
+        result = as::vec3::axis_z() * axis_angle;
+#elif defined AS_COL_MAJOR
+        result = axis_angle * as::vec3::axis_z();
+#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+
+        // note - checking against 0.0f requires margin
+        CHECK_THAT(
+            span(result_reference),
+            ElementsAreSubscript(result, 3).margin(std::numeric_limits<float>::epsilon())
+        );
+    }
+}
+
 // explicit instantiations (for coverage)
 
 // types

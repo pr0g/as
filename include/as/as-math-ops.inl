@@ -477,31 +477,45 @@ inline mat3_t axis_angle(const vec3_t& axis, const real_t radians)
 
 inline mat3_t rotation_xyz(const real_t x, const real_t y, const real_t z)
 {
+    const real_t cosr_x = cosr(x);
+    const real_t cosr_y = cosr(y);
+    const real_t cosr_z = cosr(z);
+    const real_t sinr_x = sinr(x);
+    const real_t sinr_y = sinr(y);
+    const real_t sinr_z = sinr(z);
+
     return {
-        cosr(y) * cosr(z),
-        cosr(y) * sinr(z),
-        -sinr(y),
-        (sinr(x) * sinr(y) * cosr(z)) - (cosr(x) * sinr(z)),
-        (sinr(x) * sinr(y) * sinr(z)) + (cosr(x) * cosr(z)),
-        sinr(x) * cosr(y),
-        (cosr(x) * sinr(y) * cosr(z)) + (sinr(x) * sinr(z)),
-        (cosr(x) * sinr(y) * sinr(z)) - (sinr(x) * cosr(z)),
-        cosr(x) * cosr(y)
+        cosr_y * cosr_z,
+        cosr_y * sinr_z,
+        -sinr_y,
+        (sinr_x * sinr_y * cosr_z) - (cosr_x * sinr_z),
+        (sinr_x * sinr_y * sinr_z) + (cosr_x * cosr_z),
+        sinr_x * cosr_y,
+        (cosr_x * sinr_y * cosr_z) + (sinr_x * sinr_z),
+        (cosr_x * sinr_y * sinr_z) - (sinr_x * cosr_z),
+        cosr_x * cosr_y
     };
 }
 
 inline mat3_t rotation_zxy(const real_t x, const real_t y, const real_t z)
 {
+    const real_t cosr_x = cosr(x);
+    const real_t cosr_y = cosr(y);
+    const real_t cosr_z = cosr(z);
+    const real_t sinr_x = sinr(x);
+    const real_t sinr_y = sinr(y);
+    const real_t sinr_z = sinr(z);
+
     return {
-        cosr(z) * cosr(y) + sinr(x) * sinr(y) * sinr(z),
-        sinr(z) * cosr(x),
-        -sinr(y) * cosr(z) + sinr(z) * sinr(x) * cosr(y),
-        -sinr(z) * cosr(y) + cosr(z) * sinr(x) * sinr(y),
-        cosr(z) * cosr(x),
-        -sinr(z) * -sinr(y) + cosr(z) * sinr(x) * cosr(y),
-        cosr(x) * sinr(y),
-        -sinr(x),
-        cosr(x) * cosr(y),
+        cosr_z * cosr_y + sinr_x * sinr_y * sinr_z,
+        sinr_z * cosr_x,
+        -sinr_y * cosr_z + sinr_z * sinr_x * cosr_y,
+        -sinr_z * cosr_y + cosr_z * sinr_x * sinr_y,
+        cosr_z * cosr_x,
+        -sinr_z * -sinr_y + cosr_z * sinr_x * cosr_y,
+        cosr_x * sinr_y,
+        -sinr_x,
+        cosr_x * cosr_y,
     };
 }
 
