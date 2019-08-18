@@ -598,13 +598,13 @@ TEST_CASE("multiply_same_size", "[as_mat]")
 {
     using namespace gsl;
 
-    const mat3_t lhs {
+    const mat3_t mat3_a {
         1.0f, 2.0f, 3.0f, //
         4.0f, 5.0f, 6.0f, //
         7.0f, 8.0f, 9.0f  //
     };
 
-    const mat3_t rhs {
+    const mat3_t mat3_b {
         9.0f, 8.0f, 7.0f, //
         6.0f, 5.0f, 4.0f, //
         3.0f, 2.0f, 1.0f  //
@@ -618,9 +618,9 @@ TEST_CASE("multiply_same_size", "[as_mat]")
 
     mat3_t result;
 #ifdef AS_ROW_MAJOR
-    result = lhs * rhs;
+    result = mat3_a * mat3_b;
 #elif defined AS_COL_MAJOR
-    result = rhs * lhs;
+    result = mat3_b * mat3_a;
 #endif
 
     CHECK_THAT(span(mat_arr), ElementsAreSubscript(result, 9));
