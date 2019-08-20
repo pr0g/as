@@ -8,21 +8,21 @@ namespace as
 namespace mat3
 {
 
-AS_API size_t rc(size_t r, size_t c);
+AS_API index_t rc(index_t r, index_t c);
 
 } // namespace mat3
 
 template<typename T>
 struct mat_t<T, 3>
 {
-    static constexpr size_t dim = 3;
-    static constexpr size_t size = dim * dim;
+    static constexpr index_t dim = 3;
+    static constexpr index_t size = dim * dim;
     using value_type = T;
 
     T elem_rc[size];
 
 #ifdef AS_ROW_MAJOR
-    vec_t<T, 3> row(size_t r) const {
+    vec_t<T, 3> row(index_t r) const {
         return vec_t<T, 3> {
             elem_rc[mat3::rc(r, 0)],
             elem_rc[mat3::rc(r, 1)],
@@ -34,7 +34,7 @@ struct mat_t<T, 3>
     const vec_t<T, 3> row1() const { return row(1); }
     const vec_t<T, 3> row2() const { return row(2); }
 
-    void row(size_t r, const vec_t<T, 3>& row) {
+    void row(index_t r, const vec_t<T, 3>& row) {
         elem_rc[mat3::rc(r, 0)] = row.x;
         elem_rc[mat3::rc(r, 1)] = row.y;
         elem_rc[mat3::rc(r, 2)] = row.z;
@@ -44,7 +44,7 @@ struct mat_t<T, 3>
     void row1(const vec_t<T, 3>& row_) { row(1, row_); }
     void row2(const vec_t<T, 3>& row_) { row(2, row_); }
 
-    vec_t<T, 3> col(size_t c) const {
+    vec_t<T, 3> col(index_t c) const {
         return vec_t<T, 3> {
             elem_rc[mat3::rc(0, c)],
             elem_rc[mat3::rc(1, c)],
@@ -56,7 +56,7 @@ struct mat_t<T, 3>
     const vec_t<T, 3> col1() const { return col(1); }
     const vec_t<T, 3> col2() const { return col(2); }
 
-    void col(size_t c, const vec_t<T, 3>& col) {
+    void col(index_t c, const vec_t<T, 3>& col) {
         elem_rc[mat3::rc(0, c)] = col.x;
         elem_rc[mat3::rc(1, c)] = col.y;
         elem_rc[mat3::rc(2, c)] = col.z;
@@ -66,7 +66,7 @@ struct mat_t<T, 3>
     void col1(const vec_t<T, 3>& col_) { col(1, col_); }
     void col2(const vec_t<T, 3>& col_) { col(2, col_); }
 #elif defined AS_COL_MAJOR
-    vec_t<T, 3> col(size_t c) const {
+    vec_t<T, 3> col(index_t c) const {
         return vec_t<T, 3> {
             elem_rc[mat3::rc(0, c)],
             elem_rc[mat3::rc(1, c)],
@@ -78,7 +78,7 @@ struct mat_t<T, 3>
     const vec_t<T, 3> col1() const { return col(1); }
     const vec_t<T, 3> col2() const { return col(2); }
 
-    void col(size_t c, const vec_t<T, 3>& col) {
+    void col(index_t c, const vec_t<T, 3>& col) {
         elem_rc[mat3::rc(0, c)] = col.x;
         elem_rc[mat3::rc(1, c)] = col.y;
         elem_rc[mat3::rc(2, c)] = col.z;
@@ -88,7 +88,7 @@ struct mat_t<T, 3>
     void col1(const vec_t<T, 3>& col_) { col(1, col_); }
     void col2(const vec_t<T, 3>& col_) { col(2, col_); }
 
-    vec_t<T, 3> row(size_t r) const {
+    vec_t<T, 3> row(index_t r) const {
         return vec_t<T, 3> {
             elem_rc[mat3::rc(r, 0)],
             elem_rc[mat3::rc(r, 1)],
@@ -100,7 +100,7 @@ struct mat_t<T, 3>
     const vec_t<T, 3> row1() const { return row(1); }
     const vec_t<T, 3> row2() const { return row(2); }
 
-    void row(size_t r, const vec_t<T, 3>& row) {
+    void row(index_t r, const vec_t<T, 3>& row) {
         elem_rc[mat3::rc(r, 0)] = row.x;
         elem_rc[mat3::rc(r, 1)] = row.y;
         elem_rc[mat3::rc(r, 2)] = row.z;
@@ -111,9 +111,9 @@ struct mat_t<T, 3>
     void row2(const vec_t<T, 3>& row_) { row(2, row_); }
 #endif
 
-    constexpr T& operator[](size_t i) & { return elem_rc[i]; }
-    constexpr const T& operator[](size_t i) const& { return elem_rc[i]; }
-    constexpr const T operator[](size_t i) && { return elem_rc[i]; }
+    constexpr T& operator[](index_t i) & { return elem_rc[i]; }
+    constexpr const T& operator[](index_t i) const& { return elem_rc[i]; }
+    constexpr const T operator[](index_t i) && { return elem_rc[i]; }
 
     mat_t() noexcept = default;
     mat_t(const mat_t&) noexcept = default;
@@ -160,7 +160,7 @@ using mat3l_t = mat_t<int64_t, 3>;
 namespace mat3
 {
 
-inline size_t rc(const size_t r, const size_t c)
+inline index_t rc(const index_t r, const index_t c)
 {
     return mat::rc(r, c, 3);
 }

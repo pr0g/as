@@ -15,64 +15,64 @@ namespace as
 namespace vec
 {
 
-template<typename T, size_t n>
-AS_API size_t size(const vec_t<T, n>& vec);
+template<typename T, index_t n>
+AS_API index_t size(const vec_t<T, n>& vec);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API vec_t<T, n> from_arr(const T(&data)[n]);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API vec_t<T, n> from_ptr(const T* data);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API void to_arr(const vec_t<T, n>& vec, T(&data)[n]);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API T dot(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
 AS_API real_t dot(const vec3_t& lhs, const vec3_t& rhs);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API T length_sq(const vec_t<T, n>& vec);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API T length(const vec_t<T, n>& vec);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API vec_t<T, n> normalize(const vec_t<T, n>& vec);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API T normalize_return_length(const vec_t<T, n>& vec, vec_t<T, n>& out);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API bool equal(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs, real_t epsilon = std::numeric_limits<real_t>::epsilon());
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API vec_t<T, n> min(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API T min_elem(const vec_t<T, n>& vec);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API vec_t<T, n> max(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API T max_elem(const vec_t<T, n>& vec);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API vec_t<T, n> abs(const vec_t<T, n>& vec);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API vec_t<T, n> clamp(const vec_t<T, n>& vec, const vec_t<T, n>& min, const vec_t<T, n>& max);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API vec_t<T, n> saturate(const vec_t<T, n>& vec);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API vec_t<T, n> lerp(T t, const vec_t<T, n>& v0, const vec_t<T, n>& v1);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API vec_t<T, n> select(const vec_t<T, n>& v0, const vec_t<T, n>& v1, bool select0);
 
 } // namespace vec
@@ -135,34 +135,34 @@ AS_API vec4_t from_arr(const real_t(&data)[4]);
 namespace mat
 {
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 AS_API T* data(mat_t<T, d>& mat);
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 AS_API const T* const_data(const mat_t<T, d>& mat);
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 AS_API mat_t<T, d> from_arr(const T(&data)[d * d]);
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 AS_API mat_t<T, d> from_ptr(const T* data);
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 AS_API void to_arr(const mat_t<T, d>& mat, T(&data)[d]);
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 AS_API mat_t<T, d> transpose(const mat_t<T, d>& mat);
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 AS_API constexpr mat_t<T, d> identity();
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 AS_API T determinant(const mat_t<T, d>& mat);
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 AS_API mat_t<T, d> inverse(const mat_t<T, d>& mat);
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 AS_API mat_t<T, d> gj_inverse(const mat_t<T, d>& mat);
 
 } // namespace mat
@@ -170,8 +170,8 @@ AS_API mat_t<T, d> gj_inverse(const mat_t<T, d>& mat);
 namespace mat3
 {
 
-AS_API constexpr size_t rows() { return mat3_t::dim; }
-AS_API constexpr size_t cols() { return mat3_t::dim; }
+AS_API constexpr index_t rows() { return mat3_t::dim; }
+AS_API constexpr index_t cols() { return mat3_t::dim; }
 
 AS_API constexpr mat3_t identity();
 
@@ -193,8 +193,8 @@ AS_API mat3_t scale(const vec3_t& scale);
 namespace mat4
 {
 
-AS_API constexpr size_t rows() { return mat4_t::dim; }
-AS_API constexpr size_t cols() { return mat4_t::dim; }
+AS_API constexpr index_t rows() { return mat4_t::dim; }
+AS_API constexpr index_t cols() { return mat4_t::dim; }
 
 AS_API constexpr mat4_t identity();
 

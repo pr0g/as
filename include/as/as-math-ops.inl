@@ -4,41 +4,41 @@ namespace as
 namespace vec
 {
 
-template<typename T, size_t n>
-size_t size(const vec_t<T, n>&)
+template<typename T, index_t n>
+index_t size(const vec_t<T, n>&)
 {
     return n;
 }
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 vec_t<T, n> from_arr(const T(&data)[n])
 {
     return from_ptr<T, n>(&data[0]);
 }
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 vec_t<T, n> from_ptr(const T* data)
 {
     vec_t<T, n> result;
-    for (size_t i = 0; i < n; ++i) {
+    for (index_t i = 0; i < n; ++i) {
         result[i] = data[i];
     }
     return result;
 }
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 void to_arr(const vec_t<T, n>& vec, T(&data)[n])
 {
-    for (size_t i = 0; i < n; ++i) {
+    for (index_t i = 0; i < n; ++i) {
         data[i] = vec[i];
     }
 }
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 T dot(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 {
     T result { 0 };
-    for (size_t i = 0; i < n; ++i) {
+    for (index_t i = 0; i < n; ++i) {
         result += lhs[i] * rhs[i];
     }
     return result;
@@ -50,25 +50,25 @@ inline real_t dot(const vec3_t& lhs, const vec3_t& rhs)
     return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;
 }
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 T length_sq(const vec_t<T, n>& vec)
 {
     return dot(vec, vec);
 }
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 T length(const vec_t<T, n>& vec)
 {
     return sqrtr(length_sq(vec));
 }
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 vec_t<T, n> normalize(const vec_t<T, n>& vec)
 {
     return vec / length(vec);
 }
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 T normalize_return_length(const vec_t<T, n>& vec, vec_t<T, n>& out)
 {
     const T len = length(vec);
@@ -76,100 +76,100 @@ T normalize_return_length(const vec_t<T, n>& vec, vec_t<T, n>& out)
     return len;
 }
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 bool equal(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs,
     real_t epsilon /*= std::numeric_limits<real_t>::epsilon()*/)
 {
     bool eq = true;
-    for (size_t i = 0; i < n; ++i) {
+    for (index_t i = 0; i < n; ++i) {
         eq = eq && as::equal(lhs[i], rhs[i], epsilon, epsilon);
         if (!eq) { break; }
     }
     return eq;
 }
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 vec_t<T, n> min(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 {
     vec_t<T, n> result;
-    for (size_t i = 0; i < n; ++i) {
+    for (index_t i = 0; i < n; ++i) {
         result[i] = as::min(lhs[i], rhs[i]);
     }
     return result;
 }
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 T min_elem(const vec_t<T, n>& vec)
 {
     T val = vec[0];
-    for (size_t i = 1; i < n; ++i) {
+    for (index_t i = 1; i < n; ++i) {
         val = as::min(val, vec[i]);
     }
     return val;
 }
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 vec_t<T, n> max(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 {
     vec_t<T, n> result;
-    for (size_t i = 0; i < n; ++i) {
+    for (index_t i = 0; i < n; ++i) {
         result[i] = as::max(lhs[i], rhs[i]);
     }
     return result;
 }
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 T max_elem(const vec_t<T, n>& vec)
 {
     T val = vec[0];
-    for (size_t i = 1; i < n; ++i) {
+    for (index_t i = 1; i < n; ++i) {
         val = as::max(val, vec[i]);
     }
     return val;
 }
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 vec_t<T, n> abs(const vec_t<T, n>& vec)
 {
     vec_t<T, n> result;
-    for (size_t i = 0; i < n; ++i) {
+    for (index_t i = 0; i < n; ++i) {
         result[i] = fabsr(vec[i]);
     }
     return result;
 }
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 vec_t<T, n> clamp(const vec_t<T, n>& vec,
     const vec_t<T, n>& min, const vec_t<T, n>& max)
 {
     vec_t<T, n> result;
-    for (size_t i = 0; i < n; ++i) {
+    for (index_t i = 0; i < n; ++i) {
         result[i] = as::clamp(vec[i], min[i], max[i]);
     }
     return result;
 }
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 vec_t<T, n> saturate(const vec_t<T, n>& vec)
 {
     vec_t<T, n> result;
-    for (size_t i = 0; i < n; ++i) {
+    for (index_t i = 0; i < n; ++i) {
         result[i] = as::clamp(vec[i], real_t(0.0), real_t(1.0));
     }
     return result;
 }
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 vec_t<T, n> lerp(T t, const vec_t<T, n>& v0, const vec_t<T, n>& v1)
 {
     vec_t<T, n> result;
-    for (size_t i = 0; i < n; ++i) {
+    for (index_t i = 0; i < n; ++i) {
         result[i] = as::lerp(t, v0[i], v1[i]);
     }
     return result;
 }
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 vec_t<T, n> select(const vec_t<T, n>& v0, const vec_t<T, n>& v1, bool select0)
 {
     return select0 ? v0 : v1;
@@ -257,47 +257,47 @@ inline vec4_t from_arr(const real_t(&data)[4])
 namespace mat
 {
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 mat_t<T, d> from_arr(const T(&data)[d * d])
 {
     return from_ptr<T, d>(&data[0]);
 }
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 mat_t<T, d> from_ptr(const T* data)
 {
     mat_t<T, d> result;
-    for (size_t i = 0; i < d * d; ++i) {
+    for (index_t i = 0; i < d * d; ++i) {
         result[i] = data[i];
     }
     return result;
 }
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 AS_API void to_arr(const mat_t<T, d>& mat, T(&data)[d * d])
 {
-    for (size_t i = 0; i < d * d; ++i) {
+    for (index_t i = 0; i < d * d; ++i) {
         data[i] = mat[i];
     }
 }
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 mat_t<T, d> transpose(const mat_t<T, d>& mat)
 {
     mat_t<T, d> result;
-    for (size_t rowIndex = 0; rowIndex < d; ++rowIndex) {
-        for (size_t colIndex = 0; colIndex < d; ++colIndex) {
+    for (index_t rowIndex = 0; rowIndex < d; ++rowIndex) {
+        for (index_t colIndex = 0; colIndex < d; ++colIndex) {
             result[colIndex * d + rowIndex] = mat[rowIndex * d + colIndex];
         }
     }
     return result;
 }
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 constexpr mat_t<T, d> identity()
 {
     mat_t<T, d> identity{};
-    for (size_t i = 0; i < mat_t<T, d>::size; i += d + 1) {
+    for (index_t i = 0; i < mat_t<T, d>::size; i += d + 1) {
         identity[i] = 1.0f;
     }
     return identity;
@@ -306,17 +306,17 @@ constexpr mat_t<T, d> identity()
 namespace internal
 {
 
-template<size_t> struct int2type {};
+template<index_t> struct int2type {};
 
 // where col and row are the rows to ignore
-template<typename T, size_t d>
+template<typename T, index_t d>
 mat_t<T, d - 1> sub_matrix(
-    const mat_t<T, d>& mat, const size_t col, const size_t row)
+    const mat_t<T, d>& mat, const index_t col, const index_t row)
 {
     mat_t<T, d - 1> result = identity<T, d - 1>();
-    size_t i = 0;
-    for (size_t r = 0; r < d; ++r) {
-        for (size_t c = 0; c < d; ++c) {
+    index_t i = 0;
+    for (index_t r = 0; r < d; ++r) {
+        for (index_t c = 0; c < d; ++c) {
             if (r == row || c == col) {
                 continue;
             }
@@ -335,12 +335,12 @@ T minor(const mat_t<T, 2>& mat)
     return mat[0] * mat[3] - mat[2] * mat[1];
 }
 
-template<typename T, size_t d, size_t I>
+template<typename T, index_t d, index_t I>
 T determinant_impl(const mat_t<T, d>& mat, int2type<I>)
 {
     T sign { 1.0f };
     T result{ 0.0f };
-    for (size_t i = 0; i < d; ++i) {
+    for (index_t i = 0; i < d; ++i) {
         T minor = determinant_impl(sub_matrix(mat, i, 0), int2type<I - 1>{});
         result += (mat[i] * minor) * sign;
         sign *= T { -1.0f };
@@ -356,14 +356,14 @@ T determinant_impl(const mat_t<T, 2>& mat, int2type<2>)
 
 #pragma pop_macro("minor")
 
-template<typename T, size_t d, size_t I>
+template<typename T, index_t d, index_t I>
 mat_t<T, d> minor_impl(const mat_t<T, d>& mat, int2type<I>)
 {
     mat_t<T, d> result;
     T outerSign = T { 1.0f };
-    for (size_t i = 0; i < d; ++i) {
+    for (index_t i = 0; i < d; ++i) {
         T innerSign { outerSign };
-        for (size_t j = 0; j < d; ++j) {
+        for (index_t j = 0; j < d; ++j) {
             T minor = determinant_impl<T>(
                 internal::sub_matrix(mat, j, i),
                 int2type<d - 1>{});
@@ -377,13 +377,13 @@ mat_t<T, d> minor_impl(const mat_t<T, d>& mat, int2type<I>)
 
 } // namespace internal
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 T determinant(const mat_t<T, d>& mat)
 {
     return internal::determinant_impl(mat, internal::int2type<d>{});
 }
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 mat_t<T, d> inverse(const mat_t<T, d>& mat)
 {
     mat_t<T, d> result;
@@ -404,30 +404,30 @@ mat_t<T, 2> inverse(const mat_t<T, 2>& mat)
     } * (real_t(1.0f) / determinant(mat));
 }
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 mat_t<T, d> gj_inverse(const mat_t<T, d>& mat)
 {
     mat_t<T, d> curr_mat = mat;
     mat_t<T, d> result = identity<T, d>();
 
-    size_t currentLine = 0;
-    for (size_t i = 0; i < d; ++i) {
+    index_t currentLine = 0;
+    for (index_t i = 0; i < d; ++i) {
         T diagonal = curr_mat[(d * i) + i];
         T diagonal_recip = T{ 1 } / diagonal;
 
-        for (size_t j = d * i; j < d + (d * i); ++j) {
+        for (index_t j = d * i; j < d + (d * i); ++j) {
             curr_mat[j] *= diagonal_recip;
             result[j] *= diagonal_recip;
         }
 
-        for (size_t row = 0; row < d; ++row) {
+        for (index_t row = 0; row < d; ++row) {
             if (row == currentLine)
                 continue;
             T next = curr_mat[currentLine + row * d];
-            for (size_t col = 0; col < d; ++col) {
-                size_t index = d * row + col;
-                curr_mat[index] -= (next * curr_mat[d * currentLine + col]);
-                result[index] -= (next * result[d * currentLine + col]);
+            for (index_t col = 0; col < d; ++col) {
+                index_t index_t = d * row + col;
+                curr_mat[index_t] -= (next * curr_mat[d * currentLine + col]);
+                result[index_t] -= (next * result[d * currentLine + col]);
             }
         }
 

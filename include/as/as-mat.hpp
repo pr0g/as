@@ -18,22 +18,22 @@ namespace as
 namespace mat
 {
 
-AS_API size_t rc(size_t r, size_t c, size_t d);
+AS_API index_t rc(index_t r, index_t c, index_t d);
 
 } // namespace mat
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 struct mat_t
 {
-    static constexpr size_t dim = d;
-    static constexpr size_t size = d * d;
+    static constexpr index_t dim = d;
+    static constexpr index_t size = d * d;
     using value_type = T;
 
     T elem_rc[size];
 
-    constexpr T& operator[](size_t i) & { return elem_rc[i]; }
-    constexpr const T& operator[](size_t i) const& { return elem_rc[i]; }
-    constexpr const T operator[](size_t i) && { return elem_rc[i]; }
+    constexpr T& operator[](index_t i) & { return elem_rc[i]; }
+    constexpr const T& operator[](index_t i) const& { return elem_rc[i]; }
+    constexpr const T operator[](index_t i) && { return elem_rc[i]; }
 
     mat_t() noexcept = default;
     mat_t(const mat_t&) noexcept = default;
@@ -54,20 +54,20 @@ struct mat_t
     }
 };
 
-template <typename T, size_t d>
+template <typename T, index_t d>
 AS_API const mat_t<T, d> operator*(const mat_t<T, d>& lhs, const mat_t<T, d>& rhs);
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 #if defined AS_ROW_MAJOR
 AS_API const vec_t<T, d> operator*(const vec_t<T, d>& v, const mat_t<T, d>& mat);
 #elif defined AS_COL_MAJOR
 AS_API const vec_t<T, d> operator*(const mat_t<T, d>& mat, const vec_t<T, d>& v);
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 AS_API const mat_t<T, d> operator*(const mat_t<T, d>& mat, T scalar);
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 AS_API mat_t<T, d>& operator*=(mat_t<T, d>& mat, T scalar);
 
 } // namespace as

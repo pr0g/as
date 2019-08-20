@@ -1,35 +1,35 @@
 namespace as
 {
 
-template <typename T, size_t d>
+template <typename T, index_t d>
 const mat_t<T, d> operator*(const mat_t<T, d>& lhs, const mat_t<T, d>& rhs)
 {
     mat_t<T, d> result;
 #ifdef AS_COL_MAJOR
-    for (size_t colIndex = 0; colIndex < d; ++colIndex) {
-        for (size_t rowIndex = 0; rowIndex < d; ++rowIndex) {
+    for (index_t col = 0; col < d; ++col) {
+        for (index_t row = 0; row < d; ++row) {
             T value { 0 };
-            for (size_t step = 0; step < d; ++step) {
-                value += lhs[rowIndex + d * step] * rhs[colIndex * d + step];
+            for (index_t step = 0; step < d; ++step) {
+                value += lhs[row + d * step] * rhs[col * d + step];
             }
-            result[colIndex * d + rowIndex] = value;
+            result[col * d + row] = value;
         }
      }
 #elif defined AS_ROW_MAJOR
-    for (size_t rowIndex = 0; rowIndex < d; ++rowIndex) {
-        for (size_t colIndex = 0; colIndex < d; ++colIndex) {
+    for (index_t row = 0; row < d; ++row) {
+        for (index_t col = 0; col < d; ++col) {
             T value { 0 };
-            for (size_t step = 0; step < d; ++step) {
-                value += lhs[rowIndex * d + step] * rhs[colIndex + d * step];
+            for (index_t step = 0; step < d; ++step) {
+                value += lhs[row * d + step] * rhs[col + d * step];
             }
-            result[rowIndex * d + colIndex] = value;
+            result[row * d + col] = value;
         }
     }
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
     return result;
 }
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 #if defined AS_ROW_MAJOR
 const vec_t<T, d> operator*(const vec_t<T, d>& v, const mat_t<T, d>& mat)
 #elif defined AS_COL_MAJOR
@@ -37,9 +37,9 @@ const vec_t<T, d> operator*(const mat_t<T, d>& mat, const vec_t<T, d>& v)
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 {
     vec_t<T, d> result;
-    for (size_t vertexIndex = 0; vertexIndex < d; ++vertexIndex) {
+    for (index_t vertexIndex = 0; vertexIndex < d; ++vertexIndex) {
         T value { 0 };
-        for (size_t step = 0; step < d; ++step) {
+        for (index_t step = 0; step < d; ++step) {
             value += v[step] * mat[vertexIndex + step * d];
         }
         result[vertexIndex] = value;
@@ -47,7 +47,7 @@ const vec_t<T, d> operator*(const mat_t<T, d>& mat, const vec_t<T, d>& v)
     return result;
 }
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 const mat_t<T, d> operator*(const mat_t<T, d>& mat, T scalar)
 {
     mat_t<T, d> result { mat };
@@ -55,12 +55,12 @@ const mat_t<T, d> operator*(const mat_t<T, d>& mat, T scalar)
     return result;
 }
 
-template<typename T, size_t d>
+template<typename T, index_t d>
 mat_t<T, d>& operator*=(mat_t<T, d>& mat, T scalar)
 {
-    for (size_t rowIndex = 0; rowIndex < d; ++rowIndex) {
-        for (size_t colIndex = 0; colIndex < d; ++colIndex) {
-            mat[rowIndex * d + colIndex] *= scalar;
+    for (index_t row = 0; row < d; ++row) {
+        for (index_t col = 0; col < d; ++col) {
+            mat[row * d + col] *= scalar;
         }
     }
     return mat;
@@ -68,7 +68,7 @@ mat_t<T, d>& operator*=(mat_t<T, d>& mat, T scalar)
 
 namespace mat
 {
-    inline size_t rc(const size_t r, const size_t c, const size_t d)
+    inline index_t rc(const index_t r, const index_t c, const index_t d)
     {
 #if defined AS_COL_MAJOR
         return c * d + r;

@@ -10,9 +10,9 @@ struct point2_t
 {
     vec2_t v;
 
-    AS_API real_t& operator[](size_t i) & { return v[i]; }
-    AS_API const real_t& operator[](size_t i) const& { return v[i]; }
-    AS_API real_t operator[](size_t i) && { return v[i]; }
+    AS_API real_t& operator[](index_t i) & { return v[i]; }
+    AS_API const real_t& operator[](index_t i) const& { return v[i]; }
+    AS_API real_t operator[](index_t i) && { return v[i]; }
 
     point2_t() = default;
     point2_t(const point2_t&) = default;
@@ -30,9 +30,9 @@ struct point3_t
 {
     vec3_t v;
 
-    AS_API real_t& operator[](size_t i) & { return v[i]; }
-    AS_API const real_t& operator[](size_t i) const& { return v[i]; }
-    AS_API real_t operator[](size_t i) && { return v[i]; }
+    AS_API real_t& operator[](index_t i) & { return v[i]; }
+    AS_API const real_t& operator[](index_t i) const& { return v[i]; }
+    AS_API real_t operator[](index_t i) && { return v[i]; }
 
     point3_t() = default;
     point3_t(const point3_t&) = default;

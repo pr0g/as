@@ -578,7 +578,7 @@ TEST_CASE("const_elem_access_vec_const", "[as_vec]")
     const real_t elem_4 = vec5[4];
 
     const real_t vec_arr[] = { elem_0, elem_1, elem_2, elem_3, elem_4 };
-    CHECK_THAT(span(vec_arr), ElementsAreSubscript(vec5, 5));
+    CHECK_THAT(make_span(vec_arr), make_elements_sub(vec5, 5));
 }
 
 TEST_CASE("elem_access_vec", "[as_vec]")
@@ -593,7 +593,7 @@ TEST_CASE("elem_access_vec", "[as_vec]")
     real_t elem_4 = vec5[4];
 
     const real_t vec_arr[] = { elem_0, elem_1, elem_2, elem_3, elem_4 };
-    CHECK_THAT(span(vec_arr), ElementsAreSubscript(vec5, 5));
+    CHECK_THAT(make_span(vec_arr), make_elements_sub(vec5, 5));
 }
 
 TEST_CASE("const_elem_access_vec2_3_4", "[as_vec]")
@@ -607,7 +607,7 @@ TEST_CASE("const_elem_access_vec2_3_4", "[as_vec]")
         const real_t elem_1 = vec2[1];
 
         const real_t vec_arr[] = { elem_0, elem_1 };
-        CHECK_THAT(span(vec_arr), ElementsAreSubscript(vec2, 2));
+        CHECK_THAT(make_span(vec_arr), make_elements_sub(vec2, 2));
     }
 
     {
@@ -618,7 +618,7 @@ TEST_CASE("const_elem_access_vec2_3_4", "[as_vec]")
         const real_t elem_2 = vec3[2];
 
         const real_t vec_arr[] = { elem_0, elem_1, elem_2 };
-        CHECK_THAT(span(vec_arr), ElementsAreSubscript(vec3, 3));
+        CHECK_THAT(make_span(vec_arr), make_elements_sub(vec3, 3));
     }
 
     {
@@ -631,7 +631,7 @@ TEST_CASE("const_elem_access_vec2_3_4", "[as_vec]")
         const real_t elem_3 = vec4[3];
 
         const real_t vec_arr[] = { elem_0, elem_1, elem_2, elem_3 };
-        CHECK_THAT(span(vec_arr), ElementsAreSubscript(vec4, 4));
+        CHECK_THAT(make_span(vec_arr), make_elements_sub(vec4, 4));
     }
 }
 
@@ -664,36 +664,36 @@ TEST_CASE("rvalue_elem_access_vec2_3_4_5", "[as_vec]")
 
 TEST_CASE("vec_size", "[as_vec]")
 {
-    size_t vec2_size = vec2_t::size;
+    as::index_t vec2_size = vec2_t::size;
     vec2_t vec2;
-    size_t vec2_inst_size = vec::size(vec2);
-    CHECK(vec2_size == static_cast<size_t>(2));
+    as::index_t vec2_inst_size = vec::size(vec2);
+    CHECK(vec2_size == static_cast<as::index_t>(2));
     CHECK(vec2_inst_size == Approx(vec2_size).epsilon(g_epsilon));
 
-    size_t vec3_size = vec3_t::size;
+    as::index_t vec3_size = vec3_t::size;
     vec3_t vec3;
-    size_t vec3_inst_size = vec::size(vec3);
-    CHECK(vec3_size == static_cast<size_t>(3));
+    as::index_t vec3_inst_size = vec::size(vec3);
+    CHECK(vec3_size == static_cast<as::index_t>(3));
     CHECK(vec3_inst_size == Approx(vec3_size).epsilon(g_epsilon));
 
-    size_t vec4_size = vec4_t::size;
+    as::index_t vec4_size = vec4_t::size;
     vec4_t vec4;
-    size_t vec4_inst_size = vec::size(vec4);
-    CHECK(vec4_size == static_cast<size_t>(4));
+    as::index_t vec4_inst_size = vec::size(vec4);
+    CHECK(vec4_size == static_cast<as::index_t>(4));
     CHECK(vec4_inst_size == Approx(vec4_size).epsilon(g_epsilon));
 
     using short7 = vec_t<short, 7>;
     short7 vec_short7;
-    size_t vec_short7_inst_size = vec::size(vec_short7);
-    size_t short7_size = short7::size;
-    CHECK(short7_size == static_cast<size_t>(7));
+    as::index_t vec_short7_inst_size = vec::size(vec_short7);
+    as::index_t short7_size = short7::size;
+    CHECK(short7_size == static_cast<as::index_t>(7));
     CHECK(vec_short7_inst_size == Approx(short7_size).epsilon(g_epsilon));
 
     using int5 = vec_t<int, 5>;
     int5 vec_short5;
-    size_t vec_short5_inst_size = vec::size(vec_short5);
-    size_t int5_size = int5::size;
-    CHECK(int5_size == static_cast<size_t>(5));
+    as::index_t vec_short5_inst_size = vec::size(vec_short5);
+    as::index_t int5_size = int5::size;
+    CHECK(int5_size == static_cast<as::index_t>(5));
     CHECK(vec_short5_inst_size == Approx(int5_size).epsilon(g_epsilon));
 }
 
@@ -1161,22 +1161,22 @@ TEST_CASE("axes_vec2", "[as_vec]")
     using namespace gsl;
 
     constexpr real_t x_axis[] = { 1.0f, 0.0f };
-    CHECK_THAT(span(x_axis), ElementsAreSubscript(as::vec2::axis_x(), 2));
+    CHECK_THAT(make_span(x_axis), make_elements_sub(as::vec2::axis_x(), 2));
 
     constexpr real_t y_axis[] = { 0.0f, 1.0f };
-    CHECK_THAT(span(y_axis), ElementsAreSubscript(as::vec2::axis_y(), 2));
+    CHECK_THAT(make_span(y_axis), make_elements_sub(as::vec2::axis_y(), 2));
 
     constexpr real_t zero[] = { 0.0f, 0.0f };
-    CHECK_THAT(span(zero), ElementsAreSubscript(as::vec2::zero(), 2));
+    CHECK_THAT(make_span(zero), make_elements_sub(as::vec2::zero(), 2));
 
     constexpr real_t one[] = { 1.0f, 1.0f };
-    CHECK_THAT(span(one), ElementsAreSubscript(as::vec2::one(), 2));
+    CHECK_THAT(make_span(one), make_elements_sub(as::vec2::one(), 2));
 
     constexpr real_t max_val[] = { REAL_MAX, REAL_MAX };
-    CHECK_THAT(span(max_val), ElementsAreSubscript(as::vec2::max(), 2));
+    CHECK_THAT(make_span(max_val), make_elements_sub(as::vec2::max(), 2));
 
     constexpr real_t min_val[] = { REAL_MIN, REAL_MIN };
-    CHECK_THAT(span(min_val), ElementsAreSubscript(as::vec2::min(), 2));
+    CHECK_THAT(make_span(min_val), make_elements_sub(as::vec2::min(), 2));
 }
 
 TEST_CASE("axes_vec3", "[as_vec]")
@@ -1184,25 +1184,25 @@ TEST_CASE("axes_vec3", "[as_vec]")
     using namespace gsl;
 
     constexpr real_t x_axis[] = { 1.0f, 0.0f, 0.0f };
-    CHECK_THAT(span(x_axis), ElementsAreSubscript(as::vec3::axis_x(), 3));
+    CHECK_THAT(make_span(x_axis), make_elements_sub(as::vec3::axis_x(), 3));
 
     constexpr real_t y_axis[] = { 0.0f, 1.0f, 0.0f };
-    CHECK_THAT(span(y_axis), ElementsAreSubscript(as::vec3::axis_y(), 3));
+    CHECK_THAT(make_span(y_axis), make_elements_sub(as::vec3::axis_y(), 3));
 
     constexpr real_t z_axis[] = { 0.0f, 0.0f, 1.0f };
-    CHECK_THAT(span(z_axis), ElementsAreSubscript(as::vec3::axis_z(), 3));
+    CHECK_THAT(make_span(z_axis), make_elements_sub(as::vec3::axis_z(), 3));
 
     constexpr real_t zero[] = { 0.0f, 0.0f, 0.0f };
-    CHECK_THAT(span(zero), ElementsAreSubscript(as::vec3::zero(), 3));
+    CHECK_THAT(make_span(zero), make_elements_sub(as::vec3::zero(), 3));
 
     constexpr real_t one[] = { 1.0f, 1.0f, 1.0f };
-    CHECK_THAT(span(one), ElementsAreSubscript(as::vec3::one(), 3));
+    CHECK_THAT(make_span(one), make_elements_sub(as::vec3::one(), 3));
 
     constexpr real_t max_val[] = { REAL_MAX, REAL_MAX, REAL_MAX };
-    CHECK_THAT(span(max_val), ElementsAreSubscript(as::vec3::max(), 3));
+    CHECK_THAT(make_span(max_val), make_elements_sub(as::vec3::max(), 3));
 
     constexpr real_t min_val[] = { REAL_MIN, REAL_MIN, REAL_MIN };
-    CHECK_THAT(span(min_val), ElementsAreSubscript(as::vec3::min(), 3));
+    CHECK_THAT(make_span(min_val), make_elements_sub(as::vec3::min(), 3));
 }
 
 TEST_CASE("axes_vec4", "[as_vec]")
@@ -1210,28 +1210,28 @@ TEST_CASE("axes_vec4", "[as_vec]")
     using namespace gsl;
 
     constexpr real_t x_axis[] = { 1.0f, 0.0f, 0.0f, 0.0f };
-    CHECK_THAT(span(x_axis), ElementsAreSubscript(as::vec4::axis_x(), 4));
+    CHECK_THAT(make_span(x_axis), make_elements_sub(as::vec4::axis_x(), 4));
 
     constexpr real_t y_axis[] = { 0.0f, 1.0f, 0.0f, 0.0f };
-    CHECK_THAT(span(y_axis), ElementsAreSubscript(as::vec4::axis_y(), 4));
+    CHECK_THAT(make_span(y_axis), make_elements_sub(as::vec4::axis_y(), 4));
 
     constexpr real_t z_axis[] = { 0.0f, 0.0f, 1.0f, 0.0f };
-    CHECK_THAT(span(z_axis), ElementsAreSubscript(as::vec4::axis_z(), 4));
+    CHECK_THAT(make_span(z_axis), make_elements_sub(as::vec4::axis_z(), 4));
 
     constexpr real_t w_axis[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-    CHECK_THAT(span(w_axis), ElementsAreSubscript(as::vec4::axis_w(), 4));
+    CHECK_THAT(make_span(w_axis), make_elements_sub(as::vec4::axis_w(), 4));
 
     constexpr real_t zero[] = { 0.0f, 0.0f, 0.0f, 0.0f };
-    CHECK_THAT(span(zero), ElementsAreSubscript(as::vec4::zero(), 4));
+    CHECK_THAT(make_span(zero), make_elements_sub(as::vec4::zero(), 4));
 
     constexpr real_t one[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-    CHECK_THAT(span(one), ElementsAreSubscript(as::vec4::one(), 4));
+    CHECK_THAT(make_span(one), make_elements_sub(as::vec4::one(), 4));
 
     constexpr real_t max_val[] = { REAL_MAX, REAL_MAX, REAL_MAX, REAL_MAX };
-    CHECK_THAT(span(max_val), ElementsAreSubscript(as::vec4::max(), 4));
+    CHECK_THAT(make_span(max_val), make_elements_sub(as::vec4::max(), 4));
 
     constexpr real_t min_val[] = { REAL_MIN, REAL_MIN, REAL_MIN, REAL_MIN };
-    CHECK_THAT(span(min_val), ElementsAreSubscript(as::vec4::min(), 4));
+    CHECK_THAT(make_span(min_val), make_elements_sub(as::vec4::min(), 4));
 }
 
 TEST_CASE("cross", "[as_vec]")
@@ -1533,13 +1533,13 @@ TEST_CASE("lerp", "[as_vec]")
         vec3_t result_end = vec::lerp(real_t(1.0), start, end);
 
         const real_t result_begin_arr[] = {0.0f, 10.0f, 20.0f};
-        CHECK_THAT(span(result_begin_arr), ElementsAreSubscript(result_begin, 3));
+        CHECK_THAT(make_span(result_begin_arr), make_elements_sub(result_begin, 3));
 
         const real_t result_mid_arr[] = {5.0f, 25.0f, 60.0f};
-        CHECK_THAT(span(result_mid_arr), ElementsAreSubscript(result_mid, 3));
+        CHECK_THAT(make_span(result_mid_arr), make_elements_sub(result_mid, 3));
 
         const real_t result_end_arr[] = {10.0f, 40.0f, 100.0f};
-        CHECK_THAT(span(result_end_arr), ElementsAreSubscript(result_end, 3));
+        CHECK_THAT(make_span(result_end_arr), make_elements_sub(result_end, 3));
     }
 }
 
@@ -1614,7 +1614,7 @@ TEST_CASE("vec_to_arr", "[as_vec]")
     real_t vec5_arr[5];
     as::vec::to_arr(vec5, vec5_arr);
 
-    CHECK_THAT(span(vec5_arr), ElementsAreSubscript(vec5, 5));
+    CHECK_THAT(make_span(vec5_arr), make_elements_sub(vec5, 5));
 }
 
 // explicit instantiations (for coverage)
@@ -1642,7 +1642,7 @@ template const vec_t<real_t, 5> as::operator/(const vec_t<real_t, 5>&, const vec
 
 // functions
 template void as::vec::to_arr(const vec_t<real_t, 5>& vec, real_t(&data)[5]);
-template size_t as::vec::size<real_t, 5>(const as::vec_t<real_t, 5>&);
+template as::index_t as::vec::size<real_t, 5>(const as::vec_t<real_t, 5>&);
 template real_t as::vec::dot(const vec_t<real_t, 5>&, const vec_t<real_t, 5>&);
 template real_t as::vec::normalize_return_length(const vec_t<real_t, 5>&, vec_t<real_t, 5>&);
 template vec_t<real_t, 5> as::vec::min(const vec_t<real_t, 5>&, const vec_t<real_t, 5>&);

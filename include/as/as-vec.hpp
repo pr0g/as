@@ -8,17 +8,17 @@
 namespace as
 {
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 struct vec_t
 {
     T elem[n];
 
-    static constexpr size_t size = n;
+    static constexpr index_t size = n;
     using value_type = T;
 
-    constexpr T& operator[](size_t i) & { return elem[i]; }
-    constexpr const T& operator[](size_t i) const& { return elem[i]; }
-    constexpr T operator[](size_t i) && { return elem[i]; }
+    constexpr T& operator[](index_t i) & { return elem[i]; }
+    constexpr const T& operator[](index_t i) const& { return elem[i]; }
+    constexpr T operator[](index_t i) && { return elem[i]; }
 
     vec_t() noexcept = default;
     vec_t(const vec_t&) noexcept = default;
@@ -47,12 +47,12 @@ struct vec2_base_t
 {
     T x, y;
 
-    static constexpr size_t size = 2;
+    static constexpr index_t size = 2;
     using value_type = T;
 
-    AS_API T& operator[](size_t i) & { return this->*elem[i]; }
-    AS_API const T& operator[](size_t i) const& { return this->*elem[i]; }
-    AS_API const T operator[](size_t i) && { return this->*elem[i]; }
+    AS_API T& operator[](index_t i) & { return this->*elem[i]; }
+    AS_API const T& operator[](index_t i) const& { return this->*elem[i]; }
+    AS_API const T operator[](index_t i) && { return this->*elem[i]; }
 
     vec2_base_t() noexcept = default;
     vec2_base_t(const vec2_base_t&) noexcept  = default;
@@ -109,12 +109,12 @@ struct vec3_base_t
 {
     T x, y, z;
 
-    static constexpr size_t size = 3;
+    static constexpr index_t size = 3;
     using value_type = T;
 
-    AS_API T& operator[](size_t i) & { return this->*elem[i]; }
-    AS_API const T& operator[](size_t i) const& { return this->*elem[i]; }
-    AS_API const T operator[](size_t i) && { return this->*elem[i]; }
+    AS_API T& operator[](index_t i) & { return this->*elem[i]; }
+    AS_API const T& operator[](index_t i) const& { return this->*elem[i]; }
+    AS_API const T operator[](index_t i) && { return this->*elem[i]; }
 
     vec3_base_t() noexcept = default;
     vec3_base_t(const vec3_base_t&) noexcept = default;
@@ -178,12 +178,12 @@ struct vec4_base_t
 {
     T x, y, z, w;
 
-    static constexpr size_t size = 4;
+    static constexpr index_t size = 4;
     using value_type = T;
 
-    AS_API T& operator[](size_t i) & { return this->*elem[i]; }
-    AS_API const T& operator[](size_t i) const& { return this->*elem[i]; }
-    AS_API const T operator[](size_t i) && { return this->*elem[i]; }
+    AS_API T& operator[](index_t i) & { return this->*elem[i]; }
+    AS_API const T& operator[](index_t i) const& { return this->*elem[i]; }
+    AS_API const T operator[](index_t i) && { return this->*elem[i]; }
 
     vec4_base_t() noexcept = default;
     vec4_base_t(const vec4_base_t&) noexcept  = default;
@@ -250,85 +250,85 @@ using vec4d_t = vec_t<double, 4>;
 using vec4i_t = vec_t<int32_t, 4>;
 using vec4l_t = vec_t<int64_t, 4>;
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API const vec_t<T, n> operator+(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
 AS_API const vec3_t operator+(const vec3_t& lhs, const vec3_t& rhs);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API vec_t<T, n>& operator+=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
 AS_API vec3_t& operator+=(vec3_t& lhs, const vec3_t& rhs);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API const vec_t<T, n> operator-(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
 AS_API const vec3_t operator-(const vec3_t& lhs, const vec3_t& rhs);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API vec_t<T, n>& operator-=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
 AS_API vec3_t& operator-=(vec3_t& lhs, const vec3_t& rhs);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API const vec_t<T, n> operator-(const vec_t<T, n>& rhs);
 
 template<>
 AS_API const vec3_t operator-(const vec3_t& rhs);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API const vec_t<T, n> operator*(const vec_t<T, n>& lhs, T val);
 
 template<>
 AS_API const vec3_t operator*(const vec3_t& lhs, real_t val);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API const vec_t<T, n> operator*(T val, const vec_t<T, n>& rhs);
 
 template<>
 AS_API const vec3_t operator*(real_t val, const vec3_t& rhs);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API vec_t<T, n>& operator*=(vec_t<T, n>& lhs, T val);
 
 template<>
 AS_API vec3_t& operator*=(vec3_t& lhs, real_t val);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API const vec_t<T, n> operator*(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
 AS_API const vec3_t operator*(const vec3_t& lhs, const vec3_t& rhs);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API vec_t<T, n>& operator*=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
 AS_API vec3_t& operator*=(vec3_t& lhs, const vec3_t& rhs);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API const vec_t<T, n> operator/(const vec_t<T, n>& lhs, T val);
 
 template<>
 AS_API const vec3_t operator/(const vec3_t& lhs, real_t val);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API vec_t<T, n>& operator/=(vec_t<T, n>& lhs, T val);
 
 template<>
 AS_API vec3_t& operator/=(vec3_t& lhs, real_t val);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API const vec_t<T, n> operator/(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
 AS_API const vec3_t operator/(const vec3_t& lhs, const vec3_t& rhs);
 
-template<typename T, size_t n>
+template<typename T, index_t n>
 AS_API vec_t<T, n>& operator/=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
