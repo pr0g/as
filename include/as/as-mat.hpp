@@ -25,11 +25,12 @@ AS_API index_t rc(index_t r, index_t c, index_t d);
 template<typename T, index_t d>
 struct mat_t
 {
-    static constexpr index_t dim = d;
-    static constexpr index_t size = d * d;
+    constexpr static index_t dim() { return d; }
+    constexpr static index_t size() { return d * d; }
+
     using value_type = T;
 
-    T elem_rc[size];
+    T elem_rc[size()];
 
     constexpr T& operator[](index_t i) & { return elem_rc[i]; }
     constexpr const T& operator[](index_t i) const& { return elem_rc[i]; }
@@ -50,7 +51,7 @@ struct mat_t
             typelist<std::decay_t<Args>...>>::value>>
     mat_t(Args... args) noexcept : elem_rc { std::forward<Args>(args)... }
     {
-        static_assert(sizeof ...(args) == size, "Not enough arguments for dimension");
+        static_assert(sizeof ...(args) == size(), "Not enough arguments for dimension");
     }
 };
 

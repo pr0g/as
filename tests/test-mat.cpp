@@ -589,9 +589,15 @@ TEST_CASE("mat_dimensions_are_valid", "[as_mat]")
     CHECK(mat4::rows() == 4);
     CHECK(mat4::cols() == 4);
 
+    CHECK(mat3_t::dim() == 3);
+    CHECK(mat4_t::dim() == 4);
+    CHECK(mat3_t::size() == 9);
+    CHECK(mat4_t::size() == 16);
+
     mat_t<real_t, 5> mat5;
-    CHECK(mat5.dim == 5);
-    CHECK(mat_t<real_t, 5>::dim == 5);
+    CHECK(mat5.dim() == 5);
+    CHECK(mat_t<real_t, 5>::dim() == index_t(5));
+    CHECK(mat5.size() == 25);
 }
 
 TEST_CASE("multiply_same_size", "[as_mat]")

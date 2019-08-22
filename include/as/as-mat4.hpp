@@ -16,11 +16,12 @@ AS_API index_t rc(index_t r, index_t c);
 template<typename T>
 struct mat_t<T, 4>
 {
-    static constexpr index_t dim = 4;
-    static constexpr index_t size = 4 * 4;
+    constexpr static index_t dim() { return 4; }
+    constexpr static index_t size() { return 16; }
+
     using value_type = T;
 
-    T elem_rc[size];
+    T elem_rc[size()];
 
 #ifdef AS_ROW_MAJOR
     vec_t<T, 4> row(index_t r) const {

@@ -297,7 +297,7 @@ template<typename T, index_t d>
 constexpr mat_t<T, d> identity()
 {
     mat_t<T, d> identity{};
-    for (index_t i = 0; i < mat_t<T, d>::size; i += d + 1) {
+    for (index_t i = 0; i < mat_t<T, d>::size(); i += d + 1) {
         identity[i] = 1.0f;
     }
     return identity;

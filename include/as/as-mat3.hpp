@@ -15,11 +15,12 @@ AS_API index_t rc(index_t r, index_t c);
 template<typename T>
 struct mat_t<T, 3>
 {
-    static constexpr index_t dim = 3;
-    static constexpr index_t size = dim * dim;
+    constexpr static index_t dim() { return 3; }
+    constexpr static index_t size() { return 9; }
+
     using value_type = T;
 
-    T elem_rc[size];
+    T elem_rc[size()];
 
 #ifdef AS_ROW_MAJOR
     vec_t<T, 3> row(index_t r) const {

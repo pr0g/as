@@ -664,19 +664,19 @@ TEST_CASE("rvalue_elem_access_vec2_3_4_5", "[as_vec]")
 
 TEST_CASE("vec_size", "[as_vec]")
 {
-    as::index_t vec2_size = vec2_t::size;
+    as::index_t vec2_size = vec2_t::size();
     vec2_t vec2;
     as::index_t vec2_inst_size = vec::size(vec2);
     CHECK(vec2_size == static_cast<as::index_t>(2));
     CHECK(vec2_inst_size == Approx(vec2_size).epsilon(g_epsilon));
 
-    as::index_t vec3_size = vec3_t::size;
+    as::index_t vec3_size = vec3_t::size();
     vec3_t vec3;
     as::index_t vec3_inst_size = vec::size(vec3);
     CHECK(vec3_size == static_cast<as::index_t>(3));
     CHECK(vec3_inst_size == Approx(vec3_size).epsilon(g_epsilon));
 
-    as::index_t vec4_size = vec4_t::size;
+    as::index_t vec4_size = vec4_t::size();
     vec4_t vec4;
     as::index_t vec4_inst_size = vec::size(vec4);
     CHECK(vec4_size == static_cast<as::index_t>(4));
@@ -685,14 +685,14 @@ TEST_CASE("vec_size", "[as_vec]")
     using short7 = vec_t<short, 7>;
     short7 vec_short7;
     as::index_t vec_short7_inst_size = vec::size(vec_short7);
-    as::index_t short7_size = short7::size;
+    as::index_t short7_size = short7::size();
     CHECK(short7_size == static_cast<as::index_t>(7));
     CHECK(vec_short7_inst_size == Approx(short7_size).epsilon(g_epsilon));
 
     using int5 = vec_t<int, 5>;
     int5 vec_short5;
     as::index_t vec_short5_inst_size = vec::size(vec_short5);
-    as::index_t int5_size = int5::size;
+    as::index_t int5_size = int5::size();
     CHECK(int5_size == static_cast<as::index_t>(5));
     CHECK(vec_short5_inst_size == Approx(int5_size).epsilon(g_epsilon));
 }
