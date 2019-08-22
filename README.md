@@ -21,7 +21,7 @@ Deficiencies include but are not limited to:
 - There's bound to be bugs!
 - The performance is likely not very good either (I'm working on improving this, for example creating template specializations for the common cases etc.)
 - No SIMD (yet? we'll see... 🤔)
-- I've probably made some horrible mistake somewhere which I'll be terribly embarassed about once brought to my attention.
+- I've probably made some horrible mistake somewhere which I'll be terribly embarrassed about once brought to my attention.
 
 ## Using and/or installing the library
 
@@ -31,7 +31,7 @@ Deficiencies include but are not limited to:
 
 #### Installing
 
-This is my preferred approach and if you're a CMake wizz you'll probably want to do something similar to this. If you'd like to learn more about installing and CMake do checkout my other repo here: [cmake-examples](https://github.com/pr0g/cmake-examples) 🙂
+This is my preferred approach and if you're a CMake wiz you'll probably want to do something similar to this. If you'd like to learn more about installing and CMake do checkout my other repo here: [cmake-examples](https://github.com/pr0g/cmake-examples) 🙂
 
 1. Make a folder somewhere for the `as` library.
 
@@ -107,7 +107,7 @@ This is my preferred approach and if you're a CMake wizz you'll probably want to
     target_link_libraries(${PROJECT_NAME} PUBLIC as::as)
     ```
 
-10. Include the libray in one of your files
+10. Include the library in one of your files
 
     ```c++
     #include "as/as-math-ops.hpp"
@@ -203,7 +203,7 @@ My advice would be to use something similar to the [Partial Include](#partial-in
 
 ## Origins
 
-The inspriation for this project came from reading an excellent blog post by Nathan Reed ([@Reedbeta](https://twitter.com/Reedbeta)) about writing a vector math library. You can find the post titled 'On Vector Math Libraries' [here](http://www.reedbeta.com/blog/on-vector-math-libraries/) (it's well worth a read!).
+The inspiration for this project came from reading an excellent blog post by Nathan Reed ([@Reedbeta](https://twitter.com/Reedbeta)) about writing a vector math library. You can find the post titled 'On Vector Math Libraries' [here](http://www.reedbeta.com/blog/on-vector-math-libraries/) (it's well worth a read!).
 
 The post has some interesting advice on how one might write a math library and goes into some detail about the pros and cons of various approaches.
 
@@ -217,7 +217,7 @@ A lot of the design is informed by the article I mention in the [Origins](#origi
 
 ### Names and Namespaces
 
-An aim I had early on for the API was to attempt to prioritize ease of use and 'discoverability' (apologies I know that's not technically a word but it captures the intent).
+An aim I had early on for the API was to attempt to prioritize ease of use and to make functions easy to discover.
 
 As all the types I'm creating are pretty simple I decided not to hide any internal state, so all members are public. This was a design choice to make writing expressions such as `v.x += value;` easier than `v.set_x(v.get_x() + value)`. This may well be a decision I regret and I know there are downsides to this (harder to know when a value changes, you lose a bit of abstraction) but for my use case this is a trade off I'm willing to make (I've slowly learnt everything in programming is a tradeoff and nothing is perfect 😖)
 
@@ -252,7 +252,7 @@ mat3 m2 = to_mat33(q2); // free
 
 When I first tried this, a big problem I ran into was how to logically group functions. One advantage to having static functions on a type is it's easy in most modern IDEs to type the name, hit the '`.`' operator, and see a list of available ~~methods~~ member/static functions. This advantage is really important and I wanted to try and find a way to do something similar.
 
-I realized I could take advantage of `C++` namespaces to group functions by type. Irritatingly using the name `vec3` or `mat4` for the namespace means I lose the ability to use them as type names 😖 however a workaround I decided to borrow from `C` and `C++` was to add a `_t` postfix to indicate the type itself and use the unadorned name as the namespace (I know any name ending with `_t` is technically reserved, in `C` at least, but as I'm keeping everything inside my own namespace I think I should be safe - failing that I could use `_s` instead for struct but I'm sticking with `_t` for now).
+I realized I could take advantage of `C++` namespaces to group functions by type. Irritatingly using the name `vec3` or `mat4` for the namespace means I lose the ability to use them as type names 😖 however a workaround I decided to borrow from `C` and `C++` was to add a `_t` postfix to indicate the type itself and use the unadorned name as the namespace (I know any name ending with `_t` is technically reserved, in `C` at least, but as I'm keeping everything inside my own namespace I think I should be safe - failing that I could use `_s` instead for `struct` but I'm sticking with `_t` for now).
 
 With this approach I can now do this:
 
@@ -261,7 +261,7 @@ mat33_t m = // ... build some rotation
 quat_t q = mat3::to_quaternion(m); // free
 ```
 
-When you type `mat3::` in an IDE you'll get the list of all operations supported for `mat33_t`. Another idea (which is perhaps more contentious) is to put all common/generic matrix operations in the `mat` namespace, and specific operations (like `rotation_xyz`) in the `mat3` namespace. This might actually hinder discoverabilty in certain cases but I like the preciseness of the grouping so again this will remain until I've had a chance to start hating it 😉.
+When you type `mat3::` in an IDE you'll get the list of all operations supported for `mat33_t`. Another idea (which is perhaps more contentious) is to put all common/generic matrix operations in the `mat` namespace, and specific operations (like `rotation_xyz`) in the `mat3` namespace. This might actually make things slightly harder to find in certain cases but I like the preciseness of the grouping so again this will remain until I've had a chance to start hating it 😉.
 
 ### Specializations
 
