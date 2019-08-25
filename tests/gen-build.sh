@@ -14,7 +14,7 @@
 cmake -B build/ -H. -DDEV_LIB_DIR=..                \
     -DCMAKE_EXPORT_COMPILE_COMMANDS=ON              \
     -DCMAKE_PREFIX_PATH=$(pwd)/build/as-install/    \
-    -DCMAKE_BUILD_TYPE=Release                      \
+    -DCMAKE_BUILD_TYPE=Debug                        \
     -DAS_PRECISION_FLOAT=ON                         \
     -DAS_COL_MAJOR=ON                               \
     -DAS_COVERAGE=ON
