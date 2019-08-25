@@ -685,7 +685,8 @@ TEST_CASE("vec_size", "[as_vec]")
     using short7 = vec_t<short, 7>;
     short7 vec_short7;
     as::index_t vec_short7_inst_size = vec::size(vec_short7);
-    as::index_t short7_size = short7::size();
+    as::index_t short7_size;
+    short7_size = short7::size();
     CHECK(short7_size == static_cast<as::index_t>(7));
     CHECK(vec_short7_inst_size == Approx(short7_size).epsilon(g_epsilon));
 

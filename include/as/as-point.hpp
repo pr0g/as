@@ -10,6 +10,8 @@ struct point2_t
 {
     vec2_t v;
 
+    using value_type = real_t;
+
     AS_API real_t& operator[](index_t i) & { return v[i]; }
     AS_API const real_t& operator[](index_t i) const& { return v[i]; }
     AS_API real_t operator[](index_t i) && { return v[i]; }
@@ -29,6 +31,8 @@ struct point2_t
 struct point3_t
 {
     vec3_t v;
+
+    using value_type = real_t;
 
     AS_API real_t& operator[](index_t i) & { return v[i]; }
     AS_API const real_t& operator[](index_t i) const& { return v[i]; }
