@@ -127,28 +127,28 @@ struct mat_t<T, 3>
         T x0, T y0, T z0,
         T x1, T y1, T z1,
         T x2, T y2, T z2)
-            : elem_rc {
-                x0, y0, z0,
-                x1, y1, z1,
-                x2, y2, z2
-            } {}
+        : elem_rc {
+        x0, y0, z0,
+        x1, y1, z1,
+        x2, y2, z2
+    } {}
 
 #ifdef AS_ROW_MAJOR
     constexpr mat_t(
         const vec_t<T, 3>& row0, const vec_t<T, 3>& row1, const vec_t<T, 3>& row2)
         : elem_rc {
-            row0.x, row0.y, row0.z,
-            row1.x, row1.y, row1.z,
-            row2.x, row2.y, row2.z
-        } {}
+        row0.x, row0.y, row0.z,
+        row1.x, row1.y, row1.z,
+        row2.x, row2.y, row2.z
+    } {}
 #elif defined AS_COL_MAJOR
     constexpr mat_t(
         const vec_t<T, 3>& col0, const vec_t<T, 3>& col1, const vec_t<T, 3>& col2)
         : elem_rc {
-            col0.x, col0.y, col0.z,
-            col1.x, col1.y, col1.z,
-            col2.x, col2.y, col2.z
-        } {}
+        col0.x, col0.y, col0.z,
+        col1.x, col1.y, col1.z,
+        col2.x, col2.y, col2.z
+    } {}
 #endif
 };
 

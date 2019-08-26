@@ -21,6 +21,7 @@ vec_t<T, n>& operator+=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
     for (index_t i = 0; i < n; ++i) {
         lhs[i] += rhs[i];
     }
+
     return lhs;
 }
 
@@ -53,6 +54,7 @@ vec_t<T, n>& operator-=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
     for (index_t i = 0; i < n; ++i) {
         lhs[i] -= rhs[i];
     }
+
     return lhs;
 }
 
@@ -69,9 +71,11 @@ template<typename T, index_t n>
 const vec_t<T, n> operator-(const vec_t<T, n>& rhs)
 {
     vec_t<T, n> result;
+
     for (index_t i = 0; i < n; ++i) {
         result[i] = -rhs[i];
     }
+
     return result;
 }
 
@@ -113,6 +117,7 @@ vec_t<T, n>& operator*=(vec_t<T, n>& lhs, T val)
     for (index_t i = 0; i < n; ++i) {
         lhs[i] *= val;
     }
+
     return lhs;
 }
 
@@ -145,6 +150,7 @@ vec_t<T, n>& operator*=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
     for (index_t i = 0; i < n; ++i) {
         lhs[i] *= rhs[i];
     }
+
     return lhs;
 }
 
@@ -177,6 +183,7 @@ vec_t<T, n>& operator/=(vec_t<T, n>& lhs, T val)
     for (index_t i = 0; i < n; ++i) {
         lhs[i] /= val;
     }
+
     return lhs;
 }
 
@@ -209,6 +216,7 @@ vec_t<T, n>& operator/=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
     for (index_t i = 0; i < n; ++i) {
         lhs[i] /= rhs[i];
     }
+
     return lhs;
 }
 

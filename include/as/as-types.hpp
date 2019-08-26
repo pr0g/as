@@ -23,9 +23,9 @@ using index_t = ptrdiff_t;
 
 // static assert to check library floating point precision has been set correctly
 #if (!defined(AS_PRECISION_FLOAT) && !defined(AS_PRECISION_DOUBLE))
-    static_assert(false, "Must define AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE");
+static_assert(false, "Must define AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE");
 #elif (defined(AS_PRECISION_FLOAT) && defined(AS_PRECISION_DOUBLE))
-    static_assert(false, "Must define only AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE");
+static_assert(false, "Must define only AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE");
 #endif // AS_PRECISION_FLOAT ? AS_PRECISION_DOUBLE
 
 // aliases for float or double types and functions

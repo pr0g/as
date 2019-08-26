@@ -52,6 +52,7 @@ inline bool equal(
     // check if the numbers are really close
     // needed when comparing numbers near zero
     real_t diff = fabsr(a - b);
+
     if (diff <= max_diff) {
         return true;
     }

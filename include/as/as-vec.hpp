@@ -33,7 +33,7 @@ struct vec_t
         typename... Args,
         typename = std::enable_if_t<
             !std::is_same<typelist<vec_t>,
-            typelist<std::decay_t<Args>...>>::value>>
+                typelist<std::decay_t<Args>...>>::value>>
     vec_t(Args... args) noexcept : elem { std::forward<Args>(args)... }
     {
         static_assert(sizeof ...(args) == n, "Not enough arguments for dimension");

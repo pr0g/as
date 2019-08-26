@@ -10,9 +10,9 @@ namespace as
 
 // static assert to check library matrix convention has been set correctly
 #if (!defined(AS_COL_MAJOR) && !defined(AS_ROW_MAJOR))
-    static_assert(false, "Must define AS_COL_MAJOR or AS_ROW_MAJOR");
+static_assert(false, "Must define AS_COL_MAJOR or AS_ROW_MAJOR");
 #elif (defined(AS_COL_MAJOR) && defined(AS_ROW_MAJOR))
-    static_assert(false, "Must define only AS_COL_MAJOR or AS_ROW_MAJOR");
+static_assert(false, "Must define only AS_COL_MAJOR or AS_ROW_MAJOR");
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
 namespace mat
@@ -48,7 +48,7 @@ struct mat_t
         typename... Args,
         typename = std::enable_if_t<
             !std::is_same<typelist<mat_t>,
-            typelist<std::decay_t<Args>...>>::value>>
+                typelist<std::decay_t<Args>...>>::value>>
     mat_t(Args... args) noexcept : elem_rc { std::forward<Args>(args)... }
     {
         static_assert(sizeof ...(args) == size(), "Not enough arguments for dimension");

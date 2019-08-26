@@ -20,9 +20,11 @@ template<typename T, index_t n>
 vec_t<T, n> from_ptr(const T* data)
 {
     vec_t<T, n> result;
+
     for (index_t i = 0; i < n; ++i) {
         result[i] = data[i];
     }
+
     return result;
 }
 
@@ -38,9 +40,11 @@ template<typename T, index_t n>
 T dot(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 {
     T result { 0 };
+
     for (index_t i = 0; i < n; ++i) {
         result += lhs[i] * rhs[i];
     }
+
     return result;
 }
 
@@ -81,10 +85,13 @@ bool equal(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs,
     real_t epsilon /*= std::numeric_limits<real_t>::epsilon()*/)
 {
     bool eq = true;
+
     for (index_t i = 0; i < n; ++i) {
         eq = eq && as::equal(lhs[i], rhs[i], epsilon, epsilon);
+
         if (!eq) { break; }
     }
+
     return eq;
 }
 
@@ -92,9 +99,11 @@ template<typename T, index_t n>
 vec_t<T, n> min(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 {
     vec_t<T, n> result;
+
     for (index_t i = 0; i < n; ++i) {
         result[i] = as::min(lhs[i], rhs[i]);
     }
+
     return result;
 }
 
@@ -102,9 +111,11 @@ template<typename T, index_t n>
 T min_elem(const vec_t<T, n>& vec)
 {
     T val = vec[0];
+
     for (index_t i = 1; i < n; ++i) {
         val = as::min(val, vec[i]);
     }
+
     return val;
 }
 
@@ -112,9 +123,11 @@ template<typename T, index_t n>
 vec_t<T, n> max(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 {
     vec_t<T, n> result;
+
     for (index_t i = 0; i < n; ++i) {
         result[i] = as::max(lhs[i], rhs[i]);
     }
+
     return result;
 }
 
@@ -122,9 +135,11 @@ template<typename T, index_t n>
 T max_elem(const vec_t<T, n>& vec)
 {
     T val = vec[0];
+
     for (index_t i = 1; i < n; ++i) {
         val = as::max(val, vec[i]);
     }
+
     return val;
 }
 
@@ -132,9 +147,11 @@ template<typename T, index_t n>
 vec_t<T, n> abs(const vec_t<T, n>& vec)
 {
     vec_t<T, n> result;
+
     for (index_t i = 0; i < n; ++i) {
         result[i] = fabsr(vec[i]);
     }
+
     return result;
 }
 
@@ -143,9 +160,11 @@ vec_t<T, n> clamp(const vec_t<T, n>& vec,
     const vec_t<T, n>& min, const vec_t<T, n>& max)
 {
     vec_t<T, n> result;
+
     for (index_t i = 0; i < n; ++i) {
         result[i] = as::clamp(vec[i], min[i], max[i]);
     }
+
     return result;
 }
 
@@ -153,9 +172,11 @@ template<typename T, index_t n>
 vec_t<T, n> saturate(const vec_t<T, n>& vec)
 {
     vec_t<T, n> result;
+
     for (index_t i = 0; i < n; ++i) {
         result[i] = as::clamp(vec[i], real_t(0.0), real_t(1.0));
     }
+
     return result;
 }
 
@@ -163,9 +184,11 @@ template<typename T, index_t n>
 vec_t<T, n> lerp(T t, const vec_t<T, n>& v0, const vec_t<T, n>& v1)
 {
     vec_t<T, n> result;
+
     for (index_t i = 0; i < n; ++i) {
         result[i] = as::lerp(t, v0[i], v1[i]);
     }
+
     return result;
 }
 
@@ -267,9 +290,11 @@ template<typename T, index_t d>
 mat_t<T, d> from_ptr(const T* data)
 {
     mat_t<T, d> result;
+
     for (index_t i = 0; i < d * d; ++i) {
         result[i] = data[i];
     }
+
     return result;
 }
 
@@ -285,11 +310,13 @@ template<typename T, index_t d>
 mat_t<T, d> transpose(const mat_t<T, d>& mat)
 {
     mat_t<T, d> result;
+
     for (index_t rowIndex = 0; rowIndex < d; ++rowIndex) {
         for (index_t colIndex = 0; colIndex < d; ++colIndex) {
             result[colIndex * d + rowIndex] = mat[rowIndex * d + colIndex];
         }
     }
+
     return result;
 }
 
@@ -297,9 +324,11 @@ template<typename T, index_t d>
 constexpr mat_t<T, d> identity()
 {
     mat_t<T, d> identity{};
+
     for (index_t i = 0; i < mat_t<T, d>::size(); i += d + 1) {
         identity[i] = 1.0f;
     }
+
     return identity;
 }
 
@@ -315,14 +344,17 @@ mat_t<T, d - 1> sub_matrix(
 {
     mat_t<T, d - 1> result = identity<T, d - 1>();
     index_t i = 0;
+
     for (index_t r = 0; r < d; ++r) {
         for (index_t c = 0; c < d; ++c) {
             if (r == row || c == col) {
                 continue;
             }
+
             result[i++] = mat[r * d + c];
         }
     }
+
     return result;
 }
 
@@ -340,11 +372,13 @@ T determinant_impl(const mat_t<T, d>& mat, int2type<I>)
 {
     T sign { 1.0f };
     T result{ 0.0f };
+
     for (index_t i = 0; i < d; ++i) {
-        T minor = determinant_impl(sub_matrix(mat, i, 0), int2type<I - 1>{});
+        T minor = determinant_impl(sub_matrix(mat, i, 0), int2type<I - 1> {});
         result += (mat[i] * minor) * sign;
         sign *= T { -1.0f };
     }
+
     return result;
 }
 
@@ -361,17 +395,21 @@ mat_t<T, d> minor_impl(const mat_t<T, d>& mat, int2type<I>)
 {
     mat_t<T, d> result;
     T outerSign = T { 1.0f };
+
     for (index_t i = 0; i < d; ++i) {
         T innerSign { outerSign };
+
         for (index_t j = 0; j < d; ++j) {
             T minor = determinant_impl<T>(
-                internal::sub_matrix(mat, j, i),
-                int2type<d - 1>{});
+                    internal::sub_matrix(mat, j, i),
+                    int2type<d - 1> {});
             result[j + i * d] = minor * innerSign;
             innerSign *= T{ -1.0f };
         }
+
         outerSign *= T { -1.0f };
     }
+
     return result;
 }
 
@@ -380,7 +418,7 @@ mat_t<T, d> minor_impl(const mat_t<T, d>& mat, int2type<I>)
 template<typename T, index_t d>
 T determinant(const mat_t<T, d>& mat)
 {
-    return internal::determinant_impl(mat, internal::int2type<d>{});
+    return internal::determinant_impl(mat, internal::int2type<d> {});
 }
 
 template<typename T, index_t d>
@@ -388,7 +426,7 @@ mat_t<T, d> inverse(const mat_t<T, d>& mat)
 {
     mat_t<T, d> result;
 
-    result = internal::minor_impl(mat, internal::int2type<d>{});
+    result = internal::minor_impl(mat, internal::int2type<d> {});
     result = transpose(result);
     result *= real_t(1.0f) / determinant(mat);
 
@@ -411,6 +449,7 @@ mat_t<T, d> gj_inverse(const mat_t<T, d>& mat)
     mat_t<T, d> result = identity<T, d>();
 
     index_t currentLine = 0;
+
     for (index_t i = 0; i < d; ++i) {
         T diagonal = curr_mat[(d * i) + i];
         T diagonal_recip = T{ 1 } / diagonal;
@@ -421,9 +460,12 @@ mat_t<T, d> gj_inverse(const mat_t<T, d>& mat)
         }
 
         for (index_t row = 0; row < d; ++row) {
-            if (row == currentLine)
+            if (row == currentLine) {
                 continue;
+            }
+
             T next = curr_mat[currentLine + row * d];
+
             for (index_t col = 0; col < d; ++col) {
                 index_t index_t = d * row + col;
                 curr_mat[index_t] -= (next * curr_mat[d * currentLine + col]);
