@@ -43,3 +43,35 @@ TEST_CASE("quat_addition", "[as_quat]")
     CHECK(result.y == Approx(0.6f).epsilon(g_epsilon));
     CHECK(result.z == Approx(0.9f).epsilon(g_epsilon));
 }
+
+TEST_CASE("quat_subtraction", "[as_quat]")
+{
+    using namespace gsl;
+
+    const quat_t quat_a{ 1.0f, 0.4f, 0.6f, 0.8f };
+    const quat_t quat_b{ 1.0f, 0.2f, 0.4f, 0.6f };
+
+    const quat_t result = quat_a - quat_b;
+
+    CHECK(result.w == Approx(0.0f).epsilon(g_epsilon));
+    CHECK(result.x == Approx(0.2f).epsilon(g_epsilon));
+    CHECK(result.y == Approx(0.2f).epsilon(g_epsilon));
+    CHECK(result.z == Approx(0.2f).epsilon(g_epsilon));
+}
+
+TEST_CASE("quat_multiplication", "[as_quat]")
+{
+    using namespace gsl;
+
+    const quat_t quat_a =
+        as::quat::axis_angle(as::vec3::axis_x(), as::deg_to_rad(90.0f));
+    const quat_t quat_b =
+        as::quat::axis_angle(as::vec3::axis_y(), as::deg_to_rad(180.0f));
+
+    const quat_t result = quat_a * quat_b;
+
+    CHECK(result.w == Approx(0.0f).margin(std::numeric_limits<float>::epsilon()));
+    CHECK(result.x == Approx(0.0f).margin(std::numeric_limits<float>::epsilon()));
+    CHECK(result.y == Approx(0.70711f).margin(std::numeric_limits<float>::epsilon()));
+    CHECK(result.z == Approx(0.70711f).margin(std::numeric_limits<float>::epsilon()));
+}
