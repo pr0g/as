@@ -233,7 +233,7 @@ AS_API real_t length(const quat_t& a);
 AS_API quat_t normalize(const quat_t& a);
 AS_API quat_t inverse(const quat_t& a);
 AS_API vec3_t rotate(const quat_t& q, const vec3_t& v);
-AS_API quat_t slerp(const quat_t& a, const quat_t& b, real_t u);
+AS_API quat_t slerp(const quat_t& a, const quat_t& b, real_t t);
 
 } // namespace quat
 

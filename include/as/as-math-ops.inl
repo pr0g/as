@@ -717,10 +717,10 @@ inline quat_t rotation_zxy(const real_t x, const real_t y, const real_t z)
         quat_t{ cosr(0.5f * z), 0.0f, 0.0f, sinr(0.5f * z) };
 }
 
-inline quat_t slerp(const quat_t& a, const quat_t& b, const real_t u)
+inline quat_t slerp(const quat_t& a, const quat_t& b, const real_t t)
 {
     const real_t theta = acosr(dot(a, b));
-    return (a * sinr((1.0f - u) * theta) + b * sinr(u * theta)) / sinr(theta);
+    return (a * sinr((1.0f - t) * theta) + b * sinr(t * theta)) / sinr(theta);
 }
 
 } // namespace quat
