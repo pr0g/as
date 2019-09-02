@@ -32,12 +32,12 @@ T clamp(T t, T v0, T v1)
     return t < v0 ? v0 : t > v1 ? v1 : t;
 }
 
-inline real_t deg_to_rad(real_t degrees)
+inline real_t deg_to_rad(const real_t degrees)
 {
     return degrees * DEG_TO_RAD;
 }
 
-inline real_t rad_to_deg(real_t radians)
+inline real_t rad_to_deg(const real_t radians)
 {
     return radians * RAD_TO_DEG;
 }
@@ -51,7 +51,7 @@ inline bool equal(
 {
     // check if the numbers are really close
     // needed when comparing numbers near zero
-    real_t diff = fabsr(a - b);
+    const real_t diff = fabsr(a - b);
 
     if (diff <= max_diff) {
         return true;
