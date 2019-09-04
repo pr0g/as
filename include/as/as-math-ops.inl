@@ -737,12 +737,12 @@ inline vec3_t transform_dir(const affine_t& affine, const vec3_t& direction)
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
-inline vec3_t transform_pos(const affine_t& affine, const vec3_t& position)
+inline point3_t transform_pos(const affine_t& affine, const point3_t& position)
 {
 #if defined AS_COL_MAJOR
-    return affine.rotation * position + affine.position;
+    return point3_t { affine.rotation * position.v } + affine.position.v;
 #elif defined AS_ROW_MAJOR
-    return position * affine.rotation + affine.position;
+    return point3_t { position.v * affine.rotation } + affine.position.v;
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
@@ -756,13 +756,13 @@ inline vec3_t inv_transform_dir(const affine_t& affine, const vec3_t& direction)
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
-inline vec3_t inv_transform_pos(const affine_t& affine, const vec3_t& position)
+inline point3_t inv_transform_pos(const affine_t& affine, const point3_t& position)
 {
     const mat3_t invRotation = as::mat::inverse(affine.rotation);
 #if defined AS_COL_MAJOR
-    return invRotation * (position - affine.position);
+    return point3_t { invRotation * (position - affine.position) };
 #elif defined AS_ROW_MAJOR
-    return (position - affine.position) * invRotation;
+    return point3_t { (position - affine.position) * invRotation };
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
