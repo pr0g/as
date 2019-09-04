@@ -15,12 +15,16 @@ find_package(as REQUIRED)
 find_package(Catch2 REQUIRED)
 find_package(MicrosoftGSL REQUIRED)
 
+enable_testing()
+
 add_executable(
     ${PROJECT_NAME}
-    main.cpp test-affine.cpp
-    test-mat.cpp test-point.cpp
-    test-quat.cpp test-vec.cpp
-    test-math.cpp)
+    main.cpp as-affine.test.cpp
+    as-mat.test.cpp as-point.test.cpp
+    as-quat.test.cpp as-vec.test.cpp
+    as-math.test.cpp)
+
+add_test(NAME as.test.all COMMAND ${PROJECT_NAME})
 
 string(
     APPEND coverage_options
