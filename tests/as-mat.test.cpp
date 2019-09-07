@@ -12,9 +12,9 @@ TEST_CASE("mat_row_col_access_mat3", "[as_mat]")
     using namespace gsl;
 
     mat3_t mat3 {
-        1.0f, 2.0f, 3.0f, //
-        4.0f, 5.0f, 6.0f, //
-        7.0f, 8.0f, 9.0f  //
+        1.0f, 2.0f, 3.0f,
+        4.0f, 5.0f, 6.0f,
+        7.0f, 8.0f, 9.0f
     };
 
 #ifdef AS_COL_MAJOR
@@ -60,23 +60,23 @@ TEST_CASE("mat_row_col_access_mat3", "[as_mat]")
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 
     real_t elems[] = {
-        1.0f, 2.0f, 3.0f, //
-        4.0f, 5.0f, 6.0f, //
-        7.0f, 8.0f, 9.0f  //
+        1.0f, 2.0f, 3.0f,
+        4.0f, 5.0f, 6.0f,
+        7.0f, 8.0f, 9.0f
     };
 
     CHECK_THAT(make_span(elems), make_elements_sub(mat3, 9));
 
     mat3_t mat3_mult;
     mat3_mult = mat3_t(
-        vec3_t(10.0f, 20.0f, 30.0f),  //
-        vec3_t(40.0f, 50.0f, 60.0f),  //
-        vec3_t(70.0f, 80.0f, 90.0f)); //
+        vec3_t(10.0f, 20.0f, 30.0f),
+        vec3_t(40.0f, 50.0f, 60.0f),
+        vec3_t(70.0f, 80.0f, 90.0f));
 
     real_t mult_elems[] = {
-        10.0f, 20.0f, 30.0f, //
-        40.0f, 50.0f, 60.0f, //
-        70.0f, 80.0f, 90.0f  //
+        10.0f, 20.0f, 30.0f,
+        40.0f, 50.0f, 60.0f,
+        70.0f, 80.0f, 90.0f
     };
 
     CHECK_THAT(make_span(mult_elems), make_elements_sub(mat3_mult, 9));
@@ -88,9 +88,9 @@ TEST_CASE("mat_row_col_mutate_mat3", "[as_mat]")
 
     mat3_t mat3;
     mat3 = mat3_t {
-        0.0f, 0.0f, 0.0f, //
-        0.0f, 0.0f, 0.0f, //
-        0.0f, 0.0f, 0.0f  //
+        0.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 0.0f
     };
 
 #ifdef AS_COL_MAJOR
@@ -185,10 +185,10 @@ TEST_CASE("mat_row_col_access_mat4", "[as_mat]")
     using namespace gsl;
 
     mat4_t mat4 {
-        1.0f, 2.0f, 3.0f, 4.0f,     //
-        5.0f, 6.0f, 7.0f, 8.0f,     //
-        9.0f, 10.0f, 11.0f, 12.0f,  //
-        13.0f, 14.0f, 15.0f, 16.0f  //
+        1.0f, 2.0f, 3.0f, 4.0f,
+        5.0f, 6.0f, 7.0f, 8.0f,
+        9.0f, 10.0f, 11.0f, 12.0f,
+        13.0f, 14.0f, 15.0f, 16.0f
     };
 
 #ifdef AS_COL_MAJOR
@@ -246,27 +246,27 @@ TEST_CASE("mat_row_col_access_mat4", "[as_mat]")
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 
     real_t elems[] = {
-        1.0f, 2.0f, 3.0f, 4.0f,    //
-        5.0f, 6.0f, 7.0f, 8.0f,    //
-        9.0f, 10.0f, 11.0f, 12.0f, //
-        13.0f, 14.0f, 15.0f, 16.0f //
+        1.0f, 2.0f, 3.0f, 4.0f,
+        5.0f, 6.0f, 7.0f, 8.0f,
+        9.0f, 10.0f, 11.0f, 12.0f,
+        13.0f, 14.0f, 15.0f, 16.0f
     };
 
     CHECK_THAT(make_span(elems), make_elements_sub(mat4, 16));
 
     mat4_t mat4_mult;
     mat4_mult = mat4_t(
-        vec4_t(10.0f, 20.0f, 30.0f, 40.0f),    //
-        vec4_t(50.0f, 60.0f, 70.0f, 80.0f),    //
-        vec4_t(90.0f, 100.0f, 110.0f, 120.0f), //
-        vec4_t(130.0f, 140.0f, 150.0f, 160.0f) //
+        vec4_t(10.0f, 20.0f, 30.0f, 40.0f),
+        vec4_t(50.0f, 60.0f, 70.0f, 80.0f),
+        vec4_t(90.0f, 100.0f, 110.0f, 120.0f),
+        vec4_t(130.0f, 140.0f, 150.0f, 160.0f)
     );
 
     real_t mult_elems[] = {
-        10.0f, 20.0f, 30.0f, 40.0f,    //
-        50.0f, 60.0f, 70.0f, 80.0f,    //
-        90.0f, 100.0f, 110.0f, 120.0f, //
-        130.0f, 140.0f, 150.0f, 160.0f //
+        10.0f, 20.0f, 30.0f, 40.0f,
+        50.0f, 60.0f, 70.0f, 80.0f,
+        90.0f, 100.0f, 110.0f, 120.0f,
+        130.0f, 140.0f, 150.0f, 160.0f
     };
 
     CHECK_THAT(make_span(mult_elems), make_elements_sub(mat4_mult, 16));
@@ -278,10 +278,10 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
 
     mat4_t mat4;
     mat4 = mat4_t {
-        0.0f, 0.0f, 0.0f, 0.0f, //
-        0.0f, 0.0f, 0.0f, 0.0f, //
-        0.0f, 0.0f, 0.0f, 0.0f, //
-        0.0f, 0.0f, 0.0f, 0.0f  //
+        0.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 0.0f
     };
 
 #ifdef AS_COL_MAJOR
@@ -419,18 +419,18 @@ TEST_CASE("mat_mat4_from_mat3_and_vec3", "[as_mat]")
     using namespace gsl;
 
     mat3_t mat3 {
-        1.0f, 2.0f, 3.0f, //
-        4.0f, 5.0f, 6.0f, //
-        7.0f, 8.0f, 9.0f  //
+        1.0f, 2.0f, 3.0f,
+        4.0f, 5.0f, 6.0f,
+        7.0f, 8.0f, 9.0f
     };
 
     vec3_t vec3 { 10.0f, 11.0f, 12.0f };
 
     const real_t mat3_and_vec3[] = {
-        1.0f, 2.0f, 3.0f, 0.0f,   //
-        4.0f, 5.0f, 6.0f, 0.0f,   //
-        7.0f, 8.0f, 9.0f, 0.0f,   //
-        10.0f, 11.0f, 12.0f, 1.0f //
+        1.0f, 2.0f, 3.0f, 0.0f,
+        4.0f, 5.0f, 6.0f, 0.0f,
+        7.0f, 8.0f, 9.0f, 0.0f,
+        10.0f, 11.0f, 12.0f, 1.0f
     };
 
     {
@@ -452,10 +452,10 @@ TEST_CASE("mat_mat4_from_mat3_and_vec3", "[as_mat]")
         mat4 = as::mat4::from_mat3(mat3);
 
         const real_t mat3_and_zero[] = {
-            1.0f, 2.0f, 3.0f, 0.0f, //
-            4.0f, 5.0f, 6.0f, 0.0f, //
-            7.0f, 8.0f, 9.0f, 0.0f, //
-            0.0f, 0.0f, 0.0f, 1.0f  //
+            1.0f, 2.0f, 3.0f, 0.0f,
+            4.0f, 5.0f, 6.0f, 0.0f,
+            7.0f, 8.0f, 9.0f, 0.0f,
+            0.0f, 0.0f, 0.0f, 1.0f
         };
 
         CHECK_THAT(make_span(mat3_and_zero), make_elements_sub(mat4, 16));
@@ -466,10 +466,10 @@ TEST_CASE("mat_mat4_from_mat3_and_vec3", "[as_mat]")
         mat4 = as::mat4::from_vec3(vec3_t{ 10.f, 20.0f, 30.0f});
 
         const real_t zero_and_vec3[] = {
-            1.0f, 0.0f, 0.0f, 0.0f, //
-            0.0f, 1.0f, 0.0f, 0.0f, //
-            0.0f, 0.0f, 1.0f, 0.0f, //
-            10.0f, 20.0f, 30.0f, 1.0f  //
+            1.0f, 0.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f, 0.0f,
+            0.0f, 0.0f, 1.0f, 0.0f,
+            10.0f, 20.0f, 30.0f, 1.0f
         };
 
         CHECK_THAT(make_span(zero_and_vec3), make_elements_sub(mat4, 16));
@@ -481,18 +481,18 @@ TEST_CASE("const_elem_access_mat_const", "[as_mat]")
     using namespace gsl;
 
     const mat_t<real_t, 5> mat5(
-        1.0f, 2.0f, 3.0f, 4.0f, 5.0f,       //
-        6.0f, 7.0f, 8.0f, 9.0f, 10.0f,      //
-        11.0f, 12.0f, 13.0f, 15.0f, 15.0f,  //
-        16.0f, 17.0f, 18.0f, 19.0f, 20.0f,  //
-        21.0f, 22.0f, 23.0f, 24.0f, 25.0f); //
+        1.0f, 2.0f, 3.0f, 4.0f, 5.0f,
+        6.0f, 7.0f, 8.0f, 9.0f, 10.0f,
+        11.0f, 12.0f, 13.0f, 15.0f, 15.0f,
+        16.0f, 17.0f, 18.0f, 19.0f, 20.0f,
+        21.0f, 22.0f, 23.0f, 24.0f, 25.0f);
 
     const real_t mat_arr[] = {
-        mat5[0], mat5[1], mat5[2], mat5[3], mat5[4],      //
-        mat5[5], mat5[6], mat5[7], mat5[8], mat5[9],      //
-        mat5[10], mat5[11], mat5[12], mat5[13], mat5[14], //
-        mat5[15], mat5[16], mat5[17], mat5[18], mat5[19], //
-        mat5[20], mat5[21], mat5[22], mat5[23], mat5[24]  //
+        mat5[0], mat5[1], mat5[2], mat5[3], mat5[4],
+        mat5[5], mat5[6], mat5[7], mat5[8], mat5[9],
+        mat5[10], mat5[11], mat5[12], mat5[13], mat5[14],
+        mat5[15], mat5[16], mat5[17], mat5[18], mat5[19],
+        mat5[20], mat5[21], mat5[22], mat5[23], mat5[24]
     };
 
     CHECK_THAT(make_span(mat_arr), make_elements_sub(mat5, 25));
@@ -503,22 +503,22 @@ TEST_CASE("elem_access_mat", "[as_mat]")
     using namespace gsl;
 
     mat_t<real_t, 5> mat5(
-        1.0f, 2.0f, 3.0f, 4.0f, 5.0f,      //
-        6.0f, 7.0f, 8.0f, 9.0f, 10.0f,     //
-        11.0f, 12.0f, 13.0f, 15.0f, 15.0f, //
-        16.0f, 17.0f, 18.0f, 19.0f, 20.0f, //
-        21.0f, 22.0f, 23.0f, 24.0f, 25.0f  //
+        1.0f, 2.0f, 3.0f, 4.0f, 5.0f,
+        6.0f, 7.0f, 8.0f, 9.0f, 10.0f,
+        11.0f, 12.0f, 13.0f, 15.0f, 15.0f,
+        16.0f, 17.0f, 18.0f, 19.0f, 20.0f,
+        21.0f, 22.0f, 23.0f, 24.0f, 25.0f
     );
 
     mat5[15] = 100.0f;
     mat5[20] = 200.0f;
 
     const real_t mat_arr[] = {
-        mat5[0], mat5[1], mat5[2], mat5[3], mat5[4],      //
-        mat5[5], mat5[6], mat5[7], mat5[8], mat5[9],      //
-        mat5[10], mat5[11], mat5[12], mat5[13], mat5[14], //
-        100.0f, mat5[16], mat5[17], mat5[18], mat5[19],    //
-        200.0f, mat5[21], mat5[22], mat5[23], mat5[24]     //
+        mat5[0], mat5[1], mat5[2], mat5[3], mat5[4],
+        mat5[5], mat5[6], mat5[7], mat5[8], mat5[9],
+        mat5[10], mat5[11], mat5[12], mat5[13], mat5[14],
+        100.0f, mat5[16], mat5[17], mat5[18], mat5[19],
+        200.0f, mat5[21], mat5[22], mat5[23], mat5[24]
     };
 
     CHECK_THAT(make_span(mat_arr), make_elements_sub(mat5, 25));
@@ -529,17 +529,17 @@ TEST_CASE("elem_access_mat4_const", "[as_mat]")
     using namespace gsl;
 
     const mat4_t mat4(
-        1.0f, 2.0f, 3.0f, 4.0f,     //
-        5.0f, 6.0f, 7.0f, 8.0f,     //
-        9.0f, 10.0f, 11.0f, 12.0f,  //
-        13.0f, 14.0f, 15.0f, 16.0f  //
+        1.0f, 2.0f, 3.0f, 4.0f,
+        5.0f, 6.0f, 7.0f, 8.0f,
+        9.0f, 10.0f, 11.0f, 12.0f,
+        13.0f, 14.0f, 15.0f, 16.0f
     );
 
     const real_t mat_arr[] = {
-        1.0f, 2.0f, 3.0f, 4.0f,     //
-        5.0f, 6.0f, 7.0f, 8.0f,     //
-        9.0f, 10.0f, 11.0f, 12.0f,  //
-        13.0f, 14.0f, 15.0f, 16.0f, //
+        1.0f, 2.0f, 3.0f, 4.0f,
+        5.0f, 6.0f, 7.0f, 8.0f,
+        9.0f, 10.0f, 11.0f, 12.0f,
+        13.0f, 14.0f, 15.0f, 16.0f,
     };
 
     const real_t mat4_8 = mat4[8];
@@ -561,9 +561,9 @@ TEST_CASE("rvalue_elem_access_mat2_3_4", "[as_mat]")
 
     auto make_mat3 = []() {
         return as::mat3_t{
-            1.0f, 2.0f, 3.0f,   //
-            4.0f, 5.0f, 6.0f,   //
-            7.0f, 8.0f, 9.0f    //
+            1.0f, 2.0f, 3.0f,
+            4.0f, 5.0f, 6.0f,
+            7.0f, 8.0f, 9.0f
         };
     };
 
@@ -571,10 +571,10 @@ TEST_CASE("rvalue_elem_access_mat2_3_4", "[as_mat]")
 
     auto make_mat4 = [](){
         return as::mat4_t {
-            1.0f, 2.0f, 3.0f, 4.0f,     //
-            5.0f, 6.0f, 7.0f, 8.0f,     //
-            9.0f, 10.0f, 11.0f, 12.0f,  //
-            13.0f, 14.0f, 15.0f, 16.0f  //
+            1.0f, 2.0f, 3.0f, 4.0f,
+            5.0f, 6.0f, 7.0f, 8.0f,
+            9.0f, 10.0f, 11.0f, 12.0f,
+            13.0f, 14.0f, 15.0f, 16.0f
         };
     };
 
@@ -605,21 +605,21 @@ TEST_CASE("multiply_same_size", "[as_mat]")
     using namespace gsl;
 
     const mat3_t mat3_a {
-        1.0f, 2.0f, 3.0f, //
-        4.0f, 5.0f, 6.0f, //
-        7.0f, 8.0f, 9.0f  //
+        1.0f, 2.0f, 3.0f,
+        4.0f, 5.0f, 6.0f,
+        7.0f, 8.0f, 9.0f
     };
 
     const mat3_t mat3_b {
-        9.0f, 8.0f, 7.0f, //
-        6.0f, 5.0f, 4.0f, //
-        3.0f, 2.0f, 1.0f  //
+        9.0f, 8.0f, 7.0f,
+        6.0f, 5.0f, 4.0f,
+        3.0f, 2.0f, 1.0f
     };
 
     const real_t mat_arr[] = {
-        30.0f, 24.0f, 18.0f,  //
-        84.0f, 69.0f, 54.0f,  //
-        138.0f, 114.0f, 90.0f //
+        30.0f, 24.0f, 18.0f,
+        84.0f, 69.0f, 54.0f,
+        138.0f, 114.0f, 90.0f
     };
 
     mat3_t result;
@@ -637,9 +637,9 @@ TEST_CASE("multiply_vector", "[as_mat]")
     using namespace gsl;
 
     const mat3_t mat {
-        1.0f, 2.0f, 3.0f, //
-        4.0f, 5.0f, 6.0f, //
-        7.0f, 8.0f, 9.0f  //
+        1.0f, 2.0f, 3.0f,
+        4.0f, 5.0f, 6.0f,
+        7.0f, 8.0f, 9.0f
     };
 
     const vec3_t vec { 11.0f, 12.0f, 13.0f };
@@ -660,35 +660,35 @@ TEST_CASE("multiply_scalar", "[as_mat]")
     using namespace gsl;
 
     const mat3_t mat3 {
-        1.0f, 2.0f, 3.0f, //
-        4.0f, 5.0f, 6.0f, //
-        7.0f, 8.0f, 9.0f  //
+        1.0f, 2.0f, 3.0f,
+        4.0f, 5.0f, 6.0f,
+        7.0f, 8.0f, 9.0f
     };
 
     mat3_t result33 = mat3 * real_t(2.0);
 
     const real_t mat3_arr[] = {
-        2.0f, 4.0f, 6.0f,   //
-        8.0f, 10.0f, 12.0f, //
-        14.0f, 16.0f, 18.0f //
+        2.0f, 4.0f, 6.0f,
+        8.0f, 10.0f, 12.0f,
+        14.0f, 16.0f, 18.0f
     };
 
     CHECK_THAT(make_span(mat3_arr), make_elements_sub(result33, 9));
 
     const mat4_t mat4 {
-        2.0f, 4.0f, 6.0f, 8.0f,     //
-        10.0f, 12.0f, 14.0f, 16.0f, //
-        18.0f, 20.0f, 22.0f, 24.0f, //
-        26.0f, 28.0f, 30.0f, 32.0f  //
+        2.0f, 4.0f, 6.0f, 8.0f,
+        10.0f, 12.0f, 14.0f, 16.0f,
+        18.0f, 20.0f, 22.0f, 24.0f,
+        26.0f, 28.0f, 30.0f, 32.0f
     };
 
     const mat4_t result4 = mat4 * real_t(2.0);
 
     const real_t mat4_arr[] = {
-        4.0f, 8.0f, 12.0f, 16.0f,   //
-        20.0f, 24.0f, 28.0f, 32.0f, //
-        36.0f, 40.0f, 44.0f, 48.0f, //
-        52.0f, 56.0f, 60.0f, 64.0f  //
+        4.0f, 8.0f, 12.0f, 16.0f,
+        20.0f, 24.0f, 28.0f, 32.0f,
+        36.0f, 40.0f, 44.0f, 48.0f,
+        52.0f, 56.0f, 60.0f, 64.0f
     };
 
     CHECK_THAT(make_span(mat4_arr), make_elements_sub(result4, 16));
@@ -700,10 +700,10 @@ TEST_CASE("mat_from_arr", "[as_mat]")
 
     {
         real_t elems[] = {
-            1.0f, 2.0f, 3.0f, 4.0f,    //
-            5.0f, 6.0f, 7.0f, 8.0f,    //
-            9.0f, 10.0f, 11.0f, 12.0f, //
-            13.0f, 14.0f, 15.0f, 16.0f //
+            1.0f, 2.0f, 3.0f, 4.0f,
+            5.0f, 6.0f, 7.0f, 8.0f,
+            9.0f, 10.0f, 11.0f, 12.0f,
+            13.0f, 14.0f, 15.0f, 16.0f
         };
 
         const mat4_t mat4_a = as::mat::from_arr<real_t, 4>(elems);
@@ -715,9 +715,9 @@ TEST_CASE("mat_from_arr", "[as_mat]")
 
     {
         real_t elems[] = {
-            1.0f, 2.0f, 3.0f,   //
-            4.0f, 5.0f, 6.0f,   //
-            7.0f, 8.0f, 9.0f    //
+            1.0f, 2.0f, 3.0f,
+            4.0f, 5.0f, 6.0f,
+            7.0f, 8.0f, 9.0f
         };
 
         const mat3_t mat3_a = as::mat::from_arr<real_t, 3>(elems);
@@ -734,10 +734,10 @@ TEST_CASE("mat_from_ptr", "[as_mat]")
 
     {
         real_t elems[] = {
-            1.0f, 2.0f, 3.0f, 4.0f,    //
-            5.0f, 6.0f, 7.0f, 8.0f,    //
-            9.0f, 10.0f, 11.0f, 12.0f, //
-            13.0f, 14.0f, 15.0f, 16.0f //
+            1.0f, 2.0f, 3.0f, 4.0f,
+            5.0f, 6.0f, 7.0f, 8.0f,
+            9.0f, 10.0f, 11.0f, 12.0f,
+            13.0f, 14.0f, 15.0f, 16.0f
         };
 
         const mat4_t mat4_a = as::mat::from_ptr<real_t, 4>(elems);
@@ -749,9 +749,9 @@ TEST_CASE("mat_from_ptr", "[as_mat]")
 
     {
         real_t elems[] = {
-            1.0f, 2.0f, 3.0f,   //
-            4.0f, 5.0f, 6.0f,   //
-            7.0f, 8.0f, 9.0f    //
+            1.0f, 2.0f, 3.0f,
+            4.0f, 5.0f, 6.0f,
+            7.0f, 8.0f, 9.0f
         };
 
         const mat3_t mat3_a = as::mat::from_ptr<real_t, 3>(elems);
@@ -767,9 +767,9 @@ TEST_CASE("mat_to_arr", "[as_mat]")
     using namespace gsl;
 
     const mat3_t mat3 {
-        1.0f, 2.0f, 3.0f, //
-        4.0f, 5.0f, 6.0f, //
-        7.0f, 8.0f, 9.0f  //
+        1.0f, 2.0f, 3.0f,
+        4.0f, 5.0f, 6.0f,
+        7.0f, 8.0f, 9.0f
     };
 
     real_t mat3_arr[9];
@@ -784,17 +784,17 @@ TEST_CASE("mat_transpose", "[as_mat]")
 
     {
         const mat3_t mat3 {
-            1.0f, 2.0f, 3.0f, //
-            4.0f, 5.0f, 6.0f, //
-            7.0f, 8.0f, 9.0f  //
+            1.0f, 2.0f, 3.0f,
+            4.0f, 5.0f, 6.0f,
+            7.0f, 8.0f, 9.0f
         };
 
         const mat3_t mat3_transposed = as::mat::transpose(mat3);
 
         const real_t mat3_transposed_ref[] {
-            1.0f, 4.0f, 7.0f, //
-            2.0f, 5.0f, 8.0f, //
-            3.0f, 6.0f, 9.0f  //
+            1.0f, 4.0f, 7.0f,
+            2.0f, 5.0f, 8.0f,
+            3.0f, 6.0f, 9.0f
         };
 
         CHECK_THAT(make_span(mat3_transposed_ref), make_elements_sub(mat3_transposed, 9));
@@ -802,19 +802,19 @@ TEST_CASE("mat_transpose", "[as_mat]")
 
     {
         const mat4_t mat4 = {
-            1.0f, 2.0f, 3.0f, 4.0f,    //
-            5.0f, 6.0f, 7.0f, 8.0f,    //
-            9.0f, 10.0f, 11.0f, 12.0f, //
-            13.0f, 14.0f, 15.0f, 16.0f //
+            1.0f, 2.0f, 3.0f, 4.0f,
+            5.0f, 6.0f, 7.0f, 8.0f,
+            9.0f, 10.0f, 11.0f, 12.0f,
+            13.0f, 14.0f, 15.0f, 16.0f
         };
 
         const mat4_t mat4_transposed = as::mat::transpose(mat4);
 
         const real_t mat4_transposed_reference[] {
-            1.0f, 5.0f, 9.0f, 13.0f,    //
-            2.0f, 6.0f, 10.0f, 14.0f,   //
-            3.0f, 7.0f, 11.0f, 15.0f,   //
-            4.0f, 8.0f, 12.0f, 16.0f    //
+            1.0f, 5.0f, 9.0f, 13.0f,
+            2.0f, 6.0f, 10.0f, 14.0f,
+            3.0f, 7.0f, 11.0f, 15.0f,
+            4.0f, 8.0f, 12.0f, 16.0f
         };
 
         CHECK_THAT(make_span(mat4_transposed_reference), make_elements_sub(mat4_transposed, 16));
@@ -830,9 +830,9 @@ TEST_CASE("mat_identity", "[as_mat]")
         mat3_identity = as::mat3::identity();
 
         const real_t mat3_identity_ref[] {
-            1.0f, 0.0f, 0.0f, //
-            0.0f, 1.0f, 0.0f, //
-            0.0f, 0.0f, 1.0f  //
+            1.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f,
+            0.0f, 0.0f, 1.0f
         };
 
         CHECK_THAT(make_span(mat3_identity_ref), make_elements_sub(mat3_identity, 9));
@@ -843,10 +843,10 @@ TEST_CASE("mat_identity", "[as_mat]")
         mat4_identity = as::mat4::identity();
 
         const real_t mat4_identity_ref[] {
-            1.0f, 0.0f, 0.0f, 0.0f, //
-            0.0f, 1.0f, 0.0f, 0.0f, //
-            0.0f, 0.0f, 1.0f, 0.0f, //
-            0.0f, 0.0f, 0.0f, 1.0f  //
+            1.0f, 0.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f, 0.0f,
+            0.0f, 0.0f, 1.0f, 0.0f,
+            0.0f, 0.0f, 0.0f, 1.0f
         };
 
         CHECK_THAT(make_span(mat4_identity_ref), make_elements_sub(mat4_identity, 16));
@@ -877,17 +877,17 @@ TEST_CASE("mat_inverse", "[as_mat]")
 
     {
         const mat3_t mat3 {
-            1.0f, 2.0f, 3.0f, //
-            4.0f, 5.0f, 6.0f, //
-            7.0f, 2.0f, 9.0f  //
+            1.0f, 2.0f, 3.0f,
+            4.0f, 5.0f, 6.0f,
+            7.0f, 2.0f, 9.0f
         };
 
         const mat3_t mat3_inverse = as::mat::inverse(mat3);
 
         const real_t mat3_inverse_ref[] {
-            -11.0f/12.0f, 1.0f/3.0f, 1.0f/12.0f, //
-            -1.0f/6.0f, 1.0f/3.0f, -1.0f/6.0f, //
-            3.0f/4.0f, -1.0f/3.0f, 1.0f/12.0f  //
+            -11.0f/12.0f, 1.0f/3.0f, 1.0f/12.0f,
+            -1.0f/6.0f, 1.0f/3.0f, -1.0f/6.0f,
+            3.0f/4.0f, -1.0f/3.0f, 1.0f/12.0f
         };
 
         CHECK_THAT(make_span(mat3_inverse_ref), make_elements_sub(mat3_inverse, 9));
@@ -895,19 +895,19 @@ TEST_CASE("mat_inverse", "[as_mat]")
 
     {
         const mat4_t mat4 = {
-            1.0f, 3.0f, 5.0f, 9.0f, //
-            1.0f, 3.0f, 1.0f, 7.0f, //
-            4.0f, 3.0f, 9.0f, 7.0f, //
-            5.0f, 2.0f, 0.0f, 9.0f  //
+            1.0f, 3.0f, 5.0f, 9.0f,
+            1.0f, 3.0f, 1.0f, 7.0f,
+            4.0f, 3.0f, 9.0f, 7.0f,
+            5.0f, 2.0f, 0.0f, 9.0f
         };
 
         const mat4_t mat4_inverse = as::mat::inverse(mat4);
 
         const real_t mat4_inverse_reference[] {
-            -13.0f/47.0f, 2.0f/47.0f, 7.0f/47.0f, 6.0f/47.0f,           //
-            -5.0f/8.0f, 7.0f/8.0f, 1.0f/4.0f, -1.0f/4.0f,               //
-            39.0f/376.0f, -53.0f/376.0f, 13.0f/188.0f, -9.0f/188.0f,    //
-            55.0f/188.0f, -41.0f/188.0f, -13.0f/94.0f, 9.0f/94.0f       //
+            -13.0f/47.0f, 2.0f/47.0f, 7.0f/47.0f, 6.0f/47.0f,
+            -5.0f/8.0f, 7.0f/8.0f, 1.0f/4.0f, -1.0f/4.0f,
+            39.0f/376.0f, -53.0f/376.0f, 13.0f/188.0f, -9.0f/188.0f,
+            55.0f/188.0f, -41.0f/188.0f, -13.0f/94.0f, 9.0f/94.0f
         };
 
         CHECK_THAT(make_span(mat4_inverse_reference), make_elements_sub(mat4_inverse, 16));
@@ -922,9 +922,9 @@ TEST_CASE("mat_scale", "[as_mat]")
     scale = as::mat3::scale(as::vec3_t{ 1.0f, 2.0f, 3.0f});
 
     const real_t mat3_scale_reference[] {
-        1.0f, 0.0f, 0.0f, //
-        0.0f, 2.0f, 0.0f, //
-        0.0f, 0.0f, 3.0f  //
+        1.0f, 0.0f, 0.0f,
+        0.0f, 2.0f, 0.0f,
+        0.0f, 0.0f, 3.0f
     };
 
     CHECK_THAT(make_span(mat3_scale_reference), make_elements_sub(scale, 9));
@@ -933,9 +933,9 @@ TEST_CASE("mat_scale", "[as_mat]")
     uniform_scale = as::mat3::scale(5.0f);
 
     const real_t mat3_uniform_scale_reference[] {
-        5.0f, 0.0f, 0.0f, //
-        0.0f, 5.0f, 0.0f, //
-        0.0f, 0.0f, 5.0f  //
+        5.0f, 0.0f, 0.0f,
+        0.0f, 5.0f, 0.0f,
+        0.0f, 0.0f, 5.0f
     };
 
     CHECK_THAT(make_span(mat3_uniform_scale_reference), make_elements_sub(uniform_scale, 9));
@@ -952,9 +952,9 @@ TEST_CASE("mat3_from_mat4", "[as_mat]")
     mat3 = as::mat3::from_mat4(mat4);
 
     const real_t mat3_identity_ref[] {
-        1.0f, 0.0f, 0.0f, //
-        0.0f, 1.0f, 0.0f, //
-        0.0f, 0.0f, 1.0f  //
+        1.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 1.0f
     };
 
     CHECK_THAT(make_span(mat3_identity_ref), make_elements_sub(mat3, 9));
@@ -1165,11 +1165,11 @@ template struct as::mat_t<real_t, 5>;
 #ifdef __GNUC__
 // constructor
 template as::mat_t<real_t, 5>::mat_t(
-    real_t, real_t, real_t, real_t, real_t,             //
-    real_t, real_t, real_t, real_t, real_t,             //
-    real_t, real_t, real_t, real_t, real_t,             //
-    real_t, real_t, real_t, real_t, real_t,             //
-    real_t, real_t, real_t, real_t, real_t) noexcept;   //
+    real_t, real_t, real_t, real_t, real_t,
+    real_t, real_t, real_t, real_t, real_t,
+    real_t, real_t, real_t, real_t, real_t,
+    real_t, real_t, real_t, real_t, real_t,
+    real_t, real_t, real_t, real_t, real_t) noexcept;
 #endif // __GNUC__
 
 // matrix multiply

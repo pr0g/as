@@ -22,7 +22,7 @@ add_executable(
     main.cpp as-affine.test.cpp
     as-mat.test.cpp as-point.test.cpp
     as-quat.test.cpp as-vec.test.cpp
-    as-math.test.cpp)
+    as-math.test.cpp as-view.test.cpp)
 
 add_test(NAME as.test.all COMMAND ${PROJECT_NAME})
 
