@@ -81,6 +81,9 @@ install:
   # travis machines have 2 cores
   - JOBS=2
 
+  # install coveralls
+  - gem install coveralls-lcov
+
   # install more up to date cmake
   # ref: https://riptutorial.com/cmake/example/4723/configure-travis-ci-with-newest-cmake
   - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
@@ -111,7 +114,10 @@ after_success:
   - |
     if [ $BUILD_TYPE == "Debug" ] && [ $CXX_COMPILER == "g++-7" ]; then
       lcov --capture --directory . --output-file coverage.info --gcov-tool=gcov-7
-      lcov --remove coverage.info '*/catch2/*' '*/7.4.0/*' '*/usr/include/*' '*/tests/*.test.cpp' '*/tests/catch-*' --output-file coverage.info --gcov-tool=gcov-7 # filter external files
+      lcov --remove coverage.info '*/gsl_install/*' '*/catch2/*' '*/7.4.0/*' '*/usr/include/*' '*/tests/*.test.cpp' '*/tests/catch-*' --output-file coverage.info --gcov-tool=gcov-7 # filter external files
       lcov --list coverage.info --gcov-tool=gcov-7 # debug info
+      # codecov
       bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports" # uploading report to codecov
+      # coveralls
+      coveralls-lcov coverage.info
     fi
