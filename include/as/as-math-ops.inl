@@ -84,15 +84,13 @@ template<typename T, index_t n>
 bool equal(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs,
     real_t epsilon /*= std::numeric_limits<real_t>::epsilon()*/)
 {
-    bool eq = true;
-
     for (index_t i = 0; i < n; ++i) {
-        eq = eq && as::equal(lhs[i], rhs[i], epsilon, epsilon);
-
-        if (!eq) { break; }
+        if (!as::equal(lhs[i], rhs[i], epsilon, epsilon)) {
+            return false;
+        }
     }
 
-    return eq;
+    return true;
 }
 
 template<typename T, index_t n>
