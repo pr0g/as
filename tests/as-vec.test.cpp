@@ -1368,7 +1368,7 @@ TEST_CASE("abs", "[as_vec]")
     }
 }
 
-TEST_CASE("min", "[as_vec]")
+TEST_CASE("min_vec", "[as_vec]")
 {
     {
         vec4_t vec1(-1.0f, 2.0f, -100.0f, -7.0f);
@@ -1410,7 +1410,7 @@ TEST_CASE("min_elem", "[as_vec]")
     }
 }
 
-TEST_CASE("max", "[as_vec]")
+TEST_CASE("max_vec", "[as_vec]")
 {
     {
         vec4_t vec1(-1.0f, 2.0f, -100.0f, -7.0f);
@@ -1599,11 +1599,22 @@ TEST_CASE("select", "[as_vec]")
 
 TEST_CASE("wedge_vec2", "[as_vec]")
 {
-    const vec2_t vec1(2.0f, 0.0f);
-    const vec2_t vec2(0.0f, 2.0f);
-    const real_t result = as::vec2::wedge(vec1, vec2);
+    {
+        const vec2_t vec1(2.0f, 0.0f);
+        const vec2_t vec2(0.0f, 2.0f);
+        const real_t result = as::vec2::wedge(vec1, vec2);
 
-    CHECK(result == Approx(4.0f).epsilon(g_epsilon));
+        CHECK(result == Approx(4.0f).epsilon(g_epsilon));
+    }
+
+
+    {
+        const vec2_t vec1(10.0f, 10.0f);
+        const vec2_t vec2(20.0f, 5.0f);
+        const real_t result = as::vec2::wedge(vec1, vec2);
+
+        CHECK(result == Approx(-150.0f).epsilon(g_epsilon));
+    }
 }
 
 TEST_CASE("vec_to_arr", "[as_vec]")

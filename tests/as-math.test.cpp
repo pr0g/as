@@ -5,6 +5,52 @@
 
 using namespace as;
 
+const real_t g_epsilon = std::numeric_limits<float>::epsilon();
+
+TEST_CASE("max", "[as_math]")
+{
+    const real_t a = 5.0f;
+    const real_t b = 2.0f;
+
+    {
+        const real_t max_result = as::max(a, b);
+        CHECK(max_result == Approx(a).epsilon(g_epsilon));
+    }
+
+    {
+        const real_t max_result = as::max(b, a);
+        CHECK(max_result == Approx(a).epsilon(g_epsilon));
+    }
+
+    {
+        const real_t aa = 5.0f;
+        const real_t max_result = as::max(aa, a);
+        CHECK(max_result == Approx(aa).epsilon(g_epsilon));
+    }
+}
+
+TEST_CASE("min", "[as_math]")
+{
+    const real_t a = 10.0f;
+    const real_t b = 5.0f;
+
+    {
+        const real_t min_result = as::min(a, b);
+        CHECK(min_result == Approx(b).epsilon(g_epsilon));
+    }
+
+    {
+        const real_t min_result = as::min(b, a);
+        CHECK(min_result == Approx(b).epsilon(g_epsilon));
+    }
+
+    {
+        const real_t bb = 5.0f;
+        const real_t max_result = as::min(bb, b);
+        CHECK(max_result == Approx(bb).epsilon(g_epsilon));
+    }
+}
+
 TEST_CASE("smoothstep", "[as_math]")
 {
     constexpr real_t real_epsilon = 1e-3f;
