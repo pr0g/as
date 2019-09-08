@@ -297,7 +297,7 @@ mat_t<T, d> from_ptr(const T* data)
 }
 
 template<typename T, index_t d>
-AS_API void to_arr(const mat_t<T, d>& mat, T(&data)[d * d])
+void to_arr(const mat_t<T, d>& mat, T(&data)[d * d])
 {
     for (index_t i = 0; i < d * d; ++i) {
         data[i] = mat[i];
