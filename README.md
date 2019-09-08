@@ -5,6 +5,7 @@
 [![Build Status](https://travis-ci.org/pr0g/as.svg?branch=master)](https://travis-ci.org/pr0g/as)
 [![Build status](https://ci.appveyor.com/api/projects/status/github/pr0g/as?branch=master&svg=true)](https://ci.appveyor.com/project/pr0g/as)
 [![codecov](https://codecov.io/gh/pr0g/as/branch/master/graphs/badge.svg)](https://codecov.io/gh/pr0g/as)
+[![coveralls](https://coveralls.io/repos/github/pr0g/as/badge.svg?branch=master)](https://coveralls.io/github/pr0g/as?branch=master)
 [![coverity](https://img.shields.io/coverity/scan/18966)](https://scan.coverity.com/projects/pr0g-as)
 [![as-loc](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fpr0g%2Fas%2Fmaster%2Floc.json)](https://github.com/pr0g/as/blob/master/loc.json)
 [![loc](https://tokei.rs/b1/github/pr0g/as?category=code)](https://github.com/pr0g/as)
