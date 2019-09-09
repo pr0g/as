@@ -1,6 +1,7 @@
 #pragma once
 
-#include "as-math-ops.hpp"
+#include "as-mat3.hpp"
+#include "as-point.hpp"
 
 namespace as
 {
