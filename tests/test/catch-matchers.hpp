@@ -87,9 +87,3 @@ ElementsAreSubscript<Sub> make_elements_sub(
 {
     return ElementsAreSubscript<Sub>(subscriptable, len);
 }
-
-template<typename T>
-gsl::span<T> make_span(const T* pointer, const gsl::index count)
-{
-    return gsl::span<T>(pointer, count);
-}
