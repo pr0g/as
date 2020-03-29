@@ -13,7 +13,7 @@ install_it(${DEV_LIB_DIR})
 
 find_package(as REQUIRED)
 find_package(Catch2 REQUIRED)
-find_package(MicrosoftGSL REQUIRED)
+find_package(Microsoft.GSL CONFIG REQUIRED)
 
 enable_testing()
 
@@ -97,7 +97,7 @@ target_compile_definitions(
     $<$<BOOL:${AS_COVERAGE}>:AS_COVERAGE>)
 target_link_libraries(
     ${PROJECT_NAME}
-    as::as Catch2::Catch2 MicrosoftGSL::GSL)
+    as::as Catch2::Catch2 Microsoft.GSL::GSL)
 
 add_custom_target(scrub
     COMMAND ${CMAKE_MAKE_PROGRAM} clean
