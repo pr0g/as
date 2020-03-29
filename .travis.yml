@@ -98,22 +98,22 @@ before_script:
   - tools/install-catch2.sh
   - tools/install-gsl.sh
   - tools/install-as.sh
-  - cd tests/test/build/
+  - cd tests/test
   - >
-    cmake -DDEV_LIB_DIR=../../ .. -DCATCH_CONFIG_DISABLE_EXCEPTIONS=1
+    cmake -S . -B build -DDEV_LIB_DIR=../ -DCATCH_CONFIG_DISABLE_EXCEPTIONS=1
     -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
-    -DCMAKE_PREFIX_PATH=$(pwd)/as_install/\;$(pwd)/catch2_install/\;$(pwd)/gsl_install/
+    -DCMAKE_PREFIX_PATH=$(pwd)/build/as_install/\;$(pwd)/build/catch2_install/\;$(pwd)/build/gsl_install/
     ${PRECISION} ${ORDER} ${COVERAGE}
 
 script:
-  - cmake --build . -j${JOBS} -- VERBOSE=1
-  - ./as-test
+  - cmake --build build -j${JOBS} -v
+  - ./build/as-test
 
 after_success:
   # create lcov report
   - |
     if [ $BUILD_TYPE == "Debug" ] && [ $CXX_COMPILER == "g++-7" ]; then
-      lcov --capture --directory . --output-file coverage.info --gcov-tool=gcov-7
+      lcov --capture --directory build --output-file coverage.info --gcov-tool=gcov-7
       lcov --remove coverage.info '*/gsl_install/*' '*/catch2/*' '*/7.4.0/*' '*/usr/include/*' '*/tests/test/*.test.cpp' '*/tests/test/catch-*' --output-file coverage.info --gcov-tool=gcov-7 # filter external files
       lcov --list coverage.info --gcov-tool=gcov-7 # debug info
       # codecov
