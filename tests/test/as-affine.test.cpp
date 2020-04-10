@@ -3,7 +3,22 @@
 
 #include "as/as-math-ops.hpp"
 
-using namespace as;
+namespace unit_test
+{
+
+// types
+using as::affine_t;
+using as::mat3_t;
+using as::point3_t;
+using as::real_t;
+using as::vec3_t;
+
+// functions
+using as::deg_to_rad;
+
+// namespaces
+namespace affine = as::affine;
+namespace mat3 = as::mat3;
 
 // use float epsilon for comparisons
 const real_t g_epsilon = std::numeric_limits<float>::epsilon();
@@ -94,3 +109,5 @@ TEST_CASE("affine_inv_transform_dir", "[as_affine]")
         CHECK(result.z == Approx(0.0f).margin(local_epsilon));
     }
 }
+
+} // namespace unit_test

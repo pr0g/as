@@ -3,13 +3,38 @@
 
 #include "as/as-math-ops.hpp"
 
-using namespace as;
+namespace unit_test
+{
+
+// types
+using as::affine_t;
+using as::mat_t;
+using as::mat3_t;
+using as::mat4_t;
+using as::index_t;
+using as::point3_t;
+using as::real_t;
+using as::vec_t;
+using as::vec3_t;
+using as::vec4_t;
+
+// functions
+using as::deg_to_rad;
+
+// namespaces
+namespace affine = as::affine;
+namespace mat = as::mat;
+namespace mat3 = as::mat3;
+namespace mat4 = as::mat4;
+namespace vec2 = as::vec2;
+namespace vec3 = as::vec3;
+namespace vec4 = as::vec4;
 
 const real_t g_epsilon = std::numeric_limits<real_t>::epsilon();
 
 TEST_CASE("mat_row_col_access_mat3", "[as_mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     mat3_t mat3 {
         1.0f, 2.0f, 3.0f,
@@ -84,7 +109,7 @@ TEST_CASE("mat_row_col_access_mat3", "[as_mat]")
 
 TEST_CASE("mat_row_col_mutate_mat3", "[as_mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     mat3_t mat3;
     mat3 = mat3_t {
@@ -182,7 +207,7 @@ TEST_CASE("mat_row_col_mutate_mat3", "[as_mat]")
 
 TEST_CASE("mat_row_col_access_mat4", "[as_mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     mat4_t mat4 {
         1.0f, 2.0f, 3.0f, 4.0f,
@@ -274,7 +299,7 @@ TEST_CASE("mat_row_col_access_mat4", "[as_mat]")
 
 TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     mat4_t mat4;
     mat4 = mat4_t {
@@ -416,7 +441,7 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
 
 TEST_CASE("mat_mat4_from_mat3_and_vec3", "[as_mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     mat3_t mat3 {
         1.0f, 2.0f, 3.0f,
@@ -442,14 +467,14 @@ TEST_CASE("mat_mat4_from_mat3_and_vec3", "[as_mat]")
 
     {
         mat4_t mat4;
-        mat4 = as::mat4::from_mat3_vec3(mat3, vec3);
+        mat4 = mat4::from_mat3_vec3(mat3, vec3);
 
         CHECK_THAT(make_span(mat3_and_vec3), make_elements_sub(mat4, 16));
     }
 
     {
         mat4_t mat4;
-        mat4 = as::mat4::from_mat3(mat3);
+        mat4 = mat4::from_mat3(mat3);
 
         const real_t mat3_and_zero[] = {
             1.0f, 2.0f, 3.0f, 0.0f,
@@ -463,7 +488,7 @@ TEST_CASE("mat_mat4_from_mat3_and_vec3", "[as_mat]")
 
     {
         mat4_t mat4;
-        mat4 = as::mat4::from_vec3(vec3_t{ 10.f, 20.0f, 30.0f});
+        mat4 = mat4::from_vec3(vec3_t{ 10.f, 20.0f, 30.0f});
 
         const real_t zero_and_vec3[] = {
             1.0f, 0.0f, 0.0f, 0.0f,
@@ -478,7 +503,7 @@ TEST_CASE("mat_mat4_from_mat3_and_vec3", "[as_mat]")
 
 TEST_CASE("const_elem_access_mat_const", "[as_mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     const mat_t<real_t, 5> mat5(
         1.0f, 2.0f, 3.0f, 4.0f, 5.0f,
@@ -500,7 +525,7 @@ TEST_CASE("const_elem_access_mat_const", "[as_mat]")
 
 TEST_CASE("elem_access_mat", "[as_mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     mat_t<real_t, 5> mat5(
         1.0f, 2.0f, 3.0f, 4.0f, 5.0f,
@@ -526,7 +551,7 @@ TEST_CASE("elem_access_mat", "[as_mat]")
 
 TEST_CASE("elem_access_mat4_const", "[as_mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     const mat4_t mat4(
         1.0f, 2.0f, 3.0f, 4.0f,
@@ -551,16 +576,16 @@ TEST_CASE("elem_access_mat4_const", "[as_mat]")
 
 TEST_CASE("rvalue_elem_access_mat2_3_4", "[as_mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
-    auto make_mat2 = []() { return as::mat_t<real_t, 2>{ 5.0f, 10.0f, 15.0f, 20.0f }; };
+    auto make_mat2 = []() { return mat_t<real_t, 2>{ 5.0f, 10.0f, 15.0f, 20.0f }; };
     CHECK(make_mat2()[0] == Approx(5.0f).epsilon(g_epsilon));
     CHECK(make_mat2()[1] == Approx(10.0f).epsilon(g_epsilon));
     CHECK(make_mat2()[2] == Approx(15.0f).epsilon(g_epsilon));
     CHECK(make_mat2()[3] == Approx(20.0f).epsilon(g_epsilon));
 
     auto make_mat3 = []() {
-        return as::mat3_t{
+        return mat3_t{
             1.0f, 2.0f, 3.0f,
             4.0f, 5.0f, 6.0f,
             7.0f, 8.0f, 9.0f
@@ -570,7 +595,7 @@ TEST_CASE("rvalue_elem_access_mat2_3_4", "[as_mat]")
     CHECK(make_mat3()[4] == Approx(5.0f).epsilon(g_epsilon));
 
     auto make_mat4 = [](){
-        return as::mat4_t {
+        return mat4_t {
             1.0f, 2.0f, 3.0f, 4.0f,
             5.0f, 6.0f, 7.0f, 8.0f,
             9.0f, 10.0f, 11.0f, 12.0f,
@@ -602,7 +627,7 @@ TEST_CASE("mat_dimensions_are_valid", "[as_mat]")
 
 TEST_CASE("multiply_same_size", "[as_mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     const mat3_t mat3_a {
         1.0f, 2.0f, 3.0f,
@@ -634,7 +659,7 @@ TEST_CASE("multiply_same_size", "[as_mat]")
 
 TEST_CASE("multiply_vector", "[as_mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     const mat3_t mat {
         1.0f, 2.0f, 3.0f,
@@ -657,7 +682,7 @@ TEST_CASE("multiply_vector", "[as_mat]")
 
 TEST_CASE("multiply_scalar", "[as_mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     const mat3_t mat3 {
         1.0f, 2.0f, 3.0f,
@@ -696,7 +721,7 @@ TEST_CASE("multiply_scalar", "[as_mat]")
 
 TEST_CASE("mat_from_arr", "[as_mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     {
         real_t elems[] = {
@@ -706,10 +731,10 @@ TEST_CASE("mat_from_arr", "[as_mat]")
             13.0f, 14.0f, 15.0f, 16.0f
         };
 
-        const mat4_t mat4_a = as::mat::from_arr<real_t, 4>(elems);
+        const mat4_t mat4_a = mat::from_arr<real_t, 4>(elems);
         CHECK_THAT(make_span(elems), make_elements_sub(mat4_a, 16));
 
-        const mat4_t mat4_b = as::mat4::from_arr(elems);
+        const mat4_t mat4_b = mat4::from_arr(elems);
         CHECK_THAT(make_span(elems), make_elements_sub(mat4_b, 16));
     }
 
@@ -720,17 +745,17 @@ TEST_CASE("mat_from_arr", "[as_mat]")
             7.0f, 8.0f, 9.0f
         };
 
-        const mat3_t mat3_a = as::mat::from_arr<real_t, 3>(elems);
+        const mat3_t mat3_a = mat::from_arr<real_t, 3>(elems);
         CHECK_THAT(make_span(elems), make_elements_sub(mat3_a, 9));
 
-        const mat3_t mat3_b = as::mat3::from_arr(elems);
+        const mat3_t mat3_b = mat3::from_arr(elems);
         CHECK_THAT(make_span(elems), make_elements_sub(mat3_b, 9));
     }
 }
 
 TEST_CASE("mat_from_ptr", "[as_mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     {
         real_t elems[] = {
@@ -740,10 +765,10 @@ TEST_CASE("mat_from_ptr", "[as_mat]")
             13.0f, 14.0f, 15.0f, 16.0f
         };
 
-        const mat4_t mat4_a = as::mat::from_ptr<real_t, 4>(elems);
+        const mat4_t mat4_a = mat::from_ptr<real_t, 4>(elems);
         CHECK_THAT(make_span(elems), make_elements_sub(mat4_a, 16));
 
-        const mat4_t mat4_b = as::mat4::from_ptr(elems);
+        const mat4_t mat4_b = mat4::from_ptr(elems);
         CHECK_THAT(make_span(elems), make_elements_sub(mat4_b, 16));
     }
 
@@ -754,17 +779,17 @@ TEST_CASE("mat_from_ptr", "[as_mat]")
             7.0f, 8.0f, 9.0f
         };
 
-        const mat3_t mat3_a = as::mat::from_ptr<real_t, 3>(elems);
+        const mat3_t mat3_a = mat::from_ptr<real_t, 3>(elems);
         CHECK_THAT(make_span(elems), make_elements_sub(mat3_a, 9));
 
-        const mat3_t mat3_b = as::mat3::from_ptr(elems);
+        const mat3_t mat3_b = mat3::from_ptr(elems);
         CHECK_THAT(make_span(elems), make_elements_sub(mat3_b, 9));
     }
 }
 
 TEST_CASE("mat_to_arr", "[as_mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     const mat3_t mat3 {
         1.0f, 2.0f, 3.0f,
@@ -773,14 +798,14 @@ TEST_CASE("mat_to_arr", "[as_mat]")
     };
 
     real_t mat3_arr[9];
-    as::mat::to_arr(mat3, mat3_arr);
+    mat::to_arr(mat3, mat3_arr);
 
     CHECK_THAT(make_span(mat3_arr), make_elements_sub(mat3, 9));
 }
 
 TEST_CASE("mat_transpose", "[as_mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     {
         const mat3_t mat3 {
@@ -789,7 +814,7 @@ TEST_CASE("mat_transpose", "[as_mat]")
             7.0f, 8.0f, 9.0f
         };
 
-        const mat3_t mat3_transposed = as::mat::transpose(mat3);
+        const mat3_t mat3_transposed = mat::transpose(mat3);
 
         const real_t mat3_transposed_ref[] {
             1.0f, 4.0f, 7.0f,
@@ -808,7 +833,7 @@ TEST_CASE("mat_transpose", "[as_mat]")
             13.0f, 14.0f, 15.0f, 16.0f
         };
 
-        const mat4_t mat4_transposed = as::mat::transpose(mat4);
+        const mat4_t mat4_transposed = mat::transpose(mat4);
 
         const real_t mat4_transposed_reference[] {
             1.0f, 5.0f, 9.0f, 13.0f,
@@ -823,11 +848,11 @@ TEST_CASE("mat_transpose", "[as_mat]")
 
 TEST_CASE("mat_identity", "[as_mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     {
         mat3_t mat3_identity;
-        mat3_identity = as::mat3::identity();
+        mat3_identity = mat3::identity();
 
         const real_t mat3_identity_ref[] {
             1.0f, 0.0f, 0.0f,
@@ -840,7 +865,7 @@ TEST_CASE("mat_identity", "[as_mat]")
 
     {
         mat4_t mat4_identity;
-        mat4_identity = as::mat4::identity();
+        mat4_identity = mat4::identity();
 
         const real_t mat4_identity_ref[] {
             1.0f, 0.0f, 0.0f, 0.0f,
@@ -855,7 +880,7 @@ TEST_CASE("mat_identity", "[as_mat]")
 
 TEST_CASE("mat_inverse", "[as_mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     {
         using mat2_t = mat_t<real_t, 2>;
@@ -865,7 +890,7 @@ TEST_CASE("mat_inverse", "[as_mat]")
             3.0f, 4.0f
         };
 
-        const mat2_t mat2_inverse = as::mat::inverse(mat2);
+        const mat2_t mat2_inverse = mat::inverse(mat2);
 
         const real_t mat2_inverse_ref[] {
             -2.0f, 1.0f,
@@ -882,7 +907,7 @@ TEST_CASE("mat_inverse", "[as_mat]")
             7.0f, 2.0f, 9.0f
         };
 
-        const mat3_t mat3_inverse = as::mat::inverse(mat3);
+        const mat3_t mat3_inverse = mat::inverse(mat3);
 
         const real_t mat3_inverse_ref[] {
             -11.0f/12.0f, 1.0f/3.0f, 1.0f/12.0f,
@@ -901,7 +926,7 @@ TEST_CASE("mat_inverse", "[as_mat]")
             5.0f, 2.0f, 0.0f, 9.0f
         };
 
-        const mat4_t mat4_inverse = as::mat::inverse(mat4);
+        const mat4_t mat4_inverse = mat::inverse(mat4);
 
         const real_t mat4_inverse_reference[] {
             -13.0f/47.0f, 2.0f/47.0f, 7.0f/47.0f, 6.0f/47.0f,
@@ -916,10 +941,10 @@ TEST_CASE("mat_inverse", "[as_mat]")
 
 TEST_CASE("mat_scale", "[as_mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
-    as::mat3_t scale;
-    scale = as::mat3::scale(as::vec3_t{ 1.0f, 2.0f, 3.0f});
+    mat3_t scale;
+    scale = mat3::scale(vec3_t{ 1.0f, 2.0f, 3.0f});
 
     const real_t mat3_scale_reference[] {
         1.0f, 0.0f, 0.0f,
@@ -929,8 +954,8 @@ TEST_CASE("mat_scale", "[as_mat]")
 
     CHECK_THAT(make_span(mat3_scale_reference), make_elements_sub(scale, 9));
 
-    as::mat3_t uniform_scale;
-    uniform_scale = as::mat3::scale(5.0f);
+    mat3_t uniform_scale;
+    uniform_scale = mat3::scale(5.0f);
 
     const real_t mat3_uniform_scale_reference[] {
         5.0f, 0.0f, 0.0f,
@@ -943,13 +968,13 @@ TEST_CASE("mat_scale", "[as_mat]")
 
 TEST_CASE("mat3_from_mat4", "[as_mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
-    as::mat4_t mat4;
-    mat4 = as::mat4::identity();
+    mat4_t mat4;
+    mat4 = mat4::identity();
 
-    as::mat3_t mat3;
-    mat3 = as::mat3::from_mat4(mat4);
+    mat3_t mat3;
+    mat3 = mat3::from_mat4(mat4);
 
     const real_t mat3_identity_ref[] {
         1.0f, 0.0f, 0.0f,
@@ -962,18 +987,18 @@ TEST_CASE("mat3_from_mat4", "[as_mat]")
 
 TEST_CASE("mat3_axis_angle", "[as-mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     {
-        as::mat3_t axis_angle =
-            as::mat3::axis_angle(as::vec3::axis_x(), as::deg_to_rad(90.0f));
-        as::real_t result_reference[] = { 0.0f, -1.0f, 0.0f };
+        mat3_t axis_angle =
+            mat3::axis_angle(vec3::axis_x(), deg_to_rad(90.0f));
+        real_t result_reference[] = { 0.0f, -1.0f, 0.0f };
 
-        as::vec3_t result;
+        vec3_t result;
 #ifdef AS_ROW_MAJOR
-        result = as::vec3::axis_z() * axis_angle;
+        result = vec3::axis_z() * axis_angle;
 #elif defined AS_COL_MAJOR
-        result = axis_angle * as::vec3::axis_z();
+        result = axis_angle * vec3::axis_z();
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
         // note - checking against 0.0f requires margin
@@ -984,15 +1009,15 @@ TEST_CASE("mat3_axis_angle", "[as-mat]")
     }
 
     {
-        as::mat3_t axis_angle =
-            as::mat3::axis_angle(as::vec3::axis_y(), as::deg_to_rad(90.0f));
-        as::real_t result_reference[] = { 0.0f, 0.0f, -1.0f };
+        mat3_t axis_angle =
+            mat3::axis_angle(vec3::axis_y(), deg_to_rad(90.0f));
+        real_t result_reference[] = { 0.0f, 0.0f, -1.0f };
 
-        as::vec3_t result;
+        vec3_t result;
 #ifdef AS_ROW_MAJOR
-        result = as::vec3::axis_x() * axis_angle;
+        result = vec3::axis_x() * axis_angle;
 #elif defined AS_COL_MAJOR
-        result = axis_angle * as::vec3::axis_x();
+        result = axis_angle * vec3::axis_x();
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
         // note - checking against 0.0f requires margin
@@ -1005,18 +1030,18 @@ TEST_CASE("mat3_axis_angle", "[as-mat]")
 
 TEST_CASE("mat3_rotate_xyz", "[as-mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     {
-        as::mat3_t axis_angle =
-            as::mat3::rotation_xyz(as::deg_to_rad(45.0f), as::deg_to_rad(90.0f), as::deg_to_rad(45.0f));
-        as::real_t result_reference[] = { 0.0f, 1.0f, 0.0f };
+        mat3_t axis_angle =
+            mat3::rotation_xyz(deg_to_rad(45.0f), deg_to_rad(90.0f), deg_to_rad(45.0f));
+        real_t result_reference[] = { 0.0f, 1.0f, 0.0f };
 
-        as::vec3_t result;
+        vec3_t result;
 #ifdef AS_ROW_MAJOR
-        result = as::vec3::axis_y() * axis_angle;
+        result = vec3::axis_y() * axis_angle;
 #elif defined AS_COL_MAJOR
-        result = axis_angle * as::vec3::axis_y();
+        result = axis_angle * vec3::axis_y();
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
         // note - checking against 0.0f requires margin
@@ -1027,15 +1052,15 @@ TEST_CASE("mat3_rotate_xyz", "[as-mat]")
     }
 
     {
-        as::mat3_t axis_angle =
-            as::mat3::rotation_xyz(as::deg_to_rad(-180.0f), as::deg_to_rad(90.0f), as::deg_to_rad(-90.0f));
-        as::real_t result_reference[] = { 0.0f, 1.0f, 0.0f };
+        mat3_t axis_angle =
+            mat3::rotation_xyz(deg_to_rad(-180.0f), deg_to_rad(90.0f), deg_to_rad(-90.0f));
+        real_t result_reference[] = { 0.0f, 1.0f, 0.0f };
 
-        as::vec3_t result;
+        vec3_t result;
 #ifdef AS_ROW_MAJOR
-        result = as::vec3::axis_z() * axis_angle;
+        result = vec3::axis_z() * axis_angle;
 #elif defined AS_COL_MAJOR
-        result = axis_angle * as::vec3::axis_z();
+        result = axis_angle * vec3::axis_z();
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
         // note - checking against 0.0f requires margin
@@ -1048,22 +1073,22 @@ TEST_CASE("mat3_rotate_xyz", "[as-mat]")
 
 TEST_CASE("mat3_rotate_zxy", "[as-mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     {
-        as::mat3_t axis_angle =
-            as::mat3::rotation_zxy(as::deg_to_rad(90.0f), as::deg_to_rad(90.0f), as::deg_to_rad(0.0f));
-        as::real_t result_reference_y[] = { 1.0f, 0.0f, 0.0f };
-        as::real_t result_reference_z[] = { 0.0f, -1.0f, 0.0f };
+        mat3_t axis_angle =
+            mat3::rotation_zxy(deg_to_rad(90.0f), deg_to_rad(90.0f), deg_to_rad(0.0f));
+        real_t result_reference_y[] = { 1.0f, 0.0f, 0.0f };
+        real_t result_reference_z[] = { 0.0f, -1.0f, 0.0f };
 
-        as::vec3_t result_y;
-        as::vec3_t result_z;
+        vec3_t result_y;
+        vec3_t result_z;
 #ifdef AS_ROW_MAJOR
-        result_y = as::vec3::axis_y() * axis_angle;
-        result_z = as::vec3::axis_z() * axis_angle;
+        result_y = vec3::axis_y() * axis_angle;
+        result_z = vec3::axis_z() * axis_angle;
 #elif defined AS_COL_MAJOR
-        result_y = axis_angle * as::vec3::axis_y();
-        result_z = axis_angle * as::vec3::axis_z();
+        result_y = axis_angle * vec3::axis_y();
+        result_z = axis_angle * vec3::axis_z();
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
         // note - checking against 0.0f requires margin
@@ -1079,19 +1104,19 @@ TEST_CASE("mat3_rotate_zxy", "[as-mat]")
     }
 
     {
-        as::mat3_t axis_angle =
-            as::mat3::rotation_zxy(as::deg_to_rad(0.0f), as::deg_to_rad(-90.0f), as::deg_to_rad(-90.0f));
-        as::real_t result_reference_x[] = { 0.0f, -1.0f, 0.0f };
-        as::real_t result_reference_y[] = { 0.0f, 0.0f, 1.0f };
+        mat3_t axis_angle =
+            mat3::rotation_zxy(deg_to_rad(0.0f), deg_to_rad(-90.0f), deg_to_rad(-90.0f));
+        real_t result_reference_x[] = { 0.0f, -1.0f, 0.0f };
+        real_t result_reference_y[] = { 0.0f, 0.0f, 1.0f };
 
-        as::vec3_t result_x;
-        as::vec3_t result_y;
+        vec3_t result_x;
+        vec3_t result_y;
 #ifdef AS_ROW_MAJOR
-        result_x = as::vec3::axis_x() * axis_angle;
-        result_y = as::vec3::axis_y() * axis_angle;
+        result_x = vec3::axis_x() * axis_angle;
+        result_y = vec3::axis_y() * axis_angle;
 #elif defined AS_COL_MAJOR
-        result_x = axis_angle * as::vec3::axis_x();
-        result_y = axis_angle * as::vec3::axis_y();
+        result_x = axis_angle * vec3::axis_x();
+        result_y = axis_angle * vec3::axis_y();
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
         // note - checking against 0.0f requires margin
@@ -1109,20 +1134,20 @@ TEST_CASE("mat3_rotate_zxy", "[as-mat]")
 
 TEST_CASE("mat3_rotate_x_y_z_separate", "[as-mat]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     {
-        as::mat3_t axis_x = as::mat3::rotation_x(as::deg_to_rad(45.0f));
-        as::mat3_t axis_y = as::mat3::rotation_y(as::deg_to_rad(90.0f));
-        as::mat3_t axis_z = as::mat3::rotation_z(as::deg_to_rad(45.0f));
+        mat3_t axis_x = mat3::rotation_x(deg_to_rad(45.0f));
+        mat3_t axis_y = mat3::rotation_y(deg_to_rad(90.0f));
+        mat3_t axis_z = mat3::rotation_z(deg_to_rad(45.0f));
 
-        as::real_t result_reference[] = { 0.0f, 1.0f, 0.0f };
+        real_t result_reference[] = { 0.0f, 1.0f, 0.0f };
 
-        as::vec3_t result;
+        vec3_t result;
 #ifdef AS_ROW_MAJOR
-        result = as::vec3::axis_y() * axis_x * axis_y * axis_z;
+        result = vec3::axis_y() * axis_x * axis_y * axis_z;
 #elif defined AS_COL_MAJOR
-        result = axis_z * axis_y * axis_x * as::vec3::axis_y();
+        result = axis_z * axis_y * axis_x * vec3::axis_y();
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
         // note - checking against 0.0f requires margin
@@ -1133,17 +1158,17 @@ TEST_CASE("mat3_rotate_x_y_z_separate", "[as-mat]")
     }
 
     {
-        as::mat3_t axis_x = as::mat3::rotation_x(as::deg_to_rad(-180.0f));
-        as::mat3_t axis_y = as::mat3::rotation_y(as::deg_to_rad(90.0f));
-        as::mat3_t axis_z = as::mat3::rotation_z(as::deg_to_rad(-90.0f));
+        mat3_t axis_x = mat3::rotation_x(deg_to_rad(-180.0f));
+        mat3_t axis_y = mat3::rotation_y(deg_to_rad(90.0f));
+        mat3_t axis_z = mat3::rotation_z(deg_to_rad(-90.0f));
 
-        as::real_t result_reference[] = { 0.0f, 1.0f, 0.0f };
+        real_t result_reference[] = { 0.0f, 1.0f, 0.0f };
 
-        as::vec3_t result;
+        vec3_t result;
 #ifdef AS_ROW_MAJOR
-        result = as::vec3::axis_z() * axis_x * axis_y * axis_z;
+        result = vec3::axis_z() * axis_x * axis_y * axis_z;
 #elif defined AS_COL_MAJOR
-        result = axis_z * axis_y * axis_x * as::vec3::axis_z();
+        result = axis_z * axis_y * axis_x * vec3::axis_z();
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
         // note - checking against 0.0f requires margin
@@ -1157,14 +1182,14 @@ TEST_CASE("mat3_rotate_x_y_z_separate", "[as-mat]")
 // explicit instantiations (for coverage)
 
 // types
-template struct as::mat_t<real_t, 2>;
-template struct as::mat_t<real_t, 3>;
-template struct as::mat_t<real_t, 4>;
-template struct as::mat_t<real_t, 5>;
+template struct mat_t<real_t, 2>;
+template struct mat_t<real_t, 3>;
+template struct mat_t<real_t, 4>;
+template struct mat_t<real_t, 5>;
 
 #ifdef __GNUC__
 // constructor
-template as::mat_t<real_t, 5>::mat_t(
+template mat_t<real_t, 5>::mat_t(
     real_t, real_t, real_t, real_t, real_t,
     real_t, real_t, real_t, real_t, real_t,
     real_t, real_t, real_t, real_t, real_t,
@@ -1190,3 +1215,5 @@ template const mat_t<real_t, 3> as::operator*(const mat_t<real_t, 3>&, real_t sc
 template const mat_t<real_t, 4> as::operator*(const mat_t<real_t, 4>&, real_t scalar);
 template mat_t<real_t, 3>& as::operator*=(mat_t<real_t, 3>&, real_t scalar);
 template mat_t<real_t, 4>& as::operator*=(mat_t<real_t, 4>&, real_t scalar);
+
+} // namespace unit_test

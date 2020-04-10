@@ -3,7 +3,21 @@
 
 #include "as/as-math-ops.hpp"
 
-using namespace as;
+namespace unit_test
+{
+
+// types
+using as::point2_t;
+using as::point3_t;
+using as::real_t;
+using as::vec2_t;
+using as::vec3_t;
+
+// functions
+using as::deg_to_rad;
+
+// namespaces
+namespace point = as::point;
 
 // use float epsilon for comparisons
 const real_t g_epsilon = std::numeric_limits<float>::epsilon();
@@ -124,14 +138,14 @@ TEST_CASE("point2_equals", "[as_point]")
         const point2_t point2_a = point2_t{ 12.0f, 14.0f };
         const point2_t point2_b = point2_t{ 12.0f, 14.0f };
 
-        CHECK(as::point::equal(point2_a, point2_b));
+        CHECK(point::equal(point2_a, point2_b));
     }
 
     {
         const point2_t point2_a = point2_t{ 5.0f, 6.0f };
         const point2_t point2_b = point2_t{ 4.9f, 6.1f };
 
-        CHECK(!as::point::equal(point2_a, point2_b));
+        CHECK(!point::equal(point2_a, point2_b));
     }
 }
 
@@ -141,20 +155,20 @@ TEST_CASE("point3_equals", "[as_point]")
         const point3_t point3_a = point3_t{ 20.0f, 40.0f, 60.0f };
         const point3_t point3_b = point3_t{ 20.0f, 40.0f, 60.0f };
 
-        CHECK(as::point::equal(point3_a, point3_b));
+        CHECK(point::equal(point3_a, point3_b));
     }
 
     {
         const point3_t point3_a = point3_t{ 20.0f, 40.0f, 60.0f };
         const point3_t point3_b = point3_t{ 19.0f, 40.0f, 60.0f };
 
-        CHECK(!as::point::equal(point3_a, point3_b));
+        CHECK(!point::equal(point3_a, point3_b));
     }
 }
 
 TEST_CASE("point2_addition", "[as_point]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     const point2_t point2 = point2_t{ 18.0f, 22.0f };
     const vec2_t vec2 = vec2_t{ 32.0f, 28.0f };
@@ -173,7 +187,7 @@ TEST_CASE("point2_addition", "[as_point]")
 
 TEST_CASE("point3_addition", "[as_point]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     const point3_t point3 = point3_t{ 20.0f, 40.0f, 60.0f };
     const vec3_t vec3 = vec3_t{ 80.0f, 60.0f, 40.0f };
@@ -192,7 +206,7 @@ TEST_CASE("point3_addition", "[as_point]")
 
 TEST_CASE("point2_substraction", "[as_point]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     {
         const point2_t point2_a = point2_t{ 18.0f, 22.0f };
@@ -228,7 +242,7 @@ TEST_CASE("point2_substraction", "[as_point]")
 
 TEST_CASE("point3_substraction", "[as_point]")
 {
-    using namespace gsl;
+    using gsl::make_span;
 
     {
         const point3_t point3_a = point3_t{ 20.0f, 40.0f, 60.0f };
@@ -261,3 +275,5 @@ TEST_CASE("point3_substraction", "[as_point]")
         CHECK_THAT(make_span(result_ref_arr), make_elements_sub(result_mut, 3));
     }
 }
+
+} // namespace unit_test

@@ -3,7 +3,20 @@
 
 #include "as/as-math-ops.hpp"
 
-using namespace as;
+namespace unit_test
+{
+
+// types
+using as::quat_t;
+using as::real_t;
+using as::vec3_t;
+
+// functions
+using as::deg_to_rad;
+
+// namespaces
+namespace vec3 = as::vec3;
+namespace quat = as::quat;
 
 // use float epsilon for comparisons
 const real_t g_epsilon = std::numeric_limits<float>::epsilon();
@@ -225,3 +238,5 @@ TEST_CASE("quat_slerp", "[as_quat]")
         }
     }
 }
+
+} // namespace unit_test
