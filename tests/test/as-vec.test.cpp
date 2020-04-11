@@ -1315,7 +1315,8 @@ TEST_CASE("right_and_up", "[as_vec]")
     {
         vec3_t dir(0.0f, 0.0f, 1.0f);
 
-        vec3_t across_lh, up_lh;
+        vec3_t across_lh;
+        vec3_t up_lh;
         vec3::right_and_up_lh(dir, across_lh, up_lh);
 
         CHECK(across_lh.x == Approx(1.0f).epsilon(g_epsilon));
@@ -1330,7 +1331,8 @@ TEST_CASE("right_and_up", "[as_vec]")
     {
         vec3_t dir(0.0f, 0.0f, 1.0f);
 
-        vec3_t across_rh, up_rh;
+        vec3_t across_rh;
+        vec3_t up_rh;
         vec3::right_and_up_rh(dir, across_rh, up_rh);
 
         CHECK(across_rh.x == Approx(-1.0f).epsilon(g_epsilon));
