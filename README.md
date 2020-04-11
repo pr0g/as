@@ -2,6 +2,7 @@
 
 `as` (short for _almost-something_) is an attempt at creating an easy to use header-only math library for prototype and hobby projects.
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/24b277ef4cdf4d699e7c6acb96d1fce6)](https://app.codacy.com/manual/pr0g/as?utm_source=github.com&utm_medium=referral&utm_content=pr0g/as&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.org/pr0g/as.svg?branch=master)](https://travis-ci.org/pr0g/as)
 [![Build status](https://ci.appveyor.com/api/projects/status/github/pr0g/as?branch=master&svg=true)](https://ci.appveyor.com/project/pr0g/as)
 [![codecov](https://codecov.io/gh/pr0g/as/branch/master/graphs/badge.svg)](https://codecov.io/gh/pr0g/as)
