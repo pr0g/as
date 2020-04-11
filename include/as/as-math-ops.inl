@@ -5,7 +5,7 @@ namespace vec
 {
 
 template<typename T, index_t n>
-index_t size(const vec_t<T, n>&)
+index_t size(const vec_t<T, n>& /*unused*/)
 {
     return n;
 }
@@ -366,7 +366,7 @@ T minor(const mat_t<T, 2>& mat)
 }
 
 template<typename T, index_t d, index_t I>
-T determinant_impl(const mat_t<T, d>& mat, int2type<I>)
+T determinant_impl(const mat_t<T, d>& mat, int2type<I> /*unused*/)
 {
     T sign { 1.0f };
     T result{ 0.0f };
@@ -381,7 +381,7 @@ T determinant_impl(const mat_t<T, d>& mat, int2type<I>)
 }
 
 template<typename T>
-T determinant_impl(const mat_t<T, 2>& mat, int2type<2>)
+T determinant_impl(const mat_t<T, 2>& mat, int2type<2> /*unused*/)
 {
     return minor(mat);
 }
@@ -389,7 +389,7 @@ T determinant_impl(const mat_t<T, 2>& mat, int2type<2>)
 #pragma pop_macro("minor")
 
 template<typename T, index_t d, index_t I>
-mat_t<T, d> minor_impl(const mat_t<T, d>& mat, int2type<I>)
+mat_t<T, d> minor_impl(const mat_t<T, d>& mat, int2type<I> /*unused*/)
 {
     mat_t<T, d> result;
     T outerSign = T { 1.0f };
