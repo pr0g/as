@@ -578,7 +578,7 @@ TEST_CASE("rvalue_elem_access_mat2_3_4", "[as_mat]")
 {
     using gsl::make_span;
 
-    auto make_mat2 = []() { return mat_t<real_t, 2>{ 5.0f, 10.0f, 15.0f, 20.0f }; };
+    auto make_mat2 = [](){ return mat_t<real_t, 2>{ 5.0f, 10.0f, 15.0f, 20.0f }; };
     CHECK(make_mat2()[0] == Approx(5.0f).epsilon(g_epsilon));
     CHECK(make_mat2()[1] == Approx(10.0f).epsilon(g_epsilon));
     CHECK(make_mat2()[2] == Approx(15.0f).epsilon(g_epsilon));
@@ -822,7 +822,9 @@ TEST_CASE("mat_transpose", "[as_mat]")
             3.0f, 6.0f, 9.0f
         };
 
-        CHECK_THAT(make_span(mat3_transposed_ref), make_elements_sub(mat3_transposed, 9));
+        CHECK_THAT(
+            make_span(mat3_transposed_ref),
+            make_elements_sub(mat3_transposed, 9));
     }
 
     {
@@ -842,7 +844,9 @@ TEST_CASE("mat_transpose", "[as_mat]")
             4.0f, 8.0f, 12.0f, 16.0f
         };
 
-        CHECK_THAT(make_span(mat4_transposed_reference), make_elements_sub(mat4_transposed, 16));
+        CHECK_THAT(
+            make_span(mat4_transposed_reference),
+            make_elements_sub(mat4_transposed, 16));
     }
 }
 
@@ -935,7 +939,9 @@ TEST_CASE("mat_inverse", "[as_mat]")
             55.0f/188.0f, -41.0f/188.0f, -13.0f/94.0f, 9.0f/94.0f
         };
 
-        CHECK_THAT(make_span(mat4_inverse_reference), make_elements_sub(mat4_inverse, 16));
+        CHECK_THAT(
+            make_span(mat4_inverse_reference),
+            make_elements_sub(mat4_inverse, 16));
     }
 }
 
@@ -963,7 +969,9 @@ TEST_CASE("mat_scale", "[as_mat]")
         0.0f, 0.0f, 5.0f
     };
 
-    CHECK_THAT(make_span(mat3_uniform_scale_reference), make_elements_sub(uniform_scale, 9));
+    CHECK_THAT(
+        make_span(mat3_uniform_scale_reference),
+        make_elements_sub(uniform_scale, 9));
 }
 
 TEST_CASE("mat3_from_mat4", "[as_mat]")

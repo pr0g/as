@@ -25,9 +25,11 @@ public:
     std::string describe() const override {
         std::ostringstream ss;
         ss << "actual, expected: { ";
+
         for (const auto& element : m_span) {
             ss << element << ", ";
         }
+
         ss << "}";
         return ss.str();
     }
@@ -56,7 +58,9 @@ public:
         return *this;
     }
 
-    bool match(const gsl::span<const typename Sub::value_type>& span) const override {
+    bool match(
+        const gsl::span<const typename Sub::value_type>& span)
+        const override {
         for (size_t i = 0; i < span.size(); ++i) {
             const auto approxElem {
                 Approx(span[i])
@@ -65,20 +69,24 @@ public:
             };
 
             auto subscript = gsl::narrow_cast<ptrdiff_t>(i);
+
             if (m_subscriptable[subscript] != approxElem) {
                 return false;
             }
         }
+
         return true;
     }
 
     std::string describe() const override {
         std::ostringstream ss;
         ss << "was expected, actual: { ";
+
         for (size_t i = 0; i < m_len; ++i) {
             auto subscript = gsl::narrow_cast<ptrdiff_t>(i);
             ss << std::fixed << m_subscriptable[subscript] << ", ";
         }
+
         ss << "}";
         return ss.str();
     }

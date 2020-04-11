@@ -674,7 +674,9 @@ TEST_CASE("rvalue_elem_access_vec2_3_4_5", "[as_vec]")
     CHECK(make_vec4()[2] == Approx(21.0f).epsilon(g_epsilon));
     CHECK(make_vec4()[3] == Approx(28.0f).epsilon(g_epsilon));
 
-    auto make_vec5 = [](){ return vec_t<real_t, 5>{ 1.0f, 2.0f, 3.0f, 4.0f, 5.0f }; };
+    auto make_vec5 = [](){
+        return vec_t<real_t, 5>{ 1.0f, 2.0f, 3.0f, 4.0f, 5.0f };
+    };
     CHECK(make_vec5()[0] == Approx(1.0f).epsilon(g_epsilon));
     CHECK(make_vec5()[1] == Approx(2.0f).epsilon(g_epsilon));
     CHECK(make_vec5()[2] == Approx(3.0f).epsilon(g_epsilon));

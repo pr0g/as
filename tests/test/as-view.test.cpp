@@ -74,7 +74,8 @@ TEST_CASE("perspective_d3d_rh", "[as-view]")
 
     const real_t fov = deg_to_rad(90.0f);
     const real_t aspect = real_t(16.0f) / real_t(9.0f);
-    mat4_t perspective_d3d_rh = view::perspective_d3d_rh(fov, aspect, 0.01f, 1000.0f);
+    mat4_t perspective_d3d_rh =
+        view::perspective_d3d_rh(fov, aspect, 0.01f, 1000.0f);
 
     real_t reference[] = {
         0.562500f, 0.000000f, 0.000000f, 0.000000f,
@@ -94,7 +95,8 @@ TEST_CASE("perspective_d3d_lh", "[as-view]")
 
     const real_t fov = deg_to_rad(90.0f);
     const real_t aspect = real_t(16.0f) / real_t(9.0f);
-    mat4_t perspective_d3d_lh = view::perspective_d3d_lh(fov, aspect, 0.01f, 1000.0f);
+    mat4_t perspective_d3d_lh =
+        view::perspective_d3d_lh(fov, aspect, 0.01f, 1000.0f);
 
     const real_t reference[] = {
         0.562500f, 0.000000f, 0.000000f, 0.000000f,
@@ -114,7 +116,8 @@ TEST_CASE("perspective_vulkan_rh", "[as-view]")
 
     const real_t fov = deg_to_rad(90.0f);
     const real_t aspect = real_t(16.0f) / real_t(9.0f);
-    mat4_t perspective_vulkan_rh = view::perspective_vulkan_rh(fov, aspect, 0.01f, 1000.0f);
+    mat4_t perspective_vulkan_rh =
+        view::perspective_vulkan_rh(fov, aspect, 0.01f, 1000.0f);
 
     const real_t reference[] = {
         0.562500f, 0.000000f, 0.000000f, 0.000000f,
@@ -134,7 +137,8 @@ TEST_CASE("perspective_vulkan_lh", "[as-view]")
 
     const real_t fov = deg_to_rad(90.0f);
     const real_t aspect = real_t(16.0f) / real_t(9.0f);
-    mat4_t perspective_vulkan_lh = view::perspective_vulkan_lh(fov, aspect, 0.01f, 1000.0f);
+    mat4_t perspective_vulkan_lh =
+        view::perspective_vulkan_lh(fov, aspect, 0.01f, 1000.0f);
 
     const real_t reference[] = {
         0.562500f, 0.000000f, 0.000000f, 0.000000f,
@@ -152,7 +156,8 @@ TEST_CASE("ortho_gl_rh", "[as-view]")
 {
     using gsl::make_span;
 
-    mat4_t ortho_gl_rh = view::ortho_gl_rh(-10.0f, 10.0f, -10.0f, 10.0f, 0.01f, 1000.0f);
+    mat4_t ortho_gl_rh =
+        view::ortho_gl_rh(-10.0f, 10.0f, -10.0f, 10.0f, 0.01f, 1000.0f);
 
     const real_t reference[] = {
         0.100000f, 0.000000f, 0.000000f, 0.000000f,
@@ -170,7 +175,8 @@ TEST_CASE("ortho_d3d_lh", "[as-view]")
 {
     using gsl::make_span;
 
-    mat4_t ortho_d3d_lh = view::ortho_d3d_lh(-10.0f, 10.0f, -10.0f, 10.0f, 0.01f, 1000.0f);
+    mat4_t ortho_d3d_lh =
+        view::ortho_d3d_lh(-10.0f, 10.0f, -10.0f, 10.0f, 0.01f, 1000.0f);
 
     const real_t reference[] = {
         0.100000f, 0.000000f, 0.000000f, 0.000000f,
