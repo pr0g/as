@@ -98,7 +98,7 @@ TEST_CASE("radians_to_degrees", "[as_math]")
     CHECK(rad_to_deg(6.28319f) == Approx(360.0f).epsilon(real_epsilon));
 }
 
-// explicit instantiations (for coverage)
-template real_t smooth_step(real_t t, real_t v0, real_t v1);
-
 } // namespace unit_test
+
+// explicit instantiations (for coverage)
+template as::real_t as::smooth_step(as::real_t t, as::real_t v0, as::real_t v1);
