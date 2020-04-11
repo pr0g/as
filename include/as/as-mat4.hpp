@@ -23,36 +23,6 @@ struct mat_t<T, 4>
 
     T elem_rc[size()];
 
-#ifdef AS_ROW_MAJOR
-    vec_t<T, 4> row(index_t r) const {
-        return vec_t<T, 4> {
-            elem_rc[mat4::rc(r, 0)], elem_rc[mat4::rc(r, 1)],
-            elem_rc[mat4::rc(r, 2)], elem_rc[mat4::rc(r, 3)]
-        };
-    }
-
-    vec_t<T, 4> col(index_t c) const {
-        return vec_t<T, 4> {
-            elem_rc[mat4::rc(0, c)], elem_rc[mat4::rc(1, c)],
-            elem_rc[mat4::rc(2, c)], elem_rc[mat4::rc(3, c)]
-        };
-    }
-#elif defined AS_COL_MAJOR
-    vec_t<T, 4> col(index_t c) const {
-        return vec_t<T, 4> {
-            elem_rc[mat4::rc(0, c)], elem_rc[mat4::rc(1, c)],
-            elem_rc[mat4::rc(2, c)], elem_rc[mat4::rc(3, c)]
-        };
-    }
-
-    vec_t<T, 4> row(index_t r) const {
-        return vec_t<T, 4> {
-            elem_rc[mat4::rc(r, 0)], elem_rc[mat4::rc(r, 1)],
-            elem_rc[mat4::rc(r, 2)], elem_rc[mat4::rc(r, 3)]
-        };
-    }
-#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
-
     const vec_t<T, 4> row0() const { return row(0); }
     const vec_t<T, 4> row1() const { return row(1); }
     const vec_t<T, 4> row2() const { return row(2); }
@@ -85,6 +55,20 @@ struct mat_t<T, 4>
         elem_rc[mat4::rc(1, c)] = col.y;
         elem_rc[mat4::rc(2, c)] = col.z;
         elem_rc[mat4::rc(3, c)] = col.w;
+    }
+
+    const vec_t<T, 4> row(index_t r) const {
+        return vec_t<T, 4> {
+            elem_rc[mat4::rc(r, 0)], elem_rc[mat4::rc(r, 1)],
+            elem_rc[mat4::rc(r, 2)], elem_rc[mat4::rc(r, 3)]
+        };
+    }
+
+    const vec_t<T, 4> col(index_t c) const {
+        return vec_t<T, 4> {
+            elem_rc[mat4::rc(0, c)], elem_rc[mat4::rc(1, c)],
+            elem_rc[mat4::rc(2, c)], elem_rc[mat4::rc(3, c)]
+        };
     }
 
     constexpr T& operator[](index_t i) & { return elem_rc[i]; }
