@@ -68,7 +68,7 @@ TEST_CASE("perspective_gl_lh", "[as-view]")
         make_elements_sub(perspective_gl_lh, 16).margin(g_epsilon));
 }
 
-TEST_CASE("perspective_d3d_rh, [as-view]")
+TEST_CASE("perspective_d3d_rh", "[as-view]")
 {
     using gsl::make_span;
 
