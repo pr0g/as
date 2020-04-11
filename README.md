@@ -17,14 +17,20 @@ This library is really just a dumb experimental thing meant for my own personal 
 
 Deficiencies include but are not limited to:
 
-- The API is not stable (I'm still iterating on it)
-- ~~The test coverage is currently woefully inadequate (I'm working on improving this)~~
-  - I now _technically_ have __100%__ test coverage! 🥳I'm sure not all corner cases are covered but given reasonable inputs things seem to be behaving as expected.
-- I have used this in a few projects (see [vulkan-fruit](https://twitter.com/tom_h_h/status/957656446258307073)) and my fork of Aras Pranckevičius' \([aras_p's](https://twitter.com/aras_p)\) [ToyMeshPathTracer](https://github.com/pr0g/ToyMeshPathTracer), but nothing much else (yet...)
-- There's bound to be bugs!
-- The performance is likely not very good either (I'm working on improving this, for example creating template specializations for the common dimensions).
-- No SIMD (yet? we'll see... 🤔)
-- I've probably made some horrible mistake somewhere which I'll be terribly embarrassed about once brought to my attention.
+-   The API is not stable (I'm still iterating on it)
+
+-   ~~The test coverage is currently woefully inadequate (I'm working on improving this)~~
+    -   I now _technically_ have **100%** test coverage! 🥳I'm sure not all corner cases are covered but given reasonable inputs things seem to be behaving as expected.
+
+-   I have used this in a few projects (see [vulkan-fruit](https://twitter.com/tom_h_h/status/957656446258307073)) and my fork of Aras Pranckevičius' ([aras_p's](https://twitter.com/aras_p)) [ToyMeshPathTracer](https://github.com/pr0g/ToyMeshPathTracer), but nothing much else (yet...)
+
+-   There's bound to be bugs!
+
+-   The performance is likely not very good either (I'm working on improving this, for example creating template specializations for the common dimensions).
+
+-   No SIMD (yet? we'll see... 🤔)
+
+-   I've probably made some horrible mistake somewhere which I'll be terribly embarrassed about once brought to my attention.
 
 ## Using and/or installing the library
 
@@ -36,26 +42,26 @@ Deficiencies include but are not limited to:
 
 This is my preferred approach and if you're a CMake wiz you'll probably want to do something similar to this. If you'd like to learn more about installing and CMake do checkout my other repo here: [cmake-examples](https://github.com/pr0g/cmake-examples) 🙂
 
-1. Make a folder somewhere for the `as` library.
+1.  Make a folder somewhere for the `as` library.
 
     ```bash
     cd documents/
     mkdir as && cd as
     ```
 
-2. Download or clone the library to that folder
+2.  Download or clone the library to that folder
 
     ```bash
     git clone https://github.com/pr0g/as.git .
     ```
 
-3. Configure CMake
+3.  Configure CMake
 
     ```bash
     cmake -S . -B build
     ```
 
-4. Install library
+4.  Install library
 
     ```bash
     cmake --build build/ --target install
@@ -63,13 +69,13 @@ This is my preferred approach and if you're a CMake wiz you'll probably want to 
 
     Note: If you wish to install the library to a specific location please checkout `CMAKE_INSTALL_PREFIX` and `CMAKE_PREFIX_PATH`. The repo I mentioned earlier has more info about this if you're interested! 🙂([cmake-examples - installing to custom locations](https://github.com/pr0g/cmake-examples/tree/master/installing#installing-to-custom-locations)).
 
-5. Navigate to your application and then find the library from your `CMakeLists.txt` file
+5.  Navigate to your application and then find the library from your `CMakeLists.txt` file
 
     ```cmake
     find_package(as REQUIRED)
     ```
 
-6. Specify the required defines
+6.  Specify the required defines
 
     ```cmake
     # AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE
@@ -80,13 +86,13 @@ This is my preferred approach and if you're a CMake wiz you'll probably want to 
         AS_PRECISION_FLOAT AS_COL_MAJOR)
     ```
 
-7. Link against it in `target_link_libraries`
+7.  Link against it in `target_link_libraries`
 
     ```cmake
     target_link_libraries(${PROJECT_NAME} PUBLIC as::as)
     ```
 
-8. A full `CMakeLists.txt` example using `as`:
+8.  A full `CMakeLists.txt` example using `as`:
 
     ```cmake
     cmake_minimum_required(VERSION 3.15)
@@ -107,7 +113,7 @@ This is my preferred approach and if you're a CMake wiz you'll probably want to 
     target_link_libraries(${PROJECT_NAME} PUBLIC as::as)
     ```
 
-9. Include the library in one of your files
+9.  Include the library in one of your files
 
     ```c++
     #include "as/as-math-ops.hpp"
@@ -286,7 +292,7 @@ template<typename T> struct Vec<T, 3>
 }
 ```
 
-There are a few problems with this approach unfortunately. First, `C++` does not support anonymous `struct`s. There's a pretty good chance your compiler will support this but you might get a warning or it might not compile. The next problem with this approach is if you write to the field `data[1]` and then later read from `y`, you've _technically_ invoked undefined behaviour in `C++` (type punning like this is legal in `C` but not strictly in `C++`). I was totally unaware of this until relatively recently and I have Simon Brand \(aka [@TartanLlama](https://twitter.com/tartanllama)\) to thank for pointing [this](https://twitter.com/tom_h_h/status/961273239958892544) out to me. To play devil's advocate chances are everything will work fine but there's no guarantee - you might be able to avoid it by enabling `-fno-strict-aliasing` but perhaps you're in an environment where you (or your user) can't.
+There are a few problems with this approach unfortunately. First, `C++` does not support anonymous `struct`s. There's a pretty good chance your compiler will support this but you might get a warning or it might not compile. The next problem with this approach is if you write to the field `data[1]` and then later read from `y`, you've _technically_ invoked undefined behaviour in `C++` (type punning like this is legal in `C` but not strictly in `C++`). I was totally unaware of this until relatively recently and I have Sy Brand (aka [@TartanLlama](https://twitter.com/tartanllama)) to thank for pointing [this](https://twitter.com/tom_h_h/status/961273239958892544) out to me. To play devil's advocate chances are everything will work fine but there's no guarantee - you might be able to avoid it by enabling `-fno-strict-aliasing` but perhaps you're in an environment where you (or your user) can't.
 
 For the record the following approach can also technically lead to undefined behaviour:
 
@@ -388,13 +394,13 @@ The last thing to mention is the function template specializations. These were m
 
 ### Row/Column Major
 
-I wanted it to be possible to use the library with either row or column vectors and not get them accidentally mixed up. Different graphics APIs use different conventions (OpenGL uses column-major and DirectX uses row-major). Now the layout in memory (as far as C++ is concerned) is always row-major (I recommend reading [this](http://seanmiddleditch.com/matrices-handedness-pre-and-post-multiplication-row-vs-column-major-and-notations/) article by Sean Middleditch \([@stmiddleditch](https://twitter.com/stmiddleditch)\) for a great explanation of this subject).
+I wanted it to be possible to use the library with either row or column vectors and not get them accidentally mixed up. Different graphics APIs use different conventions (OpenGL uses column-major and DirectX uses row-major). Now the layout in memory (as far as C++ is concerned) is always row-major (I recommend reading [this](http://seanmiddleditch.com/matrices-handedness-pre-and-post-multiplication-row-vs-column-major-and-notations/) article by Sean Middleditch ([@stmiddleditch](https://twitter.com/stmiddleditch)) for a great explanation of this subject).
 
 With row-major, when a vector is transformed by a matrix, the notation is to place the vector to the left of the matrix (so you multiply reading left to right) but with column-major the notation is to place the vector being transformed to the right of the matrix (in this case you multiply reading right to left). Now under the hood the multiplication is actually exactly the same, but I make sure to only enable the right overload for `operator *` when multiplying a vector and a matrix to make sure you can't get them the wrong way round (I do this by forcing you to pick the convention you want to use before you start using the library with a `#define` - you must define either `AS_COL_MAJOR` or `AS_ROW_MAJOR`).
 
 In the case of multiplying two matrices the multiplication order is different to account for the left-to-right or right-to-left convention when combining matrices.
 
-__UPDATE__: I realized attempting to support the row/column toggle with non-square matrices was actually impossible. I could either have square matrices with the row/column switch (_TLDR_: I picked this), non-square matrices with row-major layout only, or have non-square row-major matrices and square only column-major (I didn't really like this mismatch).
+**UPDATE**: I realized attempting to support the row/column toggle with non-square matrices was actually impossible. I could either have square matrices with the row/column switch (_TLDR_: I picked this), non-square matrices with row-major layout only, or have non-square row-major matrices and square only column-major (I didn't really like this mismatch).
 
 The reason I wasn't able to support non-square column major matrices boils down to how you multiply matrices. Technically matrix multiplication is multiplying each row of the left matrix by each column of the right matrix. The resulting matrix will have the same number of rows as the left matrix and same number of columns as the right matrix - e.g. a `2x4 * 4x2` = `2x2` matrix and a `4x2 * 2x4 = 4x4` matrix). For matrix multiplication to be well defined (possible) the number of columns in the left matrix must equal the number of rows in the right matrix (see earlier examples). When trying to do things column-major, certain matrix sizes don't really work, you have to always start with the row in the left matrix. When `AS_COL_MAJOR` is defined I pull a bit of a trick under the hood where the data layout of the matrix doesn't change but the order in which elements are visited is (we multiply columns in the left matrix by rows in the right matrix) but this trick only really works when the matrices are square. It's the same effect as if the matrices were transposed and you did the normal `row * col` multiply. Remember to get the same answer as when in row-major you also have to swap the order of the matrices as `A * B != B * A` for matrices.
 
@@ -418,18 +424,18 @@ There are a million other math libraries out there that are more complete, more 
 
 ### Libraries
 
-- [OpenGL Mathematics (glm)](https://glm.g-truc.net/0.9.9/index.html)
-- [DirectXMath](https://docs.microsoft.com/en-us/windows/desktop/dxmath/directxmath-portal)
-- [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page)
-- [Tuesday](https://github.com/Cincinesh/tue)
-- [HandmadeMath](https://github.com/HandmadeMath/Handmade-Math)
-- [RealTimeMath](https://github.com/nfrechette/rtm)
+-   [OpenGL Mathematics (glm)](https://glm.g-truc.net/0.9.9/index.html)
+-   [DirectXMath](https://docs.microsoft.com/en-us/windows/desktop/dxmath/directxmath-portal)
+-   [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page)
+-   [Tuesday](https://github.com/Cincinesh/tue)
+-   [HandmadeMath](https://github.com/HandmadeMath/Handmade-Math)
+-   [RealTimeMath](https://github.com/nfrechette/rtm)
 
 ### Articles
 
-- [How To Write A Maths Library In 2016](http://www.codersnotes.com/notes/maths-lib-2016/)
-- [On Vector Math Libraries](http://www.reedbeta.com/blog/on-vector-math-libraries/)
+-   [How To Write A Maths Library In 2016](http://www.codersnotes.com/notes/maths-lib-2016/)
+-   [On Vector Math Libraries](http://www.reedbeta.com/blog/on-vector-math-libraries/)
 
 ## Related Links
 
-- [GameDev.net - A slick trick in c](https://www.gamedev.net/forums/topic/261920-a-slick-trick-in-c/)
+-   [GameDev.net - A slick trick in c](https://www.gamedev.net/forums/topic/261920-a-slick-trick-in-c/)
