@@ -95,7 +95,7 @@ This is my preferred approach and if you're a CMake wiz you'll probably want to 
 9. A full `CMakeLists.txt` example using `as`:
 
     ```cmake
-    cmake_minimum_required(VERSION 3.13)
+    cmake_minimum_required(VERSION 3.15)
     project(app VERSION 0.0.1 LANGUAGES CXX)
 
     # required for as
@@ -141,7 +141,7 @@ It is also possible to drop the repo into your project as-is and use `add_subdir
 Full example:
 
 ```cmake
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.15)
 project(app VERSION 0.0.1 LANGUAGES CXX)
 
 # required for as
@@ -183,7 +183,7 @@ or
 Your CMakeLists.txt file can then look like this:
 
 ```cmake
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.15)
 project(app VERSION 0.0.1 LANGUAGES CXX)
 
 add_executable(${PROJECT_NAME} main.cpp)

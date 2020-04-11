@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.15)
 
 project(as VERSION 0.0.1 LANGUAGES CXX)
 
@@ -12,7 +12,7 @@ target_include_directories(
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 
 target_compile_features(
-    as INTERFACE cxx_std_14)
+    as INTERFACE cxx_std_11)
 
 install(
     TARGETS as
