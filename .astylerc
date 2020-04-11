@@ -8,6 +8,7 @@
 --indent-cases
 --break-blocks
 --pad-header
+--max-code-length=80
 #--pad-oper
 #--align-pointer=type
 #--align-reference=type
