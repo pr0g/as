@@ -1182,14 +1182,14 @@ TEST_CASE("mat3_rotate_x_y_z_separate", "[as-mat]")
 // explicit instantiations (for coverage)
 
 // types
-template struct mat_t<real_t, 2>;
-template struct mat_t<real_t, 3>;
-template struct mat_t<real_t, 4>;
-template struct mat_t<real_t, 5>;
+template struct as::mat_t<real_t, 2>;
+template struct as::mat_t<real_t, 3>;
+template struct as::mat_t<real_t, 4>;
+template struct as::mat_t<real_t, 5>;
 
 #ifdef __GNUC__
 // constructor
-template mat_t<real_t, 5>::mat_t(
+template as::mat_t<real_t, 5>::mat_t(
     real_t, real_t, real_t, real_t, real_t,
     real_t, real_t, real_t, real_t, real_t,
     real_t, real_t, real_t, real_t, real_t,
