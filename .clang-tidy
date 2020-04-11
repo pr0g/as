@@ -1,1 +1,1 @@
-Checks: 'readability*, modernize*, bugprone*, performance*, -modernize-use-trailing-return-type, -readability-uppercase-literal-suffix, -readability-magic-numbers, -modernize-avoid-c-arrays'
+Checks: 'readability*, modernize*, bugprone*, performance*, -modernize-use-trailing-return-type, -readability-uppercase-literal-suffix, -readability-magic-numbers, -readability-const-return-type, -modernize-avoid-c-arrays'
