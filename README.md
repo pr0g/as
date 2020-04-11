@@ -49,33 +49,27 @@ This is my preferred approach and if you're a CMake wiz you'll probably want to 
     git clone https://github.com/pr0g/as.git .
     ```
 
-3. Create a build folder
+3. Configure CMake
 
     ```bash
-    mkdir build && cd build
+    cmake -S . -B build
     ```
 
-4. Configure CMake
+4. Install library
 
     ```bash
-    cmake ..
-    ```
-
-5. Install library
-
-    ```bash
-    cmake --build . --target install
+    cmake --build build/ --target install
     ```
 
     Note: If you wish to install the library to a specific location please checkout `CMAKE_INSTALL_PREFIX` and `CMAKE_PREFIX_PATH`. The repo I mentioned earlier has more info about this if you're interested! 🙂([cmake-examples - installing to custom locations](https://github.com/pr0g/cmake-examples/tree/master/installing#installing-to-custom-locations)).
 
-6. Navigate to your application and then find the library from your `CMakeLists.txt` file
+5. Navigate to your application and then find the library from your `CMakeLists.txt` file
 
     ```cmake
     find_package(as REQUIRED)
     ```
 
-7. Specify the required defines
+6. Specify the required defines
 
     ```cmake
     # AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE
@@ -86,13 +80,13 @@ This is my preferred approach and if you're a CMake wiz you'll probably want to 
         AS_PRECISION_FLOAT AS_COL_MAJOR)
     ```
 
-8. Link against it in `target_link_libraries`
+7. Link against it in `target_link_libraries`
 
     ```cmake
     target_link_libraries(${PROJECT_NAME} PUBLIC as::as)
     ```
 
-9. A full `CMakeLists.txt` example using `as`:
+8. A full `CMakeLists.txt` example using `as`:
 
     ```cmake
     cmake_minimum_required(VERSION 3.15)
@@ -101,7 +95,8 @@ This is my preferred approach and if you're a CMake wiz you'll probably want to 
     # required for as
     find_package(as REQUIRED)
 
-    add_executable(${PROJECT_NAME} main.cpp)
+    add_executable(${PROJECT_NAME})
+    target_sources(${PROJECT_NAME} PRIVATE main.cpp)
 
     # required for as
     target_compile_definitions(
@@ -112,18 +107,17 @@ This is my preferred approach and if you're a CMake wiz you'll probably want to 
     target_link_libraries(${PROJECT_NAME} PUBLIC as::as)
     ```
 
-10. Include the library in one of your files
+9. Include the library in one of your files
 
     ```c++
     #include "as/as-math-ops.hpp"
     ```
 
-11. Build your application
+10. Build your application
 
     ```bash
-    cd build/
-    cmake ..
-    cmake --build .
+    cmake -S . -B build
+    cmake --build build/
     ```
 
 #### Full Include
@@ -190,13 +184,14 @@ add_executable(${PROJECT_NAME} main.cpp)
 
 # required for as
 target_compile_definitions(
-    ${PROJECT_NAME} PRIVATE AS_PRECISION_FLOAT AS_COL_MAJOR)
+    ${PROJECT_NAME} PRIVATE
+    AS_PRECISION_FLOAT AS_COL_MAJOR)
 
 # required for as (we need to set this ourselves now)
 target_compile_features(
     ${PROJECT_NAME} PRIVATE cxx_std_11)
 
-# needed if adding as to say a nested folder called external/3rdParty
+# needed if adding as to a nested folder called external/3rdParty
 target_include_directories(
     ${PROJECT_NAME} PRIVATE external) # optional
 ```
