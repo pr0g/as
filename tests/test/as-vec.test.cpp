@@ -1649,45 +1649,65 @@ TEST_CASE("vec_to_arr", "[as_vec]")
     CHECK_THAT(make_span(vec5_arr), make_elements_sub(vec5, 5));
 }
 
+} // namespace unit_test
+
 // explicit instantiations (for coverage)
 
 // types
-template struct vec_t<real_t, 2>;
-template struct vec_t<real_t, 3>;
-template struct vec_t<real_t, 4>;
-template struct vec_t<real_t, 5>;
+template struct as::vec_t<as::real_t, 2>;
+template struct as::vec_t<as::real_t, 3>;
+template struct as::vec_t<as::real_t, 4>;
+template struct as::vec_t<as::real_t, 5>;
 
 #ifdef __GNUC__
 // constructor
-template vec_t<real_t, 5>::vec_t(real_t, real_t, real_t, real_t, real_t) noexcept;
+template as::vec_t<as::real_t, 5>::vec_t(
+    as::real_t, as::real_t, as::real_t, as::real_t, as::real_t) noexcept;
 #endif // __GNUC__
 
 // operators
-template const vec_t<real_t, 5> as::operator+(const vec_t<real_t, 5>&, const vec_t<real_t, 5>&);
-template const vec_t<real_t, 5> as::operator-(const vec_t<real_t, 5>&, const vec_t<real_t, 5>&);
-template const vec_t<real_t, 5> as::operator-(const vec_t<real_t, 5>&);
-template const vec_t<real_t, 5> as::operator*(const vec_t<real_t, 5>&, real_t);
-template const vec_t<real_t, 5> as::operator*(real_t, const vec_t<real_t, 5>&);
-template const vec_t<real_t, 5> as::operator*(const vec_t<real_t, 5>&, const vec_t<real_t, 5>&);
-template const vec_t<real_t, 5> as::operator/(const vec_t<real_t, 5>&, real_t);
-template const vec_t<real_t, 5> as::operator/(const vec_t<real_t, 5>&, const vec_t<real_t, 5>&);
+template const as::vec_t<as::real_t, 5> as::operator+(
+    const as::vec_t<as::real_t, 5>&, const as::vec_t<as::real_t, 5>&);
+template const as::vec_t<as::real_t, 5> as::operator-(
+    const as::vec_t<as::real_t, 5>&, const as::vec_t<as::real_t, 5>&);
+template const as::vec_t<as::real_t, 5> as::operator-(
+    const as::vec_t<as::real_t, 5>&);
+template const as::vec_t<as::real_t, 5> as::operator*(
+    const as::vec_t<as::real_t, 5>&, as::real_t);
+template const as::vec_t<as::real_t, 5> as::operator*(
+    as::real_t, const as::vec_t<as::real_t, 5>&);
+template const as::vec_t<as::real_t, 5> as::operator*(
+    const as::vec_t<as::real_t, 5>&, const as::vec_t<as::real_t, 5>&);
+template const as::vec_t<as::real_t, 5> as::operator/(
+    const as::vec_t<as::real_t, 5>&, as::real_t);
+template const as::vec_t<as::real_t, 5> as::operator/(
+    const as::vec_t<as::real_t, 5>&, const as::vec_t<as::real_t, 5>&);
 
 // functions
-template void vec::to_arr(const vec_t<real_t, 5>& vec, real_t(&data)[5]);
-template index_t vec::size<real_t, 5>(const vec_t<real_t, 5>&);
-template real_t vec::dot(const vec_t<real_t, 5>&, const vec_t<real_t, 5>&);
-template real_t vec::normalize_return_length(const vec_t<real_t, 5>&, vec_t<real_t, 5>&);
-template vec_t<real_t, 5> vec::min(const vec_t<real_t, 5>&, const vec_t<real_t, 5>&);
-template real_t vec::min_elem(const vec_t<real_t, 5>&);
-template vec_t<real_t, 5> vec::max(const vec_t<real_t, 5>&, const vec_t<real_t, 5>&);
-template real_t vec::max_elem(const vec_t<real_t, 5>&);
-template vec_t<real_t, 5> vec::abs(const vec_t<real_t, 5>&);
-template vec_t<real_t, 5> vec::clamp(
-    const vec_t<real_t, 5>&,
-    const vec_t<real_t, 5>&,
-    const vec_t<real_t, 5>&);
-template vec_t<real_t, 5> vec::saturate(const vec_t<real_t, 5>&);
-template vec_t<real_t, 5> vec::lerp(real_t t, const vec_t<real_t, 5>&, const vec_t<real_t, 5>&);
-template vec_t<real_t, 5> vec::select(const vec_t<real_t, 5>&, const vec_t<real_t, 5>&, bool);
-
-} // namespace unit_test
+template void as::vec::to_arr(
+    const as::vec_t<as::real_t, 5>& vec, as::real_t(&data)[5]);
+template as::index_t as::vec::size<as::real_t, 5>(
+    const as::vec_t<as::real_t, 5>&);
+template as::real_t as::vec::dot(
+    const as::vec_t<as::real_t, 5>&, const as::vec_t<as::real_t, 5>&);
+template as::real_t as::vec::normalize_return_length(
+    const as::vec_t<as::real_t, 5>&, as::vec_t<as::real_t, 5>&);
+template as::vec_t<as::real_t, 5> as::vec::min(
+    const as::vec_t<as::real_t, 5>&, const as::vec_t<as::real_t, 5>&);
+template as::real_t as::vec::min_elem(
+    const as::vec_t<as::real_t, 5>&);
+template as::vec_t<as::real_t, 5> as::vec::max(
+    const as::vec_t<as::real_t, 5>&, const as::vec_t<as::real_t, 5>&);
+template as::real_t as::vec::max_elem(
+    const as::vec_t<as::real_t, 5>&);
+template as::vec_t<as::real_t, 5> as::vec::abs(const as::vec_t<as::real_t, 5>&);
+template as::vec_t<as::real_t, 5> as::vec::clamp(
+    const as::vec_t<as::real_t, 5>&,
+    const as::vec_t<as::real_t, 5>&,
+    const as::vec_t<as::real_t, 5>&);
+template as::vec_t<as::real_t, 5> as::vec::saturate(
+    const as::vec_t<as::real_t, 5>&);
+template as::vec_t<as::real_t, 5> as::vec::lerp(
+    as::real_t t, const as::vec_t<as::real_t, 5>&, const as::vec_t<as::real_t, 5>&);
+template as::vec_t<as::real_t, 5> as::vec::select(
+    const as::vec_t<as::real_t, 5>&, const as::vec_t<as::real_t, 5>&, bool);

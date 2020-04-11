@@ -1179,41 +1179,51 @@ TEST_CASE("mat3_rotate_x_y_z_separate", "[as-mat]")
     }
 }
 
+} // namespace unit_test
+
 // explicit instantiations (for coverage)
 
 // types
-template struct as::mat_t<real_t, 2>;
-template struct as::mat_t<real_t, 3>;
-template struct as::mat_t<real_t, 4>;
-template struct as::mat_t<real_t, 5>;
+template struct as::mat_t<as::real_t, 2>;
+template struct as::mat_t<as::real_t, 3>;
+template struct as::mat_t<as::real_t, 4>;
+template struct as::mat_t<as::real_t, 5>;
 
 #ifdef __GNUC__
 // constructor
-template as::mat_t<real_t, 5>::mat_t(
-    real_t, real_t, real_t, real_t, real_t,
-    real_t, real_t, real_t, real_t, real_t,
-    real_t, real_t, real_t, real_t, real_t,
-    real_t, real_t, real_t, real_t, real_t,
-    real_t, real_t, real_t, real_t, real_t) noexcept;
+template as::mat_t<as::real_t, 5>::mat_t(
+    as::real_t, as::real_t, as::real_t, as::real_t, as::real_t,
+    as::real_t, as::real_t, as::real_t, as::real_t, as::real_t,
+    as::real_t, as::real_t, as::real_t, as::real_t, as::real_t,
+    as::real_t, as::real_t, as::real_t, as::real_t, as::real_t,
+    as::real_t, as::real_t, as::real_t, as::real_t, as::real_t) noexcept;
 #endif // __GNUC__
 
 // matrix multiply
-template const mat_t<real_t, 3> as::operator*(const mat_t<real_t, 3>&, const mat_t<real_t, 3>&);
-template const mat_t<real_t, 4> as::operator*(const mat_t<real_t, 4>&, const mat_t<real_t, 4>&);
+template const as::mat_t<as::real_t, 3> as::operator*(
+    const as::mat_t<as::real_t, 3>&, const as::mat_t<as::real_t, 3>&);
+template const as::mat_t<as::real_t, 4> as::operator*(
+    const as::mat_t<as::real_t, 4>&, const as::mat_t<as::real_t, 4>&);
 
 // vector multiply
 #if defined AS_ROW_MAJOR
-template const vec_t<real_t, 3> as::operator*(const vec_t<real_t, 3>&, const mat_t<real_t, 3>&);
-template const vec_t<real_t, 4> as::operator*(const vec_t<real_t, 4>&, const mat_t<real_t, 4>&);
+template const as::vec_t<as::real_t, 3> as::operator*(
+    const as::vec_t<as::real_t, 3>&, const as::mat_t<as::real_t, 3>&);
+template const as::vec_t<as::real_t, 4> as::operator*(
+    const as::vec_t<as::real_t, 4>&, const as::mat_t<as::real_t, 4>&);
 #elif defined AS_COL_MAJOR
-template const vec_t<real_t, 3> as::operator*(const mat_t<real_t, 3>&, const vec_t<real_t, 3>&);
-template const vec_t<real_t, 4> as::operator*(const mat_t<real_t, 4>&, const vec_t<real_t, 4>&);
+template const as::vec_t<as::real_t, 3> as::operator*(
+    const as::mat_t<as::real_t, 3>&, const as::vec_t<as::real_t, 3>&);
+template const as::vec_t<as::real_t, 4> as::operator*(
+    const as::mat_t<as::real_t, 4>&, const as::vec_t<as::real_t, 4>&);
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
 // scalar multiply
-template const mat_t<real_t, 3> as::operator*(const mat_t<real_t, 3>&, real_t scalar);
-template const mat_t<real_t, 4> as::operator*(const mat_t<real_t, 4>&, real_t scalar);
-template mat_t<real_t, 3>& as::operator*=(mat_t<real_t, 3>&, real_t scalar);
-template mat_t<real_t, 4>& as::operator*=(mat_t<real_t, 4>&, real_t scalar);
-
-} // namespace unit_test
+template const as::mat_t<as::real_t, 3> as::operator*(
+    const as::mat_t<as::real_t, 3>&, as::real_t scalar);
+template const as::mat_t<as::real_t, 4> as::operator*(
+    const as::mat_t<as::real_t, 4>&, as::real_t scalar);
+template as::mat_t<as::real_t, 3>& as::operator*=(
+    as::mat_t<as::real_t, 3>&, as::real_t scalar);
+template as::mat_t<as::real_t, 4>& as::operator*=(
+    as::mat_t<as::real_t, 4>&, as::real_t scalar);
