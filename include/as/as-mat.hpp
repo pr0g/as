@@ -56,13 +56,16 @@ struct mat_t
 };
 
 template <typename T, index_t d>
-AS_API const mat_t<T, d> operator*(const mat_t<T, d>& lhs, const mat_t<T, d>& rhs);
+AS_API const mat_t<T, d> operator*(
+    const mat_t<T, d>& lhs, const mat_t<T, d>& rhs);
 
 template<typename T, index_t d>
 #if defined AS_ROW_MAJOR
-AS_API const vec_t<T, d> operator*(const vec_t<T, d>& v, const mat_t<T, d>& mat);
+AS_API const vec_t<T, d> operator*(
+    const vec_t<T, d>& v, const mat_t<T, d>& mat);
 #elif defined AS_COL_MAJOR
-AS_API const vec_t<T, d> operator*(const mat_t<T, d>& mat, const vec_t<T, d>& v);
+AS_API const vec_t<T, d> operator*(
+    const mat_t<T, d>& mat, const vec_t<T, d>& v);
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
 template<typename T, index_t d>

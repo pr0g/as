@@ -255,7 +255,8 @@ using vec4i_t = vec_t<int32_t, 4>;
 using vec4l_t = vec_t<int64_t, 4>;
 
 template<typename T, index_t n>
-AS_API const vec_t<T, n> operator+(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
+AS_API const vec_t<T, n> operator+(
+    const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
 AS_API const vec3_t operator+(const vec3_t& lhs, const vec3_t& rhs);
@@ -267,7 +268,8 @@ template<>
 AS_API vec3_t& operator+=(vec3_t& lhs, const vec3_t& rhs);
 
 template<typename T, index_t n>
-AS_API const vec_t<T, n> operator-(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
+AS_API const vec_t<T, n> operator-(
+    const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
 AS_API const vec3_t operator-(const vec3_t& lhs, const vec3_t& rhs);
@@ -303,7 +305,8 @@ template<>
 AS_API vec3_t& operator*=(vec3_t& lhs, real_t val);
 
 template<typename T, index_t n>
-AS_API const vec_t<T, n> operator*(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
+AS_API const vec_t<T, n> operator*(
+    const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
 AS_API const vec3_t operator*(const vec3_t& lhs, const vec3_t& rhs);
@@ -327,7 +330,8 @@ template<>
 AS_API vec3_t& operator/=(vec3_t& lhs, real_t val);
 
 template<typename T, index_t n>
-AS_API const vec_t<T, n> operator/(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
+AS_API const vec_t<T, n> operator/(
+    const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
 AS_API const vec3_t operator/(const vec3_t& lhs, const vec3_t& rhs);

@@ -46,7 +46,9 @@ template<typename T, index_t n>
 AS_API T normalize_return_length(const vec_t<T, n>& vec, vec_t<T, n>& out);
 
 template<typename T, index_t n>
-AS_API bool equal(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs, real_t epsilon = std::numeric_limits<real_t>::epsilon());
+AS_API bool equal(
+    const vec_t<T, n>& lhs, const vec_t<T, n>& rhs,
+    real_t epsilon = std::numeric_limits<real_t>::epsilon());
 
 template<typename T, index_t n>
 AS_API vec_t<T, n> min(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
@@ -64,7 +66,8 @@ template<typename T, index_t n>
 AS_API vec_t<T, n> abs(const vec_t<T, n>& vec);
 
 template<typename T, index_t n>
-AS_API vec_t<T, n> clamp(const vec_t<T, n>& vec, const vec_t<T, n>& min, const vec_t<T, n>& max);
+AS_API vec_t<T, n> clamp(
+    const vec_t<T, n>& vec, const vec_t<T, n>& min, const vec_t<T, n>& max);
 
 template<typename T, index_t n>
 AS_API vec_t<T, n> saturate(const vec_t<T, n>& vec);
@@ -73,7 +76,8 @@ template<typename T, index_t n>
 AS_API vec_t<T, n> lerp(T t, const vec_t<T, n>& v0, const vec_t<T, n>& v1);
 
 template<typename T, index_t n>
-AS_API vec_t<T, n> select(const vec_t<T, n>& v0, const vec_t<T, n>& v1, bool select0);
+AS_API vec_t<T, n> select(
+    const vec_t<T, n>& v0, const vec_t<T, n>& v1, bool select0);
 
 } // namespace vec
 
@@ -109,10 +113,14 @@ AS_API vec3_t from_arr(const real_t(&data)[3]);
 AS_API vec3_t cross(const vec3_t& lhs, const vec3_t& rhs);
 
 // note: will not work if dir == +/-world_up
-AS_API void right_and_up_lh(const vec3_t& dir, vec3_t& across, vec3_t& up, const vec3_t& world_up = axis_y());
+AS_API void right_and_up_lh(
+    const vec3_t& dir, vec3_t& across, vec3_t& up,
+    const vec3_t& world_up = axis_y());
 
 // note: will not work if dir == +/-world_up
-AS_API void right_and_up_rh(const vec3_t& dir, vec3_t& across, vec3_t& up, const vec3_t& world_up = axis_y());
+AS_API void right_and_up_rh(
+    const vec3_t& dir, vec3_t& across, vec3_t& up,
+    const vec3_t& world_up = axis_y());
 
 } // namespace vec3
 
@@ -203,7 +211,8 @@ AS_API mat4_t from_arr(const real_t(&data)[16]);
 
 AS_API constexpr mat4_t from_vec3(const vec3_t& translation);
 AS_API constexpr mat4_t from_mat3(const mat3_t& rotation);
-AS_API constexpr mat4_t from_mat3_vec3(const mat3_t& rotation, const vec3_t& translation);
+AS_API constexpr mat4_t from_mat3_vec3(
+    const mat3_t& rotation, const vec3_t& translation);
 
 } // namespace mat4
 
@@ -242,8 +251,10 @@ namespace affine
 
 AS_API vec3_t transform_dir(const affine_t& affine, const vec3_t& direction);
 AS_API point3_t transform_pos(const affine_t& affine, const point3_t& position);
-AS_API vec3_t inv_transform_dir(const affine_t& affine, const vec3_t& direction);
-AS_API point3_t inv_transform_pos(const affine_t& affine, const point3_t& position);
+AS_API vec3_t inv_transform_dir(
+    const affine_t& affine, const vec3_t& direction);
+AS_API point3_t inv_transform_pos(
+    const affine_t& affine, const point3_t& position);
 
 } // namespace affine
 

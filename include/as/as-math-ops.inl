@@ -754,7 +754,8 @@ inline vec3_t inv_transform_dir(const affine_t& affine, const vec3_t& direction)
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
-inline point3_t inv_transform_pos(const affine_t& affine, const point3_t& position)
+inline point3_t inv_transform_pos(
+    const affine_t& affine, const point3_t& position)
 {
     const mat3_t invRotation = as::mat::inverse(affine.rotation);
 #if defined AS_COL_MAJOR
