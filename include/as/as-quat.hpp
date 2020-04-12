@@ -9,8 +9,6 @@ struct quat_t
 {
     using value_type = real_t;
 
-    real_t w, x, y, z;
-
     quat_t() = default;
     quat_t(const quat_t&) = default;
     quat_t& operator=(const quat_t&) = default;
@@ -20,6 +18,8 @@ struct quat_t
 
     constexpr quat_t(real_t w_, real_t x_, real_t y_, real_t z_);
     constexpr quat_t(real_t w_, const vec3_t& xyz_);
+
+    real_t w, x, y, z;
 };
 
 constexpr const quat_t operator*(const quat_t& lhs, const quat_t& rhs);

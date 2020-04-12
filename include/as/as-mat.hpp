@@ -27,8 +27,6 @@ struct mat_t
 {
     using value_type = T;
 
-    T elem_rc[size()];
-
     mat_t() noexcept = default;
     mat_t(const mat_t&) noexcept = default;
     mat_t& operator=(const mat_t&) noexcept = default;
@@ -57,6 +55,8 @@ struct mat_t
 
     constexpr static index_t dim();
     constexpr static index_t size();
+
+    T elem_rc[size()];
 };
 
 template<typename T, index_t d>

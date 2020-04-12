@@ -13,8 +13,6 @@ struct vec_t
 {
     using value_type = T;
 
-    T elem[n];
-
     vec_t() noexcept = default;
     vec_t(const vec_t&) noexcept = default;
     vec_t& operator=(const vec_t&) noexcept = default;
@@ -42,6 +40,8 @@ struct vec_t
     constexpr T operator[](index_t i) &&;
 
     constexpr static index_t size();
+
+    T elem[size()];
 };
 
 namespace internal
@@ -51,8 +51,6 @@ template<typename T>
 struct vec2_base_t
 {
     using value_type = T;
-
-    T x, y;
 
     vec2_base_t() noexcept = default;
     vec2_base_t(const vec2_base_t&) noexcept = default;
@@ -69,6 +67,8 @@ struct vec2_base_t
     const T operator[](index_t i) &&;
 
     constexpr static index_t size();
+
+    T x, y;
 
 private:
     static T vec2_base_t::*elem[2];
@@ -108,8 +108,6 @@ struct vec3_base_t
 {
     using value_type = T;
 
-    T x, y, z;
-
     vec3_base_t() noexcept = default;
     vec3_base_t(const vec3_base_t&) noexcept = default;
     vec3_base_t& operator=(const vec3_base_t&) noexcept = default;
@@ -128,6 +126,8 @@ struct vec3_base_t
     constexpr static index_t size();
 
     constexpr vec_t<T, 2> xy() const;
+
+    T x, y, z;
 
 private:
     static T vec3_base_t::*elem[3];
@@ -168,8 +168,6 @@ struct vec4_base_t
 {
     using value_type = T;
 
-    T x, y, z, w;
-
     vec4_base_t() noexcept = default;
     vec4_base_t(const vec4_base_t&) noexcept = default;
     vec4_base_t& operator=(const vec4_base_t&) noexcept = default;
@@ -192,6 +190,8 @@ struct vec4_base_t
     constexpr vec_t<T, 2> xy() const;
     constexpr vec_t<T, 2> zw() const;
     constexpr vec_t<T, 3> xyz() const;
+
+    T x, y, z, w;
 
 private:
     static T vec4_base_t::*elem[4];

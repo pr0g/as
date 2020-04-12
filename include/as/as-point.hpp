@@ -10,8 +10,6 @@ struct point2_t
 {
     using value_type = real_t;
 
-    vec2_t v;
-
     point2_t() = default;
     point2_t(const point2_t&) = default;
     point2_t& operator=(const point2_t&) = default;
@@ -26,13 +24,13 @@ struct point2_t
     real_t& operator[](index_t i) &;
     const real_t& operator[](index_t i) const&;
     real_t operator[](index_t i) &&;
+
+    vec2_t v;
 };
 
 struct point3_t
 {
     using value_type = real_t;
-
-    vec3_t v;
 
     point3_t() = default;
     point3_t(const point3_t&) = default;
@@ -49,6 +47,8 @@ struct point3_t
     real_t& operator[](index_t i) &;
     const real_t& operator[](index_t i) const&;
     real_t operator[](index_t i) &&;
+
+    vec3_t v;
 };
 
 const vec2_t operator-(const point2_t& lhs, const point2_t& rhs);

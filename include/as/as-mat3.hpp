@@ -10,8 +10,6 @@ struct mat_t<T, 3>
 {
     using value_type = T;
 
-    T elem_rc[size()];
-
     mat_t() noexcept = default;
     mat_t(const mat_t&) noexcept = default;
     mat_t& operator=(const mat_t&) noexcept = default;
@@ -61,6 +59,8 @@ struct mat_t<T, 3>
     void col(index_t c, const vec_t<T, 3>& col);
     const vec_t<T, 3> row(index_t r) const;
     const vec_t<T, 3> col(index_t c) const;
+
+    T elem_rc[size()];
 };
 
 using mat3_t = mat_t<real_t, 3>;
