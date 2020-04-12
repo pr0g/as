@@ -1,5 +1,5 @@
-#include "catch2/catch.hpp"
 #include "catch-matchers.hpp"
+#include "catch2/catch.hpp"
 
 #include "as/as-math-ops.hpp"
 
@@ -44,8 +44,8 @@ TEST_CASE("quat_identity", "[as_quat]")
 
 TEST_CASE("quat_addition", "[as_quat]")
 {
-    const quat_t quat_a{ 1.0f, 0.1f, 0.2f, 0.3f };
-    const quat_t quat_b{ 1.0f, 0.2f, 0.4f, 0.6f };
+    const quat_t quat_a{1.0f, 0.1f, 0.2f, 0.3f};
+    const quat_t quat_b{1.0f, 0.2f, 0.4f, 0.6f};
 
     const quat_t result = quat_a + quat_b;
 
@@ -57,8 +57,8 @@ TEST_CASE("quat_addition", "[as_quat]")
 
 TEST_CASE("quat_subtraction", "[as_quat]")
 {
-    const quat_t quat_a{ 1.0f, 0.4f, 0.6f, 0.8f };
-    const quat_t quat_b{ 1.0f, 0.2f, 0.4f, 0.6f };
+    const quat_t quat_a{1.0f, 0.4f, 0.6f, 0.8f};
+    const quat_t quat_b{1.0f, 0.2f, 0.4f, 0.6f};
 
     const quat_t result = quat_a - quat_b;
 
@@ -70,7 +70,7 @@ TEST_CASE("quat_subtraction", "[as_quat]")
 
 TEST_CASE("quat_negation", "[as_quat]")
 {
-    const quat_t quat_a{ 1.0f, 0.4f, 0.6f, 0.8f };
+    const quat_t quat_a{1.0f, 0.4f, 0.6f, 0.8f};
 
     const quat_t result = -quat_a;
 
@@ -82,11 +82,8 @@ TEST_CASE("quat_negation", "[as_quat]")
 
 TEST_CASE("quat_multiplication", "[as_quat]")
 {
-    const quat_t quat_a =
-        quat::axis_angle(vec3::axis_x(), deg_to_rad(90.0f));
-    const quat_t quat_b =
-        quat::axis_angle(vec3::axis_y(), deg_to_rad(180.0f));
-
+    const quat_t quat_a = quat::axis_angle(vec3::axis_x(), deg_to_rad(90.0f));
+    const quat_t quat_b = quat::axis_angle(vec3::axis_y(), deg_to_rad(180.0f));
 
     {
         const quat_t result = quat_a * quat_b;
@@ -110,7 +107,7 @@ TEST_CASE("quat_multiplication", "[as_quat]")
 
 TEST_CASE("quat_conjugate", "[as_quat]")
 {
-    const quat_t quat = quat_t{ 7.0f, 4.0f, 5.0f, 9.0f };
+    const quat_t quat = quat_t{7.0f, 4.0f, 5.0f, 9.0f};
     const quat_t result = quat::conjugate(quat);
 
     CHECK(result.w == Approx(7.0f).epsilon(g_epsilon));
@@ -121,7 +118,7 @@ TEST_CASE("quat_conjugate", "[as_quat]")
 
 TEST_CASE("quat_length", "[as_quat]")
 {
-    const quat_t quat = quat_t{ 1.0f, 2.0f, 3.0f, 4.0f };
+    const quat_t quat = quat_t{1.0f, 2.0f, 3.0f, 4.0f};
     const real_t result = quat::length(quat);
 
     CHECK(result == Approx(5.47722558f).epsilon(g_epsilon));
@@ -129,7 +126,7 @@ TEST_CASE("quat_length", "[as_quat]")
 
 TEST_CASE("quat_normalize", "[as_quat]")
 {
-    const quat_t quat = quat_t{ 2.0f, 3.0f, 4.0f, 5.0f };
+    const quat_t quat = quat_t{2.0f, 3.0f, 4.0f, 5.0f};
     const quat_t result = quat::normalize(quat);
 
     CHECK(result.w == Approx(0.2721655269759087f).epsilon(g_epsilon));
@@ -140,7 +137,7 @@ TEST_CASE("quat_normalize", "[as_quat]")
 
 TEST_CASE("quat_scale", "[as_quat]")
 {
-    const quat_t quat = quat_t{ 2.0f, 3.0f, 4.0f, 5.0f };
+    const quat_t quat = quat_t{2.0f, 3.0f, 4.0f, 5.0f};
     const quat_t result = quat * 2.0f;
 
     CHECK(result.w == Approx(4.0f).epsilon(g_epsilon));
@@ -151,7 +148,7 @@ TEST_CASE("quat_scale", "[as_quat]")
 
 TEST_CASE("quat_inverse", "[as_quat]")
 {
-    const quat_t quat = quat_t{ 7.0f, 4.0f, 5.0f, 9.0f };
+    const quat_t quat = quat_t{7.0f, 4.0f, 5.0f, 9.0f};
     const quat_t result = quat::inverse(quat);
 
     CHECK(result.w == Approx(0.0409357f).margin(g_epsilon));
@@ -192,8 +189,10 @@ TEST_CASE("quat_rotate_vec", "[as_quat]")
     }
 
     {
-        const quat_t quat_x = quat::axis_angle(vec3::axis_x(), deg_to_rad(270.0f));
-        const quat_t quat_z = quat::axis_angle(vec3::axis_z(), deg_to_rad(-90.0f));
+        const quat_t quat_x =
+            quat::axis_angle(vec3::axis_x(), deg_to_rad(270.0f));
+        const quat_t quat_z =
+            quat::axis_angle(vec3::axis_z(), deg_to_rad(-90.0f));
         const quat_t quat_zx = quat_z * quat_x;
 
         const vec3_t result = quat::rotate(quat_zx, vec3::axis_z());
@@ -208,7 +207,8 @@ TEST_CASE("quat_slerp", "[as_quat]")
 {
     {
         const quat_t quat_y = quat::axis_angle(vec3::axis_z(), 0.0f);
-        const quat_t quat_x = quat::axis_angle(vec3::axis_z(), deg_to_rad(90.0f));
+        const quat_t quat_x =
+            quat::axis_angle(vec3::axis_z(), deg_to_rad(90.0f));
 
         {
             const quat_t result_quat = quat::slerp(quat_x, quat_y, 0.5f);

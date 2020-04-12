@@ -1,5 +1,5 @@
-#include "catch2/catch.hpp"
 #include "catch-matchers.hpp"
+#include "catch2/catch.hpp"
 
 #include "as/as-math.hpp"
 
@@ -66,13 +66,13 @@ TEST_CASE("smoothstep", "[as_math]")
 {
     constexpr real_t real_epsilon = 1e-3f;
 
-    const real_t quarter_value  = smooth_step(0.25f, 0.0f, 1.0f);
+    const real_t quarter_value = smooth_step(0.25f, 0.0f, 1.0f);
     CHECK(quarter_value == Approx(0.15625f).epsilon(real_epsilon));
 
-    const real_t mid_value  = smooth_step(0.5f, 0.0f, 1.0f);
+    const real_t mid_value = smooth_step(0.5f, 0.0f, 1.0f);
     CHECK(mid_value == Approx(0.5f).epsilon(real_epsilon));
 
-    const real_t three_quarter_value  = smooth_step(0.75f, 0.0f, 1.0f);
+    const real_t three_quarter_value = smooth_step(0.75f, 0.0f, 1.0f);
     CHECK(three_quarter_value == Approx(0.84375f).epsilon(real_epsilon));
 }
 
