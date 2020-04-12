@@ -11,7 +11,7 @@ index_t size(const vec_t<T, n>& /*unused*/)
 }
 
 template<typename T, index_t n>
-vec_t<T, n> from_arr(const T(&data)[n])
+vec_t<T, n> from_arr(const T (&data)[n])
 {
     return from_ptr<T, n>(&data[0]);
 }
@@ -29,7 +29,7 @@ vec_t<T, n> from_ptr(const T* data)
 }
 
 template<typename T, index_t n>
-void to_arr(const vec_t<T, n>& vec, T(&data)[n])
+void to_arr(const vec_t<T, n>& vec, T (&data)[n])
 {
     for (index_t i = 0; i < n; ++i) {
         data[i] = vec[i];
@@ -39,7 +39,7 @@ void to_arr(const vec_t<T, n>& vec, T(&data)[n])
 template<typename T, index_t n>
 T dot(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 {
-    T result { 0 };
+    T result{0};
 
     for (index_t i = 0; i < n; ++i) {
         result += lhs[i] * rhs[i];
@@ -81,7 +81,8 @@ T normalize_return_length(const vec_t<T, n>& vec, vec_t<T, n>& out)
 }
 
 template<typename T, index_t n>
-bool equal(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs,
+bool equal(
+    const vec_t<T, n>& lhs, const vec_t<T, n>& rhs,
     real_t epsilon /*= std::numeric_limits<real_t>::epsilon()*/)
 {
     for (index_t i = 0; i < n; ++i) {
@@ -154,8 +155,8 @@ vec_t<T, n> abs(const vec_t<T, n>& vec)
 }
 
 template<typename T, index_t n>
-vec_t<T, n> clamp(const vec_t<T, n>& vec,
-    const vec_t<T, n>& min, const vec_t<T, n>& max)
+vec_t<T, n> clamp(
+    const vec_t<T, n>& vec, const vec_t<T, n>& min, const vec_t<T, n>& max)
 {
     vec_t<T, n> result;
 
@@ -201,19 +202,42 @@ vec_t<T, n> select(const vec_t<T, n>& v0, const vec_t<T, n>& v1, bool select0)
 namespace vec2
 {
 
-constexpr vec2_t axis_x() { return { 1.0f, 0.0f }; }
-constexpr vec2_t axis_y() { return { 0.0f, 1.0f }; }
-constexpr vec2_t zero() { return { 0.0f, 0.0f }; }
-constexpr vec2_t one() { return { 1.0f, 1.0f }; }
-constexpr vec2_t max() { return { REAL_MAX, REAL_MAX }; }
-constexpr vec2_t min() { return { REAL_MIN, REAL_MIN }; }
+constexpr vec2_t axis_x()
+{
+    return {1.0f, 0.0f};
+}
+
+constexpr vec2_t axis_y()
+{
+    return {0.0f, 1.0f};
+}
+
+constexpr vec2_t zero()
+{
+    return {0.0f, 0.0f};
+}
+
+constexpr vec2_t one()
+{
+    return {1.0f, 1.0f};
+}
+
+constexpr vec2_t max()
+{
+    return {REAL_MAX, REAL_MAX};
+}
+
+constexpr vec2_t min()
+{
+    return {REAL_MIN, REAL_MIN};
+}
 
 inline vec2_t from_ptr(const real_t* data)
 {
     return vec::from_ptr<real_t, 2>(data);
 }
 
-inline vec2_t from_arr(const real_t(&data)[2])
+inline vec2_t from_arr(const real_t (&data)[2])
 {
     return vec::from_arr(data);
 }
@@ -228,31 +252,60 @@ inline real_t wedge(const vec2_t& lhs, const vec2_t& rhs)
 namespace vec3
 {
 
-constexpr vec3_t axis_x() { return { 1.0f, 0.0f, 0.0f }; }
-constexpr vec3_t axis_y() { return { 0.0f, 1.0f, 0.0f }; }
-constexpr vec3_t axis_z() { return { 0.0f, 0.0f, 1.0f }; }
-constexpr vec3_t zero() { return { 0.0f, 0.0f, 0.0f }; }
-constexpr vec3_t one() { return { 1.0f, 1.0f, 1.0f }; }
-constexpr vec3_t max() { return { REAL_MAX, REAL_MAX, REAL_MAX }; }
-constexpr vec3_t min() { return { REAL_MIN, REAL_MIN, REAL_MIN }; }
+constexpr vec3_t axis_x()
+{
+    return {1.0f, 0.0f, 0.0f};
+}
+
+constexpr vec3_t axis_y()
+{
+    return {0.0f, 1.0f, 0.0f};
+}
+
+constexpr vec3_t axis_z()
+{
+    return {0.0f, 0.0f, 1.0f};
+}
+
+constexpr vec3_t zero()
+{
+    return {0.0f, 0.0f, 0.0f};
+}
+
+constexpr vec3_t one()
+{
+    return {1.0f, 1.0f, 1.0f};
+}
+
+constexpr vec3_t max()
+{
+    return {REAL_MAX, REAL_MAX, REAL_MAX};
+}
+
+constexpr vec3_t min()
+{
+    return {REAL_MIN, REAL_MIN, REAL_MIN};
+}
 
 inline vec3_t from_ptr(const real_t* data)
 {
     return vec::from_ptr<real_t, 3>(data);
 }
 
-inline vec3_t from_arr(const real_t(&data)[3])
+inline vec3_t from_arr(const real_t (&data)[3])
 {
     return vec::from_arr(data);
 }
 
 inline vec3_t cross(const vec3_t& lhs, const vec3_t& rhs)
 {
+    // clang-format off
     return {
         lhs.y * rhs.z - lhs.z * rhs.y,
         lhs.z * rhs.x - lhs.x * rhs.z,
         lhs.x * rhs.y - lhs.y * rhs.x
     };
+    // clang-format on
 }
 
 // note: will not work if dir == +/-world_up
@@ -278,21 +331,52 @@ inline void right_and_up_rh(
 namespace vec4
 {
 
-constexpr vec4_t axis_x() { return { 1.0f, 0.0f, 0.0f, 0.0f }; }
-constexpr vec4_t axis_y() { return { 0.0f, 1.0f, 0.0f, 0.0f }; }
-constexpr vec4_t axis_z() { return { 0.0f, 0.0f, 1.0f, 0.0f }; }
-constexpr vec4_t axis_w() { return { 0.0f, 0.0f, 0.0f, 1.0f }; }
-constexpr vec4_t zero() { return { 0.0f, 0.0f, 0.0f, 0.0f }; }
-constexpr vec4_t one() { return { 1.0f, 1.0f, 1.0f, 1.0f }; }
-constexpr vec4_t max() { return { REAL_MAX, REAL_MAX, REAL_MAX, REAL_MAX }; }
-constexpr vec4_t min() { return { REAL_MIN, REAL_MIN, REAL_MIN, REAL_MIN }; }
+constexpr vec4_t axis_x()
+{
+    return {1.0f, 0.0f, 0.0f, 0.0f};
+}
+
+constexpr vec4_t axis_y()
+{
+    return {0.0f, 1.0f, 0.0f, 0.0f};
+}
+
+constexpr vec4_t axis_z()
+{
+    return {0.0f, 0.0f, 1.0f, 0.0f};
+}
+
+constexpr vec4_t axis_w()
+{
+    return {0.0f, 0.0f, 0.0f, 1.0f};
+}
+
+constexpr vec4_t zero()
+{
+    return {0.0f, 0.0f, 0.0f, 0.0f};
+}
+
+constexpr vec4_t one()
+{
+    return {1.0f, 1.0f, 1.0f, 1.0f};
+}
+
+constexpr vec4_t max()
+{
+    return {REAL_MAX, REAL_MAX, REAL_MAX, REAL_MAX};
+}
+
+constexpr vec4_t min()
+{
+    return {REAL_MIN, REAL_MIN, REAL_MIN, REAL_MIN};
+}
 
 inline vec4_t from_ptr(const real_t* data)
 {
     return vec::from_ptr<real_t, 4>(data);
 }
 
-inline vec4_t from_arr(const real_t(&data)[4])
+inline vec4_t from_arr(const real_t (&data)[4])
 {
     return vec::from_arr(data);
 }
@@ -303,7 +387,7 @@ namespace mat
 {
 
 template<typename T, index_t d>
-mat_t<T, d> from_arr(const T(&data)[d * d])
+mat_t<T, d> from_arr(const T (&data)[d * d])
 {
     return from_ptr<T, d>(&data[0]);
 }
@@ -321,7 +405,7 @@ mat_t<T, d> from_ptr(const T* data)
 }
 
 template<typename T, index_t d>
-void to_arr(const mat_t<T, d>& mat, T(&data)[d * d])
+void to_arr(const mat_t<T, d>& mat, T (&data)[d * d])
 {
     for (index_t i = 0; i < d * d; ++i) {
         data[i] = mat[i];
@@ -357,7 +441,10 @@ constexpr mat_t<T, d> identity()
 namespace internal
 {
 
-template<index_t> struct int2type {};
+template<index_t>
+struct int2type
+{
+};
 
 // where col and row are the rows to ignore
 template<typename T, index_t d>
@@ -392,13 +479,13 @@ T minor(const mat_t<T, 2>& mat)
 template<typename T, index_t d, index_t I>
 T determinant_impl(const mat_t<T, d>& mat, int2type<I> /*unused*/)
 {
-    T sign { 1.0f };
-    T result{ 0.0f };
+    T sign{1.0f};
+    T result{0.0f};
 
     for (index_t i = 0; i < d; ++i) {
-        T minor = determinant_impl(sub_matrix(mat, i, 0), int2type<I - 1> {});
+        T minor = determinant_impl(sub_matrix(mat, i, 0), int2type<I - 1>{});
         result += (mat[i] * minor) * sign;
-        sign *= T { -1.0f };
+        sign *= T{-1.0f};
     }
 
     return result;
@@ -416,20 +503,19 @@ template<typename T, index_t d, index_t I>
 mat_t<T, d> minor_impl(const mat_t<T, d>& mat, int2type<I> /*unused*/)
 {
     mat_t<T, d> result;
-    T outerSign = T { 1.0f };
+    T outerSign = T{1.0f};
 
     for (index_t i = 0; i < d; ++i) {
-        T innerSign { outerSign };
+        T innerSign{outerSign};
 
         for (index_t j = 0; j < d; ++j) {
             T minor = determinant_impl<T>(
-                    internal::sub_matrix(mat, j, i),
-                    int2type<d - 1> {});
+                internal::sub_matrix(mat, j, i), int2type<d - 1>{});
             result[j + i * d] = minor * innerSign;
-            innerSign *= T{ -1.0f };
+            innerSign *= T{-1.0f};
         }
 
-        outerSign *= T { -1.0f };
+        outerSign *= T{-1.0f};
     }
 
     return result;
@@ -440,7 +526,7 @@ mat_t<T, d> minor_impl(const mat_t<T, d>& mat, int2type<I> /*unused*/)
 template<typename T, index_t d>
 T determinant(const mat_t<T, d>& mat)
 {
-    return internal::determinant_impl(mat, internal::int2type<d> {});
+    return internal::determinant_impl(mat, internal::int2type<d>{});
 }
 
 template<typename T, index_t d>
@@ -448,7 +534,7 @@ mat_t<T, d> inverse(const mat_t<T, d>& mat)
 {
     mat_t<T, d> result;
 
-    result = internal::minor_impl(mat, internal::int2type<d> {});
+    result = internal::minor_impl(mat, internal::int2type<d>{});
     result = transpose(result);
     result *= real_t(1.0f) / determinant(mat);
 
@@ -458,10 +544,12 @@ mat_t<T, d> inverse(const mat_t<T, d>& mat)
 template<typename T>
 mat_t<T, 2> inverse(const mat_t<T, 2>& mat)
 {
+    // clang-format off
     return mat_t<T, 2> {
         mat[3], -mat[1],
         -mat[2], mat[0]
     } * (real_t(1.0f) / determinant(mat));
+    // clang-format on
 }
 
 template<typename T, index_t d>
@@ -474,7 +562,7 @@ mat_t<T, d> gj_inverse(const mat_t<T, d>& mat)
 
     for (index_t i = 0; i < d; ++i) {
         T diagonal = curr_mat[(d * i) + i];
-        T diagonal_recip = T{ 1 } / diagonal;
+        T diagonal_recip = T{1} / diagonal;
 
         for (index_t j = d * i; j < d + (d * i); ++j) {
             curr_mat[j] *= diagonal_recip;
@@ -506,8 +594,15 @@ mat_t<T, d> gj_inverse(const mat_t<T, d>& mat)
 namespace mat3
 {
 
-constexpr index_t rows() { return mat3_t::dim(); }
-constexpr index_t cols() { return mat3_t::dim(); }
+constexpr index_t rows()
+{
+    return mat3_t::dim();
+}
+
+constexpr index_t cols()
+{
+    return mat3_t::dim();
+}
 
 constexpr mat3_t identity()
 {
@@ -519,7 +614,7 @@ inline mat3_t from_ptr(const real_t* data)
     return mat::from_ptr<real_t, 3>(data);
 }
 
-inline mat3_t from_arr(const real_t(&data)[9])
+inline mat3_t from_arr(const real_t (&data)[9])
 {
     return mat::from_arr<real_t, 3>(data);
 }
@@ -538,8 +633,7 @@ inline mat3_t axis_angle(const vec3_t& axis, const real_t radians)
         (axis.z * axis.y * (1.0f - cosr_radians)) + (axis.x * sinr_radians),
         (axis.x * axis.z * (1.0f - cosr_radians)) + (axis.y * sinr_radians),
         (axis.y * axis.z * (1.0f - cosr_radians)) - (axis.x * sinr_radians),
-        cosr_radians + ((axis.z * axis.z) * (1.0f - cosr_radians))
-    };
+        cosr_radians + ((axis.z * axis.z) * (1.0f - cosr_radians))};
 }
 
 inline mat3_t rotation_xyz(const real_t x, const real_t y, const real_t z)
@@ -560,8 +654,7 @@ inline mat3_t rotation_xyz(const real_t x, const real_t y, const real_t z)
         sinr_x * cosr_y,
         (cosr_x * sinr_y * cosr_z) + (sinr_x * sinr_z),
         (cosr_x * sinr_y * sinr_z) - (sinr_x * cosr_z),
-        cosr_x * cosr_y
-    };
+        cosr_x * cosr_y};
 }
 
 inline mat3_t rotation_zxy(const real_t x, const real_t y, const real_t z)
@@ -588,52 +681,62 @@ inline mat3_t rotation_zxy(const real_t x, const real_t y, const real_t z)
 
 inline mat3_t rotation_x(const real_t radians)
 {
+    // clang-format off
     return {
-        1.0f, 0.0f, 0.0f,
-        0.0f, cosr(radians), sinr(radians),
+        1.0f, 0.0f,           0.0f,
+        0.0f, cosr(radians),  sinr(radians),
         0.0f, -sinr(radians), cosr(radians)
     };
+    // clang-format on
 }
 
 inline mat3_t rotation_y(const real_t radians)
 {
+    // clang-format off
     return {
         cosr(radians), 0.0f, -sinr(radians),
-        0.0f, 1.0f, 0.0f,
+        0.0f, 	       1.0f, 0.0f,
         sinr(radians), 0.0f, cosr(radians)
     };
+    // clang-format on
 }
 
 inline mat3_t rotation_z(const real_t radians)
 {
+    // clang-format off
     return {
-        cosr(radians), sinr(radians), 0.0f,
+        cosr(radians),  sinr(radians), 0.0f,
         -sinr(radians), cosr(radians), 0.0f,
-        0.0f, 0.0f, 1.0f
+        0.0f,           0.0f,          1.0f
     };
+    // clang-format on
 }
 
 inline mat3_t scale(const real_t scale)
 {
-    return mat3::scale(vec3_t{ scale });
+    return mat3::scale(vec3_t{scale});
 }
 
 inline mat3_t scale(const vec3_t& scale)
 {
+    // clang-format off
     return {
         scale.x, 0.0f, 0.0f,
         0.0f, scale.y, 0.0f,
         0.0f, 0.0f, scale.z
     };
+    // clang-format on
 }
 
 constexpr mat3_t from_mat4(const mat4_t& transform)
 {
+    // clang-format off
     return {
         transform[0], transform[1], transform[2],
         transform[4], transform[5], transform[6],
         transform[8], transform[9], transform[10],
     };
+    // clang-format on
 }
 
 } // namespace mat3
@@ -641,8 +744,15 @@ constexpr mat3_t from_mat4(const mat4_t& transform)
 namespace mat4
 {
 
-constexpr index_t rows() { return mat4_t::dim(); }
-constexpr index_t cols() { return mat4_t::dim(); }
+constexpr index_t rows()
+{
+    return mat4_t::dim();
+}
+
+constexpr index_t cols()
+{
+    return mat4_t::dim();
+}
 
 constexpr mat4_t identity()
 {
@@ -654,25 +764,25 @@ inline mat4_t from_ptr(const real_t* data)
     return mat::from_ptr<real_t, 4>(data);
 }
 
-inline mat4_t from_arr(const real_t(&data)[16])
+inline mat4_t from_arr(const real_t (&data)[16])
 {
     return mat::from_arr<real_t, 4>(data);
 }
 
 constexpr mat4_t from_vec3(const vec3_t& translation)
 {
-    return { as::mat3::identity(), translation };
+    return {as::mat3::identity(), translation};
 }
 
 constexpr mat4_t from_mat3(const mat3_t& rotation)
 {
-    return { rotation, vec3::zero() };
+    return {rotation, vec3::zero()};
 }
 
 constexpr mat4_t from_mat3_vec3(
     const mat3_t& rotation, const vec3_t& translation)
 {
-    return { rotation, translation };
+    return {rotation, translation};
 }
 
 } // namespace mat4
@@ -680,13 +790,15 @@ constexpr mat4_t from_mat3_vec3(
 namespace point
 {
 
-inline bool equal(const point2_t& lhs, const point2_t& rhs,
+inline bool equal(
+    const point2_t& lhs, const point2_t& rhs,
     const real_t epsilon /*= std::numeric_limits<real_t>::epsilon()*/)
 {
     return vec::equal(lhs.v, rhs.v, epsilon);
 }
 
-inline bool equal(const point3_t& lhs, const point3_t& rhs,
+inline bool equal(
+    const point3_t& lhs, const point3_t& rhs,
     const real_t epsilon /*= std::numeric_limits<real_t>::epsilon()*/)
 {
     return vec::equal(lhs.v, rhs.v, epsilon);
@@ -697,7 +809,10 @@ inline bool equal(const point3_t& lhs, const point3_t& rhs,
 namespace quat
 {
 
-constexpr quat_t identity() { return { 1.0f, 0.0f, 0.0f, 0.0f }; }
+constexpr quat_t identity()
+{
+    return {1.0f, 0.0f, 0.0f, 0.0f};
+}
 
 constexpr real_t dot(const quat_t& a, const quat_t& b)
 {
@@ -721,7 +836,7 @@ inline quat_t normalize(const quat_t& a)
 
 constexpr quat_t conjugate(const quat_t& a)
 {
-    return { a.w, -a.x, -a.y, -a.z };
+    return {a.w, -a.x, -a.y, -a.z};
 }
 
 inline quat_t inverse(const quat_t& a)
@@ -731,20 +846,20 @@ inline quat_t inverse(const quat_t& a)
 
 inline vec3_t rotate(const quat_t& q, const vec3_t& v)
 {
-    const quat_t quat_result = q * quat_t{ 0.0f, v.x, v.y, v.z } * conjugate(q);
-    return { quat_result.x, quat_result.y, quat_result.z };
+    const quat_t quat_result = q * quat_t{0.0f, v.x, v.y, v.z} * conjugate(q);
+    return {quat_result.x, quat_result.y, quat_result.z};
 }
 
 inline quat_t axis_angle(const vec3_t& axis, const real_t radians)
 {
-    return { cosr(0.5f * radians), axis * sinr(0.5f * radians) };
+    return {cosr(0.5f * radians), axis * sinr(0.5f * radians)};
 }
 
 inline quat_t rotation_zxy(const real_t x, const real_t y, const real_t z)
 {
-    return quat_t{ cosr(0.5f * y), 0.0f, sinr(0.5f * y), 0.0f } *
-        quat_t{ cosr(0.5f * x), sinr(0.5f * x), 0.0f, 0.0f } *
-        quat_t{ cosr(0.5f * z), 0.0f, 0.0f, sinr(0.5f * z) };
+    return quat_t{cosr(0.5f * y), 0.0f, sinr(0.5f * y), 0.0f} *
+           quat_t{cosr(0.5f * x), sinr(0.5f * x), 0.0f, 0.0f} *
+           quat_t{cosr(0.5f * z), 0.0f, 0.0f, sinr(0.5f * z)};
 }
 
 inline quat_t slerp(const quat_t& a, const quat_t& b, const real_t t)
@@ -770,9 +885,9 @@ inline vec3_t transform_dir(const affine_t& affine, const vec3_t& direction)
 inline point3_t transform_pos(const affine_t& affine, const point3_t& position)
 {
 #if defined AS_COL_MAJOR
-    return point3_t { affine.rotation * position.v } + affine.position.v;
+    return point3_t{affine.rotation * position.v} + affine.position.v;
 #elif defined AS_ROW_MAJOR
-    return point3_t { position.v * affine.rotation } + affine.position.v;
+    return point3_t{position.v * affine.rotation} + affine.position.v;
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
@@ -791,9 +906,9 @@ inline point3_t inv_transform_pos(
 {
     const mat3_t invRotation = as::mat::inverse(affine.rotation);
 #if defined AS_COL_MAJOR
-    return point3_t { invRotation * (position - affine.position) };
+    return point3_t{invRotation * (position - affine.position)};
 #elif defined AS_ROW_MAJOR
-    return point3_t { (position - affine.position) * invRotation };
+    return point3_t{(position - affine.position) * invRotation};
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
