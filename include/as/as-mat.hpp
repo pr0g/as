@@ -25,16 +25,9 @@ index_t rc(index_t r, index_t c, index_t d);
 template<typename T, index_t d>
 struct mat_t
 {
-    constexpr static index_t dim();
-    constexpr static index_t size();
-
     using value_type = T;
 
     T elem_rc[size()];
-
-    constexpr T& operator[](index_t i) &;
-    constexpr const T& operator[](index_t i) const&;
-    constexpr const T operator[](index_t i) &&;
 
     mat_t() noexcept = default;
     mat_t(const mat_t&) noexcept = default;
@@ -57,6 +50,13 @@ struct mat_t
         static_assert(
             sizeof...(args) == size(), "Not enough arguments for dimension");
     }
+
+    constexpr T& operator[](index_t i) &;
+    constexpr const T& operator[](index_t i) const&;
+    constexpr const T operator[](index_t i) &&;
+
+    constexpr static index_t dim();
+    constexpr static index_t size();
 };
 
 template<typename T, index_t d>

@@ -89,6 +89,7 @@ constexpr vec2_t zero();
 constexpr vec2_t one();
 constexpr vec2_t max();
 constexpr vec2_t min();
+
 vec2_t from_ptr(const real_t* data);
 vec2_t from_arr(const real_t (&data)[2]);
 
@@ -106,6 +107,7 @@ constexpr vec3_t zero();
 constexpr vec3_t one();
 constexpr vec3_t max();
 constexpr vec3_t min();
+
 vec3_t from_ptr(const real_t* data);
 vec3_t from_arr(const real_t (&data)[3]);
 
@@ -134,6 +136,7 @@ constexpr vec4_t zero();
 constexpr vec4_t one();
 constexpr vec4_t max();
 constexpr vec4_t min();
+
 vec4_t from_ptr(const real_t* data);
 vec4_t from_arr(const real_t (&data)[4]);
 

@@ -11,15 +11,9 @@ namespace as
 template<typename T, index_t n>
 struct vec_t
 {
-    T elem[n];
-
-    constexpr static index_t size();
-
     using value_type = T;
 
-    constexpr T& operator[](index_t i) &;
-    constexpr const T& operator[](index_t i) const&;
-    constexpr T operator[](index_t i) &&;
+    T elem[n];
 
     vec_t() noexcept = default;
     vec_t(const vec_t&) noexcept = default;
@@ -42,6 +36,12 @@ struct vec_t
         static_assert(
             sizeof...(args) == n, "Not enough arguments for dimension");
     }
+
+    constexpr T& operator[](index_t i) &;
+    constexpr const T& operator[](index_t i) const&;
+    constexpr T operator[](index_t i) &&;
+
+    constexpr static index_t size();
 };
 
 namespace internal
@@ -50,15 +50,9 @@ namespace internal
 template<typename T>
 struct vec2_base_t
 {
-    T x, y;
-
-    constexpr static index_t size();
-
     using value_type = T;
 
-    T& operator[](index_t i) &;
-    const T& operator[](index_t i) const&;
-    const T operator[](index_t i) &&;
+    T x, y;
 
     vec2_base_t() noexcept = default;
     vec2_base_t(const vec2_base_t&) noexcept = default;
@@ -69,6 +63,12 @@ struct vec2_base_t
 
     constexpr explicit vec2_base_t(T xy_);
     constexpr vec2_base_t(T x_, T y_);
+
+    T& operator[](index_t i) &;
+    const T& operator[](index_t i) const&;
+    const T operator[](index_t i) &&;
+
+    constexpr static index_t size();
 
 private:
     static T vec2_base_t::*elem[2];
@@ -106,15 +106,9 @@ namespace internal
 template<typename T>
 struct vec3_base_t
 {
-    T x, y, z;
-
-    constexpr static index_t size();
-
     using value_type = T;
 
-    T& operator[](index_t i) &;
-    const T& operator[](index_t i) const&;
-    const T operator[](index_t i) &&;
+    T x, y, z;
 
     vec3_base_t() noexcept = default;
     vec3_base_t(const vec3_base_t&) noexcept = default;
@@ -126,6 +120,12 @@ struct vec3_base_t
     constexpr explicit vec3_base_t(T xyz_);
     constexpr vec3_base_t(const vec_t<T, 2>& xy_, T z_);
     constexpr vec3_base_t(T x_, T y_, T z_);
+
+    T& operator[](index_t i) &;
+    const T& operator[](index_t i) const&;
+    const T operator[](index_t i) &&;
+
+    constexpr static index_t size();
 
     constexpr vec_t<T, 2> xy() const;
 
@@ -166,15 +166,9 @@ namespace internal
 template<typename T>
 struct vec4_base_t
 {
-    T x, y, z, w;
-
-    constexpr static index_t size();
-
     using value_type = T;
 
-    T& operator[](index_t i) &;
-    const T& operator[](index_t i) const&;
-    const T operator[](index_t i) &&;
+    T x, y, z, w;
 
     vec4_base_t() noexcept = default;
     vec4_base_t(const vec4_base_t&) noexcept = default;
@@ -188,6 +182,12 @@ struct vec4_base_t
     constexpr vec4_base_t(const vec_t<T, 2>& xy_, T z_, T w_);
     constexpr vec4_base_t(const vec_t<T, 2>& xy_, const vec_t<T, 2>& zw);
     constexpr vec4_base_t(T x_, T y_, T z_, T w_);
+
+    T& operator[](index_t i) &;
+    const T& operator[](index_t i) const&;
+    const T operator[](index_t i) &&;
+
+    constexpr static index_t size();
 
     constexpr vec_t<T, 2> xy() const;
     constexpr vec_t<T, 2> zw() const;

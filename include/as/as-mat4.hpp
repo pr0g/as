@@ -9,42 +9,9 @@ namespace as
 template<typename T>
 struct mat_t<T, 4>
 {
-    constexpr static index_t dim();
-    constexpr static index_t size();
-
     using value_type = T;
 
     T elem_rc[size()];
-
-    const vec_t<T, 4> row0() const;
-    const vec_t<T, 4> row1() const;
-    const vec_t<T, 4> row2() const;
-    const vec_t<T, 4> row3() const;
-
-    const vec_t<T, 4> col0() const;
-    const vec_t<T, 4> col1() const;
-    const vec_t<T, 4> col2() const;
-    const vec_t<T, 4> col3() const;
-
-    void row0(const vec_t<T, 4>& row_);
-    void row1(const vec_t<T, 4>& row_);
-    void row2(const vec_t<T, 4>& row_);
-    void row3(const vec_t<T, 4>& row_);
-
-    void col0(const vec_t<T, 4>& col_);
-    void col1(const vec_t<T, 4>& col_);
-    void col2(const vec_t<T, 4>& col_);
-    void col3(const vec_t<T, 4>& col_);
-
-    void row(index_t r, const vec_t<T, 4>& row);
-    void col(index_t c, const vec_t<T, 4>& col);
-
-    const vec_t<T, 4> row(index_t r) const;
-    const vec_t<T, 4> col(index_t c) const;
-
-    constexpr T& operator[](index_t i) &;
-    constexpr const T& operator[](index_t i) const&;
-    constexpr const T operator[](index_t i) &&;
 
     mat_t() noexcept = default;
     mat_t(const mat_t&) noexcept = default;
@@ -61,6 +28,8 @@ struct mat_t<T, 4>
         T x3, T y3, T z3, T w3);
     // clang-format on
 
+    constexpr mat_t(const mat_t<T, 3>& mat_, const vec_t<T, 3>& pos_);
+
 #ifdef AS_ROW_MAJOR
     constexpr mat_t(
         const vec_t<T, 4>& row0, const vec_t<T, 4>& row1,
@@ -70,7 +39,36 @@ struct mat_t<T, 4>
         const vec_t<T, 4>& col0, const vec_t<T, 4>& col1,
         const vec_t<T, 4>& col2, const vec_t<T, 4>& col3);
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
-    constexpr mat_t(const mat_t<T, 3>& mat_, const vec_t<T, 3>& pos_);
+
+    constexpr T& operator[](index_t i) &;
+    constexpr const T& operator[](index_t i) const&;
+    constexpr const T operator[](index_t i) &&;
+
+    constexpr static index_t dim();
+    constexpr static index_t size();
+
+    const vec_t<T, 4> row0() const;
+    const vec_t<T, 4> row1() const;
+    const vec_t<T, 4> row2() const;
+    const vec_t<T, 4> row3() const;
+    const vec_t<T, 4> col0() const;
+    const vec_t<T, 4> col1() const;
+    const vec_t<T, 4> col2() const;
+    const vec_t<T, 4> col3() const;
+
+    void row0(const vec_t<T, 4>& row_);
+    void row1(const vec_t<T, 4>& row_);
+    void row2(const vec_t<T, 4>& row_);
+    void row3(const vec_t<T, 4>& row_);
+    void col0(const vec_t<T, 4>& col_);
+    void col1(const vec_t<T, 4>& col_);
+    void col2(const vec_t<T, 4>& col_);
+    void col3(const vec_t<T, 4>& col_);
+
+    void row(index_t r, const vec_t<T, 4>& row);
+    void col(index_t c, const vec_t<T, 4>& col);
+    const vec_t<T, 4> row(index_t r) const;
+    const vec_t<T, 4> col(index_t c) const;
 };
 
 using mat4_t = mat_t<real_t, 4>;

@@ -8,38 +8,9 @@ namespace as
 template<typename T>
 struct mat_t<T, 3>
 {
-    constexpr static index_t dim();
-    constexpr static index_t size();
-
     using value_type = T;
 
     T elem_rc[size()];
-
-    const vec_t<T, 3> row0() const;
-    const vec_t<T, 3> row1() const;
-    const vec_t<T, 3> row2() const;
-
-    const vec_t<T, 3> col0() const;
-    const vec_t<T, 3> col1() const;
-    const vec_t<T, 3> col2() const;
-
-    void row0(const vec_t<T, 3>& row_);
-    void row1(const vec_t<T, 3>& row_);
-    void row2(const vec_t<T, 3>& row_);
-
-    void col0(const vec_t<T, 3>& col_);
-    void col1(const vec_t<T, 3>& col_);
-    void col2(const vec_t<T, 3>& col_);
-
-    void row(index_t r, const vec_t<T, 3>& row);
-    void col(index_t c, const vec_t<T, 3>& col);
-
-    const vec_t<T, 3> row(index_t r) const;
-    const vec_t<T, 3> col(index_t c) const;
-
-    constexpr T& operator[](index_t i) &;
-    constexpr const T& operator[](index_t i) const&;
-    constexpr const T operator[](index_t i) &&;
 
     mat_t() noexcept = default;
     mat_t(const mat_t&) noexcept = default;
@@ -64,6 +35,32 @@ struct mat_t<T, 3>
         const vec_t<T, 3>& col0, const vec_t<T, 3>& col1,
         const vec_t<T, 3>& col2);
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+
+    constexpr T& operator[](index_t i) &;
+    constexpr const T& operator[](index_t i) const&;
+    constexpr const T operator[](index_t i) &&;
+
+    constexpr static index_t dim();
+    constexpr static index_t size();
+
+    const vec_t<T, 3> row0() const;
+    const vec_t<T, 3> row1() const;
+    const vec_t<T, 3> row2() const;
+    const vec_t<T, 3> col0() const;
+    const vec_t<T, 3> col1() const;
+    const vec_t<T, 3> col2() const;
+
+    void row0(const vec_t<T, 3>& row_);
+    void row1(const vec_t<T, 3>& row_);
+    void row2(const vec_t<T, 3>& row_);
+    void col0(const vec_t<T, 3>& col_);
+    void col1(const vec_t<T, 3>& col_);
+    void col2(const vec_t<T, 3>& col_);
+
+    void row(index_t r, const vec_t<T, 3>& row);
+    void col(index_t c, const vec_t<T, 3>& col);
+    const vec_t<T, 3> row(index_t r) const;
+    const vec_t<T, 3> col(index_t c) const;
 };
 
 using mat3_t = mat_t<real_t, 3>;

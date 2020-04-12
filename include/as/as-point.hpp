@@ -8,13 +8,9 @@ namespace as
 
 struct point2_t
 {
-    vec2_t v;
-
     using value_type = real_t;
 
-    real_t& operator[](index_t i) &;
-    const real_t& operator[](index_t i) const&;
-    real_t operator[](index_t i) &&;
+    vec2_t v;
 
     point2_t() = default;
     point2_t(const point2_t&) = default;
@@ -26,17 +22,17 @@ struct point2_t
     constexpr explicit point2_t(real_t xy_);
     constexpr explicit point2_t(const vec2_t& v_);
     constexpr point2_t(real_t x_, real_t y_);
-};
-
-struct point3_t
-{
-    vec3_t v;
-
-    using value_type = real_t;
 
     real_t& operator[](index_t i) &;
     const real_t& operator[](index_t i) const&;
     real_t operator[](index_t i) &&;
+};
+
+struct point3_t
+{
+    using value_type = real_t;
+
+    vec3_t v;
 
     point3_t() = default;
     point3_t(const point3_t&) = default;
@@ -49,6 +45,10 @@ struct point3_t
     constexpr explicit point3_t(const vec3_t& v_);
     constexpr point3_t(real_t x_, real_t y_, real_t z_);
     constexpr point3_t(const vec2_t& xy_, real_t z_);
+
+    real_t& operator[](index_t i) &;
+    const real_t& operator[](index_t i) const&;
+    real_t operator[](index_t i) &&;
 };
 
 const vec2_t operator-(const point2_t& lhs, const point2_t& rhs);

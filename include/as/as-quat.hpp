@@ -7,9 +7,9 @@ namespace as
 
 struct quat_t
 {
-    real_t w, x, y, z;
-
     using value_type = real_t;
+
+    real_t w, x, y, z;
 
     quat_t() = default;
     quat_t(const quat_t&) = default;
