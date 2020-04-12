@@ -1,55 +1,115 @@
 namespace as
 {
 
-inline const vec2_t operator-(const point2_t& lhs, const point2_t& rhs)
+AS_API constexpr point2_t::point2_t(real_t xy_) : v{xy_, xy_}
+{
+}
+
+AS_API constexpr point2_t::point2_t(const vec2_t& v_) : v{v_}
+{
+}
+
+AS_API constexpr point2_t::point2_t(real_t x_, real_t y_) : v{x_, y_}
+{
+}
+
+AS_API inline real_t& point2_t::operator[](index_t i) &
+{
+    return v[i];
+}
+
+AS_API inline const real_t& point2_t::operator[](index_t i) const&
+{
+    return v[i];
+}
+
+AS_API inline real_t point2_t::operator[](index_t i) &&
+{
+    return v[i];
+}
+
+AS_API inline const vec2_t operator-(const point2_t& lhs, const point2_t& rhs)
 {
     return lhs.v - rhs.v;
 }
 
-inline const point2_t operator+(const point2_t& point, const vec2_t& vec)
+AS_API inline const point2_t operator+(const point2_t& point, const vec2_t& vec)
 {
     return point2_t(point.v + vec);
 }
 
-inline point2_t& operator+=(point2_t& point, const vec2_t& vec)
+AS_API inline point2_t& operator+=(point2_t& point, const vec2_t& vec)
 {
     point.v += vec;
     return point;
 }
 
-inline const point2_t operator-(const point2_t& point, const vec2_t& vec)
+AS_API inline const point2_t operator-(const point2_t& point, const vec2_t& vec)
 {
     return point2_t(point.v - vec);
 }
 
-inline point2_t& operator-=(point2_t& point, const vec2_t& vec)
+AS_API inline point2_t& operator-=(point2_t& point, const vec2_t& vec)
 {
     point.v -= vec;
     return point;
 }
 
-inline const vec3_t operator-(const point3_t& lhs, const point3_t& rhs)
+AS_API constexpr point3_t::point3_t(real_t xyz_) : v{xyz_, xyz_, xyz_}
+{
+}
+
+AS_API constexpr point3_t::point3_t(const vec3_t& v_) : v{v_}
+{
+}
+
+AS_API constexpr point3_t::point3_t(real_t x_, real_t y_, real_t z_)
+    : v{x_, y_, z_}
+{
+}
+
+AS_API constexpr point3_t::point3_t(const vec2_t& xy_, real_t z_)
+    : v{xy_.x, xy_.y, z_}
+{
+}
+
+AS_API inline real_t& point3_t::operator[](index_t i) &
+{
+    return v[i];
+}
+
+AS_API inline const real_t& point3_t::operator[](index_t i) const&
+{
+    return v[i];
+}
+
+AS_API inline real_t point3_t::operator[](index_t i) &&
+{
+    return v[i];
+}
+
+AS_API inline const vec3_t operator-(const point3_t& lhs, const point3_t& rhs)
 {
     return lhs.v - rhs.v;
 }
 
-inline const point3_t operator+(const point3_t& point, const vec3_t& vec)
+AS_API inline const point3_t operator+(const point3_t& point, const vec3_t& vec)
 {
     return point3_t(point.v + vec);
 }
 
-inline point3_t& operator+=(point3_t& point, const vec3_t& vec)
+AS_API inline point3_t& operator+=(point3_t& point, const vec3_t& vec)
 {
     point.v += vec;
     return point;
 }
 
-inline const point3_t operator-(const point3_t& point, const vec3_t& vec)
+AS_API inline const point3_t operator-(const point3_t& point, const vec3_t& vec)
 {
     return point3_t(point.v - vec);
 }
 
-inline point3_t& operator-=(point3_t& point, const vec3_t& vec)
+AS_API inline point3_t& operator-=(point3_t& point, const vec3_t& vec)
 {
     point.v -= vec;
     return point;
