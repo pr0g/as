@@ -84,12 +84,12 @@ AS_API vec_t<T, n> select(
 namespace vec2
 {
 
-AS_API constexpr vec2_t axis_x() { return { 1.0f, 0.0f }; }
-AS_API constexpr vec2_t axis_y() { return { 0.0f, 1.0f }; }
-AS_API constexpr vec2_t zero() { return { 0.0f, 0.0f }; }
-AS_API constexpr vec2_t one() { return { 1.0f, 1.0f }; }
-AS_API constexpr vec2_t max() { return { REAL_MAX, REAL_MAX }; }
-AS_API constexpr vec2_t min() { return { REAL_MIN, REAL_MIN }; }
+AS_API constexpr vec2_t axis_x();
+AS_API constexpr vec2_t axis_y();
+AS_API constexpr vec2_t zero();
+AS_API constexpr vec2_t one();
+AS_API constexpr vec2_t max();
+AS_API constexpr vec2_t min();
 AS_API vec2_t from_ptr(const real_t* data);
 AS_API vec2_t from_arr(const real_t(&data)[2]);
 
@@ -100,13 +100,13 @@ AS_API real_t wedge(const vec2_t& lhs, const vec2_t& rhs);
 namespace vec3
 {
 
-AS_API constexpr vec3_t axis_x() { return { 1.0f, 0.0f, 0.0f }; }
-AS_API constexpr vec3_t axis_y() { return { 0.0f, 1.0f, 0.0f }; }
-AS_API constexpr vec3_t axis_z() { return { 0.0f, 0.0f, 1.0f }; }
-AS_API constexpr vec3_t zero() { return { 0.0f, 0.0f, 0.0f }; }
-AS_API constexpr vec3_t one() { return { 1.0f, 1.0f, 1.0f }; }
-AS_API constexpr vec3_t max() { return { REAL_MAX, REAL_MAX, REAL_MAX }; }
-AS_API constexpr vec3_t min() { return { REAL_MIN, REAL_MIN, REAL_MIN }; }
+AS_API constexpr vec3_t axis_x();
+AS_API constexpr vec3_t axis_y();
+AS_API constexpr vec3_t axis_z();
+AS_API constexpr vec3_t zero();
+AS_API constexpr vec3_t one();
+AS_API constexpr vec3_t max();
+AS_API constexpr vec3_t min();
 AS_API vec3_t from_ptr(const real_t* data);
 AS_API vec3_t from_arr(const real_t(&data)[3]);
 
@@ -127,14 +127,14 @@ AS_API void right_and_up_rh(
 namespace vec4
 {
 
-AS_API constexpr vec4_t axis_x() { return { 1.0f, 0.0f, 0.0f, 0.0f }; }
-AS_API constexpr vec4_t axis_y() { return { 0.0f, 1.0f, 0.0f, 0.0f }; }
-AS_API constexpr vec4_t axis_z() { return { 0.0f, 0.0f, 1.0f, 0.0f }; }
-AS_API constexpr vec4_t axis_w() { return { 0.0f, 0.0f, 0.0f, 1.0f }; }
-AS_API constexpr vec4_t zero() { return { 0.0f, 0.0f, 0.0f, 0.0f }; }
-AS_API constexpr vec4_t one() { return { 1.0f, 1.0f, 1.0f, 1.0f }; }
-AS_API constexpr vec4_t max() { return { REAL_MAX, REAL_MAX, REAL_MAX, REAL_MAX }; }
-AS_API constexpr vec4_t min() { return { REAL_MIN, REAL_MIN, REAL_MIN, REAL_MIN }; }
+AS_API constexpr vec4_t axis_x();
+AS_API constexpr vec4_t axis_y();
+AS_API constexpr vec4_t axis_z();
+AS_API constexpr vec4_t axis_w();
+AS_API constexpr vec4_t zero();
+AS_API constexpr vec4_t one();
+AS_API constexpr vec4_t max();
+AS_API constexpr vec4_t min();
 AS_API vec4_t from_ptr(const real_t* data);
 AS_API vec4_t from_arr(const real_t(&data)[4]);
 
@@ -178,8 +178,8 @@ AS_API mat_t<T, d> gj_inverse(const mat_t<T, d>& mat);
 namespace mat3
 {
 
-AS_API constexpr index_t rows() { return mat3_t::dim(); }
-AS_API constexpr index_t cols() { return mat3_t::dim(); }
+AS_API constexpr index_t rows();
+AS_API constexpr index_t cols();
 
 AS_API constexpr mat3_t identity();
 
@@ -201,8 +201,8 @@ AS_API mat3_t scale(const vec3_t& scale);
 namespace mat4
 {
 
-AS_API constexpr index_t rows() { return mat4_t::dim(); }
-AS_API constexpr index_t cols() { return mat4_t::dim(); }
+AS_API constexpr index_t rows();
+AS_API constexpr index_t cols();
 
 AS_API constexpr mat4_t identity();
 
@@ -230,7 +230,7 @@ AS_API bool equal(const point3_t& lhs, const point3_t& rhs,
 namespace quat
 {
 
-AS_API constexpr quat_t identity() { return { 1.0f, 0.0f, 0.0f, 0.0f }; }
+AS_API constexpr quat_t identity();
 
 AS_API constexpr real_t dot(const quat_t& a, const quat_t& b);
 AS_API constexpr real_t length_sq(const quat_t& a);

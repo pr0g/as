@@ -201,6 +201,13 @@ vec_t<T, n> select(const vec_t<T, n>& v0, const vec_t<T, n>& v1, bool select0)
 namespace vec2
 {
 
+constexpr vec2_t axis_x() { return { 1.0f, 0.0f }; }
+constexpr vec2_t axis_y() { return { 0.0f, 1.0f }; }
+constexpr vec2_t zero() { return { 0.0f, 0.0f }; }
+constexpr vec2_t one() { return { 1.0f, 1.0f }; }
+constexpr vec2_t max() { return { REAL_MAX, REAL_MAX }; }
+constexpr vec2_t min() { return { REAL_MIN, REAL_MIN }; }
+
 inline vec2_t from_ptr(const real_t* data)
 {
     return vec::from_ptr<real_t, 2>(data);
@@ -220,6 +227,14 @@ inline real_t wedge(const vec2_t& lhs, const vec2_t& rhs)
 
 namespace vec3
 {
+
+constexpr vec3_t axis_x() { return { 1.0f, 0.0f, 0.0f }; }
+constexpr vec3_t axis_y() { return { 0.0f, 1.0f, 0.0f }; }
+constexpr vec3_t axis_z() { return { 0.0f, 0.0f, 1.0f }; }
+constexpr vec3_t zero() { return { 0.0f, 0.0f, 0.0f }; }
+constexpr vec3_t one() { return { 1.0f, 1.0f, 1.0f }; }
+constexpr vec3_t max() { return { REAL_MAX, REAL_MAX, REAL_MAX }; }
+constexpr vec3_t min() { return { REAL_MIN, REAL_MIN, REAL_MIN }; }
 
 inline vec3_t from_ptr(const real_t* data)
 {
@@ -262,6 +277,15 @@ inline void right_and_up_rh(
 
 namespace vec4
 {
+
+constexpr vec4_t axis_x() { return { 1.0f, 0.0f, 0.0f, 0.0f }; }
+constexpr vec4_t axis_y() { return { 0.0f, 1.0f, 0.0f, 0.0f }; }
+constexpr vec4_t axis_z() { return { 0.0f, 0.0f, 1.0f, 0.0f }; }
+constexpr vec4_t axis_w() { return { 0.0f, 0.0f, 0.0f, 1.0f }; }
+constexpr vec4_t zero() { return { 0.0f, 0.0f, 0.0f, 0.0f }; }
+constexpr vec4_t one() { return { 1.0f, 1.0f, 1.0f, 1.0f }; }
+constexpr vec4_t max() { return { REAL_MAX, REAL_MAX, REAL_MAX, REAL_MAX }; }
+constexpr vec4_t min() { return { REAL_MIN, REAL_MIN, REAL_MIN, REAL_MIN }; }
 
 inline vec4_t from_ptr(const real_t* data)
 {
@@ -482,6 +506,9 @@ mat_t<T, d> gj_inverse(const mat_t<T, d>& mat)
 namespace mat3
 {
 
+constexpr index_t rows() { return mat3_t::dim(); }
+constexpr index_t cols() { return mat3_t::dim(); }
+
 constexpr mat3_t identity()
 {
     return mat::identity<real_t, 3>();
@@ -614,6 +641,9 @@ constexpr mat3_t from_mat4(const mat4_t& transform)
 namespace mat4
 {
 
+constexpr index_t rows() { return mat4_t::dim(); }
+constexpr index_t cols() { return mat4_t::dim(); }
+
 constexpr mat4_t identity()
 {
     return mat::identity<real_t, 4>();
@@ -666,6 +696,8 @@ inline bool equal(const point3_t& lhs, const point3_t& rhs,
 
 namespace quat
 {
+
+constexpr quat_t identity() { return { 1.0f, 0.0f, 0.0f, 0.0f }; }
 
 constexpr real_t dot(const quat_t& a, const quat_t& b)
 {
