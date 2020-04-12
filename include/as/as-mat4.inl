@@ -49,7 +49,8 @@ AS_API constexpr mat_t<T, 4>::mat_t(
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
 template<typename T>
-AS_API constexpr mat_t<T, 4>::mat_t(const mat_t<T, 3>& mat_, const vec_t<T, 3>& pos_)
+AS_API constexpr mat_t<T, 4>::mat_t(
+    const mat_t<T, 3>& mat_, const vec_t<T, 3>& pos_)
     : elem_rc{mat_.elem_rc[0], mat_.elem_rc[1], mat_.elem_rc[2], 0.0f,
               mat_.elem_rc[3], mat_.elem_rc[4], mat_.elem_rc[5], 0.0f,
               mat_.elem_rc[6], mat_.elem_rc[7], mat_.elem_rc[8], 0.0f,

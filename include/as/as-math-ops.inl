@@ -192,7 +192,8 @@ AS_API vec_t<T, n> lerp(T t, const vec_t<T, n>& v0, const vec_t<T, n>& v1)
 }
 
 template<typename T, index_t n>
-AS_API vec_t<T, n> select(const vec_t<T, n>& v0, const vec_t<T, n>& v1, bool select0)
+AS_API vec_t<T, n> select(
+    const vec_t<T, n>& v0, const vec_t<T, n>& v1, bool select0)
 {
     return select0 ? v0 : v1;
 }
@@ -636,7 +637,8 @@ AS_API inline mat3_t axis_angle(const vec3_t& axis, const real_t radians)
         cosr_radians + ((axis.z * axis.z) * (1.0f - cosr_radians))};
 }
 
-AS_API inline mat3_t rotation_xyz(const real_t x, const real_t y, const real_t z)
+AS_API inline mat3_t rotation_xyz(
+    const real_t x, const real_t y, const real_t z)
 {
     const real_t cosr_x = cosr(x);
     const real_t cosr_y = cosr(y);
@@ -657,7 +659,8 @@ AS_API inline mat3_t rotation_xyz(const real_t x, const real_t y, const real_t z
         cosr_x * cosr_y};
 }
 
-AS_API inline mat3_t rotation_zxy(const real_t x, const real_t y, const real_t z)
+AS_API inline mat3_t rotation_zxy(
+    const real_t x, const real_t y, const real_t z)
 {
     const real_t cosr_x = cosr(x);
     const real_t cosr_y = cosr(y);
@@ -855,7 +858,8 @@ AS_API inline quat_t axis_angle(const vec3_t& axis, const real_t radians)
     return {cosr(0.5f * radians), axis * sinr(0.5f * radians)};
 }
 
-AS_API inline quat_t rotation_zxy(const real_t x, const real_t y, const real_t z)
+AS_API inline quat_t rotation_zxy(
+    const real_t x, const real_t y, const real_t z)
 {
     return quat_t{cosr(0.5f * y), 0.0f, sinr(0.5f * y), 0.0f} *
            quat_t{cosr(0.5f * x), sinr(0.5f * x), 0.0f, 0.0f} *
@@ -873,7 +877,8 @@ AS_API inline quat_t slerp(const quat_t& a, const quat_t& b, const real_t t)
 namespace affine
 {
 
-AS_API inline vec3_t transform_dir(const affine_t& affine, const vec3_t& direction)
+AS_API inline vec3_t transform_dir(
+    const affine_t& affine, const vec3_t& direction)
 {
 #if defined AS_COL_MAJOR
     return affine.rotation * direction;
@@ -882,7 +887,8 @@ AS_API inline vec3_t transform_dir(const affine_t& affine, const vec3_t& directi
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
-AS_API inline point3_t transform_pos(const affine_t& affine, const point3_t& position)
+AS_API inline point3_t transform_pos(
+    const affine_t& affine, const point3_t& position)
 {
 #if defined AS_COL_MAJOR
     return point3_t{affine.rotation * position.v} + affine.position.v;
@@ -891,7 +897,8 @@ AS_API inline point3_t transform_pos(const affine_t& affine, const point3_t& pos
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
-AS_API inline vec3_t inv_transform_dir(const affine_t& affine, const vec3_t& direction)
+AS_API inline vec3_t inv_transform_dir(
+    const affine_t& affine, const vec3_t& direction)
 {
     const mat3_t invRotation = as::mat::inverse(affine.rotation);
 #if defined AS_COL_MAJOR
