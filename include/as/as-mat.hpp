@@ -52,7 +52,7 @@ struct mat_t
         typename... Args,
         typename = std::enable_if_t<!std::is_same<
             typelist<mat_t>, typelist<std::decay_t<Args>...>>::value>>
-    explicit mat_t(Args... args) noexcept : elem_rc{std::forward<Args>(args)...}
+    mat_t(Args... args) noexcept : elem_rc{std::forward<Args>(args)...}
     {
         static_assert(
             sizeof...(args) == size(), "Not enough arguments for dimension");
