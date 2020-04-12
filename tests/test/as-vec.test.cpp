@@ -686,19 +686,25 @@ TEST_CASE("rvalue_elem_access_vec2_3_4_5", "[as_vec]")
 
 TEST_CASE("vec_size", "[as_vec]")
 {
-    index_t vec2_size = vec2_t::size();
+    static_assert(vec2_t::size() == 2, "vec2_t size must be 2");
+    index_t vec2_size;
+    vec2_size = vec2_t::size();
     vec2_t vec2;
     index_t vec2_inst_size = vec::size(vec2);
-    CHECK(vec2_size == static_cast<index_t>(2));
-    CHECK(vec2_inst_size == Approx(vec2_size).epsilon(g_epsilon));
+    CHECK(vec2_size == 2);
+    CHECK(vec2_inst_size == vec2_size);
 
-    index_t vec3_size = vec3_t::size();
+    static_assert(vec3_t::size() == 3, "vec3_t size must be 3");
+    index_t vec3_size;
+    vec3_size = vec3_t::size();
     vec3_t vec3;
     index_t vec3_inst_size = vec::size(vec3);
     CHECK(vec3_size == static_cast<index_t>(3));
     CHECK(vec3_inst_size == Approx(vec3_size).epsilon(g_epsilon));
 
-    index_t vec4_size = vec4_t::size();
+    static_assert(vec4_t::size() == 4, "vec4_t size must be 4");
+    index_t vec4_size;
+    vec4_size = vec4_t::size();
     vec4_t vec4;
     index_t vec4_inst_size = vec::size(vec4);
     CHECK(vec4_size == static_cast<index_t>(4));
@@ -1387,6 +1393,17 @@ TEST_CASE("abs", "[as_vec]")
         vec4_t result = vec::abs(vec);
 
         vec4_t vec_reference = { 1.0f, 4.0f, 6.0f, 50.0f };
+
+        CHECK(vec::equal(vec_reference, result));
+    }
+
+    {
+        using vec5_t = vec_t<real_t, 5>;
+
+        vec5_t vec5{-1.0f, -2.0f, -100.0f, -7.0f, -4.0f};
+        vec5_t result = vec::abs(vec5);
+
+        vec5_t vec_reference = { 1.0f, 2.0f, 100.0f, 7.0f, 4.0f };
 
         CHECK(vec::equal(vec_reference, result));
     }
