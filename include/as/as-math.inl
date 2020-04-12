@@ -2,42 +2,42 @@ namespace as
 {
 
 template<typename T>
-T lerp(T t, T v0, T v1)
+AS_API T lerp(T t, T v0, T v1)
 {
     return (T{1} - t) * v0 + t * v1;
 }
 
 template<typename T>
-T smooth_step(T t, T v0, T v1)
+AS_API T smooth_step(T t, T v0, T v1)
 {
     T val = (t * t) * (T{3} - T{2} * t);
     return lerp(val, v0, v1);
 }
 
 template<typename T>
-T max(T v0, T v1)
+AS_API T max(T v0, T v1)
 {
     return v0 > v1 ? v0 : v1;
 }
 
 template<typename T>
-T min(T v0, T v1)
+AS_API T min(T v0, T v1)
 {
     return v0 < v1 ? v0 : v1;
 }
 
 template<typename T>
-T clamp(T t, T v0, T v1)
+AS_API T clamp(T t, T v0, T v1)
 {
     return t < v0 ? v0 : t > v1 ? v1 : t;
 }
 
-inline real_t deg_to_rad(const real_t degrees)
+AS_API inline real_t deg_to_rad(const real_t degrees)
 {
     return degrees * DEG_TO_RAD;
 }
 
-inline real_t rad_to_deg(const real_t radians)
+AS_API inline real_t rad_to_deg(const real_t radians)
 {
     return radians * RAD_TO_DEG;
 }
@@ -45,7 +45,7 @@ inline real_t rad_to_deg(const real_t radians)
 // floating point comparison by Bruce Dawson
 // ref:
 // https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
-inline bool equal(
+AS_API inline bool equal(
     real_t a, real_t b,
     real_t max_diff /*= std::numeric_limits<real_t>::epsilon()*/,
     real_t max_rel_diff /*= std::numeric_limits<real_t>::epsilon()*/)

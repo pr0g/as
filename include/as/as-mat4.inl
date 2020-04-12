@@ -2,20 +2,20 @@ namespace as
 {
 
 template<typename T>
-constexpr index_t mat_t<T, 4>::dim()
+AS_API constexpr index_t mat_t<T, 4>::dim()
 {
     return 4;
 }
 
 template<typename T>
-constexpr index_t mat_t<T, 4>::size()
+AS_API constexpr index_t mat_t<T, 4>::size()
 {
     return 16;
 }
 
 // clang-format off
 template<typename T>
-constexpr mat_t<T, 4>::mat_t(
+AS_API constexpr mat_t<T, 4>::mat_t(
     T x0, T y0, T z0, T w0,
     T x1, T y1, T z1, T w1,
     T x2, T y2, T z2, T w2,
@@ -31,7 +31,7 @@ constexpr mat_t<T, 4>::mat_t(
 
 template<typename T>
 #ifdef AS_ROW_MAJOR
-constexpr mat_t<T, 4>::mat_t(
+AS_API constexpr mat_t<T, 4>::mat_t(
     const vec_t<T, 4>& row0, const vec_t<T, 4>& row1, const vec_t<T, 4>& row2,
     const vec_t<T, 4>& row3)
     : elem_rc{row0.x, row0.y, row0.z, row0.w, row1.x, row1.y, row1.z, row1.w,
@@ -39,7 +39,7 @@ constexpr mat_t<T, 4>::mat_t(
 {
 }
 #elif defined AS_COL_MAJOR
-constexpr mat_t<T, 4>::mat_t(
+AS_API constexpr mat_t<T, 4>::mat_t(
     const vec_t<T, 4>& col0, const vec_t<T, 4>& col1, const vec_t<T, 4>& col2,
     const vec_t<T, 4>& col3)
     : elem_rc{col0.x, col0.y, col0.z, col0.w, col1.x, col1.y, col1.z, col1.w,
@@ -49,7 +49,7 @@ constexpr mat_t<T, 4>::mat_t(
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
 template<typename T>
-constexpr mat_t<T, 4>::mat_t(const mat_t<T, 3>& mat_, const vec_t<T, 3>& pos_)
+AS_API constexpr mat_t<T, 4>::mat_t(const mat_t<T, 3>& mat_, const vec_t<T, 3>& pos_)
     : elem_rc{mat_.elem_rc[0], mat_.elem_rc[1], mat_.elem_rc[2], 0.0f,
               mat_.elem_rc[3], mat_.elem_rc[4], mat_.elem_rc[5], 0.0f,
               mat_.elem_rc[6], mat_.elem_rc[7], mat_.elem_rc[8], 0.0f,
@@ -58,103 +58,103 @@ constexpr mat_t<T, 4>::mat_t(const mat_t<T, 3>& mat_, const vec_t<T, 3>& pos_)
 }
 
 template<typename T>
-const vec_t<T, 4> mat_t<T, 4>::row0() const
+AS_API const vec_t<T, 4> mat_t<T, 4>::row0() const
 {
     return row(0);
 }
 
 template<typename T>
-const vec_t<T, 4> mat_t<T, 4>::row1() const
+AS_API const vec_t<T, 4> mat_t<T, 4>::row1() const
 {
     return row(1);
 }
 
 template<typename T>
-const vec_t<T, 4> mat_t<T, 4>::row2() const
+AS_API const vec_t<T, 4> mat_t<T, 4>::row2() const
 {
     return row(2);
 }
 
 template<typename T>
-const vec_t<T, 4> mat_t<T, 4>::row3() const
+AS_API const vec_t<T, 4> mat_t<T, 4>::row3() const
 {
     return row(3);
 }
 
 template<typename T>
-const vec_t<T, 4> mat_t<T, 4>::col0() const
+AS_API const vec_t<T, 4> mat_t<T, 4>::col0() const
 {
     return col(0);
 }
 
 template<typename T>
-const vec_t<T, 4> mat_t<T, 4>::col1() const
+AS_API const vec_t<T, 4> mat_t<T, 4>::col1() const
 {
     return col(1);
 }
 
 template<typename T>
-const vec_t<T, 4> mat_t<T, 4>::col2() const
+AS_API const vec_t<T, 4> mat_t<T, 4>::col2() const
 {
     return col(2);
 }
 
 template<typename T>
-const vec_t<T, 4> mat_t<T, 4>::col3() const
+AS_API const vec_t<T, 4> mat_t<T, 4>::col3() const
 {
     return col(3);
 }
 
 template<typename T>
-void mat_t<T, 4>::row0(const vec_t<T, 4>& row_)
+AS_API void mat_t<T, 4>::row0(const vec_t<T, 4>& row_)
 {
     row(0, row_);
 }
 
 template<typename T>
-void mat_t<T, 4>::row1(const vec_t<T, 4>& row_)
+AS_API void mat_t<T, 4>::row1(const vec_t<T, 4>& row_)
 {
     row(1, row_);
 }
 
 template<typename T>
-void mat_t<T, 4>::row2(const vec_t<T, 4>& row_)
+AS_API void mat_t<T, 4>::row2(const vec_t<T, 4>& row_)
 {
     row(2, row_);
 }
 
 template<typename T>
-void mat_t<T, 4>::row3(const vec_t<T, 4>& row_)
+AS_API void mat_t<T, 4>::row3(const vec_t<T, 4>& row_)
 {
     row(3, row_);
 }
 
 template<typename T>
-void mat_t<T, 4>::col0(const vec_t<T, 4>& col_)
+AS_API void mat_t<T, 4>::col0(const vec_t<T, 4>& col_)
 {
     col(0, col_);
 }
 
 template<typename T>
-void mat_t<T, 4>::col1(const vec_t<T, 4>& col_)
+AS_API void mat_t<T, 4>::col1(const vec_t<T, 4>& col_)
 {
     col(1, col_);
 }
 
 template<typename T>
-void mat_t<T, 4>::col2(const vec_t<T, 4>& col_)
+AS_API void mat_t<T, 4>::col2(const vec_t<T, 4>& col_)
 {
     col(2, col_);
 }
 
 template<typename T>
-void mat_t<T, 4>::col3(const vec_t<T, 4>& col_)
+AS_API void mat_t<T, 4>::col3(const vec_t<T, 4>& col_)
 {
     col(3, col_);
 }
 
 template<typename T>
-void mat_t<T, 4>::row(index_t r, const vec_t<T, 4>& row)
+AS_API void mat_t<T, 4>::row(index_t r, const vec_t<T, 4>& row)
 {
     elem_rc[mat4::rc(r, 0)] = row.x;
     elem_rc[mat4::rc(r, 1)] = row.y;
@@ -163,7 +163,7 @@ void mat_t<T, 4>::row(index_t r, const vec_t<T, 4>& row)
 }
 
 template<typename T>
-void mat_t<T, 4>::col(index_t c, const vec_t<T, 4>& col)
+AS_API void mat_t<T, 4>::col(index_t c, const vec_t<T, 4>& col)
 {
     elem_rc[mat4::rc(0, c)] = col.x;
     elem_rc[mat4::rc(1, c)] = col.y;
@@ -172,7 +172,7 @@ void mat_t<T, 4>::col(index_t c, const vec_t<T, 4>& col)
 }
 
 template<typename T>
-const vec_t<T, 4> mat_t<T, 4>::row(index_t r) const
+AS_API const vec_t<T, 4> mat_t<T, 4>::row(index_t r) const
 {
     return vec_t<T, 4>{
         elem_rc[mat4::rc(r, 0)], elem_rc[mat4::rc(r, 1)],
@@ -180,7 +180,7 @@ const vec_t<T, 4> mat_t<T, 4>::row(index_t r) const
 }
 
 template<typename T>
-const vec_t<T, 4> mat_t<T, 4>::col(index_t c) const
+AS_API const vec_t<T, 4> mat_t<T, 4>::col(index_t c) const
 {
     return vec_t<T, 4>{
         elem_rc[mat4::rc(0, c)], elem_rc[mat4::rc(1, c)],
@@ -188,19 +188,19 @@ const vec_t<T, 4> mat_t<T, 4>::col(index_t c) const
 }
 
 template<typename T>
-constexpr T& mat_t<T, 4>::operator[](index_t i) &
+AS_API constexpr T& mat_t<T, 4>::operator[](index_t i) &
 {
     return elem_rc[i];
 }
 
 template<typename T>
-constexpr const T& mat_t<T, 4>::operator[](index_t i) const&
+AS_API constexpr const T& mat_t<T, 4>::operator[](index_t i) const&
 {
     return elem_rc[i];
 }
 
 template<typename T>
-constexpr const T mat_t<T, 4>::operator[](index_t i) &&
+AS_API constexpr const T mat_t<T, 4>::operator[](index_t i) &&
 {
     return elem_rc[i];
 }
@@ -208,7 +208,7 @@ constexpr const T mat_t<T, 4>::operator[](index_t i) &&
 namespace mat4
 {
 
-inline index_t rc(const index_t r, const index_t c)
+AS_API inline index_t rc(const index_t r, const index_t c)
 {
     return mat::rc(r, c, 4);
 }

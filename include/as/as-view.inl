@@ -5,7 +5,7 @@ namespace view
 {
 
 // openGL default
-inline mat4_t perspective_gl_rh(
+AS_API inline mat4_t perspective_gl_rh(
     const real_t fovy, const real_t aspect, const real_t n, const real_t f)
 {
     const real_t e = 1.0f / tanr(fovy * 0.5f);
@@ -20,7 +20,7 @@ inline mat4_t perspective_gl_rh(
     // clang-format on
 }
 
-inline mat4_t perspective_gl_lh(
+AS_API inline mat4_t perspective_gl_lh(
     const real_t fovy, const real_t aspect, const real_t n, const real_t f)
 {
     const real_t e = 1.0f / tanr(fovy * 0.5f);
@@ -35,7 +35,7 @@ inline mat4_t perspective_gl_lh(
     // clang-format on
 }
 
-inline mat4_t perspective_d3d_rh(
+AS_API inline mat4_t perspective_d3d_rh(
     const real_t fovy, const real_t aspect, const real_t n, const real_t f)
 {
     const real_t e = 1.0f / tanr(fovy * 0.5f);
@@ -51,7 +51,7 @@ inline mat4_t perspective_d3d_rh(
 }
 
 // directX default
-inline mat4_t perspective_d3d_lh(
+AS_API inline mat4_t perspective_d3d_lh(
     const real_t fovy, const real_t aspect, const real_t n, const real_t f)
 {
     const real_t e = 1.0f / tanr(fovy * 0.5f);
@@ -67,7 +67,7 @@ inline mat4_t perspective_d3d_lh(
 }
 
 // vulkan default
-inline mat4_t perspective_vulkan_rh(
+AS_API inline mat4_t perspective_vulkan_rh(
     const real_t fovy, const real_t aspect, const real_t n, const real_t f)
 {
     // clang-format off
@@ -87,7 +87,7 @@ inline mat4_t perspective_vulkan_rh(
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
-inline mat4_t perspective_vulkan_lh(
+AS_API inline mat4_t perspective_vulkan_lh(
     const real_t fovy, const real_t aspect, const real_t n, const real_t f)
 {
     // clang-format off
@@ -108,7 +108,7 @@ inline mat4_t perspective_vulkan_lh(
 }
 
 // openGL default
-inline mat4_t ortho_gl_rh(
+AS_API inline mat4_t ortho_gl_rh(
     const real_t l, const real_t r, const real_t b, const real_t t,
     const real_t n, const real_t f)
 {
@@ -127,7 +127,7 @@ inline mat4_t ortho_gl_rh(
 }
 
 // directx default
-inline mat4_t ortho_d3d_lh(
+AS_API inline mat4_t ortho_d3d_lh(
     const real_t l, const real_t r, const real_t b, const real_t t,
     const real_t n, const real_t f)
 {

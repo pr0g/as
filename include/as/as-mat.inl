@@ -14,19 +14,19 @@ AS_API constexpr index_t mat_t<T, d>::size()
 }
 
 template<typename T, index_t d>
-AS_API constexpr T& mat_t<T, d>::operator[](index_t i) &
+AS_API constexpr T& mat_t<T, d>::operator[](const index_t i) &
 {
     return elem_rc[i];
 }
 
 template<typename T, index_t d>
-AS_API constexpr const T& mat_t<T, d>::operator[](index_t i) const&
+AS_API constexpr const T& mat_t<T, d>::operator[](const index_t i) const&
 {
     return elem_rc[i];
 }
 
 template<typename T, index_t d>
-AS_API constexpr const T mat_t<T, d>::operator[](index_t i) &&
+AS_API constexpr const T mat_t<T, d>::operator[](const index_t i) &&
 {
     return elem_rc[i];
 }
@@ -40,7 +40,6 @@ AS_API const mat_t<T, d> operator*(
     for (index_t col = 0; col < d; ++col) {
         for (index_t row = 0; row < d; ++row) {
             T value{0};
-
             for (index_t step = 0; step < d; ++step) {
                 value += lhs[row + d * step] * rhs[col * d + step];
             }
@@ -52,7 +51,6 @@ AS_API const mat_t<T, d> operator*(
     for (index_t row = 0; row < d; ++row) {
         for (index_t col = 0; col < d; ++col) {
             T value{0};
-
             for (index_t step = 0; step < d; ++step) {
                 value += lhs[row * d + step] * rhs[col + d * step];
             }
@@ -72,7 +70,6 @@ AS_API const vec_t<T, d> operator*(const mat_t<T, d>& mat, const vec_t<T, d>& v)
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 {
     vec_t<T, d> result;
-
     for (index_t vertexIndex = 0; vertexIndex < d; ++vertexIndex) {
         T value{0};
 
@@ -87,7 +84,7 @@ AS_API const vec_t<T, d> operator*(const mat_t<T, d>& mat, const vec_t<T, d>& v)
 }
 
 template<typename T, index_t d>
-AS_API const mat_t<T, d> operator*(const mat_t<T, d>& mat, T scalar)
+AS_API const mat_t<T, d> operator*(const mat_t<T, d>& mat, const T scalar)
 {
     mat_t<T, d> result{mat};
     result *= scalar;
@@ -95,7 +92,7 @@ AS_API const mat_t<T, d> operator*(const mat_t<T, d>& mat, T scalar)
 }
 
 template<typename T, index_t d>
-AS_API mat_t<T, d>& operator*=(mat_t<T, d>& mat, T scalar)
+AS_API mat_t<T, d>& operator*=(mat_t<T, d>& mat, const T scalar)
 {
     for (index_t row = 0; row < d; ++row) {
         for (index_t col = 0; col < d; ++col) {

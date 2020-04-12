@@ -11,7 +11,7 @@ AS_API constexpr quat_t::quat_t(real_t w_, const vec3_t& xyz_)
 {
 }
 
-AS_API AS_API constexpr const quat_t operator*(
+AS_API constexpr const quat_t operator*(
     const quat_t& lhs, const quat_t& rhs)
 {
     return {
@@ -21,7 +21,7 @@ AS_API AS_API constexpr const quat_t operator*(
         lhs.w * rhs.z + lhs.z * rhs.w + lhs.x * rhs.y - lhs.y * rhs.x};
 }
 
-constexpr quat_t& operator*=(quat_t& lhs, const quat_t& rhs)
+AS_API constexpr quat_t& operator*=(quat_t& lhs, const quat_t& rhs)
 {
     lhs = lhs * rhs;
     return lhs;
