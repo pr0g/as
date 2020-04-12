@@ -82,7 +82,7 @@ using mat4l_t = mat_t<int64_t, 4>;
 namespace mat4
 {
 
-AS_API index_t rc(index_t r, index_t c);
+index_t rc(index_t r, index_t c);
 
 } // namespace mat4
 

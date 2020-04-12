@@ -43,7 +43,8 @@ inline real_t rad_to_deg(const real_t radians)
 }
 
 // floating point comparison by Bruce Dawson
-// ref: https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
+// ref:
+// https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
 inline bool equal(
     real_t a, real_t b,
     real_t max_diff /*= std::numeric_limits<real_t>::epsilon()*/,

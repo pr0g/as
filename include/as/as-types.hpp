@@ -1,8 +1,8 @@
 #pragma once
 
-#include <cstdint>
-#include <cmath>
 #include <cfloat>
+#include <cmath>
+#include <cstdint>
 
 namespace as
 {
@@ -20,7 +20,8 @@ using f32 = float;
 using f64 = double;
 using index_t = ptrdiff_t;
 
-// static assert to check library floating point precision has been set correctly
+// static assert to check library floating point precision has been set
+// correctly
 #if (!defined(AS_PRECISION_FLOAT) && !defined(AS_PRECISION_DOUBLE))
 static_assert(false, "Must define AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE");
 #elif (defined(AS_PRECISION_FLOAT) && defined(AS_PRECISION_DOUBLE))
@@ -58,12 +59,13 @@ using real_t = double;
 #endif // AS_PRECISION_FLOAT ? AS_PRECISION_DOUBLE
 
 // from Google's Chromium project - compile time array size
-#define AS_DIM(x) ((sizeof(x) / sizeof(0[x])) / ((size_t)(!(sizeof(x) % sizeof(0[x])))))
+#define AS_DIM(x)                                                              \
+    ((sizeof(x) / sizeof(0 [x])) / ((size_t)(!(sizeof(x) % sizeof(0 [x])))))
 
 #ifdef _MSC_VER
 #define AS_NOINLINE __declspec(noinline)
 #elif defined __GNUC__
-#define AS_NOINLINE __attribute__ ((__noinline__))
+#define AS_NOINLINE __attribute__((__noinline__))
 #endif // _MSC_VER ? __GNUC__
 
 #ifdef _MSC_VER
