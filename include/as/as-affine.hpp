@@ -15,12 +15,12 @@ struct affine_t
     affine_t& operator=(affine_t&&) noexcept = default;
     ~affine_t() = default;
 
-    AS_API constexpr affine_t(
-        const mat3_t& rotation_, const point3_t& position_)
-        : rotation(rotation_), position(position_) {}
+    constexpr affine_t(const mat3_t& rotation_, const point3_t& position_);
 
     mat3_t rotation;
     point3_t position;
 };
 
 } // namespace as
+
+#include "as-affine.inl"
