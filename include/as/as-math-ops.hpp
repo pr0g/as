@@ -145,6 +145,20 @@ vec4_t from_arr(const real_t (&data)[4]);
 namespace mat
 {
 
+index_t rc(index_t r, index_t c, index_t d);
+
+template<typename T, index_t d>
+vec_t<T, d> row(const mat_t<T, d>& mat, index_t r);
+
+template<typename T, index_t d>
+vec_t<T, d> col(const mat_t<T, d>& mat, index_t c);
+
+template<typename T, index_t d>
+void row(mat_t<T, d>& mat, index_t r, const vec_t<T, d>& row);
+
+template<typename T, index_t d>
+void col(mat_t<T, d>& mat, index_t c, const vec_t<T, d>& col);
+
 template<typename T, index_t d>
 T* data(mat_t<T, d>& mat);
 
@@ -185,6 +199,24 @@ constexpr index_t cols();
 
 constexpr mat3_t identity();
 
+constexpr index_t rc(index_t r, index_t c);
+
+vec3_t row0(const mat3_t& mat);
+vec3_t row1(const mat3_t& mat);
+vec3_t row2(const mat3_t& mat);
+
+vec3_t col0(const mat3_t& mat);
+vec3_t col1(const mat3_t& mat);
+vec3_t col2(const mat3_t& mat);
+
+void row0(mat3_t& mat, const vec3_t& row);
+void row1(mat3_t& mat, const vec3_t& row);
+void row2(mat3_t& mat, const vec3_t& row);
+
+void col0(mat3_t& mat, const vec3_t& col);
+void col1(mat3_t& mat, const vec3_t& col);
+void col2(mat3_t& mat, const vec3_t& col);
+
 mat3_t from_ptr(const real_t* data);
 mat3_t from_arr(const real_t (&data)[9]);
 constexpr mat3_t from_mat4(const mat4_t& transform);
@@ -207,6 +239,28 @@ constexpr index_t rows();
 constexpr index_t cols();
 
 constexpr mat4_t identity();
+
+constexpr index_t rc(index_t r, index_t c);
+
+vec4_t row0(const mat4_t& mat);
+vec4_t row1(const mat4_t& mat);
+vec4_t row2(const mat4_t& mat);
+vec4_t row3(const mat4_t& mat);
+
+vec4_t col0(const mat4_t& mat);
+vec4_t col1(const mat4_t& mat);
+vec4_t col2(const mat4_t& mat);
+vec4_t col3(const mat4_t& mat);
+
+void row0(const mat4_t& mat, const vec4_t& row);
+void row1(const mat4_t& mat, const vec4_t& row);
+void row2(const mat4_t& mat, const vec4_t& row);
+void row3(const mat4_t& mat, const vec4_t& row);
+
+void col0(const mat4_t& mat, const vec4_t& col);
+void col1(const mat4_t& mat, const vec4_t& col);
+void col2(const mat4_t& mat, const vec4_t& col);
+void col3(const mat4_t& mat, const vec4_t& col);
 
 mat4_t from_ptr(const real_t* data);
 mat4_t from_arr(const real_t (&data)[16]);

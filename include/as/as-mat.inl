@@ -103,18 +103,4 @@ AS_API mat_t<T, d>& operator*=(mat_t<T, d>& mat, const T scalar)
     return mat;
 }
 
-namespace mat
-{
-
-AS_API inline index_t rc(const index_t r, const index_t c, const index_t d)
-{
-#if defined AS_COL_MAJOR
-    return c * d + r;
-#elif defined AS_ROW_MAJOR
-    return r * d + c;
-#endif // AS_COL_MAJOR ? AS_ROW_MAJOR
-}
-
-} // namespace mat
-
 } // namespace as

@@ -387,6 +387,53 @@ AS_API inline vec4_t from_arr(const real_t (&data)[4])
 namespace mat
 {
 
+AS_API constexpr index_t rc(index_t r, index_t c, index_t d)
+{
+#if defined AS_COL_MAJOR
+    return c * d + r;
+#elif defined AS_ROW_MAJOR
+    return r * d + c;
+#endif // AS_COL_MAJOR ? AS_ROW_MAJOR
+}
+
+template<typename T, index_t d>
+AS_API vec_t<T, d> row(const mat_t<T, d>& mat, index_t r)
+{
+    vec_t<T, d> vec;
+    for (index_t c = 0; c < d; ++c) {
+        vec[c] = mat.elem_rc[mat::rc(r, c)];
+    }
+
+    return vec;
+}
+
+template<typename T, index_t d>
+AS_API vec_t<T, d> col(const mat_t<T, d>& mat, index_t c)
+{
+    vec_t<T, d> vec;
+    for (index_t r = 0; r < d; ++r) {
+        vec[r] = mat.elem_rc[mat::rc(r, c)];
+    }
+
+    return vec;
+}
+
+template<typename T, index_t d>
+AS_API void row(mat_t<T, d>& mat, index_t r, const vec_t<T, d>& row)
+{
+    for (index_t c = 0; c < d; ++c) {
+        mat.elem_rc[mat::rc(r, c)] = row[c];
+    }
+}
+
+template<typename T, index_t d>
+AS_API void col(mat_t<T, d>& mat, index_t c, const vec_t<T, d>& col)
+{
+    for (index_t r = 0; r < d; ++r) {
+        mat.elem_rc[mat::rc(r, c)] = row[r];
+    }
+}
+
 template<typename T, index_t d>
 AS_API mat_t<T, d> from_arr(const T (&data)[d * d])
 {
@@ -610,6 +657,71 @@ AS_API constexpr mat3_t identity()
     return mat::identity<real_t, 3>();
 }
 
+AS_API constexpr index_t rc(const index_t r, const index_t c)
+{
+    return mat::rc(r, c, 3);
+}
+
+AS_API inline vec3_t row0(const mat3_t& mat)
+{
+    return mat::row(mat, 0);
+}
+
+AS_API inline vec3_t row1(const mat3_t& mat)
+{
+    return mat::row(mat, 1);
+}
+
+AS_API inline vec3_t row2(const mat3_t& mat)
+{
+    return mat::row(mat, 2);
+}
+
+AS_API inline vec3_t col0(const mat3_t& mat)
+{
+    return mat::col(mat, 0);
+}
+
+AS_API inline vec3_t col1(const mat3_t& mat)
+{
+    return mat::col(mat, 1);
+}
+
+AS_API inline vec3_t col2(const mat3_t& mat)
+{
+    return mat::col(mat, 2);
+}
+
+AS_API inline void row0(mat3_t& mat, const vec3_t& row)
+{
+    mat::row(mat, 0, row);
+}
+
+AS_API inline void row1(mat3_t& mat, const vec3_t& row)
+{
+    mat::row(mat, 1, row);
+}
+
+AS_API inline void row2(mat3_t& mat, const vec3_t& row)
+{
+    mat::row(mat, 2, row);
+}
+
+AS_API inline void col0(mat3_t& mat, const vec3_t& col)
+{
+    mat::col(mat, 0, col);
+}
+
+AS_API inline void col1(mat3_t& mat, const vec3_t& col)
+{
+    mat::col(mat, 1, col);
+}
+
+AS_API inline void col2(mat3_t& mat, const vec3_t& col)
+{
+    mat::col(mat, 2, col);
+}
+
 AS_API inline mat3_t from_ptr(const real_t* data)
 {
     return mat::from_ptr<real_t, 3>(data);
@@ -760,6 +872,91 @@ AS_API constexpr index_t cols()
 AS_API constexpr mat4_t identity()
 {
     return mat::identity<real_t, 4>();
+}
+
+AS_API constexpr index_t rc(const index_t r, const index_t c)
+{
+    return mat::rc(r, c, 4);
+}
+
+AS_API inline vec4_t row0(const mat4_t& mat)
+{
+    return mat::row(mat, 0);
+}
+
+AS_API inline vec4_t row1(const mat4_t& mat)
+{
+    return mat::row(mat, 1);
+}
+
+AS_API inline vec4_t row2(const mat4_t& mat)
+{
+    return mat::row(mat, 2);
+}
+
+AS_API inline vec4_t row3(const mat4_t& mat)
+{
+    return mat::row(mat, 3);
+}
+
+AS_API inline vec4_t col0(const mat4_t& mat)
+{
+    return mat::col(mat, 0);
+}
+
+AS_API inline vec4_t col1(const mat4_t& mat)
+{
+    return mat::col(mat, 1);
+}
+
+AS_API inline vec4_t col2(const mat4_t& mat)
+{
+    return mat::col(mat, 2);
+}
+
+AS_API inline vec4_t col3(const mat4_t& mat)
+{
+    return mat::col(mat, 3);
+}
+
+AS_API inline void row0(mat4_t& mat, const vec4_t& row)
+{
+    mat::row(mat, 0, row);
+}
+
+AS_API inline void row1(mat4_t& mat, const vec4_t& row)
+{
+    mat::row(mat, 1, row);
+}
+
+AS_API inline void row2(mat4_t& mat, const vec4_t& row)
+{
+    mat::row(mat, 2, row);
+}
+
+AS_API inline void row3(mat4_t& mat, const vec4_t& row)
+{
+    mat::row(mat, 3, row);
+}
+
+AS_API inline void col0(mat4_t& mat, const vec4_t& col)
+{
+    mat::col(mat, 0, col);
+}
+
+AS_API inline void col1(mat4_t& mat, const vec4_t& col)
+{
+    mat::col(mat, 1, col);
+}
+
+AS_API inline void col2(mat4_t& mat, const vec4_t& col)
+{
+    mat::col(mat, 2, col);
+}
+
+AS_API inline void col3(mat4_t& mat, const vec4_t& col)
+{
+    mat::col(mat, 3, col);
 }
 
 AS_API inline mat4_t from_ptr(const real_t* data)

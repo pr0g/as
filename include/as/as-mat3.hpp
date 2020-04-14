@@ -41,25 +41,6 @@ struct mat_t<T, 3>
     constexpr static index_t dim();
     constexpr static index_t size();
 
-    const vec_t<T, 3> row0() const;
-    const vec_t<T, 3> row1() const;
-    const vec_t<T, 3> row2() const;
-    const vec_t<T, 3> col0() const;
-    const vec_t<T, 3> col1() const;
-    const vec_t<T, 3> col2() const;
-
-    void row0(const vec_t<T, 3>& row_);
-    void row1(const vec_t<T, 3>& row_);
-    void row2(const vec_t<T, 3>& row_);
-    void col0(const vec_t<T, 3>& col_);
-    void col1(const vec_t<T, 3>& col_);
-    void col2(const vec_t<T, 3>& col_);
-
-    void row(index_t r, const vec_t<T, 3>& row);
-    void col(index_t c, const vec_t<T, 3>& col);
-    const vec_t<T, 3> row(index_t r) const;
-    const vec_t<T, 3> col(index_t c) const;
-
     T elem_rc[size()];
 };
 
@@ -68,13 +49,6 @@ using mat3f_t = mat_t<float, 3>;
 using mat3d_t = mat_t<double, 3>;
 using mat3i_t = mat_t<int32_t, 3>;
 using mat3l_t = mat_t<int64_t, 3>;
-
-namespace mat3
-{
-
-index_t rc(index_t r, index_t c);
-
-} // namespace mat3
 
 } // namespace as
 

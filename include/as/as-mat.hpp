@@ -15,13 +15,6 @@ static_assert(false, "Must define AS_COL_MAJOR or AS_ROW_MAJOR");
 static_assert(false, "Must define only AS_COL_MAJOR or AS_ROW_MAJOR");
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
-namespace mat
-{
-
-index_t rc(index_t r, index_t c, index_t d);
-
-} // namespace mat
-
 template<typename T, index_t d>
 struct mat_t
 {
