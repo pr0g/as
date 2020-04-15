@@ -145,7 +145,7 @@ vec4_t from_arr(const real_t (&data)[4]);
 namespace mat
 {
 
-index_t rc(index_t r, index_t c, index_t d);
+constexpr index_t rc(index_t r, index_t c, index_t d);
 
 template<typename T, index_t d>
 vec_t<T, d> row(const mat_t<T, d>& mat, index_t r);
