@@ -46,44 +46,44 @@ TEST_CASE("mat_row_col_access_mat3", "[as_mat]")
 
 #ifdef AS_COL_MAJOR
     const real_t col0[] = {1.0f, 2.0f, 3.0f};
-    CHECK_THAT(make_span(col0), make_elements_sub(mat3.col0(), 3));
-    CHECK_THAT(make_span(col0), make_elements_sub(mat3.col(0), 3));
+    CHECK_THAT(make_span(col0), make_elements_sub(mat3::col0(mat3), 3));
+    CHECK_THAT(make_span(col0), make_elements_sub(mat::col(mat3, 0), 3));
     const real_t col1[] = {4.0f, 5.0f, 6.0f};
-    CHECK_THAT(make_span(col1), make_elements_sub(mat3.col1(), 3));
-    CHECK_THAT(make_span(col1), make_elements_sub(mat3.col(1), 3));
+    CHECK_THAT(make_span(col1), make_elements_sub(mat3::col1(mat3), 3));
+    CHECK_THAT(make_span(col1), make_elements_sub(mat::col(mat3, 1), 3));
     const real_t col2[] = {7.0f, 8.0f, 9.0f};
-    CHECK_THAT(make_span(col2), make_elements_sub(mat3.col2(), 3));
-    CHECK_THAT(make_span(col2), make_elements_sub(mat3.col(2), 3));
+    CHECK_THAT(make_span(col2), make_elements_sub(mat3::col2(mat3), 3));
+    CHECK_THAT(make_span(col2), make_elements_sub(mat::col(mat3, 2), 3));
 
     const real_t row0[] = {1.0f, 4.0f, 7.0f};
-    CHECK_THAT(make_span(row0), make_elements_sub(mat3.row0(), 3));
-    CHECK_THAT(make_span(row0), make_elements_sub(mat3.row(0), 3));
+    CHECK_THAT(make_span(row0), make_elements_sub(mat3::row0(mat3), 3));
+    CHECK_THAT(make_span(row0), make_elements_sub(mat::row(mat3, 0), 3));
     const real_t row1[] = {2.0f, 5.0f, 8.0f};
-    CHECK_THAT(make_span(row1), make_elements_sub(mat3.row1(), 3));
-    CHECK_THAT(make_span(row1), make_elements_sub(mat3.row(1), 3));
+    CHECK_THAT(make_span(row1), make_elements_sub(mat3::row1(mat3), 3));
+    CHECK_THAT(make_span(row1), make_elements_sub(mat::row(mat3, 1), 3));
     const real_t row2[] = {3.0f, 6.0f, 9.0f};
-    CHECK_THAT(make_span(row2), make_elements_sub(mat3.row2(), 3));
-    CHECK_THAT(make_span(row2), make_elements_sub(mat3.row(2), 3));
+    CHECK_THAT(make_span(row2), make_elements_sub(mat3::row2(mat3), 3));
+    CHECK_THAT(make_span(row2), make_elements_sub(mat::row(mat3, 2), 3));
 #elif defined AS_ROW_MAJOR
     const real_t row0[] = {1.0f, 2.0f, 3.0f};
-    CHECK_THAT(make_span(row0), make_elements_sub(mat3.row0(), 3));
-    CHECK_THAT(make_span(row0), make_elements_sub(mat3.row(0), 3));
+    CHECK_THAT(make_span(row0), make_elements_sub(mat3::row0(mat3), 3));
+    CHECK_THAT(make_span(row0), make_elements_sub(mat::row(mat3, 0), 3));
     const real_t row1[] = {4.0f, 5.0f, 6.0f};
-    CHECK_THAT(make_span(row1), make_elements_sub(mat3.row1(), 3));
-    CHECK_THAT(make_span(row1), make_elements_sub(mat3.row(1), 3));
+    CHECK_THAT(make_span(row1), make_elements_sub(mat3::row1(mat3), 3));
+    CHECK_THAT(make_span(row1), make_elements_sub(mat::row(mat3, 1), 3));
     const real_t row2[] = {7.0f, 8.0f, 9.0f};
-    CHECK_THAT(make_span(row2), make_elements_sub(mat3.row2(), 3));
-    CHECK_THAT(make_span(row2), make_elements_sub(mat3.row(2), 3));
+    CHECK_THAT(make_span(row2), make_elements_sub(mat3::row2(mat3), 3));
+    CHECK_THAT(make_span(row2), make_elements_sub(mat::row(mat3, 2), 3));
 
     const real_t col0[] = {1.0f, 4.0f, 7.0f};
-    CHECK_THAT(make_span(col0), make_elements_sub(mat3.col0(), 3));
-    CHECK_THAT(make_span(col0), make_elements_sub(mat3.col(0), 3));
+    CHECK_THAT(make_span(col0), make_elements_sub(mat3::col0(mat3), 3));
+    CHECK_THAT(make_span(col0), make_elements_sub(mat::col(mat3, 0), 3));
     const real_t col1[] = {2.0f, 5.0f, 8.0f};
-    CHECK_THAT(make_span(col1), make_elements_sub(mat3.col1(), 3));
-    CHECK_THAT(make_span(col1), make_elements_sub(mat3.col(1), 3));
+    CHECK_THAT(make_span(col1), make_elements_sub(mat3::col1(mat3), 3));
+    CHECK_THAT(make_span(col1), make_elements_sub(mat::col(mat3, 1), 3));
     const real_t col2[] = {3.0f, 6.0f, 9.0f};
-    CHECK_THAT(make_span(col2), make_elements_sub(mat3.col2(), 3));
-    CHECK_THAT(make_span(col2), make_elements_sub(mat3.col(2), 3));
+    CHECK_THAT(make_span(col2), make_elements_sub(mat3::col2(mat3), 3));
+    CHECK_THAT(make_span(col2), make_elements_sub(mat::col(mat3, 2), 3));
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 
     // clang-format off
@@ -129,87 +129,87 @@ TEST_CASE("mat_row_col_mutate_mat3", "[as_mat]")
 #ifdef AS_COL_MAJOR
     const real_t col0[] = {1.0f, 2.0f, 3.0f};
     const vec3_t c0 = vec3::from_arr(col0);
-    mat3.col0(c0);
-    CHECK_THAT(make_span(col0), make_elements_sub(mat3.col0(), 3));
-    mat3.col(0, c0);
-    CHECK_THAT(make_span(col0), make_elements_sub(mat3.col(0), 3));
+    mat3::col0(mat3, c0);
+    CHECK_THAT(make_span(col0), make_elements_sub(mat3::col0(mat3), 3));
+    mat::col(mat3, 0, c0);
+    CHECK_THAT(make_span(col0), make_elements_sub(mat::col(mat3, 0), 3));
 
     const real_t col1[] = {4.0f, 5.0f, 6.0f};
     const vec3_t c1 = vec3::from_arr(col1);
-    mat3.col1(c1);
-    CHECK_THAT(make_span(col1), make_elements_sub(mat3.col1(), 3));
-    mat3.col(1, c1);
-    CHECK_THAT(make_span(col1), make_elements_sub(mat3.col(1), 3));
+    mat3::col1(mat3, c1);
+    CHECK_THAT(make_span(col1), make_elements_sub(mat3::col1(mat3), 3));
+    mat::col(mat3, 1, c1);
+    CHECK_THAT(make_span(col1), make_elements_sub(mat::col(mat3, 1), 3));
 
     const real_t col2[] = {7.0f, 8.0f, 9.0f};
     const vec3_t c2 = vec3::from_arr(col2);
-    mat3.col2(c2);
-    CHECK_THAT(make_span(col2), make_elements_sub(mat3.col2(), 3));
-    mat3.col(2, c2);
-    CHECK_THAT(make_span(col2), make_elements_sub(mat3.col(2), 3));
+    mat3::col2(mat3, c2);
+    CHECK_THAT(make_span(col2), make_elements_sub(mat3::col2(mat3), 3));
+    mat::col(mat3, 2, c2);
+    CHECK_THAT(make_span(col2), make_elements_sub(mat::col(mat3, 2), 3));
 
     const real_t row0[] = {1.0f, 4.0f, 7.0f};
     const vec3_t r0 = vec3::from_arr(row0);
-    mat3.row0(r0);
-    CHECK_THAT(make_span(row0), make_elements_sub(mat3.row0(), 3));
-    mat3.row(0, r0);
-    CHECK_THAT(make_span(row0), make_elements_sub(mat3.row(0), 3));
+    mat3::row0(mat3, r0);
+    CHECK_THAT(make_span(row0), make_elements_sub(mat3::row0(mat3), 3));
+    mat::row(mat3, 0, r0);
+    CHECK_THAT(make_span(row0), make_elements_sub(mat::row(mat3, 0), 3));
 
     const real_t row1[] = {2.0f, 5.0f, 8.0f};
     const vec3_t r1 = vec3::from_arr(row1);
-    mat3.row1(r1);
-    CHECK_THAT(make_span(row1), make_elements_sub(mat3.row1(), 3));
-    mat3.row(1, r1);
-    CHECK_THAT(make_span(row1), make_elements_sub(mat3.row(1), 3));
+    mat3::row1(mat3, r1);
+    CHECK_THAT(make_span(row1), make_elements_sub(mat3::row1(mat3), 3));
+    mat::row(mat3, 1, r1);
+    CHECK_THAT(make_span(row1), make_elements_sub(mat::row(mat3, 1), 3));
 
     const real_t row2[] = {3.0f, 6.0f, 9.0f};
     const vec3_t r2 = vec3::from_arr(row2);
-    mat3.row2(r2);
-    CHECK_THAT(make_span(row2), make_elements_sub(mat3.row2(), 3));
-    mat3.row(2, r2);
-    CHECK_THAT(make_span(row2), make_elements_sub(mat3.row(2), 3));
+    mat3::row2(mat3, r2);
+    CHECK_THAT(make_span(row2), make_elements_sub(mat3::row2(mat3), 3));
+    mat::row(mat3, 2, r2);
+    CHECK_THAT(make_span(row2), make_elements_sub(mat::row(mat3, 2), 3));
 #elif defined AS_ROW_MAJOR
     const real_t row0[] = {1.0f, 2.0f, 3.0f};
     const vec3_t r0 = vec3::from_arr(row0);
-    mat3.row0(r0);
-    CHECK_THAT(make_span(row0), make_elements_sub(mat3.row0(), 3));
-    mat3.row(0, r0);
-    CHECK_THAT(make_span(row0), make_elements_sub(mat3.row(0), 3));
+    mat3::row0(mat3, r0);
+    CHECK_THAT(make_span(row0), make_elements_sub(mat3::row0(mat3), 3));
+    mat::row(mat3, 0, r0);
+    CHECK_THAT(make_span(row0), make_elements_sub(mat::row(mat3, 0), 3));
 
     const real_t row1[] = {4.0f, 5.0f, 6.0f};
     const vec3_t r1 = vec3::from_arr(row1);
-    mat3.row1(r1);
-    CHECK_THAT(make_span(row1), make_elements_sub(mat3.row1(), 3));
-    mat3.row(1, r1);
-    CHECK_THAT(make_span(row1), make_elements_sub(mat3.row(1), 3));
+    mat3::row1(mat3, r1);
+    CHECK_THAT(make_span(row1), make_elements_sub(mat3::row1(mat3), 3));
+    mat::row(mat3, 1, r1);
+    CHECK_THAT(make_span(row1), make_elements_sub(mat::row(mat3, 1), 3));
 
     const real_t row2[] = {7.0f, 8.0f, 9.0f};
     const vec3_t r2 = vec3::from_arr(row2);
-    mat3.row2(r2);
-    CHECK_THAT(make_span(row2), make_elements_sub(mat3.row2(), 3));
-    mat3.row(2, r2);
-    CHECK_THAT(make_span(row2), make_elements_sub(mat3.row(2), 3));
+    mat3::row2(mat3, r2);
+    CHECK_THAT(make_span(row2), make_elements_sub(mat3::row2(mat3), 3));
+    mat::row(mat3, 2, r2);
+    CHECK_THAT(make_span(row2), make_elements_sub(mat::row(mat3, 2), 3));
 
     const real_t col0[] = {1.0f, 4.0f, 7.0f};
     const vec3_t c0 = vec3::from_arr(col0);
-    mat3.col0(c0);
-    CHECK_THAT(make_span(col0), make_elements_sub(mat3.col0(), 3));
-    mat3.col(0, c0);
-    CHECK_THAT(make_span(col0), make_elements_sub(mat3.col(0), 3));
+    mat3::col0(mat3, c0);
+    CHECK_THAT(make_span(col0), make_elements_sub(mat3::col0(mat3), 3));
+    mat::col(mat3, 0, c0);
+    CHECK_THAT(make_span(col0), make_elements_sub(mat::col(mat3, 0), 3));
 
     const real_t col1[] = {2.0f, 5.0f, 9.0f};
     const vec3_t c1 = vec3::from_arr(col1);
-    mat3.col1(c1);
-    CHECK_THAT(make_span(col1), make_elements_sub(mat3.col1(), 3));
-    mat3.col(1, c1);
-    CHECK_THAT(make_span(col1), make_elements_sub(mat3.col(1), 3));
+    mat3::col1(mat3, c1);
+    CHECK_THAT(make_span(col1), make_elements_sub(mat3::col1(mat3), 3));
+    mat::col(mat3, 1, c1);
+    CHECK_THAT(make_span(col1), make_elements_sub(mat::col(mat3, 1), 3));
 
     const real_t col2[] = {3.0f, 6.0f, 9.0f};
     const vec3_t c2 = vec3::from_arr(col2);
-    mat3.col2(c2);
-    CHECK_THAT(make_span(col2), make_elements_sub(mat3.col2(), 3));
-    mat3.col(2, c2);
-    CHECK_THAT(make_span(col2), make_elements_sub(mat3.col(2), 3));
+    mat3::col2(mat3, c2);
+    CHECK_THAT(make_span(col2), make_elements_sub(mat3::col2(mat3), 3));
+    mat::col(mat3, 2, c2);
+    CHECK_THAT(make_span(col2), make_elements_sub(mat::col(mat3, 2), 3));
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
@@ -228,56 +228,56 @@ TEST_CASE("mat_row_col_access_mat4", "[as_mat]")
 
 #ifdef AS_COL_MAJOR
     const real_t col0[] = {1.0f, 2.0f, 3.0f, 4.0f};
-    CHECK_THAT(make_span(col0), make_elements_sub(mat4.col0(), 4));
-    CHECK_THAT(make_span(col0), make_elements_sub(mat4.col(0), 4));
+    CHECK_THAT(make_span(col0), make_elements_sub(mat4::col0(mat4), 4));
+    CHECK_THAT(make_span(col0), make_elements_sub(mat::col(mat4, 0), 4));
     const real_t col1[] = {5.0f, 6.0f, 7.0f, 8.0f};
-    CHECK_THAT(make_span(col1), make_elements_sub(mat4.col1(), 4));
-    CHECK_THAT(make_span(col1), make_elements_sub(mat4.col(1), 4));
+    CHECK_THAT(make_span(col1), make_elements_sub(mat4::col1(mat4), 4));
+    CHECK_THAT(make_span(col1), make_elements_sub(mat::col(mat4, 1), 4));
     const real_t col2[] = {9.0f, 10.0f, 11.0f, 12.0f};
-    CHECK_THAT(make_span(col2), make_elements_sub(mat4.col2(), 4));
-    CHECK_THAT(make_span(col2), make_elements_sub(mat4.col(2), 4));
+    CHECK_THAT(make_span(col2), make_elements_sub(mat4::col2(mat4), 4));
+    CHECK_THAT(make_span(col2), make_elements_sub(mat::col(mat4, 2), 4));
     const real_t col3[] = {13.0f, 14.0f, 15.0f, 16.0f};
-    CHECK_THAT(make_span(col3), make_elements_sub(mat4.col3(), 4));
-    CHECK_THAT(make_span(col3), make_elements_sub(mat4.col(3), 4));
+    CHECK_THAT(make_span(col3), make_elements_sub(mat4::col3(mat4), 4));
+    CHECK_THAT(make_span(col3), make_elements_sub(mat::col(mat4, 3), 4));
 
     const real_t row0[] = {1.0f, 5.0f, 9.0f, 13.0f};
-    CHECK_THAT(make_span(row0), make_elements_sub(mat4.row0(), 4));
-    CHECK_THAT(make_span(row0), make_elements_sub(mat4.row(0), 4));
+    CHECK_THAT(make_span(row0), make_elements_sub(mat4::row0(mat4), 4));
+    CHECK_THAT(make_span(row0), make_elements_sub(mat::row(mat4, 0), 4));
     const real_t row1[] = {2.0f, 6.0f, 10.0f, 14.0f};
-    CHECK_THAT(make_span(row1), make_elements_sub(mat4.row1(), 4));
-    CHECK_THAT(make_span(row1), make_elements_sub(mat4.row(1), 4));
+    CHECK_THAT(make_span(row1), make_elements_sub(mat4::row1(mat4), 4));
+    CHECK_THAT(make_span(row1), make_elements_sub(mat::row(mat4, 1), 4));
     const real_t row2[] = {3.0f, 7.0f, 11.0f, 15.0f};
-    CHECK_THAT(make_span(row2), make_elements_sub(mat4.row2(), 4));
-    CHECK_THAT(make_span(row2), make_elements_sub(mat4.row(2), 4));
+    CHECK_THAT(make_span(row2), make_elements_sub(mat4::row2(mat4), 4));
+    CHECK_THAT(make_span(row2), make_elements_sub(mat::row(mat4, 2), 4));
     const real_t row3[] = {4.0f, 8.0f, 12.0f, 16.0f};
-    CHECK_THAT(make_span(row3), make_elements_sub(mat4.row3(), 4));
-    CHECK_THAT(make_span(row3), make_elements_sub(mat4.row(3), 4));
+    CHECK_THAT(make_span(row3), make_elements_sub(mat4::row3(mat4), 4));
+    CHECK_THAT(make_span(row3), make_elements_sub(mat::row(mat4, 3), 4));
 #elif defined AS_ROW_MAJOR
     const real_t row0[] = {1.0f, 2.0f, 3.0f, 4.0f};
-    CHECK_THAT(make_span(row0), make_elements_sub(mat4.row0(), 4));
-    CHECK_THAT(make_span(row0), make_elements_sub(mat4.row(0), 4));
+    CHECK_THAT(make_span(row0), make_elements_sub(mat4::row0(mat4), 4));
+    CHECK_THAT(make_span(row0), make_elements_sub(mat::row(mat4, 0), 4));
     const real_t row1[] = {5.0f, 6.0f, 7.0f, 8.0f};
-    CHECK_THAT(make_span(row1), make_elements_sub(mat4.row1(), 4));
-    CHECK_THAT(make_span(row1), make_elements_sub(mat4.row(1), 4));
+    CHECK_THAT(make_span(row1), make_elements_sub(mat4::row1(mat4), 4));
+    CHECK_THAT(make_span(row1), make_elements_sub(mat::row(mat4, 1), 4));
     const real_t row2[] = {9.0f, 10.0f, 11.0f, 12.0f};
-    CHECK_THAT(make_span(row2), make_elements_sub(mat4.row2(), 4));
-    CHECK_THAT(make_span(row2), make_elements_sub(mat4.row(2), 4));
+    CHECK_THAT(make_span(row2), make_elements_sub(mat4::row2(mat4), 4));
+    CHECK_THAT(make_span(row2), make_elements_sub(mat::row(mat4, 2), 4));
     const real_t row3[] = {13.0f, 14.0f, 15.0f, 16.0f};
-    CHECK_THAT(make_span(row3), make_elements_sub(mat4.row3(), 4));
-    CHECK_THAT(make_span(row3), make_elements_sub(mat4.row(3), 4));
+    CHECK_THAT(make_span(row3), make_elements_sub(mat4::row3(mat4), 4));
+    CHECK_THAT(make_span(row3), make_elements_sub(mat::row(mat4, 3), 4));
 
     const real_t col0[] = {1.0f, 5.0f, 9.0f, 13.0f};
-    CHECK_THAT(make_span(col0), make_elements_sub(mat4.col0(), 4));
-    CHECK_THAT(make_span(col0), make_elements_sub(mat4.col(0), 4));
+    CHECK_THAT(make_span(col0), make_elements_sub(mat4::col0(mat4), 4));
+    CHECK_THAT(make_span(col0), make_elements_sub(mat::col(mat4, 0), 4));
     const real_t col1[] = {2.0f, 6.0f, 10.0f, 14.0f};
-    CHECK_THAT(make_span(col1), make_elements_sub(mat4.col1(), 4));
-    CHECK_THAT(make_span(col1), make_elements_sub(mat4.col(1), 4));
+    CHECK_THAT(make_span(col1), make_elements_sub(mat4::col1(mat4), 4));
+    CHECK_THAT(make_span(col1), make_elements_sub(mat::col(mat4, 1), 4));
     const real_t col2[] = {3.0f, 7.0f, 11.0f, 15.0f};
-    CHECK_THAT(make_span(col2), make_elements_sub(mat4.col2(), 4));
-    CHECK_THAT(make_span(col2), make_elements_sub(mat4.col(2), 4));
+    CHECK_THAT(make_span(col2), make_elements_sub(mat4::col2(mat4), 4));
+    CHECK_THAT(make_span(col2), make_elements_sub(mat::col(mat4, 2), 4));
     const real_t col3[] = {4.0f, 8.0f, 12.0f, 16.0f};
-    CHECK_THAT(make_span(col3), make_elements_sub(mat4.col3(), 4));
-    CHECK_THAT(make_span(col3), make_elements_sub(mat4.col(3), 4));
+    CHECK_THAT(make_span(col3), make_elements_sub(mat4::col3(mat4), 4));
+    CHECK_THAT(make_span(col3), make_elements_sub(mat::col(mat4, 3), 4));
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 
     // clang-format off
@@ -328,130 +328,130 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
 #ifdef AS_COL_MAJOR
     const real_t col0[] = {1.0f, 2.0f, 3.0f, 4.0f};
     const vec4_t c0 = vec4::from_arr(col0);
-    mat4.col0(c0);
-    CHECK_THAT(make_span(col0), make_elements_sub(mat4.col0(), 4));
-    mat4.col(0, c0);
-    CHECK_THAT(make_span(col0), make_elements_sub(mat4.col(0), 4));
-    CHECK(col0[0] == Approx(mat4.col(0)[0]).epsilon(g_epsilon));
+    mat4::col0(mat4, c0);
+    CHECK_THAT(make_span(col0), make_elements_sub(mat4::col0(mat4), 4));
+    mat::col(mat4, 0, c0);
+    CHECK_THAT(make_span(col0), make_elements_sub(mat::col(mat4, 0), 4));
+    CHECK(col0[0] == Approx(mat::col(mat4, 0)[0]).epsilon(g_epsilon));
 
     const real_t col1[] = {5.0f, 6.0f, 7.0f, 8.0f};
     const vec4_t c1 = vec4::from_arr(col1);
-    mat4.col1(c1);
-    CHECK_THAT(make_span(col1), make_elements_sub(mat4.col1(), 4));
-    mat4.col(1, c1);
-    CHECK_THAT(make_span(col1), make_elements_sub(mat4.col(1), 4));
-    CHECK(col1[1] == Approx(mat4.col(1)[1]).epsilon(g_epsilon));
+    mat4::col1(mat4, c1);
+    CHECK_THAT(make_span(col1), make_elements_sub(mat4::col1(mat4), 4));
+    mat::col(mat4, 1, c1);
+    CHECK_THAT(make_span(col1), make_elements_sub(mat::col(mat4, 1), 4));
+    CHECK(col1[1] == Approx(mat::col(mat4, 1)[1]).epsilon(g_epsilon));
 
     const real_t col2[] = {9.0f, 10.0f, 11.0f, 12.0f};
     const vec4_t c2 = vec4::from_arr(col2);
-    mat4.col2(c2);
-    CHECK_THAT(make_span(col2), make_elements_sub(mat4.col2(), 4));
-    mat4.col(2, c2);
-    CHECK_THAT(make_span(col2), make_elements_sub(mat4.col(2), 4));
-    CHECK(col2[2] == Approx(mat4.col(2)[2]).epsilon(g_epsilon));
+    mat4::col2(mat4, c2);
+    CHECK_THAT(make_span(col2), make_elements_sub(mat4::col2(mat4), 4));
+    mat::col(mat4, 2, c2);
+    CHECK_THAT(make_span(col2), make_elements_sub(mat::col(mat4, 2), 4));
+    CHECK(col2[2] == Approx(mat::col(mat4, 2)[2]).epsilon(g_epsilon));
 
     const real_t col3[] = {13.0f, 14.0f, 15.0f, 16.0f};
     const vec4_t c3 = vec4::from_arr(col3);
-    mat4.col3(c3);
-    CHECK_THAT(make_span(col3), make_elements_sub(mat4.col3(), 4));
-    mat4.col(3, c3);
-    CHECK_THAT(make_span(col3), make_elements_sub(mat4.col(3), 4));
-    CHECK(col3[3] == Approx(mat4.col(3)[3]).epsilon(g_epsilon));
+    mat4::col3(mat4, c3);
+    CHECK_THAT(make_span(col3), make_elements_sub(mat4::col3(mat4), 4));
+    mat::col(mat4, 3, c3);
+    CHECK_THAT(make_span(col3), make_elements_sub(mat::col(mat4, 3), 4));
+    CHECK(col3[3] == Approx(mat::col(mat4, 3)[3]).epsilon(g_epsilon));
 
     const real_t row0[] = {1.0f, 5.0f, 9.0f, 13.0f};
     const vec4_t r0 = vec4::from_arr(row0);
-    mat4.row0(r0);
-    CHECK_THAT(make_span(row0), make_elements_sub(mat4.row0(), 4));
-    mat4.row(0, r0);
-    CHECK_THAT(make_span(row0), make_elements_sub(mat4.row(0), 4));
-    CHECK(row0[0] == Approx(mat4.row(0)[0]).epsilon(g_epsilon));
+    mat4::row0(mat4, r0);
+    CHECK_THAT(make_span(row0), make_elements_sub(mat4::row0(mat4), 4));
+    mat::row(mat4, 0, r0);
+    CHECK_THAT(make_span(row0), make_elements_sub(mat::row(mat4, 0), 4));
+    CHECK(row0[0] == Approx(mat::row(mat4, 0)[0]).epsilon(g_epsilon));
 
     const real_t row1[] = {2.0f, 6.0f, 10.0f, 14.0f};
     const vec4_t r1 = vec4::from_arr(row1);
-    mat4.row1(r1);
-    CHECK_THAT(make_span(row1), make_elements_sub(mat4.row1(), 4));
-    mat4.row(1, r1);
-    CHECK_THAT(make_span(row1), make_elements_sub(mat4.row(1), 4));
-    CHECK(row1[1] == Approx(mat4.row(1)[1]).epsilon(g_epsilon));
+    mat4::row1(mat4, r1);
+    CHECK_THAT(make_span(row1), make_elements_sub(mat4::row1(mat4), 4));
+    mat::row(mat4, 1, r1);
+    CHECK_THAT(make_span(row1), make_elements_sub(mat::row(mat4, 1), 4));
+    CHECK(row1[1] == Approx(mat::row(mat4, 1)[1]).epsilon(g_epsilon));
 
     const real_t row2[] = {3.0f, 7.0f, 11.0f, 15.0f};
     const vec4_t r2 = vec4::from_arr(row2);
-    mat4.row2(r2);
-    CHECK_THAT(make_span(row2), make_elements_sub(mat4.row2(), 4));
-    mat4.row(2, r2);
-    CHECK_THAT(make_span(row2), make_elements_sub(mat4.row(2), 4));
-    CHECK(row2[2] == Approx(mat4.row(2)[2]).epsilon(g_epsilon));
+    mat4::row2(mat4, r2);
+    CHECK_THAT(make_span(row2), make_elements_sub(mat4::row2(mat4), 4));
+    mat::row(mat4, 2, r2);
+    CHECK_THAT(make_span(row2), make_elements_sub(mat::row(mat4, 2), 4));
+    CHECK(row2[2] == Approx(mat::row(mat4, 2)[2]).epsilon(g_epsilon));
 
     const real_t row3[] = {4.0f, 8.0f, 12.0f, 16.0f};
     const vec4_t r3 = vec4::from_arr(row3);
-    mat4.row3(r3);
-    CHECK_THAT(make_span(row3), make_elements_sub(mat4.row3(), 4));
-    mat4.row(3, r3);
-    CHECK_THAT(make_span(row3), make_elements_sub(mat4.row(3), 4));
-    CHECK(row3[3] == Approx(mat4.row(3)[3]).epsilon(g_epsilon));
+    mat4::row3(mat4, r3);
+    CHECK_THAT(make_span(row3), make_elements_sub(mat4::row3(mat4), 4));
+    mat::row(mat4, 3, r3);
+    CHECK_THAT(make_span(row3), make_elements_sub(mat::row(mat4, 3), 4));
+    CHECK(row3[3] == Approx(mat::row(mat4, 3)[3]).epsilon(g_epsilon));
 #elif defined AS_ROW_MAJOR
     const real_t row0[] = {1.0f, 2.0f, 3.0f, 4.0f};
     const vec4_t c0 = vec4::from_arr(row0);
-    mat4.row0(c0);
-    CHECK_THAT(make_span(row0), make_elements_sub(mat4.row0(), 4));
-    mat4.row(0, c0);
-    CHECK(row0[0] == Approx(mat4.row(0)[0]).epsilon(g_epsilon));
+    mat4::row0(mat4, c0);
+    CHECK_THAT(make_span(row0), make_elements_sub(mat4::row0(mat4), 4));
+    mat::row(mat4, 0, c0);
+    CHECK(row0[0] == Approx(mat::row(mat4, 0)[0]).epsilon(g_epsilon));
 
     const real_t row1[] = {5.0f, 6.0f, 7.0f, 8.0f};
     const vec4_t c1 = vec4::from_arr(row1);
-    mat4.row1(c1);
-    CHECK_THAT(make_span(row1), make_elements_sub(mat4.row1(), 4));
-    mat4.row(1, c1);
-    CHECK_THAT(make_span(row1), make_elements_sub(mat4.row(1), 4));
-    CHECK(row1[1] == Approx(mat4.row(1)[1]).epsilon(g_epsilon));
+    mat4::row1(mat4, c1);
+    CHECK_THAT(make_span(row1), make_elements_sub(mat4::row1(mat4), 4));
+    mat::row(mat4, 1, c1);
+    CHECK_THAT(make_span(row1), make_elements_sub(mat::row(mat4, 1), 4));
+    CHECK(row1[1] == Approx(mat::row(mat4, 1)[1]).epsilon(g_epsilon));
 
     const real_t row2[] = {9.0f, 10.0f, 11.0f, 12.0f};
     const vec4_t c2 = vec4::from_arr(row2);
-    mat4.row2(c2);
-    CHECK_THAT(make_span(row2), make_elements_sub(mat4.row2(), 4));
-    mat4.row(2, c2);
-    CHECK_THAT(make_span(row2), make_elements_sub(mat4.row(2), 4));
-    CHECK(row2[2] == Approx(mat4.row(2)[2]).epsilon(g_epsilon));
+    mat4::row2(mat4, c2);
+    CHECK_THAT(make_span(row2), make_elements_sub(mat4::row2(mat4), 4));
+    mat::row(mat4, 2, c2);
+    CHECK_THAT(make_span(row2), make_elements_sub(mat::row(mat4, 2), 4));
+    CHECK(row2[2] == Approx(mat::row(mat4, 2)[2]).epsilon(g_epsilon));
 
     const real_t row3[] = {13.0f, 14.0f, 15.0f, 16.0f};
     const vec4_t c3 = vec4::from_arr(row3);
-    mat4.row3(c3);
-    CHECK_THAT(make_span(row3), make_elements_sub(mat4.row3(), 4));
-    mat4.row(3, c3);
-    CHECK_THAT(make_span(row3), make_elements_sub(mat4.row(3), 4));
-    CHECK(row3[3] == Approx(mat4.row(3)[3]).epsilon(g_epsilon));
+    mat4::row3(mat4, c3);
+    CHECK_THAT(make_span(row3), make_elements_sub(mat4::row3(mat4), 4));
+    mat::row(mat4, 3, c3);
+    CHECK_THAT(make_span(row3), make_elements_sub(mat::row(mat4, 3), 4));
+    CHECK(row3[3] == Approx(mat::row(mat4, 3)[3]).epsilon(g_epsilon));
 
     const real_t col0[] = {1.0f, 5.0f, 9.0f, 13.0f};
     const vec4_t r0 = vec4::from_arr(col0);
-    mat4.col0(r0);
-    CHECK_THAT(make_span(col0), make_elements_sub(mat4.col0(), 4));
-    mat4.col(0, r0);
-    CHECK_THAT(make_span(col0), make_elements_sub(mat4.col(0), 4));
-    CHECK(col0[0] == Approx(mat4.col(0)[0]).epsilon(g_epsilon));
+    mat4::col0(mat4, r0);
+    CHECK_THAT(make_span(col0), make_elements_sub(mat4::col0(mat4), 4));
+    mat::col(mat4, 0, r0);
+    CHECK_THAT(make_span(col0), make_elements_sub(mat::col(mat4, 0), 4));
+    CHECK(col0[0] == Approx(mat::col(mat4, 0)[0]).epsilon(g_epsilon));
 
     const real_t col1[] = {2.0f, 6.0f, 10.0f, 14.0f};
     const vec4_t r1 = vec4::from_arr(col1);
-    mat4.col1(r1);
-    CHECK_THAT(make_span(col1), make_elements_sub(mat4.col1(), 4));
-    mat4.col(1, r1);
-    CHECK_THAT(make_span(col1), make_elements_sub(mat4.col(1), 4));
-    CHECK(col1[1] == Approx(mat4.col(1)[1]).epsilon(g_epsilon));
+    mat4::col1(mat4, r1);
+    CHECK_THAT(make_span(col1), make_elements_sub(mat4::col1(mat4), 4));
+    mat::col(mat4, 1, r1);
+    CHECK_THAT(make_span(col1), make_elements_sub(mat::col(mat4, 1), 4));
+    CHECK(col1[1] == Approx(mat::col(mat4, 1)[1]).epsilon(g_epsilon));
 
     const real_t col2[] = {3.0f, 7.0f, 11.0f, 15.0f};
     const vec4_t r2 = vec4::from_arr(col2);
-    mat4.col2(r2);
-    CHECK_THAT(make_span(col2), make_elements_sub(mat4.col2(), 4));
-    mat4.col(2, r2);
-    CHECK_THAT(make_span(col2), make_elements_sub(mat4.col(2), 4));
-    CHECK(col2[2] == Approx(mat4.col(2)[2]).epsilon(g_epsilon));
+    mat4::col2(mat4, r2);
+    CHECK_THAT(make_span(col2), make_elements_sub(mat4::col2(mat4), 4));
+    mat::col(mat4, 2, r2);
+    CHECK_THAT(make_span(col2), make_elements_sub(mat::col(mat4, 2), 4));
+    CHECK(col2[2] == Approx(mat::col(mat4, 2)[2]).epsilon(g_epsilon));
 
     const real_t col3[] = {4.0f, 8.0f, 12.0f, 16.0f};
     const vec4_t r3 = vec4::from_arr(col3);
-    mat4.col3(r3);
-    CHECK_THAT(make_span(col3), make_elements_sub(mat4.col3(), 4));
-    mat4.col(3, r3);
-    CHECK_THAT(make_span(col3), make_elements_sub(mat4.col(3), 4));
-    CHECK(col3[3] == Approx(mat4.col(3)[3]).epsilon(g_epsilon));
+    mat4::col3(mat4, r3);
+    CHECK_THAT(make_span(col3), make_elements_sub(mat4::col3(mat4), 4));
+    mat::col(mat4, 3, r3);
+    CHECK_THAT(make_span(col3), make_elements_sub(mat::col(mat4, 3), 4));
+    CHECK(col3[3] == Approx(mat::col(mat4, 3)[3]).epsilon(g_epsilon));
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 

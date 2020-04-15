@@ -8,22 +8,13 @@ namespace unit_test
 {
 
 // types
-using as::index_t;
-using as::mat3_t;
 using as::mat4_t;
-using as::mat_t;
 using as::real_t;
-using as::vec3_t;
-using as::vec4_t;
-using as::vec_t;
 
 // functions
 using as::deg_to_rad;
 
 // namespaces
-namespace mat = as::mat;
-namespace mat3 = as::mat3;
-namespace mat4 = as::mat4;
 namespace view = as::view;
 
 static const float g_epsilon = 1e-6f;
