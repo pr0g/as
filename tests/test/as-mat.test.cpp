@@ -1267,6 +1267,27 @@ TEST_CASE("mat3_rotate_x_y_z_separate", "[as-mat]")
     }
 }
 
+TEST_CASE("row_col_access", "[as-mat]")
+{
+    {
+        index_t offset;
+        offset = mat::rc(0, 0, 2);
+        CHECK(offset == 0);
+    }
+
+    {
+        index_t offset;
+        offset = mat3::rc(1, 1);
+        CHECK(offset == 4);
+    }
+
+    {
+        index_t offset;
+        offset = mat4::rc(2, 2);
+        CHECK(offset == 10);
+    }
+}
+
 } // namespace unit_test
 
 // explicit instantiations (for coverage)
