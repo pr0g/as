@@ -1186,22 +1186,22 @@ TEST_CASE("axes_vec2", "[as_vec]")
     using gsl::make_span;
 
     constexpr real_t x_axis[] = {1.0f, 0.0f};
-    CHECK_THAT(make_span(x_axis), make_elements_sub(vec2::axis_x(), 2));
+    CHECK_THAT(make_span(x_axis), make_elements_sub(vec2_t::axis_x(), 2));
 
     constexpr real_t y_axis[] = {0.0f, 1.0f};
-    CHECK_THAT(make_span(y_axis), make_elements_sub(vec2::axis_y(), 2));
+    CHECK_THAT(make_span(y_axis), make_elements_sub(vec2_t::axis_y(), 2));
 
     constexpr real_t zero[] = {0.0f, 0.0f};
-    CHECK_THAT(make_span(zero), make_elements_sub(vec2::zero(), 2));
+    CHECK_THAT(make_span(zero), make_elements_sub(vec2_t::zero(), 2));
 
     constexpr real_t one[] = {1.0f, 1.0f};
-    CHECK_THAT(make_span(one), make_elements_sub(vec2::one(), 2));
+    CHECK_THAT(make_span(one), make_elements_sub(vec2_t::one(), 2));
 
     constexpr real_t max_val[] = {REAL_MAX, REAL_MAX};
-    CHECK_THAT(make_span(max_val), make_elements_sub(vec2::max(), 2));
+    CHECK_THAT(make_span(max_val), make_elements_sub(vec2_t::max(), 2));
 
-    constexpr real_t min_val[] = {REAL_MIN, REAL_MIN};
-    CHECK_THAT(make_span(min_val), make_elements_sub(vec2::min(), 2));
+    constexpr real_t min_val[] = {-REAL_MAX, -REAL_MAX};
+    CHECK_THAT(make_span(min_val), make_elements_sub(vec2_t::min(), 2));
 }
 
 TEST_CASE("axes_vec3", "[as_vec]")
@@ -1209,25 +1209,25 @@ TEST_CASE("axes_vec3", "[as_vec]")
     using gsl::make_span;
 
     constexpr real_t x_axis[] = {1.0f, 0.0f, 0.0f};
-    CHECK_THAT(make_span(x_axis), make_elements_sub(vec3::axis_x(), 3));
+    CHECK_THAT(make_span(x_axis), make_elements_sub(vec3_t::axis_x(), 3));
 
     constexpr real_t y_axis[] = {0.0f, 1.0f, 0.0f};
-    CHECK_THAT(make_span(y_axis), make_elements_sub(vec3::axis_y(), 3));
+    CHECK_THAT(make_span(y_axis), make_elements_sub(vec3_t::axis_y(), 3));
 
     constexpr real_t z_axis[] = {0.0f, 0.0f, 1.0f};
-    CHECK_THAT(make_span(z_axis), make_elements_sub(vec3::axis_z(), 3));
+    CHECK_THAT(make_span(z_axis), make_elements_sub(vec3_t::axis_z(), 3));
 
     constexpr real_t zero[] = {0.0f, 0.0f, 0.0f};
-    CHECK_THAT(make_span(zero), make_elements_sub(vec3::zero(), 3));
+    CHECK_THAT(make_span(zero), make_elements_sub(vec3_t::zero(), 3));
 
     constexpr real_t one[] = {1.0f, 1.0f, 1.0f};
-    CHECK_THAT(make_span(one), make_elements_sub(vec3::one(), 3));
+    CHECK_THAT(make_span(one), make_elements_sub(vec3_t::one(), 3));
 
     constexpr real_t max_val[] = {REAL_MAX, REAL_MAX, REAL_MAX};
-    CHECK_THAT(make_span(max_val), make_elements_sub(vec3::max(), 3));
+    CHECK_THAT(make_span(max_val), make_elements_sub(vec3_t::max(), 3));
 
-    constexpr real_t min_val[] = {REAL_MIN, REAL_MIN, REAL_MIN};
-    CHECK_THAT(make_span(min_val), make_elements_sub(vec3::min(), 3));
+    constexpr real_t min_val[] = {-REAL_MAX, -REAL_MAX, -REAL_MAX};
+    CHECK_THAT(make_span(min_val), make_elements_sub(vec3_t::min(), 3));
 }
 
 TEST_CASE("axes_vec4", "[as_vec]")
@@ -1235,28 +1235,28 @@ TEST_CASE("axes_vec4", "[as_vec]")
     using gsl::make_span;
 
     constexpr real_t x_axis[] = {1.0f, 0.0f, 0.0f, 0.0f};
-    CHECK_THAT(make_span(x_axis), make_elements_sub(vec4::axis_x(), 4));
+    CHECK_THAT(make_span(x_axis), make_elements_sub(vec4_t::axis_x(), 4));
 
     constexpr real_t y_axis[] = {0.0f, 1.0f, 0.0f, 0.0f};
-    CHECK_THAT(make_span(y_axis), make_elements_sub(vec4::axis_y(), 4));
+    CHECK_THAT(make_span(y_axis), make_elements_sub(vec4_t::axis_y(), 4));
 
     constexpr real_t z_axis[] = {0.0f, 0.0f, 1.0f, 0.0f};
-    CHECK_THAT(make_span(z_axis), make_elements_sub(vec4::axis_z(), 4));
+    CHECK_THAT(make_span(z_axis), make_elements_sub(vec4_t::axis_z(), 4));
 
     constexpr real_t w_axis[] = {0.0f, 0.0f, 0.0f, 1.0f};
-    CHECK_THAT(make_span(w_axis), make_elements_sub(vec4::axis_w(), 4));
+    CHECK_THAT(make_span(w_axis), make_elements_sub(vec4_t::axis_w(), 4));
 
     constexpr real_t zero[] = {0.0f, 0.0f, 0.0f, 0.0f};
-    CHECK_THAT(make_span(zero), make_elements_sub(vec4::zero(), 4));
+    CHECK_THAT(make_span(zero), make_elements_sub(vec4_t::zero(), 4));
 
     constexpr real_t one[] = {1.0f, 1.0f, 1.0f, 1.0f};
-    CHECK_THAT(make_span(one), make_elements_sub(vec4::one(), 4));
+    CHECK_THAT(make_span(one), make_elements_sub(vec4_t::one(), 4));
 
     constexpr real_t max_val[] = {REAL_MAX, REAL_MAX, REAL_MAX, REAL_MAX};
-    CHECK_THAT(make_span(max_val), make_elements_sub(vec4::max(), 4));
+    CHECK_THAT(make_span(max_val), make_elements_sub(vec4_t::max(), 4));
 
-    constexpr real_t min_val[] = {REAL_MIN, REAL_MIN, REAL_MIN, REAL_MIN};
-    CHECK_THAT(make_span(min_val), make_elements_sub(vec4::min(), 4));
+    constexpr real_t min_val[] = {-REAL_MAX, -REAL_MAX, -REAL_MAX, -REAL_MAX};
+    CHECK_THAT(make_span(min_val), make_elements_sub(vec4_t::min(), 4));
 }
 
 TEST_CASE("cross", "[as_vec]")

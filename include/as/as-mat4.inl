@@ -13,6 +13,32 @@ AS_API constexpr index_t mat_t<T, 4>::size()
     return 16;
 }
 
+template<typename T>
+AS_API constexpr index_t mat_t<T, 4>::rows()
+{
+    return mat_t<T, 4>::dim();
+}
+
+template<typename T>
+AS_API constexpr index_t mat_t<T, 4>::cols()
+{
+    return mat_t<T, 4>::dim();
+}
+
+namespace mat
+{
+
+template<typename T, index_t d>
+constexpr mat_t<T, d> identity();
+
+}
+
+template<typename T>
+AS_API constexpr mat_t<T, 4> mat_t<T, 4>::identity()
+{
+    return mat::identity<T, 4>();
+}
+
 // clang-format off
 template<typename T>
 AS_API constexpr mat_t<T, 4>::mat_t(

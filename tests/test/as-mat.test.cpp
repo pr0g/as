@@ -647,10 +647,10 @@ TEST_CASE("rvalue_elem_access_mat2_3_4", "[as_mat]")
 
 TEST_CASE("mat_dimensions_are_valid", "[as_mat]")
 {
-    CHECK(mat3::rows() == 3);
-    CHECK(mat3::cols() == 3);
-    CHECK(mat4::rows() == 4);
-    CHECK(mat4::cols() == 4);
+    CHECK(mat3_t::rows() == 3);
+    CHECK(mat3_t::cols() == 3);
+    CHECK(mat4_t::rows() == 4);
+    CHECK(mat4_t::cols() == 4);
 
     CHECK(mat3_t::dim() == 3);
     CHECK(mat4_t::dim() == 4);
@@ -918,7 +918,7 @@ TEST_CASE("mat_identity", "[as_mat]")
 
     {
         mat3_t mat3_identity;
-        mat3_identity = mat3::identity();
+        mat3_identity = mat3_t::identity();
 
         // clang-format off
         const real_t mat3_identity_ref[] {
@@ -934,7 +934,7 @@ TEST_CASE("mat_identity", "[as_mat]")
 
     {
         mat4_t mat4_identity;
-        mat4_identity = mat4::identity();
+        mat4_identity = mat4_t::identity();
 
         // clang-format off
         const real_t mat4_identity_ref[] {
@@ -1059,7 +1059,7 @@ TEST_CASE("mat3_from_mat4", "[as_mat]")
     using gsl::make_span;
 
     mat4_t mat4;
-    mat4 = mat4::identity();
+    mat4 = mat4_t::identity();
 
     mat3_t mat3;
     mat3 = mat3::from_mat4(mat4);
@@ -1080,14 +1080,15 @@ TEST_CASE("mat3_axis_angle", "[as-mat]")
     using gsl::make_span;
 
     {
-        mat3_t axis_angle = mat3::axis_angle(vec3::axis_x(), deg_to_rad(90.0f));
+        mat3_t axis_angle =
+            mat3::axis_angle(vec3_t::axis_x(), deg_to_rad(90.0f));
         real_t result_reference[] = {0.0f, -1.0f, 0.0f};
 
         vec3_t result;
 #ifdef AS_ROW_MAJOR
-        result = vec3::axis_z() * axis_angle;
+        result = vec3_t::axis_z() * axis_angle;
 #elif defined AS_COL_MAJOR
-        result = axis_angle * vec3::axis_z();
+        result = axis_angle * vec3_t::axis_z();
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
         // note - checking against 0.0f requires margin
@@ -1098,14 +1099,15 @@ TEST_CASE("mat3_axis_angle", "[as-mat]")
     }
 
     {
-        mat3_t axis_angle = mat3::axis_angle(vec3::axis_y(), deg_to_rad(90.0f));
+        mat3_t axis_angle =
+            mat3::axis_angle(vec3_t::axis_y(), deg_to_rad(90.0f));
         real_t result_reference[] = {0.0f, 0.0f, -1.0f};
 
         vec3_t result;
 #ifdef AS_ROW_MAJOR
-        result = vec3::axis_x() * axis_angle;
+        result = vec3_t::axis_x() * axis_angle;
 #elif defined AS_COL_MAJOR
-        result = axis_angle * vec3::axis_x();
+        result = axis_angle * vec3_t::axis_x();
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
         // note - checking against 0.0f requires margin
@@ -1127,9 +1129,9 @@ TEST_CASE("mat3_rotate_xyz", "[as-mat]")
 
         vec3_t result;
 #ifdef AS_ROW_MAJOR
-        result = vec3::axis_y() * axis_angle;
+        result = vec3_t::axis_y() * axis_angle;
 #elif defined AS_COL_MAJOR
-        result = axis_angle * vec3::axis_y();
+        result = axis_angle * vec3_t::axis_y();
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
         // note - checking against 0.0f requires margin
@@ -1146,9 +1148,9 @@ TEST_CASE("mat3_rotate_xyz", "[as-mat]")
 
         vec3_t result;
 #ifdef AS_ROW_MAJOR
-        result = vec3::axis_z() * axis_angle;
+        result = vec3_t::axis_z() * axis_angle;
 #elif defined AS_COL_MAJOR
-        result = axis_angle * vec3::axis_z();
+        result = axis_angle * vec3_t::axis_z();
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
         // note - checking against 0.0f requires margin
@@ -1172,11 +1174,11 @@ TEST_CASE("mat3_rotate_zxy", "[as-mat]")
         vec3_t result_y;
         vec3_t result_z;
 #ifdef AS_ROW_MAJOR
-        result_y = vec3::axis_y() * axis_angle;
-        result_z = vec3::axis_z() * axis_angle;
+        result_y = vec3_t::axis_y() * axis_angle;
+        result_z = vec3_t::axis_z() * axis_angle;
 #elif defined AS_COL_MAJOR
-        result_y = axis_angle * vec3::axis_y();
-        result_z = axis_angle * vec3::axis_z();
+        result_y = axis_angle * vec3_t::axis_y();
+        result_z = axis_angle * vec3_t::axis_z();
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
         // note - checking against 0.0f requires margin
@@ -1200,11 +1202,11 @@ TEST_CASE("mat3_rotate_zxy", "[as-mat]")
         vec3_t result_x;
         vec3_t result_y;
 #ifdef AS_ROW_MAJOR
-        result_x = vec3::axis_x() * axis_angle;
-        result_y = vec3::axis_y() * axis_angle;
+        result_x = vec3_t::axis_x() * axis_angle;
+        result_y = vec3_t::axis_y() * axis_angle;
 #elif defined AS_COL_MAJOR
-        result_x = axis_angle * vec3::axis_x();
-        result_y = axis_angle * vec3::axis_y();
+        result_x = axis_angle * vec3_t::axis_x();
+        result_y = axis_angle * vec3_t::axis_y();
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
         // note - checking against 0.0f requires margin
@@ -1233,9 +1235,9 @@ TEST_CASE("mat3_rotate_x_y_z_separate", "[as-mat]")
 
         vec3_t result;
 #ifdef AS_ROW_MAJOR
-        result = vec3::axis_y() * axis_x * axis_y * axis_z;
+        result = vec3_t::axis_y() * axis_x * axis_y * axis_z;
 #elif defined AS_COL_MAJOR
-        result = axis_z * axis_y * axis_x * vec3::axis_y();
+        result = axis_z * axis_y * axis_x * vec3_t::axis_y();
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
         // note - checking against 0.0f requires margin
@@ -1254,9 +1256,9 @@ TEST_CASE("mat3_rotate_x_y_z_separate", "[as-mat]")
 
         vec3_t result;
 #ifdef AS_ROW_MAJOR
-        result = vec3::axis_z() * axis_x * axis_y * axis_z;
+        result = vec3_t::axis_z() * axis_x * axis_y * axis_z;
 #elif defined AS_COL_MAJOR
-        result = axis_z * axis_y * axis_x * vec3::axis_z();
+        result = axis_z * axis_y * axis_x * vec3_t::axis_z();
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
         // note - checking against 0.0f requires margin

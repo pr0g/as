@@ -93,6 +93,13 @@ struct vec_t<T, 2> : internal::vec2_base_t<T>
 
     constexpr explicit vec_t(T xy_);
     constexpr vec_t(T x_, T y_);
+
+    constexpr static vec_t<T, 2> axis_x();
+    constexpr static vec_t<T, 2> axis_y();
+    constexpr static vec_t<T, 2> zero();
+    constexpr static vec_t<T, 2> one();
+    constexpr static vec_t<T, 2> max();
+    constexpr static vec_t<T, 2> min();
 };
 
 using vec2_t = vec_t<real_t, 2>;
@@ -151,6 +158,14 @@ struct vec_t<T, 3> : internal::vec3_base_t<T>
     constexpr explicit vec_t(T xyz_);
     constexpr vec_t(const vec_t<T, 2>& xy_, T z_);
     constexpr vec_t(T x_, T y_, T z_);
+
+    constexpr static vec_t<T, 3> axis_x();
+    constexpr static vec_t<T, 3> axis_y();
+    constexpr static vec_t<T, 3> axis_z();
+    constexpr static vec_t<T, 3> zero();
+    constexpr static vec_t<T, 3> one();
+    constexpr static vec_t<T, 3> max();
+    constexpr static vec_t<T, 3> min();
 };
 
 using vec3_t = vec_t<real_t, 3>;
@@ -214,6 +229,15 @@ struct vec_t<T, 4> : internal::vec4_base_t<T>
     constexpr vec_t(const vec_t<T, 2>& xy_, T z_, T w_);
     constexpr vec_t(const vec_t<T, 2>& xy_, const vec_t<T, 2>& zw);
     constexpr vec_t(T x_, T y_, T z_, T w_);
+
+    constexpr static vec_t<T, 4> axis_x();
+    constexpr static vec_t<T, 4> axis_y();
+    constexpr static vec_t<T, 4> axis_z();
+    constexpr static vec_t<T, 4> axis_w();
+    constexpr static vec_t<T, 4> zero();
+    constexpr static vec_t<T, 4> one();
+    constexpr static vec_t<T, 4> max();
+    constexpr static vec_t<T, 4> min();
 };
 
 using vec4_t = vec_t<real_t, 4>;

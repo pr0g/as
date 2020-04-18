@@ -43,7 +43,10 @@ struct mat_t<T, 4>
     constexpr const T operator[](index_t i) &&;
 
     constexpr static index_t dim();
+    constexpr static index_t cols();
+    constexpr static index_t rows();
     constexpr static index_t size();
+    constexpr static mat_t<T, 4> identity();
 
 private:
     T elem_rc[size()];

@@ -52,7 +52,7 @@ TEST_CASE("affine_inv_transform_pos", "[as_affine]")
 {
     {
         const affine_t affine =
-            affine_t(mat3::identity(), point3_t{5.0f, 0.0f, 0.0f});
+            affine_t(mat3_t::identity(), point3_t{5.0f, 0.0f, 0.0f});
 
         const point3_t result =
             affine::inv_transform_pos(affine, point3_t{6.0f, 0.0f, 0.0f});
@@ -92,7 +92,7 @@ TEST_CASE("affine_inv_transform_dir", "[as_affine]")
 {
     {
         const affine_t affine =
-            affine_t(mat3::identity(), point3_t{5.0f, 0.0f, 0.0f});
+            affine_t(mat3_t::identity(), point3_t{5.0f, 0.0f, 0.0f});
 
         const vec3_t result =
             affine::inv_transform_dir(affine, vec3_t{6.0f, 0.0f, 0.0f});

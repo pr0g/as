@@ -14,6 +14,32 @@ AS_API constexpr index_t mat_t<T, d>::size()
 }
 
 template<typename T, index_t d>
+AS_API constexpr index_t mat_t<T, d>::rows()
+{
+    return mat_t<T, d>::dim();
+}
+
+template<typename T, index_t d>
+AS_API constexpr index_t mat_t<T, d>::cols()
+{
+    return mat_t<T, d>::dim();
+}
+
+namespace mat
+{
+
+template<typename T, index_t d>
+constexpr mat_t<T, d> identity();
+
+}
+
+template<typename T, index_t d>
+constexpr static mat_t<T, d> identity()
+{
+    return mat::identity<T, d>();
+}
+
+template<typename T, index_t d>
 AS_API constexpr T& mat_t<T, d>::operator[](const index_t i) &
 {
     return elem_rc[i];
