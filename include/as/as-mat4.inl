@@ -25,14 +25,6 @@ AS_API constexpr index_t mat_t<T, 4>::cols()
     return mat_t<T, 4>::dim();
 }
 
-namespace mat
-{
-
-template<typename T, index_t d>
-constexpr mat_t<T, d> identity();
-
-}
-
 template<typename T>
 AS_API constexpr mat_t<T, 4> mat_t<T, 4>::identity()
 {
