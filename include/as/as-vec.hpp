@@ -72,11 +72,11 @@ struct vec2_base_t
     T x, y;
 
 private:
-    static T vec2_base_t::*elem[2];
+    static T vec2_base_t::*elem[size()];
 };
 
 template<typename T>
-T vec2_base_t<T>::*vec2_base_t<T>::elem[2] = {
+T vec2_base_t<T>::*vec2_base_t<T>::elem[vec2_base_t::size()] = {
     &vec2_base_t<T>::x, &vec2_base_t<T>::y};
 
 } // namespace internal
@@ -129,11 +129,11 @@ struct vec3_base_t
     T x, y, z;
 
 private:
-    static T vec3_base_t::*elem[3];
+    static T vec3_base_t::*elem[size()];
 };
 
 template<typename T>
-T vec3_base_t<T>::*vec3_base_t<T>::elem[3] = {
+T vec3_base_t<T>::*vec3_base_t<T>::elem[vec3_base_t::size()] = {
     &vec3_base_t<T>::x, &vec3_base_t<T>::y, &vec3_base_t<T>::z};
 
 } // namespace internal
@@ -189,11 +189,11 @@ struct vec4_base_t
     T x, y, z, w;
 
 private:
-    static T vec4_base_t::*elem[4];
+    static T vec4_base_t::*elem[size()];
 };
 
 template<typename T>
-T vec4_base_t<T>::*vec4_base_t<T>::elem[4] = {
+T vec4_base_t<T>::*vec4_base_t<T>::elem[vec4_base_t::size()] = {
     &vec4_base_t<T>::x, &vec4_base_t<T>::y, &vec4_base_t<T>::z,
     &vec4_base_t<T>::w};
 
