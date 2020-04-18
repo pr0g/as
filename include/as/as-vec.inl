@@ -102,7 +102,7 @@ AS_API constexpr vec_t<T, 2> vec_t<T, 2>::one()
 template<typename T>
 AS_API constexpr vec_t<T, 2> vec_t<T, 2>::max()
 {
-    return {std::numeric_limits<T>::max(), std::numeric_limits<T>::max()};
+    return vec_t<T, 2>{std::numeric_limits<T>::max()};
 }
 
 template<typename T>
@@ -207,9 +207,7 @@ AS_API constexpr vec_t<T, 3> vec_t<T, 3>::one()
 template<typename T>
 AS_API constexpr vec_t<T, 3> vec_t<T, 3>::max()
 {
-    return {
-        std::numeric_limits<T>::max(), std::numeric_limits<T>::max(),
-        std::numeric_limits<T>::max()};
+    return vec_t<T, 3>{std::numeric_limits<T>::max()};
 }
 
 template<typename T>
@@ -347,9 +345,7 @@ AS_API constexpr vec_t<T, 4> vec_t<T, 4>::one()
 template<typename T>
 AS_API constexpr vec_t<T, 4> vec_t<T, 4>::max()
 {
-    return {
-        std::numeric_limits<T>::max(), std::numeric_limits<T>::max(),
-        std::numeric_limits<T>::max(), std::numeric_limits<T>::max()};
+    return vec_t<T, 4>{std::numeric_limits<T>::max()};
 }
 
 template<typename T>

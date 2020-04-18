@@ -647,20 +647,55 @@ TEST_CASE("rvalue_elem_access_mat2_3_4", "[as_mat]")
 
 TEST_CASE("mat_dimensions_are_valid", "[as_mat]")
 {
-    CHECK(mat3_t::rows() == 3);
-    CHECK(mat3_t::cols() == 3);
-    CHECK(mat4_t::rows() == 4);
-    CHECK(mat4_t::cols() == 4);
+    index_t mat3_rows;
+    mat3_rows = mat3_t::rows();
+    CHECK(mat3_rows == 3);
 
-    CHECK(mat3_t::dim() == 3);
-    CHECK(mat4_t::dim() == 4);
-    CHECK(mat3_t::size() == 9);
-    CHECK(mat4_t::size() == 16);
+    index_t mat3_cols;
+    mat3_cols = mat3_t::cols();
+    CHECK(mat3_cols == 3);
 
-    mat_t<real_t, 5> mat5;
-    CHECK(mat5.dim() == 5);
-    CHECK(mat_t<real_t, 5>::dim() == index_t(5));
-    CHECK(mat5.size() == 25);
+    index_t mat3_dim;
+    mat3_dim = mat3_t::dim();
+    CHECK(mat3_dim == 3);
+
+    index_t mat3_size;
+    mat3_size = mat3_t::size();
+    CHECK(mat3_size == 9);
+
+    index_t mat4_rows;
+    mat4_rows = mat4_t::rows();
+    CHECK(mat4_rows == 4);
+
+    index_t mat4_cols;
+    mat4_cols = mat4_t::cols();
+    CHECK(mat4_cols == 4);
+
+    index_t mat4_dim;
+    mat4_dim = mat4_t::dim();
+    CHECK(mat4_dim == 4);
+
+    index_t mat4_size;
+    mat4_size = mat4_t::size();
+    CHECK(mat4_size == 16);
+
+    using mat5_t = mat_t<real_t, 5>;
+
+    index_t mat5_rows;
+    mat5_rows = mat5_t::rows();
+    CHECK(mat5_rows == 5);
+
+    index_t mat5_cols;
+    mat5_cols = mat5_t::cols();
+    CHECK(mat5_cols == 5);
+
+    index_t mat5_dim;
+    mat5_dim = mat5_t::dim();
+    CHECK(mat5_dim == 5);
+
+    index_t mat5_size;
+    mat5_size = mat5_t::size();
+    CHECK(mat5_size == 25);
 }
 
 TEST_CASE("multiply_same_size", "[as_mat]")
@@ -947,6 +982,26 @@ TEST_CASE("mat_identity", "[as_mat]")
 
         CHECK_THAT(
             make_span(mat4_identity_ref), make_elements_sub(mat4_identity, 16));
+    }
+
+    {
+        using mat5_t = mat_t<real_t, 5>;
+
+        mat5_t mat5_identity;
+        mat5_identity = mat5_t::identity();
+
+        // clang-format off
+        const real_t mat5_identity_ref[] {
+            1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+            0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+            0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+            0.0f, 0.0f, 0.0f, 0.0f, 1.0f
+        };
+        // clang-format on
+
+        CHECK_THAT(
+            make_span(mat5_identity_ref), make_elements_sub(mat5_identity, 25));
     }
 }
 
