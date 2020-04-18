@@ -76,7 +76,7 @@ private:
 };
 
 template<typename T>
-T vec2_base_t<T>::*vec2_base_t<T>::elem[vec2_base_t::size()] = {
+T vec2_base_t<T>::*vec2_base_t<T>::elem[size()] = {
     &vec2_base_t<T>::x, &vec2_base_t<T>::y};
 
 } // namespace internal
@@ -140,7 +140,7 @@ private:
 };
 
 template<typename T>
-T vec3_base_t<T>::*vec3_base_t<T>::elem[vec3_base_t::size()] = {
+T vec3_base_t<T>::*vec3_base_t<T>::elem[size()] = {
     &vec3_base_t<T>::x, &vec3_base_t<T>::y, &vec3_base_t<T>::z};
 
 } // namespace internal
@@ -208,7 +208,7 @@ private:
 };
 
 template<typename T>
-T vec4_base_t<T>::*vec4_base_t<T>::elem[vec4_base_t::size()] = {
+T vec4_base_t<T>::*vec4_base_t<T>::elem[size()] = {
     &vec4_base_t<T>::x, &vec4_base_t<T>::y, &vec4_base_t<T>::z,
     &vec4_base_t<T>::w};
 
