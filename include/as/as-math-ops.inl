@@ -401,7 +401,7 @@ AS_API vec_t<T, d> row(const mat_t<T, d>& mat, index_t r)
 {
     vec_t<T, d> vec;
     for (index_t c = 0; c < d; ++c) {
-        vec[c] = mat.elem_rc[mat::rc(r, c, d)];
+        vec[c] = mat[mat::rc(r, c, d)];
     }
 
     return vec;
@@ -412,7 +412,7 @@ AS_API vec_t<T, d> col(const mat_t<T, d>& mat, index_t c)
 {
     vec_t<T, d> vec;
     for (index_t r = 0; r < d; ++r) {
-        vec[r] = mat.elem_rc[mat::rc(r, c, d)];
+        vec[r] = mat[mat::rc(r, c, d)];
     }
 
     return vec;
@@ -422,7 +422,7 @@ template<typename T, index_t d>
 AS_API void row(mat_t<T, d>& mat, index_t r, const vec_t<T, d>& row)
 {
     for (index_t c = 0; c < d; ++c) {
-        mat.elem_rc[mat::rc(r, c, d)] = row[c];
+        mat[mat::rc(r, c, d)] = row[c];
     }
 }
 
@@ -430,7 +430,7 @@ template<typename T, index_t d>
 AS_API void col(mat_t<T, d>& mat, index_t c, const vec_t<T, d>& col)
 {
     for (index_t r = 0; r < d; ++r) {
-        mat.elem_rc[mat::rc(r, c, d)] = col[r];
+        mat[mat::rc(r, c, d)] = col[r];
     }
 }
 

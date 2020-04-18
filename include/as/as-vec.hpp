@@ -41,6 +41,7 @@ struct vec_t
 
     constexpr static index_t size();
 
+private:
     T elem[size()];
 };
 

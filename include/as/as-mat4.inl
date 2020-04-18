@@ -48,15 +48,17 @@ AS_API constexpr mat_t<T, 4>::mat_t(
 }
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
+// clang-format off
 template<typename T>
 AS_API constexpr mat_t<T, 4>::mat_t(
     const mat_t<T, 3>& mat_, const vec_t<T, 3>& pos_)
-    : elem_rc{mat_.elem_rc[0], mat_.elem_rc[1], mat_.elem_rc[2], 0.0f,
-              mat_.elem_rc[3], mat_.elem_rc[4], mat_.elem_rc[5], 0.0f,
-              mat_.elem_rc[6], mat_.elem_rc[7], mat_.elem_rc[8], 0.0f,
-              pos_.x,          pos_.y,          pos_.z,          1.0f}
+    : elem_rc{mat_[0], mat_[1], mat_[2], 0.0f,
+    	      mat_[3], mat_[4], mat_[5], 0.0f,
+              mat_[6], mat_[7], mat_[8], 0.0f,
+	          pos_.x,  pos_.y,  pos_.z,  1.0f}
 {
 }
+// clang-format on
 
 template<typename T>
 AS_API constexpr T& mat_t<T, 4>::operator[](index_t i) &

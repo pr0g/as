@@ -49,6 +49,7 @@ struct mat_t
     constexpr static index_t dim();
     constexpr static index_t size();
 
+private:
     T elem_rc[size()];
 };
 
