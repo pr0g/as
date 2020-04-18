@@ -119,12 +119,6 @@ AS_API constexpr vec3_base_t<T>::vec3_base_t(T x_, T y_, T z_)
 {
 }
 
-template<typename T>
-AS_API constexpr vec_t<T, 2> vec3_base_t<T>::xy() const
-{
-    return {x, y};
-}
-
 } // namespace internal
 
 template<typename T>
@@ -200,24 +194,6 @@ template<typename T>
 AS_API constexpr vec4_base_t<T>::vec4_base_t(T x_, T y_, T z_, T w_)
     : x(x_), y(y_), z(z_), w(w_)
 {
-}
-
-template<typename T>
-AS_API constexpr vec_t<T, 2> vec4_base_t<T>::xy() const
-{
-    return {x, y};
-}
-
-template<typename T>
-AS_API constexpr vec_t<T, 2> vec4_base_t<T>::zw() const
-{
-    return {z, w};
-}
-
-template<typename T>
-AS_API constexpr vec_t<T, 3> vec4_base_t<T>::xyz() const
-{
-    return {x, y, z};
 }
 
 } // namespace internal

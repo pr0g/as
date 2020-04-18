@@ -507,10 +507,10 @@ TEST_CASE("vec3_accessors", "[as_vec]")
     // member and subscript operator - explicit construction
     {
         vec3_t vec3(1.0f, 2.0f, 3.0f);
-        CHECK(vec3.xy()[0] == Approx(vec3.x).epsilon(g_epsilon));
-        CHECK(vec3.xy()[1] == Approx(vec3.y).epsilon(g_epsilon));
-        CHECK(vec3.xy().x == Approx(vec3.x).epsilon(g_epsilon));
-        CHECK(vec3.xy().y == Approx(vec3.y).epsilon(g_epsilon));
+        CHECK(vec3::xy(vec3)[0] == Approx(vec3.x).epsilon(g_epsilon));
+        CHECK(vec3::xy(vec3)[1] == Approx(vec3.y).epsilon(g_epsilon));
+        CHECK(vec3::xy(vec3).x == Approx(vec3.x).epsilon(g_epsilon));
+        CHECK(vec3::xy(vec3).y == Approx(vec3.y).epsilon(g_epsilon));
         CHECK(vec3.z == Approx(vec3[2]).epsilon(g_epsilon));
     }
 
@@ -550,13 +550,13 @@ TEST_CASE("vec4_accessors", "[as_vec]")
     // member and subscript operator - explicit construction
     {
         vec4_t vec4(1.0f, 2.0f, 3.0f, 4.0f);
-        CHECK(vec4.xy()[0] == Approx(vec4[0]).epsilon(g_epsilon));
-        CHECK(vec4.xy()[1] == Approx(vec4[1]).epsilon(g_epsilon));
-        CHECK(vec4.zw()[0] == Approx(vec4[2]).epsilon(g_epsilon));
-        CHECK(vec4.zw()[1] == Approx(vec4[3]).epsilon(g_epsilon));
-        CHECK(vec4.xyz()[0] == Approx(vec4[0]).epsilon(g_epsilon));
-        CHECK(vec4.xyz()[1] == Approx(vec4[1]).epsilon(g_epsilon));
-        CHECK(vec4.xyz()[2] == Approx(vec4[2]).epsilon(g_epsilon));
+        CHECK(vec4::xy(vec4)[0] == Approx(vec4[0]).epsilon(g_epsilon));
+        CHECK(vec4::xy(vec4)[1] == Approx(vec4[1]).epsilon(g_epsilon));
+        CHECK(vec4::zw(vec4)[0] == Approx(vec4[2]).epsilon(g_epsilon));
+        CHECK(vec4::zw(vec4)[1] == Approx(vec4[3]).epsilon(g_epsilon));
+        CHECK(vec4::xyz(vec4)[0] == Approx(vec4[0]).epsilon(g_epsilon));
+        CHECK(vec4::xyz(vec4)[1] == Approx(vec4[1]).epsilon(g_epsilon));
+        CHECK(vec4::xyz(vec4)[2] == Approx(vec4[2]).epsilon(g_epsilon));
         CHECK(vec4.w == Approx(vec4[3]).epsilon(g_epsilon));
     }
 }

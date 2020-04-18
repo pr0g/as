@@ -108,6 +108,9 @@ constexpr vec3_t one();
 constexpr vec3_t max();
 constexpr vec3_t min();
 
+template<typename T>
+constexpr vec_t<T, 2> xy(const vec_t<T, 3>& vec);
+
 vec3_t from_ptr(const real_t* data);
 vec3_t from_arr(const real_t (&data)[3]);
 
@@ -136,6 +139,15 @@ constexpr vec4_t zero();
 constexpr vec4_t one();
 constexpr vec4_t max();
 constexpr vec4_t min();
+
+template<typename T>
+constexpr vec_t<T, 2> xy(const vec_t<T, 4>& vec);
+
+template<typename T>
+constexpr vec_t<T, 2> zw(const vec_t<T, 4>& vec);
+
+template<typename T>
+constexpr vec_t<T, 3> xyz(const vec_t<T, 4>& vec);
 
 vec4_t from_ptr(const real_t* data);
 vec4_t from_arr(const real_t (&data)[4]);

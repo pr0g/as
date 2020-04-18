@@ -20,7 +20,6 @@ template<typename T, index_t n>
 AS_API vec_t<T, n> from_ptr(const T* data)
 {
     vec_t<T, n> result;
-
     for (index_t i = 0; i < n; ++i) {
         result[i] = data[i];
     }
@@ -40,7 +39,6 @@ template<typename T, index_t n>
 AS_API T dot(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 {
     T result{0};
-
     for (index_t i = 0; i < n; ++i) {
         result += lhs[i] * rhs[i];
     }
@@ -98,7 +96,6 @@ template<typename T, index_t n>
 AS_API vec_t<T, n> min(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 {
     vec_t<T, n> result;
-
     for (index_t i = 0; i < n; ++i) {
         result[i] = as::min(lhs[i], rhs[i]);
     }
@@ -110,7 +107,6 @@ template<typename T, index_t n>
 AS_API T min_elem(const vec_t<T, n>& vec)
 {
     T val = vec[0];
-
     for (index_t i = 1; i < n; ++i) {
         val = as::min(val, vec[i]);
     }
@@ -122,7 +118,6 @@ template<typename T, index_t n>
 AS_API vec_t<T, n> max(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
 {
     vec_t<T, n> result;
-
     for (index_t i = 0; i < n; ++i) {
         result[i] = as::max(lhs[i], rhs[i]);
     }
@@ -134,7 +129,6 @@ template<typename T, index_t n>
 AS_API T max_elem(const vec_t<T, n>& vec)
 {
     T val = vec[0];
-
     for (index_t i = 1; i < n; ++i) {
         val = as::max(val, vec[i]);
     }
@@ -146,7 +140,6 @@ template<typename T, index_t n>
 AS_API vec_t<T, n> abs(const vec_t<T, n>& vec)
 {
     vec_t<T, n> result;
-
     for (index_t i = 0; i < n; ++i) {
         result[i] = fabsr(vec[i]);
     }
@@ -159,7 +152,6 @@ AS_API vec_t<T, n> clamp(
     const vec_t<T, n>& vec, const vec_t<T, n>& min, const vec_t<T, n>& max)
 {
     vec_t<T, n> result;
-
     for (index_t i = 0; i < n; ++i) {
         result[i] = as::clamp(vec[i], min[i], max[i]);
     }
@@ -171,7 +163,6 @@ template<typename T, index_t n>
 AS_API vec_t<T, n> saturate(const vec_t<T, n>& vec)
 {
     vec_t<T, n> result;
-
     for (index_t i = 0; i < n; ++i) {
         result[i] = as::clamp(vec[i], real_t(0.0), real_t(1.0));
     }
@@ -183,7 +174,6 @@ template<typename T, index_t n>
 AS_API vec_t<T, n> lerp(T t, const vec_t<T, n>& v0, const vec_t<T, n>& v1)
 {
     vec_t<T, n> result;
-
     for (index_t i = 0; i < n; ++i) {
         result[i] = as::lerp(t, v0[i], v1[i]);
     }
@@ -288,6 +278,12 @@ AS_API constexpr vec3_t min()
     return {REAL_MIN, REAL_MIN, REAL_MIN};
 }
 
+template<typename T>
+AS_API constexpr vec_t<T, 2> xy(const vec_t<T, 3>& vec)
+{
+    return {vec[0], vec[1]};
+}
+
 AS_API inline vec3_t from_ptr(const real_t* data)
 {
     return vec::from_ptr<real_t, 3>(data);
@@ -372,6 +368,24 @@ AS_API constexpr vec4_t min()
     return {REAL_MIN, REAL_MIN, REAL_MIN, REAL_MIN};
 }
 
+template<typename T>
+AS_API constexpr vec_t<T, 2> xy(const vec_t<T, 4>& vec)
+{
+    return {vec[0], vec[1]};
+}
+
+template<typename T>
+AS_API constexpr vec_t<T, 2> zw(const vec_t<T, 4>& vec)
+{
+    return {vec[2], vec[3]};
+}
+
+template<typename T>
+AS_API constexpr vec_t<T, 3> xyz(const vec_t<T, 4>& vec)
+{
+    return {vec[0], vec[1], vec[2]};
+}
+
 AS_API inline vec4_t from_ptr(const real_t* data)
 {
     return vec::from_ptr<real_t, 4>(data);
@@ -444,7 +458,6 @@ template<typename T, index_t d>
 AS_API mat_t<T, d> from_ptr(const T* data)
 {
     mat_t<T, d> result;
-
     for (index_t i = 0; i < d * d; ++i) {
         result[i] = data[i];
     }
@@ -464,7 +477,6 @@ template<typename T, index_t d>
 AS_API mat_t<T, d> transpose(const mat_t<T, d>& mat)
 {
     mat_t<T, d> result;
-
     for (index_t rowIndex = 0; rowIndex < d; ++rowIndex) {
         for (index_t colIndex = 0; colIndex < d; ++colIndex) {
             result[colIndex * d + rowIndex] = mat[rowIndex * d + colIndex];
@@ -478,7 +490,6 @@ template<typename T, index_t d>
 AS_API constexpr mat_t<T, d> identity()
 {
     mat_t<T, d> identity{};
-
     for (index_t i = 0; i < mat_t<T, d>::size(); i += d + 1) {
         identity[i] = 1.0f;
     }
@@ -500,8 +511,8 @@ AS_API mat_t<T, d - 1> sub_matrix(
     const mat_t<T, d>& mat, const index_t col, const index_t row)
 {
     mat_t<T, d - 1> result = identity<T, d - 1>();
-    index_t i = 0;
 
+    index_t i = 0;
     for (index_t r = 0; r < d; ++r) {
         for (index_t c = 0; c < d; ++c) {
             if (r == row || c == col) {
@@ -607,7 +618,6 @@ AS_API mat_t<T, d> gj_inverse(const mat_t<T, d>& mat)
     mat_t<T, d> result = identity<T, d>();
 
     index_t currentLine = 0;
-
     for (index_t i = 0; i < d; ++i) {
         T diagonal = curr_mat[(d * i) + i];
         T diagonal_recip = T{1} / diagonal;

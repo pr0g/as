@@ -126,8 +126,6 @@ struct vec3_base_t
 
     constexpr static index_t size();
 
-    constexpr vec_t<T, 2> xy() const;
-
     T x, y, z;
 
 private:
@@ -187,10 +185,6 @@ struct vec4_base_t
     const T operator[](index_t i) &&;
 
     constexpr static index_t size();
-
-    constexpr vec_t<T, 2> xy() const;
-    constexpr vec_t<T, 2> zw() const;
-    constexpr vec_t<T, 3> xyz() const;
 
     T x, y, z, w;
 
