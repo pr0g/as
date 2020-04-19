@@ -751,11 +751,37 @@ AS_API inline mat3_t scale(const vec3_t& scale)
 {
     // clang-format off
     return {
-        scale.x, 0.0f, 0.0f,
-        0.0f, scale.y, 0.0f,
-        0.0f, 0.0f, scale.z
+        scale.x, 0.0f,    0.0f,
+        0.0f,    scale.y, 0.0f,
+        0.0f,    0.0f,    scale.z
     };
     // clang-format on
+}
+
+// ref: Essential Mathematics for Games & Interactive Applications: A Programmers Guide
+// section 5.5.7
+AS_API inline mat3_t from_quat(const quat_t& quat)
+{
+    const real_t s{
+        real_t(2.0) / (quat.x * quat.x + quat.y * quat.y + quat.z * quat.z +
+                       quat.w * quat.w)};
+
+    const real_t xs{s * quat.x};
+    const real_t ys{s * quat.y};
+    const real_t zs{s * quat.z};
+    const real_t wx{quat.w * xs};
+    const real_t wy{quat.w * ys};
+    const real_t wz{quat.w * zs};
+    const real_t xx{quat.x * xs};
+    const real_t xy{quat.x * ys};
+    const real_t xz{quat.x * zs};
+    const real_t yy{quat.y * ys};
+    const real_t yz{quat.y * zs};
+    const real_t zz{quat.z * zs};
+
+    return {1.0f - (yy + zz), xy + wz,          xz - wy,
+            xy - wz,          1.0f - (xx + zz), yz + wx,
+            xz + wy,          yz - wx,          1.0f - (xx + yy)};
 }
 
 } // namespace mat3
@@ -972,6 +998,54 @@ AS_API inline quat_t slerp(const quat_t& a, const quat_t& b, const real_t t)
 {
     const real_t theta = acosr(dot(a, b));
     return (a * sinr((1.0f - t) * theta) + b * sinr(t * theta)) / sinr(theta);
+}
+
+// ref: euclidean space
+// http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
+AS_API inline quat_t from_mat3(const mat3_t& mat)
+{
+    quat_t q;
+
+    const real_t trace =
+        mat[mat3::rc(0, 0)] + mat[mat3::rc(1, 1)] +
+        mat[mat3::rc(2, 2)];
+
+    if (trace > real_t(0.0)) {
+        real_t s = real_t(0.5) / sqrtf(trace + real_t(1.0));
+        q.w = real_t(0.25) / s;
+        q.x = (mat[mat3::rc(2, 1)] - mat[mat3::rc(1, 2)]) * s;
+        q.y = (mat[mat3::rc(0, 2)] - mat[mat3::rc(2, 0)]) * s;
+        q.z = (mat[mat3::rc(1, 0)] - mat[mat3::rc(0, 1)]) * s;
+    } else {
+        if (mat[mat3::rc(0, 0)] > mat[mat3::rc(1, 1)] &&
+            mat[mat3::rc(0, 0)] > mat[mat3::rc(2, 2)]) {
+            real_t s = real_t(2.0) * sqrtf(
+                                 real_t(1.0) + mat[mat3::rc(0, 0)] -
+                                 mat[mat3::rc(1, 1)] - mat[mat3::rc(2, 2)]);
+            q.w = (mat[mat3::rc(2, 1)] - mat[mat3::rc(1, 2)]) / s;
+            q.x = real_t(0.25) * s;
+            q.y = (mat[mat3::rc(0, 1)] + mat[mat3::rc(1, 0)]) / s;
+            q.z = (mat[mat3::rc(0, 2)] + mat[mat3::rc(2, 0)]) / s;
+        } else if (mat[mat3::rc(1, 1)] > mat[mat3::rc(2, 2)]) {
+            real_t s = real_t(2.0) * sqrtf(
+                                 real_t(1.0) + mat[mat3::rc(1, 1)] -
+                                 mat[mat3::rc(0, 0)] - mat[mat3::rc(2, 2)]);
+            q.w = (mat[mat3::rc(0, 2)] - mat[mat3::rc(2, 0)]) / s;
+            q.x = (mat[mat3::rc(0, 1)] + mat[mat3::rc(1, 0)]) / s;
+            q.y = real_t(0.25) * s;
+            q.z = (mat[mat3::rc(1, 2)] + mat[mat3::rc(2, 1)]) / s;
+        } else {
+            real_t s = real_t(2.0) * sqrtf(
+                                 real_t(1.0) + mat[mat3::rc(2, 2)] -
+                                 mat[mat3::rc(0, 0)] - mat[mat3::rc(1, 1)]);
+            q.w = (mat[mat3::rc(1, 0)] - mat[mat3::rc(0, 1)]) / s;
+            q.x = (mat[mat3::rc(0, 2)] + mat[mat3::rc(2, 0)]) / s;
+            q.y = (mat[mat3::rc(1, 2)] + mat[mat3::rc(2, 1)]) / s;
+            q.z = real_t(0.25) * s;
+        }
+    }
+
+    return q;
 }
 
 } // namespace quat

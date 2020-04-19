@@ -251,6 +251,8 @@ mat3_t rotation_z(real_t radians);
 mat3_t scale(real_t scale);
 mat3_t scale(const vec3_t& scale);
 
+mat3_t from_quat(const quat_t& quat);
+
 } // namespace mat3
 
 namespace mat4
@@ -351,6 +353,8 @@ quat_t normalize(const quat_t& a);
 quat_t inverse(const quat_t& a);
 vec3_t rotate(const quat_t& q, const vec3_t& v);
 quat_t slerp(const quat_t& a, const quat_t& b, real_t t);
+
+quat_t from_mat3(const mat3_t& mat);
 
 } // namespace quat
 
