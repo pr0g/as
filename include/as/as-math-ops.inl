@@ -1011,7 +1011,7 @@ AS_API inline quat_t from_mat3(const mat3_t& mat)
         mat[mat3::rc(2, 2)];
 
     if (trace > real_t(0.0)) {
-        real_t s = real_t(0.5) / sqrtf(trace + real_t(1.0));
+        real_t s = real_t(0.5) / sqrtr(trace + real_t(1.0));
         q.w = real_t(0.25) / s;
         q.x = (mat[mat3::rc(2, 1)] - mat[mat3::rc(1, 2)]) * s;
         q.y = (mat[mat3::rc(0, 2)] - mat[mat3::rc(2, 0)]) * s;
@@ -1019,7 +1019,7 @@ AS_API inline quat_t from_mat3(const mat3_t& mat)
     } else {
         if (mat[mat3::rc(0, 0)] > mat[mat3::rc(1, 1)] &&
             mat[mat3::rc(0, 0)] > mat[mat3::rc(2, 2)]) {
-            real_t s = real_t(2.0) * sqrtf(
+            real_t s = real_t(2.0) * sqrtr(
                                  real_t(1.0) + mat[mat3::rc(0, 0)] -
                                  mat[mat3::rc(1, 1)] - mat[mat3::rc(2, 2)]);
             q.w = (mat[mat3::rc(2, 1)] - mat[mat3::rc(1, 2)]) / s;
@@ -1027,7 +1027,7 @@ AS_API inline quat_t from_mat3(const mat3_t& mat)
             q.y = (mat[mat3::rc(0, 1)] + mat[mat3::rc(1, 0)]) / s;
             q.z = (mat[mat3::rc(0, 2)] + mat[mat3::rc(2, 0)]) / s;
         } else if (mat[mat3::rc(1, 1)] > mat[mat3::rc(2, 2)]) {
-            real_t s = real_t(2.0) * sqrtf(
+            real_t s = real_t(2.0) * sqrtr(
                                  real_t(1.0) + mat[mat3::rc(1, 1)] -
                                  mat[mat3::rc(0, 0)] - mat[mat3::rc(2, 2)]);
             q.w = (mat[mat3::rc(0, 2)] - mat[mat3::rc(2, 0)]) / s;
@@ -1035,7 +1035,7 @@ AS_API inline quat_t from_mat3(const mat3_t& mat)
             q.y = real_t(0.25) * s;
             q.z = (mat[mat3::rc(1, 2)] + mat[mat3::rc(2, 1)]) / s;
         } else {
-            real_t s = real_t(2.0) * sqrtf(
+            real_t s = real_t(2.0) * sqrtr(
                                  real_t(1.0) + mat[mat3::rc(2, 2)] -
                                  mat[mat3::rc(0, 0)] - mat[mat3::rc(1, 1)]);
             q.w = (mat[mat3::rc(1, 0)] - mat[mat3::rc(0, 1)]) / s;
