@@ -340,8 +340,6 @@ bool equal(
 namespace quat
 {
 
-constexpr quat_t identity();
-
 constexpr real_t dot(const quat_t& a, const quat_t& b);
 constexpr real_t length_sq(const quat_t& a);
 constexpr quat_t conjugate(const quat_t& a);

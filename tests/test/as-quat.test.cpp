@@ -25,7 +25,7 @@ TEST_CASE("quat_identity", "[as_quat]")
 {
     {
         quat_t q;
-        q = quat::identity();
+        q = quat_t::identity();
         CHECK(q.x == 0.0f);
         CHECK(q.y == 0.0f);
         CHECK(q.z == 0.0f);

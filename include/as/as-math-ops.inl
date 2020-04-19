@@ -919,11 +919,6 @@ AS_API inline bool equal(
 namespace quat
 {
 
-AS_API constexpr quat_t identity()
-{
-    return {1.0f, 0.0f, 0.0f, 0.0f};
-}
-
 AS_API constexpr real_t dot(const quat_t& a, const quat_t& b)
 {
     return a.w * b.w + a.x * b.x + a.y * b.y + a.z * b.z;
