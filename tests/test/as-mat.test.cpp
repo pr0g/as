@@ -14,6 +14,7 @@ using as::mat4_t;
 using as::mat_t;
 using as::point3_t;
 using as::real_t;
+using as::quat_t;
 using as::vec3_t;
 using as::vec4_t;
 using as::vec_t;
@@ -26,6 +27,7 @@ namespace affine = as::affine;
 namespace mat = as::mat;
 namespace mat3 = as::mat3;
 namespace mat4 = as::mat4;
+namespace quat = as::quat;
 namespace vec2 = as::vec2;
 namespace vec3 = as::vec3;
 namespace vec4 = as::vec4;
@@ -1273,6 +1275,30 @@ TEST_CASE("mat3_rotate_zxy", "[as-mat]")
         CHECK_THAT(
             make_span(result_reference_y),
             make_elements_sub(result_y, 3)
+                .margin(std::numeric_limits<float>::epsilon()));
+    }
+}
+
+TEST_CASE("mat3_from_quat", "[as-mat]")
+{
+    using gsl::make_span;
+
+    {
+        mat3_t axis_angle_mat = mat3::rotation_zxy(
+            deg_to_rad(90.0f), deg_to_rad(90.0f), deg_to_rad(0.0f));
+        quat_t axis_angle_quat = quat::rotation_zxy(
+            deg_to_rad(90.0f), deg_to_rad(90.0f), deg_to_rad(0.0f));
+
+        mat3_t axis_angle_mat_from_quat;
+        axis_angle_mat_from_quat = mat3::from_quat(axis_angle_quat);
+
+        real_t expected[9];
+        mat::to_arr(axis_angle_mat_from_quat, expected);
+
+        // note - checking against 0.0f requires margin
+        CHECK_THAT(
+            make_span(expected, 9),
+            make_elements_sub(axis_angle_mat, 9)
                 .margin(std::numeric_limits<float>::epsilon()));
     }
 }

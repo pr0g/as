@@ -7,6 +7,7 @@ namespace unit_test
 {
 
 // types
+using as::mat3_t;
 using as::quat_t;
 using as::real_t;
 using as::vec3_t;
@@ -15,6 +16,7 @@ using as::vec3_t;
 using as::deg_to_rad;
 
 // namespaces
+namespace mat3 = as::mat3;
 namespace vec3 = as::vec3;
 namespace quat = as::quat;
 
@@ -25,7 +27,7 @@ TEST_CASE("quat_identity", "[as_quat]")
 {
     {
         quat_t q;
-        q = quat::identity();
+        q = quat_t::identity();
         CHECK(q.x == 0.0f);
         CHECK(q.y == 0.0f);
         CHECK(q.z == 0.0f);
@@ -240,6 +242,27 @@ TEST_CASE("quat_slerp", "[as_quat]")
             CHECK(result_vec.y == Approx(0.5f).margin(g_epsilon));
             CHECK(result_vec.z == Approx(0.0f).margin(g_epsilon));
         }
+    }
+}
+
+TEST_CASE("quat_from_mat3", "[as-quat]")
+{
+    using gsl::make_span;
+
+    {
+        quat_t axis_angle_quat = quat::rotation_zxy(
+            deg_to_rad(45.0f), deg_to_rad(45.0f), deg_to_rad(0.0f));
+        mat3_t axis_angle_mat = mat3::rotation_zxy(
+            deg_to_rad(45.0f), deg_to_rad(45.0f), deg_to_rad(0.0f));
+
+        quat_t axis_angle_quat_from_mat;
+        axis_angle_quat_from_mat = quat::from_mat3(axis_angle_mat);
+
+        // note - checking against 0.0f requires margin
+        CHECK(axis_angle_quat_from_mat.w == Approx(axis_angle_quat.w).margin(g_epsilon));
+        CHECK(axis_angle_quat_from_mat.x == Approx(axis_angle_quat.x).margin(g_epsilon));
+        CHECK(axis_angle_quat_from_mat.y == Approx(axis_angle_quat.y).margin(g_epsilon));
+        CHECK(axis_angle_quat_from_mat.z == Approx(axis_angle_quat.z).margin(g_epsilon));
     }
 }
 
