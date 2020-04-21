@@ -258,11 +258,83 @@ TEST_CASE("quat_from_mat3", "[as-quat]")
         quat_t axis_angle_quat_from_mat;
         axis_angle_quat_from_mat = quat::from_mat3(axis_angle_mat);
 
-        // note - checking against 0.0f requires margin
-        CHECK(axis_angle_quat_from_mat.w == Approx(axis_angle_quat.w).margin(g_epsilon));
-        CHECK(axis_angle_quat_from_mat.x == Approx(axis_angle_quat.x).margin(g_epsilon));
-        CHECK(axis_angle_quat_from_mat.y == Approx(axis_angle_quat.y).margin(g_epsilon));
-        CHECK(axis_angle_quat_from_mat.z == Approx(axis_angle_quat.z).margin(g_epsilon));
+        vec3_t vec{1.0f, 0.0f, 0.0f};
+#ifdef AS_ROW_MAJOR
+        vec3_t result_matrix = vec * axis_angle_mat;
+#elif defined AS_COL_MAJOR
+        vec3_t result_matrix = axis_angle_mat * vec;
+#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+        vec3_t result_quat = as::quat::rotate(axis_angle_quat, vec);
+        vec3_t result_quat_from_mat = as::quat::rotate(axis_angle_quat_from_mat, vec);
+
+        CHECK(as::vec::equal(result_matrix, result_quat));
+        CHECK(as::vec::equal(result_matrix, result_quat_from_mat));
+    }
+
+    {
+        quat_t axis_angle_quat = quat::rotation_zxy(
+            deg_to_rad(90.0f), deg_to_rad(180.0f), deg_to_rad(0.0f));
+        mat3_t axis_angle_mat = mat3::rotation_zxy(
+            deg_to_rad(90.0f), deg_to_rad(180.0f), deg_to_rad(0.0f));
+
+        quat_t axis_angle_quat_from_mat;
+        axis_angle_quat_from_mat = quat::from_mat3(axis_angle_mat);
+
+        vec3_t vec{1.0f, 1.0f, 0.0f};
+#ifdef AS_ROW_MAJOR
+        vec3_t result_matrix = vec * axis_angle_mat;
+#elif defined AS_COL_MAJOR
+        vec3_t result_matrix = axis_angle_mat * vec;
+#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+        vec3_t result_quat = as::quat::rotate(axis_angle_quat, vec);
+        vec3_t result_quat_from_mat = as::quat::rotate(axis_angle_quat_from_mat, vec);
+
+        CHECK(as::vec::equal(result_matrix, result_quat));
+        CHECK(as::vec::equal(result_matrix, result_quat_from_mat));
+    }
+
+    {
+        quat_t axis_angle_quat = quat::rotation_zxy(
+            deg_to_rad(0.0f), deg_to_rad(90.0f), deg_to_rad(180.0f));
+        mat3_t axis_angle_mat = mat3::rotation_zxy(
+            deg_to_rad(0.0f), deg_to_rad(90.0f), deg_to_rad(180.0f));
+
+        quat_t axis_angle_quat_from_mat;
+        axis_angle_quat_from_mat = quat::from_mat3(axis_angle_mat);
+
+        vec3_t vec{1.0f, 0.0f, 1.0f};
+#ifdef AS_ROW_MAJOR
+        vec3_t result_matrix = vec * axis_angle_mat;
+#elif defined AS_COL_MAJOR
+        vec3_t result_matrix = axis_angle_mat * vec;
+#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+        vec3_t result_quat = as::quat::rotate(axis_angle_quat, vec);
+        vec3_t result_quat_from_mat = as::quat::rotate(axis_angle_quat_from_mat, vec);
+
+        CHECK(as::vec::equal(result_matrix, result_quat));
+        CHECK(as::vec::equal(result_matrix, result_quat_from_mat));
+    }
+
+    {
+        quat_t axis_angle_quat = quat::rotation_zxy(
+            deg_to_rad(90.0f), deg_to_rad(0.0f), deg_to_rad(180.0f));
+        mat3_t axis_angle_mat = mat3::rotation_zxy(
+            deg_to_rad(90.0f), deg_to_rad(0.0f), deg_to_rad(180.0f));
+
+        quat_t axis_angle_quat_from_mat;
+        axis_angle_quat_from_mat = quat::from_mat3(axis_angle_mat);
+
+        vec3_t vec{1.0f, 1.0f, 1.0f};
+#ifdef AS_ROW_MAJOR
+        vec3_t result_matrix = vec * axis_angle_mat;
+#elif defined AS_COL_MAJOR
+        vec3_t result_matrix = axis_angle_mat * vec;
+#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+        vec3_t result_quat = as::quat::rotate(axis_angle_quat, vec);
+        vec3_t result_quat_from_mat = as::quat::rotate(axis_angle_quat_from_mat, vec);
+
+        CHECK(as::vec::equal(result_matrix, result_quat));
+        CHECK(as::vec::equal(result_matrix, result_quat_from_mat));
     }
 }
 
