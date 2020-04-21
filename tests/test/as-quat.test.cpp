@@ -267,8 +267,8 @@ TEST_CASE("quat_from_mat3", "[as-quat]")
         vec3_t result_quat = as::quat::rotate(axis_angle_quat, vec);
         vec3_t result_quat_from_mat = as::quat::rotate(axis_angle_quat_from_mat, vec);
 
-        CHECK(as::vec::equal(result_matrix, result_quat));
-        CHECK(as::vec::equal(result_matrix, result_quat_from_mat));
+        CHECK(as::vec::equal(result_matrix, result_quat, g_epsilon));
+        CHECK(as::vec::equal(result_matrix, result_quat_from_mat, g_epsilon));
     }
 
     {
@@ -289,8 +289,8 @@ TEST_CASE("quat_from_mat3", "[as-quat]")
         vec3_t result_quat = as::quat::rotate(axis_angle_quat, vec);
         vec3_t result_quat_from_mat = as::quat::rotate(axis_angle_quat_from_mat, vec);
 
-        CHECK(as::vec::equal(result_matrix, result_quat));
-        CHECK(as::vec::equal(result_matrix, result_quat_from_mat));
+        CHECK(as::vec::equal(result_matrix, result_quat, g_epsilon));
+        CHECK(as::vec::equal(result_matrix, result_quat_from_mat, g_epsilon));
     }
 
     {
@@ -311,8 +311,8 @@ TEST_CASE("quat_from_mat3", "[as-quat]")
         vec3_t result_quat = as::quat::rotate(axis_angle_quat, vec);
         vec3_t result_quat_from_mat = as::quat::rotate(axis_angle_quat_from_mat, vec);
 
-        CHECK(as::vec::equal(result_matrix, result_quat));
-        CHECK(as::vec::equal(result_matrix, result_quat_from_mat));
+        CHECK(as::vec::equal(result_matrix, result_quat, g_epsilon));
+        CHECK(as::vec::equal(result_matrix, result_quat_from_mat, g_epsilon));
     }
 
     {
@@ -333,8 +333,8 @@ TEST_CASE("quat_from_mat3", "[as-quat]")
         vec3_t result_quat = as::quat::rotate(axis_angle_quat, vec);
         vec3_t result_quat_from_mat = as::quat::rotate(axis_angle_quat_from_mat, vec);
 
-        CHECK(as::vec::equal(result_matrix, result_quat));
-        CHECK(as::vec::equal(result_matrix, result_quat_from_mat));
+        CHECK(as::vec::equal(result_matrix, result_quat, g_epsilon));
+        CHECK(as::vec::equal(result_matrix, result_quat_from_mat, g_epsilon));
     }
 }
 
