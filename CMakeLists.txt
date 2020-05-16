@@ -12,7 +12,7 @@ target_include_directories(
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 
 target_compile_features(
-    ${PROJECT_NAME} INTERFACE cxx_std_11)
+    ${PROJECT_NAME} INTERFACE cxx_std_14)
 
 install(
     TARGETS ${PROJECT_NAME}
