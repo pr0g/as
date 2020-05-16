@@ -76,15 +76,15 @@ AS_API constexpr vec_t<T, 2>::vec_t(T x_, T y_)
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 2> vec_t<T, 2>::axis_x()
+AS_API constexpr vec_t<T, 2> vec_t<T, 2>::axis_x(const T len)
 {
-    return {T(1.0), T(0.0)};
+    return {len, T(0.0)};
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 2> vec_t<T, 2>::axis_y()
+AS_API constexpr vec_t<T, 2> vec_t<T, 2>::axis_y(const T len)
 {
-    return {T(0.0), T(1.0)};
+    return {T(0.0), len};
 }
 
 template<typename T>
@@ -175,21 +175,21 @@ AS_API constexpr vec_t<T, 3>::vec_t(T x_, T y_, T z_)
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 3> vec_t<T, 3>::axis_x()
+AS_API constexpr vec_t<T, 3> vec_t<T, 3>::axis_x(const T len)
 {
-    return {T(1.0), T(0.0), T(0.0)};
+    return {len, T(0.0), T(0.0)};
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 3> vec_t<T, 3>::axis_y()
+AS_API constexpr vec_t<T, 3> vec_t<T, 3>::axis_y(const T len)
 {
-    return {T(0.0), T(1.0), T(0.0)};
+    return {T(0.0), len, T(0.0)};
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 3> vec_t<T, 3>::axis_z()
+AS_API constexpr vec_t<T, 3> vec_t<T, 3>::axis_z(const T len)
 {
-    return {T(0.0), T(0.0), T(1.0)};
+    return {T(0.0), T(0.0), len};
 }
 
 template<typename T>
@@ -307,27 +307,27 @@ AS_API constexpr vec_t<T, 4>::vec_t(T x_, T y_, T z_, T w_)
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4> vec_t<T, 4>::axis_x()
+AS_API constexpr vec_t<T, 4> vec_t<T, 4>::axis_x(const T len)
 {
-    return {T(1.0), T(0.0), T(0.0), T(0.0)};
+    return {len, T(0.0), T(0.0), T(0.0)};
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4> vec_t<T, 4>::axis_y()
+AS_API constexpr vec_t<T, 4> vec_t<T, 4>::axis_y(const T len)
 {
-    return {T(0.0), T(1.0), T(0.0), T(0.0)};
+    return {T(0.0), len, T(0.0), T(0.0)};
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4> vec_t<T, 4>::axis_z()
+AS_API constexpr vec_t<T, 4> vec_t<T, 4>::axis_z(const T len)
 {
-    return {T(0.0), T(0.0), T(1.0), T(0.0)};
+    return {T(0.0), T(0.0), len, T(0.0)};
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4> vec_t<T, 4>::axis_w()
+AS_API constexpr vec_t<T, 4> vec_t<T, 4>::axis_w(const T len)
 {
-    return {T(0.0), T(0.0), T(0.0), T(1.0)};
+    return {T(0.0), T(0.0), T(0.0), len};
 }
 
 template<typename T>

@@ -945,39 +945,39 @@ AS_API inline bool equal(
 namespace quat
 {
 
-AS_API constexpr real_t dot(const quat_t& a, const quat_t& b)
+AS_API constexpr real_t dot(const quat_t& lhs, const quat_t& rhs)
 {
-    return a.w * b.w + a.x * b.x + a.y * b.y + a.z * b.z;
+    return lhs.w * rhs.w + lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;
 }
 
-AS_API constexpr real_t length_sq(const quat_t& a)
+AS_API constexpr real_t length_sq(const quat_t& quat)
 {
-    return dot(a, a);
+    return dot(quat, quat);
 }
 
-AS_API inline real_t length(const quat_t& a)
+AS_API inline real_t length(const quat_t& quat)
 {
-    return sqrtr(length_sq(a));
+    return sqrtr(length_sq(quat));
 }
 
-AS_API inline quat_t normalize(const quat_t& a)
+AS_API inline quat_t normalize(const quat_t& quat)
 {
-    return a / length(a);
+    return quat / length(quat);
 }
 
-AS_API constexpr quat_t conjugate(const quat_t& a)
+AS_API constexpr quat_t conjugate(const quat_t& quat)
 {
-    return {a.w, -a.x, -a.y, -a.z};
+    return {quat.w, -quat.x, -quat.y, -quat.z};
 }
 
-AS_API inline quat_t inverse(const quat_t& a)
+AS_API inline quat_t inverse(const quat_t& quat)
 {
-    return conjugate(a) / length_sq(a);
+    return conjugate(quat) / length_sq(quat);
 }
 
-AS_API inline vec3_t rotate(const quat_t& q, const vec3_t& v)
+AS_API inline vec3_t rotate(const quat_t& quat, const vec3_t& v)
 {
-    const quat_t quat_result = q * quat_t{0.0f, v.x, v.y, v.z} * conjugate(q);
+    const quat_t quat_result = quat * quat_t{0.0f, v.x, v.y, v.z} * conjugate(quat);
     return {quat_result.x, quat_result.y, quat_result.z};
 }
 
@@ -994,10 +994,10 @@ AS_API inline quat_t rotation_zxy(
            quat_t{cosr(0.5f * z), 0.0f, 0.0f, sinr(0.5f * z)};
 }
 
-AS_API inline quat_t slerp(const quat_t& a, const quat_t& b, const real_t t)
+AS_API inline quat_t slerp(const quat_t& lhs, const quat_t& rhs, const real_t t)
 {
-    const real_t theta = acosr(dot(a, b));
-    return (a * sinr((1.0f - t) * theta) + b * sinr(t * theta)) / sinr(theta);
+    const real_t theta = acosr(dot(lhs, rhs));
+    return (lhs * sinr((1.0f - t) * theta) + rhs * sinr(t * theta)) / sinr(theta);
 }
 
 // ref: euclidean space

@@ -342,17 +342,17 @@ bool equal(
 namespace quat
 {
 
-constexpr real_t dot(const quat_t& a, const quat_t& b);
-constexpr real_t length_sq(const quat_t& a);
-constexpr quat_t conjugate(const quat_t& a);
+constexpr real_t dot(const quat_t& lhs, const quat_t& rhs);
+constexpr real_t length_sq(const quat_t& quat);
+constexpr quat_t conjugate(const quat_t& quat);
 
 quat_t axis_angle(const vec3_t& axis, real_t radians);
 quat_t rotation_zxy(real_t x, real_t y, real_t z);
-real_t length(const quat_t& a);
-quat_t normalize(const quat_t& a);
-quat_t inverse(const quat_t& a);
-vec3_t rotate(const quat_t& q, const vec3_t& v);
-quat_t slerp(const quat_t& a, const quat_t& b, real_t t);
+real_t length(const quat_t& quat);
+quat_t normalize(const quat_t& quat);
+quat_t inverse(const quat_t& quat);
+vec3_t rotate(const quat_t& quat, const vec3_t& v);
+quat_t slerp(const quat_t& lhs, const quat_t& rhs, real_t t);
 
 quat_t from_mat3(const mat3_t& mat);
 
