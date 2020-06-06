@@ -582,17 +582,17 @@ TEST_CASE("vec2_vec3_vec4_accessors", "[as_vec]")
 
     CHECK(vec3::from_vec2(vec2).x == Approx(vec2.x).epsilon(g_epsilon));
     CHECK(vec3::from_vec2(vec2).y ==Approx(vec2.y).epsilon(g_epsilon));
-    CHECK(vec3::from_vec2(vec2, 3.0f).z == Approx(3.0f).epsilon(g_epsilon));
+    CHECK(vec3::from_vec2(vec2, real_t(3.0)).z == Approx(real_t(3.0)).epsilon(g_epsilon));
 
     CHECK(vec4::from_vec2(vec2).x == Approx(vec2.x).epsilon(g_epsilon));
     CHECK(vec4::from_vec2(vec2).y ==Approx(vec2.y).epsilon(g_epsilon));
-    CHECK(vec4::from_vec2(vec2, 3.0f).z == Approx(3.0f).epsilon(g_epsilon));
-    CHECK(vec4::from_vec2(vec2, 3.0f, 4.0f).w == Approx(4.0f).epsilon(g_epsilon));
+    CHECK(vec4::from_vec2(vec2, real_t(3.0)).z == Approx(real_t(3.0)).epsilon(g_epsilon));
+    CHECK(vec4::from_vec2(vec2, real_t(3.0), real_t(4.0)).w == Approx(real_t(4.0)).epsilon(g_epsilon));
 
     CHECK(vec4::from_vec3(vec3).x == Approx(vec2.x).epsilon(g_epsilon));
     CHECK(vec4::from_vec3(vec3).y ==Approx(vec2.y).epsilon(g_epsilon));
-    CHECK(vec4::from_vec3(vec3).z == Approx(3.0f).epsilon(g_epsilon));
-    CHECK(vec4::from_vec3(vec3, 4.0f).w == Approx(4.0f).epsilon(g_epsilon));
+    CHECK(vec4::from_vec3(vec3).z == Approx(real_t(3.0)).epsilon(g_epsilon));
+    CHECK(vec4::from_vec3(vec3, real_t(4.0)).w == Approx(real_t(4.0)).epsilon(g_epsilon));
 }
 
 TEST_CASE("const_elem_access_vec_const", "[as_vec]")
