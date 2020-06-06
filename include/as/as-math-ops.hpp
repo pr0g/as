@@ -142,7 +142,8 @@ template<typename T>
 vec_t<T, 4> from_arr(const T (&data)[4]);
 
 template<typename T>
-constexpr vec_t<T, 4> from_vec2(const vec_t<T, 2>& vec, T z = T(0.0), T w = T(0.0));
+constexpr vec_t<T, 4> from_vec2(
+    const vec_t<T, 2>& vec, T z = T(0.0), T w = T(0.0));
 
 template<typename T>
 constexpr vec_t<T, 4> from_vec3(const vec_t<T, 3>& vec, T w = T(0.0));

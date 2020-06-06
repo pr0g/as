@@ -302,7 +302,8 @@ AS_API vec_t<T, 4> from_arr(const T (&data)[4])
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4> from_vec2(const vec_t<T, 2>& vec, const T z, const T w)
+AS_API constexpr vec_t<T, 4> from_vec2(
+    const vec_t<T, 2>& vec, const T z, const T w)
 {
     return {vec.x, vec.y, z, w};
 }
