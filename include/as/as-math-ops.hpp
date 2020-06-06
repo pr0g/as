@@ -90,6 +90,12 @@ template<typename T>
 vec_t<T, 2> from_arr(const T (&data)[2]);
 
 template<typename T>
+constexpr vec_t<T, 2> from_vec3(const vec_t<T, 3>& vec);
+
+template<typename T>
+constexpr vec_t<T, 2> from_vec4(const vec_t<T, 4>& vec);
+
+template<typename T>
 constexpr T wedge(const vec_t<T, 2>& lhs, const vec_t<T, 2>& rhs);
 
 } // namespace vec2
@@ -98,13 +104,16 @@ namespace vec3
 {
 
 template<typename T>
-constexpr vec_t<T, 2> xy(const vec_t<T, 3>& vec);
-
-template<typename T>
 vec_t<T, 3> from_ptr(const T* data);
 
 template<typename T>
 vec_t<T, 3> from_arr(const T (&data)[3]);
+
+template<typename T>
+constexpr vec_t<T, 3> from_vec2(const vec_t<T, 2>& vec, T z = T(0.0));
+
+template<typename T>
+constexpr vec_t<T, 3> from_vec4(const vec_t<T, 4>& vec);
 
 template<typename T>
 vec_t<T, 3> cross(const vec_t<T, 3>& lhs, const vec_t<T, 3>& rhs);
@@ -127,19 +136,16 @@ namespace vec4
 {
 
 template<typename T>
-constexpr vec_t<T, 2> xy(const vec_t<T, 4>& vec);
-
-template<typename T>
-constexpr vec_t<T, 2> zw(const vec_t<T, 4>& vec);
-
-template<typename T>
-constexpr vec_t<T, 3> xyz(const vec_t<T, 4>& vec);
-
-template<typename T>
 vec_t<T, 4> from_ptr(const T* data);
 
 template<typename T>
 vec_t<T, 4> from_arr(const T (&data)[4]);
+
+template<typename T>
+constexpr vec_t<T, 4> from_vec2(const vec_t<T, 2>& vec, T z = T(0.0), T w = T(0.0));
+
+template<typename T>
+constexpr vec_t<T, 4> from_vec3(const vec_t<T, 3>& vec, T w = T(0.0));
 
 } // namespace vec4
 

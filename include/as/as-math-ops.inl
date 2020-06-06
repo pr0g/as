@@ -206,6 +206,18 @@ AS_API inline vec_t<T, 2> from_arr(const T (&data)[2])
 }
 
 template<typename T>
+AS_API constexpr vec_t<T, 2> from_vec3(const vec_t<T, 3>& vec)
+{
+    return {vec.x, vec.y};
+}
+
+template<typename T>
+AS_API constexpr vec_t<T, 2> from_vec4(const vec_t<T, 4>& vec)
+{
+    return {vec.x, vec.y};
+}
+
+template<typename T>
 AS_API constexpr T wedge(const vec_t<T, 2>& lhs, const vec_t<T, 2>& rhs)
 {
     return lhs.x * rhs.y - lhs.y * rhs.x;
@@ -217,12 +229,6 @@ namespace vec3
 {
 
 template<typename T>
-AS_API constexpr vec_t<T, 2> xy(const vec_t<T, 3>& vec)
-{
-    return {vec[0], vec[1]};
-}
-
-template<typename T>
 AS_API vec_t<T, 3> from_ptr(const T* data)
 {
     return vec::from_ptr<T, 3>(data);
@@ -232,6 +238,18 @@ template<typename T>
 AS_API vec_t<T, 3> from_arr(const T (&data)[3])
 {
     return vec::from_arr(data);
+}
+
+template<typename T>
+AS_API constexpr vec_t<T, 3> from_vec2(const vec_t<T, 2>& vec, const T z)
+{
+    return {vec.x, vec.y, z};
+}
+
+template<typename T>
+AS_API constexpr vec_t<T, 3> from_vec4(const vec_t<T, 4>& vec)
+{
+    return {vec.x, vec.y, vec.z};
 }
 
 template<typename T>
@@ -272,24 +290,6 @@ namespace vec4
 {
 
 template<typename T>
-AS_API constexpr vec_t<T, 2> xy(const vec_t<T, 4>& vec)
-{
-    return {vec[0], vec[1]};
-}
-
-template<typename T>
-AS_API constexpr vec_t<T, 2> zw(const vec_t<T, 4>& vec)
-{
-    return {vec[2], vec[3]};
-}
-
-template<typename T>
-AS_API constexpr vec_t<T, 3> xyz(const vec_t<T, 4>& vec)
-{
-    return {vec[0], vec[1], vec[2]};
-}
-
-template<typename T>
 AS_API vec_t<T, 4> from_ptr(const T* data)
 {
     return vec::from_ptr<real_t, 4>(data);
@@ -299,6 +299,18 @@ template<typename T>
 AS_API vec_t<T, 4> from_arr(const T (&data)[4])
 {
     return vec::from_arr(data);
+}
+
+template<typename T>
+AS_API constexpr vec_t<T, 4> from_vec2(const vec_t<T, 2>& vec, const T z, const T w)
+{
+    return {vec.x, vec.y, z, w};
+}
+
+template<typename T>
+AS_API constexpr vec_t<T, 4> from_vec3(const vec_t<T, 3>& vec, T w)
+{
+    return {vec.x, vec.y, vec.z, w};
 }
 
 } // namespace vec4
