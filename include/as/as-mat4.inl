@@ -70,10 +70,10 @@ AS_API constexpr mat_t<T, 4>::mat_t(
 template<typename T>
 AS_API constexpr mat_t<T, 4>::mat_t(
     const mat_t<T, 3>& mat_, const vec_t<T, 3>& pos_)
-    : elem_rc{mat_[0], mat_[1], mat_[2], 0.0f,
-    	      mat_[3], mat_[4], mat_[5], 0.0f,
-              mat_[6], mat_[7], mat_[8], 0.0f,
-	          pos_.x,  pos_.y,  pos_.z,  1.0f}
+    : elem_rc{mat_[0], mat_[1], mat_[2], T(0.0),
+    	      mat_[3], mat_[4], mat_[5], T(0.0),
+              mat_[6], mat_[7], mat_[8], T(0.0),
+	          pos_.x,  pos_.y,  pos_.z,  T(1.0)}
 {
 }
 // clang-format on

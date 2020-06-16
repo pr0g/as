@@ -292,7 +292,7 @@ namespace vec4
 template<typename T>
 AS_API vec_t<T, 4> from_ptr(const T* data)
 {
-    return vec::from_ptr<real_t, 4>(data);
+    return vec::from_ptr<T, 4>(data);
 }
 
 template<typename T>
@@ -445,13 +445,13 @@ AS_API T minor(const mat_t<T, 2>& mat)
 template<typename T, index_t d, index_t I>
 AS_API T determinant_impl(const mat_t<T, d>& mat, int2type<I> /*unused*/)
 {
-    T sign{1.0f};
-    T result{0.0f};
+    T sign{1.0};
+    T result{0.0};
 
     for (index_t i = 0; i < d; ++i) {
         T minor = determinant_impl(sub_matrix(mat, i, 0), int2type<I - 1>{});
         result += (mat[i] * minor) * sign;
-        sign *= T{-1.0f};
+        sign *= T{-1.0};
     }
 
     return result;
@@ -469,7 +469,7 @@ template<typename T, index_t d, index_t I>
 AS_API mat_t<T, d> minor_impl(const mat_t<T, d>& mat, int2type<I> /*unused*/)
 {
     mat_t<T, d> result;
-    T outerSign = T{1.0f};
+    T outerSign = T{1.0};
 
     for (index_t i = 0; i < d; ++i) {
         T innerSign{outerSign};
@@ -478,10 +478,10 @@ AS_API mat_t<T, d> minor_impl(const mat_t<T, d>& mat, int2type<I> /*unused*/)
             T minor = determinant_impl<T>(
                 internal::sub_matrix(mat, j, i), int2type<d - 1>{});
             result[j + i * d] = minor * innerSign;
-            innerSign *= T{-1.0f};
+            innerSign *= T{-1.0};
         }
 
-        outerSign *= T{-1.0f};
+        outerSign *= T{-1.0};
     }
 
     return result;
@@ -502,7 +502,7 @@ AS_API mat_t<T, d> inverse(const mat_t<T, d>& mat)
 
     result = internal::minor_impl(mat, internal::int2type<d>{});
     result = transpose(result);
-    result *= real_t(1.0f) / determinant(mat);
+    result *= real_t(1.0) / determinant(mat);
 
     return result;
 }
@@ -514,7 +514,7 @@ AS_API mat_t<T, 2> inverse(const mat_t<T, 2>& mat)
     return mat_t<T, 2> {
         mat[3], -mat[1],
         -mat[2], mat[0]
-    } * (real_t(1.0f) / determinant(mat));
+    } * (real_t(1.0) / determinant(mat));
     // clang-format on
 }
 
@@ -666,15 +666,15 @@ AS_API inline mat3_t axis_angle(const vec3_t& axis, const real_t radians)
     const real_t sinr_radians = sinr(radians);
 
     return {
-        cosr_radians + ((axis.x * axis.x) * (1.0f - cosr_radians)),
-        (axis.y * axis.x * (1.0f - cosr_radians)) + (axis.z * sinr_radians),
-        (axis.z * axis.x * (1.0f - cosr_radians)) - (axis.y * sinr_radians),
-        (axis.x * axis.y * (1.0f - cosr_radians)) - (axis.z * sinr_radians),
-        cosr_radians + ((axis.y * axis.y) * (1.0f - cosr_radians)),
-        (axis.z * axis.y * (1.0f - cosr_radians)) + (axis.x * sinr_radians),
-        (axis.x * axis.z * (1.0f - cosr_radians)) + (axis.y * sinr_radians),
-        (axis.y * axis.z * (1.0f - cosr_radians)) - (axis.x * sinr_radians),
-        cosr_radians + ((axis.z * axis.z) * (1.0f - cosr_radians))};
+        cosr_radians + ((axis.x * axis.x) * (real_t(1.0) - cosr_radians)),
+        (axis.y * axis.x * (real_t(1.0) - cosr_radians)) + (axis.z * sinr_radians),
+        (axis.z * axis.x * (real_t(1.0) - cosr_radians)) - (axis.y * sinr_radians),
+        (axis.x * axis.y * (real_t(1.0) - cosr_radians)) - (axis.z * sinr_radians),
+        cosr_radians + ((axis.y * axis.y) * (real_t(1.0) - cosr_radians)),
+        (axis.z * axis.y * (real_t(1.0) - cosr_radians)) + (axis.x * sinr_radians),
+        (axis.x * axis.z * (real_t(1.0) - cosr_radians)) + (axis.y * sinr_radians),
+        (axis.y * axis.z * (real_t(1.0) - cosr_radians)) - (axis.x * sinr_radians),
+        cosr_radians + ((axis.z * axis.z) * (real_t(1.0) - cosr_radians))};
 }
 
 AS_API inline mat3_t rotation_xyz(
@@ -726,9 +726,9 @@ AS_API inline mat3_t rotation_x(const real_t radians)
 {
     // clang-format off
     return {
-        1.0f, 0.0f,           0.0f,
-        0.0f, cosr(radians),  sinr(radians),
-        0.0f, -sinr(radians), cosr(radians)
+        real_t(1.0), real_t(0.0),    real_t(0.0),
+        real_t(0.0), cosr(radians),  sinr(radians),
+        real_t(0.0), -sinr(radians), cosr(radians)
     };
     // clang-format on
 }
@@ -737,9 +737,9 @@ AS_API inline mat3_t rotation_y(const real_t radians)
 {
     // clang-format off
     return {
-        cosr(radians), 0.0f, -sinr(radians),
-        0.0f, 	       1.0f, 0.0f,
-        sinr(radians), 0.0f, cosr(radians)
+        cosr(radians), real_t(0.0), -sinr(radians),
+        real_t(0.0),   real_t(1.0), real_t(0.0),
+        sinr(radians), real_t(0.0), cosr(radians)
     };
     // clang-format on
 }
@@ -748,9 +748,9 @@ AS_API inline mat3_t rotation_z(const real_t radians)
 {
     // clang-format off
     return {
-        cosr(radians),  sinr(radians), 0.0f,
-        -sinr(radians), cosr(radians), 0.0f,
-        0.0f,           0.0f,          1.0f
+        cosr(radians),  sinr(radians), real_t(0.0),
+        -sinr(radians), cosr(radians), real_t(0.0),
+        real_t(0.0),    real_t(0.0),   real_t(1.0)
     };
     // clang-format on
 }
@@ -764,9 +764,9 @@ AS_API inline mat3_t scale(const vec3_t& scale)
 {
     // clang-format off
     return {
-        scale.x, 0.0f,    0.0f,
-        0.0f,    scale.y, 0.0f,
-        0.0f,    0.0f,    scale.z
+        scale.x,     real_t(0.0), real_t(0.0),
+        real_t(0.0), scale.y,     real_t(0.0),
+        real_t(0.0), real_t(0.0), scale.z
     };
     // clang-format on
 }
@@ -792,9 +792,9 @@ AS_API inline mat3_t from_quat(const quat_t& quat)
     const real_t yz{quat.y * zs};
     const real_t zz{quat.z * zs};
 
-    return {1.0f - (yy + zz), xy + wz,          xz - wy,
-            xy - wz,          1.0f - (xx + zz), yz + wx,
-            xz + wy,          yz - wx,          1.0f - (xx + yy)};
+    return {real_t(1.0) - (yy + zz), xy + wz,                 xz - wy,
+            xy - wz,                 real_t(1.0) - (xx + zz), yz + wx,
+            xz + wy,                 yz - wx,                 real_t(1.0) - (xx + yy)};
 }
 
 } // namespace mat3
@@ -906,13 +906,13 @@ AS_API void col3(mat_t<T, 4>& mat, const vec_t<T, 4>& col)
 template<typename T>
 AS_API mat_t<T, 4> from_ptr(const T* data)
 {
-    return mat::from_ptr<real_t, 4>(data);
+    return mat::from_ptr<T, 4>(data);
 }
 
 template<typename T>
 AS_API mat_t<T, 4> from_arr(const T (&data)[16])
 {
-    return mat::from_arr<real_t, 4>(data);
+    return mat::from_arr<T, 4>(data);
 }
 
 template<typename T>
@@ -991,27 +991,27 @@ AS_API inline quat_t inverse(const quat_t& quat)
 AS_API inline vec3_t rotate(const quat_t& quat, const vec3_t& v)
 {
     const quat_t quat_result =
-        quat * quat_t{0.0f, v.x, v.y, v.z} * conjugate(quat);
+        quat * quat_t{real_t(0.0), v.x, v.y, v.z} * conjugate(quat);
     return {quat_result.x, quat_result.y, quat_result.z};
 }
 
 AS_API inline quat_t axis_angle(const vec3_t& axis, const real_t radians)
 {
-    return {cosr(0.5f * radians), axis * sinr(0.5f * radians)};
+    return {cosr(real_t(0.5) * radians), axis * sinr(real_t(0.5) * radians)};
 }
 
 AS_API inline quat_t rotation_zxy(
     const real_t x, const real_t y, const real_t z)
 {
-    return quat_t{cosr(0.5f * y), 0.0f, sinr(0.5f * y), 0.0f} *
-           quat_t{cosr(0.5f * x), sinr(0.5f * x), 0.0f, 0.0f} *
-           quat_t{cosr(0.5f * z), 0.0f, 0.0f, sinr(0.5f * z)};
+    return quat_t{cosr(0.5 * y), real_t(0.0), sinr(0.5 * y), real_t(0.0)} *
+           quat_t{cosr(0.5 * x), sinr(0.5 * x), real_t(0.0), real_t(0.0)} *
+           quat_t{cosr(0.5 * z), real_t(0.0), real_t(0.0), sinr(0.5 * z)};
 }
 
 AS_API inline quat_t slerp(const quat_t& lhs, const quat_t& rhs, const real_t t)
 {
     const real_t theta = acosr(dot(lhs, rhs));
-    return (lhs * sinr((1.0f - t) * theta) + rhs * sinr(t * theta)) /
+    return (lhs * sinr((1.0 - t) * theta) + rhs * sinr(t * theta)) /
            sinr(theta);
 }
 

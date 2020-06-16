@@ -12,6 +12,7 @@ namespace unit_test
 using as::index_t;
 using as::point3_t;
 using as::real_t;
+using as::s64;
 using as::u8;
 using as::vec2_t;
 using as::vec3_t;
@@ -855,6 +856,16 @@ TEST_CASE("vec_make_from_ptr", "[as_vec]")
         CHECK(char_6[3] == 14);
         CHECK(char_6[4] == 15);
         CHECK(char_6[5] == 16);
+    }
+
+    {
+        s64 vec_data[4] = {4, 8, 12, 16};
+        vec_t<s64, 4> s64_5 = vec4::from_ptr(&vec_data[0]);
+
+        CHECK(s64_5[0] == 4);
+        CHECK(s64_5[1] == 8);
+        CHECK(s64_5[2] == 12);
+        CHECK(s64_5[3] == 16);
     }
 
     // vec2::make_from_ptr

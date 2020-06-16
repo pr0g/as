@@ -15,6 +15,7 @@ using as::mat_t;
 using as::point3_t;
 using as::quat_t;
 using as::real_t;
+using as::s64;
 using as::vec3_t;
 using as::vec4_t;
 using as::vec_t;
@@ -823,6 +824,18 @@ TEST_CASE("mat_from_arr", "[as_mat]")
 
         const mat4_t mat4_b = mat4::from_arr(elems);
         CHECK_THAT(make_span(elems), make_elements_sub(mat4_b, 16));
+
+        // clang-format off
+        s64 elems_long[] = {
+            1, 2, 3, 4,
+            5, 6, 7, 8,
+            9, 10, 11, 12,
+            13, 14, 15, 16
+        };
+        // clang-format on
+
+        const as::mat4l_t mat4_c = mat4::from_arr(elems_long);
+        CHECK_THAT(make_span(elems_long), make_elements_sub(mat4_c, 16));
     }
 
     {
@@ -861,6 +874,18 @@ TEST_CASE("mat_from_ptr", "[as_mat]")
 
         const mat4_t mat4_b = mat4::from_ptr(elems);
         CHECK_THAT(make_span(elems), make_elements_sub(mat4_b, 16));
+
+        // clang-format off
+        s64 elems_long[] = {
+            1, 2, 3, 4,
+            5, 6, 7, 8,
+            9, 10, 11, 12,
+            13, 14, 15, 16
+        };
+        // clang-format on
+
+        const as::mat4l_t mat4_c = mat4::from_ptr(elems_long);
+        CHECK_THAT(make_span(elems_long), make_elements_sub(mat4_c, 16));
     }
 
     {

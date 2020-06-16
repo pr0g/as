@@ -55,8 +55,8 @@ private:
 using mat4_t = mat_t<real_t, 4>;
 using mat4f_t = mat_t<float, 4>;
 using mat4d_t = mat_t<double, 4>;
-using mat4i_t = mat_t<int32_t, 4>;
-using mat4l_t = mat_t<int64_t, 4>;
+using mat4i_t = mat_t<s32, 4>;
+using mat4l_t = mat_t<s64, 4>;
 
 } // namespace as
 
