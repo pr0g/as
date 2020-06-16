@@ -667,13 +667,19 @@ AS_API inline mat3_t axis_angle(const vec3_t& axis, const real_t radians)
 
     return {
         cosr_radians + ((axis.x * axis.x) * (real_t(1.0) - cosr_radians)),
-        (axis.y * axis.x * (real_t(1.0) - cosr_radians)) + (axis.z * sinr_radians),
-        (axis.z * axis.x * (real_t(1.0) - cosr_radians)) - (axis.y * sinr_radians),
-        (axis.x * axis.y * (real_t(1.0) - cosr_radians)) - (axis.z * sinr_radians),
+        (axis.y * axis.x * (real_t(1.0) - cosr_radians)) +
+            (axis.z * sinr_radians),
+        (axis.z * axis.x * (real_t(1.0) - cosr_radians)) -
+            (axis.y * sinr_radians),
+        (axis.x * axis.y * (real_t(1.0) - cosr_radians)) -
+            (axis.z * sinr_radians),
         cosr_radians + ((axis.y * axis.y) * (real_t(1.0) - cosr_radians)),
-        (axis.z * axis.y * (real_t(1.0) - cosr_radians)) + (axis.x * sinr_radians),
-        (axis.x * axis.z * (real_t(1.0) - cosr_radians)) + (axis.y * sinr_radians),
-        (axis.y * axis.z * (real_t(1.0) - cosr_radians)) - (axis.x * sinr_radians),
+        (axis.z * axis.y * (real_t(1.0) - cosr_radians)) +
+            (axis.x * sinr_radians),
+        (axis.x * axis.z * (real_t(1.0) - cosr_radians)) +
+            (axis.y * sinr_radians),
+        (axis.y * axis.z * (real_t(1.0) - cosr_radians)) -
+            (axis.x * sinr_radians),
         cosr_radians + ((axis.z * axis.z) * (real_t(1.0) - cosr_radians))};
 }
 
@@ -792,9 +798,9 @@ AS_API inline mat3_t from_quat(const quat_t& quat)
     const real_t yz{quat.y * zs};
     const real_t zz{quat.z * zs};
 
-    return {real_t(1.0) - (yy + zz), xy + wz,                 xz - wy,
-            xy - wz,                 real_t(1.0) - (xx + zz), yz + wx,
-            xz + wy,                 yz - wx,                 real_t(1.0) - (xx + yy)};
+    return {real_t(1.0) - (yy + zz), xy + wz, xz - wy, xy - wz,
+            real_t(1.0) - (xx + zz), yz + wx, xz + wy, yz - wx,
+            real_t(1.0) - (xx + yy)};
 }
 
 } // namespace mat3
@@ -1003,15 +1009,21 @@ AS_API inline quat_t axis_angle(const vec3_t& axis, const real_t radians)
 AS_API inline quat_t rotation_zxy(
     const real_t x, const real_t y, const real_t z)
 {
-    return quat_t{cosr(0.5 * y), real_t(0.0), sinr(0.5 * y), real_t(0.0)} *
-           quat_t{cosr(0.5 * x), sinr(0.5 * x), real_t(0.0), real_t(0.0)} *
-           quat_t{cosr(0.5 * z), real_t(0.0), real_t(0.0), sinr(0.5 * z)};
+    return quat_t{
+               cosr(real_t(0.5) * y), real_t(0.0), sinr(real_t(0.5) * y),
+               real_t(0.0)} *
+           quat_t{
+               cosr(real_t(0.5) * x), sinr(real_t(0.5) * x), real_t(0.0),
+               real_t(0.0)} *
+           quat_t{
+               cosr(real_t(0.5) * z), real_t(0.0), real_t(0.0),
+               sinr(real_t(0.5) * z)};
 }
 
 AS_API inline quat_t slerp(const quat_t& lhs, const quat_t& rhs, const real_t t)
 {
     const real_t theta = acosr(dot(lhs, rhs));
-    return (lhs * sinr((1.0 - t) * theta) + rhs * sinr(t * theta)) /
+    return (lhs * sinr((real_t(1.0) - t) * theta) + rhs * sinr(t * theta)) /
            sinr(theta);
 }
 
