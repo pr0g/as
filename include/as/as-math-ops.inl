@@ -664,23 +664,18 @@ AS_API inline mat3_t axis_angle(const vec3_t& axis, const real_t radians)
 {
     const real_t cosr_radians = cosr(radians);
     const real_t sinr_radians = sinr(radians);
+    const real_t one = real_t(1.0);
 
     return {
-        cosr_radians + ((axis.x * axis.x) * (real_t(1.0) - cosr_radians)),
-        (axis.y * axis.x * (real_t(1.0) - cosr_radians)) +
-            (axis.z * sinr_radians),
-        (axis.z * axis.x * (real_t(1.0) - cosr_radians)) -
-            (axis.y * sinr_radians),
-        (axis.x * axis.y * (real_t(1.0) - cosr_radians)) -
-            (axis.z * sinr_radians),
-        cosr_radians + ((axis.y * axis.y) * (real_t(1.0) - cosr_radians)),
-        (axis.z * axis.y * (real_t(1.0) - cosr_radians)) +
-            (axis.x * sinr_radians),
-        (axis.x * axis.z * (real_t(1.0) - cosr_radians)) +
-            (axis.y * sinr_radians),
-        (axis.y * axis.z * (real_t(1.0) - cosr_radians)) -
-            (axis.x * sinr_radians),
-        cosr_radians + ((axis.z * axis.z) * (real_t(1.0) - cosr_radians))};
+        cosr_radians + ((axis.x * axis.x) * (one - cosr_radians)),
+        (axis.y * axis.x * (one - cosr_radians)) + (axis.z * sinr_radians),
+        (axis.z * axis.x * (one - cosr_radians)) - (axis.y * sinr_radians),
+        (axis.x * axis.y * (one - cosr_radians)) - (axis.z * sinr_radians),
+        cosr_radians + ((axis.y * axis.y) * (one - cosr_radians)),
+        (axis.z * axis.y * (one - cosr_radians)) + (axis.x * sinr_radians),
+        (axis.x * axis.z * (one - cosr_radians)) + (axis.y * sinr_radians),
+        (axis.y * axis.z * (one - cosr_radians)) - (axis.x * sinr_radians),
+        cosr_radians + ((axis.z * axis.z) * (one - cosr_radians))};
 }
 
 AS_API inline mat3_t rotation_xyz(
@@ -782,8 +777,9 @@ AS_API inline mat3_t scale(const vec3_t& scale)
 AS_API inline mat3_t from_quat(const quat_t& quat)
 {
     const real_t s{
-        real_t(2.0) / (quat.x * quat.x + quat.y * quat.y + quat.z * quat.z +
-                       quat.w * quat.w)};
+        real_t(2.0)
+        / (quat.x * quat.x + quat.y * quat.y + quat.z * quat.z
+           + quat.w * quat.w)};
 
     const real_t xs{s * quat.x};
     const real_t ys{s * quat.y};
@@ -1009,22 +1005,17 @@ AS_API inline quat_t axis_angle(const vec3_t& axis, const real_t radians)
 AS_API inline quat_t rotation_zxy(
     const real_t x, const real_t y, const real_t z)
 {
-    return quat_t{
-               cosr(real_t(0.5) * y), real_t(0.0), sinr(real_t(0.5) * y),
-               real_t(0.0)} *
-           quat_t{
-               cosr(real_t(0.5) * x), sinr(real_t(0.5) * x), real_t(0.0),
-               real_t(0.0)} *
-           quat_t{
-               cosr(real_t(0.5) * z), real_t(0.0), real_t(0.0),
-               sinr(real_t(0.5) * z)};
+    const real_t half = real_t(0.5);
+    return quat_t{cosr(half * y), real_t(0.0), sinr(half * y), real_t(0.0)}
+         * quat_t{cosr(half * x), sinr(half * x), real_t(0.0), real_t(0.0)}
+         * quat_t{cosr(half * z), real_t(0.0), real_t(0.0), sinr(half * z)};
 }
 
 AS_API inline quat_t slerp(const quat_t& lhs, const quat_t& rhs, const real_t t)
 {
     const real_t theta = acosr(dot(lhs, rhs));
-    return (lhs * sinr((real_t(1.0) - t) * theta) + rhs * sinr(t * theta)) /
-           sinr(theta);
+    return (lhs * sinr((real_t(1.0) - t) * theta) + rhs * sinr(t * theta))
+         / sinr(theta);
 }
 
 // ref: euclidean space
@@ -1046,27 +1037,30 @@ AS_API inline quat_t from_mat3(const mat3_t& mat)
         q.y = (mat[index(0, 2)] - mat[index(2, 0)]) * s;
         q.z = (mat[index(1, 0)] - mat[index(0, 1)]) * s;
     } else {
-        if (mat[index(0, 0)] > mat[index(1, 1)] &&
-            mat[index(0, 0)] > mat[index(2, 2)]) {
-            real_t s = real_t(2.0) * sqrtr(
-                                         real_t(1.0) + mat[index(0, 0)] -
-                                         mat[index(1, 1)] - mat[index(2, 2)]);
+        if (mat[index(0, 0)] > mat[index(1, 1)]
+            && mat[index(0, 0)] > mat[index(2, 2)]) {
+            real_t s = real_t(2.0)
+                     * sqrtr(
+                           real_t(1.0) + mat[index(0, 0)] - mat[index(1, 1)]
+                           - mat[index(2, 2)]);
             q.w = (mat[index(2, 1)] - mat[index(1, 2)]) / s;
             q.x = real_t(0.25) * s;
             q.y = (mat[index(0, 1)] + mat[index(1, 0)]) / s;
             q.z = (mat[index(0, 2)] + mat[index(2, 0)]) / s;
         } else if (mat[index(1, 1)] > mat[index(2, 2)]) {
-            real_t s = real_t(2.0) * sqrtr(
-                                         real_t(1.0) + mat[index(1, 1)] -
-                                         mat[index(0, 0)] - mat[index(2, 2)]);
+            real_t s = real_t(2.0)
+                     * sqrtr(
+                           real_t(1.0) + mat[index(1, 1)] - mat[index(0, 0)]
+                           - mat[index(2, 2)]);
             q.w = (mat[index(0, 2)] - mat[index(2, 0)]) / s;
             q.x = (mat[index(0, 1)] + mat[index(1, 0)]) / s;
             q.y = real_t(0.25) * s;
             q.z = (mat[index(1, 2)] + mat[index(2, 1)]) / s;
         } else {
-            real_t s = real_t(2.0) * sqrtr(
-                                         real_t(1.0) + mat[index(2, 2)] -
-                                         mat[index(0, 0)] - mat[index(1, 1)]);
+            real_t s = real_t(2.0)
+                     * sqrtr(
+                           real_t(1.0) + mat[index(2, 2)] - mat[index(0, 0)]
+                           - mat[index(1, 1)]);
             q.w = (mat[index(1, 0)] - mat[index(0, 1)]) / s;
             q.x = (mat[index(0, 2)] + mat[index(2, 0)]) / s;
             q.y = (mat[index(1, 2)] + mat[index(2, 1)]) / s;
