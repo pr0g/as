@@ -31,6 +31,22 @@ namespace vec4 = as::vec4;
 // use float epsilon for comparisons
 const real_t g_epsilon = std::numeric_limits<float>::epsilon();
 
+std::array<real_t, 2> arr(const real_t x, const real_t y)
+{
+    return std::array<real_t, 2>{x, y};
+}
+
+std::array<real_t, 3> arr(const real_t x, const real_t y, const real_t z)
+{
+    return std::array<real_t, 3>{x, y, z};
+}
+
+std::array<real_t, 4> arr(
+    const real_t x, const real_t y, const real_t z, const real_t w)
+{
+    return std::array<real_t, 4>{x, y, z, w};
+}
+
 TEST_CASE("vec2_initialization", "[as_vec]")
 {
     // default initialization
@@ -42,81 +58,70 @@ TEST_CASE("vec2_initialization", "[as_vec]")
     // zero initialization
     {
         vec2_t vec2{};
-        CHECK(vec2.x == Approx(0.0f).epsilon(g_epsilon));
-        CHECK(vec2.y == Approx(0.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(0.0f, 0.0f), make_elements_sub(vec2, 2));
     }
 
     // value initialization
     {
         vec2_t vec2 = vec2_t();
-        CHECK(vec2.x == Approx(0.0f).epsilon(g_epsilon));
-        CHECK(vec2.y == Approx(0.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(0.0f, 0.0f), make_elements_sub(vec2, 2));
     }
 
     // direct initialization (braces)
     {
         vec2_t vec2{1.0f, 2.0f};
-        CHECK(vec2.x == Approx(1.0f).epsilon(g_epsilon));
-        CHECK(vec2.y == Approx(2.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(1.0f, 2.0f), make_elements_sub(vec2, 2));
     }
 
     // direct initialization - single argument (braces)
     {
         vec2_t vec2{5.0f};
-        CHECK(vec2.x == Approx(5.0f).epsilon(g_epsilon));
-        CHECK(vec2.y == Approx(5.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(5.0f, 5.0f), make_elements_sub(vec2, 2));
     }
 
     // direct initialization (parens)
     {
         vec2_t vec2(5.0f, 10.0f);
-        CHECK(vec2.x == Approx(5.0f).epsilon(g_epsilon));
-        CHECK(vec2.y == Approx(10.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(5.0f, 10.0f), make_elements_sub(vec2, 2));
     }
 
     // direct initialization - single argument (parens)
     {
         vec2_t vec2;
-        vec2 = vec2_t(5.0f);
-        CHECK(vec2.x == Approx(5.0f).epsilon(g_epsilon));
-        CHECK(vec2.y == Approx(5.0f).epsilon(g_epsilon));
+        vec2 = vec2_t(6.0f);
+        CHECK_THAT(arr(6.0f, 6.0f), make_elements_sub(vec2, 2));
     }
 
     // direct/copy initialization (braces)
     {
         vec2_t vec2 = vec2_t{3.0f, 4.0f};
-        CHECK(vec2.x == Approx(3.0f).epsilon(g_epsilon));
-        CHECK(vec2.y == Approx(4.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(3.0f, 4.0f), make_elements_sub(vec2, 2));
     }
 
     // direct/copy initialization (parens)
     {
         vec2_t vec2 = vec2_t(3.0f, 4.0f);
-        CHECK(vec2.x == Approx(3.0f).epsilon(g_epsilon));
-        CHECK(vec2.y == Approx(4.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(3.0f, 4.0f), make_elements_sub(vec2, 2));
     }
 
     // direct/copy initialization - single argument (braces)
     {
         const real_t value{123.0f};
         vec2_t vec2 = vec2_t{value};
-        CHECK(vec2.x == Approx(123.0f).epsilon(g_epsilon));
-        CHECK(vec2.y == Approx(123.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(123.0f, 123.0f), make_elements_sub(vec2, 2));
     }
 
     // direct/copy initialization - single argument (parens)
     {
         vec2_t vec2 = vec2_t(25.0f);
-        CHECK(vec2.x == Approx(25.0f).epsilon(g_epsilon));
-        CHECK(vec2.y == Approx(25.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(25.0f, 25.0f), make_elements_sub(vec2, 2));
     }
 
     // assignment initialization - single argument (braces)
     {
         vec2_t vec2;
         vec2 = vec2_t{75.0f};
-        CHECK(vec2.x == Approx(75.0f).epsilon(g_epsilon));
-        CHECK(vec2.y == Approx(75.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(75.0f, 75.0f), make_elements_sub(vec2, 2));
     }
 
     // direct + copy initialization
@@ -124,8 +129,7 @@ TEST_CASE("vec2_initialization", "[as_vec]")
         vec2_t vec2_a(300.0f, 400.0f);
         vec2_t vec2_b(vec2_a);
 
-        CHECK(vec2_b.x == Approx(300.0f).epsilon(g_epsilon));
-        CHECK(vec2_b.y == Approx(400.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(300.0f, 400.0f), make_elements_sub(vec2_b, 2));
     }
 
     // direct + copy initialization (assignment)
@@ -133,8 +137,7 @@ TEST_CASE("vec2_initialization", "[as_vec]")
         vec2_t vec2_a(100.0f, 200.0f);
         vec2_t vec2_b = vec2_a;
 
-        CHECK(vec2_b.x == Approx(100.0f).epsilon(g_epsilon));
-        CHECK(vec2_b.y == Approx(200.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(100.0f, 200.0f), make_elements_sub(vec2_b, 2));
     }
 
     // direct + copy initialization (assignment)
@@ -144,13 +147,14 @@ TEST_CASE("vec2_initialization", "[as_vec]")
 
         vec2_b = vec2_a;
 
-        CHECK(vec2_b.x == Approx(500.0f).epsilon(g_epsilon));
-        CHECK(vec2_b.y == Approx(600.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(500.0f, 600.0f), make_elements_sub(vec2_b, 2));
     }
 }
 
 TEST_CASE("vec3_initialization", "[as_vec]")
 {
+    using gsl::make_span;
+
     // default initialization
     {
         vec3_t vec3;
@@ -160,91 +164,69 @@ TEST_CASE("vec3_initialization", "[as_vec]")
     // zero initialization
     {
         vec3_t vec3{};
-        CHECK(vec3.x == Approx(0.0f).epsilon(g_epsilon));
-        CHECK(vec3.y == Approx(0.0f).epsilon(g_epsilon));
-        CHECK(vec3.z == Approx(0.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(0.0f, 0.0f, 0.0f), make_elements_sub(vec3, 3));
     }
 
     // value initialization
     {
         vec3_t vec3 = vec3_t();
-        CHECK(vec3.x == Approx(0.0f).epsilon(g_epsilon));
-        CHECK(vec3.y == Approx(0.0f).epsilon(g_epsilon));
-        CHECK(vec3.z == Approx(0.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(0.0f, 0.0f, 0.0f), make_elements_sub(vec3, 3));
     }
 
     // direct initialization (braces)
     {
         vec3_t vec3{1.0f, 2.0f, 3.0f};
-        CHECK(vec3.x == Approx(1.0f).epsilon(g_epsilon));
-        CHECK(vec3.y == Approx(2.0f).epsilon(g_epsilon));
-        CHECK(vec3.z == Approx(3.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(1.0f, 2.0f, 3.0f), make_elements_sub(vec3, 3));
     }
 
     // direct initialization (parens)
     {
         vec3_t vec3(5.0f, 10.0f, 15.0f);
-        CHECK(vec3.x == Approx(5.0f).epsilon(g_epsilon));
-        CHECK(vec3.y == Approx(10.0f).epsilon(g_epsilon));
-        CHECK(vec3.z == Approx(15.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(5.0f, 10.0f, 15.0f), make_elements_sub(vec3, 3));
     }
 
     // direct/copy initialization (braces)
     {
         vec3_t vec3 = vec3_t{1.0f, 2.0f, 3.0f};
-        CHECK(vec3.x == Approx(1.0f).epsilon(g_epsilon));
-        CHECK(vec3.y == Approx(2.0f).epsilon(g_epsilon));
-        CHECK(vec3.z == Approx(3.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(1.0f, 2.0f, 3.0f), make_elements_sub(vec3, 3));
     }
 
     // direct/copy initialization (parens)
     {
         vec3_t vec3 = vec3_t(3.0f, 4.0f, 5.0f);
-        CHECK(vec3.x == Approx(3.0f).epsilon(g_epsilon));
-        CHECK(vec3.y == Approx(4.0f).epsilon(g_epsilon));
-        CHECK(vec3.z == Approx(5.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(3.0f, 4.0f, 5.0f), make_elements_sub(vec3, 3));
     }
 
     // direct/copy initialization - single argument (braces)
     {
         vec3_t vec3 = vec3_t{50.0f};
-        CHECK(vec3.x == Approx(50.0f).epsilon(g_epsilon));
-        CHECK(vec3.y == Approx(50.0f).epsilon(g_epsilon));
-        CHECK(vec3.z == Approx(50.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(50.0f, 50.0f, 50.0f), make_elements_sub(vec3, 3));
     }
 
     // assignment initialization - single argument (braces)
     {
         vec3_t vec3;
         vec3 = vec3_t{50.0f};
-        CHECK(vec3.x == Approx(50.0f).epsilon(g_epsilon));
-        CHECK(vec3.y == Approx(50.0f).epsilon(g_epsilon));
-        CHECK(vec3.z == Approx(50.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(50.0f, 50.0f, 50.0f), make_elements_sub(vec3, 3));
     }
 
     // direct/copy initialization - single argument (parens)
     {
         vec3_t vec3 = vec3_t(25.0f);
-        CHECK(vec3.x == Approx(25.0f).epsilon(g_epsilon));
-        CHECK(vec3.y == Approx(25.0f).epsilon(g_epsilon));
-        CHECK(vec3.z == Approx(25.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(25.0f, 25.0f, 25.0f), make_elements_sub(vec3, 3));
     }
 
     // direct/copy initialization - double argument (braces)
     {
         vec3_t vec3 = vec3_t{vec2_t{1.0f, 2.0f}, 3.0f};
-        CHECK(vec3.x == Approx(1.0f).epsilon(g_epsilon));
-        CHECK(vec3.y == Approx(2.0f).epsilon(g_epsilon));
-        CHECK(vec3.z == Approx(3.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(1.0f, 2.0f, 3.0f), make_elements_sub(vec3, 3));
     }
 
     // direct/copy initialization - double argument (parens)
     {
         vec2_t vec2 = vec2_t(1.0f, 2.0f);
         vec3_t vec3 = vec3_t(vec2, 3.0f);
-        CHECK(vec3.x == Approx(1.0f).epsilon(g_epsilon));
-        CHECK(vec3.y == Approx(2.0f).epsilon(g_epsilon));
-        CHECK(vec3.z == Approx(3.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(1.0f, 2.0f, 3.0f), make_elements_sub(vec3, 3));
     }
 
     // direct + copy initialization
@@ -252,9 +234,7 @@ TEST_CASE("vec3_initialization", "[as_vec]")
         vec3_t vec3_a(100.0f, 200.0f, 300.0f);
         vec3_t vec3_b(vec3_a);
 
-        CHECK(vec3_b.x == Approx(100.0f).epsilon(g_epsilon));
-        CHECK(vec3_b.y == Approx(200.0f).epsilon(g_epsilon));
-        CHECK(vec3_b.z == Approx(300.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(100.0f, 200.0f, 300.0f), make_elements_sub(vec3_b, 3));
     }
 
     // direct + copy initialization
@@ -262,9 +242,7 @@ TEST_CASE("vec3_initialization", "[as_vec]")
         vec3_t vec3_a(400.0f, 500.0f, 600.0f);
         vec3_t vec3_b = vec3_a;
 
-        CHECK(vec3_b.x == Approx(400.0f).epsilon(g_epsilon));
-        CHECK(vec3_b.y == Approx(500.0f).epsilon(g_epsilon));
-        CHECK(vec3_b.z == Approx(600.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(400.0f, 500.0f, 600.0f), make_elements_sub(vec3_b, 3));
     }
 
     // direct + copy initialization (assignment)
@@ -274,9 +252,7 @@ TEST_CASE("vec3_initialization", "[as_vec]")
 
         vec3_b = vec3_a;
 
-        CHECK(vec3_b.x == Approx(500.0f).epsilon(g_epsilon));
-        CHECK(vec3_b.y == Approx(600.0f).epsilon(g_epsilon));
-        CHECK(vec3_b.z == Approx(700.0f).epsilon(g_epsilon));
+        CHECK_THAT(arr(500.0f, 600.0f, 700.0f), make_elements_sub(vec3_b, 3));
     }
 }
 
