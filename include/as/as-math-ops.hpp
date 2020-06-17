@@ -78,6 +78,15 @@ vec_t<T, n> lerp(T t, const vec_t<T, n>& v0, const vec_t<T, n>& v1);
 template<typename T, index_t n>
 vec_t<T, n> select(const vec_t<T, n>& v0, const vec_t<T, n>& v1, bool select0);
 
+template<typename T, index_t n>
+vec_t<T, n> floor(const vec_t<T, n>& vec);
+
+template<typename T, index_t n>
+vec_t<T, n> ceil(const vec_t<T, n>& vec);
+
+template<typename T, index_t n>
+vec_t<T, n> round(const vec_t<T, n>& vec);
+
 } // namespace vec
 
 namespace vec2

@@ -40,6 +40,9 @@ using real_t = float;
 #define atanr atanf
 #define fabsr fabsf
 #define sqrtr sqrtf
+#define floorr floorf
+#define ceilr ceilf
+#define roundr roundf
 #define REAL_EPSILON FLT_EPSILON
 #define REAL_MAX FLT_MAX
 #define REAL_MIN FLT_MIN
@@ -53,6 +56,9 @@ using real_t = double;
 #define atanr atan
 #define fabsr fabs
 #define sqrtr sqrt
+#define floorr floor
+#define ceilr ceil
+#define roundr round
 #define REAL_EPSILON DBL_EPSILON
 #define REAL_MAX DBL_MAX
 #define REAL_MIN DBL_MIN

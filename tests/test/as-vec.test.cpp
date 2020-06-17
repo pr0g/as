@@ -1695,6 +1695,87 @@ TEST_CASE("vec_to_arr", "[as_vec]")
     CHECK_THAT(make_span(vec5_arr), make_elements_sub(vec5, 5));
 }
 
+TEST_CASE("floor", "[as_vec]")
+{
+    using gsl::make_span;
+
+    {
+        const vec3_t vec(1.8f, 2.2f, 3.5f);
+        const vec3_t floor_vec = vec::floor(vec);
+
+        real_t floor_expected[] = {
+            1.0f, 2.0f, 3.0f
+        };
+
+        CHECK_THAT(make_span(floor_expected), make_elements_sub(floor_vec, 3));
+    }
+
+    {
+        const vec4_t vec(-1.3, -2.6f, -3.9f, -4.1f);
+        const vec4_t floor_vec = vec::floor(vec);
+
+        real_t floor_expected[] = {
+            -2.0f, -3.0f, -4.0f, -5.0f
+        };
+
+        CHECK_THAT(make_span(floor_expected), make_elements_sub(floor_vec, 4));
+    }
+}
+
+TEST_CASE("ceil", "[as_vec]")
+{
+    using gsl::make_span;
+
+    {
+        const vec3_t vec(1.8f, 2.2f, 3.5f);
+        const vec3_t ceil_vec = vec::ceil(vec);
+
+        real_t ceil_expected[] = {
+            2.0f, 3.0f, 4.0f
+        };
+
+        CHECK_THAT(make_span(ceil_expected), make_elements_sub(ceil_vec, 3));
+    }
+
+    {
+        const vec4_t vec(-1.3, -2.6f, -3.9f, -4.1f);
+        const vec4_t ceil_vec = vec::ceil(vec);
+
+        real_t ceil_expected[] = {
+            -1.0f, -2.0f, -3.0f, -4.0f
+        };
+
+        CHECK_THAT(make_span(ceil_expected), make_elements_sub(ceil_vec, 4));
+    }
+}
+
+TEST_CASE("round", "[as_vec]")
+{
+    using gsl::make_span;
+
+    {
+        const vec3_t vec(1.8f, 2.2f, 3.5f);
+        const vec3_t round_vec = vec::round(vec);
+
+        real_t round_expected[] = {
+            2.0f, 2.0f, 4.0f
+        };
+
+        CHECK_THAT(make_span(round_expected), make_elements_sub(round_vec, 3));
+    }
+
+    {
+        const vec4_t vec(-1.3, -2.6f, -3.9f, -4.1f);
+        const vec4_t round_vec = vec::round(vec);
+
+        real_t round_expected[] = {
+            -1.0f, -3.0f, -4.0f, -4.0f
+        };
+
+        CHECK_THAT(make_span(round_expected), make_elements_sub(round_vec, 4));
+    }
+}
+
 } // namespace unit_test
 
 // explicit instantiations (for coverage)

@@ -188,6 +188,39 @@ AS_API vec_t<T, n> select(
     return select0 ? v0 : v1;
 }
 
+template<typename T, index_t n>
+AS_API vec_t<T, n> floor(const vec_t<T, n>& vec)
+{
+    vec_t<T, n> result;
+    for (index_t i = 0; i < n; ++i) {
+        result[i] = floorr(vec[i]);
+    }
+
+    return result;
+}
+
+template<typename T, index_t n>
+AS_API vec_t<T, n> ceil(const vec_t<T, n>& vec)
+{
+    vec_t<T, n> result;
+    for (index_t i = 0; i < n; ++i) {
+        result[i] = ceilr(vec[i]);
+    }
+
+    return result;
+}
+
+template<typename T, index_t n>
+AS_API vec_t<T, n> round(const vec_t<T, n>& vec)
+{
+    vec_t<T, n> result;
+    for (index_t i = 0; i < n; ++i) {
+        result[i] = roundr(vec[i]);
+    }
+
+    return result;
+}
+
 } // namespace vec
 
 namespace vec2
