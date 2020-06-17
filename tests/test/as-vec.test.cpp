@@ -1687,7 +1687,7 @@ TEST_CASE("floor", "[as_vec]")
     }
 
     {
-        const vec4_t vec(-1.3, -2.6f, -3.9f, -4.1f);
+        const vec4_t vec(-1.3f, -2.6f, -3.9f, -4.1f);
         const vec4_t floor_vec = vec::floor(vec);
 
         real_t floor_expected[] = {
@@ -1714,7 +1714,7 @@ TEST_CASE("ceil", "[as_vec]")
     }
 
     {
-        const vec4_t vec(-1.3, -2.6f, -3.9f, -4.1f);
+        const vec4_t vec(-1.3f, -2.6f, -3.9f, -4.1f);
         const vec4_t ceil_vec = vec::ceil(vec);
 
         real_t ceil_expected[] = {
@@ -1741,7 +1741,7 @@ TEST_CASE("round", "[as_vec]")
     }
 
     {
-        const vec4_t vec(-1.3, -2.6f, -3.9f, -4.1f);
+        const vec4_t vec(-1.3f, -2.6f, -3.9f, -4.1f);
         const vec4_t round_vec = vec::round(vec);
 
         real_t round_expected[] = {
