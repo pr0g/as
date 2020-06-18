@@ -65,7 +65,8 @@ TEST_CASE("affine_inv_transform_pos", "[as_affine]")
 
     {
         const affine_t affine = affine_t(
-            mat3::rotation_z(deg_to_rad(90.0_r)), point3_t{0.0_r, 10.0_r, 0.0_r});
+            mat3::rotation_z(deg_to_rad(90.0_r)),
+            point3_t{0.0_r, 10.0_r, 0.0_r});
 
         const point3_t result =
             affine::inv_transform_pos(affine, point3_t{5.0_r, 0.0_r, 0.0_r});
@@ -105,7 +106,8 @@ TEST_CASE("affine_inv_transform_dir", "[as_affine]")
 
     {
         const affine_t affine = affine_t(
-            mat3::rotation_z(deg_to_rad(90.0_r)), point3_t{0.0_r, 10.0_r, 0.0_r});
+            mat3::rotation_z(deg_to_rad(90.0_r)),
+            point3_t{0.0_r, 10.0_r, 0.0_r});
 
         const vec3_t result =
             affine::inv_transform_dir(affine, vec3_t{5.0_r, 0.0_r, 0.0_r});

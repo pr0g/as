@@ -46,7 +46,7 @@ using real_t = float;
 #define REAL_EPSILON FLT_EPSILON
 #define REAL_MAX FLT_MAX
 #define REAL_MIN FLT_MIN
-constexpr float operator "" _r(long double val)
+constexpr float operator"" _r(long double val)
 {
     return float(val);
 }
@@ -66,7 +66,7 @@ using real_t = double;
 #define REAL_EPSILON DBL_EPSILON
 #define REAL_MAX DBL_MAX
 #define REAL_MIN DBL_MIN
-constexpr double operator "" _r(long double val)
+constexpr double operator"" _r(long double val)
 {
     return double(val);
 }

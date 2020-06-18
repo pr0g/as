@@ -1048,7 +1048,8 @@ TEST_CASE("mat_inverse", "[as_mat]")
         // clang-format on
 
         const mat2_t mat2_inverse = mat::inverse(mat2);
-        const real_t mat2_inverse_ref[]{-2.0_r, 1.0_r, 3.0_r / 2.0_r, -1.0_r / 2.0_r};
+        const real_t mat2_inverse_ref[]{
+            -2.0_r, 1.0_r, 3.0_r / 2.0_r, -1.0_r / 2.0_r};
 
         CHECK_THAT(
             make_span(mat2_inverse_ref), make_elements_sub(mat2_inverse, 4));

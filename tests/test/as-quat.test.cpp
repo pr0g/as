@@ -85,7 +85,8 @@ TEST_CASE("quat_negation", "[as_quat]")
 
 TEST_CASE("quat_multiplication", "[as_quat]")
 {
-    const quat_t quat_a = quat::axis_angle(vec3_t::axis_x(), deg_to_rad(90.0_r));
+    const quat_t quat_a =
+        quat::axis_angle(vec3_t::axis_x(), deg_to_rad(90.0_r));
     const quat_t quat_b =
         quat::axis_angle(vec3_t::axis_y(), deg_to_rad(180.0_r));
 
@@ -164,7 +165,8 @@ TEST_CASE("quat_inverse", "[as_quat]")
 TEST_CASE("quat_rotate_vec", "[as_quat]")
 {
     {
-        const quat_t quat = quat::rotation_zxy(deg_to_rad(90.0_r), 0.0_r, 0.0_r);
+        const quat_t quat =
+            quat::rotation_zxy(deg_to_rad(90.0_r), 0.0_r, 0.0_r);
         const vec3_t result = quat::rotate(quat, vec3_t::axis_y());
 
         CHECK(result.x == Approx(0.0_r).margin(g_epsilon));

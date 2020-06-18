@@ -235,7 +235,8 @@ TEST_CASE("vec3_initialization", "[as_vec]")
         vec3_t vec3_a(100.0_r, 200.0_r, 300.0_r);
         vec3_t vec3_b(vec3_a);
 
-        CHECK_THAT(arr(100.0_r, 200.0_r, 300.0_r), make_elements_sub(vec3_b, 3));
+        CHECK_THAT(
+            arr(100.0_r, 200.0_r, 300.0_r), make_elements_sub(vec3_b, 3));
     }
 
     // direct + copy initialization
@@ -243,7 +244,8 @@ TEST_CASE("vec3_initialization", "[as_vec]")
         vec3_t vec3_a(400.0_r, 500.0_r, 600.0_r);
         vec3_t vec3_b = vec3_a;
 
-        CHECK_THAT(arr(400.0_r, 500.0_r, 600.0_r), make_elements_sub(vec3_b, 3));
+        CHECK_THAT(
+            arr(400.0_r, 500.0_r, 600.0_r), make_elements_sub(vec3_b, 3));
     }
 
     // direct + copy initialization (assignment)
@@ -253,7 +255,8 @@ TEST_CASE("vec3_initialization", "[as_vec]")
 
         vec3_b = vec3_a;
 
-        CHECK_THAT(arr(500.0_r, 600.0_r, 700.0_r), make_elements_sub(vec3_b, 3));
+        CHECK_THAT(
+            arr(500.0_r, 600.0_r, 700.0_r), make_elements_sub(vec3_b, 3));
     }
 }
 
@@ -304,20 +307,23 @@ TEST_CASE("vec4_initialization", "[as_vec]")
     // direct/copy initialization - single argument (braces)
     {
         vec4_t vec4 = vec4_t{50.0_r};
-        CHECK_THAT(arr(50.0_r, 50.0_r, 50.0_r, 50.0_r), make_elements_sub(vec4, 4));
+        CHECK_THAT(
+            arr(50.0_r, 50.0_r, 50.0_r, 50.0_r), make_elements_sub(vec4, 4));
     }
 
     // assignment initialization - single argument (braces)
     {
         vec4_t vec4;
         vec4 = vec4_t{99.0_r};
-        CHECK_THAT(arr(99.0_r, 99.0_r, 99.0_r, 99.0_r), make_elements_sub(vec4, 4));
+        CHECK_THAT(
+            arr(99.0_r, 99.0_r, 99.0_r, 99.0_r), make_elements_sub(vec4, 4));
     }
 
     // direct/copy initialization - single argument (parens)
     {
         vec4_t vec4 = vec4_t(25.0_r);
-        CHECK_THAT(arr(25.0_r, 25.0_r, 25.0_r, 25.0_r), make_elements_sub(vec4, 4));
+        CHECK_THAT(
+            arr(25.0_r, 25.0_r, 25.0_r, 25.0_r), make_elements_sub(vec4, 4));
     }
 
     // direct/copy initialization - double argument (braces)
@@ -361,7 +367,9 @@ TEST_CASE("vec4_initialization", "[as_vec]")
         vec4_t vec4_a(100.0_r, 200.0_r, 300.0_r, 400.0_r);
         vec4_t vec4_b(vec4_a);
 
-        CHECK_THAT(arr(100.0_r, 200.0_r, 300.0_r, 400.0_r), make_elements_sub(vec4_b, 4));
+        CHECK_THAT(
+            arr(100.0_r, 200.0_r, 300.0_r, 400.0_r),
+            make_elements_sub(vec4_b, 4));
     }
 
     // direct + copy initialization
@@ -369,7 +377,9 @@ TEST_CASE("vec4_initialization", "[as_vec]")
         vec4_t vec4_a(500.0_r, 600.0_r, 700.0_r, 800.0_r);
         vec4_t vec4_b = vec4_a;
 
-        CHECK_THAT(arr(500.0_r, 600.0_r, 700.0_r, 800.0_r), make_elements_sub(vec4_b, 4));
+        CHECK_THAT(
+            arr(500.0_r, 600.0_r, 700.0_r, 800.0_r),
+            make_elements_sub(vec4_b, 4));
     }
 
     // direct + copy initialization (assignment)
@@ -379,7 +389,9 @@ TEST_CASE("vec4_initialization", "[as_vec]")
 
         vec4_b = vec4_a;
 
-        CHECK_THAT(arr(500.0_r, 600.0_r, 700.0_r, 800.0_r), make_elements_sub(vec4_b, 4));
+        CHECK_THAT(
+            arr(500.0_r, 600.0_r, 700.0_r, 800.0_r),
+            make_elements_sub(vec4_b, 4));
     }
 }
 
@@ -507,24 +519,24 @@ TEST_CASE("vec2_vec3_vec4_accessors", "[as_vec]")
     CHECK(vec3::from_vec2(vec2).x == Approx(vec2.x).epsilon(g_epsilon));
     CHECK(vec3::from_vec2(vec2).y == Approx(vec2.y).epsilon(g_epsilon));
     CHECK(
-        vec3::from_vec2(vec2, real_t(3.0)).z ==
-        Approx(real_t(3.0)).epsilon(g_epsilon));
+        vec3::from_vec2(vec2, real_t(3.0)).z
+        == Approx(real_t(3.0)).epsilon(g_epsilon));
 
     CHECK(vec4::from_vec2(vec2).x == Approx(vec2.x).epsilon(g_epsilon));
     CHECK(vec4::from_vec2(vec2).y == Approx(vec2.y).epsilon(g_epsilon));
     CHECK(
-        vec4::from_vec2(vec2, real_t(3.0)).z ==
-        Approx(real_t(3.0)).epsilon(g_epsilon));
+        vec4::from_vec2(vec2, real_t(3.0)).z
+        == Approx(real_t(3.0)).epsilon(g_epsilon));
     CHECK(
-        vec4::from_vec2(vec2, real_t(3.0), real_t(4.0)).w ==
-        Approx(real_t(4.0)).epsilon(g_epsilon));
+        vec4::from_vec2(vec2, real_t(3.0), real_t(4.0)).w
+        == Approx(real_t(4.0)).epsilon(g_epsilon));
 
     CHECK(vec4::from_vec3(vec3).x == Approx(vec2.x).epsilon(g_epsilon));
     CHECK(vec4::from_vec3(vec3).y == Approx(vec2.y).epsilon(g_epsilon));
     CHECK(vec4::from_vec3(vec3).z == Approx(real_t(3.0)).epsilon(g_epsilon));
     CHECK(
-        vec4::from_vec3(vec3, real_t(4.0)).w ==
-        Approx(real_t(4.0)).epsilon(g_epsilon));
+        vec4::from_vec3(vec3, real_t(4.0)).w
+        == Approx(real_t(4.0)).epsilon(g_epsilon));
 }
 
 TEST_CASE("const_elem_access_vec_const", "[as_vec]")
@@ -849,8 +861,8 @@ TEST_CASE("addition", "[as_vec]")
 
     // vec_t operator '+'
     {
-        vec5_t vec = vec5_t{10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r} +
-                     vec5_t{40.0_r, 30.0_r, 20.0_r, 10.0_r, 0.0_r};
+        vec5_t vec = vec5_t{10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r}
+                   + vec5_t{40.0_r, 30.0_r, 20.0_r, 10.0_r, 0.0_r};
 
         CHECK(vec::equal(vec, vec5_t(50.0_r, 50.0_r, 50.0_r, 50.0_r, 50.0_r)));
     }
@@ -867,7 +879,8 @@ TEST_CASE("addition_vec3", "[as_vec]")
 {
     // vec3_t operator '+'
     {
-        vec3_t vec = vec3_t{10.0_r, 20.0_r, 30.0_r} + vec3_t{20.0_r, 10.0_r, 0.0_r};
+        vec3_t vec =
+            vec3_t{10.0_r, 20.0_r, 30.0_r} + vec3_t{20.0_r, 10.0_r, 0.0_r};
         CHECK(vec::equal(vec, vec3_t(30.0_r, 30.0_r, 30.0_r)));
     }
 
@@ -885,10 +898,11 @@ TEST_CASE("substraction", "[as_vec]")
 
     // vec_t operator '-'
     {
-        vec5_t vec = vec5_t{40.0_r, 30.0_r, 20.0_r, 10.0_r, 0.0_r} -
-                     vec5_t{10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r};
+        vec5_t vec = vec5_t{40.0_r, 30.0_r, 20.0_r, 10.0_r, 0.0_r}
+                   - vec5_t{10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r};
 
-        CHECK(vec::equal(vec, vec5_t(30.0_r, 10.0_r, -10.0_r, -30.0_r, -50.0_r)));
+        CHECK(
+            vec::equal(vec, vec5_t(30.0_r, 10.0_r, -10.0_r, -30.0_r, -50.0_r)));
     }
 
     // vec_t operator '-='
@@ -903,7 +917,8 @@ TEST_CASE("substraction_vec3", "[as_vec]")
 {
     // vec3_t operator '-'
     {
-        vec3_t vec = vec3_t{40.0_r, 30.0_r, 20.0_r} - vec3_t{10.0_r, 20.0_r, 30.0_r};
+        vec3_t vec =
+            vec3_t{40.0_r, 30.0_r, 20.0_r} - vec3_t{10.0_r, 20.0_r, 30.0_r};
         CHECK(vec::equal(vec, vec3_t(30.0_r, 10.0_r, -10.0_r)));
     }
 
@@ -921,7 +936,8 @@ TEST_CASE("negation", "[as_vec]")
 
     vec5_t vec = vec5_t{40.0_r, 30.0_r, 20.0_r, 10.0_r, 0.0_r};
     vec5_t neg_vec = -vec;
-    CHECK(vec::equal(neg_vec, vec5_t(-40.0_r, -30.0_r, -20.0_r, -10.0_r, -0.0_r)));
+    CHECK(vec::equal(
+        neg_vec, vec5_t(-40.0_r, -30.0_r, -20.0_r, -10.0_r, -0.0_r)));
 }
 
 TEST_CASE("negation_vec3", "[as_vec]")
@@ -937,15 +953,18 @@ TEST_CASE("multiplication_scalar", "[as_vec]")
 
     // vec_t operator '*'
     {
-        vec5_t vec = real_t(5.0) * vec5_t{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r};
-        CHECK(vec::equal(vec, vec5_t(250.0_r, 200.0_r, 125.0_r, 100.0_r, 50.0_r)));
+        vec5_t vec =
+            real_t(5.0) * vec5_t{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r};
+        CHECK(vec::equal(
+            vec, vec5_t(250.0_r, 200.0_r, 125.0_r, 100.0_r, 50.0_r)));
     }
 
     // vec_t operator '*='
     {
         vec5_t vec = vec5_t{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r};
         vec *= real_t(5.0);
-        CHECK(vec::equal(vec, vec5_t(250.0_r, 200.0_r, 125.0_r, 100.0_r, 50.0_r)));
+        CHECK(vec::equal(
+            vec, vec5_t(250.0_r, 200.0_r, 125.0_r, 100.0_r, 50.0_r)));
     }
 }
 
@@ -971,10 +990,11 @@ TEST_CASE("multiplication_vector", "[as_vec]")
 
     // vec_t operator '*'
     {
-        vec5_t vec = vec5_t{2.0_r, 3.0_r, 4.0_r, 5.0_r, 0.5_r} *
-                     vec5_t{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r};
+        vec5_t vec = vec5_t{2.0_r, 3.0_r, 4.0_r, 5.0_r, 0.5_r}
+                   * vec5_t{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r};
 
-        CHECK(vec::equal(vec, vec5_t(100.0_r, 120.0_r, 100.0_r, 100.0_r, 5.0_r)));
+        CHECK(
+            vec::equal(vec, vec5_t(100.0_r, 120.0_r, 100.0_r, 100.0_r, 5.0_r)));
     }
 
     // vec_t operator '*='
@@ -982,7 +1002,8 @@ TEST_CASE("multiplication_vector", "[as_vec]")
         vec5_t vec1 = vec5_t{2.0_r, 3.0_r, 4.0_r, 5.0_r, 0.5_r};
         vec5_t vec2 = vec5_t{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r};
         vec1 *= vec2;
-        CHECK(vec::equal(vec1, vec5_t(100.0_r, 120.0_r, 100.0_r, 100.0_r, 5.0_r)));
+        CHECK(vec::equal(
+            vec1, vec5_t(100.0_r, 120.0_r, 100.0_r, 100.0_r, 5.0_r)));
     }
 }
 
@@ -990,7 +1011,8 @@ TEST_CASE("multiplication_vector_vec3", "[as_vec]")
 {
     // vec_t operator '*'
     {
-        vec3_t vec = vec3_t{0.5_r, 3.0_r, 4.0_r} * vec3_t{50.0_r, 40.0_r, 25.0_r};
+        vec3_t vec =
+            vec3_t{0.5_r, 3.0_r, 4.0_r} * vec3_t{50.0_r, 40.0_r, 25.0_r};
         CHECK(vec::equal(vec, vec3_t(25.0_r, 120.0_r, 100.0_r)));
     }
 
@@ -1009,7 +1031,8 @@ TEST_CASE("divide_scalar", "[as_vec]")
 
     // vec_t operator '/'
     {
-        vec5_t vec = vec5_t{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r} / real_t(5.0);
+        vec5_t vec =
+            vec5_t{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r} / real_t(5.0);
         CHECK(vec::equal(vec, vec5_t(10.0_r, 8.0_r, 5.0_r, 4.0_r, 2.0_r)));
     }
 
@@ -1043,8 +1066,8 @@ TEST_CASE("divide_vector", "[as_vec]")
 
     // vec_t operator '/'
     {
-        vec5_t vec = vec5_t{33.0_r, 48.0_r, 10.0_r, 120.0_r, 2.0_r} /
-                     vec5_t{3.0_r, 6.0_r, 2.0_r, 3.0_r, 0.5_r};
+        vec5_t vec = vec5_t{33.0_r, 48.0_r, 10.0_r, 120.0_r, 2.0_r}
+                   / vec5_t{3.0_r, 6.0_r, 2.0_r, 3.0_r, 0.5_r};
 
         CHECK(vec::equal(vec, vec5_t(11.0_r, 8.0_r, 5.0_r, 40.0_r, 4.0_r)));
     }
@@ -1062,7 +1085,8 @@ TEST_CASE("divide_vector_vec3", "[as_vec]")
 {
     // vec_t operator '/'
     {
-        vec3_t vec = vec3_t{33.0_r, 48.0_r, 10.0_r} / vec3_t{3.0_r, 6.0_r, 2.0_r};
+        vec3_t vec =
+            vec3_t{33.0_r, 48.0_r, 10.0_r} / vec3_t{3.0_r, 6.0_r, 2.0_r};
         CHECK(vec::equal(vec, vec3_t(11.0_r, 8.0_r, 5.0_r)));
     }
 
@@ -1626,9 +1650,7 @@ TEST_CASE("floor", "[as_vec]")
         const vec3_t vec(1.8_r, 2.2_r, 3.5_r);
         const vec3_t floor_vec = vec::floor(vec);
 
-        real_t floor_expected[] = {
-            1.0_r, 2.0_r, 3.0_r
-        };
+        real_t floor_expected[] = {1.0_r, 2.0_r, 3.0_r};
 
         CHECK_THAT(make_span(floor_expected), make_elements_sub(floor_vec, 3));
     }
@@ -1637,9 +1659,7 @@ TEST_CASE("floor", "[as_vec]")
         const vec4_t vec(-1.3_r, -2.6_r, -3.9_r, -4.1_r);
         const vec4_t floor_vec = vec::floor(vec);
 
-        real_t floor_expected[] = {
-            -2.0_r, -3.0_r, -4.0_r, -5.0_r
-        };
+        real_t floor_expected[] = {-2.0_r, -3.0_r, -4.0_r, -5.0_r};
 
         CHECK_THAT(make_span(floor_expected), make_elements_sub(floor_vec, 4));
     }
@@ -1653,9 +1673,7 @@ TEST_CASE("ceil", "[as_vec]")
         const vec3_t vec(1.8_r, 2.2_r, 3.5_r);
         const vec3_t ceil_vec = vec::ceil(vec);
 
-        real_t ceil_expected[] = {
-            2.0_r, 3.0_r, 4.0_r
-        };
+        real_t ceil_expected[] = {2.0_r, 3.0_r, 4.0_r};
 
         CHECK_THAT(make_span(ceil_expected), make_elements_sub(ceil_vec, 3));
     }
@@ -1664,9 +1682,7 @@ TEST_CASE("ceil", "[as_vec]")
         const vec4_t vec(-1.3_r, -2.6_r, -3.9_r, -4.1_r);
         const vec4_t ceil_vec = vec::ceil(vec);
 
-        real_t ceil_expected[] = {
-            -1.0_r, -2.0_r, -3.0_r, -4.0_r
-        };
+        real_t ceil_expected[] = {-1.0_r, -2.0_r, -3.0_r, -4.0_r};
 
         CHECK_THAT(make_span(ceil_expected), make_elements_sub(ceil_vec, 4));
     }
@@ -1680,9 +1696,7 @@ TEST_CASE("round", "[as_vec]")
         const vec3_t vec(1.8_r, 2.2_r, 3.5_r);
         const vec3_t round_vec = vec::round(vec);
 
-        real_t round_expected[] = {
-            2.0_r, 2.0_r, 4.0_r
-        };
+        real_t round_expected[] = {2.0_r, 2.0_r, 4.0_r};
 
         CHECK_THAT(make_span(round_expected), make_elements_sub(round_vec, 3));
     }
@@ -1691,9 +1705,7 @@ TEST_CASE("round", "[as_vec]")
         const vec4_t vec(-1.3_r, -2.6_r, -3.9_r, -4.1_r);
         const vec4_t round_vec = vec::round(vec);
 
-        real_t round_expected[] = {
-            -1.0_r, -3.0_r, -4.0_r, -4.0_r
-        };
+        real_t round_expected[] = {-1.0_r, -3.0_r, -4.0_r, -4.0_r};
 
         CHECK_THAT(make_span(round_expected), make_elements_sub(round_vec, 4));
     }
