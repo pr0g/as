@@ -46,6 +46,10 @@ using real_t = float;
 #define REAL_EPSILON FLT_EPSILON
 #define REAL_MAX FLT_MAX
 #define REAL_MIN FLT_MIN
+constexpr float operator "" _r(long double val)
+{
+    return float(val);
+}
 #elif defined AS_PRECISION_DOUBLE
 using real_t = double;
 #define cosr cos
@@ -62,6 +66,10 @@ using real_t = double;
 #define REAL_EPSILON DBL_EPSILON
 #define REAL_MAX DBL_MAX
 #define REAL_MIN DBL_MIN
+constexpr double operator "" _r(long double val)
+{
+    return double(val);
+}
 #endif // AS_PRECISION_FLOAT ? AS_PRECISION_DOUBLE
 
 // from Google's Chromium project - compile time array size

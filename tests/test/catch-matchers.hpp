@@ -38,9 +38,10 @@ template<typename Sub>
 class ElementsAreSubscript
     : public Catch::MatcherBase<gsl::span<const typename Sub::value_type>>
 {
+    using value_t = typename Sub::value_type;
     size_t m_len;
-    float m_epsilon = std::numeric_limits<float>::epsilon();
-    float m_margin = 0.0f;
+    value_t m_epsilon = value_t(std::numeric_limits<float>::epsilon());
+    value_t m_margin = value_t(0.0);
     Sub m_subscriptable;
 
 public:
@@ -49,13 +50,13 @@ public:
     {
     }
 
-    ElementsAreSubscript& epsilon(const float epsilon)
+    ElementsAreSubscript& epsilon(const value_t epsilon)
     {
         m_epsilon = epsilon;
         return *this;
     }
 
-    ElementsAreSubscript& margin(const float margin)
+    ElementsAreSubscript& margin(const value_t margin)
     {
         m_margin = margin;
         return *this;

@@ -9,7 +9,7 @@ AS_API constexpr mat_t<T, d> identity()
 {
     mat_t<T, d> identity{};
     for (index_t i = 0; i < mat_t<T, d>::size(); i += d + 1) {
-        identity[i] = 1.0f;
+        identity[i] = T(1.0);
     }
 
     return identity;

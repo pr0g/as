@@ -9,6 +9,6 @@ TEST_CASE("as-vec-dot", "[as-vec]")
     BENCHMARK("as-vec")
     {
         return as::vec::dot(
-            as::vec3_t{1.0f, 2.0f, 3.0f}, as::vec3_t{5.0f, 6.0f, 7.0f});
+            as::vec3_t{1.0_r, 2.0_r, 3.0_r}, as::vec3_t{5.0_r, 6.0_r, 7.0_r});
     };
 }
