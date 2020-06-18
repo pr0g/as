@@ -15,11 +15,6 @@ struct vec_t
     using value_type = T;
 
     vec_t() noexcept = default;
-    vec_t(const vec_t&) noexcept = default;
-    vec_t& operator=(const vec_t&) noexcept = default;
-    vec_t(vec_t&&) noexcept = default;
-    vec_t& operator=(vec_t&&) noexcept = default;
-    ~vec_t() = default;
 
     template<typename...>
     struct typelist
@@ -55,12 +50,6 @@ struct vec2_base_t
     using value_type = T;
 
     vec2_base_t() noexcept = default;
-    vec2_base_t(const vec2_base_t&) noexcept = default;
-    vec2_base_t& operator=(const vec2_base_t&) noexcept = default;
-    vec2_base_t(vec2_base_t&&) noexcept = default;
-    vec2_base_t& operator=(vec2_base_t&&) noexcept = default;
-    ~vec2_base_t() = default;
-
     constexpr explicit vec2_base_t(T xy_);
     constexpr vec2_base_t(T x_, T y_);
 
@@ -86,12 +75,6 @@ template<typename T>
 struct vec_t<T, 2> : internal::vec2_base_t<T>
 {
     vec_t() noexcept = default;
-    vec_t(const vec_t&) noexcept = default;
-    vec_t& operator=(const vec_t&) noexcept = default;
-    vec_t(vec_t&&) noexcept = default;
-    vec_t& operator=(vec_t&&) noexcept = default;
-    ~vec_t() = default;
-
     constexpr explicit vec_t(T xy_);
     constexpr vec_t(T x_, T y_);
 
@@ -118,12 +101,6 @@ struct vec3_base_t
     using value_type = T;
 
     vec3_base_t() noexcept = default;
-    vec3_base_t(const vec3_base_t&) noexcept = default;
-    vec3_base_t& operator=(const vec3_base_t&) noexcept = default;
-    vec3_base_t(vec3_base_t&&) noexcept = default;
-    vec3_base_t& operator=(vec3_base_t&&) noexcept = default;
-    ~vec3_base_t() = default;
-
     constexpr explicit vec3_base_t(T xyz_);
     constexpr vec3_base_t(const vec_t<T, 2>& xy_, T z_);
     constexpr vec3_base_t(T x_, T y_, T z_);
@@ -150,12 +127,6 @@ template<typename T>
 struct vec_t<T, 3> : internal::vec3_base_t<T>
 {
     vec_t() noexcept = default;
-    vec_t(const vec_t&) noexcept = default;
-    vec_t& operator=(const vec_t&) noexcept = default;
-    vec_t(vec_t&&) noexcept = default;
-    vec_t& operator=(vec_t&&) noexcept = default;
-    ~vec_t() = default;
-
     constexpr explicit vec_t(T xyz_);
     constexpr vec_t(const vec_t<T, 2>& xy_, T z_);
     constexpr vec_t(T x_, T y_, T z_);
@@ -184,12 +155,6 @@ struct vec4_base_t
     using value_type = T;
 
     vec4_base_t() noexcept = default;
-    vec4_base_t(const vec4_base_t&) noexcept = default;
-    vec4_base_t& operator=(const vec4_base_t&) noexcept = default;
-    vec4_base_t(vec4_base_t&&) noexcept = default;
-    vec4_base_t& operator=(vec4_base_t&&) noexcept = default;
-    ~vec4_base_t() = default;
-
     constexpr explicit vec4_base_t(T xyzw_);
     constexpr vec4_base_t(const vec_t<T, 3>& xyz_, T w_);
     constexpr vec4_base_t(const vec_t<T, 2>& xy_, T z_, T w_);
@@ -219,12 +184,6 @@ template<typename T>
 struct vec_t<T, 4> : internal::vec4_base_t<T>
 {
     vec_t() noexcept = default;
-    vec_t(const vec_t&) noexcept = default;
-    vec_t& operator=(const vec_t&) noexcept = default;
-    vec_t(vec_t&&) noexcept = default;
-    vec_t& operator=(vec_t&&) noexcept = default;
-    ~vec_t() = default;
-
     constexpr explicit vec_t(T xyzw_);
     constexpr vec_t(const vec_t<T, 3>& xyz_, T w_);
     constexpr vec_t(const vec_t<T, 2>& xy_, T z_, T w_);

@@ -12,11 +12,6 @@ struct mat_t<T, 4>
     using value_type = T;
 
     mat_t() noexcept = default;
-    mat_t(const mat_t&) noexcept = default;
-    mat_t& operator=(const mat_t&) noexcept = default;
-    mat_t(mat_t&&) noexcept = default;
-    mat_t& operator=(mat_t&&) noexcept = default;
-    ~mat_t() = default;
 
     // clang-format off
     constexpr mat_t(

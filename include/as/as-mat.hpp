@@ -21,11 +21,6 @@ struct mat_t
     using value_type = T;
 
     mat_t() noexcept = default;
-    mat_t(const mat_t&) noexcept = default;
-    mat_t& operator=(const mat_t&) noexcept = default;
-    mat_t(mat_t&&) noexcept = default;
-    mat_t& operator=(mat_t&&) noexcept = default;
-    ~mat_t() = default;
 
     template<typename...>
     struct typelist
