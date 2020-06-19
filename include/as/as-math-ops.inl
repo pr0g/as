@@ -482,8 +482,9 @@ AS_API T determinant_impl(const mat_t<T, d>& mat, int2type<I> /*unused*/)
     T result{0.0};
 
     for (index_t i = 0; i < d; ++i) {
-        T minor = determinant_impl(sub_matrix(mat, i, 0), int2type<I - 1>{});
-        result += (mat[i] * minor) * sign;
+        const T minor_det =
+            determinant_impl(sub_matrix(mat, i, 0), int2type<I - 1>{});
+        result += (mat[i] * minor_det) * sign;
         sign *= T{-1.0};
     }
 
@@ -507,9 +508,9 @@ AS_API mat_t<T, d> minor_impl(const mat_t<T, d>& mat, int2type<I> /*unused*/)
     for (index_t c = 0; c < d; ++c) {
         T innerSign{outerSign};
         for (index_t r = 0; r < d; ++r) {
-            T det = determinant_impl<T>(
+            const T minor_det = determinant_impl<T>(
                 internal::sub_matrix(mat, r, c), int2type<d - 1>{});
-            result[c * d + r] = det * innerSign;
+            result[c * d + r] = minor_det * innerSign;
             innerSign *= T{-1.0};
         }
 
