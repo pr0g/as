@@ -428,9 +428,9 @@ template<typename T, index_t d>
 AS_API mat_t<T, d> transpose(const mat_t<T, d>& mat)
 {
     mat_t<T, d> result;
-    for (index_t rowIndex = 0; rowIndex < d; ++rowIndex) {
-        for (index_t colIndex = 0; colIndex < d; ++colIndex) {
-            result[colIndex * d + rowIndex] = mat[rowIndex * d + colIndex];
+    for (index_t ci = 0; ci < d; ++ci) {
+        for (index_t ri = 0; ri < d; ++ri) {
+            result[ci * d + ri] = mat[ri * d + ci];
         }
     }
 
@@ -503,18 +503,18 @@ template<typename T, index_t d, index_t I>
 AS_API mat_t<T, d> minor_impl(const mat_t<T, d>& mat, int2type<I> /*unused*/)
 {
     mat_t<T, d> result;
-    T outerSign = T{1.0};
+    T outer_sign = T{1.0};
 
     for (index_t c = 0; c < d; ++c) {
-        T innerSign{outerSign};
+        T inner_sign{outer_sign};
         for (index_t r = 0; r < d; ++r) {
             const T minor_det = determinant_impl<T>(
                 internal::sub_matrix(mat, r, c), int2type<d - 1>{});
-            result[c * d + r] = minor_det * innerSign;
-            innerSign *= T{-1.0};
+            result[c * d + r] = minor_det * inner_sign;
+            inner_sign *= T{-1.0};
         }
 
-        outerSign *= T{-1.0};
+        outer_sign *= T{-1.0};
     }
 
     return result;
@@ -557,7 +557,7 @@ AS_API mat_t<T, d> gj_inverse(const mat_t<T, d>& mat)
     mat_t<T, d> curr_mat = mat;
     mat_t<T, d> result = identity<T, d>();
 
-    index_t currentLine = 0;
+    index_t current_line = 0;
     for (index_t i = 0; i < d; ++i) {
         T diagonal = curr_mat[(d * i) + i];
         T diagonal_recip = T{1} / diagonal;
@@ -568,20 +568,20 @@ AS_API mat_t<T, d> gj_inverse(const mat_t<T, d>& mat)
         }
 
         for (index_t row = 0; row < d; ++row) {
-            if (row == currentLine) {
+            if (row == current_line) {
                 continue;
             }
 
-            T next = curr_mat[currentLine + row * d];
+            T next = curr_mat[current_line + row * d];
 
             for (index_t col = 0; col < d; ++col) {
                 index_t index_t = d * row + col;
-                curr_mat[index_t] -= (next * curr_mat[d * currentLine + col]);
-                result[index_t] -= (next * result[d * currentLine + col]);
+                curr_mat[index_t] -= (next * curr_mat[d * current_line + col]);
+                result[index_t] -= (next * result[d * current_line + col]);
             }
         }
 
-        ++currentLine;
+        ++current_line;
     }
 
     return result;
@@ -1132,22 +1132,22 @@ AS_API inline point3_t transform_pos(
 AS_API inline vec3_t inv_transform_dir(
     const affine_t& affine, const vec3_t& direction)
 {
-    const mat3_t invRotation = as::mat::inverse(affine.rotation);
+    const mat3_t inv_rotation = as::mat::inverse(affine.rotation);
 #if defined AS_COL_MAJOR
-    return invRotation * direction;
+    return inv_rotation * direction;
 #elif defined AS_ROW_MAJOR
-    return direction * invRotation;
+    return direction * inv_rotation;
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
 AS_API inline point3_t inv_transform_pos(
     const affine_t& affine, const point3_t& position)
 {
-    const mat3_t invRotation = as::mat::inverse(affine.rotation);
+    const mat3_t inv_rotation = as::mat::inverse(affine.rotation);
 #if defined AS_COL_MAJOR
-    return point3_t{invRotation * (position - affine.position)};
+    return point3_t{inv_rotation * (position - affine.position)};
 #elif defined AS_ROW_MAJOR
-    return point3_t{(position - affine.position) * invRotation};
+    return point3_t{(position - affine.position) * inv_rotation};
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
