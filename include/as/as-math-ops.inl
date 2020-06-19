@@ -448,18 +448,18 @@ struct int2type
 // where col and row are the rows to ignore
 template<typename T, index_t d>
 AS_API mat_t<T, d - 1> sub_matrix(
-    const mat_t<T, d>& mat, const index_t col, const index_t row)
+    const mat_t<T, d>& mat, const index_t r, const index_t c)
 {
     mat_t<T, d - 1> result = identity<T, d - 1>();
 
     index_t i = 0;
-    for (index_t r = 0; r < d; ++r) {
-        for (index_t c = 0; c < d; ++c) {
-            if (r == row || c == col) {
+    for (index_t ci = 0; ci < d; ++ci) {
+        for (index_t ri = 0; ri < d; ++ri) {
+            if (ri == r || ci == c) {
                 continue;
             }
 
-            result[i++] = mat[r * d + c];
+            result[i++] = mat[ci * d + ri];
         }
     }
 
@@ -504,13 +504,12 @@ AS_API mat_t<T, d> minor_impl(const mat_t<T, d>& mat, int2type<I> /*unused*/)
     mat_t<T, d> result;
     T outerSign = T{1.0};
 
-    for (index_t i = 0; i < d; ++i) {
+    for (index_t c = 0; c < d; ++c) {
         T innerSign{outerSign};
-
-        for (index_t j = 0; j < d; ++j) {
-            T minor = determinant_impl<T>(
-                internal::sub_matrix(mat, j, i), int2type<d - 1>{});
-            result[j + i * d] = minor * innerSign;
+        for (index_t r = 0; r < d; ++r) {
+            T det = determinant_impl<T>(
+                internal::sub_matrix(mat, r, c), int2type<d - 1>{});
+            result[c * d + r] = det * innerSign;
             innerSign *= T{-1.0};
         }
 
