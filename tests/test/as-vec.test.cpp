@@ -1751,8 +1751,8 @@ template as::index_t as::vec::size<as::real_t, 5>(
     const as::vec_t<as::real_t, 5>&);
 template as::real_t as::vec::dot(
     const as::vec_t<as::real_t, 5>&, const as::vec_t<as::real_t, 5>&);
-template std::tuple<as::vec_t<as::real_t, 5>, as::real_t> as::vec::normalize_with_length(
-    const as::vec_t<as::real_t, 5>&);
+template std::tuple<as::vec_t<as::real_t, 5>, as::real_t> as::vec::
+    normalize_with_length(const as::vec_t<as::real_t, 5>&);
 template as::vec_t<as::real_t, 5> as::vec::min(
     const as::vec_t<as::real_t, 5>&, const as::vec_t<as::real_t, 5>&);
 template as::real_t as::vec::min_elem(const as::vec_t<as::real_t, 5>&);
