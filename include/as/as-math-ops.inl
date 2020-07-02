@@ -71,11 +71,10 @@ AS_API vec_t<T, n> normalize(const vec_t<T, n>& vec)
 }
 
 template<typename T, index_t n>
-AS_API T normalize_return_length(const vec_t<T, n>& vec, vec_t<T, n>& out)
+AS_API std::tuple<vec_t<T, n>, T> normalize_with_length(const vec_t<T, n>& vec)
 {
     const T len = length(vec);
-    out = vec / len;
-    return len;
+    return std::make_tuple(vec / len, len);
 }
 
 template<typename T, index_t n>

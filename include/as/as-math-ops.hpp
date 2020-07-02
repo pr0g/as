@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iterator>
+#include <tuple>
 
 #include "as-affine.hpp"
 #include "as-mat3.hpp"
@@ -43,7 +44,7 @@ template<typename T, index_t n>
 vec_t<T, n> normalize(const vec_t<T, n>& vec);
 
 template<typename T, index_t n>
-T normalize_return_length(const vec_t<T, n>& vec, vec_t<T, n>& out);
+std::tuple<vec_t<T, n>, T> normalize_with_length(const vec_t<T, n>& vec);
 
 template<typename T, index_t n>
 bool equal(

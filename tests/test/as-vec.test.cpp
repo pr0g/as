@@ -1558,11 +1558,10 @@ TEST_CASE("lerp", "[as_vec]")
     }
 }
 
-TEST_CASE("normalize_return_length", "[as_vec]")
+TEST_CASE("normalize_with_length", "[as_vec]")
 {
     const vec3_t vec(3.0_r, 4.0_r, 0.0_r);
-    vec3_t vec_normalized;
-    const real_t length = vec::normalize_return_length(vec, vec_normalized);
+    const auto [vec_normalized, length] = vec::normalize_with_length(vec);
 
     CHECK(length == Approx(5.0_r).epsilon(g_epsilon));
     CHECK(vec::length(vec_normalized) == Approx(1.0_r).epsilon(g_epsilon));
@@ -1752,8 +1751,8 @@ template as::index_t as::vec::size<as::real_t, 5>(
     const as::vec_t<as::real_t, 5>&);
 template as::real_t as::vec::dot(
     const as::vec_t<as::real_t, 5>&, const as::vec_t<as::real_t, 5>&);
-template as::real_t as::vec::normalize_return_length(
-    const as::vec_t<as::real_t, 5>&, as::vec_t<as::real_t, 5>&);
+template std::tuple<as::vec_t<as::real_t, 5>, as::real_t> as::vec::normalize_with_length(
+    const as::vec_t<as::real_t, 5>&);
 template as::vec_t<as::real_t, 5> as::vec::min(
     const as::vec_t<as::real_t, 5>&, const as::vec_t<as::real_t, 5>&);
 template as::real_t as::vec::min_elem(const as::vec_t<as::real_t, 5>&);
