@@ -20,7 +20,7 @@ public:
         return m_span == span;
     }
 
-    std::string describe() const override
+    [[nodiscard]] std::string describe() const override
     {
         std::ostringstream ss;
         ss << "actual, expected: { ";
@@ -79,7 +79,7 @@ public:
         return true;
     }
 
-    std::string describe() const override
+    [[nodiscard]] std::string describe() const override
     {
         std::ostringstream ss;
         ss << "was expected, actual: { ";
