@@ -341,6 +341,15 @@ template<typename T>
 constexpr mat_t<T, 4> from_mat3_vec3(
     const mat_t<T, 3>& rotation, const vec_t<T, 3>& translation);
 
+template<typename T>
+constexpr mat_t<T, 4> shear_x(T y, T z);
+
+template<typename T>
+constexpr mat_t<T, 4> shear_y(T x, T z);
+
+template<typename T>
+constexpr mat_t<T, 4> shear_z(T x, T y);
+
 } // namespace mat4
 
 namespace point

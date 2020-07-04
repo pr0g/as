@@ -1,3 +1,4 @@
+#include "as-helpers.test.hpp"
 #include "catch-matchers.hpp"
 #include "catch2/catch.hpp"
 
@@ -31,22 +32,6 @@ namespace vec4 = as::vec4;
 
 // use float epsilon for comparisons
 const real_t g_epsilon = real_t(std::numeric_limits<float>::epsilon());
-
-static std::array<real_t, 2> arr(const real_t x, const real_t y)
-{
-    return std::array<real_t, 2>{x, y};
-}
-
-static std::array<real_t, 3> arr(const real_t x, const real_t y, const real_t z)
-{
-    return std::array<real_t, 3>{x, y, z};
-}
-
-static std::array<real_t, 4> arr(
-    const real_t x, const real_t y, const real_t z, const real_t w)
-{
-    return std::array<real_t, 4>{x, y, z, w};
-}
 
 TEST_CASE("vec2_initialization", "[as_vec]")
 {

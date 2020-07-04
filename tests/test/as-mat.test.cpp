@@ -1,3 +1,4 @@
+#include "as-helpers.test.hpp"
 #include "catch-matchers.hpp"
 #include "catch2/catch.hpp"
 
@@ -1384,6 +1385,71 @@ TEST_CASE("row_col_access", "[as-mat]")
         index_t offset;
         offset = mat4::rc(2, 2);
         CHECK(offset == 10);
+    }
+}
+
+TEST_CASE("mat4_shear", "[as-mat]")
+{
+    using gsl::make_span;
+
+    {
+        const mat4_t shear_about_x = as::mat4::shear_x(1.0_r, 0.0_r);
+        const vec4_t position{1.0_r, 0.0_r, 0.0_r, 1.0f};
+
+        const vec4_t result = shear_about_x * position;
+
+        CHECK_THAT(
+            arr(1.0_r, 1.0_r, 0.0_r, 1.0_r), make_elements_sub(result, 4));
+    }
+
+    {
+        const mat4_t shear_about_x = as::mat4::shear_x(0.0_r, 1.0_r);
+        const vec4_t position{1.0_r, 0.0_r, 0.0_r, 1.0f};
+
+        const vec4_t result = shear_about_x * position;
+
+        CHECK_THAT(
+            arr(1.0_r, 0.0_r, 1.0_r, 1.0_r), make_elements_sub(result, 4));
+    }
+
+    {
+        const mat4_t shear_about_y = as::mat4::shear_y(1.0_r, 0.0_r);
+        const vec4_t position{1.0_r, 1.0_r, 0.0_r, 1.0f};
+
+        const vec4_t result = shear_about_y * position;
+
+        CHECK_THAT(
+            arr(2.0_r, 1.0_r, 0.0_r, 1.0_r), make_elements_sub(result, 4));
+    }
+
+    {
+        const mat4_t shear_about_y = as::mat4::shear_y(0.0_r, 1.0_r);
+        const vec4_t position{1.0_r, 1.0_r, 0.0_r, 1.0f};
+
+        const vec4_t result = shear_about_y * position;
+
+        CHECK_THAT(
+            arr(1.0_r, 1.0_r, 1.0_r, 1.0_r), make_elements_sub(result, 4));
+    }
+
+    {
+        const mat4_t shear_about_z = as::mat4::shear_z(1.0_r, 0.0_r);
+        const vec4_t position{0.0_r, 0.0_r, 1.0_r, 1.0f};
+
+        const vec4_t result = shear_about_z * position;
+
+        CHECK_THAT(
+            arr(1.0_r, 0.0_r, 1.0_r, 1.0_r), make_elements_sub(result, 4));
+    }
+
+    {
+        const mat4_t shear_about_z = as::mat4::shear_z(0.0_r, 1.0_r);
+        const vec4_t position{1.0_r, 0.0_r, 1.0_r, 1.0f};
+
+        const vec4_t result = shear_about_z * position;
+
+        CHECK_THAT(
+            arr(1.0_r, 1.0_r, 1.0_r, 1.0_r), make_elements_sub(result, 4));
     }
 }
 
