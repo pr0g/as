@@ -1393,63 +1393,81 @@ TEST_CASE("mat4_shear", "[as-mat]")
     using gsl::make_span;
 
     {
-        const mat4_t shear_about_x = as::mat4::shear_x(1.0_r, 0.0_r);
-        const vec4_t position{1.0_r, 0.0_r, 0.0_r, 1.0f};
+        mat4_t shear_about_x;
+        shear_about_x = as::mat4::shear_x(1.0_r, 0.0_r);
 
-        const vec4_t result = shear_about_x * position;
+        const point3_t position{1.0_r, 0.0_r, 0.0_r};
+
+        point3_t result;
+        result = as::affine::transform_pos(as::affine::from_mat4(shear_about_x), position);
 
         CHECK_THAT(
-            arr(1.0_r, 1.0_r, 0.0_r, 1.0_r), make_elements_sub(result, 4));
+            arr(1.0_r, 1.0_r, 0.0_r), make_elements_sub(result, 3));
     }
 
     {
-        const mat4_t shear_about_x = as::mat4::shear_x(0.0_r, 1.0_r);
-        const vec4_t position{1.0_r, 0.0_r, 0.0_r, 1.0f};
+        mat4_t shear_about_x;
+        shear_about_x = as::mat4::shear_x(0.0_r, 1.0_r);
 
-        const vec4_t result = shear_about_x * position;
+        const point3_t position{1.0_r, 0.0_r, 0.0_r};
+
+        point3_t result;
+        result = as::affine::transform_pos(as::affine::from_mat4(shear_about_x), position);
 
         CHECK_THAT(
-            arr(1.0_r, 0.0_r, 1.0_r, 1.0_r), make_elements_sub(result, 4));
+            arr(1.0_r, 0.0_r, 1.0_r), make_elements_sub(result, 3));
     }
 
     {
-        const mat4_t shear_about_y = as::mat4::shear_y(1.0_r, 0.0_r);
-        const vec4_t position{1.0_r, 1.0_r, 0.0_r, 1.0f};
+        mat4_t shear_about_y;
+        shear_about_y = as::mat4::shear_y(1.0_r, 0.0_r);
 
-        const vec4_t result = shear_about_y * position;
+        const point3_t position{1.0_r, 1.0_r, 0.0_r};
+
+        point3_t result;
+        result = as::affine::transform_pos(as::affine::from_mat4(shear_about_y), position);
 
         CHECK_THAT(
-            arr(2.0_r, 1.0_r, 0.0_r, 1.0_r), make_elements_sub(result, 4));
+            arr(2.0_r, 1.0_r, 0.0_r), make_elements_sub(result, 3));
     }
 
     {
-        const mat4_t shear_about_y = as::mat4::shear_y(0.0_r, 1.0_r);
-        const vec4_t position{1.0_r, 1.0_r, 0.0_r, 1.0f};
+        mat4_t shear_about_y;
+        shear_about_y = as::mat4::shear_y(0.0_r, 1.0_r);
 
-        const vec4_t result = shear_about_y * position;
+        const point3_t position{1.0_r, 1.0_r, 0.0_r};
+
+        point3_t result;
+        result = as::affine::transform_pos(as::affine::from_mat4(shear_about_y), position);
 
         CHECK_THAT(
-            arr(1.0_r, 1.0_r, 1.0_r, 1.0_r), make_elements_sub(result, 4));
+            arr(1.0_r, 1.0_r, 1.0_r), make_elements_sub(result, 3));
     }
 
     {
-        const mat4_t shear_about_z = as::mat4::shear_z(1.0_r, 0.0_r);
-        const vec4_t position{0.0_r, 0.0_r, 1.0_r, 1.0f};
+        mat4_t shear_about_z;
+        shear_about_z = as::mat4::shear_z(1.0_r, 0.0_r);
 
-        const vec4_t result = shear_about_z * position;
+        const point3_t position{0.0_r, 0.0_r, 1.0_r};
+
+        point3_t result;
+        result = as::affine::transform_pos(as::affine::from_mat4(shear_about_z), position);
 
         CHECK_THAT(
-            arr(1.0_r, 0.0_r, 1.0_r, 1.0_r), make_elements_sub(result, 4));
+            arr(1.0_r, 0.0_r, 1.0_r), make_elements_sub(result, 3));
     }
 
     {
-        const mat4_t shear_about_z = as::mat4::shear_z(0.0_r, 1.0_r);
-        const vec4_t position{1.0_r, 0.0_r, 1.0_r, 1.0f};
+        mat4_t shear_about_z;
+        shear_about_z = as::mat4::shear_z(0.0_r, 1.0_r);
 
-        const vec4_t result = shear_about_z * position;
+        const point3_t position{1.0_r, 0.0_r, 1.0_r};
+
+        point3_t result;
+        result = as::affine::transform_pos(as::affine::from_mat4(shear_about_z), position);
 
         CHECK_THAT(
-            arr(1.0_r, 1.0_r, 1.0_r, 1.0_r), make_elements_sub(result, 4));
+            arr(1.0_r, 1.0_r, 1.0_r), make_elements_sub(result, 3));
     }
 }
 

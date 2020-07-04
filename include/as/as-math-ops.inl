@@ -957,6 +957,16 @@ AS_API constexpr mat_t<T, 4> from_mat3_vec3(
 }
 
 template<typename T>
+AS_API constexpr vec_t<T, 3> translation(const mat_t<T, 4>& mat)
+{
+#if defined AS_COL_MAJOR
+    return vec3::from_vec4(mat4::col3(mat));
+#elif defined AS_ROW_MAJOR
+    return vec3::from_vec4(mat4::row3(mat));
+#endif // AS_COL_MAJOR ? AS_ROW_MAJOR
+}
+
+template<typename T>
 AS_API constexpr mat_t<T, 4> shear_x(const T y, const T z)
 {
     // clang-format off
@@ -1128,6 +1138,11 @@ AS_API inline quat_t from_mat3(const mat3_t& mat)
 
 namespace affine
 {
+
+AS_API constexpr affine_t from_mat4(const mat4_t& mat)
+{
+    return affine_t{mat3::from_mat4(mat), point3_t{mat4::translation(mat)}};
+}
 
 AS_API inline vec3_t transform_dir(
     const affine_t& affine, const vec3_t& direction)

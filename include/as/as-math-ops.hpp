@@ -342,6 +342,9 @@ constexpr mat_t<T, 4> from_mat3_vec3(
     const mat_t<T, 3>& rotation, const vec_t<T, 3>& translation);
 
 template<typename T>
+constexpr vec_t<T, 3> translation(const mat_t<T, 4>& mat);
+
+template<typename T>
 constexpr mat_t<T, 4> shear_x(T y, T z);
 
 template<typename T>
@@ -386,6 +389,8 @@ quat_t from_mat3(const mat3_t& mat);
 
 namespace affine
 {
+
+constexpr affine_t from_mat4(const mat4_t& mat);
 
 vec3_t transform_dir(const affine_t& affine, const vec3_t& direction);
 point3_t transform_pos(const affine_t& affine, const point3_t& position);
