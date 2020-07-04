@@ -215,7 +215,8 @@ AS_API constexpr vec_t<T, 4>::vec_t(const vec_t<T, 3>& xyz_, const T w_)
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4>::vec_t(const vec_t<T, 2>& xy_, const T z_, const T w_)
+AS_API constexpr vec_t<T, 4>::vec_t(
+    const vec_t<T, 2>& xy_, const T z_, const T w_)
     : x(xy_.x), y(xy_.y), z(z_), w(w_)
 {
 }
@@ -228,7 +229,8 @@ AS_API constexpr vec_t<T, 4>::vec_t(
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4>::vec_t(const T x_, const T y_, const T z_, const T w_)
+AS_API constexpr vec_t<T, 4>::vec_t(
+    const T x_, const T y_, const T z_, const T w_)
     : x(x_), y(y_), z(z_), w(w_)
 {
 }
