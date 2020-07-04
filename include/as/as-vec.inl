@@ -369,7 +369,7 @@ AS_API inline const vec3_t operator-(const vec3_t& rhs)
 }
 
 template<typename T, index_t n>
-AS_API const vec_t<T, n> operator*(const vec_t<T, n>& lhs, T val)
+AS_API const vec_t<T, n> operator*(const vec_t<T, n>& lhs, const T val)
 {
     vec_t<T, n> result{lhs};
     result *= val;
@@ -377,7 +377,7 @@ AS_API const vec_t<T, n> operator*(const vec_t<T, n>& lhs, T val)
 }
 
 template<>
-AS_API inline const vec3_t operator*(const vec3_t& lhs, real_t val)
+AS_API inline const vec3_t operator*(const vec3_t& lhs, const real_t val)
 {
     return {lhs.x * val, lhs.y * val, lhs.z * val};
 }
@@ -389,13 +389,13 @@ AS_API const vec_t<T, n> operator*(T val, const vec_t<T, n>& rhs)
 }
 
 template<>
-AS_API inline const vec3_t operator*(real_t val, const vec3_t& rhs)
+AS_API inline const vec3_t operator*(const real_t val, const vec3_t& rhs)
 {
     return rhs * val;
 }
 
 template<typename T, index_t n>
-AS_API vec_t<T, n>& operator*=(vec_t<T, n>& lhs, T val)
+AS_API vec_t<T, n>& operator*=(vec_t<T, n>& lhs, const T val)
 {
     for (index_t i = 0; i < n; ++i) {
         lhs[i] *= val;
@@ -405,7 +405,7 @@ AS_API vec_t<T, n>& operator*=(vec_t<T, n>& lhs, T val)
 }
 
 template<>
-AS_API inline vec3_t& operator*=(vec3_t& lhs, real_t val)
+AS_API inline vec3_t& operator*=(vec3_t& lhs, const real_t val)
 {
     lhs.x *= val;
     lhs.y *= val;
@@ -448,7 +448,7 @@ AS_API inline vec3_t& operator*=(vec3_t& lhs, const vec3_t& rhs)
 }
 
 template<typename T, index_t n>
-AS_API const vec_t<T, n> operator/(const vec_t<T, n>& lhs, T val)
+AS_API const vec_t<T, n> operator/(const vec_t<T, n>& lhs, const T val)
 {
     vec_t<T, n> result{lhs};
     result /= val;
@@ -456,13 +456,13 @@ AS_API const vec_t<T, n> operator/(const vec_t<T, n>& lhs, T val)
 }
 
 template<>
-AS_API inline const vec3_t operator/(const vec3_t& lhs, real_t val)
+AS_API inline const vec3_t operator/(const vec3_t& lhs, const real_t val)
 {
     return {lhs.x / val, lhs.y / val, lhs.z / val};
 }
 
 template<typename T, index_t n>
-AS_API vec_t<T, n>& operator/=(vec_t<T, n>& lhs, T val)
+AS_API vec_t<T, n>& operator/=(vec_t<T, n>& lhs, const T val)
 {
     for (index_t i = 0; i < n; ++i) {
         lhs[i] /= val;
@@ -472,7 +472,7 @@ AS_API vec_t<T, n>& operator/=(vec_t<T, n>& lhs, T val)
 }
 
 template<>
-AS_API inline vec3_t& operator/=(vec3_t& lhs, real_t val)
+AS_API inline vec3_t& operator/=(vec3_t& lhs, const real_t val)
 {
     lhs.x /= val;
     lhs.y /= val;

@@ -196,9 +196,6 @@ template<typename T, index_t d>
 mat_t<T, d> transpose(const mat_t<T, d>& mat);
 
 template<typename T, index_t d>
-constexpr mat_t<T, d> identity();
-
-template<typename T, index_t d>
 T determinant(const mat_t<T, d>& mat);
 
 template<typename T, index_t d>

@@ -1068,7 +1068,7 @@ AS_API inline quat_t axis_angle(const vec3_t& axis, const real_t radians)
 AS_API inline quat_t rotation_zxy(
     const real_t x, const real_t y, const real_t z)
 {
-    const real_t half = real_t(0.5);
+    const auto half = 0.5_r;
     return quat_t{cosr(half * y), 0.0_r, sinr(half * y), 0.0_r}
          * quat_t{cosr(half * x), sinr(half * x), 0.0_r, 0.0_r}
          * quat_t{cosr(half * z), 0.0_r, 0.0_r, sinr(half * z)};

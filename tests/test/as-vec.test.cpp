@@ -99,7 +99,7 @@ TEST_CASE("vec2_initialization", "[as_vec]")
 
     // direct/copy initialization - single argument (parens)
     {
-        vec2_t vec2 = vec2_t(25.0_r);
+        auto vec2 = vec2_t(25.0_r);
         CHECK_THAT(arr(25.0_r, 25.0_r), make_elements_sub(vec2, 2));
     }
 
@@ -198,7 +198,7 @@ TEST_CASE("vec3_initialization", "[as_vec]")
 
     // direct/copy initialization - single argument (parens)
     {
-        vec3_t vec3 = vec3_t(25.0_r);
+        auto vec3 = vec3_t(25.0_r);
         CHECK_THAT(arr(25.0_r, 25.0_r, 25.0_r), make_elements_sub(vec3, 3));
     }
 
@@ -306,7 +306,7 @@ TEST_CASE("vec4_initialization", "[as_vec]")
 
     // direct/copy initialization - single argument (parens)
     {
-        vec4_t vec4 = vec4_t(25.0_r);
+        auto vec4 = vec4_t(25.0_r);
         CHECK_THAT(
             arr(25.0_r, 25.0_r, 25.0_r, 25.0_r), make_elements_sub(vec4, 4));
     }
