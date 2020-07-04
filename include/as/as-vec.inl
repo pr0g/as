@@ -8,70 +8,54 @@ AS_API constexpr index_t vec_t<T, n>::size()
 }
 
 template<typename T, index_t n>
-AS_API constexpr T& vec_t<T, n>::operator[](index_t i) &
+AS_API constexpr T& vec_t<T, n>::operator[](const index_t i) &
 {
     return elem[i];
 }
 
 template<typename T, index_t n>
-AS_API constexpr const T& vec_t<T, n>::operator[](index_t i) const&
+AS_API constexpr const T& vec_t<T, n>::operator[](const index_t i) const&
 {
     return elem[i];
 }
 
 template<typename T, index_t n>
-AS_API constexpr T vec_t<T, n>::operator[](index_t i) &&
+AS_API constexpr T vec_t<T, n>::operator[](const index_t i) &&
 {
     return elem[i];
 }
-
-namespace internal
-{
 
 template<typename T>
-AS_API constexpr index_t vec2_base_t<T>::size()
+AS_API constexpr index_t vec_t<T, 2>::size()
 {
     return 2;
 }
 
 template<typename T>
-AS_API T& vec2_base_t<T>::operator[](index_t i) &
+AS_API T& vec_t<T, 2>::operator[](const index_t i) &
 {
     return this->*elem[i];
 }
 
 template<typename T>
-AS_API const T& vec2_base_t<T>::operator[](index_t i) const&
+AS_API const T& vec_t<T, 2>::operator[](const index_t i) const&
 {
     return this->*elem[i];
 }
 
 template<typename T>
-AS_API const T vec2_base_t<T>::operator[](index_t i) &&
+AS_API const T vec_t<T, 2>::operator[](const index_t i) &&
 {
     return this->*elem[i];
 }
 
 template<typename T>
-AS_API constexpr vec2_base_t<T>::vec2_base_t(T xy_) : x(xy_), y(xy_)
+AS_API constexpr vec_t<T, 2>::vec_t(const T xy_) : x(xy_), y(xy_)
 {
 }
 
 template<typename T>
-AS_API constexpr vec2_base_t<T>::vec2_base_t(T x_, T y_) : x(x_), y(y_)
-{
-}
-
-} // namespace internal
-
-template<typename T>
-AS_API constexpr vec_t<T, 2>::vec_t(T xy_) : internal::vec2_base_t<T>(xy_)
-{
-}
-
-template<typename T>
-AS_API constexpr vec_t<T, 2>::vec_t(T x_, T y_)
-    : internal::vec2_base_t<T>(x_, y_)
+AS_API constexpr vec_t<T, 2>::vec_t(const T x_, const T y_) : x(x_), y(y_)
 {
 }
 
@@ -111,66 +95,44 @@ AS_API constexpr vec_t<T, 2> vec_t<T, 2>::min()
     return -vec_t<T, 2>::max();
 }
 
-namespace internal
-{
-
 template<typename T>
-AS_API constexpr index_t vec3_base_t<T>::size()
+AS_API constexpr index_t vec_t<T, 3>::size()
 {
     return 3;
 }
 
 template<typename T>
-AS_API T& vec3_base_t<T>::operator[](index_t i) &
+AS_API T& vec_t<T, 3>::operator[](const index_t i) &
 {
     return this->*elem[i];
 }
 
 template<typename T>
-AS_API const T& vec3_base_t<T>::operator[](index_t i) const&
+AS_API const T& vec_t<T, 3>::operator[](const index_t i) const&
 {
     return this->*elem[i];
 }
 
 template<typename T>
-AS_API const T vec3_base_t<T>::operator[](index_t i) &&
+AS_API const T vec_t<T, 3>::operator[](const index_t i) &&
 {
     return this->*elem[i];
 }
 
 template<typename T>
-AS_API constexpr vec3_base_t<T>::vec3_base_t(T xyz_) : x(xyz_), y(xyz_), z(xyz_)
+AS_API constexpr vec_t<T, 3>::vec_t(const T xyz_) : x(xyz_), y(xyz_), z(xyz_)
 {
 }
 
 template<typename T>
-AS_API constexpr vec3_base_t<T>::vec3_base_t(const vec_t<T, 2>& xy_, T z_)
+AS_API constexpr vec_t<T, 3>::vec_t(const vec_t<T, 2>& xy_, const T z_)
     : x(xy_.x), y(xy_.y), z(z_)
 {
 }
 
 template<typename T>
-AS_API constexpr vec3_base_t<T>::vec3_base_t(T x_, T y_, T z_)
+AS_API constexpr vec_t<T, 3>::vec_t(const T x_, const T y_, const T z_)
     : x(x_), y(y_), z(z_)
-{
-}
-
-} // namespace internal
-
-template<typename T>
-AS_API constexpr vec_t<T, 3>::vec_t(T xyz_) : internal::vec3_base_t<T>(xyz_)
-{
-}
-
-template<typename T>
-AS_API constexpr vec_t<T, 3>::vec_t(const vec_t<T, 2>& xy_, T z_)
-    : internal::vec3_base_t<T>(xy_, z_)
-{
-}
-
-template<typename T>
-AS_API constexpr vec_t<T, 3>::vec_t(T x_, T y_, T z_)
-    : internal::vec3_base_t<T>(x_, y_, z_)
 {
 }
 
@@ -216,93 +178,58 @@ AS_API constexpr vec_t<T, 3> vec_t<T, 3>::min()
     return -vec_t<T, 3>::max();
 }
 
-namespace internal
-{
-
 template<typename T>
-AS_API constexpr index_t vec4_base_t<T>::size()
+AS_API constexpr index_t vec_t<T, 4>::size()
 {
     return 4;
 }
 
 template<typename T>
-AS_API T& vec4_base_t<T>::operator[](index_t i) &
+AS_API T& vec_t<T, 4>::operator[](const index_t i) &
 {
     return this->*elem[i];
 }
 
 template<typename T>
-AS_API const T& vec4_base_t<T>::operator[](index_t i) const&
+AS_API const T& vec_t<T, 4>::operator[](const index_t i) const&
 {
     return this->*elem[i];
 }
 
 template<typename T>
-AS_API const T vec4_base_t<T>::operator[](index_t i) &&
+AS_API const T vec_t<T, 4>::operator[](const index_t i) &&
 {
     return this->*elem[i];
 }
 
 template<typename T>
-AS_API constexpr vec4_base_t<T>::vec4_base_t(T xyzw_)
+AS_API constexpr vec_t<T, 4>::vec_t(const T xyzw_)
     : x(xyzw_), y(xyzw_), z(xyzw_), w(xyzw_)
 {
 }
 
 template<typename T>
-AS_API constexpr vec4_base_t<T>::vec4_base_t(const vec_t<T, 3>& xyz_, T w_)
+AS_API constexpr vec_t<T, 4>::vec_t(const vec_t<T, 3>& xyz_, const T w_)
     : x(xyz_.x), y(xyz_.y), z(xyz_.z), w(w_)
 {
 }
 
 template<typename T>
-AS_API constexpr vec4_base_t<T>::vec4_base_t(const vec_t<T, 2>& xy_, T z_, T w_)
+AS_API constexpr vec_t<T, 4>::vec_t(const vec_t<T, 2>& xy_, const T z_, const T w_)
     : x(xy_.x), y(xy_.y), z(z_), w(w_)
-{
-}
-
-template<typename T>
-AS_API constexpr vec4_base_t<T>::vec4_base_t(
-    const vec_t<T, 2>& xy_, const vec_t<T, 2>& zw)
-    : x(xy_.x), y(xy_.y), z(zw.x), w(zw.y)
-{
-}
-
-template<typename T>
-AS_API constexpr vec4_base_t<T>::vec4_base_t(T x_, T y_, T z_, T w_)
-    : x(x_), y(y_), z(z_), w(w_)
-{
-}
-
-} // namespace internal
-
-template<typename T>
-AS_API constexpr vec_t<T, 4>::vec_t(T xyzw_) : internal::vec4_base_t<T>(xyzw_)
-{
-}
-
-template<typename T>
-AS_API constexpr vec_t<T, 4>::vec_t(const vec_t<T, 3>& xyz_, T w_)
-    : internal::vec4_base_t<T>(xyz_, w_)
-{
-}
-
-template<typename T>
-AS_API constexpr vec_t<T, 4>::vec_t(const vec_t<T, 2>& xy_, T z_, T w_)
-    : internal::vec4_base_t<T>(xy_, z_, w_)
 {
 }
 
 template<typename T>
 AS_API constexpr vec_t<T, 4>::vec_t(
     const vec_t<T, 2>& xy_, const vec_t<T, 2>& zw)
-    : internal::vec4_base_t<T>(xy_, zw)
+    : x(xy_.x), y(xy_.y), z(zw.x), w(zw.y)
 {
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4>::vec_t(T x_, T y_, T z_, T w_)
-    : internal::vec4_base_t<T>(x_, y_, z_, w_)
+AS_API constexpr vec_t<T, 4>::vec_t(const T x_, const T y_, const T z_, const T w_)
+    : x(x_), y(y_), z(z_), w(w_)
 {
 }
 

@@ -41,42 +41,20 @@ private:
     T elem[size()];
 };
 
-namespace internal
-{
-
 template<typename T>
-struct vec2_base_t
+struct vec_t<T, 2>
 {
     using value_type = T;
 
-    vec2_base_t() noexcept = default;
-    constexpr explicit vec2_base_t(T xy_);
-    constexpr vec2_base_t(T x_, T y_);
+    vec_t() noexcept = default;
+    constexpr explicit vec_t(T xy_);
+    constexpr vec_t(T x_, T y_);
 
     T& operator[](index_t i) &;
     const T& operator[](index_t i) const&;
     const T operator[](index_t i) &&;
 
     constexpr static index_t size();
-
-    T x, y;
-
-private:
-    static T vec2_base_t::*elem[size()];
-};
-
-template<typename T>
-T vec2_base_t<T>::*vec2_base_t<T>::elem[size()] = {
-    &vec2_base_t<T>::x, &vec2_base_t<T>::y};
-
-} // namespace internal
-
-template<typename T>
-struct vec_t<T, 2> : internal::vec2_base_t<T>
-{
-    vec_t() noexcept = default;
-    constexpr explicit vec_t(T xy_);
-    constexpr vec_t(T x_, T y_);
 
     constexpr static vec_t<T, 2> axis_x(T len = T(1.0));
     constexpr static vec_t<T, 2> axis_y(T len = T(1.0));
@@ -84,7 +62,16 @@ struct vec_t<T, 2> : internal::vec2_base_t<T>
     constexpr static vec_t<T, 2> one();
     constexpr static vec_t<T, 2> max();
     constexpr static vec_t<T, 2> min();
+
+    T x, y;
+
+private:
+    static T vec_t::*elem[size()];
 };
+
+template<typename T>
+T vec_t<T, 2>::*vec_t<T, 2>::elem[size()] = {
+    &vec_t<T, 2>::x, &vec_t<T, 2>::y};
 
 using vec2_t = vec_t<real_t, 2>;
 using vec2f_t = vec_t<float, 2>;
@@ -92,44 +79,21 @@ using vec2d_t = vec_t<double, 2>;
 using vec2i_t = vec_t<s32, 2>;
 using vec2l_t = vec_t<s64, 2>;
 
-namespace internal
-{
-
 template<typename T>
-struct vec3_base_t
+struct vec_t<T, 3>
 {
     using value_type = T;
 
-    vec3_base_t() noexcept = default;
-    constexpr explicit vec3_base_t(T xyz_);
-    constexpr vec3_base_t(const vec_t<T, 2>& xy_, T z_);
-    constexpr vec3_base_t(T x_, T y_, T z_);
+    vec_t() noexcept = default;
+    constexpr explicit vec_t(T xyz_);
+    constexpr vec_t(const vec_t<T, 2>& xy_, T z_);
+    constexpr vec_t(T x_, T y_, T z_);
 
     T& operator[](index_t i) &;
     const T& operator[](index_t i) const&;
     const T operator[](index_t i) &&;
 
     constexpr static index_t size();
-
-    T x, y, z;
-
-private:
-    static T vec3_base_t::*elem[size()];
-};
-
-template<typename T>
-T vec3_base_t<T>::*vec3_base_t<T>::elem[size()] = {
-    &vec3_base_t<T>::x, &vec3_base_t<T>::y, &vec3_base_t<T>::z};
-
-} // namespace internal
-
-template<typename T>
-struct vec_t<T, 3> : internal::vec3_base_t<T>
-{
-    vec_t() noexcept = default;
-    constexpr explicit vec_t(T xyz_);
-    constexpr vec_t(const vec_t<T, 2>& xy_, T z_);
-    constexpr vec_t(T x_, T y_, T z_);
 
     constexpr static vec_t<T, 3> axis_x(T len = T(1.0));
     constexpr static vec_t<T, 3> axis_y(T len = T(1.0));
@@ -138,7 +102,16 @@ struct vec_t<T, 3> : internal::vec3_base_t<T>
     constexpr static vec_t<T, 3> one();
     constexpr static vec_t<T, 3> max();
     constexpr static vec_t<T, 3> min();
+
+    T x, y, z;
+
+private:
+    static T vec_t::*elem[size()];
 };
+
+template<typename T>
+T vec_t<T, 3>::*vec_t<T, 3>::elem[size()] = {
+    &vec_t<T, 3>::x, &vec_t<T, 3>::y, &vec_t<T, 3>::z};
 
 using vec3_t = vec_t<real_t, 3>;
 using vec3f_t = vec_t<float, 3>;
@@ -146,49 +119,23 @@ using vec3d_t = vec_t<double, 3>;
 using vec3i_t = vec_t<s32, 3>;
 using vec3l_t = vec_t<s64, 3>;
 
-namespace internal
-{
-
 template<typename T>
-struct vec4_base_t
+struct vec_t<T, 4>
 {
     using value_type = T;
 
-    vec4_base_t() noexcept = default;
-    constexpr explicit vec4_base_t(T xyzw_);
-    constexpr vec4_base_t(const vec_t<T, 3>& xyz_, T w_);
-    constexpr vec4_base_t(const vec_t<T, 2>& xy_, T z_, T w_);
-    constexpr vec4_base_t(const vec_t<T, 2>& xy_, const vec_t<T, 2>& zw);
-    constexpr vec4_base_t(T x_, T y_, T z_, T w_);
-
-    T& operator[](index_t i) &;
-    const T& operator[](index_t i) const&;
-    const T operator[](index_t i) &&;
-
-    constexpr static index_t size();
-
-    T x, y, z, w;
-
-private:
-    static T vec4_base_t::*elem[size()];
-};
-
-template<typename T>
-T vec4_base_t<T>::*vec4_base_t<T>::elem[size()] = {
-    &vec4_base_t<T>::x, &vec4_base_t<T>::y, &vec4_base_t<T>::z,
-    &vec4_base_t<T>::w};
-
-} // namespace internal
-
-template<typename T>
-struct vec_t<T, 4> : internal::vec4_base_t<T>
-{
     vec_t() noexcept = default;
     constexpr explicit vec_t(T xyzw_);
     constexpr vec_t(const vec_t<T, 3>& xyz_, T w_);
     constexpr vec_t(const vec_t<T, 2>& xy_, T z_, T w_);
     constexpr vec_t(const vec_t<T, 2>& xy_, const vec_t<T, 2>& zw);
     constexpr vec_t(T x_, T y_, T z_, T w_);
+
+    T& operator[](index_t i) &;
+    const T& operator[](index_t i) const&;
+    const T operator[](index_t i) &&;
+
+    constexpr static index_t size();
 
     constexpr static vec_t<T, 4> axis_x(T len = T(1.0));
     constexpr static vec_t<T, 4> axis_y(T len = T(1.0));
@@ -198,7 +145,17 @@ struct vec_t<T, 4> : internal::vec4_base_t<T>
     constexpr static vec_t<T, 4> one();
     constexpr static vec_t<T, 4> max();
     constexpr static vec_t<T, 4> min();
+
+    T x, y, z, w;
+
+private:
+    static T vec_t::*elem[size()];
 };
+
+template<typename T>
+T vec_t<T, 4>::*vec_t<T, 4>::elem[size()] = {
+    &vec_t<T, 4>::x, &vec_t<T, 4>::y, &vec_t<T, 4>::z,
+    &vec_t<T, 4>::w};
 
 using vec4_t = vec_t<real_t, 4>;
 using vec4f_t = vec_t<float, 4>;

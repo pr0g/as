@@ -359,36 +359,7 @@ void Example()
 
 We're doing the exact same thing but just using `this` as the object instead of a named instance like in the `Person` example.
 
-One drawback to this approach is if you provide a full template specialization you have to put the static definitions in the .cpp file, which sort of throws a spanner in the works with creating a header-only library 😫. The good news is if you only partially specialize the class template you can put the definition of the static variables in the header and the linker won't complain 🙂This is because the definition of the static data member is itself a template 🥳.
-
-The final approach I went for was this but hiding the `elem` magic stuff in a base class so anyone using the type `vec3_t` won't see `elem` popup in their IDE intellisense (hopefully!) 😬.
-
-```c++
-template<typename T>
-struct vec3_base_t
-{
-    T x, y, z;
-    T& operator[](size_t i) { return this->*elem[i]; }
-    const T& operator[](size_t i) const { return this->*elem[i]; }
-
-private:
-    static T vec3_base_t::*elem[3];
-};
-
-template<typename T>
-T vec3_base_t<T>::*vec3_base_t<T>::elem[3] =
-{
-    &vec3_base_t<T>::x, &vec3_base_t<T>::y, &vec3_base_t<T>::z
-};
-
-template<typename T>
-struct vec_t<T, 3> : internal::vec3_base_t<T>
-{
-    ... // constructors etc..
-};
-
-using vec3_t = vec_t<float, 3>;
-```
+One drawback to this approach is if you provide a full template specialization you have to put the static definitions in the .cpp file, which sort of throws a spanner in the works with creating a header-only library 😫. The good news is if you only partially specialize the class template you can put the definition of the static variables in the header and the linker won't complain 🙂 This is because the definition of the static data member is itself a template 🥳.
 
 The last thing to mention is the function template specializations. These were made specifically for performance reasons. It's unfortunate but the reality is the hand crafted implementations of the various functions for `vec3_t` are considerably faster than their generic counterparts. This came to my attention when using the `as` math library for the [ToyMeshPathTracer](https://github.com/pr0g/ToyMeshPathTracer). I dropped in the `as` library in place of the existing simple `float3` type and was disappointed to see my version taking a lot longer to render the scene 😔. I spent a while trying to figure out why things were so much slower (thank you Nathan Reed for your ideas and suggestions) and in the end it all seemed to come down to the code the compiler would generate for the generic versions vs the handcrafted ones. I suppose this finding does slightly negate the point of writing a generic math library in the first place but I still think having a standard interface for all types is useful (you don't fall into the trap of having a slightly lacking Vector2 type which hasn't received as much love) and you can get up and running with the generic versions and write custom specializations later only if you need to for performance reasons.
 
