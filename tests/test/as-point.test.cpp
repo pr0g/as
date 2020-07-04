@@ -69,7 +69,8 @@ TEST_CASE("point2_initialization", "[as_point]")
     }
 
     {
-        const point2_t point2 = point2_t::zero();
+        point2_t point2;
+        point2 = point2_t::zero();
 
         CHECK(point2.v.x == Approx(0.0_r).epsilon(g_epsilon));
         CHECK(point2.v.y == Approx(0.0_r).epsilon(g_epsilon));
