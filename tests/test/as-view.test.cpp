@@ -140,8 +140,8 @@ TEST_CASE("ortho_gl_rh", "[as-view]")
 {
     using gsl::make_span;
 
-    mat4_t ortho_gl_rh =
-        view::ortho_gl_rh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
+    mat4_t ortho_gl_rh;
+    ortho_gl_rh = view::ortho_gl_rh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
 
     const real_t reference[] = {
         0.100000_r,  0.000000_r,  0.000000_r,  0.000000_r,
@@ -158,8 +158,8 @@ TEST_CASE("ortho_d3d_lh", "[as-view]")
 {
     using gsl::make_span;
 
-    mat4_t ortho_d3d_lh =
-        view::ortho_d3d_lh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
+    mat4_t ortho_d3d_lh;
+    ortho_d3d_lh = view::ortho_d3d_lh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
 
     const real_t reference[] = {
         0.100000_r,  0.000000_r,  0.000000_r,  0.000000_r,

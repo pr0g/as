@@ -67,13 +67,16 @@ TEST_CASE("smoothstep", "[as_math]")
 {
     constexpr real_t real_epsilon = 1e-3_r;
 
-    const real_t quarter_value = smooth_step(0.25_r, 0.0_r, 1.0_r);
+    real_t quarter_value;
+    quarter_value = smooth_step(0.25_r, 0.0_r, 1.0_r);
     CHECK(quarter_value == Approx(0.15625_r).epsilon(real_epsilon));
 
-    const real_t mid_value = smooth_step(0.5_r, 0.0_r, 1.0_r);
+    real_t mid_value;
+    mid_value = smooth_step(0.5_r, 0.0_r, 1.0_r);
     CHECK(mid_value == Approx(0.5_r).epsilon(real_epsilon));
 
-    const real_t three_quarter_value = smooth_step(0.75_r, 0.0_r, 1.0_r);
+    real_t three_quarter_value;
+    three_quarter_value = smooth_step(0.75_r, 0.0_r, 1.0_r);
     CHECK(three_quarter_value == Approx(0.84375_r).epsilon(real_epsilon));
 }
 

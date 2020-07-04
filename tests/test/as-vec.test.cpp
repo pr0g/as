@@ -629,7 +629,8 @@ TEST_CASE("vec_size", "[as_vec]")
     index_t vec2_size;
     vec2_size = vec2_t::size();
     vec2_t vec2;
-    index_t vec2_inst_size = vec::size(vec2);
+    index_t vec2_inst_size;
+    vec2_inst_size = vec::size(vec2);
     CHECK(vec2_size == 2);
     CHECK(vec2_inst_size == vec2_size);
 
@@ -637,7 +638,8 @@ TEST_CASE("vec_size", "[as_vec]")
     index_t vec3_size;
     vec3_size = vec3_t::size();
     vec3_t vec3;
-    index_t vec3_inst_size = vec::size(vec3);
+    index_t vec3_inst_size;
+    vec3_inst_size = vec::size(vec3);
     CHECK(vec3_size == static_cast<index_t>(3));
     CHECK(vec3_inst_size == Approx(vec3_size).epsilon(g_epsilon));
 
@@ -645,13 +647,15 @@ TEST_CASE("vec_size", "[as_vec]")
     index_t vec4_size;
     vec4_size = vec4_t::size();
     vec4_t vec4;
-    index_t vec4_inst_size = vec::size(vec4);
+    index_t vec4_inst_size;
+    vec4_inst_size = vec::size(vec4);
     CHECK(vec4_size == static_cast<index_t>(4));
     CHECK(vec4_inst_size == Approx(vec4_size).epsilon(g_epsilon));
 
     using short7 = vec_t<short, 7>;
     short7 vec_short7;
-    index_t vec_short7_inst_size = vec::size(vec_short7);
+    index_t vec_short7_inst_size;
+    vec_short7_inst_size = vec::size(vec_short7);
     index_t short7_size;
     short7_size = short7::size();
     CHECK(short7_size == static_cast<index_t>(7));
@@ -659,7 +663,8 @@ TEST_CASE("vec_size", "[as_vec]")
 
     using int5 = vec_t<int, 5>;
     int5 vec_short5;
-    index_t vec_short5_inst_size = vec::size(vec_short5);
+    index_t vec_short5_inst_size;
+    vec_short5_inst_size = vec::size(vec_short5);
     index_t int5_size = int5::size();
     CHECK(int5_size == static_cast<index_t>(5));
     CHECK(vec_short5_inst_size == Approx(int5_size).epsilon(g_epsilon));
@@ -957,7 +962,8 @@ TEST_CASE("multiplication_scalar_vec3", "[as_vec]")
 {
     // vec3_t operator '*'
     {
-        vec3_t vec = real_t(5.0) * vec3_t{50.0_r, 40.0_r, 25.0_r};
+        vec3_t vec;
+        vec = real_t(5.0) * vec3_t{50.0_r, 40.0_r, 25.0_r};
         CHECK(vec::equal(vec, vec3_t(250.0_r, 200.0_r, 125.0)));
     }
 
@@ -975,8 +981,9 @@ TEST_CASE("multiplication_vector", "[as_vec]")
 
     // vec_t operator '*'
     {
-        vec5_t vec = vec5_t{2.0_r, 3.0_r, 4.0_r, 5.0_r, 0.5_r}
-                   * vec5_t{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r};
+        vec5_t vec;
+        vec = vec5_t{2.0_r, 3.0_r, 4.0_r, 5.0_r, 0.5_r}
+            * vec5_t{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r};
 
         CHECK(
             vec::equal(vec, vec5_t(100.0_r, 120.0_r, 100.0_r, 100.0_r, 5.0_r)));
@@ -996,8 +1003,8 @@ TEST_CASE("multiplication_vector_vec3", "[as_vec]")
 {
     // vec_t operator '*'
     {
-        vec3_t vec =
-            vec3_t{0.5_r, 3.0_r, 4.0_r} * vec3_t{50.0_r, 40.0_r, 25.0_r};
+        vec3_t vec;
+        vec = vec3_t{0.5_r, 3.0_r, 4.0_r} * vec3_t{50.0_r, 40.0_r, 25.0_r};
         CHECK(vec::equal(vec, vec3_t(25.0_r, 120.0_r, 100.0_r)));
     }
 
@@ -1070,8 +1077,8 @@ TEST_CASE("divide_vector_vec3", "[as_vec]")
 {
     // vec_t operator '/'
     {
-        vec3_t vec =
-            vec3_t{33.0_r, 48.0_r, 10.0_r} / vec3_t{3.0_r, 6.0_r, 2.0_r};
+        vec3_t vec;
+        vec = vec3_t{33.0_r, 48.0_r, 10.0_r} / vec3_t{3.0_r, 6.0_r, 2.0_r};
         CHECK(vec::equal(vec, vec3_t(11.0_r, 8.0_r, 5.0_r)));
     }
 
