@@ -10,7 +10,7 @@ struct affine_t
 {
     affine_t() = default;
     constexpr explicit affine_t(const point3_t& position_);
-    constexpr affine_t(
+    constexpr explicit affine_t(
         const mat3_t& rotation_,
         const point3_t& position_ = as::point3_t::zero());
 
