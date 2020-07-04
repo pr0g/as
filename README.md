@@ -3,13 +3,13 @@
 `as` (short for _almost-something_) is an attempt at creating an easy to use header-only math library for prototype and hobby projects.
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/24b277ef4cdf4d699e7c6acb96d1fce6)](https://app.codacy.com/manual/pr0g/as?utm_source=github.com&utm_medium=referral&utm_content=pr0g/as&utm_campaign=Badge_Grade_Dashboard)
-[![Build Status](https://travis-ci.org/pr0g/as.svg?branch=master)](https://travis-ci.org/pr0g/as)
-[![Build status](https://ci.appveyor.com/api/projects/status/github/pr0g/as?branch=master&svg=true)](https://ci.appveyor.com/project/pr0g/as)
-[![codecov](https://codecov.io/gh/pr0g/as/branch/master/graphs/badge.svg)](https://codecov.io/gh/pr0g/as)
-[![coveralls](https://coveralls.io/repos/github/pr0g/as/badge.svg?branch=master)](https://coveralls.io/github/pr0g/as?branch=master)
+[![Build Status](https://travis-ci.org/pr0g/as.svg?branch=main)](https://travis-ci.org/pr0g/as)
+[![Build status](https://ci.appveyor.com/api/projects/status/github/pr0g/as?branch=main&svg=true)](https://ci.appveyor.com/project/pr0g/as)
+[![codecov](https://codecov.io/gh/pr0g/as/branch/main/graphs/badge.svg)](https://codecov.io/gh/pr0g/as)
+[![coveralls](https://coveralls.io/repos/github/pr0g/as/badge.svg?branch=main)](https://coveralls.io/github/pr0g/as?branch=main)
 [![coverity](https://img.shields.io/coverity/scan/18966)](https://scan.coverity.com/projects/pr0g-as)
-[![as-loc](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fpr0g%2Fas%2Fmaster%2Floc.json)](https://github.com/pr0g/as/blob/master/loc.json)
-[![license](https://img.shields.io/badge/license-MIT-blue)](https://github.com/pr0g/as/blob/master/LICENSE)
+[![as-loc](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fpr0g%2Fas%2Fmain%2Floc.json)](https://github.com/pr0g/as/blob/main/loc.json)
+[![license](https://img.shields.io/badge/license-MIT-blue)](https://github.com/pr0g/as/blob/main/LICENSE)
 
 ## Disclaimer
 
