@@ -541,10 +541,9 @@ template<typename T>
 AS_API mat_t<T, 2> inverse(const mat_t<T, 2>& mat)
 {
     // clang-format off
-    return mat_t<T, 2> {
-        mat[3], -mat[1],
-        -mat[2], mat[0]
-    } * (T(1.0) / determinant(mat));
+    return mat_t<T, 2>{mat[3], -mat[1],
+                       -mat[2], mat[0]}
+         * (T(1.0) / determinant(mat));
     // clang-format on
 }
 
@@ -564,17 +563,17 @@ AS_API mat_t<T, d> gj_inverse(const mat_t<T, d>& mat)
             result[j] *= diagonal_recip;
         }
 
-        for (index_t row = 0; row < d; ++row) {
-            if (row == current_line) {
+        for (index_t r = 0; r < d; ++r) {
+            if (r == current_line) {
                 continue;
             }
 
-            T next = curr_mat[current_line + row * d];
+            T next = curr_mat[current_line + r * d];
 
-            for (index_t col = 0; col < d; ++col) {
-                index_t index_t = d * row + col;
-                curr_mat[index_t] -= (next * curr_mat[d * current_line + col]);
-                result[index_t] -= (next * result[d * current_line + col]);
+            for (index_t c = 0; c < d; ++c) {
+                index_t index_t = d * r + c;
+                curr_mat[index_t] -= (next * curr_mat[d * current_line + c]);
+                result[index_t] -= (next * result[d * current_line + c]);
             }
         }
 

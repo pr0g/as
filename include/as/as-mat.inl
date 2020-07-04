@@ -104,14 +104,14 @@ AS_API const vec_t<T, d> operator*(const mat_t<T, d>& mat, const vec_t<T, d>& v)
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 {
     vec_t<T, d> result;
-    for (index_t vertexIndex = 0; vertexIndex < d; ++vertexIndex) {
+    for (index_t i = 0; i < d; ++i) {
         T value{0};
 
         for (index_t step = 0; step < d; ++step) {
-            value += v[step] * mat[vertexIndex + step * d];
+            value += v[step] * mat[i + step * d];
         }
 
-        result[vertexIndex] = value;
+        result[i] = value;
     }
 
     return result;

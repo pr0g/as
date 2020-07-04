@@ -1,1 +1,14 @@
-Checks: 'readability*, modernize*, bugprone*, performance*, -modernize-use-trailing-return-type, -readability-uppercase-literal-suffix, -readability-magic-numbers, -readability-const-return-type, -modernize-avoid-c-arrays'
+Checks: '
+    readability*,
+    modernize*,
+    bugprone*,
+    performance*,
+    clang-analyzer-*,
+    portability-*,
+    -modernize-use-trailing-return-type,
+    -modernize-avoid-c-arrays,
+    -readability-uppercase-literal-suffix,
+    -readability-magic-numbers,
+    -readability-const-return-type'
+CheckOptions:
+    - { key: readability-identifier-naming.LocalVariableCase, value: lower_case }

@@ -66,12 +66,12 @@ public:
         const gsl::span<const typename Sub::value_type>& span) const override
     {
         for (size_t i = 0; i < span.size(); ++i) {
-            const auto approxElem{
+            const auto approx_elem{
                 Approx(span[i]).epsilon(m_epsilon).margin(m_margin)};
 
             auto subscript = gsl::narrow_cast<ptrdiff_t>(i);
 
-            if (m_subscriptable[subscript] != approxElem) {
+            if (m_subscriptable[subscript] != approx_elem) {
                 return false;
             }
         }
