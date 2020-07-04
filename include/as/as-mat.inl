@@ -42,7 +42,7 @@ AS_API constexpr index_t mat_t<T, d>::cols()
 }
 
 template<typename T, index_t d>
-constexpr mat_t<T, d> mat_t<T, d>::identity()
+AS_API constexpr mat_t<T, d> mat_t<T, d>::identity()
 {
     return mat::identity<T, d>();
 }
