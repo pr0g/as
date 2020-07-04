@@ -67,6 +67,13 @@ TEST_CASE("point2_initialization", "[as_point]")
         CHECK(x == Approx(20.0_r).epsilon(g_epsilon));
         CHECK(y == Approx(40.0_r).epsilon(g_epsilon));
     }
+
+    {
+        const point2_t point2 = point2_t::zero();
+
+        CHECK(point2.v.x == Approx(0.0_r).epsilon(g_epsilon));
+        CHECK(point2.v.y == Approx(0.0_r).epsilon(g_epsilon));
+    }
 }
 
 TEST_CASE("point3_initialization", "[as_point]")
@@ -130,6 +137,14 @@ TEST_CASE("point3_initialization", "[as_point]")
         CHECK(x == Approx(20.0_r).epsilon(g_epsilon));
         CHECK(y == Approx(40.0_r).epsilon(g_epsilon));
         CHECK(z == Approx(60.0_r).epsilon(g_epsilon));
+    }
+
+    {
+        const point3_t point3 = point3_t::zero();
+
+        CHECK(point3.v.x == Approx(0.0_r).epsilon(g_epsilon));
+        CHECK(point3.v.y == Approx(0.0_r).epsilon(g_epsilon));
+        CHECK(point3.v.z == Approx(0.0_r).epsilon(g_epsilon));
     }
 }
 

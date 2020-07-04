@@ -1399,10 +1399,10 @@ TEST_CASE("mat4_shear", "[as-mat]")
         const point3_t position{1.0_r, 0.0_r, 0.0_r};
 
         point3_t result;
-        result = as::affine::transform_pos(as::affine::from_mat4(shear_about_x), position);
+        result = as::affine::transform_pos(
+            as::affine::from_mat4(shear_about_x), position);
 
-        CHECK_THAT(
-            arr(1.0_r, 1.0_r, 0.0_r), make_elements_sub(result, 3));
+        CHECK_THAT(arr(1.0_r, 1.0_r, 0.0_r), make_elements_sub(result, 3));
     }
 
     {
@@ -1412,10 +1412,10 @@ TEST_CASE("mat4_shear", "[as-mat]")
         const point3_t position{1.0_r, 0.0_r, 0.0_r};
 
         point3_t result;
-        result = as::affine::transform_pos(as::affine::from_mat4(shear_about_x), position);
+        result = as::affine::transform_pos(
+            as::affine::from_mat4(shear_about_x), position);
 
-        CHECK_THAT(
-            arr(1.0_r, 0.0_r, 1.0_r), make_elements_sub(result, 3));
+        CHECK_THAT(arr(1.0_r, 0.0_r, 1.0_r), make_elements_sub(result, 3));
     }
 
     {
@@ -1425,10 +1425,10 @@ TEST_CASE("mat4_shear", "[as-mat]")
         const point3_t position{1.0_r, 1.0_r, 0.0_r};
 
         point3_t result;
-        result = as::affine::transform_pos(as::affine::from_mat4(shear_about_y), position);
+        result = as::affine::transform_pos(
+            as::affine::from_mat4(shear_about_y), position);
 
-        CHECK_THAT(
-            arr(2.0_r, 1.0_r, 0.0_r), make_elements_sub(result, 3));
+        CHECK_THAT(arr(2.0_r, 1.0_r, 0.0_r), make_elements_sub(result, 3));
     }
 
     {
@@ -1438,10 +1438,10 @@ TEST_CASE("mat4_shear", "[as-mat]")
         const point3_t position{1.0_r, 1.0_r, 0.0_r};
 
         point3_t result;
-        result = as::affine::transform_pos(as::affine::from_mat4(shear_about_y), position);
+        result = as::affine::transform_pos(
+            as::affine::from_mat4(shear_about_y), position);
 
-        CHECK_THAT(
-            arr(1.0_r, 1.0_r, 1.0_r), make_elements_sub(result, 3));
+        CHECK_THAT(arr(1.0_r, 1.0_r, 1.0_r), make_elements_sub(result, 3));
     }
 
     {
@@ -1451,10 +1451,10 @@ TEST_CASE("mat4_shear", "[as-mat]")
         const point3_t position{0.0_r, 0.0_r, 1.0_r};
 
         point3_t result;
-        result = as::affine::transform_pos(as::affine::from_mat4(shear_about_z), position);
+        result = as::affine::transform_pos(
+            as::affine::from_mat4(shear_about_z), position);
 
-        CHECK_THAT(
-            arr(1.0_r, 0.0_r, 1.0_r), make_elements_sub(result, 3));
+        CHECK_THAT(arr(1.0_r, 0.0_r, 1.0_r), make_elements_sub(result, 3));
     }
 
     {
@@ -1464,10 +1464,10 @@ TEST_CASE("mat4_shear", "[as-mat]")
         const point3_t position{1.0_r, 0.0_r, 1.0_r};
 
         point3_t result;
-        result = as::affine::transform_pos(as::affine::from_mat4(shear_about_z), position);
+        result = as::affine::transform_pos(
+            as::affine::from_mat4(shear_about_z), position);
 
-        CHECK_THAT(
-            arr(1.0_r, 1.0_r, 1.0_r), make_elements_sub(result, 3));
+        CHECK_THAT(arr(1.0_r, 1.0_r, 1.0_r), make_elements_sub(result, 3));
     }
 }
 

@@ -7,6 +7,7 @@ namespace unit_test
 {
 
 // types
+using as::affine_t;
 using as::mat3_t;
 using as::quat_t;
 using as::real_t;
@@ -17,6 +18,7 @@ using as::deg_to_rad;
 using as::operator""_r;
 
 // namespaces
+namespace affine = as::affine;
 namespace mat3 = as::mat3;
 namespace vec3 = as::vec3;
 namespace quat = as::quat;
@@ -262,11 +264,8 @@ TEST_CASE("quat_from_mat3", "[as-quat]")
         axis_angle_quat_from_mat = quat::from_mat3(axis_angle_mat);
 
         vec3_t vec{1.0_r, 0.0_r, 0.0_r};
-#ifdef AS_ROW_MAJOR
-        vec3_t result_matrix = vec * axis_angle_mat;
-#elif defined AS_COL_MAJOR
-        vec3_t result_matrix = axis_angle_mat * vec;
-#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+        vec3_t result_matrix =
+            affine::transform_dir(affine_t(axis_angle_mat), vec);
         vec3_t result_quat = as::quat::rotate(axis_angle_quat, vec);
         vec3_t result_quat_from_mat =
             as::quat::rotate(axis_angle_quat_from_mat, vec);
@@ -285,11 +284,8 @@ TEST_CASE("quat_from_mat3", "[as-quat]")
         axis_angle_quat_from_mat = quat::from_mat3(axis_angle_mat);
 
         vec3_t vec{1.0_r, 1.0_r, 0.0_r};
-#ifdef AS_ROW_MAJOR
-        vec3_t result_matrix = vec * axis_angle_mat;
-#elif defined AS_COL_MAJOR
-        vec3_t result_matrix = axis_angle_mat * vec;
-#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+        vec3_t result_matrix =
+            affine::transform_dir(affine_t(axis_angle_mat), vec);
         vec3_t result_quat = as::quat::rotate(axis_angle_quat, vec);
         vec3_t result_quat_from_mat =
             as::quat::rotate(axis_angle_quat_from_mat, vec);
@@ -308,11 +304,8 @@ TEST_CASE("quat_from_mat3", "[as-quat]")
         axis_angle_quat_from_mat = quat::from_mat3(axis_angle_mat);
 
         vec3_t vec{1.0_r, 0.0_r, 1.0_r};
-#ifdef AS_ROW_MAJOR
-        vec3_t result_matrix = vec * axis_angle_mat;
-#elif defined AS_COL_MAJOR
-        vec3_t result_matrix = axis_angle_mat * vec;
-#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+        vec3_t result_matrix =
+            affine::transform_dir(affine_t(axis_angle_mat), vec);
         vec3_t result_quat = as::quat::rotate(axis_angle_quat, vec);
         vec3_t result_quat_from_mat =
             as::quat::rotate(axis_angle_quat_from_mat, vec);
@@ -331,11 +324,8 @@ TEST_CASE("quat_from_mat3", "[as-quat]")
         axis_angle_quat_from_mat = quat::from_mat3(axis_angle_mat);
 
         vec3_t vec{1.0_r, 1.0_r, 1.0_r};
-#ifdef AS_ROW_MAJOR
-        vec3_t result_matrix = vec * axis_angle_mat;
-#elif defined AS_COL_MAJOR
-        vec3_t result_matrix = axis_angle_mat * vec;
-#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+        vec3_t result_matrix =
+            affine::transform_dir(affine_t(axis_angle_mat), vec);
         vec3_t result_quat = as::quat::rotate(axis_angle_quat, vec);
         vec3_t result_quat_from_mat =
             as::quat::rotate(axis_angle_quat_from_mat, vec);

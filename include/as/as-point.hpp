@@ -19,6 +19,8 @@ struct point2_t
     const real_t& operator[](index_t i) const&;
     real_t operator[](index_t i) &&;
 
+    constexpr static point2_t zero();
+
     vec2_t v;
 };
 
@@ -36,6 +38,8 @@ struct point3_t
     real_t& operator[](index_t i) &;
     const real_t& operator[](index_t i) const&;
     real_t operator[](index_t i) &&;
+
+    constexpr static point3_t zero();
 
     vec3_t v;
 };
