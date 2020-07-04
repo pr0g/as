@@ -162,88 +162,92 @@ using vec4i_t = vec_t<s32, 4>;
 using vec4l_t = vec_t<s64, 4>;
 
 template<typename T, index_t n>
-const vec_t<T, n> operator+(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
+constexpr const vec_t<T, n> operator+(
+    const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
-const vec3_t operator+(const vec3_t& lhs, const vec3_t& rhs);
+constexpr const vec3_t operator+(const vec3_t& lhs, const vec3_t& rhs);
 
 template<typename T, index_t n>
-vec_t<T, n>& operator+=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
+constexpr vec_t<T, n>& operator+=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
-vec3_t& operator+=(vec3_t& lhs, const vec3_t& rhs);
+constexpr vec3_t& operator+=(vec3_t& lhs, const vec3_t& rhs);
 
 template<typename T, index_t n>
-const vec_t<T, n> operator-(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
+constexpr const vec_t<T, n> operator-(
+    const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
-const vec3_t operator-(const vec3_t& lhs, const vec3_t& rhs);
+constexpr const vec3_t operator-(const vec3_t& lhs, const vec3_t& rhs);
 
 template<typename T, index_t n>
-vec_t<T, n>& operator-=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
+constexpr vec_t<T, n>& operator-=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
-vec3_t& operator-=(vec3_t& lhs, const vec3_t& rhs);
+constexpr vec3_t& operator-=(vec3_t& lhs, const vec3_t& rhs);
 
 template<typename T, index_t n>
-const vec_t<T, n> operator-(const vec_t<T, n>& rhs);
+constexpr const vec_t<T, n> operator-(const vec_t<T, n>& rhs);
 
 template<>
-const vec3_t operator-(const vec3_t& rhs);
+constexpr const vec3_t operator-(const vec3_t& rhs);
 
 template<typename T, index_t n>
-const vec_t<T, n> operator*(const vec_t<T, n>& lhs, T val);
+constexpr const vec_t<T, n> operator*(const vec_t<T, n>& lhs, T val);
 
 template<>
-const vec3_t operator*(const vec3_t& lhs, real_t val);
+constexpr const vec3_t operator*(const vec3_t& lhs, real_t val);
 
 template<typename T, index_t n>
-const vec_t<T, n> operator*(T val, const vec_t<T, n>& rhs);
+constexpr const vec_t<T, n> operator*(T val, const vec_t<T, n>& rhs);
 
 template<>
-const vec3_t operator*(real_t val, const vec3_t& rhs);
+constexpr const vec3_t operator*(real_t val, const vec3_t& rhs);
 
 template<typename T, index_t n>
-vec_t<T, n>& operator*=(vec_t<T, n>& lhs, T val);
+constexpr vec_t<T, n>& operator*=(vec_t<T, n>& lhs, T val);
 
 template<>
-vec3_t& operator*=(vec3_t& lhs, real_t val);
+constexpr vec3_t& operator*=(vec3_t& lhs, real_t val);
 
 template<typename T, index_t n>
-const vec_t<T, n> operator*(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
+constexpr const vec_t<T, n> operator*(
+    const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
-const vec3_t operator*(const vec3_t& lhs, const vec3_t& rhs);
+constexpr const vec3_t operator*(const vec3_t& lhs, const vec3_t& rhs);
 
 template<typename T, index_t n>
-vec_t<T, n>& operator*=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
+constexpr vec_t<T, n>& operator*=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
-vec3_t& operator*=(vec3_t& lhs, const vec3_t& rhs);
+constexpr vec3_t& operator*=(vec3_t& lhs, const vec3_t& rhs);
 
 template<typename T, index_t n>
-const vec_t<T, n> operator/(const vec_t<T, n>& lhs, T val);
+constexpr const vec_t<T, n> operator/(const vec_t<T, n>& lhs, T val);
 
 template<>
-const vec3_t operator/(const vec3_t& lhs, real_t val);
+constexpr const vec3_t operator/(const vec3_t& lhs, real_t val);
 
 template<typename T, index_t n>
-vec_t<T, n>& operator/=(vec_t<T, n>& lhs, T val);
+constexpr vec_t<T, n>& operator/=(vec_t<T, n>& lhs, T val);
 
 template<>
-vec3_t& operator/=(vec3_t& lhs, real_t val);
+constexpr vec3_t& operator/=(vec3_t& lhs, real_t val);
 
 template<typename T, index_t n>
-const vec_t<T, n> operator/(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
+constexpr const vec_t<T, n> operator/(
+    const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
-const vec3_t operator/(const vec3_t& lhs, const vec3_t& rhs);
+constexpr const vec3_t operator/(const vec3_t& lhs, const vec3_t& rhs);
 
 template<typename T, index_t n>
-vec_t<T, n>& operator/=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
+constexpr vec_t<T, n>& operator/=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
-vec3_t& operator/=(vec3_t& lhs, const vec3_t& rhs);
+constexpr vec3_t& operator/=(vec3_t& lhs, const vec3_t& rhs);
 
 } // namespace as
 

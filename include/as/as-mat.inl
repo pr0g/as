@@ -66,7 +66,7 @@ AS_API constexpr const T mat_t<T, d>::operator[](const index_t i) &&
 }
 
 template<typename T, index_t d>
-AS_API const mat_t<T, d> operator*(
+AS_API constexpr const mat_t<T, d> operator*(
     const mat_t<T, d>& lhs, const mat_t<T, d>& rhs)
 {
     mat_t<T, d> result;
@@ -98,9 +98,11 @@ AS_API const mat_t<T, d> operator*(
 
 template<typename T, index_t d>
 #if defined AS_ROW_MAJOR
-AS_API const vec_t<T, d> operator*(const vec_t<T, d>& v, const mat_t<T, d>& mat)
+AS_API constexpr const vec_t<T, d> operator*(
+    const vec_t<T, d>& v, const mat_t<T, d>& mat)
 #elif defined AS_COL_MAJOR
-AS_API const vec_t<T, d> operator*(const mat_t<T, d>& mat, const vec_t<T, d>& v)
+AS_API constexpr const vec_t<T, d> operator*(
+    const mat_t<T, d>& mat, const vec_t<T, d>& v)
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 {
     vec_t<T, d> result;
@@ -118,7 +120,8 @@ AS_API const vec_t<T, d> operator*(const mat_t<T, d>& mat, const vec_t<T, d>& v)
 }
 
 template<typename T, index_t d>
-AS_API const mat_t<T, d> operator*(const mat_t<T, d>& mat, const T scalar)
+AS_API constexpr const mat_t<T, d> operator*(
+    const mat_t<T, d>& mat, const T scalar)
 {
     mat_t<T, d> result{mat};
     result *= scalar;
@@ -126,7 +129,7 @@ AS_API const mat_t<T, d> operator*(const mat_t<T, d>& mat, const T scalar)
 }
 
 template<typename T, index_t d>
-AS_API mat_t<T, d>& operator*=(mat_t<T, d>& mat, const T scalar)
+AS_API constexpr mat_t<T, d>& operator*=(mat_t<T, d>& mat, const T scalar)
 {
     for (index_t row = 0; row < d; ++row) {
         for (index_t col = 0; col < d; ++col) {

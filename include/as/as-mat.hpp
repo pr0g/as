@@ -52,20 +52,23 @@ private:
 };
 
 template<typename T, index_t d>
-const mat_t<T, d> operator*(const mat_t<T, d>& lhs, const mat_t<T, d>& rhs);
+constexpr const mat_t<T, d> operator*(
+    const mat_t<T, d>& lhs, const mat_t<T, d>& rhs);
 
 template<typename T, index_t d>
 #if defined AS_ROW_MAJOR
-const vec_t<T, d> operator*(const vec_t<T, d>& v, const mat_t<T, d>& mat);
+constexpr const vec_t<T, d> operator*(
+    const vec_t<T, d>& v, const mat_t<T, d>& mat);
 #elif defined AS_COL_MAJOR
-const vec_t<T, d> operator*(const mat_t<T, d>& mat, const vec_t<T, d>& v);
+constexpr const vec_t<T, d> operator*(
+    const mat_t<T, d>& mat, const vec_t<T, d>& v);
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
 template<typename T, index_t d>
-const mat_t<T, d> operator*(const mat_t<T, d>& mat, T scalar);
+constexpr const mat_t<T, d> operator*(const mat_t<T, d>& mat, T scalar);
 
 template<typename T, index_t d>
-mat_t<T, d>& operator*=(mat_t<T, d>& mat, T scalar);
+constexpr mat_t<T, d>& operator*=(mat_t<T, d>& mat, T scalar);
 
 } // namespace as
 

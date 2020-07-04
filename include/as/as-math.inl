@@ -2,42 +2,42 @@ namespace as
 {
 
 template<typename T>
-AS_API T lerp(T t, T v0, T v1)
+AS_API constexpr T lerp(const T t, const T v0, const T v1)
 {
     return (T{1} - t) * v0 + t * v1;
 }
 
 template<typename T>
-AS_API T smooth_step(T t, T v0, T v1)
+AS_API constexpr T smooth_step(const T t, const T v0, const T v1)
 {
     T val = (t * t) * (T{3} - T{2} * t);
     return lerp(val, v0, v1);
 }
 
 template<typename T>
-AS_API T max(T v0, T v1)
+AS_API constexpr T max(const T v0, const T v1)
 {
     return v0 > v1 ? v0 : v1;
 }
 
 template<typename T>
-AS_API T min(T v0, T v1)
+AS_API constexpr T min(const T v0, const T v1)
 {
     return v0 < v1 ? v0 : v1;
 }
 
 template<typename T>
-AS_API T clamp(T t, T v0, T v1)
+AS_API constexpr T clamp(const T t, const T v0, const T v1)
 {
     return t < v0 ? v0 : t > v1 ? v1 : t;
 }
 
-AS_API inline real_t deg_to_rad(const real_t degrees)
+AS_API constexpr real_t deg_to_rad(const real_t degrees)
 {
     return degrees * DEG_TO_RAD;
 }
 
-AS_API inline real_t rad_to_deg(const real_t radians)
+AS_API constexpr real_t rad_to_deg(const real_t radians)
 {
     return radians * RAD_TO_DEG;
 }

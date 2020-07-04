@@ -33,28 +33,31 @@ AS_API constexpr point2_t point2_t::zero()
     return point2_t{vec2_t::zero()};
 }
 
-AS_API inline const vec2_t operator-(const point2_t& lhs, const point2_t& rhs)
+AS_API constexpr const vec2_t operator-(
+    const point2_t& lhs, const point2_t& rhs)
 {
     return lhs.v - rhs.v;
 }
 
-AS_API inline const point2_t operator+(const point2_t& point, const vec2_t& vec)
+AS_API constexpr const point2_t operator+(
+    const point2_t& point, const vec2_t& vec)
 {
     return point2_t(point.v + vec);
 }
 
-AS_API inline point2_t& operator+=(point2_t& point, const vec2_t& vec)
+AS_API constexpr point2_t& operator+=(point2_t& point, const vec2_t& vec)
 {
     point.v += vec;
     return point;
 }
 
-AS_API inline const point2_t operator-(const point2_t& point, const vec2_t& vec)
+AS_API constexpr const point2_t operator-(
+    const point2_t& point, const vec2_t& vec)
 {
     return point2_t(point.v - vec);
 }
 
-AS_API inline point2_t& operator-=(point2_t& point, const vec2_t& vec)
+AS_API constexpr point2_t& operator-=(point2_t& point, const vec2_t& vec)
 {
     point.v -= vec;
     return point;
@@ -98,28 +101,31 @@ AS_API constexpr point3_t point3_t::zero()
     return point3_t{vec3_t::zero()};
 }
 
-AS_API inline const vec3_t operator-(const point3_t& lhs, const point3_t& rhs)
+AS_API constexpr const vec3_t operator-(
+    const point3_t& lhs, const point3_t& rhs)
 {
     return lhs.v - rhs.v;
 }
 
-AS_API inline const point3_t operator+(const point3_t& point, const vec3_t& vec)
+AS_API constexpr const point3_t operator+(
+    const point3_t& point, const vec3_t& vec)
 {
     return point3_t(point.v + vec);
 }
 
-AS_API inline point3_t& operator+=(point3_t& point, const vec3_t& vec)
+AS_API constexpr point3_t& operator+=(point3_t& point, const vec3_t& vec)
 {
     point.v += vec;
     return point;
 }
 
-AS_API inline const point3_t operator-(const point3_t& point, const vec3_t& vec)
+AS_API constexpr const point3_t operator-(
+    const point3_t& point, const vec3_t& vec)
 {
     return point3_t(point.v - vec);
 }
 
-AS_API inline point3_t& operator-=(point3_t& point, const vec3_t& vec)
+AS_API constexpr point3_t& operator-=(point3_t& point, const vec3_t& vec)
 {
     point.v -= vec;
     return point;

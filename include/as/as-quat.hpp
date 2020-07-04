@@ -20,11 +20,11 @@ struct quat_t
 
 constexpr const quat_t operator*(const quat_t& lhs, const quat_t& rhs);
 constexpr quat_t& operator*=(quat_t& lhs, const quat_t& rhs);
-const quat_t operator+(const quat_t& lhs, const quat_t& rhs);
-const quat_t operator-(const quat_t& lhs, const quat_t& rhs);
-const quat_t operator-(const quat_t& q);
-const quat_t operator/(const quat_t& lhs, real_t rhs);
-const quat_t operator*(const quat_t& lhs, real_t rhs);
+constexpr const quat_t operator+(const quat_t& lhs, const quat_t& rhs);
+constexpr const quat_t operator-(const quat_t& lhs, const quat_t& rhs);
+constexpr const quat_t operator-(const quat_t& q);
+constexpr const quat_t operator/(const quat_t& lhs, real_t rhs);
+constexpr const quat_t operator*(const quat_t& lhs, real_t rhs);
 
 } // namespace as
 

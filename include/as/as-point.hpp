@@ -44,17 +44,17 @@ struct point3_t
     vec3_t v;
 };
 
-const vec2_t operator-(const point2_t& lhs, const point2_t& rhs);
-const point2_t operator+(const point2_t& point, const vec2_t& vec);
-point2_t& operator+=(point2_t& point, const vec2_t& vec);
-const point2_t operator-(const point2_t& point, const vec2_t& vec);
-point2_t& operator-=(point2_t& point, const vec2_t& vec);
+constexpr const vec2_t operator-(const point2_t& lhs, const point2_t& rhs);
+constexpr const point2_t operator+(const point2_t& point, const vec2_t& vec);
+constexpr point2_t& operator+=(point2_t& point, const vec2_t& vec);
+constexpr const point2_t operator-(const point2_t& point, const vec2_t& vec);
+constexpr point2_t& operator-=(point2_t& point, const vec2_t& vec);
 
-const vec3_t operator-(const point3_t& lhs, const point3_t& rhs);
-const point3_t operator+(const point3_t& point, const vec3_t& vec);
-point3_t& operator+=(point3_t& point, const vec3_t& vec);
-const point3_t operator-(const point3_t& point, const vec3_t& vec);
-point3_t& operator-=(point3_t& point, const vec3_t& vec);
+constexpr const vec3_t operator-(const point3_t& lhs, const point3_t& rhs);
+constexpr const point3_t operator+(const point3_t& point, const vec3_t& vec);
+constexpr point3_t& operator+=(point3_t& point, const vec3_t& vec);
+constexpr const point3_t operator-(const point3_t& point, const vec3_t& vec);
+constexpr point3_t& operator-=(point3_t& point, const vec3_t& vec);
 
 } // namespace as
 

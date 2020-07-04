@@ -10,22 +10,22 @@ constexpr real_t DEG_TO_RAD = PI / real_t(180.0);
 constexpr real_t RAD_TO_DEG = real_t(180.0) / PI;
 
 template<typename T>
-T lerp(T t, T v0, T v1);
+constexpr T lerp(T t, T v0, T v1);
 
 template<typename T>
-T smooth_step(T t, T v0, T v1);
+constexpr T smooth_step(T t, T v0, T v1);
 
 template<typename T>
-T max(T v0, T v1);
+constexpr T max(T v0, T v1);
 
 template<typename T>
-T min(T v0, T v1);
+constexpr T min(T v0, T v1);
 
 template<typename T>
-T clamp(T t, T v0, T v1);
+constexpr T clamp(T t, T v0, T v1);
 
-real_t deg_to_rad(real_t degrees);
-real_t rad_to_deg(real_t radians);
+constexpr real_t deg_to_rad(real_t degrees);
+constexpr real_t rad_to_deg(real_t radians);
 
 bool equal(
     real_t a, real_t b,

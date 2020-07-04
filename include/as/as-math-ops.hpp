@@ -17,7 +17,7 @@ namespace vec
 {
 
 template<typename T, index_t n>
-index_t size(const vec_t<T, n>& vec);
+constexpr index_t size(const vec_t<T, n>& vec);
 
 template<typename T, index_t n>
 vec_t<T, n> from_arr(const T (&data)[n]);
@@ -29,13 +29,13 @@ template<typename T, index_t n>
 void to_arr(const vec_t<T, n>& vec, T (&data)[n]);
 
 template<typename T, index_t n>
-T dot(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
+constexpr T dot(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<>
-real_t dot(const vec3_t& lhs, const vec3_t& rhs);
+constexpr real_t dot(const vec3_t& lhs, const vec3_t& rhs);
 
 template<typename T, index_t n>
-T length_sq(const vec_t<T, n>& vec);
+constexpr T length_sq(const vec_t<T, n>& vec);
 
 template<typename T, index_t n>
 T length(const vec_t<T, n>& vec);
@@ -52,32 +52,33 @@ bool equal(
     real_t epsilon = std::numeric_limits<real_t>::epsilon());
 
 template<typename T, index_t n>
-vec_t<T, n> min(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
+constexpr vec_t<T, n> min(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<typename T, index_t n>
-T min_elem(const vec_t<T, n>& vec);
+constexpr T min_elem(const vec_t<T, n>& vec);
 
 template<typename T, index_t n>
-vec_t<T, n> max(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
+constexpr vec_t<T, n> max(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<typename T, index_t n>
-T max_elem(const vec_t<T, n>& vec);
+constexpr T max_elem(const vec_t<T, n>& vec);
 
 template<typename T, index_t n>
 vec_t<T, n> abs(const vec_t<T, n>& vec);
 
 template<typename T, index_t n>
-vec_t<T, n> clamp(
+constexpr vec_t<T, n> clamp(
     const vec_t<T, n>& vec, const vec_t<T, n>& min, const vec_t<T, n>& max);
 
 template<typename T, index_t n>
-vec_t<T, n> saturate(const vec_t<T, n>& vec);
+constexpr vec_t<T, n> saturate(const vec_t<T, n>& vec);
 
 template<typename T, index_t n>
-vec_t<T, n> lerp(T t, const vec_t<T, n>& v0, const vec_t<T, n>& v1);
+constexpr vec_t<T, n> lerp(T t, const vec_t<T, n>& v0, const vec_t<T, n>& v1);
 
 template<typename T, index_t n>
-vec_t<T, n> select(const vec_t<T, n>& v0, const vec_t<T, n>& v1, bool select0);
+constexpr vec_t<T, n> select(
+    const vec_t<T, n>& v0, const vec_t<T, n>& v1, bool select0);
 
 template<typename T, index_t n>
 vec_t<T, n> floor(const vec_t<T, n>& vec);
@@ -126,7 +127,7 @@ template<typename T>
 constexpr vec_t<T, 3> from_vec4(const vec_t<T, 4>& vec);
 
 template<typename T>
-vec_t<T, 3> cross(const vec_t<T, 3>& lhs, const vec_t<T, 3>& rhs);
+constexpr vec_t<T, 3> cross(const vec_t<T, 3>& lhs, const vec_t<T, 3>& rhs);
 
 // note: will not work if dir == +/-world_up
 template<typename T>
@@ -166,16 +167,16 @@ namespace mat
 constexpr index_t rc(index_t r, index_t c, index_t d);
 
 template<typename T, index_t d>
-vec_t<T, d> row(const mat_t<T, d>& mat, index_t r);
+constexpr vec_t<T, d> row(const mat_t<T, d>& mat, index_t r);
 
 template<typename T, index_t d>
-vec_t<T, d> col(const mat_t<T, d>& mat, index_t c);
+constexpr vec_t<T, d> col(const mat_t<T, d>& mat, index_t c);
 
 template<typename T, index_t d>
-void row(mat_t<T, d>& mat, index_t r, const vec_t<T, d>& row);
+constexpr void row(mat_t<T, d>& mat, index_t r, const vec_t<T, d>& row);
 
 template<typename T, index_t d>
-void col(mat_t<T, d>& mat, index_t c, const vec_t<T, d>& col);
+constexpr void col(mat_t<T, d>& mat, index_t c, const vec_t<T, d>& col);
 
 template<typename T, index_t d>
 T* data(mat_t<T, d>& mat);
@@ -193,7 +194,7 @@ template<typename T, index_t d>
 void to_arr(const mat_t<T, d>& mat, T (&data)[d]);
 
 template<typename T, index_t d>
-mat_t<T, d> transpose(const mat_t<T, d>& mat);
+constexpr mat_t<T, d> transpose(const mat_t<T, d>& mat);
 
 template<typename T, index_t d>
 T determinant(const mat_t<T, d>& mat);
@@ -212,40 +213,40 @@ namespace mat3
 constexpr index_t rc(index_t r, index_t c);
 
 template<typename T>
-vec_t<T, 3> row0(const mat_t<T, 3>& mat);
+constexpr vec_t<T, 3> row0(const mat_t<T, 3>& mat);
 
 template<typename T>
-vec_t<T, 3> row1(const mat_t<T, 3>& mat);
+constexpr vec_t<T, 3> row1(const mat_t<T, 3>& mat);
 
 template<typename T>
-vec_t<T, 3> row2(const mat_t<T, 3>& mat);
+constexpr vec_t<T, 3> row2(const mat_t<T, 3>& mat);
 
 template<typename T>
-vec_t<T, 3> col0(const mat_t<T, 3>& mat);
+constexpr vec_t<T, 3> col0(const mat_t<T, 3>& mat);
 
 template<typename T>
-vec_t<T, 3> col1(const mat_t<T, 3>& mat);
+constexpr vec_t<T, 3> col1(const mat_t<T, 3>& mat);
 
 template<typename T>
-vec_t<T, 3> col2(const mat_t<T, 3>& mat);
+constexpr vec_t<T, 3> col2(const mat_t<T, 3>& mat);
 
 template<typename T>
-void row0(mat_t<T, 3>& mat, const vec_t<T, 3>& row);
+constexpr void row0(mat_t<T, 3>& mat, const vec_t<T, 3>& row);
 
 template<typename T>
-void row1(mat_t<T, 3>& mat, const vec_t<T, 3>& row);
+constexpr void row1(mat_t<T, 3>& mat, const vec_t<T, 3>& row);
 
 template<typename T>
-void row2(mat_t<T, 3>& mat, const vec_t<T, 3>& row);
+constexpr void row2(mat_t<T, 3>& mat, const vec_t<T, 3>& row);
 
 template<typename T>
-void col0(mat_t<T, 3>& mat, const vec_t<T, 3>& col);
+constexpr void col0(mat_t<T, 3>& mat, const vec_t<T, 3>& col);
 
 template<typename T>
-void col1(mat_t<T, 3>& mat, const vec_t<T, 3>& col);
+constexpr void col1(mat_t<T, 3>& mat, const vec_t<T, 3>& col);
 
 template<typename T>
-void col2(mat_t<T, 3>& mat, const vec_t<T, 3>& col);
+constexpr void col2(mat_t<T, 3>& mat, const vec_t<T, 3>& col);
 
 template<typename T>
 mat_t<T, 3> from_ptr(const T* data);
@@ -262,10 +263,10 @@ mat3_t rotation_zxy(real_t x, real_t y, real_t z);
 mat3_t rotation_x(real_t radians);
 mat3_t rotation_y(real_t radians);
 mat3_t rotation_z(real_t radians);
-mat3_t scale(real_t scale);
-mat3_t scale(const vec3_t& scale);
+constexpr mat3_t scale(real_t scale);
+constexpr mat3_t scale(const vec3_t& scale);
 
-mat3_t from_quat(const quat_t& quat);
+constexpr mat3_t from_quat(const quat_t& quat);
 
 } // namespace mat3
 
@@ -275,52 +276,52 @@ namespace mat4
 constexpr index_t rc(index_t r, index_t c);
 
 template<typename T>
-vec_t<T, 4> row0(const mat_t<T, 4>& mat);
+constexpr vec_t<T, 4> row0(const mat_t<T, 4>& mat);
 
 template<typename T>
-vec_t<T, 4> row1(const mat_t<T, 4>& mat);
+constexpr vec_t<T, 4> row1(const mat_t<T, 4>& mat);
 
 template<typename T>
-vec_t<T, 4> row2(const mat_t<T, 4>& mat);
+constexpr vec_t<T, 4> row2(const mat_t<T, 4>& mat);
 
 template<typename T>
-vec_t<T, 4> row3(const mat_t<T, 4>& mat);
+constexpr vec_t<T, 4> row3(const mat_t<T, 4>& mat);
 
 template<typename T>
-vec_t<T, 4> col0(const mat_t<T, 4>& mat);
+constexpr vec_t<T, 4> col0(const mat_t<T, 4>& mat);
 
 template<typename T>
-vec_t<T, 4> col1(const mat_t<T, 4>& mat);
+constexpr vec_t<T, 4> col1(const mat_t<T, 4>& mat);
 
 template<typename T>
-vec_t<T, 4> col2(const mat_t<T, 4>& mat);
+constexpr vec_t<T, 4> col2(const mat_t<T, 4>& mat);
 
 template<typename T>
-vec_t<T, 4> col3(const mat_t<T, 4>& mat);
+constexpr vec_t<T, 4> col3(const mat_t<T, 4>& mat);
 
 template<typename T>
-void row0(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
+constexpr void row0(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
 
 template<typename T>
-void row1(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
+constexpr void row1(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
 
 template<typename T>
-void row2(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
+constexpr void row2(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
 
 template<typename T>
-void row3(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
+constexpr void row3(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
 
 template<typename T>
-void col0(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
+constexpr void col0(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
 
 template<typename T>
-void col1(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
+constexpr void col1(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
 
 template<typename T>
-void col2(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
+constexpr void col2(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
 
 template<typename T>
-void col3(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
+constexpr void col3(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
 
 template<typename T>
 mat_t<T, 4> from_ptr(const T* data);
@@ -389,8 +390,9 @@ namespace affine
 
 constexpr affine_t from_mat4(const mat4_t& mat);
 
-vec3_t transform_dir(const affine_t& affine, const vec3_t& direction);
-point3_t transform_pos(const affine_t& affine, const point3_t& position);
+constexpr vec3_t transform_dir(const affine_t& affine, const vec3_t& direction);
+constexpr point3_t transform_pos(
+    const affine_t& affine, const point3_t& position);
 vec3_t inv_transform_dir(const affine_t& affine, const vec3_t& direction);
 point3_t inv_transform_pos(const affine_t& affine, const point3_t& position);
 
