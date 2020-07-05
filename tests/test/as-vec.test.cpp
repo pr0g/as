@@ -943,8 +943,8 @@ TEST_CASE("multiplication_scalar", "[as_vec]")
 
     // vec_t operator '*'
     {
-        vec5_t vec =
-            real_t(5.0) * vec5_t{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r};
+        vec5_t vec;
+        vec = real_t(5.0) * vec5_t{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r};
         CHECK(vec::equal(
             vec, vec5_t(250.0_r, 200.0_r, 125.0_r, 100.0_r, 50.0_r)));
     }
@@ -1023,8 +1023,8 @@ TEST_CASE("divide_scalar", "[as_vec]")
 
     // vec_t operator '/'
     {
-        vec5_t vec =
-            vec5_t{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r} / real_t(5.0);
+        vec5_t vec;
+        vec = vec5_t{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r} / real_t(5.0);
         CHECK(vec::equal(vec, vec5_t(10.0_r, 8.0_r, 5.0_r, 4.0_r, 2.0_r)));
     }
 
@@ -1040,7 +1040,8 @@ TEST_CASE("divide_scalar_vec3", "[as_vec]")
 {
     // vec_t operator '/'
     {
-        vec3_t vec = vec3_t{50.0_r, 40.0_r, 25.0_r} / real_t(5.0);
+        vec3_t vec;
+        vec = vec3_t{50.0_r, 40.0_r, 25.0_r} / real_t(5.0);
         CHECK(vec::equal(vec, vec3_t(10.0_r, 8.0_r, 5.0_r)));
     }
 
@@ -1058,8 +1059,9 @@ TEST_CASE("divide_vector", "[as_vec]")
 
     // vec_t operator '/'
     {
-        vec5_t vec = vec5_t{33.0_r, 48.0_r, 10.0_r, 120.0_r, 2.0_r}
-                   / vec5_t{3.0_r, 6.0_r, 2.0_r, 3.0_r, 0.5_r};
+        vec5_t vec;
+        vec = vec5_t{33.0_r, 48.0_r, 10.0_r, 120.0_r, 2.0_r}
+            / vec5_t{3.0_r, 6.0_r, 2.0_r, 3.0_r, 0.5_r};
 
         CHECK(vec::equal(vec, vec5_t(11.0_r, 8.0_r, 5.0_r, 40.0_r, 4.0_r)));
     }
