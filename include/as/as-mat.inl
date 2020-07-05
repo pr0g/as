@@ -5,7 +5,7 @@ namespace mat
 {
 
 template<typename T, index_t d>
-AS_API constexpr mat_t<T, d> identity()
+AS_API mat_t<T, d> identity()
 {
     mat_t<T, d> identity{};
     for (index_t i = 0; i < mat_t<T, d>::size(); i += d + 1) {
@@ -42,7 +42,7 @@ AS_API constexpr index_t mat_t<T, d>::cols()
 }
 
 template<typename T, index_t d>
-AS_API constexpr mat_t<T, d> mat_t<T, d>::identity()
+AS_API mat_t<T, d> mat_t<T, d>::identity()
 {
     return mat::identity<T, d>();
 }
@@ -66,7 +66,7 @@ AS_API constexpr const T mat_t<T, d>::operator[](const index_t i) &&
 }
 
 template<typename T, index_t d>
-AS_API constexpr const mat_t<T, d> operator*(
+AS_API const mat_t<T, d> operator*(
     const mat_t<T, d>& lhs, const mat_t<T, d>& rhs)
 {
     mat_t<T, d> result;
@@ -98,10 +98,10 @@ AS_API constexpr const mat_t<T, d> operator*(
 
 template<typename T, index_t d>
 #if defined AS_ROW_MAJOR
-AS_API constexpr const vec_t<T, d> operator*(
+AS_API const vec_t<T, d> operator*(
     const vec_t<T, d>& v, const mat_t<T, d>& mat)
 #elif defined AS_COL_MAJOR
-AS_API constexpr const vec_t<T, d> operator*(
+AS_API const vec_t<T, d> operator*(
     const mat_t<T, d>& mat, const vec_t<T, d>& v)
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 {

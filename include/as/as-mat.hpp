@@ -31,7 +31,7 @@ struct mat_t
         typename... Args,
         typename = std::enable_if_t<!std::is_same<
             typelist<mat_t>, typelist<std::decay_t<Args>...>>::value>>
-    mat_t(Args... args) noexcept : elem_rc{std::forward<Args>(args)...}
+    constexpr mat_t(Args... args) noexcept : elem_rc{std::forward<Args>(args)...}
     {
         static_assert(
             sizeof...(args) == size(), "Not enough arguments for dimension");
@@ -45,22 +45,22 @@ struct mat_t
     constexpr static index_t cols();
     constexpr static index_t rows();
     constexpr static index_t size();
-    constexpr static mat_t<T, d> identity();
+    static mat_t<T, d> identity();
 
 private:
     T elem_rc[size()];
 };
 
 template<typename T, index_t d>
-constexpr const mat_t<T, d> operator*(
+const mat_t<T, d> operator*(
     const mat_t<T, d>& lhs, const mat_t<T, d>& rhs);
 
 template<typename T, index_t d>
 #if defined AS_ROW_MAJOR
-constexpr const vec_t<T, d> operator*(
+const vec_t<T, d> operator*(
     const vec_t<T, d>& v, const mat_t<T, d>& mat);
 #elif defined AS_COL_MAJOR
-constexpr const vec_t<T, d> operator*(
+const vec_t<T, d> operator*(
     const mat_t<T, d>& mat, const vec_t<T, d>& v);
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 

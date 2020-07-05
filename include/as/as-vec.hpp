@@ -25,7 +25,7 @@ struct vec_t
         typename... Args,
         typename = std::enable_if_t<!std::is_same<
             typelist<vec_t>, typelist<std::decay_t<Args>...>>::value>>
-    vec_t(Args... args) noexcept : elem{std::forward<Args>(args)...}
+    constexpr vec_t(Args... args) noexcept : elem{std::forward<Args>(args)...}
     {
         static_assert(
             sizeof...(args) == n, "Not enough arguments for dimension");
@@ -188,7 +188,7 @@ template<>
 constexpr vec3_t& operator-=(vec3_t& lhs, const vec3_t& rhs);
 
 template<typename T, index_t n>
-constexpr const vec_t<T, n> operator-(const vec_t<T, n>& rhs);
+const vec_t<T, n> operator-(const vec_t<T, n>& rhs);
 
 template<>
 constexpr const vec3_t operator-(const vec3_t& rhs);

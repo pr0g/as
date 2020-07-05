@@ -354,7 +354,7 @@ AS_API constexpr vec3_t& operator-=(vec3_t& lhs, const vec3_t& rhs)
 }
 
 template<typename T, index_t n>
-AS_API constexpr const vec_t<T, n> operator-(const vec_t<T, n>& rhs)
+AS_API const vec_t<T, n> operator-(const vec_t<T, n>& rhs)
 {
     vec_t<T, n> result;
     for (index_t i = 0; i < n; ++i) {

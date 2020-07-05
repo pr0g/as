@@ -52,13 +52,13 @@ bool equal(
     real_t epsilon = std::numeric_limits<real_t>::epsilon());
 
 template<typename T, index_t n>
-constexpr vec_t<T, n> min(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
+vec_t<T, n> min(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<typename T, index_t n>
 constexpr T min_elem(const vec_t<T, n>& vec);
 
 template<typename T, index_t n>
-constexpr vec_t<T, n> max(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
+vec_t<T, n> max(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
 template<typename T, index_t n>
 constexpr T max_elem(const vec_t<T, n>& vec);
@@ -67,14 +67,14 @@ template<typename T, index_t n>
 vec_t<T, n> abs(const vec_t<T, n>& vec);
 
 template<typename T, index_t n>
-constexpr vec_t<T, n> clamp(
+vec_t<T, n> clamp(
     const vec_t<T, n>& vec, const vec_t<T, n>& min, const vec_t<T, n>& max);
 
 template<typename T, index_t n>
-constexpr vec_t<T, n> saturate(const vec_t<T, n>& vec);
+vec_t<T, n> saturate(const vec_t<T, n>& vec);
 
 template<typename T, index_t n>
-constexpr vec_t<T, n> lerp(T t, const vec_t<T, n>& v0, const vec_t<T, n>& v1);
+vec_t<T, n> lerp(T t, const vec_t<T, n>& v0, const vec_t<T, n>& v1);
 
 template<typename T, index_t n>
 constexpr vec_t<T, n> select(
@@ -167,10 +167,10 @@ namespace mat
 constexpr index_t rc(index_t r, index_t c, index_t d);
 
 template<typename T, index_t d>
-constexpr vec_t<T, d> row(const mat_t<T, d>& mat, index_t r);
+vec_t<T, d> row(const mat_t<T, d>& mat, index_t r);
 
 template<typename T, index_t d>
-constexpr vec_t<T, d> col(const mat_t<T, d>& mat, index_t c);
+vec_t<T, d> col(const mat_t<T, d>& mat, index_t c);
 
 template<typename T, index_t d>
 constexpr void row(mat_t<T, d>& mat, index_t r, const vec_t<T, d>& row);
@@ -194,7 +194,7 @@ template<typename T, index_t d>
 void to_arr(const mat_t<T, d>& mat, T (&data)[d]);
 
 template<typename T, index_t d>
-constexpr mat_t<T, d> transpose(const mat_t<T, d>& mat);
+mat_t<T, d> transpose(const mat_t<T, d>& mat);
 
 template<typename T, index_t d>
 T determinant(const mat_t<T, d>& mat);
@@ -340,7 +340,7 @@ constexpr mat_t<T, 4> from_mat3_vec3(
     const mat_t<T, 3>& rotation, const vec_t<T, 3>& translation);
 
 template<typename T>
-constexpr vec_t<T, 3> translation(const mat_t<T, 4>& mat);
+vec_t<T, 3> translation(const mat_t<T, 4>& mat);
 
 template<typename T>
 constexpr mat_t<T, 4> shear_x(T y, T z);
@@ -388,10 +388,10 @@ quat_t from_mat3(const mat3_t& mat);
 namespace affine
 {
 
-constexpr affine_t from_mat4(const mat4_t& mat);
+affine_t from_mat4(const mat4_t& mat);
 
-constexpr vec3_t transform_dir(const affine_t& affine, const vec3_t& direction);
-constexpr point3_t transform_pos(
+vec3_t transform_dir(const affine_t& affine, const vec3_t& direction);
+point3_t transform_pos(
     const affine_t& affine, const point3_t& position);
 vec3_t inv_transform_dir(const affine_t& affine, const vec3_t& direction);
 point3_t inv_transform_pos(const affine_t& affine, const point3_t& position);
