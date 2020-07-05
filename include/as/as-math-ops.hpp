@@ -391,8 +391,7 @@ namespace affine
 affine_t from_mat4(const mat4_t& mat);
 
 vec3_t transform_dir(const affine_t& affine, const vec3_t& direction);
-point3_t transform_pos(
-    const affine_t& affine, const point3_t& position);
+point3_t transform_pos(const affine_t& affine, const point3_t& position);
 vec3_t inv_transform_dir(const affine_t& affine, const vec3_t& direction);
 point3_t inv_transform_pos(const affine_t& affine, const point3_t& position);
 

@@ -9,7 +9,8 @@ AS_API constexpr point2_t::point2_t(const vec2_t& v_) : v{v_}
 {
 }
 
-AS_API constexpr point2_t::point2_t(const real_t x_, const real_t y_) : v{x_, y_}
+AS_API constexpr point2_t::point2_t(const real_t x_, const real_t y_)
+    : v{x_, y_}
 {
 }
 

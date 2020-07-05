@@ -170,8 +170,7 @@ AS_API vec_t<T, n> saturate(const vec_t<T, n>& vec)
 }
 
 template<typename T, index_t n>
-AS_API vec_t<T, n> lerp(
-    T t, const vec_t<T, n>& v0, const vec_t<T, n>& v1)
+AS_API vec_t<T, n> lerp(T t, const vec_t<T, n>& v0, const vec_t<T, n>& v1)
 {
     vec_t<T, n> result;
     for (index_t i = 0; i < n; ++i) {
