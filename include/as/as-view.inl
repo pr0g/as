@@ -80,7 +80,7 @@ AS_API inline mat4_t perspective_vulkan_rh(
     };
     // clang-format on
 
-#if defined AS_COL_MAJOR
+#ifdef AS_COL_MAJOR
     return clip * perspective_gl_rh(fovy, aspect, n, f);
 #elif defined AS_ROW_MAJOR
     return perspective_gl_rh(fovy, aspect, n, f) * clip;
@@ -100,7 +100,7 @@ AS_API inline mat4_t perspective_vulkan_lh(
     };
     // clang-format on
 
-#if defined AS_COL_MAJOR
+#ifdef AS_COL_MAJOR
     return clip * perspective_gl_lh(fovy, aspect, n, f);
 #elif defined AS_ROW_MAJOR
     return perspective_gl_lh(fovy, aspect, n, f) * clip;
