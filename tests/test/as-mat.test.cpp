@@ -737,6 +737,31 @@ TEST_CASE("multiply_same_size", "[as_mat]")
     CHECK_THAT(make_span(mat_arr), make_elements_sub(result, 9));
 }
 
+TEST_CASE("multiply_mul", "[as-mat]")
+{
+    using gsl::make_span;
+
+    mat3_t rotate_x = mat3::rotation_x(deg_to_rad(30.0f));
+    mat3_t rotate_y = mat3::rotation_y(deg_to_rad(30.0f));
+    mat3_t rotate_z = mat3::rotation_z(deg_to_rad(30.0f));
+
+    mat3_t result_mul;
+    result_mul = as::mat::mul(as::mat::mul(rotate_x, rotate_y), rotate_z);
+
+    mat3_t result;
+#ifdef AS_ROW_MAJOR
+    result = rotate_x * rotate_y * rotate_z;
+#elif defined AS_COL_MAJOR
+    result = rotate_z * rotate_y * rotate_x;
+#endif
+
+    real_t result_arr[9];
+    as::mat::to_arr(result, result_arr);
+
+    CHECK_THAT(make_span(result_arr), make_elements_sub(result_mul, 9));
+    CHECK(as::mat::equal(result_mul, result, 0.1f));
+}
+
 TEST_CASE("multiply_vector", "[as_mat]")
 {
     using gsl::make_span;
@@ -829,9 +854,9 @@ TEST_CASE("mat_from_arr", "[as_mat]")
 
         // clang-format off
         s64 elems_long[] = {
-            1, 2, 3, 4,
-            5, 6, 7, 8,
-            9, 10, 11, 12,
+            1,  2,  3,  4,
+            5,  6,  7,  8,
+            9,  10, 11, 12,
             13, 14, 15, 16
         };
         // clang-format on
@@ -1469,6 +1494,99 @@ TEST_CASE("mat4_shear", "[as-mat]")
 
         CHECK_THAT(arr(1.0_r, 1.0_r, 1.0_r), make_elements_sub(result, 3));
     }
+}
+
+TEST_CASE("mat_basis_access_mat3", "[as-mat]")
+{
+    using gsl::make_span;
+
+    // clang-format off
+    mat3_t mat3 {
+        1.0_r, 2.0_r, 3.0_r,
+        4.0_r, 5.0_r, 6.0_r,
+        7.0_r, 8.0_r, 9.0_r
+    };
+    // clang-format on
+
+    const real_t basis_x[] = {1.0_r, 2.0_r, 3.0_r};
+    CHECK_THAT(make_span(basis_x), make_elements_sub(mat3::basis_x(mat3), 3));
+    const real_t basis_y[] = {4.0_r, 5.0_r, 6.0_r};
+    CHECK_THAT(make_span(basis_y), make_elements_sub(mat3::basis_y(mat3), 3));
+    const real_t basis_z[] = {7.0_r, 8.0_r, 9.0_r};
+    CHECK_THAT(make_span(basis_z), make_elements_sub(mat3::basis_z(mat3), 3));
+}
+
+TEST_CASE("mat_basis_access_mat4", "[as-mat]")
+{
+    using gsl::make_span;
+
+    // clang-format off
+    mat4_t mat4 {
+        1.0_r,  2.0_r,  3.0_r,  4.0_r,
+        4.0_r,  5.0_r,  6.0_r,  7.0_r,
+        7.0_r,  8.0_r,  9.0_r,  8.0_r,
+        10.0_r, 11.0_r, 12.0_r, 9.0_r
+    };
+    // clang-format on
+
+    const real_t basis_x[] = {1.0_r, 2.0_r, 3.0_r, 4.0_r};
+    CHECK_THAT(make_span(basis_x), make_elements_sub(mat4::basis_x(mat4), 4));
+    const real_t basis_y[] = {4.0_r, 5.0_r, 6.0_r, 7.0_r};
+    CHECK_THAT(make_span(basis_y), make_elements_sub(mat4::basis_y(mat4), 4));
+    const real_t basis_z[] = {7.0_r, 8.0_r, 9.0_r, 8.0_r};
+    CHECK_THAT(make_span(basis_z), make_elements_sub(mat4::basis_z(mat4), 4));
+    const real_t translation[] = {10.0_r, 11.0_r, 12.0_r, 9.0_r};
+    CHECK_THAT(make_span(basis_z), make_elements_sub(mat4::basis_z(mat4), 4));
+}
+
+TEST_CASE("mat_basis_mutate_mat3", "[as-mat]")
+{
+    using gsl::make_span;
+
+    mat3_t mat3{};
+
+    const real_t basis_x[] = {1.0_r, 2.0_r, 3.0_r};
+    const vec3_t x = vec3::from_arr(basis_x);
+    mat3::basis_x(mat3, x);
+    CHECK_THAT(make_span(basis_x), make_elements_sub(mat3::basis_x(mat3), 3));
+
+    const real_t basis_y[] = {4.0_r, 5.0_r, 6.0_r};
+    const vec3_t y = vec3::from_arr(basis_y);
+    mat3::basis_y(mat3, y);
+    CHECK_THAT(make_span(basis_y), make_elements_sub(mat3::basis_y(mat3), 3));
+
+    const real_t basis_z[] = {7.0_r, 8.0_r, 9.0_r};
+    const vec3_t z = vec3::from_arr(basis_z);
+    mat3::basis_z(mat3, z);
+    CHECK_THAT(make_span(basis_z), make_elements_sub(mat3::basis_z(mat3), 3));
+}
+
+TEST_CASE("mat_basis_mutate_mat4", "[as-mat]")
+{
+    using gsl::make_span;
+
+    mat4_t mat4{};
+
+    const real_t basis_x[] = {1.0_r, 2.0_r, 3.0_r, 4.0_r};
+    const vec4_t x = vec4::from_arr(basis_x);
+    mat4::basis_x(mat4, x);
+    CHECK_THAT(make_span(basis_x), make_elements_sub(mat4::basis_x(mat4), 4));
+
+    const real_t basis_y[] = {4.0_r, 5.0_r, 6.0_r, 7.0_r};
+    const vec4_t y = vec4::from_arr(basis_y);
+    mat4::basis_y(mat4, y);
+    CHECK_THAT(make_span(basis_y), make_elements_sub(mat4::basis_y(mat4), 4));
+
+    const real_t basis_z[] = {7.0_r, 8.0_r, 9.0_r, 10.0_r};
+    const vec4_t z = vec4::from_arr(basis_z);
+    mat4::basis_z(mat4, z);
+    CHECK_THAT(make_span(basis_z), make_elements_sub(mat4::basis_z(mat4), 4));
+
+    const real_t translation[] = {10.0_r, 11.0_r, 12.0_r, 9.0_r};
+    const vec4_t t = vec4::from_arr(translation);
+    mat4::translation(mat4, t);
+    CHECK_THAT(
+        make_span(translation), make_elements_sub(mat4::translation(mat4), 4));
 }
 
 } // namespace unit_test

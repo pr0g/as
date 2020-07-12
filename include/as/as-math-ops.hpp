@@ -194,6 +194,11 @@ template<typename T, index_t d>
 void to_arr(const mat_t<T, d>& mat, T (&data)[d]);
 
 template<typename T, index_t d>
+bool equal(
+    const mat_t<T, d>& lhs, const mat_t<T, d>& rhs,
+    real_t epsilon = std::numeric_limits<real_t>::epsilon());
+
+template<typename T, index_t d>
 mat_t<T, d> transpose(const mat_t<T, d>& mat);
 
 template<typename T, index_t d>
@@ -204,6 +209,9 @@ mat_t<T, d> inverse(const mat_t<T, d>& mat);
 
 template<typename T, index_t d>
 mat_t<T, d> gj_inverse(const mat_t<T, d>& mat);
+
+template<typename T, index_t d>
+mat_t<T, d> mul(const mat_t<T, d>& lhs, const mat_t<T, d>& rhs);
 
 } // namespace mat
 
@@ -249,6 +257,24 @@ template<typename T>
 constexpr void col2(mat_t<T, 3>& mat, const vec_t<T, 3>& col);
 
 template<typename T>
+constexpr vec_t<T, 3> basis_x(const mat_t<T, 3>& mat);
+
+template<typename T>
+constexpr vec_t<T, 3> basis_y(const mat_t<T, 3>& mat);
+
+template<typename T>
+constexpr vec_t<T, 3> basis_z(const mat_t<T, 3>& mat);
+
+template<typename T>
+constexpr void basis_x(mat_t<T, 3>& mat, const vec_t<T, 3>& basis);
+
+template<typename T>
+constexpr void basis_y(mat_t<T, 3>& mat, const vec_t<T, 3>& basis);
+
+template<typename T>
+constexpr void basis_z(mat_t<T, 3>& mat, const vec_t<T, 3>& basis);
+
+template<typename T>
 mat_t<T, 3> from_ptr(const T* data);
 
 template<typename T>
@@ -258,12 +284,19 @@ template<typename T>
 constexpr mat_t<T, 3> from_mat4(const mat_t<T, 4>& transform);
 
 mat3_t axis_angle(const vec3_t& axis, real_t radians);
+
 mat3_t rotation_xyz(real_t x, real_t y, real_t z);
+
 mat3_t rotation_zxy(real_t x, real_t y, real_t z);
+
 mat3_t rotation_x(real_t radians);
+
 mat3_t rotation_y(real_t radians);
+
 mat3_t rotation_z(real_t radians);
+
 constexpr mat3_t scale(real_t scale);
+
 constexpr mat3_t scale(const vec3_t& scale);
 
 constexpr mat3_t from_quat(const quat_t& quat);
@@ -324,6 +357,30 @@ template<typename T>
 constexpr void col3(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
 
 template<typename T>
+constexpr vec_t<T, 4> basis_x(const mat_t<T, 4>& mat);
+
+template<typename T>
+constexpr vec_t<T, 4> basis_y(const mat_t<T, 4>& mat);
+
+template<typename T>
+constexpr vec_t<T, 4> basis_z(const mat_t<T, 4>& mat);
+
+template<typename T>
+constexpr vec_t<T, 4> translation(const mat_t<T, 4>& mat);
+
+template<typename T>
+constexpr void basis_x(mat_t<T, 4>& mat, const vec_t<T, 4>& basis);
+
+template<typename T>
+constexpr void basis_y(mat_t<T, 4>& mat, const vec_t<T, 4>& basis);
+
+template<typename T>
+constexpr void basis_z(mat_t<T, 4>& mat, const vec_t<T, 4>& basis);
+
+template<typename T>
+constexpr void translation(mat_t<T, 4>& mat, const vec_t<T, 4>& translation);
+
+template<typename T>
 mat_t<T, 4> from_ptr(const T* data);
 
 template<typename T>
@@ -338,9 +395,6 @@ constexpr mat_t<T, 4> from_mat3(const mat_t<T, 3>& rotation);
 template<typename T>
 constexpr mat_t<T, 4> from_mat3_vec3(
     const mat_t<T, 3>& rotation, const vec_t<T, 3>& translation);
-
-template<typename T>
-vec_t<T, 3> translation(const mat_t<T, 4>& mat);
 
 template<typename T>
 constexpr mat_t<T, 4> shear_x(T y, T z);
