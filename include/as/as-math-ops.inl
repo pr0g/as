@@ -400,7 +400,7 @@ AS_API constexpr void col(mat_t<T, d>& mat, index_t c, const vec_t<T, d>& col)
 template<typename T, index_t d>
 AS_API mat_t<T, d> from_arr(const T (&data)[d * d])
 {
-    return from_ptr<T, d>(&data[0]);
+    return from_ptr<T, d>(data);
 }
 
 template<typename T, index_t d>
@@ -1294,11 +1294,50 @@ AS_API inline quat_t from_mat3(const mat3_t& mat)
 namespace affine
 {
 
+AS_API inline void to_arr(const affine_t& affine, real_t (&data)[12])
+{
+    for (index_t i = 0; i < affine.rotation.size(); ++i) {
+        data[i] = affine.rotation[i];
+    }
+
+    for (index_t i = 0; i < affine.position.v.size(); ++i) {
+        data[affine.rotation.size() + i] = affine.position[i];
+    }
+}
+
+AS_API inline affine_t from_arr(const real_t (&data)[12])
+{
+    return from_ptr(data);
+}
+
+AS_API inline affine_t from_ptr(const real_t* data)
+{
+    affine_t result;
+
+    constexpr auto mat_size = mat3_t::size();
+    for (index_t i = 0; i < mat_size; ++i) {
+        result.rotation[i] = data[i];
+    }
+
+    constexpr auto vec_size = vec3_t::size();
+    for (index_t i = 0; i < vec_size; ++i) {
+        result.position.v[i] = data[result.rotation.size() + i];
+    }
+
+    return result;
+}
+
 AS_API inline affine_t from_mat4(const mat4_t& mat)
 {
     return affine_t{
         mat3::from_mat4(mat),
         point3_t{vec3::from_vec4(mat4::translation(mat))}};
+}
+
+AS_API inline affine_t mul(const affine_t& lhs, const affine_t& rhs)
+{
+    return affine_t{
+        mat::mul(lhs.rotation, rhs.rotation), transform_pos(rhs, lhs.position)};
 }
 
 AS_API inline vec3_t transform_dir(

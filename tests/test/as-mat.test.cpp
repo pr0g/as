@@ -1378,9 +1378,9 @@ TEST_CASE("mat3_from_quat", "[as_mat]")
         real_t expected[9];
         mat::to_arr(axis_angle_mat_from_quat, expected);
 
-        // note - checking against 0.0_r requires margin
+        // note - checking against 0.0 requires margin
         CHECK_THAT(
-            make_span(expected, 9),
+            make_span(expected),
             make_elements_sub(axis_angle_mat, 9).margin(g_epsilon));
     }
 }
