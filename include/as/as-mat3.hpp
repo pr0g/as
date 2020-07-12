@@ -46,8 +46,8 @@ private:
 using mat3_t = mat_t<real_t, 3>;
 using mat3f_t = mat_t<float, 3>;
 using mat3d_t = mat_t<double, 3>;
-using mat3i_t = mat_t<s32, 3>;
-using mat3l_t = mat_t<s64, 3>;
+using mat3i_t = mat_t<int32_t, 3>;
+using mat3l_t = mat_t<int64_t, 3>;
 
 } // namespace as
 

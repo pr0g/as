@@ -16,7 +16,6 @@ using as::mat_t;
 using as::point3_t;
 using as::quat_t;
 using as::real_t;
-using as::s64;
 using as::vec3_t;
 using as::vec4_t;
 using as::vec_t;
@@ -759,7 +758,7 @@ TEST_CASE("multiply_mul", "[as-mat]")
     as::mat::to_arr(result, result_arr);
 
     CHECK_THAT(make_span(result_arr), make_elements_sub(result_mul, 9));
-    CHECK(as::mat::equal(result_mul, result, 0.1f));
+    CHECK(as::mat::equal(result_mul, result));
 }
 
 TEST_CASE("multiply_vector", "[as_mat]")
@@ -853,7 +852,7 @@ TEST_CASE("mat_from_arr", "[as_mat]")
         CHECK_THAT(make_span(elems), make_elements_sub(mat4_b, 16));
 
         // clang-format off
-        s64 elems_long[] = {
+        int64_t elems_long[] = {
             1,  2,  3,  4,
             5,  6,  7,  8,
             9,  10, 11, 12,
@@ -903,7 +902,7 @@ TEST_CASE("mat_from_ptr", "[as_mat]")
         CHECK_THAT(make_span(elems), make_elements_sub(mat4_b, 16));
 
         // clang-format off
-        s64 elems_long[] = {
+        int64_t elems_long[] = {
             1, 2, 3, 4,
             5, 6, 7, 8,
             9, 10, 11, 12,

@@ -8,16 +8,6 @@ namespace as
 {
 
 // aliases for built-in data types
-using s8 = int8_t;
-using s16 = int16_t;
-using s32 = int32_t;
-using s64 = int64_t;
-using u8 = uint8_t;
-using u16 = uint16_t;
-using u32 = uint32_t;
-using u64 = uint64_t;
-using f32 = float;
-using f64 = double;
 using index_t = ptrdiff_t;
 
 // static assert to check library floating point precision has been set
@@ -32,40 +22,12 @@ static_assert(
 // aliases for float or double types and functions
 #ifdef AS_PRECISION_FLOAT
 using real_t = float;
-#define cosr cosf
-#define sinr sinf
-#define tanr tanf
-#define acosr acosf
-#define asinr asinf
-#define atanr atanf
-#define fabsr fabsf
-#define sqrtr sqrtf
-#define floorr floorf
-#define ceilr ceilf
-#define roundr roundf
-#define REAL_EPSILON FLT_EPSILON
-#define REAL_MAX FLT_MAX
-#define REAL_MIN FLT_MIN
 constexpr float operator"" _r(long double val)
 {
     return float(val);
 }
 #elif defined AS_PRECISION_DOUBLE
 using real_t = double;
-#define cosr cos
-#define sinr sin
-#define tanr tan
-#define acosr acos
-#define asinr asin
-#define atanr atan
-#define fabsr fabs
-#define sqrtr sqrt
-#define floorr floor
-#define ceilr ceil
-#define roundr round
-#define REAL_EPSILON DBL_EPSILON
-#define REAL_MAX DBL_MAX
-#define REAL_MIN DBL_MIN
 constexpr double operator"" _r(long double val)
 {
     return double(val);

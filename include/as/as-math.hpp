@@ -5,9 +5,9 @@
 namespace as
 {
 
-constexpr real_t PI = real_t(3.14159265358979323846);
-constexpr real_t DEG_TO_RAD = PI / real_t(180.0);
-constexpr real_t RAD_TO_DEG = real_t(180.0) / PI;
+constexpr real_t PI = 3.14159265358979323846_r;
+constexpr real_t DEG_TO_RAD = PI / 180.0_r;
+constexpr real_t RAD_TO_DEG = 180.0_r / PI;
 
 template<typename T>
 constexpr T lerp(T t, T v0, T v1);

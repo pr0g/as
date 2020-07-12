@@ -13,8 +13,6 @@ namespace unit_test
 using as::index_t;
 using as::point3_t;
 using as::real_t;
-using as::s64;
-using as::u8;
 using as::vec2_t;
 using as::vec3_t;
 using as::vec4_t;
@@ -784,13 +782,13 @@ TEST_CASE("vec_make_from_ptr", "[as_vec]")
     }
 
     {
-        s64 vec_data[4] = {4, 8, 12, 16};
-        vec_t<s64, 4> s64_5 = vec4::from_ptr(&vec_data[0]);
+        int64_t vec_data[4] = {4, 8, 12, 16};
+        vec_t<int64_t, 4> int64_t_5 = vec4::from_ptr(&vec_data[0]);
 
-        CHECK(s64_5[0] == 4);
-        CHECK(s64_5[1] == 8);
-        CHECK(s64_5[2] == 12);
-        CHECK(s64_5[3] == 16);
+        CHECK(int64_t_5[0] == 4);
+        CHECK(int64_t_5[1] == 8);
+        CHECK(int64_t_5[2] == 12);
+        CHECK(int64_t_5[3] == 16);
     }
 
     // vec2::make_from_ptr
@@ -1167,11 +1165,12 @@ TEST_CASE("axes_vec2", "[as_vec]")
     constexpr real_t one[] = {1.0_r, 1.0_r};
     CHECK_THAT(make_span(one), make_elements_sub(vec2_t::one(), 2));
 
-    constexpr real_t max_val[] = {REAL_MAX, REAL_MAX};
-    CHECK_THAT(make_span(max_val), make_elements_sub(vec2_t::max(), 2));
+    constexpr real_t max_val = std::numeric_limits<real_t>::max();
+    constexpr real_t max_val_vec[] = {max_val, max_val};
+    CHECK_THAT(make_span(max_val_vec), make_elements_sub(vec2_t::max(), 2));
 
-    constexpr real_t min_val[] = {-REAL_MAX, -REAL_MAX};
-    CHECK_THAT(make_span(min_val), make_elements_sub(vec2_t::min(), 2));
+    constexpr real_t min_val_vec[] = {-max_val, -max_val};
+    CHECK_THAT(make_span(min_val_vec), make_elements_sub(vec2_t::min(), 2));
 }
 
 TEST_CASE("axes_vec3", "[as_vec]")
@@ -1193,11 +1192,12 @@ TEST_CASE("axes_vec3", "[as_vec]")
     constexpr real_t one[] = {1.0_r, 1.0_r, 1.0_r};
     CHECK_THAT(make_span(one), make_elements_sub(vec3_t::one(), 3));
 
-    constexpr real_t max_val[] = {REAL_MAX, REAL_MAX, REAL_MAX};
-    CHECK_THAT(make_span(max_val), make_elements_sub(vec3_t::max(), 3));
+    constexpr real_t max_val = std::numeric_limits<real_t>::max();
+    constexpr real_t max_val_vec[] = {max_val, max_val, max_val};
+    CHECK_THAT(make_span(max_val_vec), make_elements_sub(vec3_t::max(), 3));
 
-    constexpr real_t min_val[] = {-REAL_MAX, -REAL_MAX, -REAL_MAX};
-    CHECK_THAT(make_span(min_val), make_elements_sub(vec3_t::min(), 3));
+    constexpr real_t min_val_vec[] = {-max_val, -max_val, -max_val};
+    CHECK_THAT(make_span(min_val_vec), make_elements_sub(vec3_t::min(), 3));
 }
 
 TEST_CASE("axes_vec4", "[as_vec]")
@@ -1222,11 +1222,12 @@ TEST_CASE("axes_vec4", "[as_vec]")
     constexpr real_t one[] = {1.0_r, 1.0_r, 1.0_r, 1.0_r};
     CHECK_THAT(make_span(one), make_elements_sub(vec4_t::one(), 4));
 
-    constexpr real_t max_val[] = {REAL_MAX, REAL_MAX, REAL_MAX, REAL_MAX};
-    CHECK_THAT(make_span(max_val), make_elements_sub(vec4_t::max(), 4));
+    constexpr real_t max_val = std::numeric_limits<real_t>::max();
+    constexpr real_t max_val_vec[] = {max_val, max_val, max_val, max_val};
+    CHECK_THAT(make_span(max_val_vec), make_elements_sub(vec4_t::max(), 4));
 
-    constexpr real_t min_val[] = {-REAL_MAX, -REAL_MAX, -REAL_MAX, -REAL_MAX};
-    CHECK_THAT(make_span(min_val), make_elements_sub(vec4_t::min(), 4));
+    constexpr real_t min_val_vec[] = {-max_val, -max_val, -max_val, -max_val};
+    CHECK_THAT(make_span(min_val_vec), make_elements_sub(vec4_t::min(), 4));
 }
 
 TEST_CASE("cross", "[as_vec]")
@@ -1586,10 +1587,10 @@ TEST_CASE("select", "[as_vec]")
     int3 a(1, 2, 3);
     int3 b(5, 6, 7);
 
-    using byte4 = vec_t<u8, 4>;
+    using byte4 = vec_t<uint8_t, 4>;
 
-    byte4 c(u8(255), u8(255), u8(255), u8(255));
-    byte4 d(u8(0), u8(0), u8(0), u8(0));
+    byte4 c(uint8_t(255), uint8_t(255), uint8_t(255), uint8_t(255));
+    byte4 d(uint8_t(0), uint8_t(0), uint8_t(0), uint8_t(0));
 
     int3 result = vec::select(a, b, true);
     byte4 result_byte = vec::select(c, d, false);

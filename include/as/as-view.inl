@@ -8,7 +8,7 @@ namespace view
 AS_API inline mat4_t perspective_gl_rh(
     const real_t fovy, const real_t aspect, const real_t n, const real_t f)
 {
-    const real_t e = 1.0_r / tanr(fovy * 0.5_r);
+    const real_t e = 1.0_r / std::tan(fovy * 0.5_r);
 
     // clang-format off
     return {
@@ -23,7 +23,7 @@ AS_API inline mat4_t perspective_gl_rh(
 AS_API inline mat4_t perspective_gl_lh(
     const real_t fovy, const real_t aspect, const real_t n, const real_t f)
 {
-    const real_t e = 1.0_r / tanr(fovy * 0.5_r);
+    const real_t e = 1.0_r / std::tan(fovy * 0.5_r);
 
     // clang-format off
     return {
@@ -38,7 +38,7 @@ AS_API inline mat4_t perspective_gl_lh(
 AS_API inline mat4_t perspective_d3d_rh(
     const real_t fovy, const real_t aspect, const real_t n, const real_t f)
 {
-    const real_t e = 1.0_r / tanr(fovy * 0.5_r);
+    const real_t e = 1.0_r / std::tan(fovy * 0.5_r);
 
     // clang-format off
     return {
@@ -54,7 +54,7 @@ AS_API inline mat4_t perspective_d3d_rh(
 AS_API inline mat4_t perspective_d3d_lh(
     const real_t fovy, const real_t aspect, const real_t n, const real_t f)
 {
-    const real_t e = 1.0_r / tanr(fovy * 0.5_r);
+    const real_t e = 1.0_r / std::tan(fovy * 0.5_r);
 
     // clang-format off
     return {

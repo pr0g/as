@@ -75,8 +75,8 @@ T vec_t<T, 2>::*vec_t<T, 2>::elem[size()] = {&vec_t<T, 2>::x, &vec_t<T, 2>::y};
 using vec2_t = vec_t<real_t, 2>;
 using vec2f_t = vec_t<float, 2>;
 using vec2d_t = vec_t<double, 2>;
-using vec2i_t = vec_t<s32, 2>;
-using vec2l_t = vec_t<s64, 2>;
+using vec2i_t = vec_t<int32_t, 2>;
+using vec2l_t = vec_t<int64_t, 2>;
 
 template<typename T>
 struct vec_t<T, 3>
@@ -115,8 +115,8 @@ T vec_t<T, 3>::*vec_t<T, 3>::elem[size()] = {
 using vec3_t = vec_t<real_t, 3>;
 using vec3f_t = vec_t<float, 3>;
 using vec3d_t = vec_t<double, 3>;
-using vec3i_t = vec_t<s32, 3>;
-using vec3l_t = vec_t<s64, 3>;
+using vec3i_t = vec_t<int32_t, 3>;
+using vec3l_t = vec_t<int64_t, 3>;
 
 template<typename T>
 struct vec_t<T, 4>
@@ -158,8 +158,8 @@ T vec_t<T, 4>::*vec_t<T, 4>::elem[size()] = {
 using vec4_t = vec_t<real_t, 4>;
 using vec4f_t = vec_t<float, 4>;
 using vec4d_t = vec_t<double, 4>;
-using vec4i_t = vec_t<s32, 4>;
-using vec4l_t = vec_t<s64, 4>;
+using vec4i_t = vec_t<int32_t, 4>;
+using vec4l_t = vec_t<int64_t, 4>;
 
 template<typename T, index_t n>
 constexpr const vec_t<T, n> operator+(

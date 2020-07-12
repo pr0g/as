@@ -61,7 +61,7 @@ AS_API constexpr T length_sq(const vec_t<T, n>& vec)
 template<typename T, index_t n>
 AS_API T length(const vec_t<T, n>& vec)
 {
-    return sqrtr(length_sq(vec));
+    return std::sqrt(length_sq(vec));
 }
 
 template<typename T, index_t n>
@@ -140,7 +140,7 @@ AS_API vec_t<T, n> abs(const vec_t<T, n>& vec)
 {
     vec_t<T, n> result;
     for (index_t i = 0; i < n; ++i) {
-        result[i] = fabsr(vec[i]);
+        result[i] = std::abs(vec[i]);
     }
 
     return result;
@@ -192,7 +192,7 @@ AS_API vec_t<T, n> floor(const vec_t<T, n>& vec)
 {
     vec_t<T, n> result;
     for (index_t i = 0; i < n; ++i) {
-        result[i] = ::floorr(vec[i]);
+        result[i] = std::floor(vec[i]);
     }
 
     return result;
@@ -203,7 +203,7 @@ AS_API vec_t<T, n> ceil(const vec_t<T, n>& vec)
 {
     vec_t<T, n> result;
     for (index_t i = 0; i < n; ++i) {
-        result[i] = ::ceilr(vec[i]);
+        result[i] = std::ceil(vec[i]);
     }
 
     return result;
@@ -214,7 +214,7 @@ AS_API vec_t<T, n> round(const vec_t<T, n>& vec)
 {
     vec_t<T, n> result;
     for (index_t i = 0; i < n; ++i) {
-        result[i] = ::roundr(vec[i]);
+        result[i] = std::round(vec[i]);
     }
 
     return result;
@@ -428,7 +428,7 @@ AS_API bool equal(
     const real_t epsilon /* = std::numeric_limits<real_t>::epsilon() */)
 {
     for (index_t i = 0; i < mat_t<T, d>::size(); ++i) {
-        if (!as::equal(lhs[i], rhs[i]), epsilon, epsilon) {
+        if (!as::equal(lhs[i], rhs[i], epsilon, epsilon)) {
             return false;
         }
     }
@@ -774,8 +774,8 @@ AS_API constexpr mat_t<T, 3> from_mat4(const mat_t<T, 4>& transform)
 
 AS_API inline mat3_t axis_angle(const vec3_t& axis, const real_t radians)
 {
-    const real_t cosr_radians = cosr(radians);
-    const real_t sinr_radians = sinr(radians);
+    const real_t cosr_radians = std::cos(radians);
+    const real_t sinr_radians = std::sin(radians);
     const real_t one = 1.0_r;
 
     return {
@@ -793,12 +793,12 @@ AS_API inline mat3_t axis_angle(const vec3_t& axis, const real_t radians)
 AS_API inline mat3_t rotation_xyz(
     const real_t x, const real_t y, const real_t z)
 {
-    const real_t cosr_x = cosr(x);
-    const real_t cosr_y = cosr(y);
-    const real_t cosr_z = cosr(z);
-    const real_t sinr_x = sinr(x);
-    const real_t sinr_y = sinr(y);
-    const real_t sinr_z = sinr(z);
+    const real_t cosr_x = std::cos(x);
+    const real_t cosr_y = std::cos(y);
+    const real_t cosr_z = std::cos(z);
+    const real_t sinr_x = std::sin(x);
+    const real_t sinr_y = std::sin(y);
+    const real_t sinr_z = std::sin(z);
 
     return {
         cosr_y * cosr_z,
@@ -815,12 +815,12 @@ AS_API inline mat3_t rotation_xyz(
 AS_API inline mat3_t rotation_zxy(
     const real_t x, const real_t y, const real_t z)
 {
-    const real_t cosr_x = cosr(x);
-    const real_t cosr_y = cosr(y);
-    const real_t cosr_z = cosr(z);
-    const real_t sinr_x = sinr(x);
-    const real_t sinr_y = sinr(y);
-    const real_t sinr_z = sinr(z);
+    const real_t cosr_x = std::cos(x);
+    const real_t cosr_y = std::cos(y);
+    const real_t cosr_z = std::cos(z);
+    const real_t sinr_x = std::sin(x);
+    const real_t sinr_y = std::sin(y);
+    const real_t sinr_z = std::sin(z);
 
     return {
         cosr_z * cosr_y + sinr_x * sinr_y * sinr_z,
@@ -839,25 +839,25 @@ AS_API inline mat3_t rotation_x(const real_t radians)
 {
     // clang-format off
     return {1.0_r, 0.0_r,          0.0_r,
-            0.0_r, cosr(radians),  sinr(radians),
-            0.0_r, -sinr(radians), cosr(radians)};
+            0.0_r, std::cos(radians),  std::sin(radians),
+            0.0_r, -std::sin(radians), std::cos(radians)};
     // clang-format on
 }
 
 AS_API inline mat3_t rotation_y(const real_t radians)
 {
     // clang-format off
-    return {cosr(radians), 0.0_r, -sinr(radians),
+    return {std::cos(radians), 0.0_r, -std::sin(radians),
             0.0_r,         1.0_r, 0.0_r,
-            sinr(radians), 0.0_r, cosr(radians)};
+            std::sin(radians), 0.0_r, std::cos(radians)};
     // clang-format on
 }
 
 AS_API inline mat3_t rotation_z(const real_t radians)
 {
     // clang-format off
-    return {cosr(radians),  sinr(radians), 0.0_r,
-            -sinr(radians), cosr(radians), 0.0_r,
+    return {std::cos(radians),  std::sin(radians), 0.0_r,
+            -std::sin(radians), std::cos(radians), 0.0_r,
             0.0_r,          0.0_r,         1.0_r};
     // clang-format on
 }
@@ -1190,7 +1190,7 @@ AS_API constexpr real_t length_sq(const quat_t& quat)
 
 AS_API inline real_t length(const quat_t& quat)
 {
-    return sqrtr(length_sq(quat));
+    return std::sqrt(length_sq(quat));
 }
 
 AS_API inline quat_t normalize(const quat_t& quat)
@@ -1217,23 +1217,23 @@ AS_API inline vec3_t rotate(const quat_t& quat, const vec3_t& v)
 
 AS_API inline quat_t axis_angle(const vec3_t& axis, const real_t radians)
 {
-    return {cosr(0.5_r * radians), axis * sinr(0.5_r * radians)};
+    return {std::cos(0.5_r * radians), axis * std::sin(0.5_r * radians)};
 }
 
 AS_API inline quat_t rotation_zxy(
     const real_t x, const real_t y, const real_t z)
 {
     const auto half = 0.5_r;
-    return quat_t{cosr(half * y), 0.0_r, sinr(half * y), 0.0_r}
-         * quat_t{cosr(half * x), sinr(half * x), 0.0_r, 0.0_r}
-         * quat_t{cosr(half * z), 0.0_r, 0.0_r, sinr(half * z)};
+    return quat_t{std::cos(half * y), 0.0_r, std::sin(half * y), 0.0_r}
+         * quat_t{std::cos(half * x), std::sin(half * x), 0.0_r, 0.0_r}
+         * quat_t{std::cos(half * z), 0.0_r, 0.0_r, std::sin(half * z)};
 }
 
 AS_API inline quat_t slerp(const quat_t& lhs, const quat_t& rhs, const real_t t)
 {
-    const real_t theta = acosr(dot(lhs, rhs));
-    return (lhs * sinr((1.0_r - t) * theta) + rhs * sinr(t * theta))
-         / sinr(theta);
+    const real_t theta = std::acos(dot(lhs, rhs));
+    return (lhs * std::sin((1.0_r - t) * theta) + rhs * std::sin(t * theta))
+         / std::sin(theta);
 }
 
 // ref: euclidean space
@@ -1249,7 +1249,7 @@ AS_API inline quat_t from_mat3(const mat3_t& mat)
     const real_t trace = mat[index(0, 0)] + mat[index(1, 1)] + mat[index(2, 2)];
 
     if (trace > 0.0_r) {
-        real_t s = 0.5_r / sqrtr(trace + 1.0_r);
+        real_t s = 0.5_r / std::sqrt(trace + 1.0_r);
         q.w = 0.25_r / s;
         q.x = (mat[index(2, 1)] - mat[index(1, 2)]) * s;
         q.y = (mat[index(0, 2)] - mat[index(2, 0)]) * s;
@@ -1258,7 +1258,7 @@ AS_API inline quat_t from_mat3(const mat3_t& mat)
         if (mat[index(0, 0)] > mat[index(1, 1)]
             && mat[index(0, 0)] > mat[index(2, 2)]) {
             real_t s = 2.0_r
-                     * sqrtr(
+                     * std::sqrt(
                            1.0_r + mat[index(0, 0)] - mat[index(1, 1)]
                            - mat[index(2, 2)]);
             q.w = (mat[index(2, 1)] - mat[index(1, 2)]) / s;
@@ -1267,7 +1267,7 @@ AS_API inline quat_t from_mat3(const mat3_t& mat)
             q.z = (mat[index(0, 2)] + mat[index(2, 0)]) / s;
         } else if (mat[index(1, 1)] > mat[index(2, 2)]) {
             real_t s = 2.0_r
-                     * sqrtr(
+                     * std::sqrt(
                            1.0_r + mat[index(1, 1)] - mat[index(0, 0)]
                            - mat[index(2, 2)]);
             q.w = (mat[index(0, 2)] - mat[index(2, 0)]) / s;
@@ -1276,7 +1276,7 @@ AS_API inline quat_t from_mat3(const mat3_t& mat)
             q.z = (mat[index(1, 2)] + mat[index(2, 1)]) / s;
         } else {
             real_t s = 2.0_r
-                     * sqrtr(
+                     * std::sqrt(
                            1.0_r + mat[index(2, 2)] - mat[index(0, 0)]
                            - mat[index(1, 1)]);
             q.w = (mat[index(1, 0)] - mat[index(0, 1)]) / s;

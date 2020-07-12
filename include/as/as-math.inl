@@ -47,20 +47,20 @@ AS_API constexpr real_t rad_to_deg(const real_t radians)
 // https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
 AS_API inline bool equal(
     real_t a, real_t b,
-    real_t max_diff /*= std::numeric_limits<real_t>::epsilon()*/,
-    real_t max_rel_diff /*= std::numeric_limits<real_t>::epsilon()*/)
+    const real_t max_diff /*= std::numeric_limits<real_t>::epsilon()*/,
+    const real_t max_rel_diff /*= std::numeric_limits<real_t>::epsilon()*/)
 {
     // check if the numbers are really close
     // needed when comparing numbers near zero
-    const real_t diff = fabsr(a - b);
+    const real_t diff = std::abs(a - b);
 
     if (diff <= max_diff) {
         return true;
     }
 
-    a = fabsr(a);
-    b = fabsr(b);
-    real_t largest = (b > a) ? b : a;
+    a = std::abs(a);
+    b = std::abs(b);
+    const real_t largest = b > a ? b : a;
 
     // find relative difference
     return diff <= largest * max_rel_diff;
