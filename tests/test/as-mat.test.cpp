@@ -761,6 +761,39 @@ TEST_CASE("multiply_mul", "[as-mat]")
     CHECK(as::mat::equal(result_mul, result));
 }
 
+TEST_CASE("equal_mat", "[as-mat]")
+{
+    const mat4_t mat_a = as::mat4_t{
+        1.0_r, 2.0_r, 3.0_r, 4.0_r,
+        5.0_r, 6.0_r, 7.0_r, 8.0_r,
+        9.0_r, 10.0_r, 11.0_r, 12.0_r,
+        13.0_r, 14.0_r, 15.0_r, 16.0_r
+    };
+
+    const mat4_t mat_a_again = mat_a;
+
+    CHECK(as::mat::equal(mat_a, mat_a_again));
+}
+
+TEST_CASE("not_equal_mat", "[as-mat]")
+{
+    const mat4_t mat_a = as::mat4_t{
+        1.0_r, 2.0_r, 3.0_r, 4.0_r,
+        5.0_r, 6.0_r, 7.0_r, 8.0_r,
+        9.0_r, 10.0_r, 11.0_r, 12.0_r,
+        13.0_r, 14.0_r, 15.0_r, 16.0_r
+    };
+
+    const mat4_t mat_b = as::mat4_t{
+        3.0_r, 3.0_r, 2.0_r, 1.0_r,
+        8.0_r, 7.0_r, 6.0_r, 5.0_r,
+        12.0_r, 11.0_r, 10.0_r, 9.0_r,
+        16.0_r, 15.0_r, 14.0_r, 13.0_r
+    };
+
+    CHECK(!as::mat::equal(mat_a, mat_b));
+}
+
 TEST_CASE("multiply_vector", "[as_mat]")
 {
     using gsl::make_span;
@@ -1535,7 +1568,7 @@ TEST_CASE("mat_basis_access_mat4", "[as-mat]")
     const real_t basis_z[] = {7.0_r, 8.0_r, 9.0_r, 8.0_r};
     CHECK_THAT(make_span(basis_z), make_elements_sub(mat4::basis_z(mat4), 4));
     const real_t translation[] = {10.0_r, 11.0_r, 12.0_r, 9.0_r};
-    CHECK_THAT(make_span(basis_z), make_elements_sub(mat4::basis_z(mat4), 4));
+    CHECK_THAT(make_span(translation), make_elements_sub(mat4::translation(mat4), 4));
 }
 
 TEST_CASE("mat_basis_mutate_mat3", "[as-mat]")
