@@ -95,10 +95,10 @@ namespace vec2
 {
 
 template<typename T>
-vec_t<T, 2> from_ptr(const T* data);
+vec_t<T, 2> from_arr(const T (&data)[2]);
 
 template<typename T>
-vec_t<T, 2> from_arr(const T (&data)[2]);
+vec_t<T, 2> from_ptr(const T* data);
 
 template<typename T>
 constexpr vec_t<T, 2> from_vec3(const vec_t<T, 3>& vec);
@@ -115,10 +115,10 @@ namespace vec3
 {
 
 template<typename T>
-vec_t<T, 3> from_ptr(const T* data);
+vec_t<T, 3> from_arr(const T (&data)[3]);
 
 template<typename T>
-vec_t<T, 3> from_arr(const T (&data)[3]);
+vec_t<T, 3> from_ptr(const T* data);
 
 template<typename T>
 constexpr vec_t<T, 3> from_vec2(const vec_t<T, 2>& vec, T z = T(0.0));
@@ -147,10 +147,10 @@ namespace vec4
 {
 
 template<typename T>
-vec_t<T, 4> from_ptr(const T* data);
+vec_t<T, 4> from_arr(const T (&data)[4]);
 
 template<typename T>
-vec_t<T, 4> from_arr(const T (&data)[4]);
+vec_t<T, 4> from_ptr(const T* data);
 
 template<typename T>
 constexpr vec_t<T, 4> from_vec2(
@@ -210,6 +210,9 @@ mat_t<T, d> inverse(const mat_t<T, d>& mat);
 template<typename T, index_t d>
 mat_t<T, d> gj_inverse(const mat_t<T, d>& mat);
 
+// lhs is performed first, then rhs
+// col major - result = rhs * lhs;
+// row major - result = lhs * rhs;
 template<typename T, index_t d>
 mat_t<T, d> mul(const mat_t<T, d>& lhs, const mat_t<T, d>& rhs);
 
@@ -275,10 +278,10 @@ template<typename T>
 constexpr void basis_z(mat_t<T, 3>& mat, const vec_t<T, 3>& basis);
 
 template<typename T>
-mat_t<T, 3> from_ptr(const T* data);
+mat_t<T, 3> from_arr(const T (&data)[9]);
 
 template<typename T>
-mat_t<T, 3> from_arr(const T (&data)[9]);
+mat_t<T, 3> from_ptr(const T* data);
 
 template<typename T>
 constexpr mat_t<T, 3> from_mat4(const mat_t<T, 4>& transform);
@@ -381,10 +384,10 @@ template<typename T>
 constexpr void translation(mat_t<T, 4>& mat, const vec_t<T, 4>& translation);
 
 template<typename T>
-mat_t<T, 4> from_ptr(const T* data);
+mat_t<T, 4> from_arr(const T (&data)[16]);
 
 template<typename T>
-mat_t<T, 4> from_arr(const T (&data)[16]);
+mat_t<T, 4> from_ptr(const T* data);
 
 template<typename T>
 constexpr mat_t<T, 4> from_vec3(const vec_t<T, 3>& translation);
@@ -424,15 +427,23 @@ namespace quat
 {
 
 constexpr real_t dot(const quat_t& lhs, const quat_t& rhs);
+
 constexpr real_t length_sq(const quat_t& quat);
+
 constexpr quat_t conjugate(const quat_t& quat);
 
 quat_t axis_angle(const vec3_t& axis, real_t radians);
+
 quat_t rotation_zxy(real_t x, real_t y, real_t z);
+
 real_t length(const quat_t& quat);
+
 quat_t normalize(const quat_t& quat);
+
 quat_t inverse(const quat_t& quat);
+
 vec3_t rotate(const quat_t& quat, const vec3_t& v);
+
 quat_t slerp(const quat_t& lhs, const quat_t& rhs, real_t t);
 
 quat_t from_mat3(const mat3_t& mat);
@@ -442,11 +453,22 @@ quat_t from_mat3(const mat3_t& mat);
 namespace affine
 {
 
+void to_arr(const affine_t& affine, real_t (&data)[12]);
+
+affine_t from_arr(const real_t (&data)[12]);
+
+affine_t from_ptr(const real_t* data);
+
 affine_t from_mat4(const mat4_t& mat);
 
+affine_t mul(const affine_t& lhs, const affine_t& rhs);
+
 vec3_t transform_dir(const affine_t& affine, const vec3_t& direction);
+
 point3_t transform_pos(const affine_t& affine, const point3_t& position);
+
 vec3_t inv_transform_dir(const affine_t& affine, const vec3_t& direction);
+
 point3_t inv_transform_pos(const affine_t& affine, const point3_t& position);
 
 } // namespace affine
