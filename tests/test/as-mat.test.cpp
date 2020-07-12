@@ -736,7 +736,7 @@ TEST_CASE("multiply_same_size", "[as_mat]")
     CHECK_THAT(make_span(mat_arr), make_elements_sub(result, 9));
 }
 
-TEST_CASE("multiply_mul", "[as-mat]")
+TEST_CASE("multiply_mul", "[as_mat]")
 {
     using gsl::make_span;
 
@@ -761,7 +761,7 @@ TEST_CASE("multiply_mul", "[as-mat]")
     CHECK(as::mat::equal(result_mul, result));
 }
 
-TEST_CASE("equal_mat", "[as-mat]")
+TEST_CASE("equal_mat", "[as_mat]")
 {
     // clang-format off
     const mat4_t mat_a = as::mat4_t{
@@ -777,7 +777,7 @@ TEST_CASE("equal_mat", "[as-mat]")
     CHECK(as::mat::equal(mat_a, mat_a_again));
 }
 
-TEST_CASE("not_equal_mat", "[as-mat]")
+TEST_CASE("not_equal_mat", "[as_mat]")
 {
     // clang-format off
     const mat4_t mat_a = as::mat4_t{
@@ -1223,7 +1223,7 @@ TEST_CASE("mat3_from_mat4", "[as_mat]")
     CHECK_THAT(make_span(mat3_identity_ref), make_elements_sub(mat3, 9));
 }
 
-TEST_CASE("mat3_axis_angle", "[as-mat]")
+TEST_CASE("mat3_axis_angle", "[as_mat]")
 {
     using gsl::make_span;
 
@@ -1264,7 +1264,7 @@ TEST_CASE("mat3_axis_angle", "[as-mat]")
     }
 }
 
-TEST_CASE("mat3_rotate_xyz", "[as-mat]")
+TEST_CASE("mat3_rotate_xyz", "[as_mat]")
 {
     using gsl::make_span;
 
@@ -1305,7 +1305,7 @@ TEST_CASE("mat3_rotate_xyz", "[as-mat]")
     }
 }
 
-TEST_CASE("mat3_rotate_zxy", "[as-mat]")
+TEST_CASE("mat3_rotate_zxy", "[as_mat]")
 {
     using gsl::make_span;
 
@@ -1362,7 +1362,7 @@ TEST_CASE("mat3_rotate_zxy", "[as-mat]")
     }
 }
 
-TEST_CASE("mat3_from_quat", "[as-mat]")
+TEST_CASE("mat3_from_quat", "[as_mat]")
 {
     using gsl::make_span;
 
@@ -1385,7 +1385,7 @@ TEST_CASE("mat3_from_quat", "[as-mat]")
     }
 }
 
-TEST_CASE("mat3_rotate_x_y_z_separate", "[as-mat]")
+TEST_CASE("mat3_rotate_x_y_z_separate", "[as_mat]")
 {
     using gsl::make_span;
 
@@ -1430,7 +1430,7 @@ TEST_CASE("mat3_rotate_x_y_z_separate", "[as-mat]")
     }
 }
 
-TEST_CASE("row_col_access", "[as-mat]")
+TEST_CASE("row_col_access", "[as_mat]")
 {
     {
         index_t offset;
@@ -1451,7 +1451,7 @@ TEST_CASE("row_col_access", "[as-mat]")
     }
 }
 
-TEST_CASE("mat4_shear", "[as-mat]")
+TEST_CASE("mat4_shear", "[as_mat]")
 {
     using gsl::make_span;
 
@@ -1534,7 +1534,7 @@ TEST_CASE("mat4_shear", "[as-mat]")
     }
 }
 
-TEST_CASE("mat_basis_access_mat3", "[as-mat]")
+TEST_CASE("mat_basis_access_mat3", "[as_mat]")
 {
     using gsl::make_span;
 
@@ -1554,7 +1554,7 @@ TEST_CASE("mat_basis_access_mat3", "[as-mat]")
     CHECK_THAT(make_span(basis_z), make_elements_sub(mat3::basis_z(mat3), 3));
 }
 
-TEST_CASE("mat_basis_access_mat4", "[as-mat]")
+TEST_CASE("mat_basis_access_mat4", "[as_mat]")
 {
     using gsl::make_span;
 
@@ -1578,7 +1578,7 @@ TEST_CASE("mat_basis_access_mat4", "[as-mat]")
         make_span(translation), make_elements_sub(mat4::translation(mat4), 4));
 }
 
-TEST_CASE("mat_basis_mutate_mat3", "[as-mat]")
+TEST_CASE("mat_basis_mutate_mat3", "[as_mat]")
 {
     using gsl::make_span;
 
@@ -1600,7 +1600,7 @@ TEST_CASE("mat_basis_mutate_mat3", "[as-mat]")
     CHECK_THAT(make_span(basis_z), make_elements_sub(mat3::basis_z(mat3), 3));
 }
 
-TEST_CASE("mat_basis_mutate_mat4", "[as-mat]")
+TEST_CASE("mat_basis_mutate_mat4", "[as_mat]")
 {
     using gsl::make_span;
 

@@ -4,7 +4,7 @@
 
 using namespace as;
 
-TEST_CASE("as-vec-dot", "[as-vec]")
+TEST_CASE("as-vec-dot", "[as_vec]")
 {
     BENCHMARK("as-vec")
     {

@@ -20,7 +20,7 @@ namespace view = as::view;
 
 static const real_t g_epsilon = 1e-6_r;
 
-TEST_CASE("perspective_gl_rh", "[as-view]")
+TEST_CASE("perspective_gl_rh", "[as_view]")
 {
     using gsl::make_span;
 
@@ -39,7 +39,7 @@ TEST_CASE("perspective_gl_rh", "[as-view]")
         make_elements_sub(perspective_gl_rh, 16).margin(g_epsilon));
 }
 
-TEST_CASE("perspective_gl_lh", "[as-view]")
+TEST_CASE("perspective_gl_lh", "[as_view]")
 {
     using gsl::make_span;
 
@@ -58,7 +58,7 @@ TEST_CASE("perspective_gl_lh", "[as-view]")
         make_elements_sub(perspective_gl_lh, 16).margin(g_epsilon));
 }
 
-TEST_CASE("perspective_d3d_rh", "[as-view]")
+TEST_CASE("perspective_d3d_rh", "[as_view]")
 {
     using gsl::make_span;
 
@@ -77,7 +77,7 @@ TEST_CASE("perspective_d3d_rh", "[as-view]")
         make_elements_sub(perspective_d3d_rh, 16).margin(g_epsilon));
 }
 
-TEST_CASE("perspective_d3d_lh", "[as-view]")
+TEST_CASE("perspective_d3d_lh", "[as_view]")
 {
     using gsl::make_span;
 
@@ -96,7 +96,7 @@ TEST_CASE("perspective_d3d_lh", "[as-view]")
         make_elements_sub(perspective_d3d_lh, 16).margin(g_epsilon));
 }
 
-TEST_CASE("perspective_vulkan_rh", "[as-view]")
+TEST_CASE("perspective_vulkan_rh", "[as_view]")
 {
     using gsl::make_span;
 
@@ -116,7 +116,7 @@ TEST_CASE("perspective_vulkan_rh", "[as-view]")
         make_elements_sub(perspective_vulkan_rh, 16).margin(g_epsilon));
 }
 
-TEST_CASE("perspective_vulkan_lh", "[as-view]")
+TEST_CASE("perspective_vulkan_lh", "[as_view]")
 {
     using gsl::make_span;
 
@@ -136,7 +136,7 @@ TEST_CASE("perspective_vulkan_lh", "[as-view]")
         make_elements_sub(perspective_vulkan_lh, 16).margin(g_epsilon));
 }
 
-TEST_CASE("ortho_gl_rh", "[as-view]")
+TEST_CASE("ortho_gl_rh", "[as_view]")
 {
     using gsl::make_span;
 
@@ -155,7 +155,7 @@ TEST_CASE("ortho_gl_rh", "[as-view]")
         make_elements_sub(ortho_gl_rh, 16).margin(g_epsilon));
 }
 
-TEST_CASE("ortho_d3d_lh", "[as-view]")
+TEST_CASE("ortho_d3d_lh", "[as_view]")
 {
     using gsl::make_span;
 

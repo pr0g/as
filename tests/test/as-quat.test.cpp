@@ -250,7 +250,7 @@ TEST_CASE("quat_slerp", "[as_quat]")
     }
 }
 
-TEST_CASE("quat_from_mat3", "[as-quat]")
+TEST_CASE("quat_from_mat3", "[as_quat]")
 {
     using gsl::make_span;
 
