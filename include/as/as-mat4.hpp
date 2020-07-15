@@ -21,7 +21,7 @@ struct mat_t<T, 4>
         T x3, T y3, T z3, T w3);
     // clang-format on
 
-    constexpr mat_t(const mat_t<T, 3>& mat_, const vec_t<T, 3>& pos_);
+    constexpr mat_t(const mat_t<T, 3>& mat, const vec_t<T, 3>& pos);
 
 #ifdef AS_ROW_MAJOR
     constexpr mat_t(
