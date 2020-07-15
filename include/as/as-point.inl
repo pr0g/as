@@ -29,9 +29,29 @@ AS_API inline real_t point2_t::operator[](const index_t i) &&
     return v[i];
 }
 
+AS_API constexpr index_t point2_t::size()
+{
+    return 2;
+}
+
 AS_API constexpr point2_t point2_t::zero()
 {
     return point2_t{vec2_t::zero()};
+}
+
+AS_API constexpr point2_t point2_t::axis_x(const real_t len /* = 1.0_r */)
+{
+    return point2_t{vec2_t::axis_x(len)};
+}
+
+AS_API constexpr point2_t point2_t::axis_y(const real_t len /* = 1.0_r */)
+{
+    return point2_t{vec2_t::axis_y(len)};
+}
+
+AS_API constexpr const vec2_t& point2_t::as_vec2() const
+{
+    return v;
 }
 
 AS_API constexpr const vec2_t operator-(
@@ -62,6 +82,11 @@ AS_API constexpr point2_t& operator-=(point2_t& point, const vec2_t& vec)
 {
     point.v -= vec;
     return point;
+}
+
+AS_API constexpr const point2_t operator-(const point2_t& point)
+{
+    return point2_t{-point.v};
 }
 
 AS_API constexpr point3_t::point3_t(const real_t xyz_) : v{xyz_, xyz_, xyz_}
@@ -98,9 +123,34 @@ AS_API inline real_t point3_t::operator[](const index_t i) &&
     return v[i];
 }
 
+AS_API constexpr index_t point3_t::size()
+{
+    return 3;
+}
+
 AS_API constexpr point3_t point3_t::zero()
 {
     return point3_t{vec3_t::zero()};
+}
+
+AS_API constexpr point3_t point3_t::axis_x(const real_t len /* = 1.0_r */)
+{
+    return point3_t{vec3_t::axis_x(len)};
+}
+
+AS_API constexpr point3_t point3_t::axis_y(const real_t len /* = 1.0_r */)
+{
+    return point3_t{vec3_t::axis_y(len)};
+}
+
+AS_API constexpr point3_t point3_t::axis_z(const real_t len /* = 1.0_r */)
+{
+    return point3_t{vec3_t::axis_z(len)};
+}
+
+AS_API constexpr const vec3_t& point3_t::as_vec3() const
+{
+    return v;
 }
 
 AS_API constexpr const vec3_t operator-(
@@ -131,6 +181,11 @@ AS_API constexpr point3_t& operator-=(point3_t& point, const vec3_t& vec)
 {
     point.v -= vec;
     return point;
+}
+
+AS_API constexpr const point3_t operator-(const point3_t& point)
+{
+    return point3_t{-point.v};
 }
 
 } // namespace as

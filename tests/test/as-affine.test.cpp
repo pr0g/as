@@ -36,9 +36,15 @@ TEST_CASE("affine_constructor", "[as_affine]")
     point3_t position = point3_t{0.0_r, 2.0_r, 2.0_r};
     affine = affine_t(rotation, position);
 
-    CHECK(affine.position.v.x == Approx(position.v.x).margin(g_epsilon));
-    CHECK(affine.position.v.y == Approx(position.v.y).margin(g_epsilon));
-    CHECK(affine.position.v.z == Approx(position.v.z).margin(g_epsilon));
+    CHECK(
+        affine.position.as_vec3().x
+        == Approx(position.as_vec3().x).margin(g_epsilon));
+    CHECK(
+        affine.position.as_vec3().y
+        == Approx(position.as_vec3().y).margin(g_epsilon));
+    CHECK(
+        affine.position.as_vec3().z
+        == Approx(position.as_vec3().z).margin(g_epsilon));
 }
 
 TEST_CASE("affine_transform_dir", "[as_affine]")
@@ -63,9 +69,9 @@ TEST_CASE("affine_inv_transform_pos", "[as_affine]")
         const point3_t result =
             affine::inv_transform_pos(affine, point3_t{6.0_r, 0.0_r, 0.0_r});
 
-        CHECK(result.v.x == Approx(1.0_r).margin(g_epsilon));
-        CHECK(result.v.y == Approx(0.0_r).margin(g_epsilon));
-        CHECK(result.v.z == Approx(0.0_r).margin(g_epsilon));
+        CHECK(result.as_vec3().x == Approx(1.0_r).margin(g_epsilon));
+        CHECK(result.as_vec3().y == Approx(0.0_r).margin(g_epsilon));
+        CHECK(result.as_vec3().z == Approx(0.0_r).margin(g_epsilon));
     }
 
     {
@@ -76,9 +82,9 @@ TEST_CASE("affine_inv_transform_pos", "[as_affine]")
         const point3_t result =
             affine::inv_transform_pos(affine, point3_t{5.0_r, 0.0_r, 0.0_r});
 
-        CHECK(result.v.x == Approx(-10.0_r).margin(g_epsilon));
-        CHECK(result.v.y == Approx(-5.0_r).margin(g_epsilon));
-        CHECK(result.v.z == Approx(0.0_r).margin(g_epsilon));
+        CHECK(result.as_vec3().x == Approx(-10.0_r).margin(g_epsilon));
+        CHECK(result.as_vec3().y == Approx(-5.0_r).margin(g_epsilon));
+        CHECK(result.as_vec3().z == Approx(0.0_r).margin(g_epsilon));
     }
 }
 
@@ -90,9 +96,9 @@ TEST_CASE("affine_transform_pos", "[as_affine]")
     const point3_t result =
         affine::transform_pos(affine, point3_t{1.0_r, 0.0_r, 0.0_r});
 
-    CHECK(result.v.x == Approx(5.0_r).margin(g_epsilon));
-    CHECK(result.v.y == Approx(0.0_r).margin(g_epsilon));
-    CHECK(result.v.z == Approx(-1.0_r).margin(g_epsilon));
+    CHECK(result.as_vec3().x == Approx(5.0_r).margin(g_epsilon));
+    CHECK(result.as_vec3().y == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.as_vec3().z == Approx(-1.0_r).margin(g_epsilon));
 }
 
 TEST_CASE("affine_inv_transform_dir", "[as_affine]")
@@ -139,7 +145,7 @@ TEST_CASE("affine_to_arr", "[as_affine]")
         make_span(expected_affine, 9), make_elements_sub(affine.rotation, 9));
     CHECK_THAT(
         make_span(&expected_affine[9], 3),
-        make_elements_sub(affine.position.v, 3));
+        make_elements_sub(affine.position.as_vec3(), 3));
 }
 
 TEST_CASE("affine_from_arr", "[as_affine]")
@@ -154,7 +160,8 @@ TEST_CASE("affine_from_arr", "[as_affine]")
 
     CHECK_THAT(make_span(affine_arr, 9), make_elements_sub(affine.rotation, 9));
     CHECK_THAT(
-        make_span(&affine_arr[9], 3), make_elements_sub(affine.position.v, 3));
+        make_span(&affine_arr[9], 3),
+        make_elements_sub(affine.position.as_vec3(), 3));
 }
 
 TEST_CASE("affine_concatenation", "[as_affine]")
@@ -184,7 +191,7 @@ TEST_CASE("affine_concatenation", "[as_affine]")
     mat::to_arr(affine_result.rotation, expected_orientation);
 
     real_t expected_position[3];
-    vec::to_arr(affine_result.position.v, expected_position);
+    vec::to_arr(affine_result.position.as_vec3(), expected_position);
 
     CHECK_THAT(
         make_span(expected_orientation),

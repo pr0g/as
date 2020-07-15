@@ -838,7 +838,7 @@ AS_API inline mat3_t rotation_zxy(
 AS_API inline mat3_t rotation_x(const real_t radians)
 {
     // clang-format off
-    return {1.0_r, 0.0_r,          0.0_r,
+    return {1.0_r, 0.0_r,              0.0_r,
             0.0_r, std::cos(radians),  std::sin(radians),
             0.0_r, -std::sin(radians), std::cos(radians)};
     // clang-format on
@@ -848,7 +848,7 @@ AS_API inline mat3_t rotation_y(const real_t radians)
 {
     // clang-format off
     return {std::cos(radians), 0.0_r, -std::sin(radians),
-            0.0_r,         1.0_r, 0.0_r,
+            0.0_r,             1.0_r, 0.0_r,
             std::sin(radians), 0.0_r, std::cos(radians)};
     // clang-format on
 }
@@ -858,7 +858,7 @@ AS_API inline mat3_t rotation_z(const real_t radians)
     // clang-format off
     return {std::cos(radians),  std::sin(radians), 0.0_r,
             -std::sin(radians), std::cos(radians), 0.0_r,
-            0.0_r,          0.0_r,         1.0_r};
+            0.0_r,              0.0_r,             1.0_r};
     // clang-format on
 }
 
@@ -1121,6 +1121,11 @@ AS_API constexpr mat_t<T, 4> from_mat3_vec3(
     return {rotation, translation};
 }
 
+AS_API constexpr mat4_t from_affine(const affine_t& affine)
+{
+    return from_mat3_vec3(affine.rotation, affine.position.as_vec3());
+}
+
 template<typename T>
 AS_API constexpr mat_t<T, 4> shear_x(const T y, const T z)
 {
@@ -1163,14 +1168,14 @@ AS_API inline bool equal(
     const point2_t& lhs, const point2_t& rhs,
     const real_t epsilon /*= std::numeric_limits<real_t>::epsilon()*/)
 {
-    return vec::equal(lhs.v, rhs.v, epsilon);
+    return vec::equal(lhs.as_vec2(), rhs.as_vec2(), epsilon);
 }
 
 AS_API inline bool equal(
     const point3_t& lhs, const point3_t& rhs,
     const real_t epsilon /*= std::numeric_limits<real_t>::epsilon()*/)
 {
-    return vec::equal(lhs.v, rhs.v, epsilon);
+    return vec::equal(lhs.as_vec3(), rhs.as_vec3(), epsilon);
 }
 
 } // namespace point
@@ -1300,7 +1305,7 @@ AS_API inline void to_arr(const affine_t& affine, real_t (&data)[12])
         data[i] = affine.rotation[i];
     }
 
-    for (index_t i = 0; i < affine.position.v.size(); ++i) {
+    for (index_t i = 0; i < affine.position.size(); ++i) {
         data[affine.rotation.size() + i] = affine.position[i];
     }
 }
@@ -1321,7 +1326,7 @@ AS_API inline affine_t from_ptr(const real_t* data)
 
     constexpr auto vec_size = vec3_t::size();
     for (index_t i = 0; i < vec_size; ++i) {
-        result.position.v[i] = data[result.rotation.size() + i];
+        result.position[i] = data[result.rotation.size() + i];
     }
 
     return result;
@@ -1334,10 +1339,28 @@ AS_API inline affine_t from_mat4(const mat4_t& mat)
         point3_t{vec3::from_vec4(mat4::translation(mat))}};
 }
 
+AS_API inline affine_t from_mat3(const mat3_t& mat)
+{
+    return affine_t{mat, point3_t::zero()};
+}
+
+AS_API inline affine_t from_point3(const point3_t& point)
+{
+    return affine_t(point);
+}
+
 AS_API inline affine_t mul(const affine_t& lhs, const affine_t& rhs)
 {
     return affine_t{
         mat::mul(lhs.rotation, rhs.rotation), transform_pos(rhs, lhs.position)};
+}
+
+AS_API inline affine_t inverse(const affine_t& affine)
+{
+    const as::mat3_t inv_rot = as::mat::transpose(affine.rotation);
+    const as::point3_t inv_pos =
+        as::affine::transform_pos(as::affine_t{inv_rot}, -affine.position);
+    return as::affine_t{inv_rot, inv_pos};
 }
 
 AS_API inline vec3_t transform_dir(
@@ -1354,9 +1377,11 @@ AS_API inline point3_t transform_pos(
     const affine_t& affine, const point3_t& position)
 {
 #ifdef AS_COL_MAJOR
-    return point3_t{affine.rotation * position.v} + affine.position.v;
+    return point3_t{affine.rotation * position.as_vec3()}
+         + affine.position.as_vec3();
 #elif defined AS_ROW_MAJOR
-    return point3_t{position.v * affine.rotation} + affine.position.v;
+    return point3_t{position.as_vec3() * affine.rotation}
+         + affine.position.as_vec3();
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 

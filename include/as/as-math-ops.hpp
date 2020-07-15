@@ -399,6 +399,8 @@ template<typename T>
 constexpr mat_t<T, 4> from_mat3_vec3(
     const mat_t<T, 3>& rotation, const vec_t<T, 3>& translation);
 
+constexpr mat4_t from_affine(const affine_t& affine);
+
 template<typename T>
 constexpr mat_t<T, 4> shear_x(T y, T z);
 
@@ -461,7 +463,13 @@ affine_t from_ptr(const real_t* data);
 
 affine_t from_mat4(const mat4_t& mat);
 
+affine_t from_mat3(const mat3_t& mat);
+
+affine_t from_point3(const point3_t& point);
+
 affine_t mul(const affine_t& lhs, const affine_t& rhs);
+
+affine_t inverse(const affine_t& affine);
 
 vec3_t transform_dir(const affine_t& affine, const vec3_t& direction);
 
