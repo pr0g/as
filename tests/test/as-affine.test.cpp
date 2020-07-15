@@ -172,8 +172,8 @@ TEST_CASE("affine_from_mat3", "[as_affine]")
 {
     using gsl::make_span;
 
-    as::mat3_t mat3{
-        10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r, 60.0_r, 70.0_r, 80.0_r, 90.0_r};
+    as::mat3_t mat3{10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r,
+                    60.0_r, 70.0_r, 80.0_r, 90.0_r};
 
     affine_t affine;
     affine = affine::from_mat3(mat3);

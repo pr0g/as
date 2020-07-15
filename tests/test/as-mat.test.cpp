@@ -1391,19 +1391,21 @@ TEST_CASE("mat4_from_affine", "[as_mat]")
 
     {
         affine_t affine{
-            as::mat3_t{2.0_r, 4.0_r, 6.0_r, 8.0_r, 10.0_r, 12.0_r, 14.0_r,
-            16.0_r, 18.0_r}, as::point3_t{1.0_r, 2.0_r, 3.0_r}};
+            as::mat3_t{
+                2.0_r, 4.0_r, 6.0_r, 8.0_r, 10.0_r, 12.0_r, 14.0_r, 16.0_r,
+                18.0_r},
+            as::point3_t{1.0_r, 2.0_r, 3.0_r}};
 
         as::mat4_t mat4;
         mat4 = mat4::from_affine(affine);
 
-        real_t expected[16] = {2.0_r, 4.0_r, 6.0_r, 0.0_r, 8.0_r, 10.0_r, 12.0_r,
-            0.0_r, 14.0_r, 16.0_r, 18.0_r, 0.0_r, 1.0_r, 2.0_r, 3.0_r, 1.0_r};
+        real_t expected[16] = {2.0_r,  4.0_r, 6.0_r,  0.0_r,  8.0_r,  10.0_r,
+                               12.0_r, 0.0_r, 14.0_r, 16.0_r, 18.0_r, 0.0_r,
+                               1.0_r,  2.0_r, 3.0_r,  1.0_r};
 
         // note - checking against 0.0 requires margin
         CHECK_THAT(
-            make_span(expected),
-            make_elements_sub(mat4, 16).margin(g_epsilon));
+            make_span(expected), make_elements_sub(mat4, 16).margin(g_epsilon));
     }
 }
 

@@ -302,12 +302,20 @@ TEST_CASE("point3_substraction", "[as_point]")
 
 TEST_CASE("point_axes", "[as_point]")
 {
-    CHECK_THAT(arr(2.0_r, 0.0_r), make_elements_sub(point2_t::axis_x(2.0_r), 2));
-    CHECK_THAT(arr(0.0_r, 5.0_r), make_elements_sub(point2_t::axis_y(5.0_r), 2));
+    CHECK_THAT(
+        arr(2.0_r, 0.0_r), make_elements_sub(point2_t::axis_x(2.0_r), 2));
+    CHECK_THAT(
+        arr(0.0_r, 5.0_r), make_elements_sub(point2_t::axis_y(5.0_r), 2));
 
-    CHECK_THAT(arr(2.0_r, 0.0_r, 0.0_r), make_elements_sub(point3_t::axis_x(2.0_r), 3));
-    CHECK_THAT(arr(0.0_r, 5.0_r, 0.0_r), make_elements_sub(point3_t::axis_y(5.0_r), 3));
-    CHECK_THAT(arr(0.0_r, 0.0_r, 10.0_r), make_elements_sub(point3_t::axis_z(10.0_r), 3));
+    CHECK_THAT(
+        arr(2.0_r, 0.0_r, 0.0_r),
+        make_elements_sub(point3_t::axis_x(2.0_r), 3));
+    CHECK_THAT(
+        arr(0.0_r, 5.0_r, 0.0_r),
+        make_elements_sub(point3_t::axis_y(5.0_r), 3));
+    CHECK_THAT(
+        arr(0.0_r, 0.0_r, 10.0_r),
+        make_elements_sub(point3_t::axis_z(10.0_r), 3));
 }
 
 TEST_CASE("point_negate", "[as_point]")
