@@ -84,7 +84,7 @@ AS_API constexpr point2_t& operator-=(point2_t& point, const vec2_t& vec)
     return point;
 }
 
-AS_API constexpr const point2_t operator-(const point2_t& point)
+AS_API inline const point2_t operator-(const point2_t& point)
 {
     return point2_t{-point.v};
 }

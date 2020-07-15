@@ -36,7 +36,7 @@ private:
     friend constexpr const point2_t operator-(
         const point2_t& point, const vec2_t& vec);
     friend constexpr point2_t& operator-=(point2_t& point, const vec2_t& vec);
-    friend constexpr const point2_t operator-(const point2_t& point);
+    friend const point2_t operator-(const point2_t& point);
 
     vec2_t v;
 };
