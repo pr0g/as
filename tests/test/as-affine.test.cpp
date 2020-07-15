@@ -24,6 +24,7 @@ namespace affine = as::affine;
 namespace mat = as::mat;
 namespace mat3 = as::mat3;
 namespace mat4 = as::mat4;
+namespace point = as::point;
 namespace vec = as::vec;
 namespace vec3 = as::vec3;
 
@@ -167,6 +168,34 @@ TEST_CASE("affine_from_arr", "[as_affine]")
         make_elements_sub(affine.position.as_vec3(), 3));
 }
 
+TEST_CASE("affine_from_mat3", "[as_affine]")
+{
+    using gsl::make_span;
+
+    as::mat3_t mat3{
+        10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r, 60.0_r, 70.0_r, 80.0_r, 90.0_r};
+
+    affine_t affine;
+    affine = affine::from_mat3(mat3);
+
+    CHECK(mat::equal(mat3, affine.rotation));
+    CHECK_THAT(arr(0.0_r, 0.0_r, 0.0_r), make_elements_sub(affine.position, 3));
+}
+
+TEST_CASE("affine_from_point3", "[as_affine]")
+{
+    using gsl::make_span;
+
+    as::point3_t point3{5.0_r, 10.0_r, 15.0_r};
+
+    affine_t affine;
+    affine = affine::from_point3(point3);
+
+    CHECK(mat::equal(mat3_t::identity(), affine.rotation));
+    CHECK_THAT(
+        arr(5.0_r, 10.0_r, 15.0_r), make_elements_sub(affine.position, 3));
+}
+
 TEST_CASE("affine_concatenation", "[as_affine]")
 {
     using gsl::make_span;
@@ -203,6 +232,30 @@ TEST_CASE("affine_concatenation", "[as_affine]")
     CHECK_THAT(
         make_span(expected_position),
         make_elements_sub(vec3::from_vec4(mat4::translation(mat_result)), 3));
+}
+
+TEST_CASE("affine_inverse", "[as_affine]")
+{
+    using gsl::make_span;
+
+    const affine_t affine{
+        mat3::rotation_y(deg_to_rad(90.0_r)), point3_t{5.0_r, 10.0_r, 20.0_r}};
+
+    const affine_t affine_expected_inverse{
+        mat3::rotation_y(deg_to_rad(-90.0_r)),
+        point3_t{20.0_r, -10.0_r, -5.0_r}};
+
+    real_t expected_affine[12];
+    affine::to_arr(affine_expected_inverse, expected_affine);
+
+    affine_t result;
+    result = as::affine::inverse(affine);
+
+    CHECK_THAT(
+        make_span(expected_affine, 9), make_elements_sub(result.rotation, 9));
+    CHECK_THAT(
+        make_span(&expected_affine[9], 3),
+        make_elements_sub(result.position.as_vec3(), 3).margin(0.000001_r));
 }
 
 } // namespace unit_test
