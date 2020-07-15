@@ -1,3 +1,4 @@
+#include "as-helpers.test.hpp"
 #include "catch-matchers.hpp"
 #include "catch2/catch.hpp"
 
@@ -149,6 +150,12 @@ TEST_CASE("point3_initialization", "[as_point]")
     }
 }
 
+TEST_CASE("point_sizes", "[as_point]")
+{
+    CHECK(point2_t::size() == 2);
+    CHECK(point3_t::size() == 3);
+}
+
 TEST_CASE("point2_equals", "[as_point]")
 {
     {
@@ -290,6 +297,35 @@ TEST_CASE("point3_substraction", "[as_point]")
 
         const real_t result_ref_arr[] = {60.0_r, 20.0_r, -20.0_r};
         CHECK_THAT(make_span(result_ref_arr), make_elements_sub(result_mut, 3));
+    }
+}
+
+TEST_CASE("point_axes", "[as_point]")
+{
+    CHECK_THAT(arr(2.0_r, 0.0_r), make_elements_sub(point2_t::axis_x(2.0_r), 2));
+    CHECK_THAT(arr(0.0_r, 5.0_r), make_elements_sub(point2_t::axis_y(5.0_r), 2));
+
+    CHECK_THAT(arr(2.0_r, 0.0_r, 0.0_r), make_elements_sub(point3_t::axis_x(2.0_r), 3));
+    CHECK_THAT(arr(0.0_r, 5.0_r, 0.0_r), make_elements_sub(point3_t::axis_y(5.0_r), 3));
+    CHECK_THAT(arr(0.0_r, 0.0_r, 10.0_r), make_elements_sub(point3_t::axis_z(10.0_r), 3));
+}
+
+TEST_CASE("point_negate", "[as_point]")
+{
+    {
+        point2_t before1{1.0_r, 2.0_r};
+        CHECK_THAT(arr(-1.0_r, -2.0_r), make_elements_sub(-before1, 2));
+
+        point2_t before2{-3.0_r, -4.0_r};
+        CHECK_THAT(arr(3.0_r, 4.0_r), make_elements_sub(-before2, 2));
+    }
+
+    {
+        point3_t before1{1.0_r, 2.0_r, 3.0_r};
+        CHECK_THAT(arr(-1.0_r, -2.0_r, -3.0_r), make_elements_sub(-before1, 3));
+
+        point3_t before2{-3.0_r, -4.0_r, -5.0_r};
+        CHECK_THAT(arr(3.0_r, 4.0_r, 5.0_r), make_elements_sub(-before2, 3));
     }
 }
 

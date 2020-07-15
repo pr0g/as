@@ -1,3 +1,4 @@
+#include "as-helpers.test.hpp"
 #include "catch-matchers.hpp"
 #include "catch2/catch.hpp"
 
@@ -29,22 +30,24 @@ namespace vec3 = as::vec3;
 // use float epsilon for comparisons
 const real_t g_epsilon = real_t(std::numeric_limits<float>::epsilon());
 
-TEST_CASE("affine_constructor", "[as_affine]")
+TEST_CASE("affine_constructor_position_rotation", "[as_affine]")
 {
     affine_t affine;
     mat3_t rotation = mat3::rotation_x(deg_to_rad(90.0_r));
     point3_t position = point3_t{0.0_r, 2.0_r, 2.0_r};
     affine = affine_t(rotation, position);
 
-    CHECK(
-        affine.position.as_vec3().x
-        == Approx(position.as_vec3().x).margin(g_epsilon));
-    CHECK(
-        affine.position.as_vec3().y
-        == Approx(position.as_vec3().y).margin(g_epsilon));
-    CHECK(
-        affine.position.as_vec3().z
-        == Approx(position.as_vec3().z).margin(g_epsilon));
+    CHECK(as::point::equal(position, affine.position));
+    CHECK(as::mat::equal(rotation, affine.rotation));
+}
+
+TEST_CASE("affine_constructor_position", "[as_affine]")
+{
+    affine_t affine;
+    affine = affine_t(as::point3_t{1.0_r, 2.0_r, 3.0_r});
+
+    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r), make_elements_sub(affine.position, 3));
+    CHECK(as::mat::equal(as::mat3_t::identity(), affine.rotation));
 }
 
 TEST_CASE("affine_transform_dir", "[as_affine]")
