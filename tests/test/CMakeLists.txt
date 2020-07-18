@@ -1,11 +1,15 @@
 cmake_minimum_required(VERSION 3.15)
 
-project(as-test VERSION 0.0.1 LANGUAGES CXX)
+project(
+    as-test
+    VERSION 0.0.1
+    LANGUAGES CXX)
 
-if (NOT DEFINED DEV_LIB_DIR)
-    message(FATAL_ERROR
-        " Please provide the path to the library in active development.\n"
-        " Example: cmake -DDEV_LIB_DIR=<path/to/library/in/development>")
+if(NOT DEFINED DEV_LIB_DIR)
+    message(
+        FATAL_ERROR
+            " Please provide the path to the library in active development.\n"
+            " Example: cmake -DDEV_LIB_DIR=<path/to/library/in/development>")
 endif()
 
 include(autoinstall.cmake)
@@ -19,15 +23,21 @@ enable_testing()
 
 add_executable(
     ${PROJECT_NAME}
-    main.cpp as-affine.test.cpp
-    as-mat.test.cpp as-point.test.cpp
-    as-quat.test.cpp as-vec.test.cpp
-    as-math.test.cpp as-view.test.cpp)
+    main.cpp
+    as-affine.test.cpp
+    as-mat.test.cpp
+    as-point.test.cpp
+    as-quat.test.cpp
+    as-vec.test.cpp
+    as-math.test.cpp
+    as-view.test.cpp)
 
 add_test(NAME as.test.all COMMAND ${PROJECT_NAME})
 
+# cmake-format: off
 string(
-    APPEND coverage_options
+    APPEND
+    coverage_options
     "$<"
         "$<AND:"
             "$<COMPILE_LANGUAGE:CXX>,"
@@ -35,21 +45,19 @@ string(
             "$<BOOL:${AS_COVERAGE}>"
         ">:"
         "{options}"
-    ">"
-)
+    ">")
+# cmake-format: on
 
-string(
-    REPLACE "{options}" "-coverage;-g;-O0;-fno-inline;" # gcov
-    compile_options "${coverage_options}"
-)
+string(REPLACE "{options}" "-coverage;-g;-O0;-fno-inline;" # gcov
+               compile_options "${coverage_options}")
 
-string(
-    REPLACE "{options}" "-coverage;" # gcc
-    link_options "${coverage_options}"
-)
+string(REPLACE "{options}" "-coverage;" # gcc
+               link_options "${coverage_options}")
 
+# cmake-format: off
 string(
-    APPEND compile_options
+    APPEND
+    compile_options
     "$<"
         "$<AND:"
             "$<COMPILE_LANGUAGE:CXX>,"
@@ -73,33 +81,26 @@ string(
             "$<CXX_COMPILER_ID:GNU>"
         ">:"
         "-Wall;-Wextra;-Wshadow;"
-    ">"
-)
+    ">")
+# cmake-format: on
 
-target_compile_options(
-    ${CMAKE_PROJECT_NAME} PRIVATE "${compile_options}")
-target_link_options(
-    ${CMAKE_PROJECT_NAME} PRIVATE "${link_options}")
+target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE "${compile_options}")
+target_link_options(${CMAKE_PROJECT_NAME} PRIVATE "${link_options}")
 set_target_properties(
-    ${PROJECT_NAME} PROPERTIES
-    CXX_STANDARD 17
-    CXX_STANDARD_REQUIRED YES
-    CXX_EXTENSIONS NO
-    NO_SYSTEM_FROM_IMPORTED true)
-target_compile_features(
-    ${PROJECT_NAME} PRIVATE cxx_std_17)
+    ${PROJECT_NAME} PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED YES
+                               CXX_EXTENSIONS NO NO_SYSTEM_FROM_IMPORTED true)
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 target_compile_definitions(
-    ${PROJECT_NAME} PRIVATE
-    $<$<BOOL:${AS_PRECISION_FLOAT}>:AS_PRECISION_FLOAT>
-    $<$<BOOL:${AS_PRECISION_DOUBLE}>:AS_PRECISION_DOUBLE>
-    $<$<BOOL:${AS_COL_MAJOR}>:AS_COL_MAJOR>
-    $<$<BOOL:${AS_ROW_MAJOR}>:AS_ROW_MAJOR>
-    $<$<BOOL:${AS_COVERAGE}>:AS_COVERAGE>)
-target_link_libraries(
     ${PROJECT_NAME}
-    as::as Catch2::Catch2 Microsoft.GSL::GSL)
+    PRIVATE $<$<BOOL:${AS_PRECISION_FLOAT}>:AS_PRECISION_FLOAT>
+            $<$<BOOL:${AS_PRECISION_DOUBLE}>:AS_PRECISION_DOUBLE>
+            $<$<BOOL:${AS_COL_MAJOR}>:AS_COL_MAJOR>
+            $<$<BOOL:${AS_ROW_MAJOR}>:AS_ROW_MAJOR>
+            $<$<BOOL:${AS_COVERAGE}>:AS_COVERAGE>)
+target_link_libraries(${PROJECT_NAME} as::as Catch2::Catch2 Microsoft.GSL::GSL)
 
-add_custom_target(scrub
+add_custom_target(
+    scrub
     COMMAND ${CMAKE_MAKE_PROGRAM} clean
     COMMAND rm -f ${CMAKE_BINARY_DIR}/CMakeFiles/as-test.dir/*.gcno
     COMMAND rm -f ${CMAKE_BINARY_DIR}/CMakeFiles/as-test.dir/*.gcda
