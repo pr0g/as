@@ -1705,6 +1705,17 @@ TEST_CASE("round", "[as_vec]")
     }
 }
 
+TEST_CASE("point3_to_vec4", "[as_vec]")
+{
+    point3_t point3{2.0_r, 4.0_r, 6.0_r};
+
+    vec4_t actual_vec4;
+    actual_vec4 = vec4::from_point3(point3);
+
+    CHECK_THAT(
+        arr(2.0_r, 4.0_r, 6.0_r, 1.0_r), make_elements_sub(actual_vec4, 4));
+}
+
 } // namespace unit_test
 
 // explicit instantiations (for coverage)

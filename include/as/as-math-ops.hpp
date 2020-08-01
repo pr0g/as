@@ -159,6 +159,8 @@ constexpr vec_t<T, 4> from_vec2(
 template<typename T>
 constexpr vec_t<T, 4> from_vec3(const vec_t<T, 3>& vec, T w = T(0.0));
 
+constexpr vec4_t from_point3(const point3_t& point);
+
 } // namespace vec4
 
 namespace mat
