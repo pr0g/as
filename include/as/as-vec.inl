@@ -463,14 +463,16 @@ AS_API constexpr const vec_t<T, n> operator/(
 template<>
 AS_API constexpr const vec3_t operator/(const vec3_t& lhs, const real_t val)
 {
-    return {lhs.x / val, lhs.y / val, lhs.z / val};
+    const real_t val_recip = 1.0_r / val;
+    return {lhs.x * val_recip, lhs.y * val_recip, lhs.z * val_recip};
 }
 
 template<typename T, index_t n>
 AS_API constexpr vec_t<T, n>& operator/=(vec_t<T, n>& lhs, const T val)
 {
+    const T val_recip = T(1.0) / val;
     for (index_t i = 0; i < n; ++i) {
-        lhs[i] /= val;
+        lhs[i] *= val_recip;
     }
 
     return lhs;
@@ -479,9 +481,10 @@ AS_API constexpr vec_t<T, n>& operator/=(vec_t<T, n>& lhs, const T val)
 template<>
 AS_API constexpr vec3_t& operator/=(vec3_t& lhs, const real_t val)
 {
-    lhs.x /= val;
-    lhs.y /= val;
-    lhs.z /= val;
+    const real_t val_recip = 1.0_r / val;
+    lhs.x *= val_recip;
+    lhs.y *= val_recip;
+    lhs.z *= val_recip;
     return lhs;
 }
 
