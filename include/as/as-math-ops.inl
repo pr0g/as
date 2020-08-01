@@ -345,7 +345,7 @@ AS_API constexpr vec_t<T, 4> from_vec3(const vec_t<T, 3>& vec, T w)
     return {vec.x, vec.y, vec.z, w};
 }
 
-AS_API constexpr vec4_t from_point3(const point3_t& point)
+AS_API inline vec4_t from_point3(const point3_t& point)
 {
     return {point[0], point[1], point[2], 1.0_r};
 }
