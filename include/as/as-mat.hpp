@@ -35,7 +35,8 @@ struct mat_t
         : elem_rc{std::forward<Args>(args)...}
     {
         static_assert(
-            sizeof...(args) == size(), "Not enough arguments for dimension");
+            sizeof...(args) == size(),
+            "Incorrent number of arguments for dimension");
     }
 
     constexpr T& operator[](index_t i) &;

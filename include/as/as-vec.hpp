@@ -9,6 +9,7 @@
 namespace as
 {
 
+//! Geometric vector class template parameterized by type and dimension.
 template<typename T, index_t n>
 struct vec_t
 {
@@ -21,6 +22,10 @@ struct vec_t
     {
     };
 
+    //! A variadic template constructor that accepts the same number of elements
+    //! as the dimension of the vector.
+    //! \note Passing the wrong number of elements will result in a compile
+    //! error.
     template<
         typename... Args,
         typename = std::enable_if_t<!std::is_same<
@@ -28,19 +33,29 @@ struct vec_t
     constexpr vec_t(Args... args) noexcept : elem{std::forward<Args>(args)...}
     {
         static_assert(
-            sizeof...(args) == n, "Not enough arguments for dimension");
+            sizeof...(args) == size(),
+            "Incorrent number of arguments for dimension");
     }
 
+    //! Subscript operator that returns a mutable reference at the given index.
+    //! \note Can only be called on a mutable lvalue object.
     constexpr T& operator[](index_t i) &;
+    //! Subscript operator that returns a const reference at the given index.
+    //! \note Can only be called on a const lvalue object.
     constexpr const T& operator[](index_t i) const&;
+    //! Subscript operator that returns a value at the given index.
+    //! \note Can only be called on an rvalue object.
     constexpr T operator[](index_t i) &&;
 
+    //! The number of elements in the vector.
+    //! \note Synonymous with the dimension.
     constexpr static index_t size();
 
 private:
     T elem[size()];
 };
 
+//! Partial template specialization of \ref vec_t for a two dimensional vector.
 template<typename T>
 struct vec_t<T, 2>
 {
