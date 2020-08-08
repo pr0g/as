@@ -37,13 +37,13 @@ struct vec_t
             "Incorrent number of arguments for dimension");
     }
 
-    //! Subscript operator that returns a mutable reference at the given index.
+    //! Returns a mutable reference at the given index.
     //! \note Can only be called on a mutable lvalue object.
     constexpr T& operator[](index_t i) &;
-    //! Subscript operator that returns a const reference at the given index.
+    //! Returns a const reference at the given index.
     //! \note Can only be called on a const lvalue object.
     constexpr const T& operator[](index_t i) const&;
-    //! Subscript operator that returns a value at the given index.
+    //! Returns a value at the given index.
     //! \note Can only be called on an rvalue object.
     constexpr T operator[](index_t i) &&;
 
@@ -71,14 +71,30 @@ struct vec_t<T, 2>
 
     constexpr static index_t size();
 
-    constexpr static vec_t<T, 2> axis_x(T len = T(1.0));
-    constexpr static vec_t<T, 2> axis_y(T len = T(1.0));
+    //! Returns `(x, 0)`.
+    //! \param x Optional parameter for the length of the axis, defaults to 1.
+    constexpr static vec_t<T, 2> axis_x(T x = T(1.0));
+    //! Returns `(0, y)`.
+    //! \param y Optional parameter for the length of the axis, defaults to 1.
+    constexpr static vec_t<T, 2> axis_y(T y = T(1.0));
+    //! Returns `(0, 0)`.
     constexpr static vec_t<T, 2> zero();
+    //! Returns `(1, 1)`.
     constexpr static vec_t<T, 2> one();
+    //! Returns `(<T>::max, <T>::max)`.
+    //! All elements are initialized to the largest representable value of the
+    //! type T.
     constexpr static vec_t<T, 2> max();
+    //! Returns `(<T>::lowest, <T>::lowest)`.
+    //! All elements are initialized to the lowest representable value of the
+    //! type T.
+    //! \note This is equivalent to `std::numeric_limits<T>::lowest()`,
+    //! _not_ `std::numeric_limits<T>::min()`. `std::numeric_limits<T>::min()`
+    //! is the smallest representable value of type T.
     constexpr static vec_t<T, 2> min();
 
-    T x, y;
+    T x; //!< Synonymous with elem[0] value.
+    T y; //!< Synonymous with elem[1] value.
 
 private:
     static T vec_t::*elem[size()];
@@ -93,6 +109,7 @@ using vec2d_t = vec_t<double, 2>;
 using vec2i_t = vec_t<int32_t, 2>;
 using vec2l_t = vec_t<int64_t, 2>;
 
+//! Partial template specialization of \ref vec_t for a three dimensional vector.
 template<typename T>
 struct vec_t<T, 3>
 {
@@ -133,6 +150,7 @@ using vec3d_t = vec_t<double, 3>;
 using vec3i_t = vec_t<int32_t, 3>;
 using vec3l_t = vec_t<int64_t, 3>;
 
+//! Partial template specialization of \ref vec_t for a four dimensional vector.
 template<typename T>
 struct vec_t<T, 4>
 {

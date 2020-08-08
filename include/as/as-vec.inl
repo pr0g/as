@@ -60,21 +60,21 @@ AS_API constexpr vec_t<T, 2>::vec_t(const T x_, const T y_) : x(x_), y(y_)
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 2> vec_t<T, 2>::axis_x(const T len)
+AS_API constexpr vec_t<T, 2> vec_t<T, 2>::axis_x(const T x)
 {
-    return {len, T(0.0)};
+    return {x, T(0)};
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 2> vec_t<T, 2>::axis_y(const T len)
+AS_API constexpr vec_t<T, 2> vec_t<T, 2>::axis_y(const T y)
 {
-    return {T(0.0), len};
+    return {T(0), y};
 }
 
 template<typename T>
 AS_API constexpr vec_t<T, 2> vec_t<T, 2>::zero()
 {
-    return {T(0.0), T(0.0)};
+    return {T(0), T(0)};
 }
 
 template<typename T>
@@ -92,7 +92,7 @@ AS_API constexpr vec_t<T, 2> vec_t<T, 2>::max()
 template<typename T>
 AS_API constexpr vec_t<T, 2> vec_t<T, 2>::min()
 {
-    return -vec_t<T, 2>::max();
+    return vec_t<T, 2>{std::numeric_limits<T>::lowest()};
 }
 
 template<typename T>
@@ -139,25 +139,25 @@ AS_API constexpr vec_t<T, 3>::vec_t(const T x_, const T y_, const T z_)
 template<typename T>
 AS_API constexpr vec_t<T, 3> vec_t<T, 3>::axis_x(const T len)
 {
-    return {len, T(0.0), T(0.0)};
+    return {len, T(0), T(0)};
 }
 
 template<typename T>
 AS_API constexpr vec_t<T, 3> vec_t<T, 3>::axis_y(const T len)
 {
-    return {T(0.0), len, T(0.0)};
+    return {T(0), len, T(0)};
 }
 
 template<typename T>
 AS_API constexpr vec_t<T, 3> vec_t<T, 3>::axis_z(const T len)
 {
-    return {T(0.0), T(0.0), len};
+    return {T(0), T(0), len};
 }
 
 template<typename T>
 AS_API constexpr vec_t<T, 3> vec_t<T, 3>::zero()
 {
-    return {T(0.0), T(0.0), T(0.0)};
+    return {T(0), T(0), T(0)};
 }
 
 template<typename T>
@@ -175,7 +175,7 @@ AS_API constexpr vec_t<T, 3> vec_t<T, 3>::max()
 template<typename T>
 AS_API constexpr vec_t<T, 3> vec_t<T, 3>::min()
 {
-    return -vec_t<T, 3>::max();
+    return vec_t<T, 3>{std::numeric_limits<T>::lowest()};
 }
 
 template<typename T>
@@ -238,31 +238,31 @@ AS_API constexpr vec_t<T, 4>::vec_t(
 template<typename T>
 AS_API constexpr vec_t<T, 4> vec_t<T, 4>::axis_x(const T len)
 {
-    return {len, T(0.0), T(0.0), T(0.0)};
+    return {len, T(0), T(0), T(0)};
 }
 
 template<typename T>
 AS_API constexpr vec_t<T, 4> vec_t<T, 4>::axis_y(const T len)
 {
-    return {T(0.0), len, T(0.0), T(0.0)};
+    return {T(0), len, T(0), T(0)};
 }
 
 template<typename T>
 AS_API constexpr vec_t<T, 4> vec_t<T, 4>::axis_z(const T len)
 {
-    return {T(0.0), T(0.0), len, T(0.0)};
+    return {T(0), T(0), len, T(0)};
 }
 
 template<typename T>
 AS_API constexpr vec_t<T, 4> vec_t<T, 4>::axis_w(const T len)
 {
-    return {T(0.0), T(0.0), T(0.0), len};
+    return {T(0), T(0), T(0), len};
 }
 
 template<typename T>
 AS_API constexpr vec_t<T, 4> vec_t<T, 4>::zero()
 {
-    return {T(0.0), T(0.0), T(0.0), T(0.0)};
+    return {T(0), T(0), T(0), T(0)};
 }
 
 template<typename T>
@@ -280,7 +280,7 @@ AS_API constexpr vec_t<T, 4> vec_t<T, 4>::max()
 template<typename T>
 AS_API constexpr vec_t<T, 4> vec_t<T, 4>::min()
 {
-    return -vec_t<T, 4>::max();
+    return vec_t<T, 4>{std::numeric_limits<T>::lowest()};
 }
 
 template<typename T, index_t n>
