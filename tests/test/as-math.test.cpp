@@ -120,7 +120,7 @@ TEST_CASE("snap", "[as_math]")
     }
 
     {
-        const real_t result = as::snap(0.99f, 2.0_r);
+        const real_t result = as::snap(0.99_r, 2.0_r);
         CHECK(result == Approx(0.0_r).epsilon(g_epsilon));
     }
 
