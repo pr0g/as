@@ -49,7 +49,7 @@ AS_API constexpr point2_t point2_t::axis_y(const real_t len /* = 1.0_r */)
     return point2_t{vec2_t::axis_y(len)};
 }
 
-AS_API constexpr const vec2_t& point2_t::as_vec2() const
+AS_API constexpr const vec2_t& point2_t::as_vec() const
 {
     return v;
 }
@@ -148,7 +148,7 @@ AS_API constexpr point3_t point3_t::axis_z(const real_t len /* = 1.0_r */)
     return point3_t{vec3_t::axis_z(len)};
 }
 
-AS_API constexpr const vec3_t& point3_t::as_vec3() const
+AS_API constexpr const vec3_t& point3_t::as_vec() const
 {
     return v;
 }

@@ -425,6 +425,9 @@ bool equal(
     const point3_t& lhs, const point3_t& rhs,
     real_t epsilon = std::numeric_limits<real_t>::epsilon());
 
+template<typename... Args>
+auto average(Args&& ...args);
+
 } // namespace point
 
 namespace quat

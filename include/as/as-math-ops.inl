@@ -1128,7 +1128,7 @@ AS_API constexpr mat_t<T, 4> from_mat3_vec3(
 
 AS_API constexpr mat4_t from_affine(const affine_t& affine)
 {
-    return from_mat3_vec3(affine.rotation, affine.position.as_vec3());
+    return from_mat3_vec3(affine.rotation, affine.position.as_vec());
 }
 
 template<typename T>
@@ -1173,14 +1173,21 @@ AS_API inline bool equal(
     const point2_t& lhs, const point2_t& rhs,
     const real_t epsilon /*= std::numeric_limits<real_t>::epsilon()*/)
 {
-    return vec::equal(lhs.as_vec2(), rhs.as_vec2(), epsilon);
+    return vec::equal(lhs.as_vec(), rhs.as_vec(), epsilon);
 }
 
 AS_API inline bool equal(
     const point3_t& lhs, const point3_t& rhs,
     const real_t epsilon /*= std::numeric_limits<real_t>::epsilon()*/)
 {
-    return vec::equal(lhs.as_vec3(), rhs.as_vec3(), epsilon);
+    return vec::equal(lhs.as_vec(), rhs.as_vec(), epsilon);
+}
+
+template<typename... Args>
+AS_API auto average(Args&& ...args)
+{
+    return std::common_type_t<decltype(args)...>(
+        (args.as_vec() + ...) / real_t(sizeof...(args)));
 }
 
 } // namespace point
@@ -1382,11 +1389,11 @@ AS_API inline point3_t transform_pos(
     const affine_t& affine, const point3_t& position)
 {
 #ifdef AS_COL_MAJOR
-    return point3_t{affine.rotation * position.as_vec3()}
-         + affine.position.as_vec3();
+    return point3_t{affine.rotation * position.as_vec()}
+         + affine.position.as_vec();
 #elif defined AS_ROW_MAJOR
-    return point3_t{position.as_vec3() * affine.rotation}
-         + affine.position.as_vec3();
+    return point3_t{position.as_vec() * affine.rotation}
+         + affine.position.as_vec();
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 

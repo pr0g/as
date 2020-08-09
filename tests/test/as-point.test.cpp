@@ -73,8 +73,8 @@ TEST_CASE("point2_initialization", "[as_point]")
         point2_t point2;
         point2 = point2_t::zero();
 
-        CHECK(point2.as_vec2().x == Approx(0.0_r).epsilon(g_epsilon));
-        CHECK(point2.as_vec2().y == Approx(0.0_r).epsilon(g_epsilon));
+        CHECK(point2.as_vec().x == Approx(0.0_r).epsilon(g_epsilon));
+        CHECK(point2.as_vec().y == Approx(0.0_r).epsilon(g_epsilon));
     }
 }
 
@@ -144,9 +144,9 @@ TEST_CASE("point3_initialization", "[as_point]")
     {
         const point3_t point3 = point3_t::zero();
 
-        CHECK(point3.as_vec3().x == Approx(0.0_r).epsilon(g_epsilon));
-        CHECK(point3.as_vec3().y == Approx(0.0_r).epsilon(g_epsilon));
-        CHECK(point3.as_vec3().z == Approx(0.0_r).epsilon(g_epsilon));
+        CHECK(point3.as_vec().x == Approx(0.0_r).epsilon(g_epsilon));
+        CHECK(point3.as_vec().y == Approx(0.0_r).epsilon(g_epsilon));
+        CHECK(point3.as_vec().z == Approx(0.0_r).epsilon(g_epsilon));
     }
 }
 
@@ -334,6 +334,19 @@ TEST_CASE("point_negate", "[as_point]")
 
         point3_t before2{-3.0_r, -4.0_r, -5.0_r};
         CHECK_THAT(arr(3.0_r, 4.0_r, 5.0_r), make_elements_sub(-before2, 3));
+    }
+}
+
+TEST_CASE("point_average", "[as_point]")
+{
+    {
+        point2_t avg = point::average(point2_t{2.0_r, 2.0_r}, point2_t{4.0_r, 4.0_r});
+        CHECK_THAT(arr(3.0_r, 3.0_r), make_elements_sub(avg, 2));
+    }
+
+    {
+        point3_t avg = point::average(point3_t{3.0_r, 3.0_r, 3.0_r}, point3_t{5.0_r, 5.0_r, 5.0_r});
+        CHECK_THAT(arr(4.0_r, 4.0_r, 4.0_r), make_elements_sub(avg, 3));
     }
 }
 

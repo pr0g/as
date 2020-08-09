@@ -25,7 +25,7 @@ struct point2_t
     constexpr static point2_t axis_x(real_t len = 1.0_r);
     constexpr static point2_t axis_y(real_t len = 1.0_r);
 
-    constexpr const vec2_t& as_vec2() const;
+    constexpr const vec2_t& as_vec() const;
 
 private:
     friend constexpr const vec2_t operator-(
@@ -63,7 +63,7 @@ struct point3_t
     constexpr static point3_t axis_y(real_t len = 1.0_r);
     constexpr static point3_t axis_z(real_t len = 1.0_r);
 
-    constexpr const vec3_t& as_vec3() const;
+    constexpr const vec3_t& as_vec() const;
 
 private:
     friend constexpr const vec3_t operator-(
