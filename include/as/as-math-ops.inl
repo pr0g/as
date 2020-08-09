@@ -220,6 +220,17 @@ AS_API vec_t<T, n> round(const vec_t<T, n>& vec)
     return result;
 }
 
+template<typename T, index_t n>
+AS_API vec_t<T, n> snap(const vec_t<T, n>& vec, const T step)
+{
+    vec_t<T, n> result;
+    for (index_t i = 0; i < n; ++i) {
+        result[i] = as::snap(vec[i], step);
+    }
+
+    return result;
+}
+
 } // namespace vec
 
 namespace vec2

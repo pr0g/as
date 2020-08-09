@@ -4,13 +4,13 @@ namespace as
 template<typename T>
 AS_API constexpr T lerp(const T t, const T v0, const T v1)
 {
-    return (T{1} - t) * v0 + t * v1;
+    return (T(1) - t) * v0 + t * v1;
 }
 
 template<typename T>
 AS_API constexpr T smooth_step(const T t, const T v0, const T v1)
 {
-    T val = (t * t) * (T{3} - T{2} * t);
+    T val = (t * t) * (T(3) - T(2) * t);
     return lerp(val, v0, v1);
 }
 
@@ -30,6 +30,12 @@ template<typename T>
 AS_API constexpr T clamp(const T t, const T v0, const T v1)
 {
     return t < v0 ? v0 : t > v1 ? v1 : t;
+}
+
+template<typename T>
+AS_API constexpr T snap(const T in, const T step)
+{
+    return std::floor((in / step) + T(0.5)) * step;
 }
 
 AS_API constexpr real_t deg_to_rad(const real_t degrees)

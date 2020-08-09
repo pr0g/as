@@ -90,6 +90,9 @@ vec_t<T, n> ceil(const vec_t<T, n>& vec);
 template<typename T, index_t n>
 vec_t<T, n> round(const vec_t<T, n>& vec);
 
+template<typename T, index_t n>
+vec_t<T, n> snap(const vec_t<T, n>& vec, T step);
+
 } // namespace vec
 
 namespace vec2

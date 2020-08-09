@@ -24,6 +24,9 @@ constexpr T min(T v0, T v1);
 template<typename T>
 constexpr T clamp(T t, T v0, T v1);
 
+template<typename T>
+constexpr T snap(T in, T step);
+
 constexpr real_t deg_to_rad(real_t degrees);
 constexpr real_t rad_to_deg(real_t radians);
 

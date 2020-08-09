@@ -102,6 +102,39 @@ TEST_CASE("radians_to_degrees", "[as_math]")
     CHECK(rad_to_deg(6.28319_r) == Approx(360.0_r).epsilon(real_epsilon));
 }
 
+TEST_CASE("snap", "[as_math]")
+{
+    {
+        const float result = as::snap(4.0_r, 10.0_r);
+        CHECK(result == Approx(0.0_r).epsilon(g_epsilon));
+    }
+
+    {
+        const float result = as::snap(6.0_r, 10.0_r);
+        CHECK(result == Approx(10.0_r).epsilon(g_epsilon));
+    }
+
+    {
+        const float result = as::snap(1.0_r, 2.0_r);
+        CHECK(result == Approx(2.0_r).epsilon(g_epsilon));
+    }
+
+    {
+        const float result = as::snap(0.99f, 2.0_r);
+        CHECK(result == Approx(0.0_r).epsilon(g_epsilon));
+    }
+
+    {
+        const float result = as::snap(22.0_r, 20.0_r);
+        CHECK(result == Approx(20.0_r).epsilon(g_epsilon));
+    }
+
+    {
+        const float result = as::snap(32.0_r, 20.0_r);
+        CHECK(result == Approx(40.0_r).epsilon(g_epsilon));
+    }
+}
+
 } // namespace unit_test
 
 // explicit instantiations (for coverage)

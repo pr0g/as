@@ -1716,6 +1716,35 @@ TEST_CASE("point3_to_vec4", "[as_vec]")
         arr(2.0_r, 4.0_r, 6.0_r, 1.0_r), make_elements_sub(actual_vec4, 4));
 }
 
+TEST_CASE("snap_vec", "[as_vec]")
+{
+    {
+        vec2_t vec2{70.0_r, 95.0};
+        vec2_t result = as::vec::snap(vec2, 30.0_r);
+
+        CHECK_THAT(arr(60.0_r, 90.0_r), make_elements_sub(result, 2));
+    }
+
+    {
+        vec3_t vec3{1.0_r, 2.0_r, 3.0_r};
+        vec3_t result = as::vec::snap(vec3, 0.5_r);
+
+        CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r), make_elements_sub(result, 3));
+    }
+
+    {
+        using vec5_t = vec_t<real_t, 5>;
+
+        vec5_t vec5{5.0_r, 12.0_r, 18.0_r, 22.0_r, 1000.0_r};
+        vec5_t result = as::vec::snap(vec5, 5.0_r);
+
+        const auto expected =
+            std::array<real_t, 5>{5.0_r, 10.0_r, 20.0_r, 20.0_r, 1000.0_r};
+
+        CHECK_THAT(expected, make_elements_sub(result, 5));
+    }
+}
+
 } // namespace unit_test
 
 // explicit instantiations (for coverage)
