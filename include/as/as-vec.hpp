@@ -6,6 +6,9 @@
 
 #include "as-types.hpp"
 
+//! \file
+//! as-vec
+
 namespace as
 {
 
@@ -13,6 +16,7 @@ namespace as
 template<typename T, index_t n>
 struct vec_t
 {
+    //! Type alias for template parameter `T`.
     using value_type = T;
 
     vec_t() noexcept = default;
@@ -37,18 +41,20 @@ struct vec_t
             "Incorrent number of arguments for dimension");
     }
 
-    //! Returns a mutable reference at the given index.
+    //! Returns a mutable reference to the value at the given index.
     //! \note Can only be called on a mutable lvalue object.
+    //! \warning No bounds checking is performed.
     constexpr T& operator[](index_t i) &;
-    //! Returns a const reference at the given index.
+    //! Returns a const reference to the value at the given index.
     //! \note Can only be called on a const lvalue object.
+    //! \warning No bounds checking is performed.
     constexpr const T& operator[](index_t i) const&;
-    //! Returns a value at the given index.
+    //! Returns a copy of the value at the given index.
     //! \note Can only be called on an rvalue object.
-    constexpr T operator[](index_t i) &&;
+    //! \warning No bounds checking is performed.
+    constexpr const T operator[](index_t i) &&;
 
-    //! The number of elements in the vector.
-    //! \note Synonymous with the dimension.
+    //! Returns the number of elements in the vector.
     constexpr static index_t size();
 
 private:
@@ -59,16 +65,30 @@ private:
 template<typename T>
 struct vec_t<T, 2>
 {
+    //! Type alias for template parameter `T`.
     using value_type = T;
 
     vec_t() noexcept = default;
+
+    //! Constructs vec_t with `(xy_, xy_)`.
     constexpr explicit vec_t(T xy_);
+    //! Constructs vec_t with `(x_, y_)`.
     constexpr vec_t(T x_, T y_);
 
+    //! Returns a mutable reference to the value at the given index.
+    //! \note Can only be called on a mutable lvalue object.
+    //! \warning No bounds checking is performed.
     T& operator[](index_t i) &;
+    //! Returns a const reference to the value at the given index.
+    //! \note Can only be called on a const lvalue object.
+    //! \warning No bounds checking is performed.
     const T& operator[](index_t i) const&;
+    //! Returns a copy of the value at the given index.
+    //! \note Can only be called on an rvalue object.
+    //! \warning No bounds checking is performed.
     const T operator[](index_t i) &&;
 
+    //! Returns `2`.
     constexpr static index_t size();
 
     //! Returns `(x, 0)`.
@@ -93,8 +113,8 @@ struct vec_t<T, 2>
     //! is the smallest representable value of type T.
     constexpr static vec_t<T, 2> min();
 
-    T x; //!< Synonymous with elem[0] value.
-    T y; //!< Synonymous with elem[1] value.
+    T x; //!< Synonymous with `operator[](0)` value.
+    T y; //!< Synonymous with `operator[](1)` value.
 
 private:
     static T vec_t::*elem[size()];
@@ -103,10 +123,15 @@ private:
 template<typename T>
 T vec_t<T, 2>::*vec_t<T, 2>::elem[size()] = {&vec_t<T, 2>::x, &vec_t<T, 2>::y};
 
+//! Type alias for a two dimensional vector of type `real_t`
 using vec2_t = vec_t<real_t, 2>;
+//! Type alias for a two dimensional vector of type `float`
 using vec2f_t = vec_t<float, 2>;
+//! Type alias for a two dimensional vector of type `double`
 using vec2d_t = vec_t<double, 2>;
+//! Type alias for a two dimensional vector of type `int32_t`
 using vec2i_t = vec_t<int32_t, 2>;
+//! Type alias for a two dimensional vector of type `int64_t`
 using vec2l_t = vec_t<int64_t, 2>;
 
 //! Partial template specialization of \ref vec_t for a three dimensional vector.
