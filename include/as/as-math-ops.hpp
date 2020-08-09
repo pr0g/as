@@ -430,7 +430,7 @@ template<typename point_t>
 point_t average(const point_t* points, index_t count);
 
 template<typename... points_t>
-auto average_fold(points_t&& ...points);
+auto average_fold(points_t&&... points);
 
 } // namespace point
 

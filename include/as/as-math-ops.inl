@@ -1184,7 +1184,7 @@ AS_API inline bool equal(
 }
 
 template<typename... points_t>
-AS_API auto average_fold(points_t&& ...points)
+AS_API auto average_fold(points_t&&... points)
 {
     return std::common_type_t<decltype(points)...>(
         (points.as_vec() + ...) / real_t(sizeof...(points)));
@@ -1193,12 +1193,12 @@ AS_API auto average_fold(points_t&& ...points)
 template<typename point_t>
 AS_API point_t average(const point_t* points, const index_t count)
 {
-    return point_t(std::accumulate(
-        points, points + count, point_t{},
-        [](auto acc, const auto point) {
-            return acc + point.as_vec();
-        }).as_vec() / real_t(count));
-
+    return point_t(
+        std::accumulate(
+            points, points + count, point_t{},
+            [](auto acc, const auto point) { return acc + point.as_vec(); })
+            .as_vec()
+        / real_t(count));
 }
 
 } // namespace point
