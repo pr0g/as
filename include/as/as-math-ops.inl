@@ -1183,11 +1183,22 @@ AS_API inline bool equal(
     return vec::equal(lhs.as_vec(), rhs.as_vec(), epsilon);
 }
 
-template<typename... Args>
-AS_API auto average(Args&& ...args)
+template<typename... points_t>
+AS_API auto average_fold(points_t&& ...points)
 {
-    return std::common_type_t<decltype(args)...>(
-        (args.as_vec() + ...) / real_t(sizeof...(args)));
+    return std::common_type_t<decltype(points)...>(
+        (points.as_vec() + ...) / real_t(sizeof...(points)));
+}
+
+template<typename point_t>
+AS_API point_t average(const point_t* points, const index_t count)
+{
+    return point_t(std::accumulate(
+        points, points + count, point_t{},
+        [](auto acc, const auto point) {
+            return acc + point.as_vec();
+        }).as_vec() / real_t(count));
+
 }
 
 } // namespace point

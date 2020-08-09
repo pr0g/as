@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iterator>
+#include <numeric>
 #include <tuple>
 
 #include "as-affine.hpp"
@@ -425,8 +426,11 @@ bool equal(
     const point3_t& lhs, const point3_t& rhs,
     real_t epsilon = std::numeric_limits<real_t>::epsilon());
 
-template<typename... Args>
-auto average(Args&& ...args);
+template<typename point_t>
+point_t average(const point_t* points, index_t count);
+
+template<typename... points_t>
+auto average_fold(points_t&& ...points);
 
 } // namespace point
 

@@ -340,12 +340,27 @@ TEST_CASE("point_negate", "[as_point]")
 TEST_CASE("point_average", "[as_point]")
 {
     {
-        point2_t avg = point::average(point2_t{2.0_r, 2.0_r}, point2_t{4.0_r, 4.0_r});
+        point2_t avg = point::average_fold(
+            point2_t{2.0_r, 2.0_r}, point2_t{4.0_r, 4.0_r});
         CHECK_THAT(arr(3.0_r, 3.0_r), make_elements_sub(avg, 2));
     }
 
     {
-        point3_t avg = point::average(point3_t{3.0_r, 3.0_r, 3.0_r}, point3_t{5.0_r, 5.0_r, 5.0_r});
+        point2_t points[] = {point2_t{2.0_r, 2.0_r}, point2_t{4.0_r, 4.0_r}};
+        point2_t avg = point::average(points, AS_DIM(points));
+        CHECK_THAT(arr(3.0_r, 3.0_r), make_elements_sub(avg, 2));
+    }
+
+    {
+        point3_t avg = point::average_fold(
+            point3_t{3.0_r, 3.0_r, 3.0_r}, point3_t{5.0_r, 5.0_r, 5.0_r});
+        CHECK_THAT(arr(4.0_r, 4.0_r, 4.0_r), make_elements_sub(avg, 3));
+    }
+
+    {
+        point3_t points[] =
+            {point3_t{3.0_r, 3.0_r, 3.0_r}, point3_t{5.0_r, 5.0_r, 5.0_r}};
+        point3_t avg = point::average(points, AS_DIM(points));
         CHECK_THAT(arr(4.0_r, 4.0_r, 4.0_r), make_elements_sub(avg, 3));
     }
 }
