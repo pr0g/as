@@ -137,21 +137,21 @@ AS_API constexpr vec_t<T, 3>::vec_t(const T x_, const T y_, const T z_)
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 3> vec_t<T, 3>::axis_x(const T len)
+AS_API constexpr vec_t<T, 3> vec_t<T, 3>::axis_x(const T x)
 {
-    return {len, T(0), T(0)};
+    return {x, T(0), T(0)};
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 3> vec_t<T, 3>::axis_y(const T len)
+AS_API constexpr vec_t<T, 3> vec_t<T, 3>::axis_y(const T y)
 {
-    return {T(0), len, T(0)};
+    return {T(0), y, T(0)};
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 3> vec_t<T, 3>::axis_z(const T len)
+AS_API constexpr vec_t<T, 3> vec_t<T, 3>::axis_z(const T z)
 {
-    return {T(0), T(0), len};
+    return {T(0), T(0), z};
 }
 
 template<typename T>
@@ -223,8 +223,8 @@ AS_API constexpr vec_t<T, 4>::vec_t(
 
 template<typename T>
 AS_API constexpr vec_t<T, 4>::vec_t(
-    const vec_t<T, 2>& xy_, const vec_t<T, 2>& zw)
-    : x(xy_.x), y(xy_.y), z(zw.x), w(zw.y)
+    const vec_t<T, 2>& xy_, const vec_t<T, 2>& zw_)
+    : x(xy_.x), y(xy_.y), z(zw_.x), w(zw_.y)
 {
 }
 
@@ -236,27 +236,27 @@ AS_API constexpr vec_t<T, 4>::vec_t(
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4> vec_t<T, 4>::axis_x(const T len)
+AS_API constexpr vec_t<T, 4> vec_t<T, 4>::axis_x(const T x)
 {
-    return {len, T(0), T(0), T(0)};
+    return {x, T(0), T(0), T(0)};
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4> vec_t<T, 4>::axis_y(const T len)
+AS_API constexpr vec_t<T, 4> vec_t<T, 4>::axis_y(const T y)
 {
-    return {T(0), len, T(0), T(0)};
+    return {T(0), y, T(0), T(0)};
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4> vec_t<T, 4>::axis_z(const T len)
+AS_API constexpr vec_t<T, 4> vec_t<T, 4>::axis_z(const T z)
 {
-    return {T(0), T(0), len, T(0)};
+    return {T(0), T(0), z, T(0)};
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4> vec_t<T, 4>::axis_w(const T len)
+AS_API constexpr vec_t<T, 4> vec_t<T, 4>::axis_w(const T w)
 {
-    return {T(0), T(0), T(0), len};
+    return {T(0), T(0), T(0), w};
 }
 
 template<typename T>
