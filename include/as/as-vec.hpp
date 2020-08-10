@@ -138,28 +138,55 @@ using vec2l_t = vec_t<int64_t, 2>;
 template<typename T>
 struct vec_t<T, 3>
 {
+    //! Type alias for template parameter `T`.
     using value_type = T;
 
     vec_t() noexcept = default;
+
+    //! Constructs vec_t with `(xyz_, xyz_, xyz_)`.
     constexpr explicit vec_t(T xyz_);
+    //! Constructs vec_t with `((x_, y_), z_)`.
     constexpr vec_t(const vec_t<T, 2>& xy_, T z_);
+    //! Constructs vec_t with `(x_, y_, z_)`.
     constexpr vec_t(T x_, T y_, T z_);
 
+    //! Returns a mutable reference to the value at the given index.
+    //! \note Can only be called on a mutable lvalue object.
+    //! \warning No bounds checking is performed.
     T& operator[](index_t i) &;
+    //! Returns a const reference to the value at the given index.
+    //! \note Can only be called on a const lvalue object.
+    //! \warning No bounds checking is performed.
     const T& operator[](index_t i) const&;
+    //! Returns a copy of the value at the given index.
+    //! \note Can only be called on an rvalue object.
+    //! \warning No bounds checking is performed.
     const T operator[](index_t i) &&;
 
+    //! Returns `3`.
     constexpr static index_t size();
 
-    constexpr static vec_t<T, 3> axis_x(T len = T(1.0));
-    constexpr static vec_t<T, 3> axis_y(T len = T(1.0));
-    constexpr static vec_t<T, 3> axis_z(T len = T(1.0));
+    //! Returns `(x, 0, 0)`.
+    //! \param x Optional parameter for the length of the axis, defaults to 1.
+    constexpr static vec_t<T, 3> axis_x(T x = T(1.0));
+    //! Returns `(0, y, 0)`.
+    //! \param y Optional parameter for the length of the axis, defaults to 1.
+    constexpr static vec_t<T, 3> axis_y(T y = T(1.0));
+    //! Returns `(0, 0, z)`.
+    //! \param z Optional parameter for the length of the axis, defaults to 1.
+    constexpr static vec_t<T, 3> axis_z(T z = T(1.0));
+    //! Returns `(0, 0, 0)`.
     constexpr static vec_t<T, 3> zero();
+    //! Returns `(1, 1, 1)`.
     constexpr static vec_t<T, 3> one();
+    //! Returns `(<T>::max, <T>::max, <T>::max)`.
     constexpr static vec_t<T, 3> max();
+    //! Returns `(<T>::lowest, <T>::lowest, <T>::lowest)`.
     constexpr static vec_t<T, 3> min();
 
-    T x, y, z;
+    T x; //!< Synonymous with `operator[](0)` value.
+    T y; //!< Synonymous with `operator[](1)` value.
+    T z; //!< Synonymous with `operator[](2)` value.
 
 private:
     static T vec_t::*elem[size()];
@@ -169,41 +196,78 @@ template<typename T>
 T vec_t<T, 3>::*vec_t<T, 3>::elem[size()] = {
     &vec_t<T, 3>::x, &vec_t<T, 3>::y, &vec_t<T, 3>::z};
 
+//! Type alias for a three dimensional vector of type `real_t`
 using vec3_t = vec_t<real_t, 3>;
+//! Type alias for a three dimensional vector of type `float`
 using vec3f_t = vec_t<float, 3>;
+//! Type alias for a three dimensional vector of type `double`
 using vec3d_t = vec_t<double, 3>;
+//! Type alias for a three dimensional vector of type `int32_t`
 using vec3i_t = vec_t<int32_t, 3>;
+//! Type alias for a three dimensional vector of type `int64_t`
 using vec3l_t = vec_t<int64_t, 3>;
 
 //! Partial template specialization of \ref vec_t for a four dimensional vector.
 template<typename T>
 struct vec_t<T, 4>
 {
+    //! Type alias for template parameter `T`.
     using value_type = T;
 
     vec_t() noexcept = default;
+
+    //! Constructs vec_t with `(xyzw_, xyzw_, xyzw_, xyzw_)`.
     constexpr explicit vec_t(T xyzw_);
+    //! Constructs vec_t with `((x_, y_, z_), w_)`.
     constexpr vec_t(const vec_t<T, 3>& xyz_, T w_);
+    //! Constructs vec_t with `((x_, y_), z_, w_)`.
     constexpr vec_t(const vec_t<T, 2>& xy_, T z_, T w_);
-    constexpr vec_t(const vec_t<T, 2>& xy_, const vec_t<T, 2>& zw);
+    //! Constructs vec_t with `((x_, y_), (z_, w_))`.
+    constexpr vec_t(const vec_t<T, 2>& xy_, const vec_t<T, 2>& zw_);
+    //! Constructs vec_t with `(x_, y_, z_, w_)`.
     constexpr vec_t(T x_, T y_, T z_, T w_);
 
+    //! Returns a mutable reference to the value at the given index.
+    //! \note Can only be called on a mutable lvalue object.
+    //! \warning No bounds checking is performed.
     T& operator[](index_t i) &;
+    //! Returns a const reference to the value at the given index.
+    //! \note Can only be called on a const lvalue object.
+    //! \warning No bounds checking is performed.
     const T& operator[](index_t i) const&;
+    //! Returns a copy of the value at the given index.
+    //! \note Can only be called on an rvalue object.
+    //! \warning No bounds checking is performed.
     const T operator[](index_t i) &&;
 
+    //! Returns `4`.
     constexpr static index_t size();
 
+    //! Returns `(x, 0, 0, 0)`.
+    //! \param x Optional parameter for the length of the axis, defaults to 1.
     constexpr static vec_t<T, 4> axis_x(T len = T(1.0));
+    //! Returns `(0, y, 0, 0)`.
+    //! \param y Optional parameter for the length of the axis, defaults to 1.
     constexpr static vec_t<T, 4> axis_y(T len = T(1.0));
+    //! Returns `(0, 0, z, 0)`.
+    //! \param z Optional parameter for the length of the axis, defaults to 1.
     constexpr static vec_t<T, 4> axis_z(T len = T(1.0));
+    //! Returns `(0, 0, 0, w)`.
+    //! \param w Optional parameter for the length of the axis, defaults to 1.
     constexpr static vec_t<T, 4> axis_w(T len = T(1.0));
+    //! Returns `(0, 0, 0, 0)`.
     constexpr static vec_t<T, 4> zero();
+    //! Returns `(1, 1, 1, 1)`.
     constexpr static vec_t<T, 4> one();
+    //! Returns `(<T>::max, <T>::max, <T>::max, <T>::max)`.
     constexpr static vec_t<T, 4> max();
+    //! Returns `(<T>::lowest, <T>::lowest, <T>::lowest, <T>::lowest)`.
     constexpr static vec_t<T, 4> min();
 
-    T x, y, z, w;
+    T x; //!< Synonymous with `operator[](0)` value.
+    T y; //!< Synonymous with `operator[](1)` value.
+    T z; //!< Synonymous with `operator[](2)` value.
+    T w; //!< Synonymous with `operator[](3)` value.
 
 private:
     static T vec_t::*elem[size()];
@@ -213,10 +277,15 @@ template<typename T>
 T vec_t<T, 4>::*vec_t<T, 4>::elem[size()] = {
     &vec_t<T, 4>::x, &vec_t<T, 4>::y, &vec_t<T, 4>::z, &vec_t<T, 4>::w};
 
+//! Type alias for a four dimensional vector of type `real_t`
 using vec4_t = vec_t<real_t, 4>;
+//! Type alias for a four dimensional vector of type `float`
 using vec4f_t = vec_t<float, 4>;
+//! Type alias for a four dimensional vector of type `double`
 using vec4d_t = vec_t<double, 4>;
+//! Type alias for a four dimensional vector of type `int32_t`
 using vec4i_t = vec_t<int32_t, 4>;
+//! Type alias for a four dimensional vector of type `int64_t`
 using vec4l_t = vec_t<int64_t, 4>;
 
 template<typename T, index_t n>
