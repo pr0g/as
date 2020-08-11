@@ -123,15 +123,15 @@ private:
 template<typename T>
 T vec_t<T, 2>::*vec_t<T, 2>::elem[size()] = {&vec_t<T, 2>::x, &vec_t<T, 2>::y};
 
-//! Type alias for a two dimensional vector of type `real_t`
+//! Type alias for a two dimensional vector of type `real_t`.
 using vec2_t = vec_t<real_t, 2>;
-//! Type alias for a two dimensional vector of type `float`
+//! Type alias for a two dimensional vector of type `float`.
 using vec2f_t = vec_t<float, 2>;
-//! Type alias for a two dimensional vector of type `double`
+//! Type alias for a two dimensional vector of type `double`.
 using vec2d_t = vec_t<double, 2>;
-//! Type alias for a two dimensional vector of type `int32_t`
+//! Type alias for a two dimensional vector of type `int32_t`.
 using vec2i_t = vec_t<int32_t, 2>;
-//! Type alias for a two dimensional vector of type `int64_t`
+//! Type alias for a two dimensional vector of type `int64_t`.
 using vec2l_t = vec_t<int64_t, 2>;
 
 //! Partial template specialization of \ref vec_t for a three dimensional vector.
@@ -196,15 +196,15 @@ template<typename T>
 T vec_t<T, 3>::*vec_t<T, 3>::elem[size()] = {
     &vec_t<T, 3>::x, &vec_t<T, 3>::y, &vec_t<T, 3>::z};
 
-//! Type alias for a three dimensional vector of type `real_t`
+//! Type alias for a three dimensional vector of type `real_t`.
 using vec3_t = vec_t<real_t, 3>;
-//! Type alias for a three dimensional vector of type `float`
+//! Type alias for a three dimensional vector of type `float`.
 using vec3f_t = vec_t<float, 3>;
-//! Type alias for a three dimensional vector of type `double`
+//! Type alias for a three dimensional vector of type `double`.
 using vec3d_t = vec_t<double, 3>;
-//! Type alias for a three dimensional vector of type `int32_t`
+//! Type alias for a three dimensional vector of type `int32_t`.
 using vec3i_t = vec_t<int32_t, 3>;
-//! Type alias for a three dimensional vector of type `int64_t`
+//! Type alias for a three dimensional vector of type `int64_t`.
 using vec3l_t = vec_t<int64_t, 3>;
 
 //! Partial template specialization of \ref vec_t for a four dimensional vector.
@@ -277,46 +277,67 @@ template<typename T>
 T vec_t<T, 4>::*vec_t<T, 4>::elem[size()] = {
     &vec_t<T, 4>::x, &vec_t<T, 4>::y, &vec_t<T, 4>::z, &vec_t<T, 4>::w};
 
-//! Type alias for a four dimensional vector of type `real_t`
+//! Type alias for a four dimensional vector of type `real_t`.
 using vec4_t = vec_t<real_t, 4>;
-//! Type alias for a four dimensional vector of type `float`
+//! Type alias for a four dimensional vector of type `float`.
 using vec4f_t = vec_t<float, 4>;
-//! Type alias for a four dimensional vector of type `double`
+//! Type alias for a four dimensional vector of type `double`.
 using vec4d_t = vec_t<double, 4>;
-//! Type alias for a four dimensional vector of type `int32_t`
+//! Type alias for a four dimensional vector of type `int32_t`.
 using vec4i_t = vec_t<int32_t, 4>;
-//! Type alias for a four dimensional vector of type `int64_t`
+//! Type alias for a four dimensional vector of type `int64_t`.
 using vec4l_t = vec_t<int64_t, 4>;
 
+//! Returns the sum of two vectors.
 template<typename T, index_t n>
 constexpr const vec_t<T, n> operator+(
     const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
+//! Returns the sum of two vectors.
+//! \note Template specialization of vector sum for three dimensional vector.
 template<>
 constexpr const vec3_t operator+(const vec3_t& lhs, const vec3_t& rhs);
 
+//! Performs addition assignment of two vector.
 template<typename T, index_t n>
 constexpr vec_t<T, n>& operator+=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
+//! Performs addition assignment of two vector.
+//! \note Template specialization of vector addition assignment for three
+//! dimensional vector.
 template<>
 constexpr vec3_t& operator+=(vec3_t& lhs, const vec3_t& rhs);
 
+//! Returns the result of the right hand vector subtracted from the left hand
+//! vector.
 template<typename T, index_t n>
 constexpr const vec_t<T, n> operator-(
     const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
+//! Returns the result of the right hand vector subtracted from the left hand
+//! vector.
+//! \note Template specialization of vector substraction for three dimensional
+//! vector.
 template<>
 constexpr const vec3_t operator-(const vec3_t& lhs, const vec3_t& rhs);
 
+//! Performs substraction assignment of two vectors.
 template<typename T, index_t n>
 constexpr vec_t<T, n>& operator-=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
+//! Performs substraction assignment of two vectors.
+//! \note Template specialization of vector substraction assignment for three
+//! dimensional vectors.
 template<>
 constexpr vec3_t& operator-=(vec3_t& lhs, const vec3_t& rhs);
 
+//! Returns the negation of a vector.
 template<typename T, index_t n>
 const vec_t<T, n> operator-(const vec_t<T, n>& rhs);
 
+//! Returns the negation of a vector.
+//! \note Template specialization of vector negation for a three dimensional
+//! vector.
 template<>
 constexpr const vec3_t operator-(const vec3_t& rhs);
 
