@@ -4,42 +4,42 @@ namespace as
 namespace vec
 {
 
-template<typename T, index_t n>
-AS_API constexpr index_t size(const vec_t<T, n>& /*unused*/)
+template<typename T, index_t d>
+AS_API constexpr index_t size(const vec_t<T, d>& /*unused*/)
 {
-    return n;
+    return d;
 }
 
-template<typename T, index_t n>
-AS_API vec_t<T, n> from_arr(const T (&data)[n])
+template<typename T, index_t d>
+AS_API vec_t<T, d> from_arr(const T (&data)[d])
 {
-    return from_ptr<T, n>(&data[0]);
+    return from_ptr<T, d>(&data[0]);
 }
 
-template<typename T, index_t n>
-AS_API vec_t<T, n> from_ptr(const T* data)
+template<typename T, index_t d>
+AS_API vec_t<T, d> from_ptr(const T* data)
 {
-    vec_t<T, n> result;
-    for (index_t i = 0; i < n; ++i) {
+    vec_t<T, d> result;
+    for (index_t i = 0; i < d; ++i) {
         result[i] = data[i];
     }
 
     return result;
 }
 
-template<typename T, index_t n>
-AS_API void to_arr(const vec_t<T, n>& vec, T (&data)[n])
+template<typename T, index_t d>
+AS_API void to_arr(const vec_t<T, d>& vec, T (&data)[d])
 {
-    for (index_t i = 0; i < n; ++i) {
+    for (index_t i = 0; i < d; ++i) {
         data[i] = vec[i];
     }
 }
 
-template<typename T, index_t n>
-AS_API constexpr T dot(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
+template<typename T, index_t d>
+AS_API constexpr T dot(const vec_t<T, d>& lhs, const vec_t<T, d>& rhs)
 {
     T result{0};
-    for (index_t i = 0; i < n; ++i) {
+    for (index_t i = 0; i < d; ++i) {
         result += lhs[i] * rhs[i];
     }
 
@@ -52,37 +52,37 @@ AS_API constexpr real_t dot(const vec3_t& lhs, const vec3_t& rhs)
     return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;
 }
 
-template<typename T, index_t n>
-AS_API constexpr T length_sq(const vec_t<T, n>& vec)
+template<typename T, index_t d>
+AS_API constexpr T length_sq(const vec_t<T, d>& vec)
 {
     return dot(vec, vec);
 }
 
-template<typename T, index_t n>
-AS_API T length(const vec_t<T, n>& vec)
+template<typename T, index_t d>
+AS_API T length(const vec_t<T, d>& vec)
 {
     return std::sqrt(length_sq(vec));
 }
 
-template<typename T, index_t n>
-AS_API vec_t<T, n> normalize(const vec_t<T, n>& vec)
+template<typename T, index_t d>
+AS_API vec_t<T, d> normalize(const vec_t<T, d>& vec)
 {
     return vec / length(vec);
 }
 
-template<typename T, index_t n>
-AS_API std::tuple<vec_t<T, n>, T> normalize_with_length(const vec_t<T, n>& vec)
+template<typename T, index_t d>
+AS_API std::tuple<vec_t<T, d>, T> normalize_with_length(const vec_t<T, d>& vec)
 {
     const T len = length(vec);
     return std::make_tuple(vec / len, len);
 }
 
-template<typename T, index_t n>
+template<typename T, index_t d>
 AS_API bool equal(
-    const vec_t<T, n>& lhs, const vec_t<T, n>& rhs,
+    const vec_t<T, d>& lhs, const vec_t<T, d>& rhs,
     real_t epsilon /*= std::numeric_limits<real_t>::epsilon()*/)
 {
-    for (index_t i = 0; i < n; ++i) {
+    for (index_t i = 0; i < d; ++i) {
         if (!as::equal(lhs[i], rhs[i], epsilon, epsilon)) {
             return false;
         }
@@ -91,140 +91,140 @@ AS_API bool equal(
     return true;
 }
 
-template<typename T, index_t n>
-AS_API vec_t<T, n> min(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
+template<typename T, index_t d>
+AS_API vec_t<T, d> min(const vec_t<T, d>& lhs, const vec_t<T, d>& rhs)
 {
-    vec_t<T, n> result;
-    for (index_t i = 0; i < n; ++i) {
+    vec_t<T, d> result;
+    for (index_t i = 0; i < d; ++i) {
         result[i] = as::min(lhs[i], rhs[i]);
     }
 
     return result;
 }
 
-template<typename T, index_t n>
-AS_API constexpr T min_elem(const vec_t<T, n>& vec)
+template<typename T, index_t d>
+AS_API constexpr T min_elem(const vec_t<T, d>& vec)
 {
     T val = vec[0];
-    for (index_t i = 1; i < n; ++i) {
+    for (index_t i = 1; i < d; ++i) {
         val = as::min(val, vec[i]);
     }
 
     return val;
 }
 
-template<typename T, index_t n>
-AS_API vec_t<T, n> max(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
+template<typename T, index_t d>
+AS_API vec_t<T, d> max(const vec_t<T, d>& lhs, const vec_t<T, d>& rhs)
 {
-    vec_t<T, n> result;
-    for (index_t i = 0; i < n; ++i) {
+    vec_t<T, d> result;
+    for (index_t i = 0; i < d; ++i) {
         result[i] = as::max(lhs[i], rhs[i]);
     }
 
     return result;
 }
 
-template<typename T, index_t n>
-AS_API constexpr T max_elem(const vec_t<T, n>& vec)
+template<typename T, index_t d>
+AS_API constexpr T max_elem(const vec_t<T, d>& vec)
 {
     T val = vec[0];
-    for (index_t i = 1; i < n; ++i) {
+    for (index_t i = 1; i < d; ++i) {
         val = as::max(val, vec[i]);
     }
 
     return val;
 }
 
-template<typename T, index_t n>
-AS_API vec_t<T, n> abs(const vec_t<T, n>& vec)
+template<typename T, index_t d>
+AS_API vec_t<T, d> abs(const vec_t<T, d>& vec)
 {
-    vec_t<T, n> result;
-    for (index_t i = 0; i < n; ++i) {
+    vec_t<T, d> result;
+    for (index_t i = 0; i < d; ++i) {
         result[i] = std::abs(vec[i]);
     }
 
     return result;
 }
 
-template<typename T, index_t n>
-AS_API vec_t<T, n> clamp(
-    const vec_t<T, n>& vec, const vec_t<T, n>& min, const vec_t<T, n>& max)
+template<typename T, index_t d>
+AS_API vec_t<T, d> clamp(
+    const vec_t<T, d>& vec, const vec_t<T, d>& min, const vec_t<T, d>& max)
 {
-    vec_t<T, n> result;
-    for (index_t i = 0; i < n; ++i) {
+    vec_t<T, d> result;
+    for (index_t i = 0; i < d; ++i) {
         result[i] = as::clamp(vec[i], min[i], max[i]);
     }
 
     return result;
 }
 
-template<typename T, index_t n>
-AS_API vec_t<T, n> saturate(const vec_t<T, n>& vec)
+template<typename T, index_t d>
+AS_API vec_t<T, d> saturate(const vec_t<T, d>& vec)
 {
-    vec_t<T, n> result;
-    for (index_t i = 0; i < n; ++i) {
+    vec_t<T, d> result;
+    for (index_t i = 0; i < d; ++i) {
         result[i] = as::clamp(vec[i], T(0.0), T(1.0));
     }
 
     return result;
 }
 
-template<typename T, index_t n>
-AS_API vec_t<T, n> lerp(T t, const vec_t<T, n>& v0, const vec_t<T, n>& v1)
+template<typename T, index_t d>
+AS_API vec_t<T, d> lerp(T t, const vec_t<T, d>& v0, const vec_t<T, d>& v1)
 {
-    vec_t<T, n> result;
-    for (index_t i = 0; i < n; ++i) {
+    vec_t<T, d> result;
+    for (index_t i = 0; i < d; ++i) {
         result[i] = as::lerp(t, v0[i], v1[i]);
     }
 
     return result;
 }
 
-template<typename T, index_t n>
-AS_API constexpr vec_t<T, n> select(
-    const vec_t<T, n>& v0, const vec_t<T, n>& v1, bool select0)
+template<typename T, index_t d>
+AS_API constexpr vec_t<T, d> select(
+    const vec_t<T, d>& v0, const vec_t<T, d>& v1, bool select0)
 {
     return select0 ? v0 : v1;
 }
 
-template<typename T, index_t n>
-AS_API vec_t<T, n> floor(const vec_t<T, n>& vec)
+template<typename T, index_t d>
+AS_API vec_t<T, d> floor(const vec_t<T, d>& vec)
 {
-    vec_t<T, n> result;
-    for (index_t i = 0; i < n; ++i) {
+    vec_t<T, d> result;
+    for (index_t i = 0; i < d; ++i) {
         result[i] = std::floor(vec[i]);
     }
 
     return result;
 }
 
-template<typename T, index_t n>
-AS_API vec_t<T, n> ceil(const vec_t<T, n>& vec)
+template<typename T, index_t d>
+AS_API vec_t<T, d> ceil(const vec_t<T, d>& vec)
 {
-    vec_t<T, n> result;
-    for (index_t i = 0; i < n; ++i) {
+    vec_t<T, d> result;
+    for (index_t i = 0; i < d; ++i) {
         result[i] = std::ceil(vec[i]);
     }
 
     return result;
 }
 
-template<typename T, index_t n>
-AS_API vec_t<T, n> round(const vec_t<T, n>& vec)
+template<typename T, index_t d>
+AS_API vec_t<T, d> round(const vec_t<T, d>& vec)
 {
-    vec_t<T, n> result;
-    for (index_t i = 0; i < n; ++i) {
+    vec_t<T, d> result;
+    for (index_t i = 0; i < d; ++i) {
         result[i] = std::round(vec[i]);
     }
 
     return result;
 }
 
-template<typename T, index_t n>
-AS_API vec_t<T, n> snap(const vec_t<T, n>& vec, const T step)
+template<typename T, index_t d>
+AS_API vec_t<T, d> snap(const vec_t<T, d>& vec, const T step)
 {
-    vec_t<T, n> result;
-    for (index_t i = 0; i < n; ++i) {
+    vec_t<T, d> result;
+    for (index_t i = 0; i < d; ++i) {
         result[i] = as::snap(vec[i], step);
     }
 
