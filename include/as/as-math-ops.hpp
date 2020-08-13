@@ -17,81 +17,81 @@ namespace as
 namespace vec
 {
 
-template<typename T, index_t n>
-constexpr index_t size(const vec_t<T, n>& vec);
+template<typename T, index_t d>
+constexpr index_t size(const vec_t<T, d>& vec);
 
-template<typename T, index_t n>
-vec_t<T, n> from_arr(const T (&data)[n]);
+template<typename T, index_t d>
+vec_t<T, d> from_arr(const T (&data)[d]);
 
-template<typename T, index_t n>
-vec_t<T, n> from_ptr(const T* data);
+template<typename T, index_t d>
+vec_t<T, d> from_ptr(const T* data);
 
-template<typename T, index_t n>
-void to_arr(const vec_t<T, n>& vec, T (&data)[n]);
+template<typename T, index_t d>
+void to_arr(const vec_t<T, d>& vec, T (&data)[d]);
 
-template<typename T, index_t n>
-constexpr T dot(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
+template<typename T, index_t d>
+constexpr T dot(const vec_t<T, d>& lhs, const vec_t<T, d>& rhs);
 
 template<>
 constexpr real_t dot(const vec3_t& lhs, const vec3_t& rhs);
 
-template<typename T, index_t n>
-constexpr T length_sq(const vec_t<T, n>& vec);
+template<typename T, index_t d>
+constexpr T length_sq(const vec_t<T, d>& vec);
 
-template<typename T, index_t n>
-T length(const vec_t<T, n>& vec);
+template<typename T, index_t d>
+T length(const vec_t<T, d>& vec);
 
-template<typename T, index_t n>
-vec_t<T, n> normalize(const vec_t<T, n>& vec);
+template<typename T, index_t d>
+vec_t<T, d> normalize(const vec_t<T, d>& vec);
 
-template<typename T, index_t n>
-std::tuple<vec_t<T, n>, T> normalize_with_length(const vec_t<T, n>& vec);
+template<typename T, index_t d>
+std::tuple<vec_t<T, d>, T> normalize_with_length(const vec_t<T, d>& vec);
 
-template<typename T, index_t n>
+template<typename T, index_t d>
 bool equal(
-    const vec_t<T, n>& lhs, const vec_t<T, n>& rhs,
+    const vec_t<T, d>& lhs, const vec_t<T, d>& rhs,
     real_t epsilon = std::numeric_limits<real_t>::epsilon());
 
-template<typename T, index_t n>
-vec_t<T, n> min(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
+template<typename T, index_t d>
+vec_t<T, d> min(const vec_t<T, d>& lhs, const vec_t<T, d>& rhs);
 
-template<typename T, index_t n>
-constexpr T min_elem(const vec_t<T, n>& vec);
+template<typename T, index_t d>
+constexpr T min_elem(const vec_t<T, d>& vec);
 
-template<typename T, index_t n>
-vec_t<T, n> max(const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
+template<typename T, index_t d>
+vec_t<T, d> max(const vec_t<T, d>& lhs, const vec_t<T, d>& rhs);
 
-template<typename T, index_t n>
-constexpr T max_elem(const vec_t<T, n>& vec);
+template<typename T, index_t d>
+constexpr T max_elem(const vec_t<T, d>& vec);
 
-template<typename T, index_t n>
-vec_t<T, n> abs(const vec_t<T, n>& vec);
+template<typename T, index_t d>
+vec_t<T, d> abs(const vec_t<T, d>& vec);
 
-template<typename T, index_t n>
-vec_t<T, n> clamp(
-    const vec_t<T, n>& vec, const vec_t<T, n>& min, const vec_t<T, n>& max);
+template<typename T, index_t d>
+vec_t<T, d> clamp(
+    const vec_t<T, d>& vec, const vec_t<T, d>& min, const vec_t<T, d>& max);
 
-template<typename T, index_t n>
-vec_t<T, n> saturate(const vec_t<T, n>& vec);
+template<typename T, index_t d>
+vec_t<T, d> saturate(const vec_t<T, d>& vec);
 
-template<typename T, index_t n>
-vec_t<T, n> lerp(T t, const vec_t<T, n>& v0, const vec_t<T, n>& v1);
+template<typename T, index_t d>
+vec_t<T, d> lerp(T t, const vec_t<T, d>& v0, const vec_t<T, d>& v1);
 
-template<typename T, index_t n>
-constexpr vec_t<T, n> select(
-    const vec_t<T, n>& v0, const vec_t<T, n>& v1, bool select0);
+template<typename T, index_t d>
+constexpr vec_t<T, d> select(
+    const vec_t<T, d>& v0, const vec_t<T, d>& v1, bool select0);
 
-template<typename T, index_t n>
-vec_t<T, n> floor(const vec_t<T, n>& vec);
+template<typename T, index_t d>
+vec_t<T, d> floor(const vec_t<T, d>& vec);
 
-template<typename T, index_t n>
-vec_t<T, n> ceil(const vec_t<T, n>& vec);
+template<typename T, index_t d>
+vec_t<T, d> ceil(const vec_t<T, d>& vec);
 
-template<typename T, index_t n>
-vec_t<T, n> round(const vec_t<T, n>& vec);
+template<typename T, index_t d>
+vec_t<T, d> round(const vec_t<T, d>& vec);
 
-template<typename T, index_t n>
-vec_t<T, n> snap(const vec_t<T, n>& vec, T step);
+template<typename T, index_t d>
+vec_t<T, d> snap(const vec_t<T, d>& vec, T step);
 
 } // namespace vec
 

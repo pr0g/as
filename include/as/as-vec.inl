@@ -1,26 +1,26 @@
 namespace as
 {
 
-template<typename T, index_t n>
-AS_API constexpr index_t vec_t<T, n>::size()
+template<typename T, index_t d>
+AS_API constexpr index_t vec_t<T, d>::size()
 {
-    return n;
+    return d;
 }
 
-template<typename T, index_t n>
-AS_API constexpr T& vec_t<T, n>::operator[](const index_t i) &
-{
-    return elem[i];
-}
-
-template<typename T, index_t n>
-AS_API constexpr const T& vec_t<T, n>::operator[](const index_t i) const&
+template<typename T, index_t d>
+AS_API constexpr T& vec_t<T, d>::operator[](const index_t i) &
 {
     return elem[i];
 }
 
-template<typename T, index_t n>
-AS_API constexpr T vec_t<T, n>::operator[](const index_t i) &&
+template<typename T, index_t d>
+AS_API constexpr const T& vec_t<T, d>::operator[](const index_t i) const&
+{
+    return elem[i];
+}
+
+template<typename T, index_t d>
+AS_API constexpr const T vec_t<T, d>::operator[](const index_t i) &&
 {
     return elem[i];
 }
@@ -283,11 +283,11 @@ AS_API constexpr vec_t<T, 4> vec_t<T, 4>::min()
     return vec_t<T, 4>{std::numeric_limits<T>::lowest()};
 }
 
-template<typename T, index_t n>
-AS_API constexpr const vec_t<T, n> operator+(
-    const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
+template<typename T, index_t d>
+AS_API constexpr const vec_t<T, d> operator+(
+    const vec_t<T, d>& lhs, const vec_t<T, d>& rhs)
 {
-    vec_t<T, n> result{lhs};
+    vec_t<T, d> result{lhs};
     result += rhs;
     return result;
 }
@@ -298,11 +298,11 @@ AS_API constexpr const vec3_t operator+(const vec3_t& lhs, const vec3_t& rhs)
     return {lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z};
 }
 
-template<typename T, index_t n>
-AS_API constexpr vec_t<T, n>& operator+=(
-    vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
+template<typename T, index_t d>
+AS_API constexpr vec_t<T, d>& operator+=(
+    vec_t<T, d>& lhs, const vec_t<T, d>& rhs)
 {
-    for (index_t i = 0; i < n; ++i) {
+    for (index_t i = 0; i < d; ++i) {
         lhs[i] += rhs[i];
     }
 
@@ -318,11 +318,11 @@ AS_API constexpr vec3_t& operator+=(vec3_t& lhs, const vec3_t& rhs)
     return lhs;
 }
 
-template<typename T, index_t n>
-AS_API constexpr const vec_t<T, n> operator-(
-    const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
+template<typename T, index_t d>
+AS_API constexpr const vec_t<T, d> operator-(
+    const vec_t<T, d>& lhs, const vec_t<T, d>& rhs)
 {
-    vec_t<T, n> result{lhs};
+    vec_t<T, d> result{lhs};
     result -= rhs;
     return result;
 }
@@ -333,11 +333,11 @@ AS_API constexpr const vec3_t operator-(const vec3_t& lhs, const vec3_t& rhs)
     return {lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z};
 }
 
-template<typename T, index_t n>
-AS_API constexpr vec_t<T, n>& operator-=(
-    vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
+template<typename T, index_t d>
+AS_API constexpr vec_t<T, d>& operator-=(
+    vec_t<T, d>& lhs, const vec_t<T, d>& rhs)
 {
-    for (index_t i = 0; i < n; ++i) {
+    for (index_t i = 0; i < d; ++i) {
         lhs[i] -= rhs[i];
     }
 
@@ -353,11 +353,11 @@ AS_API constexpr vec3_t& operator-=(vec3_t& lhs, const vec3_t& rhs)
     return lhs;
 }
 
-template<typename T, index_t n>
-AS_API const vec_t<T, n> operator-(const vec_t<T, n>& rhs)
+template<typename T, index_t d>
+AS_API const vec_t<T, d> operator-(const vec_t<T, d>& rhs)
 {
-    vec_t<T, n> result;
-    for (index_t i = 0; i < n; ++i) {
+    vec_t<T, d> result;
+    for (index_t i = 0; i < d; ++i) {
         result[i] = -rhs[i];
     }
 
@@ -370,11 +370,11 @@ AS_API constexpr const vec3_t operator-(const vec3_t& rhs)
     return {-rhs.x, -rhs.y, -rhs.z};
 }
 
-template<typename T, index_t n>
-AS_API constexpr const vec_t<T, n> operator*(
-    const vec_t<T, n>& lhs, const T val)
+template<typename T, index_t d>
+AS_API constexpr const vec_t<T, d> operator*(
+    const vec_t<T, d>& lhs, const T val)
 {
-    vec_t<T, n> result{lhs};
+    vec_t<T, d> result{lhs};
     result *= val;
     return result;
 }
@@ -385,8 +385,8 @@ AS_API constexpr const vec3_t operator*(const vec3_t& lhs, const real_t val)
     return {lhs.x * val, lhs.y * val, lhs.z * val};
 }
 
-template<typename T, index_t n>
-AS_API constexpr const vec_t<T, n> operator*(T val, const vec_t<T, n>& rhs)
+template<typename T, index_t d>
+AS_API constexpr const vec_t<T, d> operator*(T val, const vec_t<T, d>& rhs)
 {
     return rhs * val;
 }
@@ -397,10 +397,10 @@ AS_API constexpr const vec3_t operator*(const real_t val, const vec3_t& rhs)
     return rhs * val;
 }
 
-template<typename T, index_t n>
-AS_API constexpr vec_t<T, n>& operator*=(vec_t<T, n>& lhs, const T val)
+template<typename T, index_t d>
+AS_API constexpr vec_t<T, d>& operator*=(vec_t<T, d>& lhs, const T val)
 {
-    for (index_t i = 0; i < n; ++i) {
+    for (index_t i = 0; i < d; ++i) {
         lhs[i] *= val;
     }
 
@@ -416,11 +416,11 @@ AS_API constexpr vec3_t& operator*=(vec3_t& lhs, const real_t val)
     return lhs;
 }
 
-template<typename T, index_t n>
-AS_API constexpr const vec_t<T, n> operator*(
-    const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
+template<typename T, index_t d>
+AS_API constexpr const vec_t<T, d> operator*(
+    const vec_t<T, d>& lhs, const vec_t<T, d>& rhs)
 {
-    vec_t<T, n> result{lhs};
+    vec_t<T, d> result{lhs};
     result *= rhs;
     return result;
 }
@@ -431,11 +431,11 @@ AS_API constexpr const vec3_t operator*(const vec3_t& lhs, const vec3_t& rhs)
     return {lhs.x * rhs.x, lhs.y * rhs.y, lhs.z * rhs.z};
 }
 
-template<typename T, index_t n>
-AS_API constexpr vec_t<T, n>& operator*=(
-    vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
+template<typename T, index_t d>
+AS_API constexpr vec_t<T, d>& operator*=(
+    vec_t<T, d>& lhs, const vec_t<T, d>& rhs)
 {
-    for (index_t i = 0; i < n; ++i) {
+    for (index_t i = 0; i < d; ++i) {
         lhs[i] *= rhs[i];
     }
 
@@ -451,11 +451,11 @@ AS_API constexpr vec3_t& operator*=(vec3_t& lhs, const vec3_t& rhs)
     return lhs;
 }
 
-template<typename T, index_t n>
-AS_API constexpr const vec_t<T, n> operator/(
-    const vec_t<T, n>& lhs, const T val)
+template<typename T, index_t d>
+AS_API constexpr const vec_t<T, d> operator/(
+    const vec_t<T, d>& lhs, const T val)
 {
-    vec_t<T, n> result{lhs};
+    vec_t<T, d> result{lhs};
     result /= val;
     return result;
 }
@@ -467,11 +467,11 @@ AS_API constexpr const vec3_t operator/(const vec3_t& lhs, const real_t val)
     return {lhs.x * val_recip, lhs.y * val_recip, lhs.z * val_recip};
 }
 
-template<typename T, index_t n>
-AS_API constexpr vec_t<T, n>& operator/=(vec_t<T, n>& lhs, const T val)
+template<typename T, index_t d>
+AS_API constexpr vec_t<T, d>& operator/=(vec_t<T, d>& lhs, const T val)
 {
     const T val_recip = T(1.0) / val;
-    for (index_t i = 0; i < n; ++i) {
+    for (index_t i = 0; i < d; ++i) {
         lhs[i] *= val_recip;
     }
 
@@ -488,11 +488,11 @@ AS_API constexpr vec3_t& operator/=(vec3_t& lhs, const real_t val)
     return lhs;
 }
 
-template<typename T, index_t n>
-AS_API constexpr const vec_t<T, n> operator/(
-    const vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
+template<typename T, index_t d>
+AS_API constexpr const vec_t<T, d> operator/(
+    const vec_t<T, d>& lhs, const vec_t<T, d>& rhs)
 {
-    vec_t<T, n> result{lhs};
+    vec_t<T, d> result{lhs};
     result /= rhs;
     return result;
 }
@@ -503,11 +503,11 @@ AS_API constexpr const vec3_t operator/(const vec3_t& lhs, const vec3_t& rhs)
     return {lhs.x / rhs.x, lhs.y / rhs.y, lhs.z / rhs.z};
 }
 
-template<typename T, index_t n>
-AS_API constexpr vec_t<T, n>& operator/=(
-    vec_t<T, n>& lhs, const vec_t<T, n>& rhs)
+template<typename T, index_t d>
+AS_API constexpr vec_t<T, d>& operator/=(
+    vec_t<T, d>& lhs, const vec_t<T, d>& rhs)
 {
-    for (index_t i = 0; i < n; ++i) {
+    for (index_t i = 0; i < d; ++i) {
         lhs[i] /= rhs[i];
     }
 
