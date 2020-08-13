@@ -293,18 +293,17 @@ template<typename T, index_t n>
 constexpr const vec_t<T, n> operator+(
     const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
-//! Returns the sum of two vectors.
-//! \note Template specialization of vector sum for three dimensional vector.
+//! Returns the sum of two vector threes.
+//! \note Template specialization.
 template<>
 constexpr const vec3_t operator+(const vec3_t& lhs, const vec3_t& rhs);
 
-//! Performs addition assignment of two vector.
+//! Performs addition assignment of two vectors.
 template<typename T, index_t n>
 constexpr vec_t<T, n>& operator+=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
-//! Performs addition assignment of two vector.
-//! \note Template specialization of vector addition assignment for three
-//! dimensional vector.
+//! Performs addition assignment of two vector threes.
+//! \note Template specialization.
 template<>
 constexpr vec3_t& operator+=(vec3_t& lhs, const vec3_t& rhs);
 
@@ -314,10 +313,9 @@ template<typename T, index_t n>
 constexpr const vec_t<T, n> operator-(
     const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
-//! Returns the result of the right hand vector subtracted from the left hand
-//! vector.
-//! \note Template specialization of vector substraction for three dimensional
-//! vector.
+//! Returns the result of the right hand vector three subtracted from the left
+//! hand vector three.
+//! \note Template specialization.
 template<>
 constexpr const vec3_t operator-(const vec3_t& lhs, const vec3_t& rhs);
 
@@ -325,9 +323,8 @@ constexpr const vec3_t operator-(const vec3_t& lhs, const vec3_t& rhs);
 template<typename T, index_t n>
 constexpr vec_t<T, n>& operator-=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
-//! Performs substraction assignment of two vectors.
-//! \note Template specialization of vector substraction assignment for three
-//! dimensional vectors.
+//! Performs substraction assignment of two vector threes.
+//! \note Template specialization.
 template<>
 constexpr vec3_t& operator-=(vec3_t& lhs, const vec3_t& rhs);
 
@@ -335,65 +332,101 @@ constexpr vec3_t& operator-=(vec3_t& lhs, const vec3_t& rhs);
 template<typename T, index_t n>
 const vec_t<T, n> operator-(const vec_t<T, n>& rhs);
 
-//! Returns the negation of a vector.
-//! \note Template specialization of vector negation for a three dimensional
-//! vector.
+//! Returns the negation of a vector three.
+//! \note Template specialization.
 template<>
 constexpr const vec3_t operator-(const vec3_t& rhs);
 
+//! Returns a vector multiplied by a scalar quantity.
 template<typename T, index_t n>
 constexpr const vec_t<T, n> operator*(const vec_t<T, n>& lhs, T val);
 
+//! Returns a vector three multiplied by a scalar quantity.
+//! \note Template specialization.
 template<>
 constexpr const vec3_t operator*(const vec3_t& lhs, real_t val);
 
+//! Returns a vector multiplied by a scalar quantity.
+//! \note operator* overload with arguments switched.
 template<typename T, index_t n>
 constexpr const vec_t<T, n> operator*(T val, const vec_t<T, n>& rhs);
 
+//! Returns a vector three multiplied by a scalar quantity.
+//! \note operator* overload with arguments switched.
+//! \note Template specialization.
 template<>
 constexpr const vec3_t operator*(real_t val, const vec3_t& rhs);
 
+//! Performs a multiplication assignment of a vector and a scalar quantity.
 template<typename T, index_t n>
 constexpr vec_t<T, n>& operator*=(vec_t<T, n>& lhs, T val);
 
+//! Performs a multiplication assignment of a vector three and a scalar quantity.
+//! \note Template specialization.
 template<>
 constexpr vec3_t& operator*=(vec3_t& lhs, real_t val);
 
+//! Returns a vector multiplied by another vector.
+//! \note Elements are multiplied componentwise.
 template<typename T, index_t n>
 constexpr const vec_t<T, n> operator*(
     const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
+//! Returns a vector three multiplied by another vector three.
+//! \note Elements are multiplied componentwise.
+//! \note Template specialization.
 template<>
 constexpr const vec3_t operator*(const vec3_t& lhs, const vec3_t& rhs);
 
+//! Performs a multiplication assignment of two vectors.
+//! \note Elements are multiplied componentwise.
 template<typename T, index_t n>
 constexpr vec_t<T, n>& operator*=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
+//! Performs a multiplication assignment of two vector threes.
+//! \note Elements are multiplied componentwise.
+//! \note Template specialization.
 template<>
 constexpr vec3_t& operator*=(vec3_t& lhs, const vec3_t& rhs);
 
+//! Returns a vector divided by a scalar quantity.
+//! \note Elements are divided componentwise.
 template<typename T, index_t n>
 constexpr const vec_t<T, n> operator/(const vec_t<T, n>& lhs, T val);
 
+//! Returns a vector three divided by a scalar quantity.
+//! \note Elements are divided componentwise.
+//! \note Template specialization.
 template<>
 constexpr const vec3_t operator/(const vec3_t& lhs, real_t val);
 
+//! Performs a division assignment of two vectors.
 template<typename T, index_t n>
 constexpr vec_t<T, n>& operator/=(vec_t<T, n>& lhs, T val);
 
+//! Performs a division assignment of two vector threes.
+//! \note Template specialization.
 template<>
 constexpr vec3_t& operator/=(vec3_t& lhs, real_t val);
 
+//! Returns a vector divided by another vector.
+//! \note Elements are divided componentwise.
 template<typename T, index_t n>
 constexpr const vec_t<T, n> operator/(
     const vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
+//! Returns a vector three divided by another vector three.
+//! \note Elements are divided componentwise.
+//! \note Template specialization.
 template<>
 constexpr const vec3_t operator/(const vec3_t& lhs, const vec3_t& rhs);
 
+//! Performs a division assignment of two vectors.
 template<typename T, index_t n>
 constexpr vec_t<T, n>& operator/=(vec_t<T, n>& lhs, const vec_t<T, n>& rhs);
 
+//! Performs a division assignment of two vector threes.
+//! \note Template specialization.
 template<>
 constexpr vec3_t& operator/=(vec3_t& lhs, const vec3_t& rhs);
 
