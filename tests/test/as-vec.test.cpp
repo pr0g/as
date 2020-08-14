@@ -1169,8 +1169,14 @@ TEST_CASE("axes_vec2", "[as_vec]")
     constexpr real_t max_val_vec[] = {max_val, max_val};
     CHECK_THAT(make_span(max_val_vec), make_elements_sub(vec2_t::max(), 2));
 
-    constexpr real_t min_val_vec[] = {-max_val, -max_val};
+    constexpr real_t min_val = std::numeric_limits<real_t>::min();
+    constexpr real_t min_val_vec[] = {min_val, min_val};
     CHECK_THAT(make_span(min_val_vec), make_elements_sub(vec2_t::min(), 2));
+
+    constexpr real_t lowest_val = std::numeric_limits<real_t>::lowest();
+    constexpr real_t lowest_val_vec[] = {lowest_val, lowest_val};
+    CHECK_THAT(
+        make_span(lowest_val_vec), make_elements_sub(vec2_t::lowest(), 2));
 }
 
 TEST_CASE("axes_vec3", "[as_vec]")
@@ -1196,8 +1202,14 @@ TEST_CASE("axes_vec3", "[as_vec]")
     constexpr real_t max_val_vec[] = {max_val, max_val, max_val};
     CHECK_THAT(make_span(max_val_vec), make_elements_sub(vec3_t::max(), 3));
 
-    constexpr real_t min_val_vec[] = {-max_val, -max_val, -max_val};
+    constexpr real_t min_val = std::numeric_limits<real_t>::min();
+    constexpr real_t min_val_vec[] = {min_val, min_val, min_val};
     CHECK_THAT(make_span(min_val_vec), make_elements_sub(vec3_t::min(), 3));
+
+    constexpr real_t lowest_val = std::numeric_limits<real_t>::lowest();
+    constexpr real_t lowest_val_vec[] = {lowest_val, lowest_val, lowest_val};
+    CHECK_THAT(
+        make_span(lowest_val_vec), make_elements_sub(vec3_t::lowest(), 3));
 }
 
 TEST_CASE("axes_vec4", "[as_vec]")
@@ -1226,8 +1238,15 @@ TEST_CASE("axes_vec4", "[as_vec]")
     constexpr real_t max_val_vec[] = {max_val, max_val, max_val, max_val};
     CHECK_THAT(make_span(max_val_vec), make_elements_sub(vec4_t::max(), 4));
 
-    constexpr real_t min_val_vec[] = {-max_val, -max_val, -max_val, -max_val};
+    constexpr real_t min_val = std::numeric_limits<real_t>::min();
+    constexpr real_t min_val_vec[] = {min_val, min_val, min_val, min_val};
     CHECK_THAT(make_span(min_val_vec), make_elements_sub(vec4_t::min(), 4));
+
+    constexpr real_t lowest_val = std::numeric_limits<real_t>::lowest();
+    constexpr real_t lowest_val_vec[] =
+        {lowest_val, lowest_val, lowest_val, lowest_val};
+    CHECK_THAT(
+        make_span(lowest_val_vec), make_elements_sub(vec4_t::lowest(), 4));
 }
 
 TEST_CASE("cross", "[as_vec]")

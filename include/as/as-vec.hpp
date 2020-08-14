@@ -105,13 +105,14 @@ struct vec_t<T, 2>
     //! All elements are initialized to the largest representable value of the
     //! type T.
     constexpr static vec_t<T, 2> max();
+    //! Returns `(<T>::min, <T>::min)`.
+    //! All elements are initialized to the smallest representable value of the
+    //! type T.
+    constexpr static vec_t<T, 2> min();
     //! Returns `(<T>::lowest, <T>::lowest)`.
     //! All elements are initialized to the lowest representable value of the
     //! type T.
-    //! \note This is equivalent to `std::numeric_limits<T>::lowest()`,
-    //! _not_ `std::numeric_limits<T>::min()`. `std::numeric_limits<T>::min()`
-    //! is the smallest representable value of type T.
-    constexpr static vec_t<T, 2> min();
+    constexpr static vec_t<T, 2> lowest();
 
     T x; //!< Synonymous with `operator[](0)` value.
     T y; //!< Synonymous with `operator[](1)` value.
@@ -180,9 +181,17 @@ struct vec_t<T, 3>
     //! Returns `(1, 1, 1)`.
     constexpr static vec_t<T, 3> one();
     //! Returns `(<T>::max, <T>::max, <T>::max)`.
+    //! All elements are initialized to the largest representable value of the
+    //! type T.
     constexpr static vec_t<T, 3> max();
-    //! Returns `(<T>::lowest, <T>::lowest, <T>::lowest)`.
+    //! Returns `(<T>::min, <T>::min)`.
+    //! All elements are initialized to the smallest representable value of the
+    //! type T.
     constexpr static vec_t<T, 3> min();
+    //! Returns `(<T>::lowest, <T>::lowest)`.
+    //! All elements are initialized to the lowest representable value of the
+    //! type T.
+    constexpr static vec_t<T, 3> lowest();
 
     T x; //!< Synonymous with `operator[](0)` value.
     T y; //!< Synonymous with `operator[](1)` value.
@@ -260,9 +269,17 @@ struct vec_t<T, 4>
     //! Returns `(1, 1, 1, 1)`.
     constexpr static vec_t<T, 4> one();
     //! Returns `(<T>::max, <T>::max, <T>::max, <T>::max)`.
+    //! All elements are initialized to the largest representable value of the
+    //! type T.
     constexpr static vec_t<T, 4> max();
-    //! Returns `(<T>::lowest, <T>::lowest, <T>::lowest, <T>::lowest)`.
+    //! Returns `(<T>::min, <T>::min)`.
+    //! All elements are initialized to the smallest representable value of the
+    //! type T.
     constexpr static vec_t<T, 4> min();
+    //! Returns `(<T>::lowest, <T>::lowest)`.
+    //! All elements are initialized to the lowest representable value of the
+    //! type T.
+    constexpr static vec_t<T, 4> lowest();
 
     T x; //!< Synonymous with `operator[](0)` value.
     T y; //!< Synonymous with `operator[](1)` value.
