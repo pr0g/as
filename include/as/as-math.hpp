@@ -16,6 +16,9 @@ template<typename T>
 constexpr T smooth_step(T t, T v0, T v1);
 
 template<typename T>
+constexpr T smoother_step(T t, T v0, T v1);
+
+template<typename T>
 constexpr T max(T v0, T v1);
 
 template<typename T>

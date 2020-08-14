@@ -10,7 +10,14 @@ AS_API constexpr T lerp(const T t, const T v0, const T v1)
 template<typename T>
 AS_API constexpr T smooth_step(const T t, const T v0, const T v1)
 {
-    T val = (t * t) * (T(3) - T(2) * t);
+    const T val = t * t * (T(3) - T(2) * t);
+    return lerp(val, v0, v1);
+}
+
+template<typename T>
+AS_API constexpr T smoother_step(const T t, const T v0, const T v1)
+{
+    const T val = t * t * t * (t * (t * T(6) - T(15)) + T(10));
     return lerp(val, v0, v1);
 }
 

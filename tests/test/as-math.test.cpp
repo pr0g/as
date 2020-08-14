@@ -15,6 +15,7 @@ using as::max;
 using as::min;
 using as::rad_to_deg;
 using as::smooth_step;
+using as::smoother_step;
 using as::operator""_r;
 
 const real_t g_epsilon = real_t(std::numeric_limits<float>::epsilon());
@@ -63,7 +64,7 @@ TEST_CASE("min", "[as_math]")
     }
 }
 
-TEST_CASE("smoothstep", "[as_math]")
+TEST_CASE("smooth_step", "[as_math]")
 {
     constexpr real_t real_epsilon = 1e-3_r;
 
@@ -78,6 +79,31 @@ TEST_CASE("smoothstep", "[as_math]")
     real_t three_quarter_value;
     three_quarter_value = smooth_step(0.75_r, 0.0_r, 1.0_r);
     CHECK(three_quarter_value == Approx(0.84375_r).epsilon(real_epsilon));
+}
+
+TEST_CASE("smoother_step", "[as_math]")
+{
+    constexpr real_t real_epsilon = 1e-3_r;
+
+    real_t ten_percent_value;
+    ten_percent_value = smoother_step(0.1_r, 0.0_r, 1.0_r);
+    CHECK(ten_percent_value == Approx(0.00856_r).epsilon(real_epsilon));
+
+    real_t quarter_value;
+    quarter_value = smoother_step(0.25_r, 0.0_r, 1.0_r);
+    CHECK(quarter_value == Approx(0.10351_r).epsilon(real_epsilon));
+
+    real_t mid_value;
+    mid_value = smoother_step(0.5_r, 0.0_r, 1.0_r);
+    CHECK(mid_value == Approx(0.5_r).epsilon(real_epsilon));
+
+    real_t three_quarter_value;
+    three_quarter_value = smoother_step(0.75_r, 0.0_r, 1.0_r);
+    CHECK(three_quarter_value == Approx(0.89648_r).epsilon(real_epsilon));
+
+    real_t ninety_percent_value;
+    ninety_percent_value = smoother_step(0.9_r, 0.0_r, 1.0_r);
+    CHECK(ninety_percent_value == Approx(0.99144_r).epsilon(real_epsilon));
 }
 
 TEST_CASE("degrees_to_radians", "[as_math]")
@@ -139,3 +165,5 @@ TEST_CASE("snap", "[as_math]")
 
 // explicit instantiations (for coverage)
 template as::real_t as::smooth_step(as::real_t t, as::real_t v0, as::real_t v1);
+template as::real_t as::smoother_step(
+    as::real_t t, as::real_t v0, as::real_t v1);

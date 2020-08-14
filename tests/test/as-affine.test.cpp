@@ -156,7 +156,7 @@ TEST_CASE("affine_from_arr", "[as_affine]")
 {
     using gsl::make_span;
 
-    real_t affine_arr[] = {1.0_r, 2.0_r, 3.0_r, 4.0_r, 5.0_r, 6.0_r,
+    real_t affine_arr[] = {1.0_r, 2.0_r, 3.0_r, 4.0_r,  5.0_r,  6.0_r,
                            7.0_r, 8.0_r, 9.0_r, 10.0_r, 20.0_r, 30.0_r};
 
     affine_t affine;
