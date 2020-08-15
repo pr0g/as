@@ -1,3 +1,6 @@
+//! \file
+//! as-mat4
+
 #pragma once
 
 #include "as-types.hpp"

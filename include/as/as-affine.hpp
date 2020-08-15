@@ -1,10 +1,10 @@
+//! \file
+//! as-affine
+
 #pragma once
 
 #include "as-mat3.hpp"
 #include "as-point.hpp"
-
-//! \file
-//! as-affine
 
 namespace as
 {

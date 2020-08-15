@@ -1,3 +1,6 @@
+//! \file
+//! as-quat
+
 #pragma once
 
 #include "as-vec.hpp"

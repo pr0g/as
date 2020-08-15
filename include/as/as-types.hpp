@@ -1,3 +1,6 @@
+//! \file
+//! as-types
+
 #pragma once
 
 #include <cfloat>

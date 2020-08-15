@@ -1,3 +1,6 @@
+//! \file
+//! as-mat
+
 #pragma once
 
 #include <algorithm>

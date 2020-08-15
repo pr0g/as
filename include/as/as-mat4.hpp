@@ -1,3 +1,6 @@
+//! \file
+//! as-mat3
+
 #pragma once
 
 #include "as-mat.hpp"

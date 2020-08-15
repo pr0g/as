@@ -1,3 +1,6 @@
+//! \file
+//! as-point
+
 #pragma once
 
 #include "as-math.hpp"

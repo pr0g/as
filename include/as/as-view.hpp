@@ -1,3 +1,6 @@
+//! \file
+//! as-view
+
 #pragma once
 
 #include "as-mat4.hpp"

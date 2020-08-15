@@ -1,3 +1,6 @@
+//! \file
+//! as-vec
+
 #pragma once
 
 #include <limits>
@@ -5,9 +8,6 @@
 #include <utility>
 
 #include "as-types.hpp"
-
-//! \file
-//! as-vec
 
 namespace as
 {

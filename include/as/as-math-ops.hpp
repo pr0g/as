@@ -1,3 +1,6 @@
+//! \file
+//! as-math-ops
+
 #pragma once
 
 #include <iterator>
