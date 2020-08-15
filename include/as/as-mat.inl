@@ -98,9 +98,9 @@ AS_API const mat_t<T, d> operator*(
 
 template<typename T, index_t d>
 #ifdef AS_ROW_MAJOR
-AS_API const vec_t<T, d> operator*(const vec_t<T, d>& v, const mat_t<T, d>& mat)
+AS_API const vec_t<T, d> operator*(const vec_t<T, d>& vec, const mat_t<T, d>& mat)
 #elif defined AS_COL_MAJOR
-AS_API const vec_t<T, d> operator*(const mat_t<T, d>& mat, const vec_t<T, d>& v)
+AS_API const vec_t<T, d> operator*(const mat_t<T, d>& mat, const vec_t<T, d>& vec)
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 {
     vec_t<T, d> result;
@@ -108,7 +108,7 @@ AS_API const vec_t<T, d> operator*(const mat_t<T, d>& mat, const vec_t<T, d>& v)
         T value{0};
 
         for (index_t step = 0; step < d; ++step) {
-            value += v[step] * mat[i + step * d];
+            value += vec[step] * mat[i + step * d];
         }
 
         result[i] = value;

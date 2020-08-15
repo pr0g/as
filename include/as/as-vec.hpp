@@ -12,7 +12,7 @@
 namespace as
 {
 
-//! Geometric vector class template parameterized by type and dimension.
+//! A geometric vector class template parameterized by type and dimension.
 template<typename T, index_t d>
 struct vec_t
 {
@@ -58,7 +58,7 @@ struct vec_t
     constexpr static index_t size();
 
 private:
-    T elem[size()];
+    T elem[size()]; //!< Elements of the vector.
 };
 
 //! Partial template specialization of \ref vec_t for a two dimensional vector.

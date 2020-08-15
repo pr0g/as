@@ -13,7 +13,7 @@ namespace as
 //! A geometric transformation that preserves lines and parrellism.
 struct affine_t
 {
-    affine_t() = default;
+    affine_t() noexcept = default;
 
     //! Constructs affine_t with `(mat3_t::identity(), translation_)`
     constexpr explicit affine_t(const vec3_t& translation_);

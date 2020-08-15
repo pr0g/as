@@ -13,7 +13,8 @@ struct point2_t
 {
     using value_type = real_t;
 
-    point2_t() = default;
+    point2_t() noexcept = default;
+
     constexpr explicit point2_t(real_t xy_);
     constexpr explicit point2_t(const vec2_t& v_);
     constexpr point2_t(real_t x_, real_t y_);
@@ -49,7 +50,7 @@ struct point3_t
 {
     using value_type = real_t;
 
-    point3_t() = default;
+    point3_t() noexcept = default;
 
     constexpr explicit point3_t(real_t xyz_);
     constexpr explicit point3_t(const vec3_t& v_);
