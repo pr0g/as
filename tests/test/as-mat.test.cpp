@@ -1390,11 +1390,11 @@ TEST_CASE("mat4_from_affine", "[as_mat]")
     using gsl::make_span;
 
     {
-        affine_t affine{
-            as::mat3_t{
+        affine_t affine(
+            as::mat3_t(
                 2.0_r, 4.0_r, 6.0_r, 8.0_r, 10.0_r, 12.0_r, 14.0_r, 16.0_r,
-                18.0_r},
-            as::point3_t{1.0_r, 2.0_r, 3.0_r}};
+                18.0_r),
+            as::vec3_t(1.0_r, 2.0_r, 3.0_r));
 
         as::mat4_t mat4;
         mat4 = mat4::from_affine(affine);
