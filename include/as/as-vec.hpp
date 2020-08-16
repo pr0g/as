@@ -146,7 +146,7 @@ struct vec_t<T, 3>
 
     //! Constructs vec_t with `(xyz_, xyz_, xyz_)`.
     constexpr explicit vec_t(T xyz_);
-    //! Constructs vec_t with `((x_, y_), z_)`.
+    //! Constructs vec_t with `(xy_.x, xy_.y, z_)`.
     constexpr vec_t(const vec_t<T, 2>& xy_, T z_);
     //! Constructs vec_t with `(x_, y_, z_)`.
     constexpr vec_t(T x_, T y_, T z_);
@@ -227,11 +227,11 @@ struct vec_t<T, 4>
 
     //! Constructs vec_t with `(xyzw_, xyzw_, xyzw_, xyzw_)`.
     constexpr explicit vec_t(T xyzw_);
-    //! Constructs vec_t with `((x_, y_, z_), w_)`.
+    //! Constructs vec_t with `(xyz_.x, xyz_.y, xyz_.z, w_)`.
     constexpr vec_t(const vec_t<T, 3>& xyz_, T w_);
-    //! Constructs vec_t with `((x_, y_), z_, w_)`.
+    //! Constructs vec_t with `(xy_.x, xy_.y, z_, w_)`.
     constexpr vec_t(const vec_t<T, 2>& xy_, T z_, T w_);
-    //! Constructs vec_t with `((x_, y_), (z_, w_))`.
+    //! Constructs vec_t with `(xy_.x, xy_.y, zw_.z, zw_.w)`.
     constexpr vec_t(const vec_t<T, 2>& xy_, const vec_t<T, 2>& zw_);
     //! Constructs vec_t with `(x_, y_, z_, w_)`.
     constexpr vec_t(T x_, T y_, T z_, T w_);
