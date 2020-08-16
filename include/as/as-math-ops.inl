@@ -83,7 +83,7 @@ AS_API bool equal(
     real_t epsilon /*= std::numeric_limits<real_t>::epsilon()*/)
 {
     for (index_t i = 0; i < d; ++i) {
-        if (!as::equal(lhs[i], rhs[i], epsilon, epsilon)) {
+        if (!as::almost_equal(lhs[i], rhs[i], epsilon, epsilon)) {
             return false;
         }
     }
@@ -444,7 +444,7 @@ AS_API bool equal(
     const real_t epsilon /* = std::numeric_limits<real_t>::epsilon() */)
 {
     for (index_t i = 0; i < mat_t<T, d>::size(); ++i) {
-        if (!as::equal(lhs[i], rhs[i], epsilon, epsilon)) {
+        if (!as::almost_equal(lhs[i], rhs[i], epsilon, epsilon)) {
             return false;
         }
     }

@@ -2,23 +2,23 @@ namespace as
 {
 
 template<typename T>
-AS_API constexpr T lerp(const T t, const T v0, const T v1)
+AS_API constexpr T lerp(const T t, const T begin, const T end)
 {
-    return (T(1) - t) * v0 + t * v1;
+    return (T(1) - t) * begin + t * end;
 }
 
 template<typename T>
-AS_API constexpr T smooth_step(const T t, const T v0, const T v1)
+AS_API constexpr T smooth_step(const T t, const T begin, const T end)
 {
     const T val = t * t * (T(3) - T(2) * t);
-    return lerp(val, v0, v1);
+    return lerp(val, begin, end);
 }
 
 template<typename T>
-AS_API constexpr T smoother_step(const T t, const T v0, const T v1)
+AS_API constexpr T smoother_step(const T t, const T begin, const T end)
 {
     const T val = t * t * t * (t * (t * T(6) - T(15)) + T(10));
-    return lerp(val, v0, v1);
+    return lerp(val, begin, end);
 }
 
 template<typename T>
@@ -34,9 +34,9 @@ AS_API constexpr T min(const T v0, const T v1)
 }
 
 template<typename T>
-AS_API constexpr T clamp(const T t, const T v0, const T v1)
+AS_API constexpr T clamp(const T in, const T begin, const T end)
 {
-    return t < v0 ? v0 : t > v1 ? v1 : t;
+    return in < begin ? begin : in > end ? end : in;
 }
 
 template<typename T>
@@ -60,8 +60,8 @@ AS_API constexpr real_t rad_to_deg(const real_t radians)
 // floating point comparison by Bruce Dawson
 // ref:
 // https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
-AS_API inline bool equal(
-    real_t a, real_t b,
+AS_API inline bool almost_equal(
+    const real_t a, const real_t b,
     const real_t max_diff /*= std::numeric_limits<real_t>::epsilon()*/,
     const real_t max_rel_diff /*= std::numeric_limits<real_t>::epsilon()*/)
 {
@@ -73,9 +73,7 @@ AS_API inline bool equal(
         return true;
     }
 
-    a = std::abs(a);
-    b = std::abs(b);
-    const real_t largest = b > a ? b : a;
+    const real_t largest = max(std::abs(a), std::abs(b));
 
     // find relative difference
     return diff <= largest * max_rel_diff;
