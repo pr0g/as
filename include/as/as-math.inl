@@ -47,12 +47,14 @@ AS_API constexpr T snap(const T in, const T step)
 
 AS_API constexpr real_t deg_to_rad(const real_t degrees)
 {
-    return degrees * DEG_TO_RAD;
+    constexpr real_t kDegToRad = kPi / 180.0_r;
+    return degrees * kDegToRad;
 }
 
 AS_API constexpr real_t rad_to_deg(const real_t radians)
 {
-    return radians * RAD_TO_DEG;
+    constexpr real_t kRadToDeg = 180.0_r / kPi;
+    return radians * kRadToDeg;
 }
 
 // floating point comparison by Bruce Dawson
