@@ -87,11 +87,11 @@ const mat_t<T, d> operator*(const mat_t<T, d>& lhs, const mat_t<T, d>& rhs);
 
 template<typename T, index_t d>
 #ifdef AS_ROW_MAJOR
-//! Pre-multiplies the vector my the matrix and returns the result.
+//! Pre-multiplies the vector by the matrix and returns the result.
 //! \note This signature is only available when `AS_ROW_MAJOR` is defined.
 const vec_t<T, d> operator*(const vec_t<T, d>& vec, const mat_t<T, d>& mat);
 #elif defined AS_COL_MAJOR
-//! Post-multiplies the vector my the matrix and returns the result.
+//! Post-multiplies the vector by the matrix and returns the result.
 //! \note This signature is only available when `AS_COL_MAJOR` is defined.
 const vec_t<T, d> operator*(const mat_t<T, d>& mat, const vec_t<T, d>& vec);
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
