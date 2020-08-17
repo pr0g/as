@@ -8,6 +8,7 @@
 namespace as
 {
 
+//! Encapsulates all projection operations.
 namespace view
 {
 

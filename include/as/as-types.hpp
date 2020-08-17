@@ -7,6 +7,7 @@
 #include <cmath>
 #include <cstdint>
 
+//! `as` linear algebra math library.
 namespace as
 {
 

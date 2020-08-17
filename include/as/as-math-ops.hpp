@@ -17,6 +17,7 @@
 namespace as
 {
 
+//! Encapsulates all generic vec_t related functionality.
 namespace vec
 {
 
@@ -98,6 +99,7 @@ vec_t<T, d> snap(const vec_t<T, d>& vec, T step);
 
 } // namespace vec
 
+//! Encapsulates all vec_t<T, 2> related functionality.
 namespace vec2
 {
 
@@ -118,6 +120,7 @@ constexpr T wedge(const vec_t<T, 2>& lhs, const vec_t<T, 2>& rhs);
 
 } // namespace vec2
 
+//! Encapsulates all vec_t<T, 3> related functionality.
 namespace vec3
 {
 
@@ -150,6 +153,7 @@ void right_and_up_rh(
 
 } // namespace vec3
 
+//! Encapsulates all vec_t<T, 4> related functionality.
 namespace vec4
 {
 
@@ -170,6 +174,7 @@ vec4_t from_point3(const point3_t& point);
 
 } // namespace vec4
 
+//! Encapsulates all generic mat_t related functionality.
 namespace mat
 {
 
@@ -227,6 +232,7 @@ mat_t<T, d> mul(const mat_t<T, d>& lhs, const mat_t<T, d>& rhs);
 
 } // namespace mat
 
+//! Encapsulates all mat_t<T, 3> related functionality.
 namespace mat3
 {
 
@@ -315,6 +321,7 @@ constexpr mat3_t from_quat(const quat_t& quat);
 
 } // namespace mat3
 
+//! Encapsulates all mat_t<T, 4> related functionality.
 namespace mat4
 {
 
@@ -421,6 +428,7 @@ constexpr mat_t<T, 4> shear_z(T x, T y);
 
 } // namespace mat4
 
+//! Encapsulates all point2_t and point3_t related functionality.
 namespace point
 {
 
@@ -440,6 +448,7 @@ auto average_fold(points_t&&... points);
 
 } // namespace point
 
+//! Encapsulates all quat_t related functionality.
 namespace quat
 {
 
@@ -467,6 +476,7 @@ quat_t from_mat3(const mat3_t& mat);
 
 } // namespace quat
 
+//! Encapsulates all affine_t related functionality.
 namespace affine
 {
 
