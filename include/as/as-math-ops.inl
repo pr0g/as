@@ -792,18 +792,17 @@ AS_API inline mat3_t axis_angle(const vec3_t& axis, const real_t radians)
 {
     const real_t cosr_radians = std::cos(radians);
     const real_t sinr_radians = std::sin(radians);
-    const real_t one = 1.0_r;
 
     return {
-        cosr_radians + ((axis.x * axis.x) * (one - cosr_radians)),
-        (axis.y * axis.x * (one - cosr_radians)) + (axis.z * sinr_radians),
-        (axis.z * axis.x * (one - cosr_radians)) - (axis.y * sinr_radians),
-        (axis.x * axis.y * (one - cosr_radians)) - (axis.z * sinr_radians),
-        cosr_radians + ((axis.y * axis.y) * (one - cosr_radians)),
-        (axis.z * axis.y * (one - cosr_radians)) + (axis.x * sinr_radians),
-        (axis.x * axis.z * (one - cosr_radians)) + (axis.y * sinr_radians),
-        (axis.y * axis.z * (one - cosr_radians)) - (axis.x * sinr_radians),
-        cosr_radians + ((axis.z * axis.z) * (one - cosr_radians))};
+        cosr_radians + ((axis.x * axis.x) * (1.0_r - cosr_radians)),
+        (axis.y * axis.x * (1.0_r - cosr_radians)) + (axis.z * sinr_radians),
+        (axis.z * axis.x * (1.0_r - cosr_radians)) - (axis.y * sinr_radians),
+        (axis.x * axis.y * (1.0_r - cosr_radians)) - (axis.z * sinr_radians),
+        cosr_radians + ((axis.y * axis.y) * (1.0_r - cosr_radians)),
+        (axis.z * axis.y * (1.0_r - cosr_radians)) + (axis.x * sinr_radians),
+        (axis.x * axis.z * (1.0_r - cosr_radians)) + (axis.y * sinr_radians),
+        (axis.y * axis.z * (1.0_r - cosr_radians)) - (axis.x * sinr_radians),
+        cosr_radians + ((axis.z * axis.z) * (1.0_r - cosr_radians))};
 }
 
 AS_API inline mat3_t rotation_xyz(
