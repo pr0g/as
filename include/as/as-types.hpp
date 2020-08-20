@@ -11,7 +11,8 @@
 namespace as
 {
 
-// aliases for built-in data types
+//! Alias for `ptrdiff_t` (signed integer).
+//! \note Used primarily for loop counters
 using index_t = ptrdiff_t;
 
 // static assert to check library floating point precision has been set
@@ -23,22 +24,32 @@ static_assert(
     false, "Must define only AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE");
 #endif // AS_PRECISION_FLOAT ? AS_PRECISION_DOUBLE
 
-// aliases for float or double types and functions
 #ifdef AS_PRECISION_FLOAT
+//! An alias for `float` if `AS_PRECISION_FLOAT` is defined.
 using real_t = float;
+//! A user-defined literal to be used for `real_t`.
+//! \note Returns `float` when `AS_PRECISION_FLOAT` is defined.
+//! \note Useful when using literals where precision is customizable.
 constexpr float operator"" _r(long double val)
 {
     return float(val);
 }
-#elif defined AS_PRECISION_DOUBLE
+#endif // AS_PRECISION_FLOAT
+
+#ifdef AS_PRECISION_DOUBLE
+//! An alias for `double` if `AS_PRECISION_DOUBLE` is defined.
 using real_t = double;
+//! A user-defined literal to be used for `real_t`.
+//! \note Returns `double` when `AS_PRECISION_DOUBLE` is defined.
+//! \note Useful when using literals where precision is customizable.
 constexpr double operator"" _r(long double val)
 {
     return double(val);
 }
-#endif // AS_PRECISION_FLOAT ? AS_PRECISION_DOUBLE
+#endif // AS_PRECISION_DOUBLE
 
-// from Google's Chromium project - compile time array size
+//! Returns compile time array size.
+//! \note Macro originates from Google's Chromium project.
 #define AS_DIM(x)                                                              \
     ((sizeof(x) / sizeof(0 [x])) / ((size_t)(!(sizeof(x) % sizeof(0 [x])))))
 
