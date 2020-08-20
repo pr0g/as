@@ -790,63 +790,63 @@ AS_API constexpr mat_t<T, 3> from_mat4(const mat_t<T, 4>& transform)
 
 AS_API inline mat3_t axis_angle(const vec3_t& axis, const real_t radians)
 {
-    const real_t cosr_radians = std::cos(radians);
-    const real_t sinr_radians = std::sin(radians);
+    const real_t cos_radians = std::cos(radians);
+    const real_t sin_radians = std::sin(radians);
 
     return {
-        cosr_radians + ((axis.x * axis.x) * (1.0_r - cosr_radians)),
-        (axis.y * axis.x * (1.0_r - cosr_radians)) + (axis.z * sinr_radians),
-        (axis.z * axis.x * (1.0_r - cosr_radians)) - (axis.y * sinr_radians),
-        (axis.x * axis.y * (1.0_r - cosr_radians)) - (axis.z * sinr_radians),
-        cosr_radians + ((axis.y * axis.y) * (1.0_r - cosr_radians)),
-        (axis.z * axis.y * (1.0_r - cosr_radians)) + (axis.x * sinr_radians),
-        (axis.x * axis.z * (1.0_r - cosr_radians)) + (axis.y * sinr_radians),
-        (axis.y * axis.z * (1.0_r - cosr_radians)) - (axis.x * sinr_radians),
-        cosr_radians + ((axis.z * axis.z) * (1.0_r - cosr_radians))};
+        cos_radians + ((axis.x * axis.x) * (1.0_r - cos_radians)),
+        (axis.y * axis.x * (1.0_r - cos_radians)) + (axis.z * sin_radians),
+        (axis.z * axis.x * (1.0_r - cos_radians)) - (axis.y * sin_radians),
+        (axis.x * axis.y * (1.0_r - cos_radians)) - (axis.z * sin_radians),
+        cos_radians + ((axis.y * axis.y) * (1.0_r - cos_radians)),
+        (axis.z * axis.y * (1.0_r - cos_radians)) + (axis.x * sin_radians),
+        (axis.x * axis.z * (1.0_r - cos_radians)) + (axis.y * sin_radians),
+        (axis.y * axis.z * (1.0_r - cos_radians)) - (axis.x * sin_radians),
+        cos_radians + ((axis.z * axis.z) * (1.0_r - cos_radians))};
 }
 
 AS_API inline mat3_t rotation_xyz(
     const real_t x, const real_t y, const real_t z)
 {
-    const real_t cosr_x = std::cos(x);
-    const real_t cosr_y = std::cos(y);
-    const real_t cosr_z = std::cos(z);
-    const real_t sinr_x = std::sin(x);
-    const real_t sinr_y = std::sin(y);
-    const real_t sinr_z = std::sin(z);
+    const real_t cos_x = std::cos(x);
+    const real_t cos_y = std::cos(y);
+    const real_t cos_z = std::cos(z);
+    const real_t sin_x = std::sin(x);
+    const real_t sin_y = std::sin(y);
+    const real_t sin_z = std::sin(z);
 
     return {
-        cosr_y * cosr_z,
-        cosr_y * sinr_z,
-        -sinr_y,
-        (sinr_x * sinr_y * cosr_z) - (cosr_x * sinr_z),
-        (sinr_x * sinr_y * sinr_z) + (cosr_x * cosr_z),
-        sinr_x * cosr_y,
-        (cosr_x * sinr_y * cosr_z) + (sinr_x * sinr_z),
-        (cosr_x * sinr_y * sinr_z) - (sinr_x * cosr_z),
-        cosr_x * cosr_y};
+        cos_y * cos_z,
+        cos_y * sin_z,
+        -sin_y,
+        (sin_x * sin_y * cos_z) - (cos_x * sin_z),
+        (sin_x * sin_y * sin_z) + (cos_x * cos_z),
+        sin_x * cos_y,
+        (cos_x * sin_y * cos_z) + (sin_x * sin_z),
+        (cos_x * sin_y * sin_z) - (sin_x * cos_z),
+        cos_x * cos_y};
 }
 
 AS_API inline mat3_t rotation_zxy(
     const real_t x, const real_t y, const real_t z)
 {
-    const real_t cosr_x = std::cos(x);
-    const real_t cosr_y = std::cos(y);
-    const real_t cosr_z = std::cos(z);
-    const real_t sinr_x = std::sin(x);
-    const real_t sinr_y = std::sin(y);
-    const real_t sinr_z = std::sin(z);
+    const real_t cos_x = std::cos(x);
+    const real_t cos_y = std::cos(y);
+    const real_t cos_z = std::cos(z);
+    const real_t sin_x = std::sin(x);
+    const real_t sin_y = std::sin(y);
+    const real_t sin_z = std::sin(z);
 
     return {
-        cosr_z * cosr_y + sinr_x * sinr_y * sinr_z,
-        sinr_z * cosr_x,
-        -sinr_y * cosr_z + sinr_z * sinr_x * cosr_y,
-        -sinr_z * cosr_y + cosr_z * sinr_x * sinr_y,
-        cosr_z * cosr_x,
-        -sinr_z * -sinr_y + cosr_z * sinr_x * cosr_y,
-        cosr_x * sinr_y,
-        -sinr_x,
-        cosr_x * cosr_y,
+        cos_z * cos_y + sin_x * sin_y * sin_z,
+        sin_z * cos_x,
+        -sin_y * cos_z + sin_z * sin_x * cos_y,
+        -sin_z * cos_y + cos_z * sin_x * sin_y,
+        cos_z * cos_x,
+        -sin_z * -sin_y + cos_z * sin_x * cos_y,
+        cos_x * sin_y,
+        -sin_x,
+        cos_x * cos_y,
     };
 }
 
