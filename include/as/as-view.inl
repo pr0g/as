@@ -50,7 +50,6 @@ AS_API inline mat4_t perspective_d3d_rh(
     // clang-format on
 }
 
-// directX default
 AS_API inline mat4_t perspective_d3d_lh(
     const real_t fovy, const real_t aspect, const real_t n, const real_t f)
 {
@@ -89,7 +88,6 @@ AS_API inline mat4_t perspective_vulkan_lh(
     return mat::mul(perspective_gl_lh(fovy, aspect, n, f), vulkan_clip);
 }
 
-// openGL default
 AS_API constexpr mat4_t ortho_gl_rh(
     const real_t l, const real_t r, const real_t b, const real_t t,
     const real_t n, const real_t f)
@@ -144,7 +142,6 @@ AS_API constexpr mat4_t ortho_d3d_rh(
     // clang-format on
 }
 
-// directx default
 AS_API constexpr mat4_t ortho_d3d_lh(
     const real_t l, const real_t r, const real_t b, const real_t t,
     const real_t n, const real_t f)
@@ -163,7 +160,6 @@ AS_API constexpr mat4_t ortho_d3d_lh(
     // clang-format on
 }
 
-// vulkan default
 AS_API inline mat4_t ortho_vulkan_rh(
     real_t l, real_t r, real_t b, real_t t, real_t n, real_t f)
 {
