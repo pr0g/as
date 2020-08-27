@@ -11,6 +11,7 @@ namespace unit_test
 
 // types
 using as::index_t;
+using as::mat3_t;
 using as::point3_t;
 using as::real_t;
 using as::vec2_t;
@@ -23,6 +24,7 @@ using as::deg_to_rad;
 using as::operator""_r;
 
 // namespaces
+namespace mat3 = as::mat3;
 namespace vec = as::vec;
 namespace vec2 = as::vec2;
 namespace vec3 = as::vec3;
@@ -1761,6 +1763,44 @@ TEST_CASE("snap_vec", "[as_vec]")
             std::array<real_t, 5>{5.0_r, 10.0_r, 20.0_r, 20.0_r, 1000.0_r};
 
         CHECK_THAT(expected, make_elements_sub(result, 5));
+    }
+}
+
+TEST_CASE("orthonomal_basis", "[as_vec]")
+{
+    {
+        const mat3_t basis = vec3::orthonormal_basis(vec3_t(1.0_r, 0.0_r, 0.0_r));
+        CHECK_THAT(arr(1.0_r, 0.0_r, 0.0_r), make_elements_sub(mat3::basis_x(basis), 3));
+        CHECK_THAT(arr(0.0_r, 0.0_r, 1.0_r), make_elements_sub(mat3::basis_y(basis), 3));
+        CHECK_THAT(arr(0.0_r, -1.0_r, 0.0_r), make_elements_sub(mat3::basis_z(basis), 3));
+    }
+
+    {
+        const mat3_t basis = vec3::orthonormal_basis(vec3_t(0.0_r, -1.0_r, 0.0_r));
+        CHECK_THAT(arr(0.0_r, -1.0_r, 0.0_r), make_elements_sub(mat3::basis_x(basis), 3));
+        CHECK_THAT(arr(0.0_r, 0.0_r, -1.0_r), make_elements_sub(mat3::basis_y(basis), 3));
+        CHECK_THAT(arr(1.0_r, 0.0_r, 0.0_r), make_elements_sub(mat3::basis_z(basis), 3));
+    }
+
+    {
+        const mat3_t basis = vec3::orthonormal_basis(vec3_t(0.0_r, 1.0_r, 0.0_r));
+        CHECK_THAT(arr(0.0_r, 1.0_r, 0.0_r), make_elements_sub(mat3::basis_x(basis), 3));
+        CHECK_THAT(arr(0.0_r, 0.0_r, 1.0_r), make_elements_sub(mat3::basis_y(basis), 3));
+        CHECK_THAT(arr(1.0_r, 0.0_r, 0.0_r), make_elements_sub(mat3::basis_z(basis), 3));
+    }
+
+    {
+        const mat3_t basis = vec3::orthonormal_basis(vec3_t(0.0_r, 0.0_r, 1.0_r));
+        CHECK_THAT(arr(0.0_r, 0.0_r, 1.0_r), make_elements_sub(mat3::basis_x(basis), 3));
+        CHECK_THAT(arr(0.0_r, -1.0_r, 0.0_r), make_elements_sub(mat3::basis_y(basis), 3));
+        CHECK_THAT(arr(1.0_r, 0.0_r, 0.0_r), make_elements_sub(mat3::basis_z(basis), 3));
+    }
+
+    {
+        const mat3_t basis = vec3::orthonormal_basis(vec::normalize(vec3_t(1.0_r, 1.0_r, 0.0_r)));
+        CHECK_THAT(arr(0.70711_r, 0.70711_r, 0.000000_r), make_elements_sub(mat3::basis_x(basis), 3));
+        CHECK_THAT(arr(-0.70711_r, 0.70711_r, 0.000000_r), make_elements_sub(mat3::basis_y(basis), 3));
+        CHECK_THAT(arr(1.0_r, 0.0_r, 0.0_r), make_elements_sub(mat3::basis_z(basis), 3));
     }
 }
 

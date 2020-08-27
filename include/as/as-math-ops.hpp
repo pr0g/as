@@ -151,6 +151,9 @@ void right_and_up_rh(
     const vec_t<T, 3>& dir, vec_t<T, 3>& across, vec_t<T, 3>& up,
     const vec_t<T, 3>& world_up = vec_t<T, 3>::axis_y());
 
+template<typename T>
+mat_t<T, 3> orthonormal_basis(const vec_t<T, 3>& vec);
+
 } // namespace vec3
 
 //! Encapsulates all vec_t<T, 4> related functionality.
