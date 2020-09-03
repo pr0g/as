@@ -71,7 +71,7 @@ AS_API vec_t<T, d> normalize(const vec_t<T, d>& vec)
 }
 
 template<typename T, index_t d>
-AS_API std::tuple<vec_t<T, d>, T> normalize_with_length(const vec_t<T, d>& vec)
+AS_API std::tuple<vec_t<T, d>, T> normalize_and_length(const vec_t<T, d>& vec)
 {
     const T len = length(vec);
     return std::make_tuple(vec / len, len);
@@ -170,11 +170,11 @@ AS_API vec_t<T, d> saturate(const vec_t<T, d>& vec)
 }
 
 template<typename T, index_t d>
-AS_API vec_t<T, d> lerp(T t, const vec_t<T, d>& v0, const vec_t<T, d>& v1)
+AS_API vec_t<T, d> lerp(T t, const vec_t<T, d>& begin, const vec_t<T, d>& end)
 {
     vec_t<T, d> result;
     for (index_t i = 0; i < d; ++i) {
-        result[i] = as::lerp(t, v0[i], v1[i]);
+        result[i] = as::lerp(t, begin[i], end[i]);
     }
 
     return result;

@@ -21,79 +21,135 @@ namespace as
 namespace vec
 {
 
+//! Returns the number of elements in the vector.
+//! \note This is equivalent with `d`, the dimension.
 template<typename T, index_t d>
 constexpr index_t size(const vec_t<T, d>& vec);
 
+//! Creates a vector from a fixed size array of the same type and dimension.
 template<typename T, index_t d>
 vec_t<T, d> from_arr(const T (&data)[d]);
 
+//! Creates a vector from a pointer to the beginning of an array of the same
+//! type.
+//! \warning Be very careful when using this function. Ensure that the array
+//! used to initialize the vector is at least as big as the size of the vector.
+//! Undefined behaviour may be invoked by reading memory out of bounds if not.
 template<typename T, index_t d>
 vec_t<T, d> from_ptr(const T* data);
 
+//! Writes the values stored in the vector to an array of the same type and
+//! dimension.
 template<typename T, index_t d>
 void to_arr(const vec_t<T, d>& vec, T (&data)[d]);
 
+//! Returns the dot product of two vectors.
+//! \note Result is equivalent to: `|lhs| * |rhs| * cos(θ)`
+//! \note Result is positive for acute angles, negative for obtuse angles and
+//! zero for right angles (vectors that are perpendicular/orthogonal).
 template<typename T, index_t d>
 constexpr T dot(const vec_t<T, d>& lhs, const vec_t<T, d>& rhs);
 
+//! Returns the dot product of two vector threes.
 template<>
 constexpr real_t dot(const vec3_t& lhs, const vec3_t& rhs);
 
+//! Returns the length squared of a vector.
 template<typename T, index_t d>
 constexpr T length_sq(const vec_t<T, d>& vec);
 
+//! Returns the length of a vector.
 template<typename T, index_t d>
 T length(const vec_t<T, d>& vec);
 
+//! Returns the input vector with unit length.
 template<typename T, index_t d>
 vec_t<T, d> normalize(const vec_t<T, d>& vec);
 
+//! Returns the normalized vector (unit length) along with the length of the
+//! input vector.
+//! \note This can be useful to use instead of having to call `normalize` and
+//! `length` separately (reduces repeated work).
 template<typename T, index_t d>
-std::tuple<vec_t<T, d>, T> normalize_with_length(const vec_t<T, d>& vec);
+std::tuple<vec_t<T, d>, T> normalize_and_length(const vec_t<T, d>& vec);
 
+//! Returns if two vectors are the same as each other (within a certain
+//! tolerance).
 template<typename T, index_t d>
 bool equal(
     const vec_t<T, d>& lhs, const vec_t<T, d>& rhs,
     real_t epsilon = std::numeric_limits<real_t>::epsilon());
 
+//! Performs a `min` on each element of the two vectors, returning the
+//! smallest value at each element.
+//! ```{.cpp}
+//! min((2, 4, 6), (3, 8, 1)) = (2, 4, 1)
+//! ```
 template<typename T, index_t d>
 vec_t<T, d> min(const vec_t<T, d>& lhs, const vec_t<T, d>& rhs);
 
+//! Returns the smallest element in the vector.
 template<typename T, index_t d>
 constexpr T min_elem(const vec_t<T, d>& vec);
 
+//! Performs a `max` on each element of the two vectors, returning the
+//! largest value at each element.
+//! ```{.cpp}
+//! min((2, 4, 6), (3, 8, 1)) = (3, 8, 6)
+//! ```
 template<typename T, index_t d>
 vec_t<T, d> max(const vec_t<T, d>& lhs, const vec_t<T, d>& rhs);
 
+//! Returns the largest element in the vector.
 template<typename T, index_t d>
 constexpr T max_elem(const vec_t<T, d>& vec);
 
+//! Returns a vector with the absolute value of each element of the input vector.
+//! ```{.cpp}
+//! abs((-1, 5, -3)) = (1, 5, 3)
+//! ```
 template<typename T, index_t d>
 vec_t<T, d> abs(const vec_t<T, d>& vec);
 
+//! Returns a vector where each element falls within the range `min` and `max`.
 template<typename T, index_t d>
 vec_t<T, d> clamp(
     const vec_t<T, d>& vec, const vec_t<T, d>& min, const vec_t<T, d>& max);
 
+//! Returns a vector with each element clamped within the `0-1` range.
 template<typename T, index_t d>
 vec_t<T, d> saturate(const vec_t<T, d>& vec);
 
+//! Returns a linearly interpolated vector between `begin` and `end`.
+//! \param t The amount of interpolation between `begin` and `end`. Must be in
+//! the range `[0-1]`.
+//! \param begin The vector to interpolate from.
+//! \param end The vector to interpolate to.
 template<typename T, index_t d>
-vec_t<T, d> lerp(T t, const vec_t<T, d>& v0, const vec_t<T, d>& v1);
+vec_t<T, d> lerp(T t, const vec_t<T, d>& begin, const vec_t<T, d>& end);
 
+//! Returns `v0` if `select0` is true, otherwise `v1`.
 template<typename T, index_t d>
 constexpr vec_t<T, d> select(
     const vec_t<T, d>& v0, const vec_t<T, d>& v1, bool select0);
 
+//! Returns a vector with each element being rounded down to the nearest whole
+//! number.
 template<typename T, index_t d>
 vec_t<T, d> floor(const vec_t<T, d>& vec);
 
+//! Returns a vector with each element being rounded up to the nearest whole
+//! number.
 template<typename T, index_t d>
 vec_t<T, d> ceil(const vec_t<T, d>& vec);
 
+//! Returns a vector with each element being rounded toward to the nearest whole
+//! number.
+//! \note Halfway values are rounded up.
 template<typename T, index_t d>
 vec_t<T, d> round(const vec_t<T, d>& vec);
 
+//! Returns a vector with each element rounded to the nearest step value.
 template<typename T, index_t d>
 vec_t<T, d> snap(const vec_t<T, d>& vec, T step);
 

@@ -1574,10 +1574,10 @@ TEST_CASE("lerp", "[as_vec]")
     }
 }
 
-TEST_CASE("normalize_with_length", "[as_vec]")
+TEST_CASE("normalize_and_length", "[as_vec]")
 {
     const vec3_t vec(3.0_r, 4.0_r, 0.0_r);
-    const auto [vec_normalized, length] = vec::normalize_with_length(vec);
+    const auto [vec_normalized, length] = vec::normalize_and_length(vec);
 
     CHECK(length == Approx(5.0_r).epsilon(g_epsilon));
     CHECK(vec::length(vec_normalized) == Approx(1.0_r).epsilon(g_epsilon));
@@ -1798,9 +1798,9 @@ TEST_CASE("orthonomal_basis", "[as_vec]")
 
     {
         const mat3_t basis = vec3::orthonormal_basis(vec::normalize(vec3_t(1.0_r, 1.0_r, 0.0_r)));
-        CHECK_THAT(arr(0.70711_r, 0.70711_r, 0.000000_r), make_elements_sub(mat3::basis_x(basis), 3));
-        CHECK_THAT(arr(-0.70711_r, 0.70711_r, 0.000000_r), make_elements_sub(mat3::basis_y(basis), 3));
-        CHECK_THAT(arr(1.0_r, 0.0_r, 0.0_r), make_elements_sub(mat3::basis_z(basis), 3));
+        CHECK_THAT(arr(0.707107_r, 0.707107_r, 0.000000_r), make_elements_sub(mat3::basis_x(basis), 3).epsilon(0.001_r));
+        CHECK_THAT(arr(-0.707107_r, 0.707107_r, 0.000000_r), make_elements_sub(mat3::basis_y(basis), 3).epsilon(0.001_r));
+        CHECK_THAT(arr(0.0_r, 0.0_r, 1.0_r), make_elements_sub(mat3::basis_z(basis), 3));
     }
 }
 
@@ -1846,7 +1846,7 @@ template as::index_t as::vec::size<as::real_t, 5>(
 template as::real_t as::vec::dot(
     const as::vec_t<as::real_t, 5>&, const as::vec_t<as::real_t, 5>&);
 template std::tuple<as::vec_t<as::real_t, 5>, as::real_t> as::vec::
-    normalize_with_length(const as::vec_t<as::real_t, 5>&);
+    normalize_and_length(const as::vec_t<as::real_t, 5>&);
 template as::vec_t<as::real_t, 5> as::vec::min(
     const as::vec_t<as::real_t, 5>&, const as::vec_t<as::real_t, 5>&);
 template as::real_t as::vec::min_elem(const as::vec_t<as::real_t, 5>&);
