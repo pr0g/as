@@ -159,18 +159,25 @@ vec_t<T, d> snap(const vec_t<T, d>& vec, T step);
 namespace vec2
 {
 
+//! Creates a vec_t<T, 2> from a fixed size array of the same type and dimension.
 template<typename T>
 vec_t<T, 2> from_arr(const T (&data)[2]);
 
+//! Creates a vec_t<T, 2> from a pointer to the beginning of an array of the
+//! same type.
 template<typename T>
 vec_t<T, 2> from_ptr(const T* data);
 
+//! Returns a vec_t<T, 2> with the first and second element of a vec_t<T, 3>.
 template<typename T>
 constexpr vec_t<T, 2> from_vec3(const vec_t<T, 3>& vec);
 
+//! Returns a vec_t<T, 2> with the first and second element of a vec_t<T, 4>.
 template<typename T>
 constexpr vec_t<T, 2> from_vec4(const vec_t<T, 4>& vec);
 
+//! Returns the signed area formed by two vectors.
+//! \note This is similar to the cross product of two 3d vectors.
 template<typename T>
 constexpr T wedge(const vec_t<T, 2>& lhs, const vec_t<T, 2>& rhs);
 
@@ -180,33 +187,52 @@ constexpr T wedge(const vec_t<T, 2>& lhs, const vec_t<T, 2>& rhs);
 namespace vec3
 {
 
+//! Creates a vec_t<T, 3> from a fixed size array of the same type and dimension.
 template<typename T>
 vec_t<T, 3> from_arr(const T (&data)[3]);
 
+//! Creates a vec_t<T, 3> from a pointer to the beginning of an array of the
+//! same type.
 template<typename T>
 vec_t<T, 3> from_ptr(const T* data);
 
+//! Returns a vec_t<T, 3> with the elements of a vec_t<T, 2> and an optional
+//! third parameter (defaulted to zero).
 template<typename T>
 constexpr vec_t<T, 3> from_vec2(const vec_t<T, 2>& vec, T z = T(0.0));
 
+//! Returns a vec_t<T, 3> with the first and second element of a vec_t<T, 4>.
 template<typename T>
 constexpr vec_t<T, 3> from_vec4(const vec_t<T, 4>& vec);
 
+//! Returns a vec_t<T, 3> orthogonal to both input vectors.
+//! \note If the two input vectors are perpendicular the result will be zero
+//! (undefined).
+//! \note The order of the input vectors is important. The sign of the resulting
+//! vector will vary depending on the order.
 template<typename T>
 constexpr vec_t<T, 3> cross(const vec_t<T, 3>& lhs, const vec_t<T, 3>& rhs);
 
-// note: will not work if dir == +/-world_up
+//! Sets the across and up axes for a given input vector so all axes remain
+//! orthogonal to one another.
+//! \note Across and up will be invalid if dir is equal to +/-world_up.
+//! \note Expects a left-handed coordinate system.
 template<typename T>
 void right_and_up_lh(
     const vec_t<T, 3>& dir, vec_t<T, 3>& across, vec_t<T, 3>& up,
     const vec_t<T, 3>& world_up = vec_t<T, 3>::axis_y());
 
-// note: will not work if dir == +/-world_up
+//! Sets the across and up axes for a given input vector so all axes remain
+//! orthogonal to one another.
+//! \note Across and up will be invalid if dir is equal to +/-world_up.
+//! \note Expects a right-handed coordinate system.
 template<typename T>
 void right_and_up_rh(
     const vec_t<T, 3>& dir, vec_t<T, 3>& across, vec_t<T, 3>& up,
     const vec_t<T, 3>& world_up = vec_t<T, 3>::axis_y());
 
+//! Returns an orthonormal basis for a given input vector.
+//! \note This should be preferred to `right_and_up` variants.
 template<typename T>
 mat_t<T, 3> orthonormal_basis(const vec_t<T, 3>& vec);
 
@@ -216,19 +242,28 @@ mat_t<T, 3> orthonormal_basis(const vec_t<T, 3>& vec);
 namespace vec4
 {
 
+//! Creates a vec_t<T, 4> from a fixed size array of the same type and dimension.
 template<typename T>
 vec_t<T, 4> from_arr(const T (&data)[4]);
 
+//! Creates a vec_t<T, 4> from a pointer to the beginning of an array of the
+//! same type.
 template<typename T>
 vec_t<T, 4> from_ptr(const T* data);
 
+//! Returns a vec_t<T, 4> with the elements of a vec_t<T, 2> and optional
+//! remaining parameters (defaulted to zero).
 template<typename T>
 constexpr vec_t<T, 4> from_vec2(
     const vec_t<T, 2>& vec, T z = T(0.0), T w = T(0.0));
 
+//! Returns a vec_t<T, 4> with the elements of a vec_t<T, 3> and an optional
+//! fourth parameter (defaulted to zero).
 template<typename T>
 constexpr vec_t<T, 4> from_vec3(const vec_t<T, 3>& vec, T w = T(0.0));
 
+//! Returns a vec4_t from a point3_t
+//! \note The fourth paramter of the vec4_t will be set to 1.
 vec4_t from_point3(const point3_t& point);
 
 } // namespace vec4
