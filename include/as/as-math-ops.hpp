@@ -53,11 +53,11 @@ constexpr T dot(const vec_t<T, d>& lhs, const vec_t<T, d>& rhs);
 template<>
 constexpr real_t dot(const vec3_t& lhs, const vec3_t& rhs);
 
-//! Returns the length squared of a vector.
+//! Returns the length squared of the vector.
 template<typename T, index_t d>
 constexpr T length_sq(const vec_t<T, d>& vec);
 
-//! Returns the length of a vector.
+//! Returns the length of the vector.
 template<typename T, index_t d>
 T length(const vec_t<T, d>& vec);
 
@@ -166,11 +166,11 @@ vec_t<T, 2> from_arr(const T (&data)[2]);
 template<typename T>
 vec_t<T, 2> from_ptr(const T* data);
 
-//! Returns a vec_t<T, 2> with the first and second element of a vec_t<T, 3>.
+//! Returns a vec_t<T, 2> with the first and second element of the vec_t<T, 3>.
 template<typename T>
 constexpr vec_t<T, 2> from_vec3(const vec_t<T, 3>& vec);
 
-//! Returns a vec_t<T, 2> with the first and second element of a vec_t<T, 4>.
+//! Returns a vec_t<T, 2> with the first and second element of the vec_t<T, 4>.
 template<typename T>
 constexpr vec_t<T, 2> from_vec4(const vec_t<T, 4>& vec);
 
@@ -193,12 +193,12 @@ vec_t<T, 3> from_arr(const T (&data)[3]);
 template<typename T>
 vec_t<T, 3> from_ptr(const T* data);
 
-//! Returns a vec_t<T, 3> with the elements of a vec_t<T, 2> and an optional
+//! Returns a vec_t<T, 3> with the elements of the vec_t<T, 2> and an optional
 //! third parameter (defaulted to zero).
 template<typename T>
 constexpr vec_t<T, 3> from_vec2(const vec_t<T, 2>& vec, T z = T(0.0));
 
-//! Returns a vec_t<T, 3> with the first and second element of a vec_t<T, 4>.
+//! Returns a vec_t<T, 3> with the first and second element of the vec_t<T, 4>.
 template<typename T>
 constexpr vec_t<T, 3> from_vec4(const vec_t<T, 4>& vec);
 
@@ -210,7 +210,7 @@ constexpr vec_t<T, 3> from_vec4(const vec_t<T, 4>& vec);
 template<typename T>
 constexpr vec_t<T, 3> cross(const vec_t<T, 3>& lhs, const vec_t<T, 3>& rhs);
 
-//! Sets the across and up axes for a given input vector so all axes remain
+//! Sets the across and up axes for the given input vector so all axes remain
 //! orthogonal to one another.
 //! \note Across and up will be invalid if dir is equal to +/-world_up.
 //! \note Expects a left-handed coordinate system.
@@ -219,7 +219,7 @@ void right_and_up_lh(
     const vec_t<T, 3>& dir, vec_t<T, 3>& across, vec_t<T, 3>& up,
     const vec_t<T, 3>& world_up = vec_t<T, 3>::axis_y());
 
-//! Sets the across and up axes for a given input vector so all axes remain
+//! Sets the across and up axes for the given input vector so all axes remain
 //! orthogonal to one another.
 //! \note Across and up will be invalid if dir is equal to +/-world_up.
 //! \note Expects a right-handed coordinate system.
@@ -228,7 +228,7 @@ void right_and_up_rh(
     const vec_t<T, 3>& dir, vec_t<T, 3>& across, vec_t<T, 3>& up,
     const vec_t<T, 3>& world_up = vec_t<T, 3>::axis_y());
 
-//! Returns an orthonormal basis for a given input vector.
+//! Returns an orthonormal basis for the given input vector.
 //! \note This should be preferred to `right_and_up` variants.
 template<typename T>
 mat_t<T, 3> orthonormal_basis(const vec_t<T, 3>& vec);
@@ -247,13 +247,13 @@ vec_t<T, 4> from_arr(const T (&data)[4]);
 template<typename T>
 vec_t<T, 4> from_ptr(const T* data);
 
-//! Returns a vec_t<T, 4> with the elements of a vec_t<T, 2> and optional
+//! Returns a vec_t<T, 4> with the elements of the vec_t<T, 2> and optional
 //! remaining parameters (defaulted to zero).
 template<typename T>
 constexpr vec_t<T, 4> from_vec2(
     const vec_t<T, 2>& vec, T z = T(0.0), T w = T(0.0));
 
-//! Returns a vec_t<T, 4> with the elements of a vec_t<T, 3> and an optional
+//! Returns a vec_t<T, 4> with the elements of the vec_t<T, 3> and an optional
 //! fourth parameter (defaulted to zero).
 template<typename T>
 constexpr vec_t<T, 4> from_vec3(const vec_t<T, 3>& vec, T w = T(0.0));
@@ -309,11 +309,11 @@ T* data(mat_t<T, d>& mat);
 template<typename T, index_t d>
 const T* const_data(const mat_t<T, d>& mat);
 
-//! Creates a mat_t<T, d> from a fixed size array of the same type and dimension.
+//! Creates a mat_t from a fixed size array of the same type and dimension.
 template<typename T, index_t d>
 mat_t<T, d> from_arr(const T (&data)[d * d]);
 
-//! Creates a mat_t<T, d> from a pointer to an array of the same type.
+//! Creates a mat_t from a pointer to an array of the same type.
 template<typename T, index_t d>
 mat_t<T, d> from_ptr(const T* data);
 
@@ -329,12 +329,12 @@ bool equal(
     const mat_t<T, d>& lhs, const mat_t<T, d>& rhs,
     real_t epsilon = std::numeric_limits<real_t>::epsilon());
 
-//! Returns the transpose of a matrix.
+//! Returns the transpose of the matrix.
 //! \note Rows and columns are swapped.
 template<typename T, index_t d>
 mat_t<T, d> transpose(const mat_t<T, d>& mat);
 
-//! Returns the determinant of a matrix.
+//! Returns the determinant of the matrix.
 //! \note This is the signed volume of the n-dimensional parallelepiped spanned
 //! by the column or row vectors of the matrix.
 template<typename T, index_t d>
@@ -364,87 +364,124 @@ mat_t<T, d> mul(const mat_t<T, d>& lhs, const mat_t<T, d>& rhs);
 namespace mat3
 {
 
+//! Performs a mapping from a row and column index to a single offset for mat3_t.
+//! \param r Row index.
+//! \param c Column index.
 constexpr index_t rc(index_t r, index_t c);
 
+//! Returns the first row of the mat3_t.
 template<typename T>
 constexpr vec_t<T, 3> row0(const mat_t<T, 3>& mat);
 
+//! Returns the second row of the mat3_t.
 template<typename T>
 constexpr vec_t<T, 3> row1(const mat_t<T, 3>& mat);
 
+//! Returns the third row of the mat3_t.
 template<typename T>
 constexpr vec_t<T, 3> row2(const mat_t<T, 3>& mat);
 
+//! Returns the first column of the mat3_t.
 template<typename T>
 constexpr vec_t<T, 3> col0(const mat_t<T, 3>& mat);
 
+//! Returns the second column of the mat3_t.
 template<typename T>
 constexpr vec_t<T, 3> col1(const mat_t<T, 3>& mat);
 
+//! Returns the third column of the mat3_t.
 template<typename T>
 constexpr vec_t<T, 3> col2(const mat_t<T, 3>& mat);
 
+//! Sets the first row of the mat3_t.
 template<typename T>
 constexpr void row0(mat_t<T, 3>& mat, const vec_t<T, 3>& row);
 
+//! Sets the second row of the mat3_t.
 template<typename T>
 constexpr void row1(mat_t<T, 3>& mat, const vec_t<T, 3>& row);
 
+//! Sets the third row of the mat3_t.
 template<typename T>
 constexpr void row2(mat_t<T, 3>& mat, const vec_t<T, 3>& row);
 
+//! Sets the first column of the mat3_t.
 template<typename T>
 constexpr void col0(mat_t<T, 3>& mat, const vec_t<T, 3>& col);
 
+//! Sets the second column of the mat3_t.
 template<typename T>
 constexpr void col1(mat_t<T, 3>& mat, const vec_t<T, 3>& col);
 
+//! Sets the third column of the mat3_t.
 template<typename T>
 constexpr void col2(mat_t<T, 3>& mat, const vec_t<T, 3>& col);
 
+//! Returns the x basis vector for the mat3_t.
 template<typename T>
 constexpr vec_t<T, 3> basis_x(const mat_t<T, 3>& mat);
 
+//! Returns the y basis vector for the mat3_t.
 template<typename T>
 constexpr vec_t<T, 3> basis_y(const mat_t<T, 3>& mat);
 
+//! Returns the z basis vector for the mat3_t.
 template<typename T>
 constexpr vec_t<T, 3> basis_z(const mat_t<T, 3>& mat);
 
+//! Sets the x basis vector for the mat3_t.
 template<typename T>
 constexpr void basis_x(mat_t<T, 3>& mat, const vec_t<T, 3>& basis);
 
+//! Sets the y basis vector for the mat3_t.
 template<typename T>
 constexpr void basis_y(mat_t<T, 3>& mat, const vec_t<T, 3>& basis);
 
+//! Sets the z basis vector for the mat3_t.
 template<typename T>
 constexpr void basis_z(mat_t<T, 3>& mat, const vec_t<T, 3>& basis);
 
+//! Creates a mat_t<T, 3> from a fixed size array of the same type and dimension.
 template<typename T>
 mat_t<T, 3> from_arr(const T (&data)[9]);
 
+//! Creates a mat_t<T, 3> from a pointer to an array of the same type.
 template<typename T>
 mat_t<T, 3> from_ptr(const T* data);
 
+//! Returns a mat_t<T, 3> from a mat_t<T, 4>.
+//! \note The upper 3x3 part of the 4x4 matrix is returned.
 template<typename T>
 constexpr mat_t<T, 3> from_mat4(const mat_t<T, 4>& transform);
 
+//! Returns a rotation about a given axis.
+//! \param axis The axis of rotation.
+//! \param radians The amount to rotate by in radians.
 mat3_t axis_angle(const vec3_t& axis, real_t radians);
 
+//! Returns a rotation about x, then y, then z.
 mat3_t rotation_xyz(real_t x, real_t y, real_t z);
 
+//! Returns a rotation about z, then x, then y.
+//! \note This is often useful for free-look cameras.
 mat3_t rotation_zxy(real_t x, real_t y, real_t z);
 
+//! Returns a rotation about the x axis.
 mat3_t rotation_x(real_t radians);
 
+//! Returns a rotation about the y axis.
 mat3_t rotation_y(real_t radians);
 
+//! Returns a rotation about the z axis.
 mat3_t rotation_z(real_t radians);
 
+//! Returns a uniform scale martix.
 constexpr mat3_t scale(real_t scale);
 
+//! Returns a (potentially) non-uniform scale martix.
 constexpr mat3_t scale(const vec3_t& scale);
 
+//! Returns a mat3_t from a quaternion.
 constexpr mat3_t from_quat(const quat_t& quat);
 
 } // namespace mat3
@@ -453,104 +490,149 @@ constexpr mat3_t from_quat(const quat_t& quat);
 namespace mat4
 {
 
+//! Performs a mapping from a row and column index to a single offset for mat4_t.
+//! \param r Row index.
+//! \param c Column index.
 constexpr index_t rc(index_t r, index_t c);
 
+//! Returns the first row of the mat4_t.
 template<typename T>
 constexpr vec_t<T, 4> row0(const mat_t<T, 4>& mat);
 
+//! Returns the second row of the mat4_t.
 template<typename T>
 constexpr vec_t<T, 4> row1(const mat_t<T, 4>& mat);
 
+//! Returns the third row of the mat4_t.
 template<typename T>
 constexpr vec_t<T, 4> row2(const mat_t<T, 4>& mat);
 
+//! Returns the fourth row of the mat4_t.
 template<typename T>
 constexpr vec_t<T, 4> row3(const mat_t<T, 4>& mat);
 
+//! Returns the first column of the mat4_t.
 template<typename T>
 constexpr vec_t<T, 4> col0(const mat_t<T, 4>& mat);
 
+//! Returns the second column of the mat4_t.
 template<typename T>
 constexpr vec_t<T, 4> col1(const mat_t<T, 4>& mat);
 
+//! Returns the third column of the mat4_t.
 template<typename T>
 constexpr vec_t<T, 4> col2(const mat_t<T, 4>& mat);
 
+//! Returns the fourth column of the mat4_t.
 template<typename T>
 constexpr vec_t<T, 4> col3(const mat_t<T, 4>& mat);
 
+//! Sets the first row of the mat4_t.
 template<typename T>
 constexpr void row0(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
 
+//! Sets the second row of the mat4_t.
 template<typename T>
 constexpr void row1(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
 
+//! Sets the third row of the mat4_t.
 template<typename T>
 constexpr void row2(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
 
+//! Sets the fourth row of the mat4_t.
 template<typename T>
 constexpr void row3(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
 
+//! Sets the first column of the mat4_t.
 template<typename T>
 constexpr void col0(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
 
+//! Sets the second column of the mat4_t.
 template<typename T>
 constexpr void col1(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
 
+//! Sets the third column of the mat4_t.
 template<typename T>
 constexpr void col2(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
 
+//! Sets the fourth column of the mat4_t.
 template<typename T>
 constexpr void col3(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
 
+//! Returns the x basis vector for the mat4_t.
+//! \note The fourth (w) element of the vector will be `0`.
 template<typename T>
 constexpr vec_t<T, 4> basis_x(const mat_t<T, 4>& mat);
 
+//! Returns the y basis vector for the mat4_t.
+//! \note The fourth (w) element of the vector will be `0`.
 template<typename T>
 constexpr vec_t<T, 4> basis_y(const mat_t<T, 4>& mat);
 
+//! Returns the z basis vector for the mat4_t.
+//! \note The fourth (w) element of the vector will be `0`.
 template<typename T>
 constexpr vec_t<T, 4> basis_z(const mat_t<T, 4>& mat);
 
+//! Returns the translation component of the mat4_t.
+//! \note The fourth (w) element of the vector will be `1`.
 template<typename T>
 constexpr vec_t<T, 4> translation(const mat_t<T, 4>& mat);
 
+//! Sets the x basis vector for the mat4_t.
 template<typename T>
 constexpr void basis_x(mat_t<T, 4>& mat, const vec_t<T, 4>& basis);
 
+//! Sets the y basis vector for the mat4_t.
 template<typename T>
 constexpr void basis_y(mat_t<T, 4>& mat, const vec_t<T, 4>& basis);
 
+//! Sets the z basis vector for the mat4_t.
 template<typename T>
 constexpr void basis_z(mat_t<T, 4>& mat, const vec_t<T, 4>& basis);
 
+//! Sets the translation component for the mat4_t.
+//! \note The vec4_t should usually have its fourth (w) component set to `1`.
 template<typename T>
 constexpr void translation(mat_t<T, 4>& mat, const vec_t<T, 4>& translation);
 
+//! Creates a mat_t<T, 4> from a fixed size array of the same type and dimension.
 template<typename T>
 mat_t<T, 4> from_arr(const T (&data)[16]);
 
+//! Creates a mat_t<T, 3> from a pointer to an array of the same type.
 template<typename T>
 mat_t<T, 4> from_ptr(const T* data);
 
+//! Returns a mat_t<T, 4> from a vec_t<T, 3>.
+//! \note The upper 3x3 part of the 4x4 matrix is the identity.
 template<typename T>
 constexpr mat_t<T, 4> from_vec3(const vec_t<T, 3>& translation);
 
+//! Returns a mat_t<T, 4> from a mat_t<T, 3>.
+//! \note The translation part of the 4x4 matrix will be `(0, 0, 0, 1)`.
 template<typename T>
 constexpr mat_t<T, 4> from_mat3(const mat_t<T, 3>& rotation);
 
+//! Returns a mat_t<T, 4> from a mat_t<T, 3> and a vec_t<T, 3>.
 template<typename T>
 constexpr mat_t<T, 4> from_mat3_vec3(
     const mat_t<T, 3>& rotation, const vec_t<T, 3>& translation);
 
+//! Returns a mat_t<T, 4> from an affine_t.
+//! \note The effect of the transformation will be the same, it is only the type
+//! that changes.
 constexpr mat4_t from_affine(const affine_t& affine);
 
+//! Returns a shear transformation about the `x` axis in `y` and/or `z`.
 template<typename T>
 constexpr mat_t<T, 4> shear_x(T y, T z);
 
+//! Returns a shear transformation about the `y` axis in `x` and/or `z`.
 template<typename T>
 constexpr mat_t<T, 4> shear_y(T x, T z);
 
+//! Returns a shear transformation about the `z` axis in `x` and/or `y`.
 template<typename T>
 constexpr mat_t<T, 4> shear_z(T x, T y);
 
