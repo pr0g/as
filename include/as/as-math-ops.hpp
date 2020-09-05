@@ -642,17 +642,25 @@ constexpr mat_t<T, 4> shear_z(T x, T y);
 namespace point
 {
 
+//! Returns if two point2_t types are the same as each other (within a certain
+//! tolerance).
 bool equal(
     const point2_t& lhs, const point2_t& rhs,
     real_t epsilon = std::numeric_limits<real_t>::epsilon());
 
+//! Returns if two point3_t types are the same as each other (within a certain
+//! tolerance).
 bool equal(
     const point3_t& lhs, const point3_t& rhs,
     real_t epsilon = std::numeric_limits<real_t>::epsilon());
 
+//! Returns the average position of an array of points.
+//! \note This is provided as adding points together is not supported.
 template<typename point_t>
 point_t average(const point_t* points, index_t count);
 
+//! Returns the average position of a parameter pack of points.
+//! \note This is provided as adding points together is not supported.
 template<typename... points_t>
 auto average_fold(points_t&&... points);
 
