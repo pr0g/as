@@ -1473,6 +1473,16 @@ TEST_CASE("row_col_access", "[as_mat]")
         offset = mat4::rc(2, 2);
         CHECK(offset == 10);
     }
+
+    {
+        index_t offset;
+        offset = mat::rc(3, 2, 4);
+#ifdef AS_COL_MAJOR
+        CHECK(offset == 11);
+#elif defined AS_ROW_MAJOR
+        CHECK(offset == 14);
+#endif
+    }
 }
 
 TEST_CASE("mat4_shear", "[as_mat]")

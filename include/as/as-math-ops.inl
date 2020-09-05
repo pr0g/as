@@ -333,7 +333,7 @@ AS_API mat_t<T, 3> orthonormal_basis(const vec_t<T, 3>& u)
 {
     const auto[x, y, z] = vec::abs(u);
 
-    vec_t<T, 3> v = [&u, x, y, z](){
+    const vec_t<T, 3> v = vec::normalize([u, x = x, y = y, z = z]{
         if (x <= y && x <= z) {
             return vec_t<T, 3>(0.0_r, -u.z, u.y);
         } else if (y <= x && y <= z) {
@@ -341,11 +341,9 @@ AS_API mat_t<T, 3> orthonormal_basis(const vec_t<T, 3>& u)
         } else /* if (z <= x && z <= y) */ {
             return vec_t<T, 3>(-u.y, u.x, 0.0_r);
         }
-    }();
+    }());
 
-    v = vec::normalize(v);
     const vec_t<T, 3> w = cross(u, v);
-
     return mat_t<T, 3>(u, v, w);
 }
 
@@ -599,42 +597,6 @@ AS_API mat_t<T, 2> inverse(const mat_t<T, 2>& mat)
                        -mat[2], mat[0]}
          * (T(1.0) / determinant(mat));
     // clang-format on
-}
-
-template<typename T, index_t d>
-AS_API mat_t<T, d> gj_inverse(const mat_t<T, d>& mat)
-{
-    mat_t<T, d> curr_mat = mat;
-    mat_t<T, d> result = identity<T, d>();
-
-    index_t current_line = 0;
-    for (index_t i = 0; i < d; ++i) {
-        T diagonal = curr_mat[(d * i) + i];
-        T diagonal_recip = T{1} / diagonal;
-
-        for (index_t j = d * i; j < d + (d * i); ++j) {
-            curr_mat[j] *= diagonal_recip;
-            result[j] *= diagonal_recip;
-        }
-
-        for (index_t r = 0; r < d; ++r) {
-            if (r == current_line) {
-                continue;
-            }
-
-            T next = curr_mat[current_line + r * d];
-
-            for (index_t c = 0; c < d; ++c) {
-                index_t index_t = d * r + c;
-                curr_mat[index_t] -= (next * curr_mat[d * current_line + c]);
-                result[index_t] -= (next * result[d * current_line + c]);
-            }
-        }
-
-        ++current_line;
-    }
-
-    return result;
 }
 
 template<typename T, index_t d>

@@ -30,8 +30,7 @@ constexpr index_t size(const vec_t<T, d>& vec);
 template<typename T, index_t d>
 vec_t<T, d> from_arr(const T (&data)[d]);
 
-//! Creates a vector from a pointer to the beginning of an array of the same
-//! type.
+//! Creates a vector from a pointer to an array of the same type.
 //! \warning Be very careful when using this function. Ensure that the array
 //! used to initialize the vector is at least as big as the size of the vector.
 //! Undefined behaviour may be invoked by reading memory out of bounds if not.
@@ -163,8 +162,7 @@ namespace vec2
 template<typename T>
 vec_t<T, 2> from_arr(const T (&data)[2]);
 
-//! Creates a vec_t<T, 2> from a pointer to the beginning of an array of the
-//! same type.
+//! Creates a vec_t<T, 2> from a pointer to an array of the same type.
 template<typename T>
 vec_t<T, 2> from_ptr(const T* data);
 
@@ -191,8 +189,7 @@ namespace vec3
 template<typename T>
 vec_t<T, 3> from_arr(const T (&data)[3]);
 
-//! Creates a vec_t<T, 3> from a pointer to the beginning of an array of the
-//! same type.
+//! Creates a vec_t<T, 3> from a pointer to an array of the same type.
 template<typename T>
 vec_t<T, 3> from_ptr(const T* data);
 
@@ -246,8 +243,7 @@ namespace vec4
 template<typename T>
 vec_t<T, 4> from_arr(const T (&data)[4]);
 
-//! Creates a vec_t<T, 4> from a pointer to the beginning of an array of the
-//! same type.
+//! Creates a vec_t<T, 4> from a pointer to an array of the same type.
 template<typename T>
 vec_t<T, 4> from_ptr(const T* data);
 
@@ -262,7 +258,7 @@ constexpr vec_t<T, 4> from_vec2(
 template<typename T>
 constexpr vec_t<T, 4> from_vec3(const vec_t<T, 3>& vec, T w = T(0.0));
 
-//! Returns a vec4_t from a point3_t
+//! Returns a vec4_t from a point3_t.
 //! \note The fourth paramter of the vec4_t will be set to 1.
 vec4_t from_point3(const point3_t& point);
 
@@ -272,55 +268,93 @@ vec4_t from_point3(const point3_t& point);
 namespace mat
 {
 
+//! Performs a mapping from a row and column index to a single offset.
+//! \param r Row index.
+//! \param c Column index.
+//! \param d Dimension of the matrix.
+//! \note The result returned will depend on if `AS_COL_MAJOR` or `AS_ROW_MAJOR`
+//! is defined.
+//! ```{.cpp}
+//! // e.g. 4x4 matrix
+//! rc(3, 2, 4) = 11 // column major
+//! rc(3, 2, 4) = 14 // row major
+//! ```
 constexpr index_t rc(index_t r, index_t c, index_t d);
 
+//! Returns the nth row of the matrix.
+//! \param r Row index.
 template<typename T, index_t d>
 vec_t<T, d> row(const mat_t<T, d>& mat, index_t r);
 
+//! Returns the nth column of the matrix.
+//! \param c Column index.
 template<typename T, index_t d>
 vec_t<T, d> col(const mat_t<T, d>& mat, index_t c);
 
+//! Sets the nth row of the matrix.
+//! \param c Row index.
 template<typename T, index_t d>
 constexpr void row(mat_t<T, d>& mat, index_t r, const vec_t<T, d>& row);
 
+//! Sets the nth column of the matrix.
+//! \param c Column index.
 template<typename T, index_t d>
 constexpr void col(mat_t<T, d>& mat, index_t c, const vec_t<T, d>& col);
 
+//! Returns a pointer to the start of the matrix data.
 template<typename T, index_t d>
 T* data(mat_t<T, d>& mat);
 
+//! Returns a const pointer to the start of the matrix data.
 template<typename T, index_t d>
 const T* const_data(const mat_t<T, d>& mat);
 
+//! Creates a mat_t<T, d> from a fixed size array of the same type and dimension.
 template<typename T, index_t d>
 mat_t<T, d> from_arr(const T (&data)[d * d]);
 
+//! Creates a mat_t<T, d> from a pointer to an array of the same type.
 template<typename T, index_t d>
 mat_t<T, d> from_ptr(const T* data);
 
+//! Writes the values stored in the matrix to an array of the same type and
+//! dimension.
 template<typename T, index_t d>
-void to_arr(const mat_t<T, d>& mat, T (&data)[d]);
+void to_arr(const mat_t<T, d>& mat, T (&data)[d * d]);
 
+//! Returns if two matrices are the same as each other (within a certain
+//! tolerance).
 template<typename T, index_t d>
 bool equal(
     const mat_t<T, d>& lhs, const mat_t<T, d>& rhs,
     real_t epsilon = std::numeric_limits<real_t>::epsilon());
 
+//! Returns the transpose of a matrix.
+//! \note Rows and columns are swapped.
 template<typename T, index_t d>
 mat_t<T, d> transpose(const mat_t<T, d>& mat);
 
+//! Returns the determinant of a matrix.
+//! \note This is the signed volume of the n-dimensional parallelepiped spanned
+//! by the column or row vectors of the matrix.
 template<typename T, index_t d>
 T determinant(const mat_t<T, d>& mat);
 
+//! Returns the inverse of the matrix.
+//! ```{.cpp}
+//! // mat * inv(mat) = identity
+//! ```
 template<typename T, index_t d>
 mat_t<T, d> inverse(const mat_t<T, d>& mat);
 
-template<typename T, index_t d>
-mat_t<T, d> gj_inverse(const mat_t<T, d>& mat);
-
-// lhs is performed first, then rhs
-// col major - result = rhs * lhs;
-// row major - result = lhs * rhs;
+//! Returns the result of two `mat_t` types multiplied together.
+//! \note `lhs` is performed first, then `rhs`
+//! ```{.cpp}
+//! // Column major
+//! result = rhs * lhs; // right to left
+//! // Row major
+//! result = lhs * rhs; // left ro right
+//! ```
 template<typename T, index_t d>
 mat_t<T, d> mul(const mat_t<T, d>& lhs, const mat_t<T, d>& rhs);
 

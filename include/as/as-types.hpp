@@ -51,7 +51,7 @@ constexpr double operator"" _r(long double val)
 //! Returns compile time array size.
 //! \note Macro originates from Google's Chromium project.
 #define AS_DIM(x)                                                              \
-    ((sizeof(x) / sizeof(0 [x])) / ((size_t)(!(sizeof(x) % sizeof(0 [x])))))
+    ((sizeof(x) / sizeof(0 [x])) / (static_cast<size_t>((!(sizeof(x) % sizeof(0 [x]))))))
 
 #ifdef _MSC_VER
 #define AS_NOINLINE __declspec(noinline)

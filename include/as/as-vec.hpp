@@ -254,16 +254,16 @@ struct vec_t<T, 4>
 
     //! Returns `(x, 0, 0, 0)`.
     //! \param x Optional parameter for the length of the axis, defaults to 1.
-    constexpr static vec_t<T, 4> axis_x(T len = T(1.0));
+    constexpr static vec_t<T, 4> axis_x(T x = T(1.0));
     //! Returns `(0, y, 0, 0)`.
     //! \param y Optional parameter for the length of the axis, defaults to 1.
-    constexpr static vec_t<T, 4> axis_y(T len = T(1.0));
+    constexpr static vec_t<T, 4> axis_y(T y = T(1.0));
     //! Returns `(0, 0, z, 0)`.
     //! \param z Optional parameter for the length of the axis, defaults to 1.
-    constexpr static vec_t<T, 4> axis_z(T len = T(1.0));
+    constexpr static vec_t<T, 4> axis_z(T z = T(1.0));
     //! Returns `(0, 0, 0, w)`.
     //! \param w Optional parameter for the length of the axis, defaults to 1.
-    constexpr static vec_t<T, 4> axis_w(T len = T(1.0));
+    constexpr static vec_t<T, 4> axis_w(T w = T(1.0));
     //! Returns `(0, 0, 0, 0)`.
     constexpr static vec_t<T, 4> zero();
     //! Returns `(1, 1, 1, 1)`.
