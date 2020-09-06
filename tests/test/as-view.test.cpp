@@ -217,12 +217,12 @@ TEST_CASE("ortho_vulkan_rh", "[as_view]")
     using gsl::make_span;
 
     mat4_t ortho_vulkan_rh;
-    ortho_vulkan_rh =
-        view::ortho_vulkan_rh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
+    ortho_vulkan_rh = view::ortho_vulkan_rh(
+        -10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
 
     const real_t reference[] = {
         0.100000_r,  0.000000_r,  0.000000_r,  0.000000_r,
-        0.000000_r,  -0.100000_r,  0.000000_r,  0.000000_r,
+        0.000000_r,  -0.100000_r, 0.000000_r,  0.000000_r,
         0.000000_r,  0.000000_r,  -0.001000_r, 0.000000_r,
         -0.000000_r, -0.000000_r, -0.000010_r, 1.000000_r};
 
@@ -236,12 +236,12 @@ TEST_CASE("ortho_vulkan_lh", "[as_view]")
     using gsl::make_span;
 
     mat4_t ortho_vulkan_lh;
-    ortho_vulkan_lh =
-        view::ortho_vulkan_lh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
+    ortho_vulkan_lh = view::ortho_vulkan_lh(
+        -10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
 
     const real_t reference[] = {
         0.100000_r,  0.000000_r,  0.000000_r,  0.000000_r,
-        0.000000_r,  -0.100000_r,  0.000000_r,  0.000000_r,
+        0.000000_r,  -0.100000_r, 0.000000_r,  0.000000_r,
         0.000000_r,  0.000000_r,  0.001000_r,  0.000000_r,
         -0.000000_r, -0.000000_r, -0.000010_r, 1.000000_r};
 
