@@ -370,80 +370,80 @@ mat_t<T, d> mul(const mat_t<T, d>& lhs, const mat_t<T, d>& rhs);
 namespace mat3
 {
 
-//! Performs a mapping from a row and column index to a single offset for mat3_t.
+//! Performs a mapping from a row and column index to a single offset for ::mat3_t.
 //! \param r Row index.
 //! \param c Column index.
 constexpr index_t rc(index_t r, index_t c);
 
-//! Returns the first row of the mat3_t.
+//! Returns the first row of the ::mat3_t.
 template<typename T>
 constexpr vec_t<T, 3> row0(const mat_t<T, 3>& mat);
 
-//! Returns the second row of the mat3_t.
+//! Returns the second row of the ::mat3_t.
 template<typename T>
 constexpr vec_t<T, 3> row1(const mat_t<T, 3>& mat);
 
-//! Returns the third row of the mat3_t.
+//! Returns the third row of the ::mat3_t.
 template<typename T>
 constexpr vec_t<T, 3> row2(const mat_t<T, 3>& mat);
 
-//! Returns the first column of the mat3_t.
+//! Returns the first column of the ::mat3_t.
 template<typename T>
 constexpr vec_t<T, 3> col0(const mat_t<T, 3>& mat);
 
-//! Returns the second column of the mat3_t.
+//! Returns the second column of the ::mat3_t.
 template<typename T>
 constexpr vec_t<T, 3> col1(const mat_t<T, 3>& mat);
 
-//! Returns the third column of the mat3_t.
+//! Returns the third column of the ::mat3_t.
 template<typename T>
 constexpr vec_t<T, 3> col2(const mat_t<T, 3>& mat);
 
-//! Sets the first row of the mat3_t.
+//! Sets the first row of the ::mat3_t.
 template<typename T>
 constexpr void row0(mat_t<T, 3>& mat, const vec_t<T, 3>& row);
 
-//! Sets the second row of the mat3_t.
+//! Sets the second row of the ::mat3_t.
 template<typename T>
 constexpr void row1(mat_t<T, 3>& mat, const vec_t<T, 3>& row);
 
-//! Sets the third row of the mat3_t.
+//! Sets the third row of the ::mat3_t.
 template<typename T>
 constexpr void row2(mat_t<T, 3>& mat, const vec_t<T, 3>& row);
 
-//! Sets the first column of the mat3_t.
+//! Sets the first column of the ::mat3_t.
 template<typename T>
 constexpr void col0(mat_t<T, 3>& mat, const vec_t<T, 3>& col);
 
-//! Sets the second column of the mat3_t.
+//! Sets the second column of the ::mat3_t.
 template<typename T>
 constexpr void col1(mat_t<T, 3>& mat, const vec_t<T, 3>& col);
 
-//! Sets the third column of the mat3_t.
+//! Sets the third column of the ::mat3_t.
 template<typename T>
 constexpr void col2(mat_t<T, 3>& mat, const vec_t<T, 3>& col);
 
-//! Returns the x basis vector for the mat3_t.
+//! Returns the x basis vector for the ::mat3_t.
 template<typename T>
 constexpr vec_t<T, 3> basis_x(const mat_t<T, 3>& mat);
 
-//! Returns the y basis vector for the mat3_t.
+//! Returns the y basis vector for the ::mat3_t.
 template<typename T>
 constexpr vec_t<T, 3> basis_y(const mat_t<T, 3>& mat);
 
-//! Returns the z basis vector for the mat3_t.
+//! Returns the z basis vector for the ::mat3_t.
 template<typename T>
 constexpr vec_t<T, 3> basis_z(const mat_t<T, 3>& mat);
 
-//! Sets the x basis vector for the mat3_t.
+//! Sets the x basis vector for the ::mat3_t.
 template<typename T>
 constexpr void basis_x(mat_t<T, 3>& mat, const vec_t<T, 3>& basis);
 
-//! Sets the y basis vector for the mat3_t.
+//! Sets the y basis vector for the ::mat3_t.
 template<typename T>
 constexpr void basis_y(mat_t<T, 3>& mat, const vec_t<T, 3>& basis);
 
-//! Sets the z basis vector for the mat3_t.
+//! Sets the z basis vector for the ::mat3_t.
 template<typename T>
 constexpr void basis_z(mat_t<T, 3>& mat, const vec_t<T, 3>& basis);
 
@@ -465,10 +465,10 @@ constexpr mat_t<T, 3> from_mat4(const mat_t<T, 4>& transform);
 //! \param radians The amount to rotate by in radians.
 mat3_t axis_angle(const vec3_t& axis, real_t radians);
 
-//! Returns a rotation about x, then y, then z.
+//! Returns a rotation about `x`, then `y`, then `z`.
 mat3_t rotation_xyz(real_t x, real_t y, real_t z);
 
-//! Returns a rotation about z, then x, then y.
+//! Returns a rotation about `z`, then `x`, then `y`.
 //! \note This is often useful for free-look cameras.
 mat3_t rotation_zxy(real_t x, real_t y, real_t z);
 
@@ -487,7 +487,7 @@ constexpr mat3_t scale(real_t scale);
 //! Returns a (potentially) non-uniform scale martix.
 constexpr mat3_t scale(const vec3_t& scale);
 
-//! Returns a mat3_t from a quaternion.
+//! Returns a ::mat3_t from a quaternion.
 constexpr mat3_t from_quat(const quat_t& quat);
 
 } // namespace mat3
@@ -496,108 +496,108 @@ constexpr mat3_t from_quat(const quat_t& quat);
 namespace mat4
 {
 
-//! Performs a mapping from a row and column index to a single offset for mat4_t.
+//! Performs a mapping from a row and column index to a single offset for ::mat4_t.
 //! \param r Row index.
 //! \param c Column index.
 constexpr index_t rc(index_t r, index_t c);
 
-//! Returns the first row of the mat4_t.
+//! Returns the first row of the ::mat4_t.
 template<typename T>
 constexpr vec_t<T, 4> row0(const mat_t<T, 4>& mat);
 
-//! Returns the second row of the mat4_t.
+//! Returns the second row of the ::mat4_t.
 template<typename T>
 constexpr vec_t<T, 4> row1(const mat_t<T, 4>& mat);
 
-//! Returns the third row of the mat4_t.
+//! Returns the third row of the ::mat4_t.
 template<typename T>
 constexpr vec_t<T, 4> row2(const mat_t<T, 4>& mat);
 
-//! Returns the fourth row of the mat4_t.
+//! Returns the fourth row of the ::mat4_t.
 template<typename T>
 constexpr vec_t<T, 4> row3(const mat_t<T, 4>& mat);
 
-//! Returns the first column of the mat4_t.
+//! Returns the first column of the ::mat4_t.
 template<typename T>
 constexpr vec_t<T, 4> col0(const mat_t<T, 4>& mat);
 
-//! Returns the second column of the mat4_t.
+//! Returns the second column of the ::mat4_t.
 template<typename T>
 constexpr vec_t<T, 4> col1(const mat_t<T, 4>& mat);
 
-//! Returns the third column of the mat4_t.
+//! Returns the third column of the ::mat4_t.
 template<typename T>
 constexpr vec_t<T, 4> col2(const mat_t<T, 4>& mat);
 
-//! Returns the fourth column of the mat4_t.
+//! Returns the fourth column of the ::mat4_t.
 template<typename T>
 constexpr vec_t<T, 4> col3(const mat_t<T, 4>& mat);
 
-//! Sets the first row of the mat4_t.
+//! Sets the first row of the ::mat4_t.
 template<typename T>
 constexpr void row0(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
 
-//! Sets the second row of the mat4_t.
+//! Sets the second row of the ::mat4_t.
 template<typename T>
 constexpr void row1(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
 
-//! Sets the third row of the mat4_t.
+//! Sets the third row of the ::mat4_t.
 template<typename T>
 constexpr void row2(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
 
-//! Sets the fourth row of the mat4_t.
+//! Sets the fourth row of the ::mat4_t.
 template<typename T>
 constexpr void row3(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
 
-//! Sets the first column of the mat4_t.
+//! Sets the first column of the ::mat4_t.
 template<typename T>
 constexpr void col0(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
 
-//! Sets the second column of the mat4_t.
+//! Sets the second column of the ::mat4_t.
 template<typename T>
 constexpr void col1(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
 
-//! Sets the third column of the mat4_t.
+//! Sets the third column of the ::mat4_t.
 template<typename T>
 constexpr void col2(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
 
-//! Sets the fourth column of the mat4_t.
+//! Sets the fourth column of the ::mat4_t.
 template<typename T>
 constexpr void col3(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
 
-//! Returns the x basis vector for the mat4_t.
+//! Returns the x basis vector for the ::mat4_t.
 //! \note The fourth (w) element of the vector will be `0`.
 template<typename T>
 constexpr vec_t<T, 4> basis_x(const mat_t<T, 4>& mat);
 
-//! Returns the y basis vector for the mat4_t.
+//! Returns the y basis vector for the ::mat4_t.
 //! \note The fourth (w) element of the vector will be `0`.
 template<typename T>
 constexpr vec_t<T, 4> basis_y(const mat_t<T, 4>& mat);
 
-//! Returns the z basis vector for the mat4_t.
+//! Returns the z basis vector for the ::mat4_t.
 //! \note The fourth (w) element of the vector will be `0`.
 template<typename T>
 constexpr vec_t<T, 4> basis_z(const mat_t<T, 4>& mat);
 
-//! Returns the translation component of the mat4_t.
+//! Returns the translation component of the ::mat4_t.
 //! \note The fourth (w) element of the vector will be `1`.
 template<typename T>
 constexpr vec_t<T, 4> translation(const mat_t<T, 4>& mat);
 
-//! Sets the x basis vector for the mat4_t.
+//! Sets the x basis vector for the ::mat4_t.
 template<typename T>
 constexpr void basis_x(mat_t<T, 4>& mat, const vec_t<T, 4>& basis);
 
-//! Sets the y basis vector for the mat4_t.
+//! Sets the y basis vector for the ::mat4_t.
 template<typename T>
 constexpr void basis_y(mat_t<T, 4>& mat, const vec_t<T, 4>& basis);
 
-//! Sets the z basis vector for the mat4_t.
+//! Sets the z basis vector for the ::mat4_t.
 template<typename T>
 constexpr void basis_z(mat_t<T, 4>& mat, const vec_t<T, 4>& basis);
 
-//! Sets the translation component for the mat4_t.
+//! Sets the translation component for the ::mat4_t.
 //! \note The vec4_t should usually have its fourth (w) component set to `1`.
 template<typename T>
 constexpr void translation(mat_t<T, 4>& mat, const vec_t<T, 4>& translation);
@@ -717,7 +717,7 @@ vec3_t rotate(const quat_t& quat, const vec3_t& v);
 quat_t slerp(const quat_t& lhs, const quat_t& rhs, real_t t);
 
 //! Converts a rotation matrix to a quaternion.
-//! \note Ensure `mat` is a valid rotation.
+//! \note Ensure ::mat3_t is a valid rotation.
 quat_t from_mat3(const mat3_t& mat);
 
 } // namespace quat
@@ -728,35 +728,35 @@ namespace affine
 
 //! Writes the values stored in the affine_t to an array of the same type and
 //! dimension.
-//! \note affine_t uses a mat3_t and a vec3_t internally.
+//! \note affine_t uses a ::mat3_t and a ::vec3_t internally.
 void to_arr(const affine_t& affine, real_t (&data)[12]);
 
 //! Creates an affine_t from a fixed size array of the same type and dimension.
-//! \note affine_t uses a mat3_t and a vec3_t internally.
+//! \note affine_t uses a ::mat3_t and a ::vec3_t internally.
 affine_t from_arr(const real_t (&data)[12]);
 
 //! Creates an affine_t from a pointer to an array of the same type.
 //! \note Ensure that the array has at least 12 elements from where it is read.
 affine_t from_ptr(const real_t* data);
 
-//! Returns an affine_t from a mat4_t.
-//! \note Ensure that the mat4_t holds a valid affine transformation
+//! Returns an affine_t from a ::mat4_t.
+//! \note Ensure that the ::mat4_t holds a valid affine transformation
 //! (translation/scale/rotation) and not a non-affine transformation such as a
 //! projection.
 affine_t from_mat4(const mat4_t& mat);
 
-//! Returns an affine_t from a mat3_t.
-//! \note Ensure that the mat3_t holds a valid affine transformation
+//! Returns an affine_t from a ::mat3_t.
+//! \note Ensure that the ::mat3_t holds a valid affine transformation
 //! (scale/rotation)
 //! \note The translation portion of affine_t will be zero.
 affine_t from_mat3(const mat3_t& mat);
 
-//! Returns an affine_t from a mat3_t and a vec3_t.
-//! \note Ensure that the mat3_t holds a valid affine transformation
+//! Returns an affine_t from a ::mat3_t and a ::vec3_t.
+//! \note Ensure that the ::mat3_t holds a valid affine transformation
 //! (scale/rotation)
 affine_t from_mat3_vec3(const mat3_t& mat, const vec3_t vec);
 
-//! Returns an affine_t from a vec3_t.
+//! Returns an affine_t from a ::vec3_t.
 //! \note The rotation part will be initialized to the identity.
 affine_t from_vec3(const vec3_t& vec);
 
@@ -764,11 +764,11 @@ affine_t from_vec3(const vec3_t& vec);
 //! \note The rotation part will be initialized to the identity.
 affine_t from_point3(const point3_t& point);
 
-//! Returns the result of two `affine_t` types multiplied together.
+//! Returns the result of two affine_t types multiplied together.
 //! \note `lhs` is performed first, then `rhs`
 affine_t mul(const affine_t& lhs, const affine_t& rhs);
 
-//! Returns the inverse of the `affine_t`.
+//! Returns the inverse of the affine_t.
 //! ```{.cpp}
 //! // affine * inv(affine) = identity
 //! ```

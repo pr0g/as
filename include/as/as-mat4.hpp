@@ -73,7 +73,7 @@ private:
     T elem_rc[size()]; //!< Elements of the matrix.
 };
 
-//! Type alias for a four dimensional matrix of type `real_t`.
+//! Type alias for a four dimensional matrix of type ::real_t.
 using mat4_t = mat_t<real_t, 4>;
 //! Type alias for a four dimensional matrix of type `float`.
 using mat4f_t = mat_t<float, 4>;

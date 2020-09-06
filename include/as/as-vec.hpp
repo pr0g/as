@@ -124,7 +124,7 @@ private:
 template<typename T>
 T vec_t<T, 2>::*vec_t<T, 2>::elem[size()] = {&vec_t<T, 2>::x, &vec_t<T, 2>::y};
 
-//! Type alias for a two dimensional vector of type `real_t`.
+//! Type alias for a two dimensional vector of type ::real_t.
 using vec2_t = vec_t<real_t, 2>;
 //! Type alias for a two dimensional vector of type `float`.
 using vec2f_t = vec_t<float, 2>;
@@ -205,7 +205,7 @@ template<typename T>
 T vec_t<T, 3>::*vec_t<T, 3>::elem[size()] = {
     &vec_t<T, 3>::x, &vec_t<T, 3>::y, &vec_t<T, 3>::z};
 
-//! Type alias for a three dimensional vector of type `real_t`.
+//! Type alias for a three dimensional vector of type ::real_t.
 using vec3_t = vec_t<real_t, 3>;
 //! Type alias for a three dimensional vector of type `float`.
 using vec3f_t = vec_t<float, 3>;
@@ -294,7 +294,7 @@ template<typename T>
 T vec_t<T, 4>::*vec_t<T, 4>::elem[size()] = {
     &vec_t<T, 4>::x, &vec_t<T, 4>::y, &vec_t<T, 4>::z, &vec_t<T, 4>::w};
 
-//! Type alias for a four dimensional vector of type `real_t`.
+//! Type alias for a four dimensional vector of type ::real_t.
 using vec4_t = vec_t<real_t, 4>;
 //! Type alias for a four dimensional vector of type `float`.
 using vec4f_t = vec_t<float, 4>;

@@ -11,7 +11,7 @@ namespace as
 //! A quaternion used to store rotation/orientaton in (_w_, __v__) format.
 struct quat_t
 {
-    //! Type alias for `real_t`.
+    //! Type alias for ::real_t.
     using value_type = real_t;
 
     quat_t() noexcept = default;

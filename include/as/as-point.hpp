@@ -15,7 +15,7 @@ namespace as
 //! can be used to increase type safety and prevent erroneous operations.
 struct point2_t
 {
-    //! Type alias for `real_t`.
+    //! Type alias for ::real_t.
     using value_type = real_t;
 
     point2_t() noexcept = default;
@@ -85,7 +85,7 @@ private:
 //! can be used to increase type safety and prevent erroneous operations.
 struct point3_t
 {
-    //! Type alias for `real_t`.
+    //! Type alias for ::real_t.
     using value_type = real_t;
 
     point3_t() noexcept = default;

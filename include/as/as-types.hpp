@@ -27,7 +27,7 @@ static_assert(
 #ifdef AS_PRECISION_FLOAT
 //! An alias for `float` if `AS_PRECISION_FLOAT` is defined.
 using real_t = float;
-//! A user-defined literal to be used for `real_t`.
+//! A user-defined literal to be used for ::real_t.
 //! \note Returns `float` when `AS_PRECISION_FLOAT` is defined.
 //! \note Useful when using literals where precision is customizable.
 constexpr float operator"" _r(long double val)
@@ -39,7 +39,7 @@ constexpr float operator"" _r(long double val)
 #ifdef AS_PRECISION_DOUBLE
 //! An alias for `double` if `AS_PRECISION_DOUBLE` is defined.
 using real_t = double;
-//! A user-defined literal to be used for `real_t`.
+//! A user-defined literal to be used for ::real_t.
 //! \note Returns `double` when `AS_PRECISION_DOUBLE` is defined.
 //! \note Useful when using literals where precision is customizable.
 constexpr double operator"" _r(long double val)

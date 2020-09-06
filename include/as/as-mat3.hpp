@@ -68,7 +68,7 @@ private:
     T elem_rc[size()]; //!< Elements of the matrix.
 };
 
-//! Type alias for a three dimensional matrix of type `real_t`.
+//! Type alias for a three dimensional matrix of type ::real_t.
 using mat3_t = mat_t<real_t, 3>;
 //! Type alias for a three dimensional matrix of type `float`.
 using mat3f_t = mat_t<float, 3>;
