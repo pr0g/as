@@ -1362,6 +1362,16 @@ AS_API inline affine_t from_mat3(const mat3_t& mat)
     return affine_t(mat, vec3_t::zero());
 }
 
+AS_API inline affine_t from_mat3_vec3(const mat3_t& mat, const vec3_t vec)
+{
+    return affine_t(mat, vec);
+}
+
+AS_API inline affine_t from_vec3(const vec3_t& vec)
+{
+    return affine_t(vec);
+}
+
 AS_API inline affine_t from_point3(const point3_t& point)
 {
     return affine_t(point.as_vec());
@@ -1375,10 +1385,10 @@ AS_API inline affine_t mul(const affine_t& lhs, const affine_t& rhs)
 
 AS_API inline affine_t inverse(const affine_t& affine)
 {
-    const as::mat3_t inv_rot = as::mat::transpose(affine.rotation);
-    const as::vec3_t inv_pos =
-        as::affine::transform_pos(as::affine_t(inv_rot), -affine.translation);
-    return as::affine_t(inv_rot, inv_pos);
+    const mat3_t inv_rot = mat::transpose(affine.rotation);
+    const vec3_t inv_pos =
+        affine::transform_pos(affine_t(inv_rot), -affine.translation);
+    return affine_t(inv_rot, inv_pos);
 }
 
 AS_API inline vec3_t transform_dir(
@@ -1410,7 +1420,7 @@ AS_API inline point3_t transform_pos(
 AS_API inline vec3_t inv_transform_dir(
     const affine_t& affine, const vec3_t& direction)
 {
-    const mat3_t inv_rotation = as::mat::inverse(affine.rotation);
+    const mat3_t inv_rotation = mat::inverse(affine.rotation);
 #ifdef AS_COL_MAJOR
     return inv_rotation * direction;
 #elif defined AS_ROW_MAJOR
@@ -1421,7 +1431,7 @@ AS_API inline vec3_t inv_transform_dir(
 AS_API inline vec3_t inv_transform_pos(
     const affine_t& affine, const vec3_t& position)
 {
-    const mat3_t inv_rotation = as::mat::inverse(affine.rotation);
+    const mat3_t inv_rotation = mat::inverse(affine.rotation);
 #ifdef AS_COL_MAJOR
     return inv_rotation * (position - affine.translation);
 #elif defined AS_ROW_MAJOR

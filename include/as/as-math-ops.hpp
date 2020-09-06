@@ -726,32 +726,78 @@ quat_t from_mat3(const mat3_t& mat);
 namespace affine
 {
 
+//! Writes the values stored in the affine_t to an array of the same type and
+//! dimension.
+//! \note affine_t uses a mat3_t and a vec3_t internally.
 void to_arr(const affine_t& affine, real_t (&data)[12]);
 
+//! Creates an affine_t from a fixed size array of the same type and dimension.
+//! \note affine_t uses a mat3_t and a vec3_t internally.
 affine_t from_arr(const real_t (&data)[12]);
 
+//! Creates an affine_t from a pointer to an array of the same type.
+//! \note Ensure that the array has at least 12 elements from where it is read.
 affine_t from_ptr(const real_t* data);
 
+//! Returns an affine_t from a mat4_t.
+//! \note Ensure that the mat4_t holds a valid affine transformation
+//! (translation/scale/rotation) and not a non-affine transformation such as a
+//! projection.
 affine_t from_mat4(const mat4_t& mat);
 
+//! Returns an affine_t from a mat3_t.
+//! \note Ensure that the mat3_t holds a valid affine transformation
+//! (scale/rotation)
+//! \note The translation portion of affine_t will be zero.
 affine_t from_mat3(const mat3_t& mat);
 
+//! Returns an affine_t from a mat3_t and a vec3_t.
+//! \note Ensure that the mat3_t holds a valid affine transformation
+//! (scale/rotation)
+affine_t from_mat3_vec3(const mat3_t& mat, const vec3_t vec);
+
+//! Returns an affine_t from a vec3_t.
+//! \note The rotation part will be initialized to the identity.
+affine_t from_vec3(const vec3_t& vec);
+
+//! Returns an affine_t from a point3_t.
+//! \note The rotation part will be initialized to the identity.
 affine_t from_point3(const point3_t& point);
 
+//! Returns the result of two `affine_t` types multiplied together.
+//! \note `lhs` is performed first, then `rhs`
 affine_t mul(const affine_t& lhs, const affine_t& rhs);
 
+//! Returns the inverse of the `affine_t`.
+//! ```{.cpp}
+//! // affine * inv(affine) = identity
+//! ```
+//! \note The inverse of affine_t is just the transpose of the rotation part,
+//! so ensure it holds a valid affine transformation (axes are orthogonal).
 affine_t inverse(const affine_t& affine);
 
+//! Returns the input direction transformed by the affine_t.
+//! \note No translation occurs, just rotation.
 vec3_t transform_dir(const affine_t& affine, const vec3_t& direction);
 
+//! Returns the input position transformed by the affine_t.
+//! \note No rotation occurs, just translation.
 vec3_t transform_pos(const affine_t& affine, const vec3_t& position);
 
+//! Returns the input position transformed by the affine_t.
+//! \note No rotation occurs, just translation.
 point3_t transform_pos(const affine_t& affine, const point3_t& position);
 
+//! Returns the input direction transformed by the inverse of the affine_t.
+//! \note No translation occurs, just rotation.
 vec3_t inv_transform_dir(const affine_t& affine, const vec3_t& direction);
 
+//! Returns the input position transformed by the inverse of the affine_t.
+//! \note No rotation occurs, just translation.
 vec3_t inv_transform_pos(const affine_t& affine, const vec3_t& position);
 
+//! Returns the input position transformed by the inverse of the affine_t.
+//! \note No rotation occurs, just translation.
 point3_t inv_transform_pos(const affine_t& affine, const point3_t& position);
 
 } // namespace affine
