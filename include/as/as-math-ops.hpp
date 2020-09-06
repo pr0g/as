@@ -234,7 +234,7 @@ void right_and_up_rh(
 //! Returns an orthonormal basis for the given input vector.
 //! \note This should be preferred to `right_and_up` variants.
 template<typename T>
-mat_t<T, 3> orthonormal_basis(const vec_t<T, 3>& vec);
+mat_t<T, 3> orthonormal_basis(const vec_t<T, 3>& u);
 
 } // namespace vec3
 
@@ -759,7 +759,7 @@ affine_t from_mat3(const mat3_t& mat);
 //! Returns an affine_t from a ::mat3_t and a ::vec3_t.
 //! \note Ensure that the ::mat3_t holds a valid affine transformation
 //! (scale/rotation)
-affine_t from_mat3_vec3(const mat3_t& mat, const vec3_t vec);
+affine_t from_mat3_vec3(const mat3_t& mat, const vec3_t& vec);
 
 //! Returns an affine_t from a ::vec3_t.
 //! \note The rotation part will be initialized to the identity.

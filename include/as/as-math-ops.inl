@@ -1361,7 +1361,7 @@ AS_API inline affine_t from_mat3(const mat3_t& mat)
     return affine_t(mat, vec3_t::zero());
 }
 
-AS_API inline affine_t from_mat3_vec3(const mat3_t& mat, const vec3_t vec)
+AS_API inline affine_t from_mat3_vec3(const mat3_t& mat, const vec3_t& vec)
 {
     return affine_t(mat, vec);
 }

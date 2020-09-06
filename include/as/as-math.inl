@@ -34,9 +34,9 @@ AS_API constexpr T min(const T v0, const T v1)
 }
 
 template<typename T>
-AS_API constexpr T clamp(const T in, const T begin, const T end)
+AS_API constexpr T clamp(const T in, const T low, const T high)
 {
-    return in < begin ? begin : in > end ? end : in;
+    return in < low ? low : in > high ? high : in;
 }
 
 template<typename T>
@@ -47,14 +47,14 @@ AS_API constexpr T snap(const T in, const T step)
 
 AS_API constexpr real_t deg_to_rad(const real_t degrees)
 {
-    constexpr real_t kDegToRad = kPi / 180.0_r;
-    return degrees * kDegToRad;
+    constexpr real_t k_deg_to_rad = kPi / 180.0_r;
+    return degrees * k_deg_to_rad;
 }
 
 AS_API constexpr real_t rad_to_deg(const real_t radians)
 {
-    constexpr real_t kRadToDeg = 180.0_r / kPi;
-    return radians * kRadToDeg;
+    constexpr real_t k_rad_to_deg = 180.0_r / kPi;
+    return radians * k_rad_to_deg;
 }
 
 // floating point comparison by Bruce Dawson

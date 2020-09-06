@@ -56,7 +56,7 @@ struct point2_t
     constexpr vec2_t as_vec() &&;
     //! Returns a const reference to the underlying vec2_t.
     //! \note Can only be called on a const lvalue object.
-    constexpr const vec2_t& as_vec() const&;
+    [[nodiscard]] constexpr const vec2_t& as_vec() const&;
 
 private:
     //! Returns the result of the right hand point2_t subtracted from the left
@@ -132,7 +132,7 @@ struct point3_t
     constexpr vec3_t as_vec() &&;
     //! Returns a const reference to the underlying vec3_t.
     //! \note Can only be called on a const lvalue object.
-    constexpr const vec3_t& as_vec() const&;
+    [[nodiscard]] constexpr const vec3_t& as_vec() const&;
 
 private:
     //! Returns the result of the right hand point3_t subtracted from the left
