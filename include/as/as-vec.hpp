@@ -135,7 +135,8 @@ using vec2i_t = vec_t<int32_t, 2>;
 //! Type alias for a two dimensional vector of type `int64_t`.
 using vec2l_t = vec_t<int64_t, 2>;
 
-//! Partial template specialization of \ref vec_t for a three dimensional vector.
+//! Partial template specialization of \ref vec_t for a three dimensional
+//! vector.
 template<typename T>
 struct vec_t<T, 3>
 {
@@ -378,8 +379,8 @@ constexpr const vec3_t operator*(real_t val, const vec3_t& rhs);
 template<typename T, index_t d>
 constexpr vec_t<T, d>& operator*=(vec_t<T, d>& lhs, T val);
 
-//! Performs a multiplication assignment of a vector three and a scalar quantity.
-//! \note Template specialization.
+//! Performs a multiplication assignment of a vector three and a scalar
+//! quantity. \note Template specialization.
 template<>
 constexpr vec3_t& operator*=(vec3_t& lhs, real_t val);
 

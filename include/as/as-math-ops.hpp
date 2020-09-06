@@ -103,7 +103,8 @@ vec_t<T, d> max(const vec_t<T, d>& lhs, const vec_t<T, d>& rhs);
 template<typename T, index_t d>
 constexpr T max_elem(const vec_t<T, d>& vec);
 
-//! Returns a vector with the absolute value of each element of the input vector.
+//! Returns a vector with the absolute value of each element of the input
+//! vector.
 //! ```{.cpp}
 //! abs((-1, 5, -3)) = (1, 5, 3)
 //! ```
@@ -158,7 +159,8 @@ vec_t<T, d> snap(const vec_t<T, d>& vec, T step);
 namespace vec2
 {
 
-//! Creates a vec_t<T, 2> from a fixed size array of the same type and dimension.
+//! Creates a vec_t<T, 2> from a fixed size array of the same type and
+//! dimension.
 template<typename T>
 vec_t<T, 2> from_arr(const T (&data)[2]);
 
@@ -185,7 +187,8 @@ constexpr T wedge(const vec_t<T, 2>& lhs, const vec_t<T, 2>& rhs);
 namespace vec3
 {
 
-//! Creates a vec_t<T, 3> from a fixed size array of the same type and dimension.
+//! Creates a vec_t<T, 3> from a fixed size array of the same type and
+//! dimension.
 template<typename T>
 vec_t<T, 3> from_arr(const T (&data)[3]);
 
@@ -239,7 +242,8 @@ mat_t<T, 3> orthonormal_basis(const vec_t<T, 3>& vec);
 namespace vec4
 {
 
-//! Creates a vec_t<T, 4> from a fixed size array of the same type and dimension.
+//! Creates a vec_t<T, 4> from a fixed size array of the same type and
+//! dimension.
 template<typename T>
 vec_t<T, 4> from_arr(const T (&data)[4]);
 
@@ -370,9 +374,8 @@ mat_t<T, d> mul(const mat_t<T, d>& lhs, const mat_t<T, d>& rhs);
 namespace mat3
 {
 
-//! Performs a mapping from a row and column index to a single offset for ::mat3_t.
-//! \param r Row index.
-//! \param c Column index.
+//! Performs a mapping from a row and column index to a single offset for
+//! ::mat3_t. \param r Row index. \param c Column index.
 constexpr index_t rc(index_t r, index_t c);
 
 //! Returns the first row of the ::mat3_t.
@@ -447,7 +450,8 @@ constexpr void basis_y(mat_t<T, 3>& mat, const vec_t<T, 3>& basis);
 template<typename T>
 constexpr void basis_z(mat_t<T, 3>& mat, const vec_t<T, 3>& basis);
 
-//! Creates a mat_t<T, 3> from a fixed size array of the same type and dimension.
+//! Creates a mat_t<T, 3> from a fixed size array of the same type and
+//! dimension.
 template<typename T>
 mat_t<T, 3> from_arr(const T (&data)[9]);
 
@@ -496,9 +500,8 @@ constexpr mat3_t from_quat(const quat_t& quat);
 namespace mat4
 {
 
-//! Performs a mapping from a row and column index to a single offset for ::mat4_t.
-//! \param r Row index.
-//! \param c Column index.
+//! Performs a mapping from a row and column index to a single offset for
+//! ::mat4_t. \param r Row index. \param c Column index.
 constexpr index_t rc(index_t r, index_t c);
 
 //! Returns the first row of the ::mat4_t.
@@ -602,7 +605,8 @@ constexpr void basis_z(mat_t<T, 4>& mat, const vec_t<T, 4>& basis);
 template<typename T>
 constexpr void translation(mat_t<T, 4>& mat, const vec_t<T, 4>& translation);
 
-//! Creates a mat_t<T, 4> from a fixed size array of the same type and dimension.
+//! Creates a mat_t<T, 4> from a fixed size array of the same type and
+//! dimension.
 template<typename T>
 mat_t<T, 4> from_arr(const T (&data)[16]);
 
@@ -677,7 +681,8 @@ namespace quat
 {
 
 //! Returns the dot product of two quaternions.
-//! \note The corresponding scalar parts are multiplied together and then summed.
+//! \note The corresponding scalar parts are multiplied together and then
+//! summed.
 constexpr real_t dot(const quat_t& lhs, const quat_t& rhs);
 
 //! Returns the length (magnitude) squared of the quaternion.

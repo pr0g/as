@@ -331,9 +331,9 @@ AS_API void right_and_up_rh(
 template<typename T>
 AS_API mat_t<T, 3> orthonormal_basis(const vec_t<T, 3>& u)
 {
-    const auto[x, y, z] = vec::abs(u);
+    const auto [x, y, z] = vec::abs(u);
 
-    const vec_t<T, 3> v = vec::normalize([u, x = x, y = y, z = z]{
+    const vec_t<T, 3> v = vec::normalize([u, x = x, y = y, z = z] {
         if (x <= y && x <= z) {
             return vec_t<T, 3>(0.0_r, -u.z, u.y);
         } else if (y <= x && y <= z) {
@@ -1353,8 +1353,7 @@ AS_API inline affine_t from_ptr(const real_t* data)
 AS_API inline affine_t from_mat4(const mat4_t& mat)
 {
     return affine_t(
-        mat3::from_mat4(mat),
-        vec3::from_vec4(mat4::translation(mat)));
+        mat3::from_mat4(mat), vec3::from_vec4(mat4::translation(mat)));
 }
 
 AS_API inline affine_t from_mat3(const mat3_t& mat)
@@ -1380,7 +1379,8 @@ AS_API inline affine_t from_point3(const point3_t& point)
 AS_API inline affine_t mul(const affine_t& lhs, const affine_t& rhs)
 {
     return affine_t(
-        mat::mul(lhs.rotation, rhs.rotation), transform_pos(rhs, lhs.translation));
+        mat::mul(lhs.rotation, rhs.rotation),
+        transform_pos(rhs, lhs.translation));
 }
 
 AS_API inline affine_t inverse(const affine_t& affine)

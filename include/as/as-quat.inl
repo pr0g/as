@@ -50,7 +50,9 @@ AS_API constexpr const quat_t operator-(const quat_t& quat)
 AS_API constexpr const quat_t operator/(const quat_t& lhs, const real_t rhs)
 {
     const real_t rhs_recip = 1.0_r / rhs;
-    return {lhs.w * rhs_recip, lhs.x * rhs_recip, lhs.y * rhs_recip, lhs.z * rhs_recip};
+    return {
+        lhs.w * rhs_recip, lhs.x * rhs_recip, lhs.y * rhs_recip,
+        lhs.z * rhs_recip};
 }
 
 AS_API constexpr const quat_t operator*(const quat_t& lhs, const real_t rhs)

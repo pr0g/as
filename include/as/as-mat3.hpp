@@ -8,7 +8,8 @@
 namespace as
 {
 
-//! Partial template specialization of \ref mat_t for a three dimensional matrix.
+//! Partial template specialization of \ref mat_t for a three dimensional
+//! matrix.
 template<typename T>
 struct mat_t<T, 3>
 {

@@ -21,7 +21,7 @@ PenaltyReturnTypeOnItsOwnLine: 1000000
 PenaltyExcessCharacter: 1000000
 PointerAlignment: Left
 SpaceAfterTemplateKeyword: false
-Standard: c++11
+Standard: c++17
 TabWidth: 4
 Cpp11BracedListStyle: true
 IndentCaseLabels: true
@@ -29,5 +29,6 @@ SortIncludes: true
 IncludeBlocks: Preserve
 FixNamespaceComments: true
 AlignOperands: AlignAfterOperator
+AlignTrailingComments: false
 BreakBeforeBinaryOperators: NonAssignment
 ...

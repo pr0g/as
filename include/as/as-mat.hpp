@@ -11,7 +11,8 @@
 namespace as
 {
 
-// A static_assert to check the library matrix convention has been set correctly.
+// A static_assert to check the library matrix convention has been set
+// correctly.
 #if (!defined(AS_COL_MAJOR) && !defined(AS_ROW_MAJOR))
 static_assert(false, "Must define AS_COL_MAJOR or AS_ROW_MAJOR");
 #elif (defined(AS_COL_MAJOR) && defined(AS_ROW_MAJOR))
