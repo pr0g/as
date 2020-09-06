@@ -101,15 +101,15 @@ struct vec_t<T, 2>
     constexpr static vec_t<T, 2> zero();
     //! Returns `(1, 1)`.
     constexpr static vec_t<T, 2> one();
-    //! Returns `(<T>::max, <T>::max)`.
+    //! Returns <tt>(T\::max, T\::max)</tt>.
     //! All elements are initialized to the largest representable value of the
     //! type T.
     constexpr static vec_t<T, 2> max();
-    //! Returns `(<T>::min, <T>::min)`.
+    //! Returns <tt>(T\::min, T\::min)</tt>.
     //! All elements are initialized to the smallest representable value of the
     //! type T.
     constexpr static vec_t<T, 2> min();
-    //! Returns `(<T>::lowest, <T>::lowest)`.
+    //! Returns <tt>(T\::lowest, T\::lowest)</tt>.
     //! All elements are initialized to the lowest representable value of the
     //! type T.
     constexpr static vec_t<T, 2> lowest();
@@ -180,15 +180,15 @@ struct vec_t<T, 3>
     constexpr static vec_t<T, 3> zero();
     //! Returns `(1, 1, 1)`.
     constexpr static vec_t<T, 3> one();
-    //! Returns `(<T>::max, <T>::max, <T>::max)`.
+    //! Returns <tt>(T\::max, T\::max, T\::max)</tt>.
     //! All elements are initialized to the largest representable value of the
     //! type T.
     constexpr static vec_t<T, 3> max();
-    //! Returns `(<T>::min, <T>::min)`.
+    //! Returns <tt>(T\::min, T\::min, T\::min)</tt>.
     //! All elements are initialized to the smallest representable value of the
     //! type T.
     constexpr static vec_t<T, 3> min();
-    //! Returns `(<T>::lowest, <T>::lowest)`.
+    //! Returns <tt>(T\::lowest, T\::lowest, T\::lowest)</tt>.
     //! All elements are initialized to the lowest representable value of the
     //! type T.
     constexpr static vec_t<T, 3> lowest();
@@ -268,15 +268,15 @@ struct vec_t<T, 4>
     constexpr static vec_t<T, 4> zero();
     //! Returns `(1, 1, 1, 1)`.
     constexpr static vec_t<T, 4> one();
-    //! Returns `(<T>::max, <T>::max, <T>::max, <T>::max)`.
+    //! Returns <tt>(T\::max, T\::max, T\::max, T\::max)</tt>.
     //! All elements are initialized to the largest representable value of the
     //! type T.
     constexpr static vec_t<T, 4> max();
-    //! Returns `(<T>::min, <T>::min)`.
+    //! Returns <tt>(T\::min, T\::min, T\::min, T\::min)</tt>.
     //! All elements are initialized to the smallest representable value of the
     //! type T.
     constexpr static vec_t<T, 4> min();
-    //! Returns `(<T>::lowest, <T>::lowest)`.
+    //! Returns <tt>(T\::lowest, T\::lowest, T\::lowest, T\::lowest)</tt>.
     //! All elements are initialized to the lowest representable value of the
     //! type T.
     constexpr static vec_t<T, 4> lowest();

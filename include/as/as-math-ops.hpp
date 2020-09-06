@@ -282,22 +282,28 @@ namespace mat
 constexpr index_t rc(index_t r, index_t c, index_t d);
 
 //! Returns the nth row of the matrix.
+//! \param mat The matrix to use.
 //! \param r Row index.
 template<typename T, index_t d>
 vec_t<T, d> row(const mat_t<T, d>& mat, index_t r);
 
 //! Returns the nth column of the matrix.
+//! \param mat The matrix to use.
 //! \param c Column index.
 template<typename T, index_t d>
 vec_t<T, d> col(const mat_t<T, d>& mat, index_t c);
 
 //! Sets the nth row of the matrix.
-//! \param c Row index.
+//! \param mat The matrix to use.
+//! \param r Row index.
+//! \param row The vector to use.
 template<typename T, index_t d>
 constexpr void row(mat_t<T, d>& mat, index_t r, const vec_t<T, d>& row);
 
 //! Sets the nth column of the matrix.
+//! \param mat The matrix to use.
 //! \param c Column index.
+//! \param col The vector to use.
 template<typename T, index_t d>
 constexpr void col(mat_t<T, d>& mat, index_t c, const vec_t<T, d>& col);
 
