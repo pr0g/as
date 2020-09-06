@@ -670,26 +670,48 @@ auto average_fold(points_t&&... points);
 namespace quat
 {
 
+//! Returns the dot product of two quaternions.
+//! \note The corresponding scalar parts are multiplied together and then summed.
 constexpr real_t dot(const quat_t& lhs, const quat_t& rhs);
 
+//! Returns the length (magnitude) squared of the quaternion.
 constexpr real_t length_sq(const quat_t& quat);
 
-constexpr quat_t conjugate(const quat_t& quat);
-
-quat_t axis_angle(const vec3_t& axis, real_t radians);
-
-quat_t rotation_zxy(real_t x, real_t y, real_t z);
-
+//! Returns the length (magnitude) of the quaternion.
 real_t length(const quat_t& quat);
 
+//! Returns the conjugate of the quaternion.
+//! \note The sign of the imaginary parts are flipped.
+//! \note Represents the same rotation as the initial quaternion in the reverse
+//! direction.
+constexpr quat_t conjugate(const quat_t& quat);
+
+//! Returns a quaternion representing a rotation about the given axis.
+//! \param axis The axis of rotation.
+//! \param radians The amount to rotate by in radians.
+quat_t axis_angle(const vec3_t& axis, real_t radians);
+
+//! Returns a rotation about z, then x, then y.
+quat_t rotation_zxy(real_t x, real_t y, real_t z);
+
+//! Returns the input quaternion normalized.
 quat_t normalize(const quat_t& quat);
 
+//! Returns the inverse of the quaternion.
+//! \note This is the same as the conjugate if the quaternion is normalized
+//! (unit length).
 quat_t inverse(const quat_t& quat);
 
+//! Returns the input vector rotated by the given quaternion.
 vec3_t rotate(const quat_t& quat, const vec3_t& v);
 
+//! Returns the result of a spherical interpolation between the two quaternions
+//! by ratio `t`.
+//! \note `t` should be in the range `[0-1]`.
 quat_t slerp(const quat_t& lhs, const quat_t& rhs, real_t t);
 
+//! Converts a rotation matrix to a quaternion.
+//! \note Ensure `mat` is a valid rotation.
 quat_t from_mat3(const mat3_t& mat);
 
 } // namespace quat
