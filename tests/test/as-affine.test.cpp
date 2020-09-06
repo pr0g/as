@@ -38,17 +38,17 @@ TEST_CASE("affine_constructor_position_rotation", "[as_affine]")
     vec3_t translation = vec3_t(0.0_r, 2.0_r, 2.0_r);
     affine = affine_t(rotation, translation);
 
-    CHECK(as::vec::equal(translation, affine.translation));
-    CHECK(as::mat::equal(rotation, affine.rotation));
+    CHECK(vec::equal(translation, affine.translation));
+    CHECK(mat::equal(rotation, affine.rotation));
 }
 
 TEST_CASE("affine_constructor_position", "[as_affine]")
 {
     affine_t affine;
-    affine = affine_t(as::vec3_t(1.0_r, 2.0_r, 3.0_r));
+    affine = affine_t(vec3_t(1.0_r, 2.0_r, 3.0_r));
 
     CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r), make_elements_sub(affine.translation, 3));
-    CHECK(as::mat::equal(as::mat3_t::identity(), affine.rotation));
+    CHECK(mat::equal(mat3_t::identity(), affine.rotation));
 }
 
 TEST_CASE("affine_transform_dir", "[as_affine]")
@@ -172,21 +172,52 @@ TEST_CASE("affine_from_mat3", "[as_affine]")
 {
     using gsl::make_span;
 
-    as::mat3_t mat3{10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r,
+    mat3_t mat3{10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r,
                     60.0_r, 70.0_r, 80.0_r, 90.0_r};
 
     affine_t affine;
     affine = affine::from_mat3(mat3);
 
     CHECK(mat::equal(mat3, affine.rotation));
-    CHECK_THAT(arr(0.0_r, 0.0_r, 0.0_r), make_elements_sub(affine.translation, 3));
+    CHECK_THAT(
+        arr(0.0_r, 0.0_r, 0.0_r), make_elements_sub(affine.translation, 3));
+}
+
+TEST_CASE("affine_from_mat3_vec3", "[as_affine]")
+{
+    using gsl::make_span;
+
+    mat3_t mat3(10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r,
+                60.0_r, 70.0_r, 80.0_r, 90.0_r);
+    vec3_t vec3(99.0_r, 98.0_r, 97.0_r);
+
+    affine_t affine;
+    affine = affine::from_mat3_vec3(mat3, vec3);
+
+    CHECK(mat::equal(mat3, affine.rotation));
+    CHECK_THAT(
+        arr(99.0_r, 98.0_r, 97.0_r), make_elements_sub(affine.translation, 3));
+}
+
+TEST_CASE("affine_from_vec3", "[as_affine]")
+{
+    using gsl::make_span;
+
+    vec3_t vec3(99.0_r, 98.0_r, 97.0_r);
+
+    affine_t affine;
+    affine = affine::from_vec3(vec3);
+
+    CHECK(mat::equal(mat3_t::identity(), affine.rotation));
+    CHECK_THAT(
+        arr(99.0_r, 98.0_r, 97.0_r), make_elements_sub(affine.translation, 3));
 }
 
 TEST_CASE("affine_from_point3", "[as_affine]")
 {
     using gsl::make_span;
 
-    as::point3_t point3{5.0_r, 10.0_r, 15.0_r};
+    point3_t point3{5.0_r, 10.0_r, 15.0_r};
 
     affine_t affine;
     affine = affine::from_point3(point3);
@@ -249,7 +280,7 @@ TEST_CASE("affine_inverse", "[as_affine]")
     affine::to_arr(affine_expected_inverse, expected_affine);
 
     affine_t result;
-    result = as::affine::inverse(affine);
+    result = affine::inverse(affine);
 
     CHECK_THAT(
         make_span(expected_affine, 9), make_elements_sub(result.rotation, 9));
