@@ -348,7 +348,7 @@ TEST_CASE("point_average", "[as_point]")
 
     {
         point2_t points[] = {point2_t{2.0_r, 2.0_r}, point2_t{4.0_r, 4.0_r}};
-        point2_t avg = point::average(points, AS_DIM(points));
+        point2_t avg = point::average(points, std::size(points));
         CHECK_THAT(arr(3.0_r, 3.0_r), make_elements_sub(avg, 2));
     }
 
@@ -361,7 +361,7 @@ TEST_CASE("point_average", "[as_point]")
     {
         point3_t points[] = {
             point3_t{3.0_r, 3.0_r, 3.0_r}, point3_t{5.0_r, 5.0_r, 5.0_r}};
-        point3_t avg = point::average(points, AS_DIM(points));
+        point3_t avg = point::average(points, std::size(points));
         CHECK_THAT(arr(4.0_r, 4.0_r, 4.0_r), make_elements_sub(avg, 3));
     }
 }

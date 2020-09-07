@@ -336,11 +336,12 @@ AS_API mat_t<T, 3> orthonormal_basis(const vec_t<T, 3>& u)
     const vec_t<T, 3> v = vec::normalize([u, x = x, y = y, z = z] {
         if (x <= y && x <= z) {
             return vec_t<T, 3>(0.0_r, -u.z, u.y);
-        } else if (y <= x && y <= z) {
-            return vec_t<T, 3>(-u.z, 0.0_r, u.x);
-        } else /* if (z <= x && z <= y) */ {
-            return vec_t<T, 3>(-u.y, u.x, 0.0_r);
         }
+        if (y <= x && y <= z) {
+            return vec_t<T, 3>(-u.z, 0.0_r, u.x);
+        }
+        // z <= x && z <= y
+        return vec_t<T, 3>(-u.y, u.x, 0.0_r);
     }());
 
     const vec_t<T, 3> w = cross(u, v);
