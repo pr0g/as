@@ -75,9 +75,8 @@ constexpr real_t rad_to_deg(real_t radians);
 //! \param max_rel_diff The epsilon value to use for all other values.
 //! `max_rel_diff` will be scaled by the largest of the two values.
 bool almost_equal(
-    real_t a, real_t b,
-    real_t max_diff = std::numeric_limits<real_t>::epsilon(),
-    real_t max_rel_diff = std::numeric_limits<real_t>::epsilon());
+  real_t a, real_t b, real_t max_diff = std::numeric_limits<real_t>::epsilon(),
+  real_t max_rel_diff = std::numeric_limits<real_t>::epsilon());
 
 } // namespace as
 

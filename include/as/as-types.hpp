@@ -24,7 +24,7 @@ using index_t = ptrdiff_t;
 static_assert(false, "Must define AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE");
 #elif (defined(AS_PRECISION_FLOAT) && defined(AS_PRECISION_DOUBLE))
 static_assert(
-    false, "Must define only AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE");
+  false, "Must define only AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE");
 #endif // AS_PRECISION_FLOAT ? AS_PRECISION_DOUBLE
 
 #ifdef AS_PRECISION_FLOAT
@@ -35,7 +35,7 @@ using real_t = float;
 //! \note Useful when using literals where precision is customizable.
 constexpr float operator"" _r(long double val)
 {
-    return float(val);
+  return float(val);
 }
 #endif // AS_PRECISION_FLOAT
 
@@ -47,7 +47,7 @@ using real_t = double;
 //! \note Useful when using literals where precision is customizable.
 constexpr double operator"" _r(long double val)
 {
-    return double(val);
+  return double(val);
 }
 #endif // AS_PRECISION_DOUBLE
 

@@ -73,7 +73,7 @@ mat4_t perspective_vulkan_lh(real_t fovy, real_t aspect, real_t n, real_t f);
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
 constexpr mat4_t ortho_gl_rh(
-    real_t l, real_t r, real_t b, real_t t, real_t n, real_t f);
+  real_t l, real_t r, real_t b, real_t t, real_t n, real_t f);
 
 //! Returns a mat4_t representing an orthographic projection matrix.
 //! \note Uses OpenGL NDC space (-1, 1) and a left handed coordinate system.
@@ -84,7 +84,7 @@ constexpr mat4_t ortho_gl_rh(
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
 constexpr mat4_t ortho_gl_lh(
-    real_t l, real_t r, real_t b, real_t t, real_t n, real_t f);
+  real_t l, real_t r, real_t b, real_t t, real_t n, real_t f);
 
 //! Returns a mat4_t representing an orthographic projection matrix.
 //! \note Uses Direct3D NDC space (0, 1) and a right handed coordinate system.
@@ -95,7 +95,7 @@ constexpr mat4_t ortho_gl_lh(
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
 constexpr mat4_t ortho_d3d_rh(
-    real_t l, real_t r, real_t b, real_t t, real_t n, real_t f);
+  real_t l, real_t r, real_t b, real_t t, real_t n, real_t f);
 
 //! Returns a mat4_t representing an orthographic projection matrix.
 //! \note Uses Direct3D NDC space (0, 1) and a right left coordinate system.
@@ -107,7 +107,7 @@ constexpr mat4_t ortho_d3d_rh(
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
 constexpr mat4_t ortho_d3d_lh(
-    real_t l, real_t r, real_t b, real_t t, real_t n, real_t f);
+  real_t l, real_t r, real_t b, real_t t, real_t n, real_t f);
 
 //! Returns a mat4_t representing an orthographic projection matrix.
 //! \note Uses Vulkan NDC space (0, 1) and a right handed coordinate system.
@@ -119,7 +119,7 @@ constexpr mat4_t ortho_d3d_lh(
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
 mat4_t ortho_vulkan_rh(
-    real_t l, real_t r, real_t b, real_t t, real_t n, real_t f);
+  real_t l, real_t r, real_t b, real_t t, real_t n, real_t f);
 
 //! Returns a mat4_t representing an orthographic projection matrix.
 //! \note Uses Vulkan NDC space (0, 1) and a left handed coordinate system.
@@ -130,7 +130,7 @@ mat4_t ortho_vulkan_rh(
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
 mat4_t ortho_vulkan_lh(
-    real_t l, real_t r, real_t b, real_t t, real_t n, real_t f);
+  real_t l, real_t r, real_t b, real_t t, real_t n, real_t f);
 
 } // namespace view
 

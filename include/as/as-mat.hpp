@@ -23,61 +23,59 @@ static_assert(false, "Must define only AS_COL_MAJOR or AS_ROW_MAJOR");
 template<typename T, index_t d>
 struct mat_t
 {
-    //! Type alias for template parameter `T`.
-    using value_type = T;
+  //! Type alias for template parameter `T`.
+  using value_type = T;
 
-    mat_t() noexcept = default;
+  mat_t() noexcept = default;
 
-    template<typename...>
-    struct typelist
-    {
-    };
+  template<typename...>
+  struct typelist
+  {
+  };
 
-    //! A variadic template constructor that accepts the same number of elements
-    //! as the size of the matrix.
-    //! \note Passing the wrong number of elements will result in a compile
-    //! error.
-    template<
-        typename... Args,
-        typename = std::enable_if_t<!std::is_same<
-            typelist<mat_t>, typelist<std::decay_t<Args>...>>::value>>
-    constexpr mat_t(Args... args) noexcept
-        : elem_rc{std::forward<Args>(args)...}
-    {
-        static_assert(
-            sizeof...(args) == size(),
-            "Incorrent number of arguments for dimension");
-    }
+  //! A variadic template constructor that accepts the same number of elements
+  //! as the size of the matrix.
+  //! \note Passing the wrong number of elements will result in a compile
+  //! error.
+  template<
+    typename... Args,
+    typename = std::enable_if_t<
+      !std::is_same<typelist<mat_t>, typelist<std::decay_t<Args>...>>::value>>
+  constexpr mat_t(Args... args) noexcept : elem_rc{std::forward<Args>(args)...}
+  {
+    static_assert(
+      sizeof...(args) == size(), "Incorrent number of arguments for dimension");
+  }
 
-    //! Returns a mutable reference to the value at the given index.
-    //! \note Can only be called on a mutable lvalue object.
-    //! \warning No bounds checking is performed.
-    constexpr T& operator[](index_t i) &;
-    //! Returns a const reference to the value at the given index.
-    //! \note Can only be called on a const lvalue object.
-    //! \warning No bounds checking is performed.
-    constexpr const T& operator[](index_t i) const&;
-    //! Returns a copy of the value at the given index.
-    //! \note Can only be called on an rvalue object.
-    //! \warning No bounds checking is performed.
-    constexpr const T operator[](index_t i) &&;
+  //! Returns a mutable reference to the value at the given index.
+  //! \note Can only be called on a mutable lvalue object.
+  //! \warning No bounds checking is performed.
+  constexpr T& operator[](index_t i) &;
+  //! Returns a const reference to the value at the given index.
+  //! \note Can only be called on a const lvalue object.
+  //! \warning No bounds checking is performed.
+  constexpr const T& operator[](index_t i) const&;
+  //! Returns a copy of the value at the given index.
+  //! \note Can only be called on an rvalue object.
+  //! \warning No bounds checking is performed.
+  constexpr const T operator[](index_t i) &&;
 
-    //! Returns the dimension of the matrix.
-    //! \note This is equal to to the number of rows or columns.
-    constexpr static index_t dim();
-    //! Returns the number of columns in the matrix.
-    constexpr static index_t cols();
-    //! Returns the number of rows in the matrix.
-    constexpr static index_t rows();
-    //! Returns the number of elements in the matrix.
-    //! \note This is equal to `rows() * cols()` or `dim() * dim()`.
-    constexpr static index_t size();
+  //! Returns the dimension of the matrix.
+  //! \note This is equal to to the number of rows or columns.
+  constexpr static index_t dim();
+  //! Returns the number of columns in the matrix.
+  constexpr static index_t cols();
+  //! Returns the number of rows in the matrix.
+  constexpr static index_t rows();
+  //! Returns the number of elements in the matrix.
+  //! \note This is equal to `rows() * cols()` or `dim() * dim()`.
+  constexpr static index_t size();
 
-    //! Returns the identity matrix.
-    static mat_t<T, d> identity();
+  //! Returns the identity matrix.
+  static mat_t<T, d> identity();
 
 private:
-    T elem_rc[size()]; //!< Elements of the matrix.
+  T elem_rc[size()]; //!< Elements of the matrix.
 };
 
 //! Returns the result of `lhs * rhs`.

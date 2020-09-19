@@ -76,8 +76,8 @@ std::tuple<vec_t<T, d>, T> normalize_and_length(const vec_t<T, d>& vec);
 //! tolerance).
 template<typename T, index_t d>
 bool equal(
-    const vec_t<T, d>& lhs, const vec_t<T, d>& rhs,
-    real_t epsilon = std::numeric_limits<real_t>::epsilon());
+  const vec_t<T, d>& lhs, const vec_t<T, d>& rhs,
+  real_t epsilon = std::numeric_limits<real_t>::epsilon());
 
 //! Performs a `min` on each element of the two vectors, returning the
 //! smallest value at each element.
@@ -114,7 +114,7 @@ vec_t<T, d> abs(const vec_t<T, d>& vec);
 //! Returns a vector where each element falls within the range `min` and `max`.
 template<typename T, index_t d>
 vec_t<T, d> clamp(
-    const vec_t<T, d>& vec, const vec_t<T, d>& min, const vec_t<T, d>& max);
+  const vec_t<T, d>& vec, const vec_t<T, d>& min, const vec_t<T, d>& max);
 
 //! Returns a vector with each element clamped within the `0-1` range.
 template<typename T, index_t d>
@@ -131,7 +131,7 @@ vec_t<T, d> lerp(T t, const vec_t<T, d>& begin, const vec_t<T, d>& end);
 //! Returns `v0` if `select0` is true, otherwise `v1`.
 template<typename T, index_t d>
 constexpr vec_t<T, d> select(
-    const vec_t<T, d>& v0, const vec_t<T, d>& v1, bool select0);
+  const vec_t<T, d>& v0, const vec_t<T, d>& v1, bool select0);
 
 //! Returns a vector with each element being rounded down to the nearest whole
 //! number.
@@ -219,8 +219,8 @@ constexpr vec_t<T, 3> cross(const vec_t<T, 3>& lhs, const vec_t<T, 3>& rhs);
 //! \note Expects a left-handed coordinate system.
 template<typename T>
 void right_and_up_lh(
-    const vec_t<T, 3>& dir, vec_t<T, 3>& across, vec_t<T, 3>& up,
-    const vec_t<T, 3>& world_up = vec_t<T, 3>::axis_y());
+  const vec_t<T, 3>& dir, vec_t<T, 3>& across, vec_t<T, 3>& up,
+  const vec_t<T, 3>& world_up = vec_t<T, 3>::axis_y());
 
 //! Sets the across and up axes for the given input vector so all axes remain
 //! orthogonal to one another.
@@ -228,8 +228,8 @@ void right_and_up_lh(
 //! \note Expects a right-handed coordinate system.
 template<typename T>
 void right_and_up_rh(
-    const vec_t<T, 3>& dir, vec_t<T, 3>& across, vec_t<T, 3>& up,
-    const vec_t<T, 3>& world_up = vec_t<T, 3>::axis_y());
+  const vec_t<T, 3>& dir, vec_t<T, 3>& across, vec_t<T, 3>& up,
+  const vec_t<T, 3>& world_up = vec_t<T, 3>::axis_y());
 
 //! Returns an orthonormal basis for the given input vector.
 //! \note This should be preferred to `right_and_up` variants.
@@ -255,7 +255,7 @@ vec_t<T, 4> from_ptr(const T* data);
 //! remaining parameters (defaulted to zero).
 template<typename T>
 constexpr vec_t<T, 4> from_vec2(
-    const vec_t<T, 2>& vec, T z = T(0.0), T w = T(0.0));
+  const vec_t<T, 2>& vec, T z = T(0.0), T w = T(0.0));
 
 //! Returns a vec_t<T, 4> with the elements of the vec_t<T, 3> and an optional
 //! fourth parameter (defaulted to zero).
@@ -336,8 +336,8 @@ void to_arr(const mat_t<T, d>& mat, T (&data)[d * d]);
 //! tolerance).
 template<typename T, index_t d>
 bool equal(
-    const mat_t<T, d>& lhs, const mat_t<T, d>& rhs,
-    real_t epsilon = std::numeric_limits<real_t>::epsilon());
+  const mat_t<T, d>& lhs, const mat_t<T, d>& rhs,
+  real_t epsilon = std::numeric_limits<real_t>::epsilon());
 
 //! Returns the transpose of the matrix.
 //! \note Rows and columns are swapped.
@@ -627,7 +627,7 @@ constexpr mat_t<T, 4> from_mat3(const mat_t<T, 3>& rotation);
 //! Returns a mat_t<T, 4> from a mat_t<T, 3> and a vec_t<T, 3>.
 template<typename T>
 constexpr mat_t<T, 4> from_mat3_vec3(
-    const mat_t<T, 3>& rotation, const vec_t<T, 3>& translation);
+  const mat_t<T, 3>& rotation, const vec_t<T, 3>& translation);
 
 //! Returns a mat_t<T, 4> from an affine_t.
 //! \note The effect of the transformation will be the same, it is only the type
@@ -655,14 +655,14 @@ namespace point
 //! Returns if two point2_t types are the same as each other (within a certain
 //! tolerance).
 bool equal(
-    const point2_t& lhs, const point2_t& rhs,
-    real_t epsilon = std::numeric_limits<real_t>::epsilon());
+  const point2_t& lhs, const point2_t& rhs,
+  real_t epsilon = std::numeric_limits<real_t>::epsilon());
 
 //! Returns if two point3_t types are the same as each other (within a certain
 //! tolerance).
 bool equal(
-    const point3_t& lhs, const point3_t& rhs,
-    real_t epsilon = std::numeric_limits<real_t>::epsilon());
+  const point3_t& lhs, const point3_t& rhs,
+  real_t epsilon = std::numeric_limits<real_t>::epsilon());
 
 //! Returns the average position of an array of points.
 //! \note This is provided as adding points together is not supported.

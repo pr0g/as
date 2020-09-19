@@ -4,31 +4,31 @@ namespace as
 template<typename T>
 AS_API constexpr index_t mat_t<T, 4>::dim()
 {
-    return 4;
+  return 4;
 }
 
 template<typename T>
 AS_API constexpr index_t mat_t<T, 4>::size()
 {
-    return 16;
+  return 16;
 }
 
 template<typename T>
 AS_API constexpr index_t mat_t<T, 4>::rows()
 {
-    return mat_t<T, 4>::dim();
+  return mat_t<T, 4>::dim();
 }
 
 template<typename T>
 AS_API constexpr index_t mat_t<T, 4>::cols()
 {
-    return mat_t<T, 4>::dim();
+  return mat_t<T, 4>::dim();
 }
 
 template<typename T>
 AS_API constexpr mat_t<T, 4> mat_t<T, 4>::identity()
 {
-    return mat::identity<T, 4>();
+  return mat::identity<T, 4>();
 }
 
 // clang-format off
@@ -50,18 +50,18 @@ AS_API constexpr mat_t<T, 4>::mat_t(
 template<typename T>
 #ifdef AS_ROW_MAJOR
 AS_API constexpr mat_t<T, 4>::mat_t(
-    const vec_t<T, 4>& row0, const vec_t<T, 4>& row1, const vec_t<T, 4>& row2,
-    const vec_t<T, 4>& row3)
-    : elem_rc{row0.x, row0.y, row0.z, row0.w, row1.x, row1.y, row1.z, row1.w,
-              row2.x, row2.y, row2.z, row2.w, row3.x, row3.y, row3.z, row3.w}
+  const vec_t<T, 4>& row0, const vec_t<T, 4>& row1, const vec_t<T, 4>& row2,
+  const vec_t<T, 4>& row3)
+  : elem_rc{row0.x, row0.y, row0.z, row0.w, row1.x, row1.y, row1.z, row1.w,
+            row2.x, row2.y, row2.z, row2.w, row3.x, row3.y, row3.z, row3.w}
 {
 }
 #elif defined AS_COL_MAJOR
 AS_API constexpr mat_t<T, 4>::mat_t(
-    const vec_t<T, 4>& col0, const vec_t<T, 4>& col1, const vec_t<T, 4>& col2,
-    const vec_t<T, 4>& col3)
-    : elem_rc{col0.x, col0.y, col0.z, col0.w, col1.x, col1.y, col1.z, col1.w,
-              col2.x, col2.y, col2.z, col2.w, col3.x, col3.y, col3.z, col3.w}
+  const vec_t<T, 4>& col0, const vec_t<T, 4>& col1, const vec_t<T, 4>& col2,
+  const vec_t<T, 4>& col3)
+  : elem_rc{col0.x, col0.y, col0.z, col0.w, col1.x, col1.y, col1.z, col1.w,
+            col2.x, col2.y, col2.z, col2.w, col3.x, col3.y, col3.z, col3.w}
 {
 }
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
@@ -81,19 +81,19 @@ AS_API constexpr mat_t<T, 4>::mat_t(
 template<typename T>
 AS_API constexpr T& mat_t<T, 4>::operator[](index_t i) &
 {
-    return elem_rc[i];
+  return elem_rc[i];
 }
 
 template<typename T>
 AS_API constexpr const T& mat_t<T, 4>::operator[](index_t i) const&
 {
-    return elem_rc[i];
+  return elem_rc[i];
 }
 
 template<typename T>
 AS_API constexpr const T mat_t<T, 4>::operator[](index_t i) &&
 {
-    return elem_rc[i];
+  return elem_rc[i];
 }
 
 } // namespace as
