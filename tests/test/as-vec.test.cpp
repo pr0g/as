@@ -1751,41 +1751,41 @@ TEST_CASE("orthonomal_basis", "[as_vec]")
   {
     const mat3_t basis = vec3::orthonormal_basis(vec3_t(1.0_r, 0.0_r, 0.0_r));
     CHECK_THAT(
-      arr(1.0_r, 0.0_r, 0.0_r), make_elements_sub(as::basis_x(basis), 3));
+      arr(1.0_r, 0.0_r, 0.0_r), make_elements_sub(as::mat3_basis_x(basis), 3));
     CHECK_THAT(
-      arr(0.0_r, 0.0_r, 1.0_r), make_elements_sub(as::basis_y(basis), 3));
+      arr(0.0_r, 0.0_r, 1.0_r), make_elements_sub(as::mat3_basis_y(basis), 3));
     CHECK_THAT(
-      arr(0.0_r, -1.0_r, 0.0_r), make_elements_sub(as::basis_z(basis), 3));
+      arr(0.0_r, -1.0_r, 0.0_r), make_elements_sub(as::mat3_basis_z(basis), 3));
   }
 
   {
     const mat3_t basis = vec3::orthonormal_basis(vec3_t(0.0_r, -1.0_r, 0.0_r));
     CHECK_THAT(
-      arr(0.0_r, -1.0_r, 0.0_r), make_elements_sub(as::basis_x(basis), 3));
+      arr(0.0_r, -1.0_r, 0.0_r), make_elements_sub(as::mat3_basis_x(basis), 3));
     CHECK_THAT(
-      arr(0.0_r, 0.0_r, -1.0_r), make_elements_sub(as::basis_y(basis), 3));
+      arr(0.0_r, 0.0_r, -1.0_r), make_elements_sub(as::mat3_basis_y(basis), 3));
     CHECK_THAT(
-      arr(1.0_r, 0.0_r, 0.0_r), make_elements_sub(as::basis_z(basis), 3));
+      arr(1.0_r, 0.0_r, 0.0_r), make_elements_sub(as::mat3_basis_z(basis), 3));
   }
 
   {
     const mat3_t basis = vec3::orthonormal_basis(vec3_t(0.0_r, 1.0_r, 0.0_r));
     CHECK_THAT(
-      arr(0.0_r, 1.0_r, 0.0_r), make_elements_sub(as::basis_x(basis), 3));
+      arr(0.0_r, 1.0_r, 0.0_r), make_elements_sub(as::mat3_basis_x(basis), 3));
     CHECK_THAT(
-      arr(0.0_r, 0.0_r, 1.0_r), make_elements_sub(as::basis_y(basis), 3));
+      arr(0.0_r, 0.0_r, 1.0_r), make_elements_sub(as::mat3_basis_y(basis), 3));
     CHECK_THAT(
-      arr(1.0_r, 0.0_r, 0.0_r), make_elements_sub(as::basis_z(basis), 3));
+      arr(1.0_r, 0.0_r, 0.0_r), make_elements_sub(as::mat3_basis_z(basis), 3));
   }
 
   {
     const mat3_t basis = vec3::orthonormal_basis(vec3_t(0.0_r, 0.0_r, 1.0_r));
     CHECK_THAT(
-      arr(0.0_r, 0.0_r, 1.0_r), make_elements_sub(as::basis_x(basis), 3));
+      arr(0.0_r, 0.0_r, 1.0_r), make_elements_sub(as::mat3_basis_x(basis), 3));
     CHECK_THAT(
-      arr(0.0_r, -1.0_r, 0.0_r), make_elements_sub(as::basis_y(basis), 3));
+      arr(0.0_r, -1.0_r, 0.0_r), make_elements_sub(as::mat3_basis_y(basis), 3));
     CHECK_THAT(
-      arr(1.0_r, 0.0_r, 0.0_r), make_elements_sub(as::basis_z(basis), 3));
+      arr(1.0_r, 0.0_r, 0.0_r), make_elements_sub(as::mat3_basis_z(basis), 3));
   }
 
   {
@@ -1793,12 +1793,12 @@ TEST_CASE("orthonomal_basis", "[as_vec]")
       vec3::orthonormal_basis(vec::normalize(vec3_t(1.0_r, 1.0_r, 0.0_r)));
     CHECK_THAT(
       arr(0.707107_r, 0.707107_r, 0.000000_r),
-      make_elements_sub(as::basis_x(basis), 3).epsilon(0.001_r));
+      make_elements_sub(as::mat3_basis_x(basis), 3).epsilon(0.001_r));
     CHECK_THAT(
       arr(-0.707107_r, 0.707107_r, 0.000000_r),
-      make_elements_sub(as::basis_y(basis), 3).epsilon(0.001_r));
+      make_elements_sub(as::mat3_basis_y(basis), 3).epsilon(0.001_r));
     CHECK_THAT(
-      arr(0.0_r, 0.0_r, 1.0_r), make_elements_sub(as::basis_z(basis), 3));
+      arr(0.0_r, 0.0_r, 1.0_r), make_elements_sub(as::mat3_basis_z(basis), 3));
   }
 }
 
