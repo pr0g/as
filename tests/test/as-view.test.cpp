@@ -23,7 +23,8 @@ TEST_CASE("perspective_gl_rh", "[as_view]")
 
   const real_t fov = deg_to_rad(90.0_r);
   const real_t aspect = real_t(16.0_r) / real_t(9.0_r);
-  mat4_t perspective_gl_rh = as::perspective_gl_rh(fov, aspect, 0.01_r, 1000.0_r);
+  mat4_t perspective_gl_rh =
+    as::perspective_gl_rh(fov, aspect, 0.01_r, 1000.0_r);
 
   real_t reference[] = {0.562500_r, 0.000000_r, 0.000000_r,  0.000000_r,
                         0.000000_r, 1.000000_r, 0.000000_r,  0.000000_r,
@@ -41,7 +42,8 @@ TEST_CASE("perspective_gl_lh", "[as_view]")
 
   const real_t fov = deg_to_rad(90.0_r);
   const real_t aspect = real_t(16.0_r) / real_t(9.0_r);
-  mat4_t perspective_gl_lh = as::perspective_gl_lh(fov, aspect, 0.01_r, 1000.0_r);
+  mat4_t perspective_gl_lh =
+    as::perspective_gl_lh(fov, aspect, 0.01_r, 1000.0_r);
 
   real_t reference[] = {0.562500_r, 0.000000_r, 0.000000_r,  0.000000_r,
                         0.000000_r, 1.000000_r, 0.000000_r,  0.000000_r,
@@ -59,7 +61,8 @@ TEST_CASE("perspective_d3d_rh", "[as_view]")
 
   const real_t fov = deg_to_rad(90.0_r);
   const real_t aspect = real_t(16.0_r) / real_t(9.0_r);
-  mat4_t perspective_d3d_rh = as::perspective_d3d_rh(fov, aspect, 0.01_r, 1000.0_r);
+  mat4_t perspective_d3d_rh =
+    as::perspective_d3d_rh(fov, aspect, 0.01_r, 1000.0_r);
 
   real_t reference[] = {0.562500_r, 0.000000_r, 0.000000_r,  0.000000_r,
                         0.000000_r, 1.000000_r, 0.000000_r,  0.000000_r,
@@ -77,7 +80,8 @@ TEST_CASE("perspective_d3d_lh", "[as_view]")
 
   const real_t fov = deg_to_rad(90.0_r);
   const real_t aspect = real_t(16.0_r) / real_t(9.0_r);
-  mat4_t perspective_d3d_lh = as::perspective_d3d_lh(fov, aspect, 0.01_r, 1000.0_r);
+  mat4_t perspective_d3d_lh =
+    as::perspective_d3d_lh(fov, aspect, 0.01_r, 1000.0_r);
 
   const real_t reference[] = {0.562500_r, 0.000000_r, 0.000000_r,  0.000000_r,
                               0.000000_r, 1.000000_r, 0.000000_r,  0.000000_r,
@@ -132,7 +136,8 @@ TEST_CASE("ortho_gl_rh", "[as_view]")
   using gsl::make_span;
 
   mat4_t ortho_gl_rh;
-  ortho_gl_rh = as::ortho_gl_rh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
+  ortho_gl_rh =
+    as::ortho_gl_rh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
 
   const real_t reference[] = {
     0.100000_r,  0.000000_r,  0.000000_r,  0.000000_r, 0.000000_r,  0.100000_r,
@@ -148,7 +153,8 @@ TEST_CASE("ortho_gl_lh", "[as_view]")
   using gsl::make_span;
 
   mat4_t ortho_gl_lh;
-  ortho_gl_lh = as::ortho_gl_lh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
+  ortho_gl_lh =
+    as::ortho_gl_lh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
 
   const real_t reference[] = {
     0.100000_r,  0.000000_r,  0.000000_r,  0.000000_r, 0.000000_r, 0.100000_r,

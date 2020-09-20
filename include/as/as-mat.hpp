@@ -88,20 +88,20 @@ template<typename T, index_t d>
 #ifdef AS_ROW_MAJOR
 //! Pre-multiplies the vector by the matrix and returns the result.
 //! \note This signature is only available when `AS_ROW_MAJOR` is defined.
-const vec_t<T, d> operator*(const vec_t<T, d>& vec, const mat_t<T, d>& mat);
+const vec_t<T, d> operator*(const vec_t<T, d>& v, const mat_t<T, d>& m);
 #elif defined AS_COL_MAJOR
 //! Post-multiplies the vector by the matrix and returns the result.
 //! \note This signature is only available when `AS_COL_MAJOR` is defined.
-const vec_t<T, d> operator*(const mat_t<T, d>& mat, const vec_t<T, d>& vec);
+const vec_t<T, d> operator*(const mat_t<T, d>& m, const vec_t<T, d>& v);
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
 //! Returns a new matrix with each element multiplied by a scalar.
 template<typename T, index_t d>
-constexpr const mat_t<T, d> operator*(const mat_t<T, d>& mat, T scalar);
+constexpr const mat_t<T, d> operator*(const mat_t<T, d>& m, T scalar);
 
 //! Performs a multiplication assignment of a matrix and a scalar.
 template<typename T, index_t d>
-constexpr mat_t<T, d>& operator*=(mat_t<T, d>& mat, T scalar);
+constexpr mat_t<T, d>& operator*=(mat_t<T, d>& m, T scalar);
 
 } // namespace as
 

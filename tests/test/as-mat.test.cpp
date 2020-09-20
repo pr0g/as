@@ -31,77 +31,77 @@ TEST_CASE("mat_row_col_access_mat3", "[as_mat]")
   using gsl::make_span;
 
   // clang-format off
-    mat3_t mat3 {
-        1.0_r, 2.0_r, 3.0_r,
-        4.0_r, 5.0_r, 6.0_r,
-        7.0_r, 8.0_r, 9.0_r
-    };
+  mat3_t m3 {
+    1.0_r, 2.0_r, 3.0_r,
+    4.0_r, 5.0_r, 6.0_r,
+    7.0_r, 8.0_r, 9.0_r
+  };
   // clang-format on
 
 #ifdef AS_COL_MAJOR
   const real_t col0[] = {1.0_r, 2.0_r, 3.0_r};
-  CHECK_THAT(make_span(col0), make_elements_sub(as::mat3_col0(mat3), 3));
-  CHECK_THAT(make_span(col0), make_elements_sub(as::mat_col(mat3, 0), 3));
+  CHECK_THAT(make_span(col0), make_elements_sub(as::mat3_col0(m3), 3));
+  CHECK_THAT(make_span(col0), make_elements_sub(as::mat_col(m3, 0), 3));
   const real_t col1[] = {4.0_r, 5.0_r, 6.0_r};
-  CHECK_THAT(make_span(col1), make_elements_sub(as::mat3_col1(mat3), 3));
-  CHECK_THAT(make_span(col1), make_elements_sub(as::mat_col(mat3, 1), 3));
+  CHECK_THAT(make_span(col1), make_elements_sub(as::mat3_col1(m3), 3));
+  CHECK_THAT(make_span(col1), make_elements_sub(as::mat_col(m3, 1), 3));
   const real_t col2[] = {7.0_r, 8.0_r, 9.0_r};
-  CHECK_THAT(make_span(col2), make_elements_sub(as::mat3_col2(mat3), 3));
-  CHECK_THAT(make_span(col2), make_elements_sub(as::mat_col(mat3, 2), 3));
+  CHECK_THAT(make_span(col2), make_elements_sub(as::mat3_col2(m3), 3));
+  CHECK_THAT(make_span(col2), make_elements_sub(as::mat_col(m3, 2), 3));
 
   const real_t row0[] = {1.0_r, 4.0_r, 7.0_r};
-  CHECK_THAT(make_span(row0), make_elements_sub(as::mat3_row0(mat3), 3));
-  CHECK_THAT(make_span(row0), make_elements_sub(as::mat_row(mat3, 0), 3));
+  CHECK_THAT(make_span(row0), make_elements_sub(as::mat3_row0(m3), 3));
+  CHECK_THAT(make_span(row0), make_elements_sub(as::mat_row(m3, 0), 3));
   const real_t row1[] = {2.0_r, 5.0_r, 8.0_r};
-  CHECK_THAT(make_span(row1), make_elements_sub(as::mat3_row1(mat3), 3));
-  CHECK_THAT(make_span(row1), make_elements_sub(as::mat_row(mat3, 1), 3));
+  CHECK_THAT(make_span(row1), make_elements_sub(as::mat3_row1(m3), 3));
+  CHECK_THAT(make_span(row1), make_elements_sub(as::mat_row(m3, 1), 3));
   const real_t row2[] = {3.0_r, 6.0_r, 9.0_r};
-  CHECK_THAT(make_span(row2), make_elements_sub(as::mat3_row2(mat3), 3));
-  CHECK_THAT(make_span(row2), make_elements_sub(as::mat_row(mat3, 2), 3));
+  CHECK_THAT(make_span(row2), make_elements_sub(as::mat3_row2(m3), 3));
+  CHECK_THAT(make_span(row2), make_elements_sub(as::mat_row(m3, 2), 3));
 #elif defined AS_ROW_MAJOR
   const real_t row0[] = {1.0_r, 2.0_r, 3.0_r};
-  CHECK_THAT(make_span(row0), make_elements_sub(as::mat3_row0(mat3), 3));
-  CHECK_THAT(make_span(row0), make_elements_sub(as::mat_row(mat3, 0), 3));
+  CHECK_THAT(make_span(row0), make_elements_sub(as::mat3_row0(m3), 3));
+  CHECK_THAT(make_span(row0), make_elements_sub(as::mat_row(m3, 0), 3));
   const real_t row1[] = {4.0_r, 5.0_r, 6.0_r};
-  CHECK_THAT(make_span(row1), make_elements_sub(as::mat3_row1(mat3), 3));
-  CHECK_THAT(make_span(row1), make_elements_sub(as::mat_row(mat3, 1), 3));
+  CHECK_THAT(make_span(row1), make_elements_sub(as::mat3_row1(m3), 3));
+  CHECK_THAT(make_span(row1), make_elements_sub(as::mat_row(m3, 1), 3));
   const real_t row2[] = {7.0_r, 8.0_r, 9.0_r};
-  CHECK_THAT(make_span(row2), make_elements_sub(as::mat3_row2(mat3), 3));
-  CHECK_THAT(make_span(row2), make_elements_sub(as::mat_row(mat3, 2), 3));
+  CHECK_THAT(make_span(row2), make_elements_sub(as::mat3_row2(m3), 3));
+  CHECK_THAT(make_span(row2), make_elements_sub(as::mat_row(m3, 2), 3));
 
   const real_t col0[] = {1.0_r, 4.0_r, 7.0_r};
-  CHECK_THAT(make_span(col0), make_elements_sub(as::mat3_col0(mat3), 3));
-  CHECK_THAT(make_span(col0), make_elements_sub(as::mat_col(mat3, 0), 3));
+  CHECK_THAT(make_span(col0), make_elements_sub(as::mat3_col0(m3), 3));
+  CHECK_THAT(make_span(col0), make_elements_sub(as::mat_col(m3, 0), 3));
   const real_t col1[] = {2.0_r, 5.0_r, 8.0_r};
-  CHECK_THAT(make_span(col1), make_elements_sub(as::mat3_col1(mat3), 3));
-  CHECK_THAT(make_span(col1), make_elements_sub(as::mat_col(mat3, 1), 3));
+  CHECK_THAT(make_span(col1), make_elements_sub(as::mat3_col1(m3), 3));
+  CHECK_THAT(make_span(col1), make_elements_sub(as::mat_col(m3, 1), 3));
   const real_t col2[] = {3.0_r, 6.0_r, 9.0_r};
-  CHECK_THAT(make_span(col2), make_elements_sub(as::mat3_col2(mat3), 3));
-  CHECK_THAT(make_span(col2), make_elements_sub(as::mat_col(mat3, 2), 3));
+  CHECK_THAT(make_span(col2), make_elements_sub(as::mat3_col2(m3), 3));
+  CHECK_THAT(make_span(col2), make_elements_sub(as::mat_col(m3, 2), 3));
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 
   // clang-format off
-    real_t elems[] = {
-        1.0_r, 2.0_r, 3.0_r,
-        4.0_r, 5.0_r, 6.0_r,
-        7.0_r, 8.0_r, 9.0_r
-    };
+  real_t elems[] = {
+    1.0_r, 2.0_r, 3.0_r,
+    4.0_r, 5.0_r, 6.0_r,
+    7.0_r, 8.0_r, 9.0_r
+  };
   // clang-format on
 
-  CHECK_THAT(make_span(elems), make_elements_sub(mat3, 9));
+  CHECK_THAT(make_span(elems), make_elements_sub(m3, 9));
 
   // clang-format off
-    mat3_t mat3_mult;
-    mat3_mult = mat3_t(
-        vec3_t(10.0_r, 20.0_r, 30.0_r),
-        vec3_t(40.0_r, 50.0_r, 60.0_r),
-        vec3_t(70.0_r, 80.0_r, 90.0_r));
+  mat3_t mat3_mult;
+  mat3_mult = mat3_t(
+    vec3_t(10.0_r, 20.0_r, 30.0_r),
+    vec3_t(40.0_r, 50.0_r, 60.0_r),
+    vec3_t(70.0_r, 80.0_r, 90.0_r));
 
-    real_t mult_elems[] = {
-        10.0_r, 20.0_r, 30.0_r,
-        40.0_r, 50.0_r, 60.0_r,
-        70.0_r, 80.0_r, 90.0_r
-    };
+  real_t mult_elems[] = {
+    10.0_r, 20.0_r, 30.0_r,
+    40.0_r, 50.0_r, 60.0_r,
+    70.0_r, 80.0_r, 90.0_r
+  };
   // clang-format on
 
   CHECK_THAT(make_span(mult_elems), make_elements_sub(mat3_mult, 9));
@@ -112,98 +112,98 @@ TEST_CASE("mat_row_col_mutate_mat3", "[as_mat]")
   using gsl::make_span;
 
   // clang-format off
-    mat3_t mat3;
-    mat3 = mat3_t {
-        0.0_r, 0.0_r, 0.0_r,
-        0.0_r, 0.0_r, 0.0_r,
-        0.0_r, 0.0_r, 0.0_r
-    };
+  mat3_t m3;
+  m3 = mat3_t {
+    0.0_r, 0.0_r, 0.0_r,
+    0.0_r, 0.0_r, 0.0_r,
+    0.0_r, 0.0_r, 0.0_r
+  };
   // clang-format on
 
 #ifdef AS_COL_MAJOR
   const real_t col0[] = {1.0_r, 2.0_r, 3.0_r};
   const vec3_t c0 = as::vec3_from_arr(col0);
-  as::mat3_col0(mat3, c0);
-  CHECK_THAT(make_span(col0), make_elements_sub(as::mat3_col0(mat3), 3));
-  as::mat_col(mat3, 0, c0);
-  CHECK_THAT(make_span(col0), make_elements_sub(as::mat_col(mat3, 0), 3));
+  as::mat3_col0(m3, c0);
+  CHECK_THAT(make_span(col0), make_elements_sub(as::mat3_col0(m3), 3));
+  as::mat_col(m3, 0, c0);
+  CHECK_THAT(make_span(col0), make_elements_sub(as::mat_col(m3, 0), 3));
 
   const real_t col1[] = {4.0_r, 5.0_r, 6.0_r};
   const vec3_t c1 = as::vec3_from_arr(col1);
-  as::mat3_col1(mat3, c1);
-  CHECK_THAT(make_span(col1), make_elements_sub(as::mat3_col1(mat3), 3));
-  as::mat_col(mat3, 1, c1);
-  CHECK_THAT(make_span(col1), make_elements_sub(as::mat_col(mat3, 1), 3));
+  as::mat3_col1(m3, c1);
+  CHECK_THAT(make_span(col1), make_elements_sub(as::mat3_col1(m3), 3));
+  as::mat_col(m3, 1, c1);
+  CHECK_THAT(make_span(col1), make_elements_sub(as::mat_col(m3, 1), 3));
 
   const real_t col2[] = {7.0_r, 8.0_r, 9.0_r};
   const vec3_t c2 = as::vec3_from_arr(col2);
-  as::mat3_col2(mat3, c2);
-  CHECK_THAT(make_span(col2), make_elements_sub(as::mat3_col2(mat3), 3));
-  as::mat_col(mat3, 2, c2);
-  CHECK_THAT(make_span(col2), make_elements_sub(as::mat_col(mat3, 2), 3));
+  as::mat3_col2(m3, c2);
+  CHECK_THAT(make_span(col2), make_elements_sub(as::mat3_col2(m3), 3));
+  as::mat_col(m3, 2, c2);
+  CHECK_THAT(make_span(col2), make_elements_sub(as::mat_col(m3, 2), 3));
 
   const real_t row0[] = {1.0_r, 4.0_r, 7.0_r};
   const vec3_t r0 = as::vec3_from_arr(row0);
-  as::mat3_row0(mat3, r0);
-  CHECK_THAT(make_span(row0), make_elements_sub(as::mat3_row0(mat3), 3));
-  as::mat_row(mat3, 0, r0);
-  CHECK_THAT(make_span(row0), make_elements_sub(as::mat_row(mat3, 0), 3));
+  as::mat3_row0(m3, r0);
+  CHECK_THAT(make_span(row0), make_elements_sub(as::mat3_row0(m3), 3));
+  as::mat_row(m3, 0, r0);
+  CHECK_THAT(make_span(row0), make_elements_sub(as::mat_row(m3, 0), 3));
 
   const real_t row1[] = {2.0_r, 5.0_r, 8.0_r};
   const vec3_t r1 = as::vec3_from_arr(row1);
-  as::mat3_row1(mat3, r1);
-  CHECK_THAT(make_span(row1), make_elements_sub(as::mat3_row1(mat3), 3));
-  as::mat_row(mat3, 1, r1);
-  CHECK_THAT(make_span(row1), make_elements_sub(as::mat_row(mat3, 1), 3));
+  as::mat3_row1(m3, r1);
+  CHECK_THAT(make_span(row1), make_elements_sub(as::mat3_row1(m3), 3));
+  as::mat_row(m3, 1, r1);
+  CHECK_THAT(make_span(row1), make_elements_sub(as::mat_row(m3, 1), 3));
 
   const real_t row2[] = {3.0_r, 6.0_r, 9.0_r};
   const vec3_t r2 = as::vec3_from_arr(row2);
-  as::mat3_row2(mat3, r2);
-  CHECK_THAT(make_span(row2), make_elements_sub(as::mat3_row2(mat3), 3));
-  as::mat_row(mat3, 2, r2);
-  CHECK_THAT(make_span(row2), make_elements_sub(as::mat_row(mat3, 2), 3));
+  as::mat3_row2(m3, r2);
+  CHECK_THAT(make_span(row2), make_elements_sub(as::mat3_row2(m3), 3));
+  as::mat_row(m3, 2, r2);
+  CHECK_THAT(make_span(row2), make_elements_sub(as::mat_row(m3, 2), 3));
 #elif defined AS_ROW_MAJOR
   const real_t row0[] = {1.0_r, 2.0_r, 3.0_r};
   const vec3_t r0 = as::vec3_from_arr(row0);
-  as::mat3_row0(mat3, r0);
-  CHECK_THAT(make_span(row0), make_elements_sub(as::mat3_row0(mat3), 3));
-  as::mat_row(mat3, 0, r0);
-  CHECK_THAT(make_span(row0), make_elements_sub(as::mat_row(mat3, 0), 3));
+  as::mat3_row0(m3, r0);
+  CHECK_THAT(make_span(row0), make_elements_sub(as::mat3_row0(m3), 3));
+  as::mat_row(m3, 0, r0);
+  CHECK_THAT(make_span(row0), make_elements_sub(as::mat_row(m3, 0), 3));
 
   const real_t row1[] = {4.0_r, 5.0_r, 6.0_r};
   const vec3_t r1 = as::vec3_from_arr(row1);
-  as::mat3_row1(mat3, r1);
-  CHECK_THAT(make_span(row1), make_elements_sub(as::mat3_row1(mat3), 3));
-  as::mat_row(mat3, 1, r1);
-  CHECK_THAT(make_span(row1), make_elements_sub(as::mat_row(mat3, 1), 3));
+  as::mat3_row1(m3, r1);
+  CHECK_THAT(make_span(row1), make_elements_sub(as::mat3_row1(m3), 3));
+  as::mat_row(m3, 1, r1);
+  CHECK_THAT(make_span(row1), make_elements_sub(as::mat_row(m3, 1), 3));
 
   const real_t row2[] = {7.0_r, 8.0_r, 9.0_r};
   const vec3_t r2 = as::vec3_from_arr(row2);
-  as::mat3_row2(mat3, r2);
-  CHECK_THAT(make_span(row2), make_elements_sub(as::mat3_row2(mat3), 3));
-  as::mat_row(mat3, 2, r2);
-  CHECK_THAT(make_span(row2), make_elements_sub(as::mat_row(mat3, 2), 3));
+  as::mat3_row2(m3, r2);
+  CHECK_THAT(make_span(row2), make_elements_sub(as::mat3_row2(m3), 3));
+  as::mat_row(m3, 2, r2);
+  CHECK_THAT(make_span(row2), make_elements_sub(as::mat_row(m3, 2), 3));
 
   const real_t col0[] = {1.0_r, 4.0_r, 7.0_r};
   const vec3_t c0 = as::vec3_from_arr(col0);
-  as::mat3_col0(mat3, c0);
-  CHECK_THAT(make_span(col0), make_elements_sub(as::mat3_col0(mat3), 3));
-  as::mat_col(mat3, 0, c0);
-  CHECK_THAT(make_span(col0), make_elements_sub(as::mat_col(mat3, 0), 3));
+  as::mat3_col0(m3, c0);
+  CHECK_THAT(make_span(col0), make_elements_sub(as::mat3_col0(m3), 3));
+  as::mat_col(m3, 0, c0);
+  CHECK_THAT(make_span(col0), make_elements_sub(as::mat_col(m3, 0), 3));
 
   const real_t col1[] = {2.0_r, 5.0_r, 9.0_r};
   const vec3_t c1 = as::vec3_from_arr(col1);
-  as::mat3_col1(mat3, c1);
-  CHECK_THAT(make_span(col1), make_elements_sub(as::mat3_col1(mat3), 3));
-  as::mat_col(mat3, 1, c1);
-  CHECK_THAT(make_span(col1), make_elements_sub(as::mat_col(mat3, 1), 3));
+  as::mat3_col1(m3, c1);
+  CHECK_THAT(make_span(col1), make_elements_sub(as::mat3_col1(m3), 3));
+  as::mat_col(m3, 1, c1);
+  CHECK_THAT(make_span(col1), make_elements_sub(as::mat_col(m3, 1), 3));
 
   const real_t col2[] = {3.0_r, 6.0_r, 9.0_r};
   const vec3_t c2 = as::vec3_from_arr(col2);
-  as::mat3_col2(mat3, c2);
-  CHECK_THAT(make_span(col2), make_elements_sub(as::mat3_col2(mat3), 3));
-  as::mat_col(mat3, 2, c2);
-  CHECK_THAT(make_span(col2), make_elements_sub(as::mat_col(mat3, 2), 3));
+  as::mat3_col2(m3, c2);
+  CHECK_THAT(make_span(col2), make_elements_sub(as::mat3_col2(m3), 3));
+  as::mat_col(m3, 2, c2);
+  CHECK_THAT(make_span(col2), make_elements_sub(as::mat_col(m3, 2), 3));
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
@@ -212,94 +212,94 @@ TEST_CASE("mat_row_col_access_mat4", "[as_mat]")
   using gsl::make_span;
 
   // clang-format off
-    mat4_t mat4 {
-        1.0_r, 2.0_r, 3.0_r, 4.0_r,
-        5.0_r, 6.0_r, 7.0_r, 8.0_r,
-        9.0_r, 10.0_r, 11.0_r, 12.0_r,
-        13.0_r, 14.0_r, 15.0_r, 16.0_r
-    };
+  mat4_t m4 {
+    1.0_r, 2.0_r, 3.0_r, 4.0_r,
+    5.0_r, 6.0_r, 7.0_r, 8.0_r,
+    9.0_r, 10.0_r, 11.0_r, 12.0_r,
+    13.0_r, 14.0_r, 15.0_r, 16.0_r
+  };
   // clang-format on
 
 #ifdef AS_COL_MAJOR
   const real_t col0[] = {1.0_r, 2.0_r, 3.0_r, 4.0_r};
-  CHECK_THAT(make_span(col0), make_elements_sub(as::mat4_col0(mat4), 4));
-  CHECK_THAT(make_span(col0), make_elements_sub(as::mat_col(mat4, 0), 4));
+  CHECK_THAT(make_span(col0), make_elements_sub(as::mat4_col0(m4), 4));
+  CHECK_THAT(make_span(col0), make_elements_sub(as::mat_col(m4, 0), 4));
   const real_t col1[] = {5.0_r, 6.0_r, 7.0_r, 8.0_r};
-  CHECK_THAT(make_span(col1), make_elements_sub(as::mat4_col1(mat4), 4));
-  CHECK_THAT(make_span(col1), make_elements_sub(as::mat_col(mat4, 1), 4));
+  CHECK_THAT(make_span(col1), make_elements_sub(as::mat4_col1(m4), 4));
+  CHECK_THAT(make_span(col1), make_elements_sub(as::mat_col(m4, 1), 4));
   const real_t col2[] = {9.0_r, 10.0_r, 11.0_r, 12.0_r};
-  CHECK_THAT(make_span(col2), make_elements_sub(as::mat4_col2(mat4), 4));
-  CHECK_THAT(make_span(col2), make_elements_sub(as::mat_col(mat4, 2), 4));
+  CHECK_THAT(make_span(col2), make_elements_sub(as::mat4_col2(m4), 4));
+  CHECK_THAT(make_span(col2), make_elements_sub(as::mat_col(m4, 2), 4));
   const real_t col3[] = {13.0_r, 14.0_r, 15.0_r, 16.0_r};
-  CHECK_THAT(make_span(col3), make_elements_sub(as::mat4_col3(mat4), 4));
-  CHECK_THAT(make_span(col3), make_elements_sub(as::mat_col(mat4, 3), 4));
+  CHECK_THAT(make_span(col3), make_elements_sub(as::mat4_col3(m4), 4));
+  CHECK_THAT(make_span(col3), make_elements_sub(as::mat_col(m4, 3), 4));
 
   const real_t row0[] = {1.0_r, 5.0_r, 9.0_r, 13.0_r};
-  CHECK_THAT(make_span(row0), make_elements_sub(as::mat4_row0(mat4), 4));
-  CHECK_THAT(make_span(row0), make_elements_sub(as::mat_row(mat4, 0), 4));
+  CHECK_THAT(make_span(row0), make_elements_sub(as::mat4_row0(m4), 4));
+  CHECK_THAT(make_span(row0), make_elements_sub(as::mat_row(m4, 0), 4));
   const real_t row1[] = {2.0_r, 6.0_r, 10.0_r, 14.0_r};
-  CHECK_THAT(make_span(row1), make_elements_sub(as::mat4_row1(mat4), 4));
-  CHECK_THAT(make_span(row1), make_elements_sub(as::mat_row(mat4, 1), 4));
+  CHECK_THAT(make_span(row1), make_elements_sub(as::mat4_row1(m4), 4));
+  CHECK_THAT(make_span(row1), make_elements_sub(as::mat_row(m4, 1), 4));
   const real_t row2[] = {3.0_r, 7.0_r, 11.0_r, 15.0_r};
-  CHECK_THAT(make_span(row2), make_elements_sub(as::mat4_row2(mat4), 4));
-  CHECK_THAT(make_span(row2), make_elements_sub(as::mat_row(mat4, 2), 4));
+  CHECK_THAT(make_span(row2), make_elements_sub(as::mat4_row2(m4), 4));
+  CHECK_THAT(make_span(row2), make_elements_sub(as::mat_row(m4, 2), 4));
   const real_t row3[] = {4.0_r, 8.0_r, 12.0_r, 16.0_r};
-  CHECK_THAT(make_span(row3), make_elements_sub(as::mat4_row3(mat4), 4));
-  CHECK_THAT(make_span(row3), make_elements_sub(as::mat_row(mat4, 3), 4));
+  CHECK_THAT(make_span(row3), make_elements_sub(as::mat4_row3(m4), 4));
+  CHECK_THAT(make_span(row3), make_elements_sub(as::mat_row(m4, 3), 4));
 #elif defined AS_ROW_MAJOR
   const real_t row0[] = {1.0_r, 2.0_r, 3.0_r, 4.0_r};
-  CHECK_THAT(make_span(row0), make_elements_sub(as::mat4_row0(mat4), 4));
-  CHECK_THAT(make_span(row0), make_elements_sub(as::mat_row(mat4, 0), 4));
+  CHECK_THAT(make_span(row0), make_elements_sub(as::mat4_row0(m4), 4));
+  CHECK_THAT(make_span(row0), make_elements_sub(as::mat_row(m4, 0), 4));
   const real_t row1[] = {5.0_r, 6.0_r, 7.0_r, 8.0_r};
-  CHECK_THAT(make_span(row1), make_elements_sub(as::mat4_row1(mat4), 4));
-  CHECK_THAT(make_span(row1), make_elements_sub(as::mat_row(mat4, 1), 4));
+  CHECK_THAT(make_span(row1), make_elements_sub(as::mat4_row1(m4), 4));
+  CHECK_THAT(make_span(row1), make_elements_sub(as::mat_row(m4, 1), 4));
   const real_t row2[] = {9.0_r, 10.0_r, 11.0_r, 12.0_r};
-  CHECK_THAT(make_span(row2), make_elements_sub(as::mat4_row2(mat4), 4));
-  CHECK_THAT(make_span(row2), make_elements_sub(as::mat_row(mat4, 2), 4));
+  CHECK_THAT(make_span(row2), make_elements_sub(as::mat4_row2(m4), 4));
+  CHECK_THAT(make_span(row2), make_elements_sub(as::mat_row(m4, 2), 4));
   const real_t row3[] = {13.0_r, 14.0_r, 15.0_r, 16.0_r};
-  CHECK_THAT(make_span(row3), make_elements_sub(as::mat4_row3(mat4), 4));
-  CHECK_THAT(make_span(row3), make_elements_sub(as::mat_row(mat4, 3), 4));
+  CHECK_THAT(make_span(row3), make_elements_sub(as::mat4_row3(m4), 4));
+  CHECK_THAT(make_span(row3), make_elements_sub(as::mat_row(m4, 3), 4));
 
   const real_t col0[] = {1.0_r, 5.0_r, 9.0_r, 13.0_r};
-  CHECK_THAT(make_span(col0), make_elements_sub(as::mat4_col0(mat4), 4));
-  CHECK_THAT(make_span(col0), make_elements_sub(as::mat_col(mat4, 0), 4));
+  CHECK_THAT(make_span(col0), make_elements_sub(as::mat4_col0(m4), 4));
+  CHECK_THAT(make_span(col0), make_elements_sub(as::mat_col(m4, 0), 4));
   const real_t col1[] = {2.0_r, 6.0_r, 10.0_r, 14.0_r};
-  CHECK_THAT(make_span(col1), make_elements_sub(as::mat4_col1(mat4), 4));
-  CHECK_THAT(make_span(col1), make_elements_sub(as::mat_col(mat4, 1), 4));
+  CHECK_THAT(make_span(col1), make_elements_sub(as::mat4_col1(m4), 4));
+  CHECK_THAT(make_span(col1), make_elements_sub(as::mat_col(m4, 1), 4));
   const real_t col2[] = {3.0_r, 7.0_r, 11.0_r, 15.0_r};
-  CHECK_THAT(make_span(col2), make_elements_sub(as::mat4_col2(mat4), 4));
-  CHECK_THAT(make_span(col2), make_elements_sub(as::mat_col(mat4, 2), 4));
+  CHECK_THAT(make_span(col2), make_elements_sub(as::mat4_col2(m4), 4));
+  CHECK_THAT(make_span(col2), make_elements_sub(as::mat_col(m4, 2), 4));
   const real_t col3[] = {4.0_r, 8.0_r, 12.0_r, 16.0_r};
-  CHECK_THAT(make_span(col3), make_elements_sub(as::mat4_col3(mat4), 4));
-  CHECK_THAT(make_span(col3), make_elements_sub(as::mat_col(mat4, 3), 4));
+  CHECK_THAT(make_span(col3), make_elements_sub(as::mat4_col3(m4), 4));
+  CHECK_THAT(make_span(col3), make_elements_sub(as::mat_col(m4, 3), 4));
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 
   // clang-format off
-    real_t elems[] = {
-        1.0_r, 2.0_r, 3.0_r, 4.0_r,
-        5.0_r, 6.0_r, 7.0_r, 8.0_r,
-        9.0_r, 10.0_r, 11.0_r, 12.0_r,
-        13.0_r, 14.0_r, 15.0_r, 16.0_r
-    };
+  real_t elems[] = {
+    1.0_r,  2.0_r,  3.0_r,  4.0_r,
+    5.0_r,  6.0_r,  7.0_r,  8.0_r,
+    9.0_r,  10.0_r, 11.0_r, 12.0_r,
+    13.0_r, 14.0_r, 15.0_r, 16.0_r
+  };
   // clang-format on
 
-  CHECK_THAT(make_span(elems), make_elements_sub(mat4, 16));
+  CHECK_THAT(make_span(elems), make_elements_sub(m4, 16));
 
   // clang-format off
-    mat4_t mat4_mult;
-    mat4_mult = mat4_t(
-        vec4_t(10.0_r, 20.0_r, 30.0_r, 40.0_r),
-        vec4_t(50.0_r, 60.0_r, 70.0_r, 80.0_r),
-        vec4_t(90.0_r, 100.0_r, 110.0_r, 120.0_r),
-        vec4_t(130.0_r, 140.0_r, 150.0_r, 160.0_r)
-    );
+  mat4_t mat4_mult;
+  mat4_mult = mat4_t(
+    vec4_t(10.0_r,  20.0_r,  30.0_r,  40.0_r),
+    vec4_t(50.0_r,  60.0_r,  70.0_r,  80.0_r),
+    vec4_t(90.0_r,  100.0_r, 110.0_r, 120.0_r),
+    vec4_t(130.0_r, 140.0_r, 150.0_r, 160.0_r)
+  );
 
-    real_t mult_elems[] = {
-        10.0_r, 20.0_r, 30.0_r, 40.0_r,
-        50.0_r, 60.0_r, 70.0_r, 80.0_r,
-        90.0_r, 100.0_r, 110.0_r, 120.0_r,
-        130.0_r, 140.0_r, 150.0_r, 160.0_r
-    };
+  real_t mult_elems[] = {
+      10.0_r,  20.0_r,  30.0_r,  40.0_r,
+      50.0_r,  60.0_r,  70.0_r,  80.0_r,
+      90.0_r,  100.0_r, 110.0_r, 120.0_r,
+      130.0_r, 140.0_r, 150.0_r, 160.0_r
+  };
   // clang-format on
 
   CHECK_THAT(make_span(mult_elems), make_elements_sub(mat4_mult, 16));
@@ -310,142 +310,142 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
   using gsl::make_span;
 
   // clang-format off
-    mat4_t mat4;
-    mat4 = mat4_t {
-        0.0_r, 0.0_r, 0.0_r, 0.0_r,
-        0.0_r, 0.0_r, 0.0_r, 0.0_r,
-        0.0_r, 0.0_r, 0.0_r, 0.0_r,
-        0.0_r, 0.0_r, 0.0_r, 0.0_r
-    };
+  mat4_t m4;
+  m4 = mat4_t {
+    0.0_r, 0.0_r, 0.0_r, 0.0_r,
+    0.0_r, 0.0_r, 0.0_r, 0.0_r,
+    0.0_r, 0.0_r, 0.0_r, 0.0_r,
+    0.0_r, 0.0_r, 0.0_r, 0.0_r
+  };
   // clang-format on
 
 #ifdef AS_COL_MAJOR
   const real_t col0[] = {1.0_r, 2.0_r, 3.0_r, 4.0_r};
   const vec4_t c0 = as::vec4_from_arr(col0);
-  as::mat4_col0(mat4, c0);
-  CHECK_THAT(make_span(col0), make_elements_sub(as::mat4_col0(mat4), 4));
-  as::mat_col(mat4, 0, c0);
-  CHECK_THAT(make_span(col0), make_elements_sub(as::mat_col(mat4, 0), 4));
-  CHECK(col0[0] == Approx(as::mat_col(mat4, 0)[0]).epsilon(g_epsilon));
+  as::mat4_col0(m4, c0);
+  CHECK_THAT(make_span(col0), make_elements_sub(as::mat4_col0(m4), 4));
+  as::mat_col(m4, 0, c0);
+  CHECK_THAT(make_span(col0), make_elements_sub(as::mat_col(m4, 0), 4));
+  CHECK(col0[0] == Approx(as::mat_col(m4, 0)[0]).epsilon(g_epsilon));
 
   const real_t col1[] = {5.0_r, 6.0_r, 7.0_r, 8.0_r};
   const vec4_t c1 = as::vec4_from_arr(col1);
-  as::mat4_col1(mat4, c1);
-  CHECK_THAT(make_span(col1), make_elements_sub(as::mat4_col1(mat4), 4));
-  as::mat_col(mat4, 1, c1);
-  CHECK_THAT(make_span(col1), make_elements_sub(as::mat_col(mat4, 1), 4));
-  CHECK(col1[1] == Approx(as::mat_col(mat4, 1)[1]).epsilon(g_epsilon));
+  as::mat4_col1(m4, c1);
+  CHECK_THAT(make_span(col1), make_elements_sub(as::mat4_col1(m4), 4));
+  as::mat_col(m4, 1, c1);
+  CHECK_THAT(make_span(col1), make_elements_sub(as::mat_col(m4, 1), 4));
+  CHECK(col1[1] == Approx(as::mat_col(m4, 1)[1]).epsilon(g_epsilon));
 
   const real_t col2[] = {9.0_r, 10.0_r, 11.0_r, 12.0_r};
   const vec4_t c2 = as::vec4_from_arr(col2);
-  as::mat4_col2(mat4, c2);
-  CHECK_THAT(make_span(col2), make_elements_sub(as::mat4_col2(mat4), 4));
-  as::mat_col(mat4, 2, c2);
-  CHECK_THAT(make_span(col2), make_elements_sub(as::mat_col(mat4, 2), 4));
-  CHECK(col2[2] == Approx(as::mat_col(mat4, 2)[2]).epsilon(g_epsilon));
+  as::mat4_col2(m4, c2);
+  CHECK_THAT(make_span(col2), make_elements_sub(as::mat4_col2(m4), 4));
+  as::mat_col(m4, 2, c2);
+  CHECK_THAT(make_span(col2), make_elements_sub(as::mat_col(m4, 2), 4));
+  CHECK(col2[2] == Approx(as::mat_col(m4, 2)[2]).epsilon(g_epsilon));
 
   const real_t col3[] = {13.0_r, 14.0_r, 15.0_r, 16.0_r};
   const vec4_t c3 = as::vec4_from_arr(col3);
-  as::mat4_col3(mat4, c3);
-  CHECK_THAT(make_span(col3), make_elements_sub(as::mat4_col3(mat4), 4));
-  as::mat_col(mat4, 3, c3);
-  CHECK_THAT(make_span(col3), make_elements_sub(as::mat_col(mat4, 3), 4));
-  CHECK(col3[3] == Approx(as::mat_col(mat4, 3)[3]).epsilon(g_epsilon));
+  as::mat4_col3(m4, c3);
+  CHECK_THAT(make_span(col3), make_elements_sub(as::mat4_col3(m4), 4));
+  as::mat_col(m4, 3, c3);
+  CHECK_THAT(make_span(col3), make_elements_sub(as::mat_col(m4, 3), 4));
+  CHECK(col3[3] == Approx(as::mat_col(m4, 3)[3]).epsilon(g_epsilon));
 
   const real_t row0[] = {1.0_r, 5.0_r, 9.0_r, 13.0_r};
   const vec4_t r0 = as::vec4_from_arr(row0);
-  as::mat4_row0(mat4, r0);
-  CHECK_THAT(make_span(row0), make_elements_sub(as::mat4_row0(mat4), 4));
-  as::mat_row(mat4, 0, r0);
-  CHECK_THAT(make_span(row0), make_elements_sub(as::mat_row(mat4, 0), 4));
-  CHECK(row0[0] == Approx(as::mat_row(mat4, 0)[0]).epsilon(g_epsilon));
+  as::mat4_row0(m4, r0);
+  CHECK_THAT(make_span(row0), make_elements_sub(as::mat4_row0(m4), 4));
+  as::mat_row(m4, 0, r0);
+  CHECK_THAT(make_span(row0), make_elements_sub(as::mat_row(m4, 0), 4));
+  CHECK(row0[0] == Approx(as::mat_row(m4, 0)[0]).epsilon(g_epsilon));
 
   const real_t row1[] = {2.0_r, 6.0_r, 10.0_r, 14.0_r};
   const vec4_t r1 = as::vec4_from_arr(row1);
-  as::mat4_row1(mat4, r1);
-  CHECK_THAT(make_span(row1), make_elements_sub(as::mat4_row1(mat4), 4));
-  as::mat_row(mat4, 1, r1);
-  CHECK_THAT(make_span(row1), make_elements_sub(as::mat_row(mat4, 1), 4));
-  CHECK(row1[1] == Approx(as::mat_row(mat4, 1)[1]).epsilon(g_epsilon));
+  as::mat4_row1(m4, r1);
+  CHECK_THAT(make_span(row1), make_elements_sub(as::mat4_row1(m4), 4));
+  as::mat_row(m4, 1, r1);
+  CHECK_THAT(make_span(row1), make_elements_sub(as::mat_row(m4, 1), 4));
+  CHECK(row1[1] == Approx(as::mat_row(m4, 1)[1]).epsilon(g_epsilon));
 
   const real_t row2[] = {3.0_r, 7.0_r, 11.0_r, 15.0_r};
   const vec4_t r2 = as::vec4_from_arr(row2);
-  as::mat4_row2(mat4, r2);
-  CHECK_THAT(make_span(row2), make_elements_sub(as::mat4_row2(mat4), 4));
-  as::mat_row(mat4, 2, r2);
-  CHECK_THAT(make_span(row2), make_elements_sub(as::mat_row(mat4, 2), 4));
-  CHECK(row2[2] == Approx(as::mat_row(mat4, 2)[2]).epsilon(g_epsilon));
+  as::mat4_row2(m4, r2);
+  CHECK_THAT(make_span(row2), make_elements_sub(as::mat4_row2(m4), 4));
+  as::mat_row(m4, 2, r2);
+  CHECK_THAT(make_span(row2), make_elements_sub(as::mat_row(m4, 2), 4));
+  CHECK(row2[2] == Approx(as::mat_row(m4, 2)[2]).epsilon(g_epsilon));
 
   const real_t row3[] = {4.0_r, 8.0_r, 12.0_r, 16.0_r};
   const vec4_t r3 = as::vec4_from_arr(row3);
-  as::mat4_row3(mat4, r3);
-  CHECK_THAT(make_span(row3), make_elements_sub(as::mat4_row3(mat4), 4));
-  as::mat_row(mat4, 3, r3);
-  CHECK_THAT(make_span(row3), make_elements_sub(as::mat_row(mat4, 3), 4));
-  CHECK(row3[3] == Approx(as::mat_row(mat4, 3)[3]).epsilon(g_epsilon));
+  as::mat4_row3(m4, r3);
+  CHECK_THAT(make_span(row3), make_elements_sub(as::mat4_row3(m4), 4));
+  as::mat_row(m4, 3, r3);
+  CHECK_THAT(make_span(row3), make_elements_sub(as::mat_row(m4, 3), 4));
+  CHECK(row3[3] == Approx(as::mat_row(m4, 3)[3]).epsilon(g_epsilon));
 #elif defined AS_ROW_MAJOR
   const real_t row0[] = {1.0_r, 2.0_r, 3.0_r, 4.0_r};
   const vec4_t c0 = as::vec4_from_arr(row0);
-  as::mat4_row0(mat4, c0);
-  CHECK_THAT(make_span(row0), make_elements_sub(as::mat4_row0(mat4), 4));
-  as::mat_row(mat4, 0, c0);
-  CHECK(row0[0] == Approx(as::mat_row(mat4, 0)[0]).epsilon(g_epsilon));
+  as::mat4_row0(m4, c0);
+  CHECK_THAT(make_span(row0), make_elements_sub(as::mat4_row0(m4), 4));
+  as::mat_row(m4, 0, c0);
+  CHECK(row0[0] == Approx(as::mat_row(m4, 0)[0]).epsilon(g_epsilon));
 
   const real_t row1[] = {5.0_r, 6.0_r, 7.0_r, 8.0_r};
   const vec4_t c1 = as::vec4_from_arr(row1);
-  as::mat4_row1(mat4, c1);
-  CHECK_THAT(make_span(row1), make_elements_sub(as::mat4_row1(mat4), 4));
-  as::mat_row(mat4, 1, c1);
-  CHECK_THAT(make_span(row1), make_elements_sub(as::mat_row(mat4, 1), 4));
-  CHECK(row1[1] == Approx(as::mat_row(mat4, 1)[1]).epsilon(g_epsilon));
+  as::mat4_row1(m4, c1);
+  CHECK_THAT(make_span(row1), make_elements_sub(as::mat4_row1(m4), 4));
+  as::mat_row(m4, 1, c1);
+  CHECK_THAT(make_span(row1), make_elements_sub(as::mat_row(m4, 1), 4));
+  CHECK(row1[1] == Approx(as::mat_row(m4, 1)[1]).epsilon(g_epsilon));
 
   const real_t row2[] = {9.0_r, 10.0_r, 11.0_r, 12.0_r};
   const vec4_t c2 = as::vec4_from_arr(row2);
-  as::mat4_row2(mat4, c2);
-  CHECK_THAT(make_span(row2), make_elements_sub(as::mat4_row2(mat4), 4));
-  as::mat_row(mat4, 2, c2);
-  CHECK_THAT(make_span(row2), make_elements_sub(as::mat_row(mat4, 2), 4));
-  CHECK(row2[2] == Approx(as::mat_row(mat4, 2)[2]).epsilon(g_epsilon));
+  as::mat4_row2(m4, c2);
+  CHECK_THAT(make_span(row2), make_elements_sub(as::mat4_row2(m4), 4));
+  as::mat_row(m4, 2, c2);
+  CHECK_THAT(make_span(row2), make_elements_sub(as::mat_row(m4, 2), 4));
+  CHECK(row2[2] == Approx(as::mat_row(m4, 2)[2]).epsilon(g_epsilon));
 
   const real_t row3[] = {13.0_r, 14.0_r, 15.0_r, 16.0_r};
   const vec4_t c3 = as::vec4_from_arr(row3);
-  as::mat4_row3(mat4, c3);
-  CHECK_THAT(make_span(row3), make_elements_sub(as::mat4_row3(mat4), 4));
-  as::mat_row(mat4, 3, c3);
-  CHECK_THAT(make_span(row3), make_elements_sub(as::mat_row(mat4, 3), 4));
-  CHECK(row3[3] == Approx(as::mat_row(mat4, 3)[3]).epsilon(g_epsilon));
+  as::mat4_row3(m4, c3);
+  CHECK_THAT(make_span(row3), make_elements_sub(as::mat4_row3(m4), 4));
+  as::mat_row(m4, 3, c3);
+  CHECK_THAT(make_span(row3), make_elements_sub(as::mat_row(m4, 3), 4));
+  CHECK(row3[3] == Approx(as::mat_row(m4, 3)[3]).epsilon(g_epsilon));
 
   const real_t col0[] = {1.0_r, 5.0_r, 9.0_r, 13.0_r};
   const vec4_t r0 = as::vec4_from_arr(col0);
-  as::mat4_col0(mat4, r0);
-  CHECK_THAT(make_span(col0), make_elements_sub(as::mat4_col0(mat4), 4));
-  as::mat_col(mat4, 0, r0);
-  CHECK_THAT(make_span(col0), make_elements_sub(as::mat_col(mat4, 0), 4));
-  CHECK(col0[0] == Approx(as::mat_col(mat4, 0)[0]).epsilon(g_epsilon));
+  as::mat4_col0(m4, r0);
+  CHECK_THAT(make_span(col0), make_elements_sub(as::mat4_col0(m4), 4));
+  as::mat_col(m4, 0, r0);
+  CHECK_THAT(make_span(col0), make_elements_sub(as::mat_col(m4, 0), 4));
+  CHECK(col0[0] == Approx(as::mat_col(m4, 0)[0]).epsilon(g_epsilon));
 
   const real_t col1[] = {2.0_r, 6.0_r, 10.0_r, 14.0_r};
   const vec4_t r1 = as::vec4_from_arr(col1);
-  as::mat4_col1(mat4, r1);
-  CHECK_THAT(make_span(col1), make_elements_sub(as::mat4_col1(mat4), 4));
-  as::mat_col(mat4, 1, r1);
-  CHECK_THAT(make_span(col1), make_elements_sub(as::mat_col(mat4, 1), 4));
-  CHECK(col1[1] == Approx(as::mat_col(mat4, 1)[1]).epsilon(g_epsilon));
+  as::mat4_col1(m4, r1);
+  CHECK_THAT(make_span(col1), make_elements_sub(as::mat4_col1(m4), 4));
+  as::mat_col(m4, 1, r1);
+  CHECK_THAT(make_span(col1), make_elements_sub(as::mat_col(m4, 1), 4));
+  CHECK(col1[1] == Approx(as::mat_col(m4, 1)[1]).epsilon(g_epsilon));
 
   const real_t col2[] = {3.0_r, 7.0_r, 11.0_r, 15.0_r};
   const vec4_t r2 = as::vec4_from_arr(col2);
-  as::mat4_col2(mat4, r2);
-  CHECK_THAT(make_span(col2), make_elements_sub(as::mat4_col2(mat4), 4));
-  as::mat_col(mat4, 2, r2);
-  CHECK_THAT(make_span(col2), make_elements_sub(as::mat_col(mat4, 2), 4));
-  CHECK(col2[2] == Approx(as::mat_col(mat4, 2)[2]).epsilon(g_epsilon));
+  as::mat4_col2(m4, r2);
+  CHECK_THAT(make_span(col2), make_elements_sub(as::mat4_col2(m4), 4));
+  as::mat_col(m4, 2, r2);
+  CHECK_THAT(make_span(col2), make_elements_sub(as::mat_col(m4, 2), 4));
+  CHECK(col2[2] == Approx(as::mat_col(m4, 2)[2]).epsilon(g_epsilon));
 
   const real_t col3[] = {4.0_r, 8.0_r, 12.0_r, 16.0_r};
   const vec4_t r3 = as::vec4_from_arr(col3);
-  as::mat4_col3(mat4, r3);
-  CHECK_THAT(make_span(col3), make_elements_sub(as::mat4_col3(mat4), 4));
-  as::mat_col(mat4, 3, r3);
-  CHECK_THAT(make_span(col3), make_elements_sub(as::mat_col(mat4, 3), 4));
-  CHECK(col3[3] == Approx(as::mat_col(mat4, 3)[3]).epsilon(g_epsilon));
+  as::mat4_col3(m4, r3);
+  CHECK_THAT(make_span(col3), make_elements_sub(as::mat4_col3(m4), 4));
+  as::mat_col(m4, 3, r3);
+  CHECK_THAT(make_span(col3), make_elements_sub(as::mat_col(m4, 3), 4));
+  CHECK(col3[3] == Approx(as::mat_col(m4, 3)[3]).epsilon(g_epsilon));
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
@@ -454,68 +454,68 @@ TEST_CASE("mat_mat4_from_mat3_and_vec3", "[as_mat]")
   using gsl::make_span;
 
   // clang-format off
-    mat3_t mat3 {
-        1.0_r, 2.0_r, 3.0_r,
-        4.0_r, 5.0_r, 6.0_r,
-        7.0_r, 8.0_r, 9.0_r
-    };
+  mat3_t m3 {
+    1.0_r, 2.0_r, 3.0_r,
+    4.0_r, 5.0_r, 6.0_r,
+    7.0_r, 8.0_r, 9.0_r
+  };
   // clang-format on
 
-  vec3_t vec3{10.0_r, 11.0_r, 12.0_r};
+  vec3_t v3{10.0_r, 11.0_r, 12.0_r};
 
   // clang-format off
-    const real_t mat3_and_vec3[] = {
-        1.0_r, 2.0_r, 3.0_r, 0.0_r,
-        4.0_r, 5.0_r, 6.0_r, 0.0_r,
-        7.0_r, 8.0_r, 9.0_r, 0.0_r,
-        10.0_r, 11.0_r, 12.0_r, 1.0_r
-    };
+  const real_t mat3_and_vec3[] = {
+    1.0_r,  2.0_r,  3.0_r,  0.0_r,
+    4.0_r,  5.0_r,  6.0_r,  0.0_r,
+    7.0_r,  8.0_r,  9.0_r,  0.0_r,
+    10.0_r, 11.0_r, 12.0_r, 1.0_r
+  };
   // clang-format on
 
   {
-    mat4_t mat4;
-    mat4 = mat4_t{mat3, vec3};
+    mat4_t m4;
+    m4 = mat4_t{m3, v3};
 
-    CHECK_THAT(make_span(mat3_and_vec3), make_elements_sub(mat4, 16));
+    CHECK_THAT(make_span(mat3_and_vec3), make_elements_sub(m4, 16));
   }
 
   {
-    mat4_t mat4;
-    mat4 = as::mat4_from_mat3_vec3(mat3, vec3);
+    mat4_t m4;
+    m4 = as::mat4_from_mat3_vec3(m3, v3);
 
-    CHECK_THAT(make_span(mat3_and_vec3), make_elements_sub(mat4, 16));
+    CHECK_THAT(make_span(mat3_and_vec3), make_elements_sub(m4, 16));
   }
 
   {
-    mat4_t mat4;
-    mat4 = as::mat4_from_mat3(mat3);
+    mat4_t m4;
+    m4 = as::mat4_from_mat3(m3);
 
     // clang-format off
-        const real_t mat3_and_zero[] = {
-            1.0_r, 2.0_r, 3.0_r, 0.0_r,
-            4.0_r, 5.0_r, 6.0_r, 0.0_r,
-            7.0_r, 8.0_r, 9.0_r, 0.0_r,
-            0.0_r, 0.0_r, 0.0_r, 1.0_r
-        };
+    const real_t mat3_and_zero[] = {
+      1.0_r, 2.0_r, 3.0_r, 0.0_r,
+      4.0_r, 5.0_r, 6.0_r, 0.0_r,
+      7.0_r, 8.0_r, 9.0_r, 0.0_r,
+      0.0_r, 0.0_r, 0.0_r, 1.0_r
+    };
     // clang-format on
 
-    CHECK_THAT(make_span(mat3_and_zero), make_elements_sub(mat4, 16));
+    CHECK_THAT(make_span(mat3_and_zero), make_elements_sub(m4, 16));
   }
 
   {
-    mat4_t mat4;
-    mat4 = as::mat4_from_vec3(vec3_t{10.0_r, 20.0_r, 30.0_r});
+    mat4_t m4;
+    m4 = as::mat4_from_vec3(vec3_t{10.0_r, 20.0_r, 30.0_r});
 
     // clang-format off
-        const real_t zero_and_vec3[] = {
-            1.0_r, 0.0_r, 0.0_r, 0.0_r,
-            0.0_r, 1.0_r, 0.0_r, 0.0_r,
-            0.0_r, 0.0_r, 1.0_r, 0.0_r,
-            10.0_r, 20.0_r, 30.0_r, 1.0_r
-        };
+    const real_t zero_and_vec3[] = {
+      1.0_r, 0.0_r, 0.0_r, 0.0_r,
+      0.0_r, 1.0_r, 0.0_r, 0.0_r,
+      0.0_r, 0.0_r, 1.0_r, 0.0_r,
+      10.0_r, 20.0_r, 30.0_r, 1.0_r
+    };
     // clang-format on
 
-    CHECK_THAT(make_span(zero_and_vec3), make_elements_sub(mat4, 16));
+    CHECK_THAT(make_span(zero_and_vec3), make_elements_sub(m4, 16));
   }
 }
 
@@ -524,23 +524,23 @@ TEST_CASE("const_elem_access_mat_const", "[as_mat]")
   using gsl::make_span;
 
   // clang-format off
-    const mat_t<real_t, 5> mat5(
-        1.0_r, 2.0_r, 3.0_r, 4.0_r, 5.0_r,
-        6.0_r, 7.0_r, 8.0_r, 9.0_r, 10.0_r,
-        11.0_r, 12.0_r, 13.0_r, 15.0_r, 15.0_r,
-        16.0_r, 17.0_r, 18.0_r, 19.0_r, 20.0_r,
-        21.0_r, 22.0_r, 23.0_r, 24.0_r, 25.0_r);
+  const mat_t<real_t, 5> m5(
+    1.0_r, 2.0_r, 3.0_r, 4.0_r, 5.0_r,
+    6.0_r, 7.0_r, 8.0_r, 9.0_r, 10.0_r,
+    11.0_r, 12.0_r, 13.0_r, 15.0_r, 15.0_r,
+    16.0_r, 17.0_r, 18.0_r, 19.0_r, 20.0_r,
+    21.0_r, 22.0_r, 23.0_r, 24.0_r, 25.0_r);
 
-    const real_t mat_arr[] = {
-        mat5[0], mat5[1], mat5[2], mat5[3], mat5[4],
-        mat5[5], mat5[6], mat5[7], mat5[8], mat5[9],
-        mat5[10], mat5[11], mat5[12], mat5[13], mat5[14],
-        mat5[15], mat5[16], mat5[17], mat5[18], mat5[19],
-        mat5[20], mat5[21], mat5[22], mat5[23], mat5[24]
-    };
+  const real_t mat_arr[] = {
+    m5[0], m5[1], m5[2], m5[3], m5[4],
+    m5[5], m5[6], m5[7], m5[8], m5[9],
+    m5[10], m5[11], m5[12], m5[13], m5[14],
+    m5[15], m5[16], m5[17], m5[18], m5[19],
+    m5[20], m5[21], m5[22], m5[23], m5[24]
+  };
   // clang-format on
 
-  CHECK_THAT(make_span(mat_arr), make_elements_sub(mat5, 25));
+  CHECK_THAT(make_span(mat_arr), make_elements_sub(m5, 25));
 }
 
 TEST_CASE("elem_access_mat", "[as_mat]")
@@ -548,29 +548,29 @@ TEST_CASE("elem_access_mat", "[as_mat]")
   using gsl::make_span;
 
   // clang-format off
-    mat_t<real_t, 5> mat5(
-        1.0_r, 2.0_r, 3.0_r, 4.0_r, 5.0_r,
-        6.0_r, 7.0_r, 8.0_r, 9.0_r, 10.0_r,
-        11.0_r, 12.0_r, 13.0_r, 15.0_r, 15.0_r,
-        16.0_r, 17.0_r, 18.0_r, 19.0_r, 20.0_r,
-        21.0_r, 22.0_r, 23.0_r, 24.0_r, 25.0_r
-    );
+  mat_t<real_t, 5> m5(
+    1.0_r, 2.0_r, 3.0_r, 4.0_r, 5.0_r,
+    6.0_r, 7.0_r, 8.0_r, 9.0_r, 10.0_r,
+    11.0_r, 12.0_r, 13.0_r, 15.0_r, 15.0_r,
+    16.0_r, 17.0_r, 18.0_r, 19.0_r, 20.0_r,
+    21.0_r, 22.0_r, 23.0_r, 24.0_r, 25.0_r
+  );
   // clang-format on
 
-  mat5[15] = 100.0_r;
-  mat5[20] = 200.0_r;
+  m5[15] = 100.0_r;
+  m5[20] = 200.0_r;
 
   // clang-format off
-    const real_t mat_arr[] = {
-        mat5[0], mat5[1], mat5[2], mat5[3], mat5[4],
-        mat5[5], mat5[6], mat5[7], mat5[8], mat5[9],
-        mat5[10], mat5[11], mat5[12], mat5[13], mat5[14],
-        100.0_r, mat5[16], mat5[17], mat5[18], mat5[19],
-        200.0_r, mat5[21], mat5[22], mat5[23], mat5[24]
-    };
+  const real_t mat_arr[] = {
+    m5[0], m5[1], m5[2], m5[3], m5[4],
+    m5[5], m5[6], m5[7], m5[8], m5[9],
+    m5[10], m5[11], m5[12], m5[13], m5[14],
+    100.0_r, m5[16], m5[17], m5[18], m5[19],
+    200.0_r, m5[21], m5[22], m5[23], m5[24]
+  };
   // clang-format on
 
-  CHECK_THAT(make_span(mat_arr), make_elements_sub(mat5, 25));
+  CHECK_THAT(make_span(mat_arr), make_elements_sub(m5, 25));
 }
 
 TEST_CASE("elem_access_mat4_const", "[as_mat]")
@@ -578,26 +578,26 @@ TEST_CASE("elem_access_mat4_const", "[as_mat]")
   using gsl::make_span;
 
   // clang-format off
-    const mat4_t mat4(
-        1.0_r, 2.0_r, 3.0_r, 4.0_r,
-        5.0_r, 6.0_r, 7.0_r, 8.0_r,
-        9.0_r, 10.0_r, 11.0_r, 12.0_r,
-        13.0_r, 14.0_r, 15.0_r, 16.0_r
-    );
+  const mat4_t m4(
+    1.0_r, 2.0_r, 3.0_r, 4.0_r,
+    5.0_r, 6.0_r, 7.0_r, 8.0_r,
+    9.0_r, 10.0_r, 11.0_r, 12.0_r,
+    13.0_r, 14.0_r, 15.0_r, 16.0_r
+  );
 
-    const real_t mat_arr[] = {
-        1.0_r, 2.0_r, 3.0_r, 4.0_r,
-        5.0_r, 6.0_r, 7.0_r, 8.0_r,
-        9.0_r, 10.0_r, 11.0_r, 12.0_r,
-        13.0_r, 14.0_r, 15.0_r, 16.0_r,
-    };
+  const real_t mat_arr[] = {
+    1.0_r, 2.0_r, 3.0_r, 4.0_r,
+    5.0_r, 6.0_r, 7.0_r, 8.0_r,
+    9.0_r, 10.0_r, 11.0_r, 12.0_r,
+    13.0_r, 14.0_r, 15.0_r, 16.0_r,
+  };
   // clang-format on
 
-  const real_t mat4_8 = mat4[8];
+  const real_t mat4_8 = m4[8];
   CHECK(mat4_8 == Approx(mat_arr[8]).epsilon(g_epsilon));
   CHECK(mat4_8 == Approx(9.0_r).epsilon(g_epsilon));
 
-  CHECK_THAT(make_span(mat_arr), make_elements_sub(mat4, 16));
+  CHECK_THAT(make_span(mat_arr), make_elements_sub(m4, 16));
 }
 
 TEST_CASE("rvalue_elem_access_mat2_3_4", "[as_mat]")
@@ -613,26 +613,26 @@ TEST_CASE("rvalue_elem_access_mat2_3_4", "[as_mat]")
   CHECK(make_mat2()[3] == Approx(20.0_r).epsilon(g_epsilon));
 
   // clang-format off
-    auto make_mat3 = []() {
-        return mat3_t{
-            1.0_r, 2.0_r, 3.0_r,
-            4.0_r, 5.0_r, 6.0_r,
-            7.0_r, 8.0_r, 9.0_r
-        };
+  auto make_mat3 = []() {
+    return mat3_t{
+      1.0_r, 2.0_r, 3.0_r,
+      4.0_r, 5.0_r, 6.0_r,
+      7.0_r, 8.0_r, 9.0_r
     };
+  };
   // clang-format on
 
   CHECK(make_mat3()[4] == Approx(5.0_r).epsilon(g_epsilon));
 
   // clang-format off
-    auto make_mat4 = [](){
-        return mat4_t {
-            1.0_r, 2.0_r, 3.0_r, 4.0_r,
-            5.0_r, 6.0_r, 7.0_r, 8.0_r,
-            9.0_r, 10.0_r, 11.0_r, 12.0_r,
-            13.0_r, 14.0_r, 15.0_r, 16.0_r
-        };
+  auto make_mat4 = [](){
+    return mat4_t {
+      1.0_r, 2.0_r, 3.0_r, 4.0_r,
+      5.0_r, 6.0_r, 7.0_r, 8.0_r,
+      9.0_r, 10.0_r, 11.0_r, 12.0_r,
+      13.0_r, 14.0_r, 15.0_r, 16.0_r
     };
+  };
   // clang-format on
 
   CHECK(make_mat4()[7] == Approx(8.0_r).epsilon(g_epsilon));
@@ -697,23 +697,23 @@ TEST_CASE("multiply_same_size", "[as_mat]")
   using gsl::make_span;
 
   // clang-format off
-    const mat3_t mat3_a {
-        1.0_r, 2.0_r, 3.0_r,
-        4.0_r, 5.0_r, 6.0_r,
-        7.0_r, 8.0_r, 9.0_r
-    };
+  const mat3_t mat3_a {
+    1.0_r, 2.0_r, 3.0_r,
+    4.0_r, 5.0_r, 6.0_r,
+    7.0_r, 8.0_r, 9.0_r
+  };
 
-    const mat3_t mat3_b {
-        9.0_r, 8.0_r, 7.0_r,
-        6.0_r, 5.0_r, 4.0_r,
-        3.0_r, 2.0_r, 1.0_r
-    };
+  const mat3_t mat3_b {
+    9.0_r, 8.0_r, 7.0_r,
+    6.0_r, 5.0_r, 4.0_r,
+    3.0_r, 2.0_r, 1.0_r
+  };
 
-    const real_t mat_arr[] = {
-        30.0_r, 24.0_r, 18.0_r,
-        84.0_r, 69.0_r, 54.0_r,
-        138.0_r, 114.0_r, 90.0_r
-    };
+  const real_t mat_arr[] = {
+    30.0_r, 24.0_r, 18.0_r,
+    84.0_r, 69.0_r, 54.0_r,
+    138.0_r, 114.0_r, 90.0_r
+  };
   // clang-format on
 
   mat3_t result;
@@ -754,12 +754,12 @@ TEST_CASE("multiply_mul", "[as_mat]")
 TEST_CASE("equal_mat", "[as_mat]")
 {
   // clang-format off
-    const mat4_t mat_a = as::mat4_t{
-        1.0_r,  2.0_r,  3.0_r,  4.0_r,
-        5.0_r,  6.0_r,  7.0_r,  8.0_r,
-        9.0_r,  10.0_r, 11.0_r, 12.0_r,
-        13.0_r, 14.0_r, 15.0_r, 16.0_r
-    };
+  const mat4_t mat_a = as::mat4_t{
+    1.0_r,  2.0_r,  3.0_r,  4.0_r,
+    5.0_r,  6.0_r,  7.0_r,  8.0_r,
+    9.0_r,  10.0_r, 11.0_r, 12.0_r,
+    13.0_r, 14.0_r, 15.0_r, 16.0_r
+  };
   // clang-format on
 
   const mat4_t mat_a_again = mat_a;
@@ -770,21 +770,19 @@ TEST_CASE("equal_mat", "[as_mat]")
 TEST_CASE("not_equal_mat", "[as_mat]")
 {
   // clang-format off
-    const mat4_t mat_a = as::mat4_t{
-        1.0_r,  2.0_r,  3.0_r,  4.0_r,
-        5.0_r,  6.0_r,  7.0_r,  8.0_r,
-        9.0_r,  10.0_r, 11.0_r, 12.0_r,
-        13.0_r, 14.0_r, 15.0_r, 16.0_r
-    };
-  // clang-format on
+  const mat4_t mat_a = as::mat4_t{
+    1.0_r,  2.0_r,  3.0_r,  4.0_r,
+    5.0_r,  6.0_r,  7.0_r,  8.0_r,
+    9.0_r,  10.0_r, 11.0_r, 12.0_r,
+    13.0_r, 14.0_r, 15.0_r, 16.0_r
+  };
 
-  // clang-format off
-    const mat4_t mat_b = as::mat4_t{
-        3.0_r,  3.0_r,  2.0_r,  1.0_r,
-        8.0_r,  7.0_r,  6.0_r,  5.0_r,
-        12.0_r, 11.0_r, 10.0_r, 9.0_r,
-        16.0_r, 15.0_r, 14.0_r, 13.0_r
-    };
+  const mat4_t mat_b = as::mat4_t{
+    3.0_r,  3.0_r,  2.0_r,  1.0_r,
+    8.0_r,  7.0_r,  6.0_r,  5.0_r,
+    12.0_r, 11.0_r, 10.0_r, 9.0_r,
+    16.0_r, 15.0_r, 14.0_r, 13.0_r
+  };
   // clang-format on
 
   CHECK(!as::mat_equal(mat_a, mat_b));
@@ -795,20 +793,20 @@ TEST_CASE("multiply_vector", "[as_mat]")
   using gsl::make_span;
 
   // clang-format off
-    const mat3_t mat {
-        1.0_r, 2.0_r, 3.0_r,
-        4.0_r, 5.0_r, 6.0_r,
-        7.0_r, 8.0_r, 9.0_r
-    };
+  const mat3_t m {
+    1.0_r, 2.0_r, 3.0_r,
+    4.0_r, 5.0_r, 6.0_r,
+    7.0_r, 8.0_r, 9.0_r
+  };
   // clang-format on
 
-  const vec3_t vec{11.0_r, 12.0_r, 13.0_r};
+  const vec3_t v{11.0_r, 12.0_r, 13.0_r};
 
   vec3_t result;
 #ifdef AS_ROW_MAJOR
-  result = vec * mat;
+  result = v * m;
 #elif defined AS_COL_MAJOR
-  result = mat * vec;
+  result = m * v;
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
   const real_t vec_arr[] = {150.0_r, 186.0_r, 222.0_r};
@@ -820,41 +818,41 @@ TEST_CASE("multiply_scalar", "[as_mat]")
   using gsl::make_span;
 
   // clang-format off
-    const mat3_t mat3 {
-        1.0_r, 2.0_r, 3.0_r,
-        4.0_r, 5.0_r, 6.0_r,
-        7.0_r, 8.0_r, 9.0_r
-    };
+  const mat3_t m3 {
+    1.0_r, 2.0_r, 3.0_r,
+    4.0_r, 5.0_r, 6.0_r,
+    7.0_r, 8.0_r, 9.0_r
+  };
   // clang-format on
 
-  mat3_t result33 = mat3 * real_t(2.0);
+  mat3_t result33 = m3 * real_t(2.0);
 
   // clang-format off
-    const real_t mat3_arr[] = {
-        2.0_r, 4.0_r, 6.0_r,
-        8.0_r, 10.0_r, 12.0_r,
-        14.0_r, 16.0_r, 18.0_r
-    };
+  const real_t mat3_arr[] = {
+    2.0_r, 4.0_r, 6.0_r,
+    8.0_r, 10.0_r, 12.0_r,
+    14.0_r, 16.0_r, 18.0_r
+  };
   // clang-format on
 
   CHECK_THAT(make_span(mat3_arr), make_elements_sub(result33, 9));
 
   // clang-format off
-    const mat4_t mat4 {
-        2.0_r, 4.0_r, 6.0_r, 8.0_r,
-        10.0_r, 12.0_r, 14.0_r, 16.0_r,
-        18.0_r, 20.0_r, 22.0_r, 24.0_r,
-        26.0_r, 28.0_r, 30.0_r, 32.0_r
-    };
+  const mat4_t m4 {
+    2.0_r, 4.0_r, 6.0_r, 8.0_r,
+    10.0_r, 12.0_r, 14.0_r, 16.0_r,
+    18.0_r, 20.0_r, 22.0_r, 24.0_r,
+    26.0_r, 28.0_r, 30.0_r, 32.0_r
+  };
 
-    const mat4_t result4 = mat4 * real_t(2.0);
+  const mat4_t result4 = m4 * real_t(2.0);
 
-    const real_t mat4_arr[] = {
-        4.0_r, 8.0_r, 12.0_r, 16.0_r,
-        20.0_r, 24.0_r, 28.0_r, 32.0_r,
-        36.0_r, 40.0_r, 44.0_r, 48.0_r,
-        52.0_r, 56.0_r, 60.0_r, 64.0_r
-    };
+  const real_t mat4_arr[] = {
+    4.0_r, 8.0_r, 12.0_r, 16.0_r,
+    20.0_r, 24.0_r, 28.0_r, 32.0_r,
+    36.0_r, 40.0_r, 44.0_r, 48.0_r,
+    52.0_r, 56.0_r, 60.0_r, 64.0_r
+  };
   // clang-format on
 
   CHECK_THAT(make_span(mat4_arr), make_elements_sub(result4, 16));
@@ -867,10 +865,10 @@ TEST_CASE("mat_from_arr", "[as_mat]")
   {
     // clang-format off
     real_t elems[] = {
-        1.0_r,  2.0_r,  3.0_r,  4.0_r,
-        5.0_r,  6.0_r,  7.0_r,  8.0_r,
-        9.0_r,  10.0_r, 11.0_r, 12.0_r,
-        13.0_r, 14.0_r, 15.0_r, 16.0_r
+      1.0_r,  2.0_r,  3.0_r,  4.0_r,
+      5.0_r,  6.0_r,  7.0_r,  8.0_r,
+      9.0_r,  10.0_r, 11.0_r, 12.0_r,
+      13.0_r, 14.0_r, 15.0_r, 16.0_r
     };
     // clang-format on
 
@@ -882,10 +880,10 @@ TEST_CASE("mat_from_arr", "[as_mat]")
 
     // clang-format off
     int64_t elems_long[] = {
-        1,  2,  3,  4,
-        5,  6,  7,  8,
-        9,  10, 11, 12,
-        13, 14, 15, 16
+      1,  2,  3,  4,
+      5,  6,  7,  8,
+      9,  10, 11, 12,
+      13, 14, 15, 16
     };
     // clang-format on
 
@@ -896,9 +894,9 @@ TEST_CASE("mat_from_arr", "[as_mat]")
   {
     // clang-format off
     real_t elems[] = {
-        1.0_r, 2.0_r, 3.0_r,
-        4.0_r, 5.0_r, 6.0_r,
-        7.0_r, 8.0_r, 9.0_r
+      1.0_r, 2.0_r, 3.0_r,
+      4.0_r, 5.0_r, 6.0_r,
+      7.0_r, 8.0_r, 9.0_r
     };
     // clang-format on
 
@@ -916,12 +914,12 @@ TEST_CASE("mat_from_ptr", "[as_mat]")
 
   {
     // clang-format off
-        real_t elems[] = {
-            1.0_r, 2.0_r, 3.0_r, 4.0_r,
-            5.0_r, 6.0_r, 7.0_r, 8.0_r,
-            9.0_r, 10.0_r, 11.0_r, 12.0_r,
-            13.0_r, 14.0_r, 15.0_r, 16.0_r
-        };
+    real_t elems[] = {
+      1.0_r, 2.0_r, 3.0_r, 4.0_r,
+      5.0_r, 6.0_r, 7.0_r, 8.0_r,
+      9.0_r, 10.0_r, 11.0_r, 12.0_r,
+      13.0_r, 14.0_r, 15.0_r, 16.0_r
+    };
     // clang-format on
 
     const mat4_t mat4_a = as::mat_from_ptr<real_t, 4>(elems);
@@ -931,12 +929,12 @@ TEST_CASE("mat_from_ptr", "[as_mat]")
     CHECK_THAT(make_span(elems), make_elements_sub(mat4_b, 16));
 
     // clang-format off
-        int64_t elems_long[] = {
-            1, 2, 3, 4,
-            5, 6, 7, 8,
-            9, 10, 11, 12,
-            13, 14, 15, 16
-        };
+    int64_t elems_long[] = {
+      1, 2, 3, 4,
+      5, 6, 7, 8,
+      9, 10, 11, 12,
+      13, 14, 15, 16
+    };
     // clang-format on
 
     const as::mat4l_t mat4_c = as::mat4_from_ptr(elems_long);
@@ -945,11 +943,11 @@ TEST_CASE("mat_from_ptr", "[as_mat]")
 
   {
     // clang-format off
-        real_t elems[] = {
-            1.0_r, 2.0_r, 3.0_r,
-            4.0_r, 5.0_r, 6.0_r,
-            7.0_r, 8.0_r, 9.0_r
-        };
+    real_t elems[] = {
+      1.0_r, 2.0_r, 3.0_r,
+      4.0_r, 5.0_r, 6.0_r,
+      7.0_r, 8.0_r, 9.0_r
+    };
     // clang-format on
 
     const mat3_t mat3_a = as::mat_from_ptr<real_t, 3>(elems);
@@ -965,17 +963,17 @@ TEST_CASE("mat_to_arr", "[as_mat]")
   using gsl::make_span;
 
   // clang-format off
-    const mat3_t mat3 {
-        1.0_r, 2.0_r, 3.0_r,
-        4.0_r, 5.0_r, 6.0_r,
-        7.0_r, 8.0_r, 9.0_r
-    };
+  const mat3_t m3 {
+    1.0_r, 2.0_r, 3.0_r,
+    4.0_r, 5.0_r, 6.0_r,
+    7.0_r, 8.0_r, 9.0_r
+  };
   // clang-format on
 
   real_t mat3_arr[9];
-  as::mat_to_arr(mat3, mat3_arr);
+  as::mat_to_arr(m3, mat3_arr);
 
-  CHECK_THAT(make_span(mat3_arr), make_elements_sub(mat3, 9));
+  CHECK_THAT(make_span(mat3_arr), make_elements_sub(m3, 9));
 }
 
 TEST_CASE("mat_transpose", "[as_mat]")
@@ -984,19 +982,19 @@ TEST_CASE("mat_transpose", "[as_mat]")
 
   {
     // clang-format off
-        const mat3_t mat3 {
-            1.0_r, 2.0_r, 3.0_r,
-            4.0_r, 5.0_r, 6.0_r,
-            7.0_r, 8.0_r, 9.0_r
-        };
+    const mat3_t m3 {
+      1.0_r, 2.0_r, 3.0_r,
+      4.0_r, 5.0_r, 6.0_r,
+      7.0_r, 8.0_r, 9.0_r
+    };
 
-        const mat3_t mat3_transposed = as::transpose(mat3);
+    const mat3_t mat3_transposed = as::transpose(m3);
 
-        const real_t mat3_transposed_ref[] {
-            1.0_r, 4.0_r, 7.0_r,
-            2.0_r, 5.0_r, 8.0_r,
-            3.0_r, 6.0_r, 9.0_r
-        };
+    const real_t mat3_transposed_ref[] {
+        1.0_r, 4.0_r, 7.0_r,
+        2.0_r, 5.0_r, 8.0_r,
+        3.0_r, 6.0_r, 9.0_r
+    };
     // clang-format on
 
     CHECK_THAT(
@@ -1005,21 +1003,21 @@ TEST_CASE("mat_transpose", "[as_mat]")
 
   {
     // clang-format off
-        const mat4_t mat4 = {
-            1.0_r, 2.0_r, 3.0_r, 4.0_r,
-            5.0_r, 6.0_r, 7.0_r, 8.0_r,
-            9.0_r, 10.0_r, 11.0_r, 12.0_r,
-            13.0_r, 14.0_r, 15.0_r, 16.0_r
-        };
+    const mat4_t m4 = {
+      1.0_r, 2.0_r, 3.0_r, 4.0_r,
+      5.0_r, 6.0_r, 7.0_r, 8.0_r,
+      9.0_r, 10.0_r, 11.0_r, 12.0_r,
+      13.0_r, 14.0_r, 15.0_r, 16.0_r
+    };
 
-        const mat4_t mat4_transposed = as::transpose(mat4);
+    const mat4_t mat4_transposed = as::transpose(m4);
 
-        const real_t mat4_transposed_reference[] {
-            1.0_r, 5.0_r, 9.0_r, 13.0_r,
-            2.0_r, 6.0_r, 10.0_r, 14.0_r,
-            3.0_r, 7.0_r, 11.0_r, 15.0_r,
-            4.0_r, 8.0_r, 12.0_r, 16.0_r
-        };
+    const real_t mat4_transposed_reference[] {
+      1.0_r, 5.0_r, 9.0_r, 13.0_r,
+      2.0_r, 6.0_r, 10.0_r, 14.0_r,
+      3.0_r, 7.0_r, 11.0_r, 15.0_r,
+      4.0_r, 8.0_r, 12.0_r, 16.0_r
+    };
     // clang-format on
 
     CHECK_THAT(
@@ -1037,11 +1035,11 @@ TEST_CASE("mat_identity", "[as_mat]")
     mat3_identity = mat3_t::identity();
 
     // clang-format off
-        const real_t mat3_identity_ref[] {
-            1.0_r, 0.0_r, 0.0_r,
-            0.0_r, 1.0_r, 0.0_r,
-            0.0_r, 0.0_r, 1.0_r
-        };
+    const real_t mat3_identity_ref[] {
+      1.0_r, 0.0_r, 0.0_r,
+      0.0_r, 1.0_r, 0.0_r,
+      0.0_r, 0.0_r, 1.0_r
+    };
     // clang-format on
 
     CHECK_THAT(
@@ -1053,12 +1051,12 @@ TEST_CASE("mat_identity", "[as_mat]")
     mat4_identity = mat4_t::identity();
 
     // clang-format off
-        const real_t mat4_identity_ref[] {
-            1.0_r, 0.0_r, 0.0_r, 0.0_r,
-            0.0_r, 1.0_r, 0.0_r, 0.0_r,
-            0.0_r, 0.0_r, 1.0_r, 0.0_r,
-            0.0_r, 0.0_r, 0.0_r, 1.0_r
-        };
+    const real_t mat4_identity_ref[] {
+      1.0_r, 0.0_r, 0.0_r, 0.0_r,
+      0.0_r, 1.0_r, 0.0_r, 0.0_r,
+      0.0_r, 0.0_r, 1.0_r, 0.0_r,
+      0.0_r, 0.0_r, 0.0_r, 1.0_r
+    };
     // clang-format on
 
     CHECK_THAT(
@@ -1072,13 +1070,13 @@ TEST_CASE("mat_identity", "[as_mat]")
     mat5_identity = mat5_t::identity();
 
     // clang-format off
-        const real_t mat5_identity_ref[] {
-            1.0_r, 0.0_r, 0.0_r, 0.0_r, 0.0_r,
-            0.0_r, 1.0_r, 0.0_r, 0.0_r, 0.0_r,
-            0.0_r, 0.0_r, 1.0_r, 0.0_r, 0.0_r,
-            0.0_r, 0.0_r, 0.0_r, 1.0_r, 0.0_r,
-            0.0_r, 0.0_r, 0.0_r, 0.0_r, 1.0_r
-        };
+    const real_t mat5_identity_ref[] {
+      1.0_r, 0.0_r, 0.0_r, 0.0_r, 0.0_r,
+      0.0_r, 1.0_r, 0.0_r, 0.0_r, 0.0_r,
+      0.0_r, 0.0_r, 1.0_r, 0.0_r, 0.0_r,
+      0.0_r, 0.0_r, 0.0_r, 1.0_r, 0.0_r,
+      0.0_r, 0.0_r, 0.0_r, 0.0_r, 1.0_r
+    };
     // clang-format on
 
     CHECK_THAT(
@@ -1094,13 +1092,13 @@ TEST_CASE("mat_inverse", "[as_mat]")
     using mat2_t = mat_t<real_t, 2>;
 
     // clang-format off
-        const mat2_t mat2 {
-            1.0_r, 2.0_r,
-            3.0_r, 4.0_r
-        };
+    const mat2_t m2 {
+      1.0_r, 2.0_r,
+      3.0_r, 4.0_r
+    };
     // clang-format on
 
-    const mat2_t mat2_inverse = as::inverse(mat2);
+    const mat2_t mat2_inverse = as::inverse(m2);
     const real_t mat2_inverse_ref[]{
       -2.0_r, 1.0_r, 3.0_r / 2.0_r, -1.0_r / 2.0_r};
 
@@ -1109,21 +1107,21 @@ TEST_CASE("mat_inverse", "[as_mat]")
 
   {
     // clang-format off
-        const mat3_t mat3 {
-            1.0_r, 2.0_r, 3.0_r,
-            4.0_r, 5.0_r, 6.0_r,
-            7.0_r, 2.0_r, 9.0_r
-        };
+    const mat3_t m3 {
+      1.0_r, 2.0_r, 3.0_r,
+      4.0_r, 5.0_r, 6.0_r,
+      7.0_r, 2.0_r, 9.0_r
+    };
     // clang-format on
 
-    const mat3_t mat3_inverse = as::inverse(mat3);
+    const mat3_t mat3_inverse = as::inverse(m3);
 
     // clang-format off
-        const real_t mat3_inverse_ref[] {
-            -11.0_r/12.0_r, 1.0_r/3.0_r, 1.0_r/12.0_r,
-            -1.0_r/6.0_r, 1.0_r/3.0_r, -1.0_r/6.0_r,
-            3.0_r/4.0_r, -1.0_r/3.0_r, 1.0_r/12.0_r
-        };
+    const real_t mat3_inverse_ref[] {
+      -11.0_r/12.0_r, 1.0_r/3.0_r, 1.0_r/12.0_r,
+      -1.0_r/6.0_r, 1.0_r/3.0_r, -1.0_r/6.0_r,
+      3.0_r/4.0_r, -1.0_r/3.0_r, 1.0_r/12.0_r
+    };
     // clang-format on
 
     CHECK_THAT(make_span(mat3_inverse_ref), make_elements_sub(mat3_inverse, 9));
@@ -1131,23 +1129,23 @@ TEST_CASE("mat_inverse", "[as_mat]")
 
   {
     // clang-format off
-        const mat4_t mat4 = {
-            1.0_r, 3.0_r, 5.0_r, 9.0_r,
-            1.0_r, 3.0_r, 1.0_r, 7.0_r,
-            4.0_r, 3.0_r, 9.0_r, 7.0_r,
-            5.0_r, 2.0_r, 0.0_r, 9.0_r
-        };
+    const mat4_t m4 = {
+      1.0_r, 3.0_r, 5.0_r, 9.0_r,
+      1.0_r, 3.0_r, 1.0_r, 7.0_r,
+      4.0_r, 3.0_r, 9.0_r, 7.0_r,
+      5.0_r, 2.0_r, 0.0_r, 9.0_r
+    };
     // clang-format on
 
-    const mat4_t mat4_inverse = as::inverse(mat4);
+    const mat4_t mat4_inverse = as::inverse(m4);
 
     // clang-format off
-        const real_t mat4_inverse_reference[] {
-            -13.0_r/47.0_r, 2.0_r/47.0_r, 7.0_r/47.0_r, 6.0_r/47.0_r,
-            -5.0_r/8.0_r, 7.0_r/8.0_r, 1.0_r/4.0_r, -1.0_r/4.0_r,
-            39.0_r/376.0_r, -53.0_r/376.0_r, 13.0_r/188.0_r, -9.0_r/188.0_r,
-            55.0_r/188.0_r, -41.0_r/188.0_r, -13.0_r/94.0_r, 9.0_r/94.0_r
-        };
+    const real_t mat4_inverse_reference[] {
+      -13.0_r/47.0_r, 2.0_r/47.0_r, 7.0_r/47.0_r, 6.0_r/47.0_r,
+      -5.0_r/8.0_r, 7.0_r/8.0_r, 1.0_r/4.0_r, -1.0_r/4.0_r,
+      39.0_r/376.0_r, -53.0_r/376.0_r, 13.0_r/188.0_r, -9.0_r/188.0_r,
+      55.0_r/188.0_r, -41.0_r/188.0_r, -13.0_r/94.0_r, 9.0_r/94.0_r
+    };
     // clang-format on
 
     CHECK_THAT(
@@ -1163,11 +1161,11 @@ TEST_CASE("mat_scale", "[as_mat]")
   scale = as::mat3_scale(vec3_t{1.0_r, 2.0_r, 3.0_r});
 
   // clang-format off
-    const real_t mat3_scale_reference[] {
-        1.0_r, 0.0_r, 0.0_r,
-        0.0_r, 2.0_r, 0.0_r,
-        0.0_r, 0.0_r, 3.0_r
-    };
+  const real_t mat3_scale_reference[] {
+    1.0_r, 0.0_r, 0.0_r,
+    0.0_r, 2.0_r, 0.0_r,
+    0.0_r, 0.0_r, 3.0_r
+  };
   // clang-format on
 
   CHECK_THAT(make_span(mat3_scale_reference), make_elements_sub(scale, 9));
@@ -1176,11 +1174,11 @@ TEST_CASE("mat_scale", "[as_mat]")
   uniform_scale = as::mat3_scale(5.0_r);
 
   // clang-format off
-    const real_t mat3_uniform_scale_reference[] {
-        5.0_r, 0.0_r, 0.0_r,
-        0.0_r, 5.0_r, 0.0_r,
-        0.0_r, 0.0_r, 5.0_r
-    };
+  const real_t mat3_uniform_scale_reference[] {
+    5.0_r, 0.0_r, 0.0_r,
+    0.0_r, 5.0_r, 0.0_r,
+    0.0_r, 0.0_r, 5.0_r
+  };
   // clang-format on
 
   CHECK_THAT(
@@ -1192,21 +1190,21 @@ TEST_CASE("mat3_from_mat4", "[as_mat]")
 {
   using gsl::make_span;
 
-  mat4_t mat4;
-  mat4 = mat4_t::identity();
+  mat4_t m4;
+  m4 = mat4_t::identity();
 
-  mat3_t mat3;
-  mat3 = as::mat3_from_mat4(mat4);
+  mat3_t m3;
+  m3 = as::mat3_from_mat4(m4);
 
   // clang-format off
-    const real_t mat3_identity_ref[] {
-        1.0_r, 0.0_r, 0.0_r,
-        0.0_r, 1.0_r, 0.0_r,
-        0.0_r, 0.0_r, 1.0_r
-    };
+  const real_t mat3_identity_ref[] {
+    1.0_r, 0.0_r, 0.0_r,
+    0.0_r, 1.0_r, 0.0_r,
+    0.0_r, 0.0_r, 1.0_r
+  };
   // clang-format on
 
-  CHECK_THAT(make_span(mat3_identity_ref), make_elements_sub(mat3, 9));
+  CHECK_THAT(make_span(mat3_identity_ref), make_elements_sub(m3, 9));
 }
 
 TEST_CASE("mat3_rotation_axis", "[as_mat]")
@@ -1214,7 +1212,8 @@ TEST_CASE("mat3_rotation_axis", "[as_mat]")
   using gsl::make_span;
 
   {
-    mat3_t rotation_axis = as::mat3_rotation_axis(vec3_t::axis_x(), deg_to_rad(90.0_r));
+    mat3_t rotation_axis =
+      as::mat3_rotation_axis(vec3_t::axis_x(), deg_to_rad(90.0_r));
     real_t result_reference[] = {0.0_r, -1.0_r, 0.0_r};
 
     vec3_t result;
@@ -1231,7 +1230,8 @@ TEST_CASE("mat3_rotation_axis", "[as_mat]")
   }
 
   {
-    mat3_t rotation_axis = as::mat3_rotation_axis(vec3_t::axis_y(), deg_to_rad(90.0_r));
+    mat3_t rotation_axis =
+      as::mat3_rotation_axis(vec3_t::axis_y(), deg_to_rad(90.0_r));
     real_t result_reference[] = {0.0_r, 0.0_r, -1.0_r};
 
     vec3_t result;
@@ -1374,13 +1374,13 @@ TEST_CASE("mat4_from_affine", "[as_mat]")
   using gsl::make_span;
 
   {
-    affine_t affine(
+    affine_t a(
       as::mat3_t(
         2.0_r, 4.0_r, 6.0_r, 8.0_r, 10.0_r, 12.0_r, 14.0_r, 16.0_r, 18.0_r),
       as::vec3_t(1.0_r, 2.0_r, 3.0_r));
 
-    as::mat4_t mat4;
-    mat4 = as::mat4_from_affine(affine);
+    as::mat4_t m4;
+    m4 = as::mat4_from_affine(a);
 
     real_t expected[16] = {2.0_r,  4.0_r, 6.0_r,  0.0_r,  8.0_r,  10.0_r,
                            12.0_r, 0.0_r, 14.0_r, 16.0_r, 18.0_r, 0.0_r,
@@ -1388,7 +1388,7 @@ TEST_CASE("mat4_from_affine", "[as_mat]")
 
     // note - checking against 0.0 requires margin
     CHECK_THAT(
-      make_span(expected), make_elements_sub(mat4, 16).margin(g_epsilon));
+      make_span(expected), make_elements_sub(m4, 16).margin(g_epsilon));
   }
 }
 
@@ -1556,19 +1556,19 @@ TEST_CASE("mat_basis_access_mat3", "[as_mat]")
   using gsl::make_span;
 
   // clang-format off
-    mat3_t mat3 {
-        1.0_r, 2.0_r, 3.0_r,
-        4.0_r, 5.0_r, 6.0_r,
-        7.0_r, 8.0_r, 9.0_r
-    };
+  mat3_t m3 {
+    1.0_r, 2.0_r, 3.0_r,
+    4.0_r, 5.0_r, 6.0_r,
+    7.0_r, 8.0_r, 9.0_r
+  };
   // clang-format on
 
   const real_t basis_x[] = {1.0_r, 2.0_r, 3.0_r};
-  CHECK_THAT(make_span(basis_x), make_elements_sub(as::mat3_basis_x(mat3), 3));
+  CHECK_THAT(make_span(basis_x), make_elements_sub(as::mat3_basis_x(m3), 3));
   const real_t basis_y[] = {4.0_r, 5.0_r, 6.0_r};
-  CHECK_THAT(make_span(basis_y), make_elements_sub(as::mat3_basis_y(mat3), 3));
+  CHECK_THAT(make_span(basis_y), make_elements_sub(as::mat3_basis_y(m3), 3));
   const real_t basis_z[] = {7.0_r, 8.0_r, 9.0_r};
-  CHECK_THAT(make_span(basis_z), make_elements_sub(as::mat3_basis_z(mat3), 3));
+  CHECK_THAT(make_span(basis_z), make_elements_sub(as::mat3_basis_z(m3), 3));
 }
 
 TEST_CASE("mat_basis_access_mat4", "[as_mat]")
@@ -1576,73 +1576,73 @@ TEST_CASE("mat_basis_access_mat4", "[as_mat]")
   using gsl::make_span;
 
   // clang-format off
-    mat4_t mat4 {
-        1.0_r,  2.0_r,  3.0_r,  4.0_r,
-        4.0_r,  5.0_r,  6.0_r,  7.0_r,
-        7.0_r,  8.0_r,  9.0_r,  8.0_r,
-        10.0_r, 11.0_r, 12.0_r, 9.0_r
-    };
+  mat4_t m4 {
+    1.0_r,  2.0_r,  3.0_r,  4.0_r,
+    4.0_r,  5.0_r,  6.0_r,  7.0_r,
+    7.0_r,  8.0_r,  9.0_r,  8.0_r,
+    10.0_r, 11.0_r, 12.0_r, 9.0_r
+  };
   // clang-format on
 
   const real_t basis_x[] = {1.0_r, 2.0_r, 3.0_r, 4.0_r};
-  CHECK_THAT(make_span(basis_x), make_elements_sub(as::mat4_basis_x(mat4), 4));
+  CHECK_THAT(make_span(basis_x), make_elements_sub(as::mat4_basis_x(m4), 4));
   const real_t basis_y[] = {4.0_r, 5.0_r, 6.0_r, 7.0_r};
-  CHECK_THAT(make_span(basis_y), make_elements_sub(as::mat4_basis_y(mat4), 4));
+  CHECK_THAT(make_span(basis_y), make_elements_sub(as::mat4_basis_y(m4), 4));
   const real_t basis_z[] = {7.0_r, 8.0_r, 9.0_r, 8.0_r};
-  CHECK_THAT(make_span(basis_z), make_elements_sub(as::mat4_basis_z(mat4), 4));
+  CHECK_THAT(make_span(basis_z), make_elements_sub(as::mat4_basis_z(m4), 4));
   const real_t translation[] = {10.0_r, 11.0_r, 12.0_r, 9.0_r};
   CHECK_THAT(
-    make_span(translation), make_elements_sub(as::mat4_translation(mat4), 4));
+    make_span(translation), make_elements_sub(as::mat4_translation(m4), 4));
 }
 
 TEST_CASE("mat_basis_mutate_mat3", "[as_mat]")
 {
   using gsl::make_span;
 
-  mat3_t mat3{};
+  mat3_t m3{};
 
   const real_t basis_x[] = {1.0_r, 2.0_r, 3.0_r};
   const vec3_t x = as::vec3_from_arr(basis_x);
-  as::mat3_basis_x(mat3, x);
-  CHECK_THAT(make_span(basis_x), make_elements_sub(as::mat3_basis_x(mat3), 3));
+  as::mat3_basis_x(m3, x);
+  CHECK_THAT(make_span(basis_x), make_elements_sub(as::mat3_basis_x(m3), 3));
 
   const real_t basis_y[] = {4.0_r, 5.0_r, 6.0_r};
   const vec3_t y = as::vec3_from_arr(basis_y);
-  as::mat3_basis_y(mat3, y);
-  CHECK_THAT(make_span(basis_y), make_elements_sub(as::mat3_basis_y(mat3), 3));
+  as::mat3_basis_y(m3, y);
+  CHECK_THAT(make_span(basis_y), make_elements_sub(as::mat3_basis_y(m3), 3));
 
   const real_t basis_z[] = {7.0_r, 8.0_r, 9.0_r};
   const vec3_t z = as::vec3_from_arr(basis_z);
-  as::mat3_basis_z(mat3, z);
-  CHECK_THAT(make_span(basis_z), make_elements_sub(as::mat3_basis_z(mat3), 3));
+  as::mat3_basis_z(m3, z);
+  CHECK_THAT(make_span(basis_z), make_elements_sub(as::mat3_basis_z(m3), 3));
 }
 
 TEST_CASE("mat_basis_mutate_mat4", "[as_mat]")
 {
   using gsl::make_span;
 
-  mat4_t mat4{};
+  mat4_t m4{};
 
   const real_t basis_x[] = {1.0_r, 2.0_r, 3.0_r, 4.0_r};
   const vec4_t x = as::vec4_from_arr(basis_x);
-  as::mat4_basis_x(mat4, x);
-  CHECK_THAT(make_span(basis_x), make_elements_sub(as::mat4_basis_x(mat4), 4));
+  as::mat4_basis_x(m4, x);
+  CHECK_THAT(make_span(basis_x), make_elements_sub(as::mat4_basis_x(m4), 4));
 
   const real_t basis_y[] = {4.0_r, 5.0_r, 6.0_r, 7.0_r};
   const vec4_t y = as::vec4_from_arr(basis_y);
-  as::mat4_basis_y(mat4, y);
-  CHECK_THAT(make_span(basis_y), make_elements_sub(as::mat4_basis_y(mat4), 4));
+  as::mat4_basis_y(m4, y);
+  CHECK_THAT(make_span(basis_y), make_elements_sub(as::mat4_basis_y(m4), 4));
 
   const real_t basis_z[] = {7.0_r, 8.0_r, 9.0_r, 10.0_r};
   const vec4_t z = as::vec4_from_arr(basis_z);
-  as::mat4_basis_z(mat4, z);
-  CHECK_THAT(make_span(basis_z), make_elements_sub(as::mat4_basis_z(mat4), 4));
+  as::mat4_basis_z(m4, z);
+  CHECK_THAT(make_span(basis_z), make_elements_sub(as::mat4_basis_z(m4), 4));
 
   const real_t translation[] = {10.0_r, 11.0_r, 12.0_r, 9.0_r};
   const vec4_t t = as::vec4_from_arr(translation);
-  as::mat4_translation(mat4, t);
+  as::mat4_translation(m4, t);
   CHECK_THAT(
-    make_span(translation), make_elements_sub(as::mat4_translation(mat4), 4));
+    make_span(translation), make_elements_sub(as::mat4_translation(m4), 4));
 }
 
 } // namespace unit_test

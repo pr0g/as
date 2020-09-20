@@ -24,29 +24,29 @@ const real_t g_epsilon = real_t(std::numeric_limits<float>::epsilon());
 TEST_CASE("point2_initialization", "[as_point]")
 {
   {
-    point2_t point2;
-    point2 = point2_t{2.0_r, 4.0_r};
+    point2_t p2;
+    p2 = point2_t{2.0_r, 4.0_r};
 
-    CHECK(point2[0] == Approx(2.0_r).epsilon(g_epsilon));
-    CHECK(point2[1] == Approx(4.0_r).epsilon(g_epsilon));
+    CHECK(p2[0] == Approx(2.0_r).epsilon(g_epsilon));
+    CHECK(p2[1] == Approx(4.0_r).epsilon(g_epsilon));
   }
 
   {
-    point2_t point2;
-    point2 = point2_t{5.0_r};
+    point2_t p2;
+    p2 = point2_t{5.0_r};
 
-    CHECK(point2[0] == Approx(5.0_r).epsilon(g_epsilon));
-    CHECK(point2[1] == Approx(5.0_r).epsilon(g_epsilon));
+    CHECK(p2[0] == Approx(5.0_r).epsilon(g_epsilon));
+    CHECK(p2[1] == Approx(5.0_r).epsilon(g_epsilon));
   }
 
   {
-    vec2_t vec2 = vec2_t{10.0_r, 20.0_r};
+    vec2_t v2 = vec2_t{10.0_r, 20.0_r};
 
-    point2_t point2;
-    point2 = point2_t{vec2};
+    point2_t p2;
+    p2 = point2_t{v2};
 
-    CHECK(point2[0] == Approx(10.0_r).epsilon(g_epsilon));
-    CHECK(point2[1] == Approx(20.0_r).epsilon(g_epsilon));
+    CHECK(p2[0] == Approx(10.0_r).epsilon(g_epsilon));
+    CHECK(p2[1] == Approx(20.0_r).epsilon(g_epsilon));
   }
 
   {
@@ -57,65 +57,65 @@ TEST_CASE("point2_initialization", "[as_point]")
   }
 
   {
-    const point2_t point2 = point2_t{20.0_r, 40.0_r};
+    const point2_t p2 = point2_t{20.0_r, 40.0_r};
 
-    const real_t& x = point2[0];
-    const real_t& y = point2[1];
+    const real_t& x = p2[0];
+    const real_t& y = p2[1];
 
     CHECK(x == Approx(20.0_r).epsilon(g_epsilon));
     CHECK(y == Approx(40.0_r).epsilon(g_epsilon));
   }
 
   {
-    point2_t point2;
-    point2 = point2_t::zero();
+    point2_t p2;
+    p2 = point2_t::zero();
 
-    CHECK(point2.as_vec().x == Approx(0.0_r).epsilon(g_epsilon));
-    CHECK(point2.as_vec().y == Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(p2.as_vec().x == Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(p2.as_vec().y == Approx(0.0_r).epsilon(g_epsilon));
   }
 }
 
 TEST_CASE("point3_initialization", "[as_point]")
 {
   {
-    point3_t point3;
-    point3 = point3_t{2.0_r, 4.0_r, 6.0_r};
+    point3_t p3;
+    p3 = point3_t{2.0_r, 4.0_r, 6.0_r};
 
-    CHECK(point3[0] == Approx(2.0_r).epsilon(g_epsilon));
-    CHECK(point3[1] == Approx(4.0_r).epsilon(g_epsilon));
-    CHECK(point3[2] == Approx(6.0_r).epsilon(g_epsilon));
+    CHECK(p3[0] == Approx(2.0_r).epsilon(g_epsilon));
+    CHECK(p3[1] == Approx(4.0_r).epsilon(g_epsilon));
+    CHECK(p3[2] == Approx(6.0_r).epsilon(g_epsilon));
   }
 
   {
-    point3_t point3;
-    point3 = point3_t{5.0_r};
+    point3_t p3;
+    p3 = point3_t{5.0_r};
 
-    CHECK(point3[0] == Approx(5.0_r).epsilon(g_epsilon));
-    CHECK(point3[1] == Approx(5.0_r).epsilon(g_epsilon));
-    CHECK(point3[2] == Approx(5.0_r).epsilon(g_epsilon));
+    CHECK(p3[0] == Approx(5.0_r).epsilon(g_epsilon));
+    CHECK(p3[1] == Approx(5.0_r).epsilon(g_epsilon));
+    CHECK(p3[2] == Approx(5.0_r).epsilon(g_epsilon));
   }
 
   {
-    vec3_t vec3 = vec3_t{10.0_r, 20.0_r, 30.0_r};
+    vec3_t v3 = vec3_t{10.0_r, 20.0_r, 30.0_r};
 
-    point3_t point3;
-    point3 = point3_t{vec3};
+    point3_t p3;
+    p3 = point3_t{v3};
 
-    CHECK(point3[0] == Approx(10.0_r).epsilon(g_epsilon));
-    CHECK(point3[1] == Approx(20.0_r).epsilon(g_epsilon));
-    CHECK(point3[2] == Approx(30.0_r).epsilon(g_epsilon));
+    CHECK(p3[0] == Approx(10.0_r).epsilon(g_epsilon));
+    CHECK(p3[1] == Approx(20.0_r).epsilon(g_epsilon));
+    CHECK(p3[2] == Approx(30.0_r).epsilon(g_epsilon));
   }
 
   {
-    vec2_t vec2 = vec2_t{10.0_r, 20.0_r};
+    vec2_t v2 = vec2_t{10.0_r, 20.0_r};
     real_t real = 30.0_r;
 
-    point3_t point3;
-    point3 = point3_t{vec2, real};
+    point3_t p3;
+    p3 = point3_t{v2, real};
 
-    CHECK(point3[0] == Approx(10.0_r).epsilon(g_epsilon));
-    CHECK(point3[1] == Approx(20.0_r).epsilon(g_epsilon));
-    CHECK(point3[2] == Approx(30.0_r).epsilon(g_epsilon));
+    CHECK(p3[0] == Approx(10.0_r).epsilon(g_epsilon));
+    CHECK(p3[1] == Approx(20.0_r).epsilon(g_epsilon));
+    CHECK(p3[2] == Approx(30.0_r).epsilon(g_epsilon));
   }
 
   {
@@ -127,11 +127,11 @@ TEST_CASE("point3_initialization", "[as_point]")
   }
 
   {
-    const point3_t point3 = point3_t{20.0_r, 40.0_r, 60.0_r};
+    const point3_t p3 = point3_t{20.0_r, 40.0_r, 60.0_r};
 
-    const real_t& x = point3[0];
-    const real_t& y = point3[1];
-    const real_t& z = point3[2];
+    const real_t& x = p3[0];
+    const real_t& y = p3[1];
+    const real_t& z = p3[2];
 
     CHECK(x == Approx(20.0_r).epsilon(g_epsilon));
     CHECK(y == Approx(40.0_r).epsilon(g_epsilon));
@@ -139,12 +139,12 @@ TEST_CASE("point3_initialization", "[as_point]")
   }
 
   {
-    point3_t point3;
-    point3 = point3_t::zero();
+    point3_t p3;
+    p3 = point3_t::zero();
 
-    CHECK(point3.as_vec().x == Approx(0.0_r).epsilon(g_epsilon));
-    CHECK(point3.as_vec().y == Approx(0.0_r).epsilon(g_epsilon));
-    CHECK(point3.as_vec().z == Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(p3.as_vec().x == Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(p3.as_vec().y == Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(p3.as_vec().z == Approx(0.0_r).epsilon(g_epsilon));
   }
 }
 
@@ -192,10 +192,10 @@ TEST_CASE("point2_addition", "[as_point]")
 {
   using gsl::make_span;
 
-  const point2_t point2 = point2_t{18.0_r, 22.0_r};
-  const vec2_t vec2 = vec2_t{32.0_r, 28.0_r};
+  const point2_t p2 = point2_t{18.0_r, 22.0_r};
+  const vec2_t v2 = vec2_t{32.0_r, 28.0_r};
 
-  const point2_t result = point2 + vec2;
+  const point2_t result = p2 + v2;
 
   const real_t result_ref_arr[] = {50.0_r, 50.0_r};
   CHECK_THAT(make_span(result_ref_arr), make_elements_sub(result, 2));
@@ -211,10 +211,10 @@ TEST_CASE("point3_addition", "[as_point]")
 {
   using gsl::make_span;
 
-  const point3_t point3 = point3_t{20.0_r, 40.0_r, 60.0_r};
-  const vec3_t vec3 = vec3_t{80.0_r, 60.0_r, 40.0_r};
+  const point3_t p3 = point3_t{20.0_r, 40.0_r, 60.0_r};
+  const vec3_t v3 = vec3_t{80.0_r, 60.0_r, 40.0_r};
 
-  const point3_t result = point3 + vec3;
+  const point3_t result = p3 + v3;
 
   const real_t result_ref_arr[] = {100.0_r, 100.0_r, 100.0_r};
   CHECK_THAT(make_span(result_ref_arr), make_elements_sub(result, 3));
@@ -241,21 +241,21 @@ TEST_CASE("point2_substraction", "[as_point]")
   }
 
   {
-    const point2_t point2 = point2_t{18.0_r, 22.0_r};
-    const vec2_t vec2 = vec2_t{32.0_r, 28.0_r};
+    const point2_t p2 = point2_t{18.0_r, 22.0_r};
+    const vec2_t v2 = vec2_t{32.0_r, 28.0_r};
 
-    const point2_t result = point2 - vec2;
+    const point2_t result = p2 - v2;
 
     const real_t result_ref_arr[] = {-14.0_r, -6.0_r};
     CHECK_THAT(make_span(result_ref_arr), make_elements_sub(result, 2));
   }
 
   {
-    const point2_t point2 = point2_t{18.0_r, 22.0_r};
-    const vec2_t vec2 = vec2_t{32.0_r, 28.0_r};
+    const point2_t p2 = point2_t{18.0_r, 22.0_r};
+    const vec2_t v2 = vec2_t{32.0_r, 28.0_r};
 
-    point2_t result_mut = point2;
-    result_mut -= vec2;
+    point2_t result_mut = p2;
+    result_mut -= v2;
 
     const real_t result_ref_arr[] = {-14.0_r, -6.0_r};
     CHECK_THAT(make_span(result_ref_arr), make_elements_sub(result_mut, 2));
@@ -277,21 +277,21 @@ TEST_CASE("point3_substraction", "[as_point]")
   }
 
   {
-    const point3_t point3 = point3_t{80.0_r, 60.0_r, 40.0_r};
-    const vec3_t vec3 = vec3_t{20.0_r, 40.0_r, 60.0_r};
+    const point3_t p3 = point3_t{80.0_r, 60.0_r, 40.0_r};
+    const vec3_t v3 = vec3_t{20.0_r, 40.0_r, 60.0_r};
 
-    const point3_t result = point3 - vec3;
+    const point3_t result = p3 - v3;
 
     const real_t result_ref_arr[] = {60.0_r, 20.0_r, -20.0_r};
     CHECK_THAT(make_span(result_ref_arr), make_elements_sub(result, 3));
   }
 
   {
-    const point3_t point3 = point3_t{80.0_r, 60.0_r, 40.0_r};
-    const vec3_t vec3 = vec3_t{20.0_r, 40.0_r, 60.0_r};
+    const point3_t p3 = point3_t{80.0_r, 60.0_r, 40.0_r};
+    const vec3_t v3 = vec3_t{20.0_r, 40.0_r, 60.0_r};
 
-    point3_t result_mut = point3;
-    result_mut -= vec3;
+    point3_t result_mut = p3;
+    result_mut -= v3;
 
     const real_t result_ref_arr[] = {60.0_r, 20.0_r, -20.0_r};
     CHECK_THAT(make_span(result_ref_arr), make_elements_sub(result_mut, 3));

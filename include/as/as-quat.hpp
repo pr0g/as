@@ -42,7 +42,7 @@ constexpr const quat_t operator+(const quat_t& lhs, const quat_t& rhs);
 //! Returns the result of `rhs` subtracted from `lhs`.
 constexpr const quat_t operator-(const quat_t& lhs, const quat_t& rhs);
 //! Returns the negation of `quat`.
-constexpr const quat_t operator-(const quat_t& quat);
+constexpr const quat_t operator-(const quat_t& q);
 //! Returns a quat_t divided by a scalar quantity.
 constexpr const quat_t operator/(const quat_t& lhs, real_t rhs);
 //! Returns a quat_t multiplied by a scalar quantity.

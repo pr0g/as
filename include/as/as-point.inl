@@ -65,33 +65,31 @@ AS_API constexpr const vec2_t operator-(
   return lhs.v - rhs.v;
 }
 
-AS_API constexpr const point2_t operator+(
-  const point2_t& point, const vec2_t& vec)
+AS_API constexpr const point2_t operator+(const point2_t& p, const vec2_t& v)
 {
-  return point2_t(point.v + vec);
+  return point2_t(p.v + v);
 }
 
-AS_API constexpr point2_t& operator+=(point2_t& point, const vec2_t& vec)
+AS_API constexpr point2_t& operator+=(point2_t& p, const vec2_t& v)
 {
-  point.v += vec;
-  return point;
+  p.v += v;
+  return p;
 }
 
-AS_API constexpr const point2_t operator-(
-  const point2_t& point, const vec2_t& vec)
+AS_API constexpr const point2_t operator-(const point2_t& p, const vec2_t& v)
 {
-  return point2_t(point.v - vec);
+  return point2_t(p.v - v);
 }
 
-AS_API constexpr point2_t& operator-=(point2_t& point, const vec2_t& vec)
+AS_API constexpr point2_t& operator-=(point2_t& p, const vec2_t& v)
 {
-  point.v -= vec;
-  return point;
+  p.v -= v;
+  return p;
 }
 
-AS_API inline const point2_t operator-(const point2_t& point)
+AS_API inline const point2_t operator-(const point2_t& p)
 {
-  return point2_t{-point.v};
+  return point2_t{-p.v};
 }
 
 AS_API constexpr point3_t::point3_t(const real_t xyz_) : v{xyz_, xyz_, xyz_}
@@ -169,33 +167,31 @@ AS_API constexpr const vec3_t operator-(
   return lhs.v - rhs.v;
 }
 
-AS_API constexpr const point3_t operator+(
-  const point3_t& point, const vec3_t& vec)
+AS_API constexpr const point3_t operator+(const point3_t& p, const vec3_t& v)
 {
-  return point3_t(point.v + vec);
+  return point3_t(p.v + v);
 }
 
-AS_API constexpr point3_t& operator+=(point3_t& point, const vec3_t& vec)
+AS_API constexpr point3_t& operator+=(point3_t& p, const vec3_t& v)
 {
-  point.v += vec;
-  return point;
+  p.v += v;
+  return p;
 }
 
-AS_API constexpr const point3_t operator-(
-  const point3_t& point, const vec3_t& vec)
+AS_API constexpr const point3_t operator-(const point3_t& p, const vec3_t& v)
 {
-  return point3_t(point.v - vec);
+  return point3_t(p.v - v);
 }
 
-AS_API constexpr point3_t& operator-=(point3_t& point, const vec3_t& vec)
+AS_API constexpr point3_t& operator-=(point3_t& p, const vec3_t& v)
 {
-  point.v -= vec;
-  return point;
+  p.v -= v;
+  return p;
 }
 
-AS_API constexpr const point3_t operator-(const point3_t& point)
+AS_API constexpr const point3_t operator-(const point3_t& p)
 {
-  return point3_t{-point.v};
+  return point3_t{-p.v};
 }
 
 } // namespace as

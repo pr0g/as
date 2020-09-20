@@ -108,8 +108,8 @@ TEST_CASE("quat_multiplication", "[as_quat]")
 
 TEST_CASE("quat_conjugate", "[as_quat]")
 {
-  const quat_t quat = quat_t{7.0_r, 4.0_r, 5.0_r, 9.0_r};
-  const quat_t result = quat_conjugate(quat);
+  const quat_t q = quat_t{7.0_r, 4.0_r, 5.0_r, 9.0_r};
+  const quat_t result = quat_conjugate(q);
 
   CHECK(result.w == Approx(7.0_r).epsilon(g_epsilon));
   CHECK(result.x == Approx(-4.0_r).epsilon(g_epsilon));
@@ -119,16 +119,16 @@ TEST_CASE("quat_conjugate", "[as_quat]")
 
 TEST_CASE("quat_length", "[as_quat]")
 {
-  const quat_t quat = quat_t{1.0_r, 2.0_r, 3.0_r, 4.0_r};
-  const real_t result = quat_length(quat);
+  const quat_t q = quat_t{1.0_r, 2.0_r, 3.0_r, 4.0_r};
+  const real_t result = quat_length(q);
 
   CHECK(result == Approx(5.47722558_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("quat_normalize", "[as_quat]")
 {
-  const quat_t quat = quat_t{2.0_r, 3.0_r, 4.0_r, 5.0_r};
-  const quat_t result = quat_normalize(quat);
+  const quat_t q = quat_t{2.0_r, 3.0_r, 4.0_r, 5.0_r};
+  const quat_t result = quat_normalize(q);
 
   CHECK(result.w == Approx(0.2721655269759087_r).epsilon(g_epsilon));
   CHECK(result.x == Approx(0.4082482904638630_r).epsilon(g_epsilon));
@@ -138,8 +138,8 @@ TEST_CASE("quat_normalize", "[as_quat]")
 
 TEST_CASE("quat_scale", "[as_quat]")
 {
-  const quat_t quat = quat_t{2.0_r, 3.0_r, 4.0_r, 5.0_r};
-  const quat_t result = quat * 2.0_r;
+  const quat_t q = quat_t{2.0_r, 3.0_r, 4.0_r, 5.0_r};
+  const quat_t result = q * 2.0_r;
 
   CHECK(result.w == Approx(4.0_r).epsilon(g_epsilon));
   CHECK(result.x == Approx(6.0_r).epsilon(g_epsilon));
@@ -149,8 +149,8 @@ TEST_CASE("quat_scale", "[as_quat]")
 
 TEST_CASE("quat_inverse", "[as_quat]")
 {
-  const quat_t quat = quat_t{7.0_r, 4.0_r, 5.0_r, 9.0_r};
-  const quat_t result = quat_inverse(quat);
+  const quat_t q = quat_t{7.0_r, 4.0_r, 5.0_r, 9.0_r};
+  const quat_t result = quat_inverse(q);
 
   CHECK(result.w == Approx(0.0409357_r).margin(g_epsilon));
   CHECK(result.x == Approx(-0.0233918_r).margin(g_epsilon));
@@ -161,8 +161,8 @@ TEST_CASE("quat_inverse", "[as_quat]")
 TEST_CASE("quat_rotate_vec", "[as_quat]")
 {
   {
-    const quat_t quat = as::quat_rotation_zxy(deg_to_rad(90.0_r), 0.0_r, 0.0_r);
-    const vec3_t result = quat_rotate(quat, vec3_t::axis_y());
+    const quat_t q = as::quat_rotation_zxy(deg_to_rad(90.0_r), 0.0_r, 0.0_r);
+    const vec3_t result = quat_rotate(q, vec3_t::axis_y());
 
     CHECK(result.x == Approx(0.0_r).margin(g_epsilon));
     CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
@@ -170,9 +170,9 @@ TEST_CASE("quat_rotate_vec", "[as_quat]")
   }
 
   {
-    const quat_t quat = as::quat_rotation_zxy(
+    const quat_t q = as::quat_rotation_zxy(
       deg_to_rad(0.0_r), deg_to_rad(-90.0_r), deg_to_rad(-90.0_r));
-    const vec3_t result = quat_rotate(quat, vec3_t::axis_y());
+    const vec3_t result = quat_rotate(q, vec3_t::axis_y());
 
     CHECK(result.x == Approx(0.0_r).margin(g_epsilon));
     CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
@@ -180,9 +180,9 @@ TEST_CASE("quat_rotate_vec", "[as_quat]")
   }
 
   {
-    const quat_t quat = as::quat_rotation_zxy(
+    const quat_t q = as::quat_rotation_zxy(
       deg_to_rad(0.0_r), deg_to_rad(-90.0_r), deg_to_rad(-90.0_r));
-    const vec3_t result = quat_rotate(quat, vec3_t::axis_x());
+    const vec3_t result = quat_rotate(q, vec3_t::axis_x());
 
     CHECK(result.x == Approx(0.0_r).margin(g_epsilon));
     CHECK(result.y == Approx(-1.0_r).margin(g_epsilon));
@@ -253,12 +253,11 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
     quat_t rotation_axis_quat_from_mat;
     rotation_axis_quat_from_mat = quat_from_mat3(rotation_axis_mat);
 
-    vec3_t vec{1.0_r, 0.0_r, 0.0_r};
-    vec3_t result_matrix =
-      affine_transform_dir(affine_t(rotation_axis_mat), vec);
-    vec3_t result_quat = as::quat_rotate(rotation_axis_quat, vec);
+    vec3_t v{1.0_r, 0.0_r, 0.0_r};
+    vec3_t result_matrix = affine_transform_dir(affine_t(rotation_axis_mat), v);
+    vec3_t result_quat = as::quat_rotate(rotation_axis_quat, v);
     vec3_t result_quat_from_mat =
-      as::quat_rotate(rotation_axis_quat_from_mat, vec);
+      as::quat_rotate(rotation_axis_quat_from_mat, v);
 
     CHECK(as::vec_equal(result_matrix, result_quat, g_epsilon));
     CHECK(as::vec_equal(result_matrix, result_quat_from_mat, g_epsilon));
@@ -273,12 +272,11 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
     quat_t rotation_axis_quat_from_mat;
     rotation_axis_quat_from_mat = quat_from_mat3(rotation_axis_mat);
 
-    vec3_t vec{1.0_r, 1.0_r, 0.0_r};
-    vec3_t result_matrix =
-      affine_transform_dir(affine_t(rotation_axis_mat), vec);
-    vec3_t result_quat = as::quat_rotate(rotation_axis_quat, vec);
+    vec3_t v{1.0_r, 1.0_r, 0.0_r};
+    vec3_t result_matrix = affine_transform_dir(affine_t(rotation_axis_mat), v);
+    vec3_t result_quat = as::quat_rotate(rotation_axis_quat, v);
     vec3_t result_quat_from_mat =
-      as::quat_rotate(rotation_axis_quat_from_mat, vec);
+      as::quat_rotate(rotation_axis_quat_from_mat, v);
 
     CHECK(as::vec_equal(result_matrix, result_quat, g_epsilon));
     CHECK(as::vec_equal(result_matrix, result_quat_from_mat, g_epsilon));
@@ -293,12 +291,11 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
     quat_t rotation_axis_quat_from_mat;
     rotation_axis_quat_from_mat = quat_from_mat3(rotation_axis_mat);
 
-    vec3_t vec{1.0_r, 0.0_r, 1.0_r};
-    vec3_t result_matrix =
-      affine_transform_dir(affine_t(rotation_axis_mat), vec);
-    vec3_t result_quat = as::quat_rotate(rotation_axis_quat, vec);
+    vec3_t v{1.0_r, 0.0_r, 1.0_r};
+    vec3_t result_matrix = affine_transform_dir(affine_t(rotation_axis_mat), v);
+    vec3_t result_quat = as::quat_rotate(rotation_axis_quat, v);
     vec3_t result_quat_from_mat =
-      as::quat_rotate(rotation_axis_quat_from_mat, vec);
+      as::quat_rotate(rotation_axis_quat_from_mat, v);
 
     CHECK(as::vec_equal(result_matrix, result_quat, g_epsilon));
     CHECK(as::vec_equal(result_matrix, result_quat_from_mat, g_epsilon));
@@ -313,12 +310,11 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
     quat_t rotation_axis_quat_from_mat;
     rotation_axis_quat_from_mat = quat_from_mat3(rotation_axis_mat);
 
-    vec3_t vec{1.0_r, 1.0_r, 1.0_r};
-    vec3_t result_matrix =
-      affine_transform_dir(affine_t(rotation_axis_mat), vec);
-    vec3_t result_quat = as::quat_rotate(rotation_axis_quat, vec);
+    vec3_t v{1.0_r, 1.0_r, 1.0_r};
+    vec3_t result_matrix = affine_transform_dir(affine_t(rotation_axis_mat), v);
+    vec3_t result_quat = as::quat_rotate(rotation_axis_quat, v);
     vec3_t result_quat_from_mat =
-      as::quat_rotate(rotation_axis_quat_from_mat, vec);
+      as::quat_rotate(rotation_axis_quat_from_mat, v);
 
     CHECK(as::vec_equal(result_matrix, result_quat, g_epsilon));
     CHECK(as::vec_equal(result_matrix, result_quat_from_mat, g_epsilon));

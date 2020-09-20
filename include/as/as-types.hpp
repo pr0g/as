@@ -18,7 +18,7 @@ namespace as
 //! \note Used primarily for loop counters
 using index_t = ptrdiff_t;
 
-// static assert to check library floating point precision has been set
+// static assert to check library floating p precision has been set
 // correctly
 #if (!defined(AS_PRECISION_FLOAT) && !defined(AS_PRECISION_DOUBLE))
 static_assert(false, "Must define AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE");

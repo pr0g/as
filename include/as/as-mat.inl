@@ -93,11 +93,9 @@ AS_API const mat_t<T, d> operator*(
 
 template<typename T, index_t d>
 #ifdef AS_ROW_MAJOR
-AS_API const vec_t<T, d> operator*(
-  const vec_t<T, d>& vec, const mat_t<T, d>& mat)
+AS_API const vec_t<T, d> operator*(const vec_t<T, d>& v, const mat_t<T, d>& m)
 #elif defined AS_COL_MAJOR
-AS_API const vec_t<T, d> operator*(
-  const mat_t<T, d>& mat, const vec_t<T, d>& vec)
+AS_API const vec_t<T, d> operator*(const mat_t<T, d>& m, const vec_t<T, d>& v)
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 {
   vec_t<T, d> result;
@@ -105,7 +103,7 @@ AS_API const vec_t<T, d> operator*(
     T value{0};
 
     for (index_t step = 0; step < d; ++step) {
-      value += vec[step] * mat[i + step * d];
+      value += v[step] * m[i + step * d];
     }
 
     result[i] = value;
@@ -116,23 +114,23 @@ AS_API const vec_t<T, d> operator*(
 
 template<typename T, index_t d>
 AS_API constexpr const mat_t<T, d> operator*(
-  const mat_t<T, d>& mat, const T scalar)
+  const mat_t<T, d>& m, const T scalar)
 {
-  mat_t<T, d> result{mat};
+  mat_t<T, d> result{m};
   result *= scalar;
   return result;
 }
 
 template<typename T, index_t d>
-AS_API constexpr mat_t<T, d>& operator*=(mat_t<T, d>& mat, const T scalar)
+AS_API constexpr mat_t<T, d>& operator*=(mat_t<T, d>& m, const T scalar)
 {
   for (index_t row = 0; row < d; ++row) {
     for (index_t col = 0; col < d; ++col) {
-      mat[row * d + col] *= scalar;
+      m[row * d + col] *= scalar;
     }
   }
 
-  return mat;
+  return m;
 }
 
 } // namespace as

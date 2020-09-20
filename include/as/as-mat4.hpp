@@ -28,7 +28,7 @@ struct mat_t<T, 4>
   // clang-format on
 
   //! Constructs mat_t<T, 4> from a mat_t<T, 3> and vec_t<T, 3>.
-  constexpr mat_t(const mat_t<T, 3>& mat, const vec_t<T, 3>& pos);
+  constexpr mat_t(const mat_t<T, 3>& m, const vec_t<T, 3>& pos);
 
 #ifdef AS_ROW_MAJOR
   //! Constructs a mat_t<T, 4> from four row vectors of type `<T,4>`.

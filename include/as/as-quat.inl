@@ -42,9 +42,9 @@ AS_API constexpr const quat_t operator-(const quat_t& lhs, const quat_t& rhs)
   return {lhs.w - rhs.w, lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z};
 }
 
-AS_API constexpr const quat_t operator-(const quat_t& quat)
+AS_API constexpr const quat_t operator-(const quat_t& q)
 {
-  return {-quat.w, -quat.x, -quat.y, -quat.z};
+  return {-q.w, -q.x, -q.y, -q.z};
 }
 
 AS_API constexpr const quat_t operator/(const quat_t& lhs, const real_t rhs)

@@ -9,8 +9,8 @@
 namespace as
 {
 
-//! Represents a two dimensional point.
-//! A point provides many of the same operations as a vector but has a more
+//! Represents a two dimensional p.
+//! A p provides many of the same operations as a vector but has a more
 //! restrictive interface. It is geometrically very different from a vector and
 //! can be used to increase type safety and prevent erroneous operations.
 struct point2_t
@@ -64,23 +64,21 @@ private:
   friend constexpr const vec2_t operator-(
     const point2_t& lhs, const point2_t& rhs);
   //! Returns the result of a vec2_t added to a point2_t.
-  friend constexpr const point2_t operator+(
-    const point2_t& point, const vec2_t& vec);
+  friend constexpr const point2_t operator+(const point2_t& p, const vec2_t& v);
   //! Performs addition assignment of a point2_t and a vec2_t.
-  friend constexpr point2_t& operator+=(point2_t& point, const vec2_t& vec);
+  friend constexpr point2_t& operator+=(point2_t& p, const vec2_t& v);
   //! Returns the result of a vec2_t subtracted from a point2_t.
-  friend constexpr const point2_t operator-(
-    const point2_t& point, const vec2_t& vec);
+  friend constexpr const point2_t operator-(const point2_t& p, const vec2_t& v);
   //! Performs subtraction assignment of a point2_t and a vec2_t.
-  friend constexpr point2_t& operator-=(point2_t& point, const vec2_t& vec);
+  friend constexpr point2_t& operator-=(point2_t& p, const vec2_t& v);
   //! Returns the negation of a point2_t.
-  friend const point2_t operator-(const point2_t& point);
+  friend const point2_t operator-(const point2_t& p);
 
   vec2_t v; //!< point2_t is implemented in terms of vec2_t.
 };
 
-//! Represents a three dimensional point.
-//! A point provides many of the same operations as a vector but has a more
+//! Represents a three dimensional p.
+//! A p provides many of the same operations as a vector but has a more
 //! restrictive interface. It is geometrically very different from a vector and
 //! can be used to increase type safety and prevent erroneous operations.
 struct point3_t
@@ -140,17 +138,15 @@ private:
   friend constexpr const vec3_t operator-(
     const point3_t& lhs, const point3_t& rhs);
   //! Returns the result of a vec3_t added to a point3_t.
-  friend constexpr const point3_t operator+(
-    const point3_t& point, const vec3_t& vec);
+  friend constexpr const point3_t operator+(const point3_t& p, const vec3_t& v);
   //! Performs addition assignment of a point3_t and a vec3_t.
-  friend constexpr point3_t& operator+=(point3_t& point, const vec3_t& vec);
+  friend constexpr point3_t& operator+=(point3_t& p, const vec3_t& v);
   //! Returns the result of a vec3_t subtracted from a point3_t.
-  friend constexpr const point3_t operator-(
-    const point3_t& point, const vec3_t& vec);
+  friend constexpr const point3_t operator-(const point3_t& p, const vec3_t& v);
   //! Performs subtraction assignment of a point3_t and a vec3_t.
-  friend constexpr point3_t& operator-=(point3_t& point, const vec3_t& vec);
+  friend constexpr point3_t& operator-=(point3_t& p, const vec3_t& v);
   //! Returns the negation of a point3_t.
-  friend constexpr const point3_t operator-(const point3_t& point);
+  friend constexpr const point3_t operator-(const point3_t& p);
 
   vec3_t v; //!< point3_t is implemented in terms of vec3_t.
 };

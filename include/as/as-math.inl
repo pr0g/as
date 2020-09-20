@@ -57,7 +57,7 @@ AS_API constexpr real_t rad_to_deg(const real_t radians)
   return radians * k_rad_to_deg;
 }
 
-// floating point comparison by Bruce Dawson
+// floating p comparison by Bruce Dawson
 // ref:
 // https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
 AS_API inline bool almost_equal(
