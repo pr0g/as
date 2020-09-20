@@ -1103,7 +1103,7 @@ AS_API constexpr mat_t<T, 4> mat4_from_mat3(const mat_t<T, 3>& rotation)
 }
 
 template<typename T>
-AS_API constexpr mat_t<T, 4> from_mat3_vec3(
+AS_API constexpr mat_t<T, 4> mat4_from_mat3_vec3(
   const mat_t<T, 3>& rotation, const vec_t<T, 3>& translation)
 {
   return {rotation, translation};
@@ -1111,7 +1111,7 @@ AS_API constexpr mat_t<T, 4> from_mat3_vec3(
 
 AS_API constexpr mat4_t mat4_from_affine(const affine_t& affine)
 {
-  return from_mat3_vec3(affine.rotation, affine.translation);
+  return mat4_from_mat3_vec3(affine.rotation, affine.translation);
 }
 
 template<typename T>
@@ -1325,27 +1325,27 @@ AS_API inline affine_t affine_from_ptr(const real_t* data)
   return result;
 }
 
-AS_API inline affine_t affine_from(const mat4_t& mat)
+AS_API inline affine_t affine_from_mat4(const mat4_t& mat)
 {
   return affine_t(mat3_from_mat4(mat), vec3_from_vec4(mat4_translation(mat)));
 }
 
-AS_API inline affine_t affine_from(const mat3_t& mat)
+AS_API inline affine_t affine_from_mat3(const mat3_t& mat)
 {
   return affine_t(mat, vec3_t::zero());
 }
 
-AS_API inline affine_t affine_from(const mat3_t& mat, const vec3_t& vec)
+AS_API inline affine_t affine_from_mat3_vec3(const mat3_t& mat, const vec3_t& vec)
 {
   return affine_t(mat, vec);
 }
 
-AS_API inline affine_t affine_from(const vec3_t& vec)
+AS_API inline affine_t affine_from_vec3(const vec3_t& vec)
 {
   return affine_t(vec);
 }
 
-AS_API inline affine_t affine_from(const point3_t& point)
+AS_API inline affine_t affine_from_point3(const point3_t& point)
 {
   return affine_t(point.as_vec());
 }

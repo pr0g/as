@@ -693,26 +693,26 @@ affine_t affine_from_ptr(const real_t* data);
 //! \note Ensure that the ::mat4_t holds a valid affine transformation
 //! (translation/scale/rotation) and not a non-affine transformation such as a
 //! projection.
-affine_t affine_from(const mat4_t& mat);
+affine_t affine_from_mat4(const mat4_t& mat);
 
 //! Returns an affine_t from a ::mat3_t.
 //! \note Ensure that the ::mat3_t holds a valid affine transformation
 //! (scale/rotation)
 //! \note The translation portion of affine_t will be zero.
-affine_t affine_from(const mat3_t& mat);
+affine_t affine_from_mat3(const mat3_t& mat);
 
 //! Returns an affine_t from a ::mat3_t and a ::vec3_t.
 //! \note Ensure that the ::mat3_t holds a valid affine transformation
 //! (scale/rotation)
-affine_t affine_from(const mat3_t& mat, const vec3_t& vec);
+affine_t affine_from_mat3_vec3(const mat3_t& mat, const vec3_t& vec);
 
 //! Returns an affine_t from a ::vec3_t.
 //! \note The rotation part will be initialized to the identity.
-affine_t affine_from(const vec3_t& vec);
+affine_t affine_from_vec3(const vec3_t& vec);
 
 //! Returns an affine_t from a point3_t.
 //! \note The rotation part will be initialized to the identity.
-affine_t affine_from(const point3_t& point);
+affine_t affine_from_point3(const point3_t& point);
 
 //! Returns the result of two affine_t types multiplied together.
 //! \note `lhs` is performed first, then `rhs`

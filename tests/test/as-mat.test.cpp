@@ -481,7 +481,7 @@ TEST_CASE("mat_mat4_from_mat3_and_vec3", "[as_mat]")
 
   {
     mat4_t mat4;
-    mat4 = as::from_mat3_vec3(mat3, vec3);
+    mat4 = as::mat4_from_mat3_vec3(mat3, vec3);
 
     CHECK_THAT(make_span(mat3_and_vec3), make_elements_sub(mat4, 16));
   }
@@ -1480,7 +1480,7 @@ TEST_CASE("mat4_shear", "[as_mat]")
 
     point3_t result;
     result =
-      as::affine_transform_pos(as::affine_from(shear_about_x), position);
+      as::affine_transform_pos(as::affine_from_mat4(shear_about_x), position);
 
     CHECK_THAT(arr(1.0_r, 1.0_r, 0.0_r), make_elements_sub(result, 3));
   }
@@ -1493,7 +1493,7 @@ TEST_CASE("mat4_shear", "[as_mat]")
 
     point3_t result;
     result =
-      as::affine_transform_pos(as::affine_from(shear_about_x), position);
+      as::affine_transform_pos(as::affine_from_mat4(shear_about_x), position);
 
     CHECK_THAT(arr(1.0_r, 0.0_r, 1.0_r), make_elements_sub(result, 3));
   }
@@ -1506,7 +1506,7 @@ TEST_CASE("mat4_shear", "[as_mat]")
 
     point3_t result;
     result =
-      as::affine_transform_pos(as::affine_from(shear_about_y), position);
+      as::affine_transform_pos(as::affine_from_mat4(shear_about_y), position);
 
     CHECK_THAT(arr(2.0_r, 1.0_r, 0.0_r), make_elements_sub(result, 3));
   }
@@ -1519,7 +1519,7 @@ TEST_CASE("mat4_shear", "[as_mat]")
 
     point3_t result;
     result =
-      as::affine_transform_pos(as::affine_from(shear_about_y), position);
+      as::affine_transform_pos(as::affine_from_mat4(shear_about_y), position);
 
     CHECK_THAT(arr(1.0_r, 1.0_r, 1.0_r), make_elements_sub(result, 3));
   }
@@ -1532,7 +1532,7 @@ TEST_CASE("mat4_shear", "[as_mat]")
 
     point3_t result;
     result =
-      as::affine_transform_pos(as::affine_from(shear_about_z), position);
+      as::affine_transform_pos(as::affine_from_mat4(shear_about_z), position);
 
     CHECK_THAT(arr(1.0_r, 0.0_r, 1.0_r), make_elements_sub(result, 3));
   }
@@ -1545,7 +1545,7 @@ TEST_CASE("mat4_shear", "[as_mat]")
 
     point3_t result;
     result =
-      as::affine_transform_pos(as::affine_from(shear_about_z), position);
+      as::affine_transform_pos(as::affine_from_mat4(shear_about_z), position);
 
     CHECK_THAT(arr(1.0_r, 1.0_r, 1.0_r), make_elements_sub(result, 3));
   }

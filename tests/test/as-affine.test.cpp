@@ -165,7 +165,7 @@ TEST_CASE("affine_from_mat3", "[as_affine]")
               60.0_r, 70.0_r, 80.0_r, 90.0_r};
 
   affine_t affine;
-  affine = as::affine_from(mat3);
+  affine = as::affine_from_mat3(mat3);
 
   CHECK(as::mat_equal(mat3, affine.rotation));
   CHECK_THAT(
@@ -181,7 +181,7 @@ TEST_CASE("affine_from_mat3_vec3", "[as_affine]")
   vec3_t vec3(99.0_r, 98.0_r, 97.0_r);
 
   affine_t affine;
-  affine = as::affine_from(mat3, vec3);
+  affine = as::affine_from_mat3_vec3(mat3, vec3);
 
   CHECK(as::mat_equal(mat3, affine.rotation));
   CHECK_THAT(
@@ -195,7 +195,7 @@ TEST_CASE("affine_from_vec3", "[as_affine]")
   vec3_t vec3(99.0_r, 98.0_r, 97.0_r);
 
   affine_t affine;
-  affine = as::affine_from(vec3);
+  affine = as::affine_from_vec3(vec3);
 
   CHECK(as::mat_equal(mat3_t::identity(), affine.rotation));
   CHECK_THAT(
@@ -209,7 +209,7 @@ TEST_CASE("affine_from_point3", "[as_affine]")
   point3_t point3{5.0_r, 10.0_r, 15.0_r};
 
   affine_t affine;
-  affine = as::affine_from(point3);
+  affine = as::affine_from_point3(point3);
 
   CHECK(as::mat_equal(mat3_t::identity(), affine.rotation));
   CHECK_THAT(
@@ -220,21 +220,21 @@ TEST_CASE("affine_concatenation", "[as_affine]")
 {
   using gsl::make_span;
 
-  mat4_t mat_a = as::from_mat3_vec3(
+  mat4_t mat_a = as::mat4_from_mat3_vec3(
     as::mat3_rotation_x(deg_to_rad(45.0_r)), vec3_t::axis_x(5.0_r));
 
-  mat4_t mat_b = as::from_mat3_vec3(
+  mat4_t mat_b = as::mat4_from_mat3_vec3(
     as::mat3_rotation_y(deg_to_rad(90.0_r)), vec3_t::axis_y(10.0_r));
 
-  mat4_t mat_c = as::from_mat3_vec3(
+  mat4_t mat_c = as::mat4_from_mat3_vec3(
     as::mat3_rotation_y(deg_to_rad(180.0_r)), vec3_t::axis_z(20.0_r));
 
   mat4_t mat_result;
   mat_result = as::mat_mul(as::mat_mul(mat_a, mat_b), mat_c);
 
-  affine_t affine_a = as::affine_from(mat_a);
-  affine_t affine_b = as::affine_from(mat_b);
-  affine_t affine_c = as::affine_from(mat_c);
+  affine_t affine_a = as::affine_from_mat4(mat_a);
+  affine_t affine_b = as::affine_from_mat4(mat_b);
+  affine_t affine_c = as::affine_from_mat4(mat_c);
 
   affine_t affine_result;
   affine_result = as::affine_mul(as::affine_mul(affine_a, affine_b), affine_c);
