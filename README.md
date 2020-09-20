@@ -216,7 +216,9 @@ The post has some interesting advice on how one might write a math library and g
 
 I decided to follow the advice outlined (template heavy, parameterized on dimensions and type). This gives a high degree of flexibility at a cost of some performance and compile time.
 
-I've tried something a bit different with the interface (which is a little unusual) but I've grown quite fond of it over time. I'll try and persuade you the approach I've taken is ~~a good idea~~ not completely stupid 🙃.
+~~I've tried something a bit different with the interface (which is a little unusual) but I've grown quite fond of it over time. I'll try and persuade you the approach I've taken is ~~a good idea~~ not completely stupid 🙃.~~
+
+_Update: It turns out the `namespace` approach was a terrible idea and wasn't fun or easy to use at all. There's now just a totally flat `namespace` (`as`) and everything is either a free function with a type name prefix or a static function on a type (which may be removed in future)._
 
 ## Design
 
@@ -228,7 +230,9 @@ An aim I had early on for the API was to attempt to prioritize ease of use and t
 
 As all the types I'm creating are pretty simple I decided not to hide any internal state, so all members are public. This was a design choice to make writing expressions such as `v.x += value;` easier than `v.set_x(v.get_x() + value)`. This may well be a decision I regret and I know there are downsides to this (harder to know when a value changes, you lose a bit of abstraction) but for my use case this is a trade off I'm willing to make (I've slowly learnt everything in programming is a tradeoff and nothing is perfect 😖).
 
-All functions are implemented as free functions. I wanted to avoid using static functions because you get into problems with circular dependencies (for example when static functions on one type need to include a type in another file and you'd like the API to be symmetrical).
+~~All~~ Most functions are implemented as free functions. I wanted to avoid using static functions because you get into problems with circular dependencies (for example when static functions on one type need to include a type in another file and you'd like the API to be symmetrical).
+
+_Update: Currently there's limited use of static functions to reduce boilerplate when writing template functions, they might wind up being removed to further simplify the API. The do not rely on any other types._
 
 For example if we want to be able to create a quaternion from a 3 by 3 matrix and vice versa, the api might look like this:
 
@@ -252,23 +256,29 @@ So we're back to free functions. The lovely property about this is we can keep t
 
 ```c++
 mat3 m1 = // ... build some rotation
-quat q1 = to_quaternion(m1); // free
+quat q1 = quat_from_mat3(m1); // free
 quat q2 = // ... build some rotation
-mat3 m2 = to_mat3(q2); // free
+mat3 m2 = mat3_from_quat(q2); // free
 ```
 
 When I first tried this, a big problem I ran into was how to logically group functions. One advantage to having static functions on a type is it's easy in most modern IDEs to type the name, hit the '`.`' operator, and see a list of available ~~methods~~ member/static functions. This advantage is really important and I wanted to try and find a way to do something similar.
 
-I realized I could take advantage of C++ namespaces to group functions by type. Irritatingly using the name `vec3` or `mat4` for the namespace means I lose the ability to use them as type names 😖 however a workaround I decided to borrow from `C` and `C++` was to add a `_t` postfix to indicate the type itself and use the unadorned name as the namespace (I know any name ending with `_t` is technically reserved, in C at least, but as I'm keeping everything inside my own namespace I think I should be safe - failing that I could use `_s` instead for `struct` but I'm sticking with `_t` for now).
+~~I realized I could take advantage of C++ namespaces to group functions by type. Irritatingly using the name `vec3` or `mat4` for the namespace means I lose the ability to use them as type names 😖 however a workaround I decided to borrow from `C` and `C++` was to add a `_t` postfix to indicate the type itself and use the unadorned name as the namespace (I know any name ending with `_t` is technically reserved, in C at least, but as I'm keeping everything inside my own namespace I think I should be safe - failing that I could use `_s` instead for `struct` but I'm sticking with `_t` for now).~~
+
+_Update: The approach above actually wound up making the library cumbersome and difficult to use (basically it was hard to remember what `namespace` something actually lived in) so I've now opted to just use a single flat `namespace` and use type prefixes on function names._
 
 With this approach I can now do this:
 
 ```c++
 mat3_t m = // ... build some rotation
-quat_t q = mat3::to_quaternion(m); // free
+quat_t q = quat::from_mat3(m); // free (update: this was rubbish)
+
+quat_t q = quat_from_mat3(m); // free (update: now looks like this)
 ```
 
-When you type `mat3::` in an IDE you'll get the list of all operations supported for `mat3_t`. Another idea (which is perhaps more contentious) is to put all common/generic matrix operations in the `mat` namespace, and specific operations (like `rotation_xyz`) in the `mat3` namespace. This might actually make things slightly harder to find in certain cases but I like the preciseness of the grouping so again this will remain until I've had a chance to start hating it 😉.
+~~When you type `mat3::` in an IDE you'll get the list of all operations supported for `mat3_t`. Another idea (which is perhaps more contentious) is to put all common/generic matrix operations in the `mat` namespace, and specific operations (like `rotation_xyz`) in the `mat3` namespace. This might actually make things slightly harder to find in certain cases but I like the preciseness of the grouping so again this will remain until I've had a chance to start hating it 😉.~~
+
+_Update: I started hating it._
 
 ### Specializations
 
@@ -379,9 +389,11 @@ The reason I wasn't able to support non-square column major matrices boils down 
 
 Also as a random aside [this](https://www.sebastiansylvan.com/post/matrix_naming_convention/) article by Sebastian Sylvan ([@ssylvan](https://twitter.com/ssylvan)) is pure genius and well worth a read to help simplify the naming of your transforms 😎
 
-### real_t
+### real
 
-I decided to also provide an abstraction over `float` and `double` for the common types (`vec3_t`, `mat4_t` etc.) so you can easily switch between precisions by either defining `AS_PRECISION_FLOAT` or `AS_PRECISION_DOUBLE`. I've wrapped all the base math functions with `r` versions (e.g. `fabsr` replaces either `fabsf` if floating point precision is used or `fabs` if double precision is used).
+I decided to also provide an abstraction over `float` and `double` for the common types (`vec3`, `mat4` etc.) so you can easily switch between precisions by either defining `AS_PRECISION_FLOAT` or `AS_PRECISION_DOUBLE`. ~~I've wrapped all the base math functions with `r` versions (e.g. `fabsr` replaces either `fabsf` if floating point precision is used or `fabs` if double precision is used).~~
+
+_Update: It turned out this was totally unnecessary as if you you `std::abs` etc... (in the `std::` namespace) they are overloaded for `float` and `double` so the correct version will be selected at compile time._
 
 ### Miscellaneous
 
