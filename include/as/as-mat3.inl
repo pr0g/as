@@ -59,7 +59,7 @@ AS_API constexpr index_t mat_t<T, 3>::cols()
 template<typename T>
 AS_API constexpr mat_t<T, 3> mat_t<T, 3>::identity()
 {
-  return mat::identity<T, 3>();
+  return mat_identity<T, 3>();
 }
 
 template<typename T>

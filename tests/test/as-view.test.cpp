@@ -15,9 +15,6 @@ using as::real_t;
 using as::deg_to_rad;
 using as::operator""_r;
 
-// namespaces
-namespace view = as::view;
-
 static const real_t g_epsilon = 1e-6_r;
 
 TEST_CASE("perspective_gl_rh", "[as_view]")
@@ -26,8 +23,7 @@ TEST_CASE("perspective_gl_rh", "[as_view]")
 
   const real_t fov = deg_to_rad(90.0_r);
   const real_t aspect = real_t(16.0_r) / real_t(9.0_r);
-  mat4_t perspective_gl_rh =
-    view::perspective_gl_rh(fov, aspect, 0.01_r, 1000.0_r);
+  mat4_t perspective_gl_rh = as::perspective_gl_rh(fov, aspect, 0.01_r, 1000.0_r);
 
   real_t reference[] = {0.562500_r, 0.000000_r, 0.000000_r,  0.000000_r,
                         0.000000_r, 1.000000_r, 0.000000_r,  0.000000_r,
@@ -45,8 +41,7 @@ TEST_CASE("perspective_gl_lh", "[as_view]")
 
   const real_t fov = deg_to_rad(90.0_r);
   const real_t aspect = real_t(16.0_r) / real_t(9.0_r);
-  mat4_t perspective_gl_lh =
-    view::perspective_gl_lh(fov, aspect, 0.01_r, 1000.0_r);
+  mat4_t perspective_gl_lh = as::perspective_gl_lh(fov, aspect, 0.01_r, 1000.0_r);
 
   real_t reference[] = {0.562500_r, 0.000000_r, 0.000000_r,  0.000000_r,
                         0.000000_r, 1.000000_r, 0.000000_r,  0.000000_r,
@@ -64,8 +59,7 @@ TEST_CASE("perspective_d3d_rh", "[as_view]")
 
   const real_t fov = deg_to_rad(90.0_r);
   const real_t aspect = real_t(16.0_r) / real_t(9.0_r);
-  mat4_t perspective_d3d_rh =
-    view::perspective_d3d_rh(fov, aspect, 0.01_r, 1000.0_r);
+  mat4_t perspective_d3d_rh = as::perspective_d3d_rh(fov, aspect, 0.01_r, 1000.0_r);
 
   real_t reference[] = {0.562500_r, 0.000000_r, 0.000000_r,  0.000000_r,
                         0.000000_r, 1.000000_r, 0.000000_r,  0.000000_r,
@@ -83,8 +77,7 @@ TEST_CASE("perspective_d3d_lh", "[as_view]")
 
   const real_t fov = deg_to_rad(90.0_r);
   const real_t aspect = real_t(16.0_r) / real_t(9.0_r);
-  mat4_t perspective_d3d_lh =
-    view::perspective_d3d_lh(fov, aspect, 0.01_r, 1000.0_r);
+  mat4_t perspective_d3d_lh = as::perspective_d3d_lh(fov, aspect, 0.01_r, 1000.0_r);
 
   const real_t reference[] = {0.562500_r, 0.000000_r, 0.000000_r,  0.000000_r,
                               0.000000_r, 1.000000_r, 0.000000_r,  0.000000_r,
@@ -103,7 +96,7 @@ TEST_CASE("perspective_vulkan_rh", "[as_view]")
   const real_t fov = deg_to_rad(90.0_r);
   const real_t aspect = real_t(16.0_r) / real_t(9.0_r);
   mat4_t perspective_vulkan_rh =
-    view::perspective_vulkan_rh(fov, aspect, 0.01_r, 1000.0_r);
+    as::perspective_vulkan_rh(fov, aspect, 0.01_r, 1000.0_r);
 
   const real_t reference[] = {0.562500_r, 0.000000_r,  0.000000_r,  0.000000_r,
                               0.000000_r, -1.000000_r, 0.000000_r,  0.000000_r,
@@ -122,7 +115,7 @@ TEST_CASE("perspective_vulkan_lh", "[as_view]")
   const real_t fov = deg_to_rad(90.0_r);
   const real_t aspect = real_t(16.0_r) / real_t(9.0_r);
   mat4_t perspective_vulkan_lh =
-    view::perspective_vulkan_lh(fov, aspect, 0.01_r, 1000.0_r);
+    as::perspective_vulkan_lh(fov, aspect, 0.01_r, 1000.0_r);
 
   const real_t reference[] = {0.562500_r, 0.000000_r,  0.000000_r,  0.000000_r,
                               0.000000_r, -1.000000_r, 0.000000_r,  0.000000_r,
@@ -139,8 +132,7 @@ TEST_CASE("ortho_gl_rh", "[as_view]")
   using gsl::make_span;
 
   mat4_t ortho_gl_rh;
-  ortho_gl_rh =
-    view::ortho_gl_rh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
+  ortho_gl_rh = as::ortho_gl_rh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
 
   const real_t reference[] = {
     0.100000_r,  0.000000_r,  0.000000_r,  0.000000_r, 0.000000_r,  0.100000_r,
@@ -156,8 +148,7 @@ TEST_CASE("ortho_gl_lh", "[as_view]")
   using gsl::make_span;
 
   mat4_t ortho_gl_lh;
-  ortho_gl_lh =
-    view::ortho_gl_lh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
+  ortho_gl_lh = as::ortho_gl_lh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
 
   const real_t reference[] = {
     0.100000_r,  0.000000_r,  0.000000_r,  0.000000_r, 0.000000_r, 0.100000_r,
@@ -174,7 +165,7 @@ TEST_CASE("ortho_d3d_lh", "[as_view]")
 
   mat4_t ortho_d3d_lh;
   ortho_d3d_lh =
-    view::ortho_d3d_lh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
+    as::ortho_d3d_lh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
 
   const real_t reference[] = {
     0.100000_r,  0.000000_r,  0.000000_r,  0.000000_r, 0.000000_r, 0.100000_r,
@@ -192,7 +183,7 @@ TEST_CASE("ortho_d3d_rh", "[as_view]")
 
   mat4_t ortho_d3d_rh;
   ortho_d3d_rh =
-    view::ortho_d3d_rh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
+    as::ortho_d3d_rh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
 
   const real_t reference[] = {
     0.100000_r,  0.000000_r,  0.000000_r,  0.000000_r, 0.000000_r,  0.100000_r,
@@ -210,7 +201,7 @@ TEST_CASE("ortho_vulkan_rh", "[as_view]")
 
   mat4_t ortho_vulkan_rh;
   ortho_vulkan_rh =
-    view::ortho_vulkan_rh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
+    as::ortho_vulkan_rh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
 
   const real_t reference[] = {
     0.100000_r,  0.000000_r,  0.000000_r,  0.000000_r, 0.000000_r,  -0.100000_r,
@@ -228,7 +219,7 @@ TEST_CASE("ortho_vulkan_lh", "[as_view]")
 
   mat4_t ortho_vulkan_lh;
   ortho_vulkan_lh =
-    view::ortho_vulkan_lh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
+    as::ortho_vulkan_lh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
 
   const real_t reference[] = {
     0.100000_r,  0.000000_r,  0.000000_r,  0.000000_r, 0.000000_r, -0.100000_r,

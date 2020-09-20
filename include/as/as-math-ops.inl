@@ -300,9 +300,9 @@ AS_API constexpr vec_t<T, 3> cross(
   const vec_t<T, 3>& lhs, const vec_t<T, 3>& rhs)
 {
   // clang-format off
-    return {lhs.y * rhs.z - lhs.z * rhs.y,
-            lhs.z * rhs.x - lhs.x * rhs.z,
-            lhs.x * rhs.y - lhs.y * rhs.x};
+  return {lhs.y * rhs.z - lhs.z * rhs.y,
+          lhs.z * rhs.x - lhs.x * rhs.z,
+          lhs.x * rhs.y - lhs.y * rhs.x};
   // clang-format on
 }
 
@@ -385,10 +385,7 @@ AS_API inline vec4_t from_point3(const point3_t& point)
 
 } // namespace vec4
 
-namespace mat
-{
-
-AS_API constexpr index_t rc(index_t r, index_t c, index_t d)
+AS_API constexpr index_t mat_rc(index_t r, index_t c, index_t d)
 {
 #ifdef AS_COL_MAJOR
   return c * d + r;
@@ -398,51 +395,51 @@ AS_API constexpr index_t rc(index_t r, index_t c, index_t d)
 }
 
 template<typename T, index_t d>
-AS_API vec_t<T, d> row(const mat_t<T, d>& mat, index_t r)
+AS_API vec_t<T, d> mat_row(const mat_t<T, d>& mat, index_t r)
 {
   vec_t<T, d> vec;
   for (index_t c = 0; c < d; ++c) {
-    vec[c] = mat[mat::rc(r, c, d)];
+    vec[c] = mat[mat_rc(r, c, d)];
   }
 
   return vec;
 }
 
 template<typename T, index_t d>
-AS_API vec_t<T, d> col(const mat_t<T, d>& mat, index_t c)
+AS_API vec_t<T, d> mat_col(const mat_t<T, d>& mat, index_t c)
 {
   vec_t<T, d> vec;
   for (index_t r = 0; r < d; ++r) {
-    vec[r] = mat[mat::rc(r, c, d)];
+    vec[r] = mat[mat_rc(r, c, d)];
   }
 
   return vec;
 }
 
 template<typename T, index_t d>
-AS_API constexpr void row(mat_t<T, d>& mat, index_t r, const vec_t<T, d>& row)
+AS_API constexpr void mat_row(mat_t<T, d>& mat, index_t r, const vec_t<T, d>& row)
 {
   for (index_t c = 0; c < d; ++c) {
-    mat[mat::rc(r, c, d)] = row[c];
+    mat[mat_rc(r, c, d)] = row[c];
   }
 }
 
 template<typename T, index_t d>
-AS_API constexpr void col(mat_t<T, d>& mat, index_t c, const vec_t<T, d>& col)
+AS_API constexpr void mat_col(mat_t<T, d>& mat, index_t c, const vec_t<T, d>& col)
 {
   for (index_t r = 0; r < d; ++r) {
-    mat[mat::rc(r, c, d)] = col[r];
+    mat[mat_rc(r, c, d)] = col[r];
   }
 }
 
 template<typename T, index_t d>
-AS_API mat_t<T, d> from_arr(const T (&data)[d * d])
+AS_API mat_t<T, d> mat_from_arr(const T (&data)[d * d])
 {
-  return from_ptr<T, d>(data);
+  return mat_from_ptr<T, d>(data);
 }
 
 template<typename T, index_t d>
-AS_API mat_t<T, d> from_ptr(const T* data)
+AS_API mat_t<T, d> mat_from_ptr(const T* data)
 {
   mat_t<T, d> result;
   for (index_t i = 0; i < d * d; ++i) {
@@ -453,7 +450,7 @@ AS_API mat_t<T, d> from_ptr(const T* data)
 }
 
 template<typename T, index_t d>
-AS_API void to_arr(const mat_t<T, d>& mat, T (&data)[d * d])
+AS_API void mat_to_arr(const mat_t<T, d>& mat, T (&data)[d * d])
 {
   for (index_t i = 0; i < d * d; ++i) {
     data[i] = mat[i];
@@ -461,7 +458,7 @@ AS_API void to_arr(const mat_t<T, d>& mat, T (&data)[d * d])
 }
 
 template<typename T, index_t d>
-AS_API bool equal(
+AS_API bool mat_equal(
   const mat_t<T, d>& lhs, const mat_t<T, d>& rhs,
   const real_t epsilon /* = std::numeric_limits<real_t>::epsilon() */)
 {
@@ -500,7 +497,7 @@ template<typename T, index_t d>
 AS_API mat_t<T, d - 1> sub_matrix(
   const mat_t<T, d>& mat, const index_t r, const index_t c)
 {
-  mat_t<T, d - 1> result = identity<T, d - 1>();
+  mat_t<T, d - 1> result = mat_identity<T, d - 1>();
 
   index_t i = 0;
   for (index_t ci = 0; ci < d; ++ci) {
@@ -594,14 +591,14 @@ template<typename T>
 AS_API mat_t<T, 2> inverse(const mat_t<T, 2>& mat)
 {
   // clang-format off
-    return mat_t<T, 2>{mat[3], -mat[1],
-                       -mat[2], mat[0]}
-         * (T(1.0) / determinant(mat));
+  return mat_t<T, 2>{mat[3], -mat[1],
+                    -mat[2],  mat[0]}
+        * (T(1.0) / determinant(mat));
   // clang-format on
 }
 
 template<typename T, index_t d>
-AS_API mat_t<T, d> mul(const mat_t<T, d>& lhs, const mat_t<T, d>& rhs)
+AS_API mat_t<T, d> mat_mul(const mat_t<T, d>& lhs, const mat_t<T, d>& rhs)
 {
 #ifdef AS_COL_MAJOR
   return rhs * lhs;
@@ -610,188 +607,185 @@ AS_API mat_t<T, d> mul(const mat_t<T, d>& lhs, const mat_t<T, d>& rhs)
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
-} // namespace mat
-
-namespace mat3
+AS_API constexpr index_t mat3_rc(const index_t r, const index_t c)
 {
-
-AS_API constexpr index_t rc(const index_t r, const index_t c)
-{
-  return mat::rc(r, c, 3);
+  return mat_rc(r, c, 3);
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 3> row0(const mat_t<T, 3>& mat)
+AS_API constexpr vec_t<T, 3> mat3_row0(const mat_t<T, 3>& mat)
 {
-  return mat::row(mat, 0);
+  return mat_row(mat, 0);
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 3> row1(const mat_t<T, 3>& mat)
+AS_API constexpr vec_t<T, 3> mat3_row1(const mat_t<T, 3>& mat)
 {
-  return mat::row(mat, 1);
+  return mat_row(mat, 1);
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 3> row2(const mat_t<T, 3>& mat)
+AS_API constexpr vec_t<T, 3> mat3_row2(const mat_t<T, 3>& mat)
 {
-  return mat::row(mat, 2);
+  return mat_row(mat, 2);
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 3> col0(const mat_t<T, 3>& mat)
+AS_API constexpr vec_t<T, 3> mat3_col0(const mat_t<T, 3>& mat)
 {
-  return mat::col(mat, 0);
+  return mat_col(mat, 0);
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 3> col1(const mat_t<T, 3>& mat)
+AS_API constexpr vec_t<T, 3> mat3_col1(const mat_t<T, 3>& mat)
 {
-  return mat::col(mat, 1);
+  return mat_col(mat, 1);
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 3> col2(const mat_t<T, 3>& mat)
+AS_API constexpr vec_t<T, 3> mat3_col2(const mat_t<T, 3>& mat)
 {
-  return mat::col(mat, 2);
+  return mat_col(mat, 2);
 }
 
 template<typename T>
-AS_API constexpr void row0(mat_t<T, 3>& mat, const vec_t<T, 3>& row)
+AS_API constexpr void mat3_row0(mat_t<T, 3>& mat, const vec_t<T, 3>& row)
 {
-  mat::row(mat, 0, row);
+  mat_row(mat, 0, row);
 }
 
 template<typename T>
-AS_API constexpr void row1(mat_t<T, 3>& mat, const vec_t<T, 3>& row)
+AS_API constexpr void mat3_row1(mat_t<T, 3>& mat, const vec_t<T, 3>& row)
 {
-  mat::row(mat, 1, row);
+  mat_row(mat, 1, row);
 }
 
 template<typename T>
-AS_API constexpr void row2(mat_t<T, 3>& mat, const vec_t<T, 3>& row)
+AS_API constexpr void mat3_row2(mat_t<T, 3>& mat, const vec_t<T, 3>& row)
 {
-  mat::row(mat, 2, row);
+  mat_row(mat, 2, row);
 }
 
 template<typename T>
-AS_API constexpr void col0(mat_t<T, 3>& mat, const vec_t<T, 3>& col)
+AS_API constexpr void mat3_col0(mat_t<T, 3>& mat, const vec_t<T, 3>& col)
 {
-  mat::col(mat, 0, col);
+  mat_col(mat, 0, col);
 }
 
 template<typename T>
-AS_API constexpr void col1(mat_t<T, 3>& mat, const vec_t<T, 3>& col)
+AS_API constexpr void mat3_col1(mat_t<T, 3>& mat, const vec_t<T, 3>& col)
 {
-  mat::col(mat, 1, col);
+  mat_col(mat, 1, col);
 }
 
 template<typename T>
-AS_API constexpr void col2(mat_t<T, 3>& mat, const vec_t<T, 3>& col)
+AS_API constexpr void mat3_col2(mat_t<T, 3>& mat, const vec_t<T, 3>& col)
 {
-  mat::col(mat, 2, col);
+  mat_col(mat, 2, col);
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 3> basis_x(const mat_t<T, 3>& mat)
+AS_API constexpr vec_t<T, 3> mat3_basis_x(const mat_t<T, 3>& mat)
 {
 #ifdef AS_COL_MAJOR
-  return col0(mat);
+  return mat3_col0(mat);
 #elif defined AS_ROW_MAJOR
-  return row0(mat);
+  return mat3_row0(mat);
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 3> basis_y(const mat_t<T, 3>& mat)
+AS_API constexpr vec_t<T, 3> mat3_basis_y(const mat_t<T, 3>& mat)
 {
 #ifdef AS_COL_MAJOR
-  return col1(mat);
+  return mat3_col1(mat);
 #elif defined AS_ROW_MAJOR
-  return row1(mat);
+  return mat3_row1(mat);
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 3> basis_z(const mat_t<T, 3>& mat)
+AS_API constexpr vec_t<T, 3> mat3_basis_z(const mat_t<T, 3>& mat)
 {
 #ifdef AS_COL_MAJOR
-  return col2(mat);
+  return mat3_col2(mat);
 #elif defined AS_ROW_MAJOR
-  return row2(mat);
+  return mat3_row2(mat);
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
 template<typename T>
-AS_API constexpr void basis_x(mat_t<T, 3>& mat, const vec_t<T, 3>& basis)
+AS_API constexpr void mat3_basis_x(mat_t<T, 3>& mat, const vec_t<T, 3>& basis)
 {
 #ifdef AS_COL_MAJOR
-  return col0(mat, basis);
+  return mat3_col0(mat, basis);
 #elif defined AS_ROW_MAJOR
-  return row0(mat, basis);
+  return mat3_row0(mat, basis);
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
 template<typename T>
-AS_API constexpr void basis_y(mat_t<T, 3>& mat, const vec_t<T, 3>& basis)
+AS_API constexpr void mat3_basis_y(mat_t<T, 3>& mat, const vec_t<T, 3>& basis)
 {
 #ifdef AS_COL_MAJOR
-  return col1(mat, basis);
+  return mat3_col1(mat, basis);
 #elif defined AS_ROW_MAJOR
-  return row1(mat, basis);
+  return mat3_row1(mat, basis);
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
 template<typename T>
-AS_API constexpr void basis_z(mat_t<T, 3>& mat, const vec_t<T, 3>& basis)
+AS_API constexpr void mat3_basis_z(mat_t<T, 3>& mat, const vec_t<T, 3>& basis)
 {
 #ifdef AS_COL_MAJOR
-  return col2(mat, basis);
+  return mat3_col2(mat, basis);
 #elif defined AS_ROW_MAJOR
-  return row2(mat, basis);
+  return mat3_row2(mat, basis);
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
 template<typename T>
-AS_API mat_t<T, 3> from_ptr(const T* data)
+AS_API mat_t<T, 3> mat3_from_ptr(const T* data)
 {
-  return mat::from_ptr<T, 3>(data);
+  return mat_from_ptr<T, 3>(data);
 }
 
 template<typename T>
-AS_API mat_t<T, 3> from_arr(const T (&data)[9])
+AS_API mat_t<T, 3> mat3_from_arr(const T (&data)[9])
 {
-  return mat::from_arr<T, 3>(data);
+  return mat_from_arr<T, 3>(data);
 }
 
 template<typename T>
-AS_API constexpr mat_t<T, 3> from_mat4(const mat_t<T, 4>& transform)
+AS_API constexpr mat_t<T, 3> mat3_from_mat4(const mat_t<T, 4>& transform)
 {
   // clang-format off
-    return {transform[0], transform[1], transform[2],
-            transform[4], transform[5], transform[6],
-            transform[8], transform[9], transform[10]};
+  return {transform[0], transform[1], transform[2],
+          transform[4], transform[5], transform[6],
+          transform[8], transform[9], transform[10]};
   // clang-format on
 }
 
-AS_API inline mat3_t axis_angle(const vec3_t& axis, const real_t radians)
+AS_API inline mat3_t mat3_rotation_axis(
+  const vec3_t& axis, const real_t radians)
 {
   const real_t cos_radians = std::cos(radians);
   const real_t sin_radians = std::sin(radians);
+  const real_t inv_cos_radians = 1.0_r - cos_radians;
 
   return {
-    cos_radians + ((axis.x * axis.x) * (1.0_r - cos_radians)),
-    (axis.y * axis.x * (1.0_r - cos_radians)) + (axis.z * sin_radians),
-    (axis.z * axis.x * (1.0_r - cos_radians)) - (axis.y * sin_radians),
-    (axis.x * axis.y * (1.0_r - cos_radians)) - (axis.z * sin_radians),
-    cos_radians + ((axis.y * axis.y) * (1.0_r - cos_radians)),
-    (axis.z * axis.y * (1.0_r - cos_radians)) + (axis.x * sin_radians),
-    (axis.x * axis.z * (1.0_r - cos_radians)) + (axis.y * sin_radians),
-    (axis.y * axis.z * (1.0_r - cos_radians)) - (axis.x * sin_radians),
-    cos_radians + ((axis.z * axis.z) * (1.0_r - cos_radians))};
+    cos_radians + ((axis.x * axis.x) * inv_cos_radians),
+    (axis.y * axis.x * inv_cos_radians) + (axis.z * sin_radians),
+    (axis.z * axis.x * inv_cos_radians) - (axis.y * sin_radians),
+    (axis.x * axis.y * inv_cos_radians) - (axis.z * sin_radians),
+    cos_radians + ((axis.y * axis.y) * inv_cos_radians),
+    (axis.z * axis.y * inv_cos_radians) + (axis.x * sin_radians),
+    (axis.x * axis.z * inv_cos_radians) + (axis.y * sin_radians),
+    (axis.y * axis.z * inv_cos_radians) - (axis.x * sin_radians),
+    cos_radians + ((axis.z * axis.z) * inv_cos_radians)};
 }
 
-AS_API inline mat3_t rotation_xyz(
+AS_API inline mat3_t mat3_rotation_xyz(
   const real_t x, const real_t y, const real_t z)
 {
   const real_t cos_x = std::cos(x);
@@ -813,7 +807,7 @@ AS_API inline mat3_t rotation_xyz(
     cos_x * cos_y};
 }
 
-AS_API inline mat3_t rotation_zxy(
+AS_API inline mat3_t mat3_rotation_zxy(
   const real_t x, const real_t y, const real_t z)
 {
   const real_t cos_x = std::cos(x);
@@ -836,50 +830,66 @@ AS_API inline mat3_t rotation_zxy(
   };
 }
 
-AS_API inline mat3_t rotation_x(const real_t radians)
+AS_API inline mat3_t mat3_rotation_x(const real_t radians)
 {
+  const real_t cos_radians = std::cos(radians);
+  const real_t sin_radians = std::sin(radians);
+
   // clang-format off
-    return {1.0_r, 0.0_r,              0.0_r,
-            0.0_r, std::cos(radians),  std::sin(radians),
-            0.0_r, -std::sin(radians), std::cos(radians)};
+  return {1.0_r, 0.0_r,        0.0_r,
+          0.0_r, cos_radians,  sin_radians,
+          0.0_r, -sin_radians, cos_radians};
   // clang-format on
 }
 
-AS_API inline mat3_t rotation_y(const real_t radians)
+AS_API inline mat3_t mat3_rotation_y(const real_t radians)
 {
+  const real_t cos_radians = std::cos(radians);
+  const real_t sin_radians = std::sin(radians);
+
   // clang-format off
-    return {std::cos(radians), 0.0_r, -std::sin(radians),
-            0.0_r,             1.0_r, 0.0_r,
-            std::sin(radians), 0.0_r, std::cos(radians)};
+  return {cos_radians, 0.0_r, -sin_radians,
+          0.0_r,       1.0_r, 0.0_r,
+          sin_radians, 0.0_r, cos_radians};
   // clang-format on
 }
 
-AS_API inline mat3_t rotation_z(const real_t radians)
+AS_API inline mat3_t mat3_rotation_z(const real_t radians)
 {
+  const real_t cos_radians = std::cos(radians);
+  const real_t sin_radians = std::sin(radians);
+
   // clang-format off
-    return {std::cos(radians),  std::sin(radians), 0.0_r,
-            -std::sin(radians), std::cos(radians), 0.0_r,
-            0.0_r,              0.0_r,             1.0_r};
+  return {cos_radians,  sin_radians, 0.0_r,
+          -sin_radians, cos_radians, 0.0_r,
+          0.0_r,        0.0_r,       1.0_r};
   // clang-format on
 }
 
-AS_API constexpr mat3_t scale(const real_t scale)
+AS_API constexpr mat3_t mat3_scale(const real_t scale)
 {
-  return mat3::scale(vec3_t{scale});
+  return mat3_scale(scale, scale, scale);
 }
 
-AS_API constexpr mat3_t scale(const vec3_t& scale)
+//! Returns a (potentially) non-uniform scale martix.
+AS_API constexpr mat3_t mat3_scale(
+  const real_t x, const real_t y, const real_t z)
 {
   // clang-format off
-    return {scale.x, 0.0_r,   0.0_r,
-            0.0_r,   scale.y, 0.0_r,
-            0.0_r,   0.0_r,   scale.z};
+  return {x,     0.0_r, 0.0_r,
+          0.0_r, y,     0.0_r,
+          0.0_r, 0.0_r, z};
   // clang-format on
+}
+
+AS_API constexpr mat3_t mat3_scale(const vec3_t& scale)
+{
+  return mat3_scale(scale.x, scale.y, scale.z);
 }
 
 // ref: Essential Mathematics for Games & Interactive Applications: A
 // Programmers Guide section 5.5.7
-AS_API constexpr mat3_t from_quat(const quat_t& quat)
+AS_API constexpr mat3_t mat3_from_quat(const quat_t& quat)
 {
   const real_t s{
     2.0_r
@@ -903,213 +913,208 @@ AS_API constexpr mat3_t from_quat(const quat_t& quat)
           xz + wy,           yz - wx,           1.0_r - (xx + yy)};
 }
 
-} // namespace mat3
-
-namespace mat4
+AS_API constexpr index_t mat4_rc(const index_t r, const index_t c)
 {
-
-AS_API constexpr index_t rc(const index_t r, const index_t c)
-{
-  return mat::rc(r, c, 4);
+  return mat_rc(r, c, 4);
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4> row0(const mat_t<T, 4>& mat)
+AS_API constexpr vec_t<T, 4> mat4_row0(const mat_t<T, 4>& mat)
 {
-  return mat::row(mat, 0);
+  return mat_row(mat, 0);
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4> row1(const mat_t<T, 4>& mat)
+AS_API constexpr vec_t<T, 4> mat4_row1(const mat_t<T, 4>& mat)
 {
-  return mat::row(mat, 1);
+  return mat_row(mat, 1);
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4> row2(const mat_t<T, 4>& mat)
+AS_API constexpr vec_t<T, 4> mat4_row2(const mat_t<T, 4>& mat)
 {
-  return mat::row(mat, 2);
+  return mat_row(mat, 2);
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4> row3(const mat_t<T, 4>& mat)
+AS_API constexpr vec_t<T, 4> mat4_row3(const mat_t<T, 4>& mat)
 {
-  return mat::row(mat, 3);
+  return mat_row(mat, 3);
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4> col0(const mat_t<T, 4>& mat)
+AS_API constexpr vec_t<T, 4> mat4_col0(const mat_t<T, 4>& mat)
 {
-  return mat::col(mat, 0);
+  return mat_col(mat, 0);
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4> col1(const mat_t<T, 4>& mat)
+AS_API constexpr vec_t<T, 4> mat4_col1(const mat_t<T, 4>& mat)
 {
-  return mat::col(mat, 1);
+  return mat_col(mat, 1);
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4> col2(const mat_t<T, 4>& mat)
+AS_API constexpr vec_t<T, 4> mat4_col2(const mat_t<T, 4>& mat)
 {
-  return mat::col(mat, 2);
+  return mat_col(mat, 2);
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4> col3(const mat_t<T, 4>& mat)
+AS_API constexpr vec_t<T, 4> mat4_col3(const mat_t<T, 4>& mat)
 {
-  return mat::col(mat, 3);
+  return mat_col(mat, 3);
 }
 
 template<typename T>
-AS_API constexpr void row0(mat_t<T, 4>& mat, const vec_t<T, 4>& row)
+AS_API constexpr void mat4_row0(mat_t<T, 4>& mat, const vec_t<T, 4>& row)
 {
-  mat::row(mat, 0, row);
+  mat_row(mat, 0, row);
 }
 
 template<typename T>
-AS_API constexpr void row1(mat_t<T, 4>& mat, const vec_t<T, 4>& row)
+AS_API constexpr void mat4_row1(mat_t<T, 4>& mat, const vec_t<T, 4>& row)
 {
-  mat::row(mat, 1, row);
+  mat_row(mat, 1, row);
 }
 
 template<typename T>
-AS_API constexpr void row2(mat_t<T, 4>& mat, const vec_t<T, 4>& row)
+AS_API constexpr void mat4_row2(mat_t<T, 4>& mat, const vec_t<T, 4>& row)
 {
-  mat::row(mat, 2, row);
+  mat_row(mat, 2, row);
 }
 
 template<typename T>
-AS_API constexpr void row3(mat_t<T, 4>& mat, const vec_t<T, 4>& row)
+AS_API constexpr void mat4_row3(mat_t<T, 4>& mat, const vec_t<T, 4>& row)
 {
-  mat::row(mat, 3, row);
+  mat_row(mat, 3, row);
 }
 
 template<typename T>
-AS_API constexpr void col0(mat_t<T, 4>& mat, const vec_t<T, 4>& col)
+AS_API constexpr void mat4_col0(mat_t<T, 4>& mat, const vec_t<T, 4>& col)
 {
-  mat::col(mat, 0, col);
+  mat_col(mat, 0, col);
 }
 
 template<typename T>
-AS_API constexpr void col1(mat_t<T, 4>& mat, const vec_t<T, 4>& col)
+AS_API constexpr void mat4_col1(mat_t<T, 4>& mat, const vec_t<T, 4>& col)
 {
-  mat::col(mat, 1, col);
+  mat_col(mat, 1, col);
 }
 
 template<typename T>
-AS_API constexpr void col2(mat_t<T, 4>& mat, const vec_t<T, 4>& col)
+AS_API constexpr void mat4_col2(mat_t<T, 4>& mat, const vec_t<T, 4>& col)
 {
-  mat::col(mat, 2, col);
+  mat_col(mat, 2, col);
 }
 
 template<typename T>
-AS_API constexpr void col3(mat_t<T, 4>& mat, const vec_t<T, 4>& col)
+AS_API constexpr void mat4_col3(mat_t<T, 4>& mat, const vec_t<T, 4>& col)
 {
-  mat::col(mat, 3, col);
+  mat_col(mat, 3, col);
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4> basis_x(const mat_t<T, 4>& mat)
+AS_API constexpr vec_t<T, 4> mat4_basis_x(const mat_t<T, 4>& mat)
 {
 #ifdef AS_COL_MAJOR
-  return col0(mat);
+  return mat4_col0(mat);
 #elif defined AS_ROW_MAJOR
-  return row0(mat);
+  return mat4_row0(mat);
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4> basis_y(const mat_t<T, 4>& mat)
+AS_API constexpr vec_t<T, 4> mat4_basis_y(const mat_t<T, 4>& mat)
 {
 #ifdef AS_COL_MAJOR
-  return col1(mat);
+  return mat4_col1(mat);
 #elif defined AS_ROW_MAJOR
-  return row1(mat);
+  return mat4_row1(mat);
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4> basis_z(const mat_t<T, 4>& mat)
+AS_API constexpr vec_t<T, 4> mat4_basis_z(const mat_t<T, 4>& mat)
 {
 #ifdef AS_COL_MAJOR
-  return col2(mat);
+  return mat4_col2(mat);
 #elif defined AS_ROW_MAJOR
-  return row2(mat);
+  return mat4_row2(mat);
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
 template<typename T>
-AS_API constexpr vec_t<T, 4> translation(const mat_t<T, 4>& mat)
+AS_API constexpr vec_t<T, 4> mat4_translation(const mat_t<T, 4>& mat)
 {
 #ifdef AS_COL_MAJOR
-  return col3(mat);
+  return mat4_col3(mat);
 #elif defined AS_ROW_MAJOR
-  return row3(mat);
+  return mat4_row3(mat);
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
 template<typename T>
-AS_API constexpr void basis_x(mat_t<T, 4>& mat, const vec_t<T, 4>& basis)
+AS_API constexpr void mat4_basis_x(mat_t<T, 4>& mat, const vec_t<T, 4>& basis)
 {
 #ifdef AS_COL_MAJOR
-  return col0(mat, basis);
+  return mat4_col0(mat, basis);
 #elif defined AS_ROW_MAJOR
-  return row0(mat, basis);
+  return mat4_row0(mat, basis);
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
 template<typename T>
-AS_API constexpr void basis_y(mat_t<T, 4>& mat, const vec_t<T, 4>& basis)
+AS_API constexpr void mat4_basis_y(mat_t<T, 4>& mat, const vec_t<T, 4>& basis)
 {
 #ifdef AS_COL_MAJOR
-  return col1(mat, basis);
+  return mat4_col1(mat, basis);
 #elif defined AS_ROW_MAJOR
-  return row1(mat, basis);
+  return mat4_row1(mat, basis);
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
 template<typename T>
-AS_API constexpr void basis_z(mat_t<T, 4>& mat, const vec_t<T, 4>& basis)
+AS_API constexpr void mat4_basis_z(mat_t<T, 4>& mat, const vec_t<T, 4>& basis)
 {
 #ifdef AS_COL_MAJOR
-  return col2(mat, basis);
+  return mat4_col2(mat, basis);
 #elif defined AS_ROW_MAJOR
-  return row2(mat, basis);
+  return mat4_row2(mat, basis);
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
 template<typename T>
-AS_API constexpr void translation(
+AS_API constexpr void mat4_translation(
   mat_t<T, 4>& mat, const vec_t<T, 4>& translation)
 {
 #ifdef AS_COL_MAJOR
-  return col3(mat, translation);
+  return mat4_col3(mat, translation);
 #elif defined AS_ROW_MAJOR
-  return row3(mat, translation);
+  return mat4_row3(mat, translation);
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
 template<typename T>
-AS_API mat_t<T, 4> from_ptr(const T* data)
+AS_API mat_t<T, 4> mat4_from_ptr(const T* data)
 {
-  return mat::from_ptr<T, 4>(data);
+  return mat_from_ptr<T, 4>(data);
 }
 
 template<typename T>
-AS_API mat_t<T, 4> from_arr(const T (&data)[16])
+AS_API mat_t<T, 4> mat4_from_arr(const T (&data)[16])
 {
-  return mat::from_arr<T, 4>(data);
+  return mat_from_arr<T, 4>(data);
 }
 
 template<typename T>
-AS_API constexpr mat_t<T, 4> from_vec3(const vec_t<T, 3>& translation)
+AS_API constexpr mat_t<T, 4> mat4_from_vec3(const vec_t<T, 3>& translation)
 {
   return {mat_t<T, 3>::identity(), translation};
 }
 
 template<typename T>
-AS_API constexpr mat_t<T, 4> from_mat3(const mat_t<T, 3>& rotation)
+AS_API constexpr mat_t<T, 4> mat4_from_mat3(const mat_t<T, 3>& rotation)
 {
   return {rotation, vec_t<T, 3>::zero()};
 }
@@ -1121,57 +1126,52 @@ AS_API constexpr mat_t<T, 4> from_mat3_vec3(
   return {rotation, translation};
 }
 
-AS_API constexpr mat4_t from_affine(const affine_t& affine)
+AS_API constexpr mat4_t mat4_from_affine(const affine_t& affine)
 {
   return from_mat3_vec3(affine.rotation, affine.translation);
 }
 
 template<typename T>
-AS_API constexpr mat_t<T, 4> shear_x(const T y, const T z)
+AS_API constexpr mat_t<T, 4> mat4_shear_x(const T y, const T z)
 {
   // clang-format off
-    return {T(1.0), y,      z,      T(0.0),
-            T(0.0), T(1.0), T(0.0), T(0.0),
-            T(0.0), T(0.0), T(1.0), T(0.0),
-            T(0.0), T(0.0), T(0.0), T(1.0)};
+  return {T(1.0), y,      z,      T(0.0),
+          T(0.0), T(1.0), T(0.0), T(0.0),
+          T(0.0), T(0.0), T(1.0), T(0.0),
+          T(0.0), T(0.0), T(0.0), T(1.0)};
   // clang-format on
 }
 
 template<typename T>
-AS_API constexpr mat_t<T, 4> shear_y(const T x, const T z)
+AS_API constexpr mat_t<T, 4> mat4_shear_y(const T x, const T z)
 {
   // clang-format off
-    return {T(1.0), T(0.0), T(0.0), T(0.0),
-            x,      T(1.0), z,      T(0.0),
-            T(0.0), T(0.0), T(1.0), T(0.0),
-            T(0.0), T(0.0), T(0.0), T(1.0)};
+  return {T(1.0), T(0.0), T(0.0), T(0.0),
+          x,      T(1.0), z,      T(0.0),
+          T(0.0), T(0.0), T(1.0), T(0.0),
+          T(0.0), T(0.0), T(0.0), T(1.0)};
   // clang-format on
 }
 
 template<typename T>
-AS_API constexpr mat_t<T, 4> shear_z(const T x, const T y)
+AS_API constexpr mat_t<T, 4> mat4_shear_z(const T x, const T y)
 {
   // clang-format off
-    return {T(1.0), T(0.0), T(0.0), T(0.0),
-            T(0.0), T(1.0), T(0.0), T(0.0),
-            x,      y,      T(1.0), T(0.0),
-            T(0.0), T(0.0), T(0.0), T(1.0)};
+  return {T(1.0), T(0.0), T(0.0), T(0.0),
+          T(0.0), T(1.0), T(0.0), T(0.0),
+          x,      y,      T(1.0), T(0.0),
+          T(0.0), T(0.0), T(0.0), T(1.0)};
   // clang-format on
 }
 
-} // namespace mat4
-
-namespace point
-{
-
-AS_API inline bool equal(
+AS_API inline bool point_equal(
   const point2_t& lhs, const point2_t& rhs,
   const real_t epsilon /*= std::numeric_limits<real_t>::epsilon()*/)
 {
   return vec::equal(lhs.as_vec(), rhs.as_vec(), epsilon);
 }
 
-AS_API inline bool equal(
+AS_API inline bool point_equal(
   const point3_t& lhs, const point3_t& rhs,
   const real_t epsilon /*= std::numeric_limits<real_t>::epsilon()*/)
 {
@@ -1179,14 +1179,14 @@ AS_API inline bool equal(
 }
 
 template<typename... points_t>
-AS_API auto average_fold(points_t&&... points)
+AS_API auto point_average_fold(points_t&&... points)
 {
   return std::common_type_t<decltype(points)...>(
     (points.as_vec() + ...) / real_t(sizeof...(points)));
 }
 
 template<typename point_t>
-AS_API point_t average(const point_t* points, const index_t count)
+AS_API point_t point_average(const point_t* points, const index_t count)
 {
   return point_t(
     std::accumulate(
@@ -1196,72 +1196,68 @@ AS_API point_t average(const point_t* points, const index_t count)
     / real_t(count));
 }
 
-} // namespace point
-
-namespace quat
-{
-
-AS_API constexpr real_t dot(const quat_t& lhs, const quat_t& rhs)
+AS_API constexpr real_t quat_dot(const quat_t& lhs, const quat_t& rhs)
 {
   return lhs.w * rhs.w + lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;
 }
 
-AS_API constexpr real_t length_sq(const quat_t& quat)
+AS_API constexpr real_t quat_length_sq(const quat_t& quat)
 {
-  return dot(quat, quat);
+  return quat_dot(quat, quat);
 }
 
-AS_API inline real_t length(const quat_t& quat)
+AS_API inline real_t quat_length(const quat_t& quat)
 {
-  return std::sqrt(length_sq(quat));
+  return std::sqrt(quat_length_sq(quat));
 }
 
-AS_API inline quat_t normalize(const quat_t& quat)
+AS_API inline quat_t quat_normalize(const quat_t& quat)
 {
-  return quat / length(quat);
+  return quat / quat_length(quat);
 }
 
-AS_API constexpr quat_t conjugate(const quat_t& quat)
+AS_API constexpr quat_t quat_conjugate(const quat_t& quat)
 {
   return {quat.w, -quat.x, -quat.y, -quat.z};
 }
 
-AS_API inline quat_t inverse(const quat_t& quat)
+AS_API inline quat_t quat_inverse(const quat_t& quat)
 {
-  return conjugate(quat) / length_sq(quat);
+  return quat_conjugate(quat) / quat_length_sq(quat);
 }
 
-AS_API inline vec3_t rotate(const quat_t& quat, const vec3_t& v)
+AS_API inline vec3_t quat_rotate(const quat_t& quat, const vec3_t& v)
 {
   const quat_t quat_result =
-    quat * quat_t{0.0_r, v.x, v.y, v.z} * conjugate(quat);
+    quat * quat_t{0.0_r, v.x, v.y, v.z} * quat_conjugate(quat);
   return {quat_result.x, quat_result.y, quat_result.z};
 }
 
-AS_API inline quat_t axis_angle(const vec3_t& axis, const real_t radians)
+AS_API inline quat_t quat_rotation_axis(
+  const vec3_t& axis, const real_t radians)
 {
   return {std::cos(0.5_r * radians), axis * std::sin(0.5_r * radians)};
 }
 
-AS_API inline quat_t rotation_zxy(
+AS_API inline quat_t quat_rotation_zxy(
   const real_t x, const real_t y, const real_t z)
 {
-  const auto half = 0.5_r;
-  return quat_t{std::cos(half * y), 0.0_r, std::sin(half * y), 0.0_r}
-       * quat_t{std::cos(half * x), std::sin(half * x), 0.0_r, 0.0_r}
-       * quat_t{std::cos(half * z), 0.0_r, 0.0_r, std::sin(half * z)};
+  return quat_t{std::cos(0.5_r * y), 0.0_r, std::sin(0.5_r * y), 0.0_r}
+       * quat_t{std::cos(0.5_r * x), std::sin(0.5_r * x), 0.0_r, 0.0_r}
+       * quat_t{std::cos(0.5_r * z), 0.0_r, 0.0_r, std::sin(0.5_r * z)};
 }
 
-AS_API inline quat_t slerp(const quat_t& lhs, const quat_t& rhs, const real_t t)
+AS_API inline quat_t quat_slerp(
+  const quat_t& lhs, const quat_t& rhs, const real_t t)
 {
-  const real_t theta = std::acos(dot(lhs, rhs));
+  const real_t theta = std::acos(quat_dot(lhs, rhs));
   return (lhs * std::sin((1.0_r - t) * theta) + rhs * std::sin(t * theta))
        / std::sin(theta);
 }
 
 // ref: euclidean space
 // http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
-AS_API inline quat_t from_mat3(const mat3_t& mat)
+AS_API inline quat_t quat_from_mat3(const mat3_t& mat)
 {
   quat_t q;
 
@@ -1313,12 +1309,7 @@ AS_API inline quat_t from_mat3(const mat3_t& mat)
   return q;
 }
 
-} // namespace quat
-
-namespace affine
-{
-
-AS_API inline void to_arr(const affine_t& affine, real_t (&data)[12])
+AS_API inline void affine_to_arr(const affine_t& affine, real_t (&data)[12])
 {
   for (index_t i = 0; i < affine.rotation.size(); ++i) {
     data[i] = affine.rotation[i];
@@ -1329,12 +1320,12 @@ AS_API inline void to_arr(const affine_t& affine, real_t (&data)[12])
   }
 }
 
-AS_API inline affine_t from_arr(const real_t (&data)[12])
+AS_API inline affine_t affine_from_arr(const real_t (&data)[12])
 {
-  return from_ptr(data);
+  return affine_from_ptr(data);
 }
 
-AS_API inline affine_t from_ptr(const real_t* data)
+AS_API inline affine_t affine_from_ptr(const real_t* data)
 {
   affine_t result;
 
@@ -1351,47 +1342,47 @@ AS_API inline affine_t from_ptr(const real_t* data)
   return result;
 }
 
-AS_API inline affine_t from_mat4(const mat4_t& mat)
+AS_API inline affine_t affine_from(const mat4_t& mat)
 {
-  return affine_t(
-    mat3::from_mat4(mat), vec3::from_vec4(mat4::translation(mat)));
+  return affine_t(mat3_from_mat4(mat), vec3::from_vec4(mat4_translation(mat)));
 }
 
-AS_API inline affine_t from_mat3(const mat3_t& mat)
+AS_API inline affine_t affine_from(const mat3_t& mat)
 {
   return affine_t(mat, vec3_t::zero());
 }
 
-AS_API inline affine_t from_mat3_vec3(const mat3_t& mat, const vec3_t& vec)
+AS_API inline affine_t affine_from(const mat3_t& mat, const vec3_t& vec)
 {
   return affine_t(mat, vec);
 }
 
-AS_API inline affine_t from_vec3(const vec3_t& vec)
+AS_API inline affine_t affine_from(const vec3_t& vec)
 {
   return affine_t(vec);
 }
 
-AS_API inline affine_t from_point3(const point3_t& point)
+AS_API inline affine_t affine_from(const point3_t& point)
 {
   return affine_t(point.as_vec());
 }
 
-AS_API inline affine_t mul(const affine_t& lhs, const affine_t& rhs)
+AS_API inline affine_t affine_mul(const affine_t& lhs, const affine_t& rhs)
 {
   return affine_t(
-    mat::mul(lhs.rotation, rhs.rotation), transform_pos(rhs, lhs.translation));
+    mat_mul(lhs.rotation, rhs.rotation),
+    affine_transform_pos(rhs, lhs.translation));
 }
 
-AS_API inline affine_t inverse(const affine_t& affine)
+AS_API inline affine_t affine_inverse(const affine_t& affine)
 {
-  const mat3_t inv_rot = mat::transpose(affine.rotation);
+  const mat3_t inv_rot = transpose(affine.rotation);
   const vec3_t inv_pos =
-    affine::transform_pos(affine_t(inv_rot), -affine.translation);
+    affine_transform_pos(affine_t(inv_rot), -affine.translation);
   return affine_t(inv_rot, inv_pos);
 }
 
-AS_API inline vec3_t transform_dir(
+AS_API inline vec3_t affine_transform_dir(
   const affine_t& affine, const vec3_t& direction)
 {
 #ifdef AS_COL_MAJOR
@@ -1401,7 +1392,7 @@ AS_API inline vec3_t transform_dir(
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
-AS_API inline vec3_t transform_pos(
+AS_API inline vec3_t affine_transform_pos(
   const affine_t& affine, const vec3_t& position)
 {
 #ifdef AS_COL_MAJOR
@@ -1411,16 +1402,16 @@ AS_API inline vec3_t transform_pos(
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
-AS_API inline point3_t transform_pos(
+AS_API inline point3_t affine_transform_pos(
   const affine_t& affine, const point3_t& position)
 {
-  return point3_t(transform_pos(affine, position.as_vec()));
+  return point3_t(affine_transform_pos(affine, position.as_vec()));
 }
 
-AS_API inline vec3_t inv_transform_dir(
+AS_API inline vec3_t affine_inv_transform_dir(
   const affine_t& affine, const vec3_t& direction)
 {
-  const mat3_t inv_rotation = mat::inverse(affine.rotation);
+  const mat3_t inv_rotation = inverse(affine.rotation);
 #ifdef AS_COL_MAJOR
   return inv_rotation * direction;
 #elif defined AS_ROW_MAJOR
@@ -1428,10 +1419,10 @@ AS_API inline vec3_t inv_transform_dir(
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
-AS_API inline vec3_t inv_transform_pos(
+AS_API inline vec3_t affine_inv_transform_pos(
   const affine_t& affine, const vec3_t& position)
 {
-  const mat3_t inv_rotation = mat::inverse(affine.rotation);
+  const mat3_t inv_rotation = inverse(affine.rotation);
 #ifdef AS_COL_MAJOR
   return inv_rotation * (position - affine.translation);
 #elif defined AS_ROW_MAJOR
@@ -1439,12 +1430,10 @@ AS_API inline vec3_t inv_transform_pos(
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
-AS_API inline point3_t inv_transform_pos(
+AS_API inline point3_t affine_inv_transform_pos(
   const affine_t& affine, const point3_t& position)
 {
-  return point3_t(inv_transform_pos(affine, position.as_vec()));
+  return point3_t(affine_inv_transform_pos(affine, position.as_vec()));
 }
-
-} // namespace affine
 
 } // namespace as

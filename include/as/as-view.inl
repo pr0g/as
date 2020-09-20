@@ -1,9 +1,6 @@
 namespace as
 {
 
-namespace view
-{
-
 // openGL default
 AS_API inline mat4_t perspective_gl_rh(
   const real_t fovy, const real_t aspect, const real_t n, const real_t f)
@@ -79,13 +76,13 @@ constexpr mat4_t vulkan_clip{
 AS_API inline mat4_t perspective_vulkan_rh(
   const real_t fovy, const real_t aspect, const real_t n, const real_t f)
 {
-  return mat::mul(perspective_gl_rh(fovy, aspect, n, f), vulkan_clip);
+  return as::mat_mul(perspective_gl_rh(fovy, aspect, n, f), vulkan_clip);
 }
 
 AS_API inline mat4_t perspective_vulkan_lh(
   const real_t fovy, const real_t aspect, const real_t n, const real_t f)
 {
-  return mat::mul(perspective_gl_lh(fovy, aspect, n, f), vulkan_clip);
+  return as::mat_mul(perspective_gl_lh(fovy, aspect, n, f), vulkan_clip);
 }
 
 AS_API constexpr mat4_t ortho_gl_rh(
@@ -163,15 +160,13 @@ AS_API constexpr mat4_t ortho_d3d_lh(
 AS_API inline mat4_t ortho_vulkan_rh(
   real_t l, real_t r, real_t b, real_t t, real_t n, real_t f)
 {
-  return mat::mul(ortho_gl_rh(l, r, b, t, n, f), vulkan_clip);
+  return as::mat_mul(ortho_gl_rh(l, r, b, t, n, f), vulkan_clip);
 }
 
 AS_API inline mat4_t ortho_vulkan_lh(
   real_t l, real_t r, real_t b, real_t t, real_t n, real_t f)
 {
-  return mat::mul(ortho_gl_lh(l, r, b, t, n, f), vulkan_clip);
+  return as::mat_mul(ortho_gl_lh(l, r, b, t, n, f), vulkan_clip);
 }
-
-} // namespace view
 
 } // namespace as

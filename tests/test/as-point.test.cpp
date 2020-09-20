@@ -18,9 +18,6 @@ using as::vec3_t;
 using as::deg_to_rad;
 using as::operator""_r;
 
-// namespaces
-namespace point = as::point;
-
 // use float epsilon for comparisons
 const real_t g_epsilon = real_t(std::numeric_limits<float>::epsilon());
 
@@ -163,14 +160,14 @@ TEST_CASE("point2_equals", "[as_point]")
     const point2_t point2_a = point2_t{12.0_r, 14.0_r};
     const point2_t point2_b = point2_t{12.0_r, 14.0_r};
 
-    CHECK(point::equal(point2_a, point2_b));
+    CHECK(point_equal(point2_a, point2_b));
   }
 
   {
     const point2_t point2_a = point2_t{5.0_r, 6.0_r};
     const point2_t point2_b = point2_t{4.9_r, 6.1_r};
 
-    CHECK(!point::equal(point2_a, point2_b));
+    CHECK(!point_equal(point2_a, point2_b));
   }
 }
 
@@ -180,14 +177,14 @@ TEST_CASE("point3_equals", "[as_point]")
     const point3_t point3_a = point3_t{20.0_r, 40.0_r, 60.0_r};
     const point3_t point3_b = point3_t{20.0_r, 40.0_r, 60.0_r};
 
-    CHECK(point::equal(point3_a, point3_b));
+    CHECK(point_equal(point3_a, point3_b));
   }
 
   {
     const point3_t point3_a = point3_t{20.0_r, 40.0_r, 60.0_r};
     const point3_t point3_b = point3_t{19.0_r, 40.0_r, 60.0_r};
 
-    CHECK(!point::equal(point3_a, point3_b));
+    CHECK(!point_equal(point3_a, point3_b));
   }
 }
 
@@ -337,18 +334,18 @@ TEST_CASE("point_average", "[as_point]")
 {
   {
     point2_t avg =
-      point::average_fold(point2_t{2.0_r, 2.0_r}, point2_t{4.0_r, 4.0_r});
+      point_average_fold(point2_t{2.0_r, 2.0_r}, point2_t{4.0_r, 4.0_r});
     CHECK_THAT(arr(3.0_r, 3.0_r), make_elements_sub(avg, 2));
   }
 
   {
     point2_t points[] = {point2_t{2.0_r, 2.0_r}, point2_t{4.0_r, 4.0_r}};
-    point2_t avg = point::average(points, std::size(points));
+    point2_t avg = point_average(points, std::size(points));
     CHECK_THAT(arr(3.0_r, 3.0_r), make_elements_sub(avg, 2));
   }
 
   {
-    point3_t avg = point::average_fold(
+    point3_t avg = point_average_fold(
       point3_t{3.0_r, 3.0_r, 3.0_r}, point3_t{5.0_r, 5.0_r, 5.0_r});
     CHECK_THAT(arr(4.0_r, 4.0_r, 4.0_r), make_elements_sub(avg, 3));
   }
@@ -356,7 +353,7 @@ TEST_CASE("point_average", "[as_point]")
   {
     point3_t points[] = {
       point3_t{3.0_r, 3.0_r, 3.0_r}, point3_t{5.0_r, 5.0_r, 5.0_r}};
-    point3_t avg = point::average(points, std::size(points));
+    point3_t avg = point_average(points, std::size(points));
     CHECK_THAT(arr(4.0_r, 4.0_r, 4.0_r), make_elements_sub(avg, 3));
   }
 }

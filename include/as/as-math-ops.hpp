@@ -268,10 +268,6 @@ vec4_t from_point3(const point3_t& point);
 
 } // namespace vec4
 
-//! Encapsulates all generic mat_t related functionality.
-namespace mat
-{
-
 //! Performs a mapping from a row and column index to a single offset.
 //! \param r Row index.
 //! \param c Column index.
@@ -283,79 +279,79 @@ namespace mat
 //! rc(3, 2, 4) = 11 // column major
 //! rc(3, 2, 4) = 14 // row major
 //! ```
-constexpr index_t rc(index_t r, index_t c, index_t d);
+constexpr index_t mat_rc(index_t r, index_t c, index_t d);
 
 //! Returns the nth row of the matrix.
 //! \param mat The matrix to use.
 //! \param r Row index.
 template<typename T, index_t d>
-vec_t<T, d> row(const mat_t<T, d>& mat, index_t r);
+vec_t<T, d> mat_row(const mat_t<T, d>& mat, index_t r);
 
 //! Returns the nth column of the matrix.
 //! \param mat The matrix to use.
 //! \param c Column index.
 template<typename T, index_t d>
-vec_t<T, d> col(const mat_t<T, d>& mat, index_t c);
+vec_t<T, d> mat_col(const mat_t<T, d>& mat, index_t c);
 
 //! Sets the nth row of the matrix.
 //! \param mat The matrix to use.
 //! \param r Row index.
 //! \param row The vector to use.
 template<typename T, index_t d>
-constexpr void row(mat_t<T, d>& mat, index_t r, const vec_t<T, d>& row);
+constexpr void mat_row(mat_t<T, d>& mat, index_t r, const vec_t<T, d>& row);
 
 //! Sets the nth column of the matrix.
 //! \param mat The matrix to use.
 //! \param c Column index.
 //! \param col The vector to use.
 template<typename T, index_t d>
-constexpr void col(mat_t<T, d>& mat, index_t c, const vec_t<T, d>& col);
+constexpr void mat_col(mat_t<T, d>& mat, index_t c, const vec_t<T, d>& col);
 
 //! Returns a pointer to the start of the matrix data.
 template<typename T, index_t d>
-T* data(mat_t<T, d>& mat);
+T* mat_data(mat_t<T, d>& mat);
 
 //! Returns a const pointer to the start of the matrix data.
 template<typename T, index_t d>
-const T* const_data(const mat_t<T, d>& mat);
+const T* mat_const_data(const mat_t<T, d>& mat);
 
 //! Creates a mat_t from a fixed size array of the same type and dimension.
 template<typename T, index_t d>
-mat_t<T, d> from_arr(const T (&data)[d * d]);
+mat_t<T, d> mat_from_arr(const T (&data)[d * d]);
 
 //! Creates a mat_t from a pointer to an array of the same type.
 template<typename T, index_t d>
-mat_t<T, d> from_ptr(const T* data);
+mat_t<T, d> mat_from_ptr(const T* data);
 
 //! Writes the values stored in the matrix to an array of the same type and
 //! dimension.
 template<typename T, index_t d>
-void to_arr(const mat_t<T, d>& mat, T (&data)[d * d]);
+void mat_to_arr(const mat_t<T, d>& mat, T (&data)[d * d]);
 
 //! Returns if two matrices are the same as each other (within a certain
 //! tolerance).
 template<typename T, index_t d>
-bool equal(
+bool mat_equal(
   const mat_t<T, d>& lhs, const mat_t<T, d>& rhs,
   real_t epsilon = std::numeric_limits<real_t>::epsilon());
 
 //! Returns the transpose of the matrix.
 //! \note Rows and columns are swapped.
 template<typename T, index_t d>
-mat_t<T, d> transpose(const mat_t<T, d>& mat);
+mat_t<T, d> mat_transpose(const mat_t<T, d>& mat);
 
 //! Returns the determinant of the matrix.
 //! \note This is the signed volume of the n-dimensional parallelepiped spanned
 //! by the column or row vectors of the matrix.
 template<typename T, index_t d>
-T determinant(const mat_t<T, d>& mat);
+T mat_determinant(const mat_t<T, d>& mat);
 
 //! Returns the inverse of the matrix.
 //! ```{.cpp}
 //! // mat * inv(mat) = identity
 //! ```
 template<typename T, index_t d>
-mat_t<T, d> inverse(const mat_t<T, d>& mat);
+mat_t<T, d> mat_inverse(const mat_t<T, d>& mat);
 
 //! Returns the result of two `mat_t` types multiplied together.
 //! \note `lhs` is performed first, then `rhs`
@@ -366,412 +362,385 @@ mat_t<T, d> inverse(const mat_t<T, d>& mat);
 //! result = lhs * rhs; // left ro right
 //! ```
 template<typename T, index_t d>
-mat_t<T, d> mul(const mat_t<T, d>& lhs, const mat_t<T, d>& rhs);
-
-} // namespace mat
-
-//! Encapsulates all mat_t<T, 3> related functionality.
-namespace mat3
-{
+mat_t<T, d> mat_mul(const mat_t<T, d>& lhs, const mat_t<T, d>& rhs);
 
 //! Performs a mapping from a row and column index to a single offset for
 //! ::mat3_t. \param r Row index. \param c Column index.
-constexpr index_t rc(index_t r, index_t c);
+constexpr index_t mat3_rc(index_t r, index_t c);
 
 //! Returns the first row of the ::mat3_t.
 template<typename T>
-constexpr vec_t<T, 3> row0(const mat_t<T, 3>& mat);
+constexpr vec_t<T, 3> mat3_row0(const mat_t<T, 3>& mat);
 
 //! Returns the second row of the ::mat3_t.
 template<typename T>
-constexpr vec_t<T, 3> row1(const mat_t<T, 3>& mat);
+constexpr vec_t<T, 3> mat3_row1(const mat_t<T, 3>& mat);
 
 //! Returns the third row of the ::mat3_t.
 template<typename T>
-constexpr vec_t<T, 3> row2(const mat_t<T, 3>& mat);
+constexpr vec_t<T, 3> mat3_row2(const mat_t<T, 3>& mat);
 
 //! Returns the first column of the ::mat3_t.
 template<typename T>
-constexpr vec_t<T, 3> col0(const mat_t<T, 3>& mat);
+constexpr vec_t<T, 3> mat3_col0(const mat_t<T, 3>& mat);
 
 //! Returns the second column of the ::mat3_t.
 template<typename T>
-constexpr vec_t<T, 3> col1(const mat_t<T, 3>& mat);
+constexpr vec_t<T, 3> mat3_col1(const mat_t<T, 3>& mat);
 
 //! Returns the third column of the ::mat3_t.
 template<typename T>
-constexpr vec_t<T, 3> col2(const mat_t<T, 3>& mat);
+constexpr vec_t<T, 3> mat3_col2(const mat_t<T, 3>& mat);
 
 //! Sets the first row of the ::mat3_t.
 template<typename T>
-constexpr void row0(mat_t<T, 3>& mat, const vec_t<T, 3>& row);
+constexpr void mat3_row0(mat_t<T, 3>& mat, const vec_t<T, 3>& row);
 
 //! Sets the second row of the ::mat3_t.
 template<typename T>
-constexpr void row1(mat_t<T, 3>& mat, const vec_t<T, 3>& row);
+constexpr void mat3_row1(mat_t<T, 3>& mat, const vec_t<T, 3>& row);
 
 //! Sets the third row of the ::mat3_t.
 template<typename T>
-constexpr void row2(mat_t<T, 3>& mat, const vec_t<T, 3>& row);
+constexpr void mat3_row2(mat_t<T, 3>& mat, const vec_t<T, 3>& row);
 
 //! Sets the first column of the ::mat3_t.
 template<typename T>
-constexpr void col0(mat_t<T, 3>& mat, const vec_t<T, 3>& col);
+constexpr void mat3_col0(mat_t<T, 3>& mat, const vec_t<T, 3>& col);
 
 //! Sets the second column of the ::mat3_t.
 template<typename T>
-constexpr void col1(mat_t<T, 3>& mat, const vec_t<T, 3>& col);
+constexpr void mat3_col1(mat_t<T, 3>& mat, const vec_t<T, 3>& col);
 
 //! Sets the third column of the ::mat3_t.
 template<typename T>
-constexpr void col2(mat_t<T, 3>& mat, const vec_t<T, 3>& col);
+constexpr void mat3_col2(mat_t<T, 3>& mat, const vec_t<T, 3>& col);
 
 //! Returns the x basis vector for the ::mat3_t.
 template<typename T>
-constexpr vec_t<T, 3> basis_x(const mat_t<T, 3>& mat);
+constexpr vec_t<T, 3> mat3_basis_x(const mat_t<T, 3>& mat);
 
 //! Returns the y basis vector for the ::mat3_t.
 template<typename T>
-constexpr vec_t<T, 3> basis_y(const mat_t<T, 3>& mat);
+constexpr vec_t<T, 3> mat3_basis_y(const mat_t<T, 3>& mat);
 
 //! Returns the z basis vector for the ::mat3_t.
 template<typename T>
-constexpr vec_t<T, 3> basis_z(const mat_t<T, 3>& mat);
+constexpr vec_t<T, 3> mat3_basis_z(const mat_t<T, 3>& mat);
 
 //! Sets the x basis vector for the ::mat3_t.
 template<typename T>
-constexpr void basis_x(mat_t<T, 3>& mat, const vec_t<T, 3>& basis);
+constexpr void mat3_basis_x(mat_t<T, 3>& mat, const vec_t<T, 3>& basis);
 
 //! Sets the y basis vector for the ::mat3_t.
 template<typename T>
-constexpr void basis_y(mat_t<T, 3>& mat, const vec_t<T, 3>& basis);
+constexpr void mat3_basis_y(mat_t<T, 3>& mat, const vec_t<T, 3>& basis);
 
 //! Sets the z basis vector for the ::mat3_t.
 template<typename T>
-constexpr void basis_z(mat_t<T, 3>& mat, const vec_t<T, 3>& basis);
+constexpr void mat3_basis_z(mat_t<T, 3>& mat, const vec_t<T, 3>& basis);
 
 //! Creates a mat_t<T, 3> from a fixed size array of the same type and
 //! dimension.
 template<typename T>
-mat_t<T, 3> from_arr(const T (&data)[9]);
+mat_t<T, 3> mat3_from_arr(const T (&data)[9]);
 
 //! Creates a mat_t<T, 3> from a pointer to an array of the same type.
 template<typename T>
-mat_t<T, 3> from_ptr(const T* data);
+mat_t<T, 3> mat3_from_ptr(const T* data);
 
 //! Returns a mat_t<T, 3> from a mat_t<T, 4>.
 //! \note The upper 3x3 part of the 4x4 matrix is returned.
 template<typename T>
-constexpr mat_t<T, 3> from_mat4(const mat_t<T, 4>& transform);
+constexpr mat_t<T, 3> mat3_from_mat4(const mat_t<T, 4>& transform);
 
 //! Returns a rotation about a given axis.
 //! \param axis The axis of rotation.
 //! \param radians The amount to rotate by in radians.
-mat3_t axis_angle(const vec3_t& axis, real_t radians);
+mat3_t mat3_rotation_axis(const vec3_t& axis, real_t radians);
 
 //! Returns a rotation about `x`, then `y`, then `z`.
-mat3_t rotation_xyz(real_t x, real_t y, real_t z);
+mat3_t mat3_rotation_xyz(real_t x, real_t y, real_t z);
 
 //! Returns a rotation about `z`, then `x`, then `y`.
 //! \note This is often useful for free-look cameras.
-mat3_t rotation_zxy(real_t x, real_t y, real_t z);
+mat3_t mat3_rotation_zxy(real_t x, real_t y, real_t z);
 
 //! Returns a rotation about the x axis.
-mat3_t rotation_x(real_t radians);
+mat3_t mat3_rotation_x(real_t radians);
 
 //! Returns a rotation about the y axis.
-mat3_t rotation_y(real_t radians);
+mat3_t mat3_rotation_y(real_t radians);
 
 //! Returns a rotation about the z axis.
-mat3_t rotation_z(real_t radians);
+mat3_t mat3_rotation_z(real_t radians);
 
 //! Returns a uniform scale martix.
-constexpr mat3_t scale(real_t scale);
+constexpr mat3_t mat3_scale(real_t scale);
 
 //! Returns a (potentially) non-uniform scale martix.
-constexpr mat3_t scale(const vec3_t& scale);
+constexpr mat3_t mat3_scale(real_t x, real_t y, real_t z);
+
+//! Returns a (potentially) non-uniform scale martix.
+constexpr mat3_t mat3_scale(const vec3_t& scale);
 
 //! Returns a ::mat3_t from a quaternion.
-constexpr mat3_t from_quat(const quat_t& quat);
-
-} // namespace mat3
-
-//! Encapsulates all mat_t<T, 4> related functionality.
-namespace mat4
-{
+constexpr mat3_t mat3_from_quat(const quat_t& quat);
 
 //! Performs a mapping from a row and column index to a single offset for
 //! ::mat4_t. \param r Row index. \param c Column index.
-constexpr index_t rc(index_t r, index_t c);
+constexpr index_t mat4_rc(index_t r, index_t c);
 
 //! Returns the first row of the ::mat4_t.
 template<typename T>
-constexpr vec_t<T, 4> row0(const mat_t<T, 4>& mat);
+constexpr vec_t<T, 4> mat4_row0(const mat_t<T, 4>& mat);
 
 //! Returns the second row of the ::mat4_t.
 template<typename T>
-constexpr vec_t<T, 4> row1(const mat_t<T, 4>& mat);
+constexpr vec_t<T, 4> mat4_row1(const mat_t<T, 4>& mat);
 
 //! Returns the third row of the ::mat4_t.
 template<typename T>
-constexpr vec_t<T, 4> row2(const mat_t<T, 4>& mat);
+constexpr vec_t<T, 4> mat4_row2(const mat_t<T, 4>& mat);
 
 //! Returns the fourth row of the ::mat4_t.
 template<typename T>
-constexpr vec_t<T, 4> row3(const mat_t<T, 4>& mat);
+constexpr vec_t<T, 4> mat4_row3(const mat_t<T, 4>& mat);
 
 //! Returns the first column of the ::mat4_t.
 template<typename T>
-constexpr vec_t<T, 4> col0(const mat_t<T, 4>& mat);
+constexpr vec_t<T, 4> mat4_col0(const mat_t<T, 4>& mat);
 
 //! Returns the second column of the ::mat4_t.
 template<typename T>
-constexpr vec_t<T, 4> col1(const mat_t<T, 4>& mat);
+constexpr vec_t<T, 4> mat4_col1(const mat_t<T, 4>& mat);
 
 //! Returns the third column of the ::mat4_t.
 template<typename T>
-constexpr vec_t<T, 4> col2(const mat_t<T, 4>& mat);
+constexpr vec_t<T, 4> mat4_col2(const mat_t<T, 4>& mat);
 
 //! Returns the fourth column of the ::mat4_t.
 template<typename T>
-constexpr vec_t<T, 4> col3(const mat_t<T, 4>& mat);
+constexpr vec_t<T, 4> mat4_col3(const mat_t<T, 4>& mat);
 
 //! Sets the first row of the ::mat4_t.
 template<typename T>
-constexpr void row0(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
+constexpr void mat4_row0(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
 
 //! Sets the second row of the ::mat4_t.
 template<typename T>
-constexpr void row1(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
+constexpr void mat4_row1(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
 
 //! Sets the third row of the ::mat4_t.
 template<typename T>
-constexpr void row2(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
+constexpr void mat4_row2(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
 
 //! Sets the fourth row of the ::mat4_t.
 template<typename T>
-constexpr void row3(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
+constexpr void mat4_row3(const mat_t<T, 4>& mat, const vec_t<T, 4>& row);
 
 //! Sets the first column of the ::mat4_t.
 template<typename T>
-constexpr void col0(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
+constexpr void mat4_col0(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
 
 //! Sets the second column of the ::mat4_t.
 template<typename T>
-constexpr void col1(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
+constexpr void mat4_col1(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
 
 //! Sets the third column of the ::mat4_t.
 template<typename T>
-constexpr void col2(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
+constexpr void mat4_col2(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
 
 //! Sets the fourth column of the ::mat4_t.
 template<typename T>
-constexpr void col3(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
+constexpr void mat4_col3(const mat_t<T, 4>& mat, const vec_t<T, 4>& col);
 
 //! Returns the x basis vector for the ::mat4_t.
 //! \note The fourth (w) element of the vector will be `0`.
 template<typename T>
-constexpr vec_t<T, 4> basis_x(const mat_t<T, 4>& mat);
+constexpr vec_t<T, 4> mat4_basis_x(const mat_t<T, 4>& mat);
 
 //! Returns the y basis vector for the ::mat4_t.
 //! \note The fourth (w) element of the vector will be `0`.
 template<typename T>
-constexpr vec_t<T, 4> basis_y(const mat_t<T, 4>& mat);
+constexpr vec_t<T, 4> mat4_basis_y(const mat_t<T, 4>& mat);
 
 //! Returns the z basis vector for the ::mat4_t.
 //! \note The fourth (w) element of the vector will be `0`.
 template<typename T>
-constexpr vec_t<T, 4> basis_z(const mat_t<T, 4>& mat);
+constexpr vec_t<T, 4> mat4_basis_z(const mat_t<T, 4>& mat);
 
 //! Returns the translation component of the ::mat4_t.
 //! \note The fourth (w) element of the vector will be `1`.
 template<typename T>
-constexpr vec_t<T, 4> translation(const mat_t<T, 4>& mat);
+constexpr vec_t<T, 4> mat4_translation(const mat_t<T, 4>& mat);
 
 //! Sets the x basis vector for the ::mat4_t.
 template<typename T>
-constexpr void basis_x(mat_t<T, 4>& mat, const vec_t<T, 4>& basis);
+constexpr void mat4_basis_x(mat_t<T, 4>& mat, const vec_t<T, 4>& basis);
 
 //! Sets the y basis vector for the ::mat4_t.
 template<typename T>
-constexpr void basis_y(mat_t<T, 4>& mat, const vec_t<T, 4>& basis);
+constexpr void mat4_basis_y(mat_t<T, 4>& mat, const vec_t<T, 4>& basis);
 
 //! Sets the z basis vector for the ::mat4_t.
 template<typename T>
-constexpr void basis_z(mat_t<T, 4>& mat, const vec_t<T, 4>& basis);
+constexpr void mat4_basis_z(mat_t<T, 4>& mat, const vec_t<T, 4>& basis);
 
 //! Sets the translation component for the ::mat4_t.
 //! \note The vec4_t should usually have its fourth (w) component set to `1`.
 template<typename T>
-constexpr void translation(mat_t<T, 4>& mat, const vec_t<T, 4>& translation);
+constexpr void mat4_translation(mat_t<T, 4>& mat, const vec_t<T, 4>& translation);
 
 //! Creates a mat_t<T, 4> from a fixed size array of the same type and
 //! dimension.
 template<typename T>
-mat_t<T, 4> from_arr(const T (&data)[16]);
+mat_t<T, 4> mat4_from_arr(const T (&data)[16]);
 
 //! Creates a mat_t<T, 3> from a pointer to an array of the same type.
 template<typename T>
-mat_t<T, 4> from_ptr(const T* data);
+mat_t<T, 4> mat4_from_ptr(const T* data);
 
 //! Returns a mat_t<T, 4> from a vec_t<T, 3>.
 //! \note The upper 3x3 part of the 4x4 matrix is the identity.
 template<typename T>
-constexpr mat_t<T, 4> from_vec3(const vec_t<T, 3>& translation);
+constexpr mat_t<T, 4> mat4_from_vec3(const vec_t<T, 3>& translation);
 
 //! Returns a mat_t<T, 4> from a mat_t<T, 3>.
 //! \note The translation part of the 4x4 matrix will be `(0, 0, 0, 1)`.
 template<typename T>
-constexpr mat_t<T, 4> from_mat3(const mat_t<T, 3>& rotation);
+constexpr mat_t<T, 4> mat4_from_mat3(const mat_t<T, 3>& rotation);
 
 //! Returns a mat_t<T, 4> from a mat_t<T, 3> and a vec_t<T, 3>.
 template<typename T>
-constexpr mat_t<T, 4> from_mat3_vec3(
+constexpr mat_t<T, 4> mat4_from_mat3_vec3(
   const mat_t<T, 3>& rotation, const vec_t<T, 3>& translation);
 
 //! Returns a mat_t<T, 4> from an affine_t.
 //! \note The effect of the transformation will be the same, it is only the type
 //! that changes.
-constexpr mat4_t from_affine(const affine_t& affine);
+constexpr mat4_t mat4_from_affine(const affine_t& affine);
 
 //! Returns a shear transformation about the `x` axis in `y` and/or `z`.
 template<typename T>
-constexpr mat_t<T, 4> shear_x(T y, T z);
+constexpr mat_t<T, 4> mat4_shear_x(T y, T z);
 
 //! Returns a shear transformation about the `y` axis in `x` and/or `z`.
 template<typename T>
-constexpr mat_t<T, 4> shear_y(T x, T z);
+constexpr mat_t<T, 4> mat4_shear_y(T x, T z);
 
 //! Returns a shear transformation about the `z` axis in `x` and/or `y`.
 template<typename T>
-constexpr mat_t<T, 4> shear_z(T x, T y);
-
-} // namespace mat4
-
-//! Encapsulates all point2_t and point3_t related functionality.
-namespace point
-{
+constexpr mat_t<T, 4> mat4_shear_z(T x, T y);
 
 //! Returns if two point2_t types are the same as each other (within a certain
 //! tolerance).
-bool equal(
+bool point_equal(
   const point2_t& lhs, const point2_t& rhs,
   real_t epsilon = std::numeric_limits<real_t>::epsilon());
 
 //! Returns if two point3_t types are the same as each other (within a certain
 //! tolerance).
-bool equal(
+bool point_equal(
   const point3_t& lhs, const point3_t& rhs,
   real_t epsilon = std::numeric_limits<real_t>::epsilon());
 
 //! Returns the average position of an array of points.
 //! \note This is provided as adding points together is not supported.
 template<typename point_t>
-point_t average(const point_t* points, index_t count);
+point_t point_average(const point_t* points, index_t count);
 
 //! Returns the average position of a parameter pack of points.
 //! \note This is provided as adding points together is not supported.
 template<typename... points_t>
-auto average_fold(points_t&&... points);
-
-} // namespace point
-
-//! Encapsulates all quat_t related functionality.
-namespace quat
-{
+auto point_average_fold(points_t&&... points);
 
 //! Returns the dot product of two quaternions.
 //! \note The corresponding scalar parts are multiplied together and then
 //! summed.
-constexpr real_t dot(const quat_t& lhs, const quat_t& rhs);
+constexpr real_t quat_dot(const quat_t& lhs, const quat_t& rhs);
 
 //! Returns the length (magnitude) squared of the quaternion.
-constexpr real_t length_sq(const quat_t& quat);
+constexpr real_t quat_length_sq(const quat_t& quat);
 
 //! Returns the length (magnitude) of the quaternion.
-real_t length(const quat_t& quat);
+real_t quat_length(const quat_t& quat);
 
 //! Returns the conjugate of the quaternion.
 //! \note The sign of the imaginary parts are flipped.
 //! \note Represents the same rotation as the initial quaternion in the reverse
 //! direction.
-constexpr quat_t conjugate(const quat_t& quat);
+constexpr quat_t quat_conjugate(const quat_t& quat);
 
 //! Returns a quaternion representing a rotation about the given axis.
 //! \param axis The axis of rotation.
 //! \param radians The amount to rotate by in radians.
-quat_t axis_angle(const vec3_t& axis, real_t radians);
+quat_t quat_rotation_axis(const vec3_t& axis, real_t radians);
 
 //! Returns a rotation about z, then x, then y.
-quat_t rotation_zxy(real_t x, real_t y, real_t z);
+quat_t quat_rotation_zxy(real_t x, real_t y, real_t z);
 
 //! Returns the input quaternion normalized.
-quat_t normalize(const quat_t& quat);
+quat_t quat_normalize(const quat_t& quat);
 
 //! Returns the inverse of the quaternion.
 //! \note This is the same as the conjugate if the quaternion is normalized
 //! (unit length).
-quat_t inverse(const quat_t& quat);
+quat_t quat_inverse(const quat_t& quat);
 
 //! Returns the input vector rotated by the given quaternion.
-vec3_t rotate(const quat_t& quat, const vec3_t& v);
+vec3_t quat_rotate(const quat_t& quat, const vec3_t& v);
 
 //! Returns the result of a spherical interpolation between the two quaternions
 //! by ratio `t`.
 //! \note `t` should be in the range `[0-1]`.
-quat_t slerp(const quat_t& lhs, const quat_t& rhs, real_t t);
+quat_t quat_slerp(const quat_t& lhs, const quat_t& rhs, real_t t);
 
 //! Converts a rotation matrix to a quaternion.
 //! \note Ensure ::mat3_t is a valid rotation.
-quat_t from_mat3(const mat3_t& mat);
-
-} // namespace quat
-
-//! Encapsulates all affine_t related functionality.
-namespace affine
-{
+quat_t quat_from_mat3(const mat3_t& mat);
 
 //! Writes the values stored in the affine_t to an array of the same type and
 //! dimension.
 //! \note affine_t uses a ::mat3_t and a ::vec3_t internally.
-void to_arr(const affine_t& affine, real_t (&data)[12]);
+void quat_to_arr(const affine_t& affine, real_t (&data)[12]);
 
 //! Creates an affine_t from a fixed size array of the same type and dimension.
 //! \note affine_t uses a ::mat3_t and a ::vec3_t internally.
-affine_t from_arr(const real_t (&data)[12]);
+affine_t affine_from_arr(const real_t (&data)[12]);
 
 //! Creates an affine_t from a pointer to an array of the same type.
 //! \note Ensure that the array has at least 12 elements from where it is read.
-affine_t from_ptr(const real_t* data);
+affine_t affine_from_ptr(const real_t* data);
 
 //! Returns an affine_t from a ::mat4_t.
 //! \note Ensure that the ::mat4_t holds a valid affine transformation
 //! (translation/scale/rotation) and not a non-affine transformation such as a
 //! projection.
-affine_t from_mat4(const mat4_t& mat);
+affine_t affine_from(const mat4_t& mat);
 
 //! Returns an affine_t from a ::mat3_t.
 //! \note Ensure that the ::mat3_t holds a valid affine transformation
 //! (scale/rotation)
 //! \note The translation portion of affine_t will be zero.
-affine_t from_mat3(const mat3_t& mat);
+affine_t affine_from(const mat3_t& mat);
 
 //! Returns an affine_t from a ::mat3_t and a ::vec3_t.
 //! \note Ensure that the ::mat3_t holds a valid affine transformation
 //! (scale/rotation)
-affine_t from_mat3_vec3(const mat3_t& mat, const vec3_t& vec);
+affine_t affine_from(const mat3_t& mat, const vec3_t& vec);
 
 //! Returns an affine_t from a ::vec3_t.
 //! \note The rotation part will be initialized to the identity.
-affine_t from_vec3(const vec3_t& vec);
+affine_t affine_from(const vec3_t& vec);
 
 //! Returns an affine_t from a point3_t.
 //! \note The rotation part will be initialized to the identity.
-affine_t from_point3(const point3_t& point);
+affine_t affine_from(const point3_t& point);
 
 //! Returns the result of two affine_t types multiplied together.
 //! \note `lhs` is performed first, then `rhs`
-affine_t mul(const affine_t& lhs, const affine_t& rhs);
+affine_t affine_mul(const affine_t& lhs, const affine_t& rhs);
 
 //! Returns the inverse of the affine_t.
 //! ```{.cpp}
@@ -779,33 +748,33 @@ affine_t mul(const affine_t& lhs, const affine_t& rhs);
 //! ```
 //! \note The inverse of affine_t is just the transpose of the rotation part,
 //! so ensure it holds a valid affine transformation (axes are orthogonal).
-affine_t inverse(const affine_t& affine);
+affine_t affine_inverse(const affine_t& affine);
 
 //! Returns the input direction transformed by the affine_t.
 //! \note No translation occurs, just rotation.
-vec3_t transform_dir(const affine_t& affine, const vec3_t& direction);
+vec3_t affine_transform_dir(const affine_t& affine, const vec3_t& direction);
 
 //! Returns the input position transformed by the affine_t.
 //! \note No rotation occurs, just translation.
-vec3_t transform_pos(const affine_t& affine, const vec3_t& position);
+vec3_t affine_transform_pos(const affine_t& affine, const vec3_t& position);
 
 //! Returns the input position transformed by the affine_t.
 //! \note No rotation occurs, just translation.
-point3_t transform_pos(const affine_t& affine, const point3_t& position);
+point3_t affine_transform_pos(const affine_t& affine, const point3_t& position);
 
 //! Returns the input direction transformed by the inverse of the affine_t.
 //! \note No translation occurs, just rotation.
-vec3_t inv_transform_dir(const affine_t& affine, const vec3_t& direction);
+vec3_t affine_inv_transform_dir(
+  const affine_t& affine, const vec3_t& direction);
 
 //! Returns the input position transformed by the inverse of the affine_t.
 //! \note No rotation occurs, just translation.
-vec3_t inv_transform_pos(const affine_t& affine, const vec3_t& position);
+vec3_t affine_inv_transform_pos(const affine_t& affine, const vec3_t& position);
 
 //! Returns the input position transformed by the inverse of the affine_t.
 //! \note No rotation occurs, just translation.
-point3_t inv_transform_pos(const affine_t& affine, const point3_t& position);
-
-} // namespace affine
+point3_t affine_inv_transform_pos(
+  const affine_t& affine, const point3_t& position);
 
 } // namespace as
 

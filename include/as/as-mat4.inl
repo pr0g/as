@@ -28,7 +28,7 @@ AS_API constexpr index_t mat_t<T, 4>::cols()
 template<typename T>
 AS_API constexpr mat_t<T, 4> mat_t<T, 4>::identity()
 {
-  return mat::identity<T, 4>();
+  return mat_identity<T, 4>();
 }
 
 // clang-format off

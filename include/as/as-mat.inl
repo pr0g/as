@@ -1,11 +1,8 @@
 namespace as
 {
 
-namespace mat
-{
-
 template<typename T, index_t d>
-AS_API mat_t<T, d> identity()
+AS_API mat_t<T, d> mat_identity()
 {
   mat_t<T, d> identity{};
   for (index_t i = 0; i < mat_t<T, d>::size(); i += d + 1) {
@@ -14,8 +11,6 @@ AS_API mat_t<T, d> identity()
 
   return identity;
 }
-
-} // namespace mat
 
 template<typename T, index_t d>
 AS_API constexpr index_t mat_t<T, d>::dim()
@@ -44,7 +39,7 @@ AS_API constexpr index_t mat_t<T, d>::cols()
 template<typename T, index_t d>
 AS_API mat_t<T, d> mat_t<T, d>::identity()
 {
-  return mat::identity<T, d>();
+  return mat_identity<T, d>();
 }
 
 template<typename T, index_t d>

@@ -8,10 +8,6 @@
 namespace as
 {
 
-//! Encapsulates all projection operations.
-namespace view
-{
-
 //! Returns a mat4_t representing a perspective projection matrix.
 //! \note Uses OpenGL NDC space (-1, 1) and a right handed coordinate system.
 //! \note This is the OpenGL default.
@@ -131,8 +127,6 @@ mat4_t ortho_vulkan_rh(
 //! \param f The far plane of the clipping volume.
 mat4_t ortho_vulkan_lh(
   real_t l, real_t r, real_t b, real_t t, real_t n, real_t f);
-
-} // namespace view
 
 } // namespace as
 
