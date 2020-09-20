@@ -20,13 +20,13 @@ static_assert(false, "Must define only AS_COL_MAJOR or AS_ROW_MAJOR");
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
 //! A matrix class template parameterized by type and dimension.
-template<typename T, index_t d>
-struct mat_t
+template<typename T, index d>
+struct mat
 {
   //! Type alias for template parameter `T`.
   using value_type = T;
 
-  mat_t() noexcept = default;
+  mat() noexcept = default;
 
   template<typename...>
   struct typelist
@@ -38,10 +38,9 @@ struct mat_t
   //! \note Passing the wrong number of elements will result in a compile
   //! error.
   template<
-    typename... Args,
-    typename = std::enable_if_t<
-      !std::is_same<typelist<mat_t>, typelist<std::decay_t<Args>...>>::value>>
-  constexpr mat_t(Args... args) noexcept : elem_rc{std::forward<Args>(args)...}
+    typename... Args, typename = std::enable_if_t<!std::is_same<
+                        typelist<mat>, typelist<std::decay_t<Args>...>>::value>>
+  constexpr mat(Args... args) noexcept : elem_rc{std::forward<Args>(args)...}
   {
     static_assert(
       sizeof...(args) == size(), "Incorrent number of arguments for dimension");
@@ -50,29 +49,29 @@ struct mat_t
   //! Returns a mutable reference to the value at the given index.
   //! \note Can only be called on a mutable lvalue object.
   //! \warning No bounds checking is performed.
-  constexpr T& operator[](index_t i) &;
+  constexpr T& operator[](index i) &;
   //! Returns a const reference to the value at the given index.
   //! \note Can only be called on a const lvalue object.
   //! \warning No bounds checking is performed.
-  constexpr const T& operator[](index_t i) const&;
+  constexpr const T& operator[](index i) const&;
   //! Returns a copy of the value at the given index.
   //! \note Can only be called on an rvalue object.
   //! \warning No bounds checking is performed.
-  constexpr const T operator[](index_t i) &&;
+  constexpr const T operator[](index i) &&;
 
   //! Returns the dimension of the matrix.
   //! \note This is equal to to the number of rows or columns.
-  constexpr static index_t dim();
+  constexpr static index dim();
   //! Returns the number of columns in the matrix.
-  constexpr static index_t cols();
+  constexpr static index cols();
   //! Returns the number of rows in the matrix.
-  constexpr static index_t rows();
+  constexpr static index rows();
   //! Returns the number of elements in the matrix.
   //! \note This is equal to `rows() * cols()` or `dim() * dim()`.
-  constexpr static index_t size();
+  constexpr static index size();
 
   //! Returns the identity matrix.
-  static mat_t<T, d> identity();
+  static mat<T, d> identity();
 
 private:
   T elem_rc[size()]; //!< Elements of the matrix.
@@ -81,27 +80,27 @@ private:
 //! Returns the result of `lhs * rhs`.
 //! \note Matrix multiplication order is determined by `AS_ROW_MAJOR` or
 //! `AS_COL_MAJOR` being defined.
-template<typename T, index_t d>
-const mat_t<T, d> operator*(const mat_t<T, d>& lhs, const mat_t<T, d>& rhs);
+template<typename T, index d>
+const mat<T, d> operator*(const mat<T, d>& lhs, const mat<T, d>& rhs);
 
-template<typename T, index_t d>
+template<typename T, index d>
 #ifdef AS_ROW_MAJOR
 //! Pre-multiplies the vector by the matrix and returns the result.
 //! \note This signature is only available when `AS_ROW_MAJOR` is defined.
-const vec_t<T, d> operator*(const vec_t<T, d>& v, const mat_t<T, d>& m);
+const vec<T, d> operator*(const vec<T, d>& v, const mat<T, d>& m);
 #elif defined AS_COL_MAJOR
 //! Post-multiplies the vector by the matrix and returns the result.
 //! \note This signature is only available when `AS_COL_MAJOR` is defined.
-const vec_t<T, d> operator*(const mat_t<T, d>& m, const vec_t<T, d>& v);
+const vec<T, d> operator*(const mat<T, d>& m, const vec<T, d>& v);
 #endif // AS_ROW_MAJOR ? AS_COL_MAJOR
 
 //! Returns a new matrix with each element multiplied by a scalar.
-template<typename T, index_t d>
-constexpr const mat_t<T, d> operator*(const mat_t<T, d>& m, T scalar);
+template<typename T, index d>
+constexpr const mat<T, d> operator*(const mat<T, d>& m, T scalar);
 
 //! Performs a multiplication assignment of a matrix and a scalar.
-template<typename T, index_t d>
-constexpr mat_t<T, d>& operator*=(mat_t<T, d>& m, T scalar);
+template<typename T, index d>
+constexpr mat<T, d>& operator*=(mat<T, d>& m, T scalar);
 
 } // namespace as
 

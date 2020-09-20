@@ -16,7 +16,7 @@ namespace as
 
 //! Alias for `ptrdiff_t` (signed integer).
 //! \note Used primarily for loop counters
-using index_t = ptrdiff_t;
+using index = ptrdiff_t;
 
 // static assert to check library floating p precision has been set
 // correctly
@@ -29,8 +29,8 @@ static_assert(
 
 #ifdef AS_PRECISION_FLOAT
 //! An alias for `float` if `AS_PRECISION_FLOAT` is defined.
-using real_t = float;
-//! A user-defined literal to be used for ::real_t.
+using real = float;
+//! A user-defined literal to be used for ::real.
 //! \note Returns `float` when `AS_PRECISION_FLOAT` is defined.
 //! \note Useful when using literals where precision is customizable.
 constexpr float operator"" _r(long double val)
@@ -41,8 +41,8 @@ constexpr float operator"" _r(long double val)
 
 #ifdef AS_PRECISION_DOUBLE
 //! An alias for `double` if `AS_PRECISION_DOUBLE` is defined.
-using real_t = double;
-//! A user-defined literal to be used for ::real_t.
+using real = double;
+//! A user-defined literal to be used for ::real.
 //! \note Returns `double` when `AS_PRECISION_DOUBLE` is defined.
 //! \note Useful when using literals where precision is customizable.
 constexpr double operator"" _r(long double val)

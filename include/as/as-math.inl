@@ -45,15 +45,15 @@ AS_API constexpr T snap(const T in, const T step)
   return std::floor((in / step) + T(0.5)) * step;
 }
 
-AS_API constexpr real_t deg_to_rad(const real_t degrees)
+AS_API constexpr real deg_to_rad(const real degrees)
 {
-  constexpr real_t k_deg_to_rad = kPi / 180.0_r;
+  constexpr real k_deg_to_rad = kPi / 180.0_r;
   return degrees * k_deg_to_rad;
 }
 
-AS_API constexpr real_t rad_to_deg(const real_t radians)
+AS_API constexpr real rad_to_deg(const real radians)
 {
-  constexpr real_t k_rad_to_deg = 180.0_r / kPi;
+  constexpr real k_rad_to_deg = 180.0_r / kPi;
   return radians * k_rad_to_deg;
 }
 
@@ -61,19 +61,19 @@ AS_API constexpr real_t rad_to_deg(const real_t radians)
 // ref:
 // https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
 AS_API inline bool almost_equal(
-  const real_t a, const real_t b,
-  const real_t max_diff /*= std::numeric_limits<real_t>::epsilon()*/,
-  const real_t max_rel_diff /*= std::numeric_limits<real_t>::epsilon()*/)
+  const real a, const real b,
+  const real max_diff /*= std::numeric_limits<real>::epsilon()*/,
+  const real max_rel_diff /*= std::numeric_limits<real>::epsilon()*/)
 {
   // check if the numbers are really close
   // needed when comparing numbers near zero
-  const real_t diff = std::abs(a - b);
+  const real diff = std::abs(a - b);
 
   if (diff <= max_diff) {
     return true;
   }
 
-  const real_t largest = max(std::abs(a), std::abs(b));
+  const real largest = max(std::abs(a), std::abs(b));
 
   // find relative difference
   return diff <= largest * max_rel_diff;

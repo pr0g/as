@@ -13,13 +13,13 @@ namespace as
 {
 
 //! A geometric vector class template parameterized by type and dimension.
-template<typename T, index_t d>
-struct vec_t
+template<typename T, index d>
+struct vec
 {
   //! Type alias for template parameter `T`.
   using value_type = T;
 
-  vec_t() noexcept = default;
+  vec() noexcept = default;
 
   template<typename...>
   struct typelist
@@ -31,10 +31,9 @@ struct vec_t
   //! \note Passing the wrong number of elements will result in a compile
   //! error.
   template<
-    typename... Args,
-    typename = std::enable_if_t<
-      !std::is_same<typelist<vec_t>, typelist<std::decay_t<Args>...>>::value>>
-  constexpr vec_t(Args... args) noexcept : elem{std::forward<Args>(args)...}
+    typename... Args, typename = std::enable_if_t<!std::is_same<
+                        typelist<vec>, typelist<std::decay_t<Args>...>>::value>>
+  constexpr vec(Args... args) noexcept : elem{std::forward<Args>(args)...}
   {
     static_assert(
       sizeof...(args) == size(), "Incorrent number of arguments for dimension");
@@ -43,243 +42,243 @@ struct vec_t
   //! Returns a mutable reference to the value at the given index.
   //! \note Can only be called on a mutable lvalue object.
   //! \warning No bounds checking is performed.
-  constexpr T& operator[](index_t i) &;
+  constexpr T& operator[](index i) &;
   //! Returns a const reference to the value at the given index.
   //! \note Can only be called on a const lvalue object.
   //! \warning No bounds checking is performed.
-  constexpr const T& operator[](index_t i) const&;
+  constexpr const T& operator[](index i) const&;
   //! Returns a copy of the value at the given index.
   //! \note Can only be called on an rvalue object.
   //! \warning No bounds checking is performed.
-  constexpr const T operator[](index_t i) &&;
+  constexpr const T operator[](index i) &&;
 
   //! Returns the number of elements in the vector.
-  constexpr static index_t size();
+  constexpr static index size();
 
 private:
   T elem[size()]; //!< Elements of the vector.
 };
 
-//! Partial template specialization of \ref vec_t for a two dimensional vector.
+//! Partial template specialization of \ref vec for a two dimensional vector.
 template<typename T>
-struct vec_t<T, 2>
+struct vec<T, 2>
 {
   //! Type alias for template parameter `T`.
   using value_type = T;
 
-  vec_t() noexcept = default;
+  vec() noexcept = default;
 
-  //! Constructs vec_t with `(xy_, xy_)`.
-  constexpr explicit vec_t(T xy_);
-  //! Constructs vec_t with `(x_, y_)`.
-  constexpr vec_t(T x_, T y_);
+  //! Constructs vec with `(xy_, xy_)`.
+  constexpr explicit vec(T xy_);
+  //! Constructs vec with `(x_, y_)`.
+  constexpr vec(T x_, T y_);
 
   //! Returns a mutable reference to the value at the given index.
   //! \note Can only be called on a mutable lvalue object.
   //! \warning No bounds checking is performed.
-  T& operator[](index_t i) &;
+  T& operator[](index i) &;
   //! Returns a const reference to the value at the given index.
   //! \note Can only be called on a const lvalue object.
   //! \warning No bounds checking is performed.
-  const T& operator[](index_t i) const&;
+  const T& operator[](index i) const&;
   //! Returns a copy of the value at the given index.
   //! \note Can only be called on an rvalue object.
   //! \warning No bounds checking is performed.
-  const T operator[](index_t i) &&;
+  const T operator[](index i) &&;
 
   //! Returns `2`.
-  constexpr static index_t size();
+  constexpr static index size();
 
   //! Returns `(x, 0)`.
   //! \param x Optional parameter for the length of the axis, defaults to 1.
-  constexpr static vec_t<T, 2> axis_x(T x = T(1.0));
+  constexpr static vec<T, 2> axis_x(T x = T(1.0));
   //! Returns `(0, y)`.
   //! \param y Optional parameter for the length of the axis, defaults to 1.
-  constexpr static vec_t<T, 2> axis_y(T y = T(1.0));
+  constexpr static vec<T, 2> axis_y(T y = T(1.0));
   //! Returns `(0, 0)`.
-  constexpr static vec_t<T, 2> zero();
+  constexpr static vec<T, 2> zero();
   //! Returns `(1, 1)`.
-  constexpr static vec_t<T, 2> one();
+  constexpr static vec<T, 2> one();
   //! Returns <tt>(T\::max, T\::max)</tt>.
   //! All elements are initialized to the largest representable value of the
   //! type T.
-  constexpr static vec_t<T, 2> max();
+  constexpr static vec<T, 2> max();
   //! Returns <tt>(T\::min, T\::min)</tt>.
   //! All elements are initialized to the smallest representable value of the
   //! type T.
-  constexpr static vec_t<T, 2> min();
+  constexpr static vec<T, 2> min();
   //! Returns <tt>(T\::lowest, T\::lowest)</tt>.
   //! All elements are initialized to the lowest representable value of the
   //! type T.
-  constexpr static vec_t<T, 2> lowest();
+  constexpr static vec<T, 2> lowest();
 
   T x; //!< Synonymous with `operator[](0)` value.
   T y; //!< Synonymous with `operator[](1)` value.
 
 private:
-  static T vec_t::*elem[size()];
+  static T vec::*elem[size()];
 };
 
 template<typename T>
-T vec_t<T, 2>::*vec_t<T, 2>::elem[size()] = {&vec_t<T, 2>::x, &vec_t<T, 2>::y};
+T vec<T, 2>::*vec<T, 2>::elem[size()] = {&vec<T, 2>::x, &vec<T, 2>::y};
 
-//! Type alias for a two dimensional vector of type ::real_t.
-using vec2_t = vec_t<real_t, 2>;
+//! Type alias for a two dimensional vector of type ::real.
+using vec2 = vec<real, 2>;
 //! Type alias for a two dimensional vector of type `float`.
-using vec2f_t = vec_t<float, 2>;
+using vec2f = vec<float, 2>;
 //! Type alias for a two dimensional vector of type `double`.
-using vec2d_t = vec_t<double, 2>;
+using vec2d = vec<double, 2>;
 //! Type alias for a two dimensional vector of type `int32_t`.
-using vec2i_t = vec_t<int32_t, 2>;
+using vec2i = vec<int32_t, 2>;
 //! Type alias for a two dimensional vector of type `int64_t`.
-using vec2l_t = vec_t<int64_t, 2>;
+using vec2l = vec<int64_t, 2>;
 
-//! Partial template specialization of \ref vec_t for a three dimensional
+//! Partial template specialization of \ref vec for a three dimensional
 //! vector.
 template<typename T>
-struct vec_t<T, 3>
+struct vec<T, 3>
 {
   //! Type alias for template parameter `T`.
   using value_type = T;
 
-  vec_t() noexcept = default;
+  vec() noexcept = default;
 
-  //! Constructs vec_t with `(xyz_, xyz_, xyz_)`.
-  constexpr explicit vec_t(T xyz_);
-  //! Constructs vec_t with `(xy_.x, xy_.y, z_)`.
-  constexpr vec_t(const vec_t<T, 2>& xy_, T z_);
-  //! Constructs vec_t with `(x_, y_, z_)`.
-  constexpr vec_t(T x_, T y_, T z_);
+  //! Constructs vec with `(xyz_, xyz_, xyz_)`.
+  constexpr explicit vec(T xyz_);
+  //! Constructs vec with `(xy_.x, xy_.y, z_)`.
+  constexpr vec(const vec<T, 2>& xy_, T z_);
+  //! Constructs vec with `(x_, y_, z_)`.
+  constexpr vec(T x_, T y_, T z_);
 
   //! Returns a mutable reference to the value at the given index.
   //! \note Can only be called on a mutable lvalue object.
   //! \warning No bounds checking is performed.
-  T& operator[](index_t i) &;
+  T& operator[](index i) &;
   //! Returns a const reference to the value at the given index.
   //! \note Can only be called on a const lvalue object.
   //! \warning No bounds checking is performed.
-  const T& operator[](index_t i) const&;
+  const T& operator[](index i) const&;
   //! Returns a copy of the value at the given index.
   //! \note Can only be called on an rvalue object.
   //! \warning No bounds checking is performed.
-  const T operator[](index_t i) &&;
+  const T operator[](index i) &&;
 
   //! Returns `3`.
-  constexpr static index_t size();
+  constexpr static index size();
 
   //! Returns `(x, 0, 0)`.
   //! \param x Optional parameter for the length of the axis, defaults to 1.
-  constexpr static vec_t<T, 3> axis_x(T x = T(1.0));
+  constexpr static vec<T, 3> axis_x(T x = T(1.0));
   //! Returns `(0, y, 0)`.
   //! \param y Optional parameter for the length of the axis, defaults to 1.
-  constexpr static vec_t<T, 3> axis_y(T y = T(1.0));
+  constexpr static vec<T, 3> axis_y(T y = T(1.0));
   //! Returns `(0, 0, z)`.
   //! \param z Optional parameter for the length of the axis, defaults to 1.
-  constexpr static vec_t<T, 3> axis_z(T z = T(1.0));
+  constexpr static vec<T, 3> axis_z(T z = T(1.0));
   //! Returns `(0, 0, 0)`.
-  constexpr static vec_t<T, 3> zero();
+  constexpr static vec<T, 3> zero();
   //! Returns `(1, 1, 1)`.
-  constexpr static vec_t<T, 3> one();
+  constexpr static vec<T, 3> one();
   //! Returns <tt>(T\::max, T\::max, T\::max)</tt>.
   //! All elements are initialized to the largest representable value of the
   //! type T.
-  constexpr static vec_t<T, 3> max();
+  constexpr static vec<T, 3> max();
   //! Returns <tt>(T\::min, T\::min, T\::min)</tt>.
   //! All elements are initialized to the smallest representable value of the
   //! type T.
-  constexpr static vec_t<T, 3> min();
+  constexpr static vec<T, 3> min();
   //! Returns <tt>(T\::lowest, T\::lowest, T\::lowest)</tt>.
   //! All elements are initialized to the lowest representable value of the
   //! type T.
-  constexpr static vec_t<T, 3> lowest();
+  constexpr static vec<T, 3> lowest();
 
   T x; //!< Synonymous with `operator[](0)` value.
   T y; //!< Synonymous with `operator[](1)` value.
   T z; //!< Synonymous with `operator[](2)` value.
 
 private:
-  static T vec_t::*elem[size()];
+  static T vec::*elem[size()];
 };
 
 template<typename T>
-T vec_t<T, 3>::*vec_t<T, 3>::elem[size()] = {
-  &vec_t<T, 3>::x, &vec_t<T, 3>::y, &vec_t<T, 3>::z};
+T vec<T, 3>::*vec<T, 3>::elem[size()] = {
+  &vec<T, 3>::x, &vec<T, 3>::y, &vec<T, 3>::z};
 
-//! Type alias for a three dimensional vector of type ::real_t.
-using vec3_t = vec_t<real_t, 3>;
+//! Type alias for a three dimensional vector of type ::real.
+using vec3 = vec<real, 3>;
 //! Type alias for a three dimensional vector of type `float`.
-using vec3f_t = vec_t<float, 3>;
+using vec3f = vec<float, 3>;
 //! Type alias for a three dimensional vector of type `double`.
-using vec3d_t = vec_t<double, 3>;
+using vec3d = vec<double, 3>;
 //! Type alias for a three dimensional vector of type `int32_t`.
-using vec3i_t = vec_t<int32_t, 3>;
+using vec3i = vec<int32_t, 3>;
 //! Type alias for a three dimensional vector of type `int64_t`.
-using vec3l_t = vec_t<int64_t, 3>;
+using vec3l = vec<int64_t, 3>;
 
-//! Partial template specialization of \ref vec_t for a four dimensional vector.
+//! Partial template specialization of \ref vec for a four dimensional vector.
 template<typename T>
-struct vec_t<T, 4>
+struct vec<T, 4>
 {
   //! Type alias for template parameter `T`.
   using value_type = T;
 
-  vec_t() noexcept = default;
+  vec() noexcept = default;
 
-  //! Constructs vec_t with `(xyzw_, xyzw_, xyzw_, xyzw_)`.
-  constexpr explicit vec_t(T xyzw_);
-  //! Constructs vec_t with `(xyz_.x, xyz_.y, xyz_.z, w_)`.
-  constexpr vec_t(const vec_t<T, 3>& xyz_, T w_);
-  //! Constructs vec_t with `(xy_.x, xy_.y, z_, w_)`.
-  constexpr vec_t(const vec_t<T, 2>& xy_, T z_, T w_);
-  //! Constructs vec_t with `(xy_.x, xy_.y, zw_.z, zw_.w)`.
-  constexpr vec_t(const vec_t<T, 2>& xy_, const vec_t<T, 2>& zw_);
-  //! Constructs vec_t with `(x_, y_, z_, w_)`.
-  constexpr vec_t(T x_, T y_, T z_, T w_);
+  //! Constructs vec with `(xyzw_, xyzw_, xyzw_, xyzw_)`.
+  constexpr explicit vec(T xyzw_);
+  //! Constructs vec with `(xyz_.x, xyz_.y, xyz_.z, w_)`.
+  constexpr vec(const vec<T, 3>& xyz_, T w_);
+  //! Constructs vec with `(xy_.x, xy_.y, z_, w_)`.
+  constexpr vec(const vec<T, 2>& xy_, T z_, T w_);
+  //! Constructs vec with `(xy_.x, xy_.y, zw_.z, zw_.w)`.
+  constexpr vec(const vec<T, 2>& xy_, const vec<T, 2>& zw_);
+  //! Constructs vec with `(x_, y_, z_, w_)`.
+  constexpr vec(T x_, T y_, T z_, T w_);
 
   //! Returns a mutable reference to the value at the given index.
   //! \note Can only be called on a mutable lvalue object.
   //! \warning No bounds checking is performed.
-  T& operator[](index_t i) &;
+  T& operator[](index i) &;
   //! Returns a const reference to the value at the given index.
   //! \note Can only be called on a const lvalue object.
   //! \warning No bounds checking is performed.
-  const T& operator[](index_t i) const&;
+  const T& operator[](index i) const&;
   //! Returns a copy of the value at the given index.
   //! \note Can only be called on an rvalue object.
   //! \warning No bounds checking is performed.
-  const T operator[](index_t i) &&;
+  const T operator[](index i) &&;
 
   //! Returns `4`.
-  constexpr static index_t size();
+  constexpr static index size();
 
   //! Returns `(x, 0, 0, 0)`.
   //! \param x Optional parameter for the length of the axis, defaults to 1.
-  constexpr static vec_t<T, 4> axis_x(T x = T(1.0));
+  constexpr static vec<T, 4> axis_x(T x = T(1.0));
   //! Returns `(0, y, 0, 0)`.
   //! \param y Optional parameter for the length of the axis, defaults to 1.
-  constexpr static vec_t<T, 4> axis_y(T y = T(1.0));
+  constexpr static vec<T, 4> axis_y(T y = T(1.0));
   //! Returns `(0, 0, z, 0)`.
   //! \param z Optional parameter for the length of the axis, defaults to 1.
-  constexpr static vec_t<T, 4> axis_z(T z = T(1.0));
+  constexpr static vec<T, 4> axis_z(T z = T(1.0));
   //! Returns `(0, 0, 0, w)`.
   //! \param w Optional parameter for the length of the axis, defaults to 1.
-  constexpr static vec_t<T, 4> axis_w(T w = T(1.0));
+  constexpr static vec<T, 4> axis_w(T w = T(1.0));
   //! Returns `(0, 0, 0, 0)`.
-  constexpr static vec_t<T, 4> zero();
+  constexpr static vec<T, 4> zero();
   //! Returns `(1, 1, 1, 1)`.
-  constexpr static vec_t<T, 4> one();
+  constexpr static vec<T, 4> one();
   //! Returns <tt>(T\::max, T\::max, T\::max, T\::max)</tt>.
   //! All elements are initialized to the largest representable value of the
   //! type T.
-  constexpr static vec_t<T, 4> max();
+  constexpr static vec<T, 4> max();
   //! Returns <tt>(T\::min, T\::min, T\::min, T\::min)</tt>.
   //! All elements are initialized to the smallest representable value of the
   //! type T.
-  constexpr static vec_t<T, 4> min();
+  constexpr static vec<T, 4> min();
   //! Returns <tt>(T\::lowest, T\::lowest, T\::lowest, T\::lowest)</tt>.
   //! All elements are initialized to the lowest representable value of the
   //! type T.
-  constexpr static vec_t<T, 4> lowest();
+  constexpr static vec<T, 4> lowest();
 
   T x; //!< Synonymous with `operator[](0)` value.
   T y; //!< Synonymous with `operator[](1)` value.
@@ -287,165 +286,161 @@ struct vec_t<T, 4>
   T w; //!< Synonymous with `operator[](3)` value.
 
 private:
-  static T vec_t::*elem[size()];
+  static T vec::*elem[size()];
 };
 
 template<typename T>
-T vec_t<T, 4>::*vec_t<T, 4>::elem[size()] = {
-  &vec_t<T, 4>::x, &vec_t<T, 4>::y, &vec_t<T, 4>::z, &vec_t<T, 4>::w};
+T vec<T, 4>::*vec<T, 4>::elem[size()] = {
+  &vec<T, 4>::x, &vec<T, 4>::y, &vec<T, 4>::z, &vec<T, 4>::w};
 
-//! Type alias for a four dimensional vector of type ::real_t.
-using vec4_t = vec_t<real_t, 4>;
+//! Type alias for a four dimensional vector of type ::real.
+using vec4 = vec<real, 4>;
 //! Type alias for a four dimensional vector of type `float`.
-using vec4f_t = vec_t<float, 4>;
+using vec4f = vec<float, 4>;
 //! Type alias for a four dimensional vector of type `double`.
-using vec4d_t = vec_t<double, 4>;
+using vec4d = vec<double, 4>;
 //! Type alias for a four dimensional vector of type `int32_t`.
-using vec4i_t = vec_t<int32_t, 4>;
+using vec4i = vec<int32_t, 4>;
 //! Type alias for a four dimensional vector of type `int64_t`.
-using vec4l_t = vec_t<int64_t, 4>;
+using vec4l = vec<int64_t, 4>;
 
 //! Returns the sum of two vectors.
-template<typename T, index_t d>
-constexpr const vec_t<T, d> operator+(
-  const vec_t<T, d>& lhs, const vec_t<T, d>& rhs);
+template<typename T, index d>
+constexpr const vec<T, d> operator+(const vec<T, d>& lhs, const vec<T, d>& rhs);
 
 //! Returns the sum of two vector threes.
 //! \note Template specialization.
 template<>
-constexpr const vec3_t operator+(const vec3_t& lhs, const vec3_t& rhs);
+constexpr const vec3 operator+(const vec3& lhs, const vec3& rhs);
 
 //! Performs addition assignment of two vectors.
-template<typename T, index_t d>
-constexpr vec_t<T, d>& operator+=(vec_t<T, d>& lhs, const vec_t<T, d>& rhs);
+template<typename T, index d>
+constexpr vec<T, d>& operator+=(vec<T, d>& lhs, const vec<T, d>& rhs);
 
 //! Performs addition assignment of two vector threes.
 //! \note Template specialization.
 template<>
-constexpr vec3_t& operator+=(vec3_t& lhs, const vec3_t& rhs);
+constexpr vec3& operator+=(vec3& lhs, const vec3& rhs);
 
 //! Returns the result of the right hand vector subtracted from the left hand
 //! vector.
-template<typename T, index_t d>
-constexpr const vec_t<T, d> operator-(
-  const vec_t<T, d>& lhs, const vec_t<T, d>& rhs);
+template<typename T, index d>
+constexpr const vec<T, d> operator-(const vec<T, d>& lhs, const vec<T, d>& rhs);
 
 //! Returns the result of the right hand vector three subtracted from the left
 //! hand vector three.
 //! \note Template specialization.
 template<>
-constexpr const vec3_t operator-(const vec3_t& lhs, const vec3_t& rhs);
+constexpr const vec3 operator-(const vec3& lhs, const vec3& rhs);
 
 //! Performs substraction assignment of two vectors.
-template<typename T, index_t d>
-constexpr vec_t<T, d>& operator-=(vec_t<T, d>& lhs, const vec_t<T, d>& rhs);
+template<typename T, index d>
+constexpr vec<T, d>& operator-=(vec<T, d>& lhs, const vec<T, d>& rhs);
 
 //! Performs substraction assignment of two vector threes.
 //! \note Template specialization.
 template<>
-constexpr vec3_t& operator-=(vec3_t& lhs, const vec3_t& rhs);
+constexpr vec3& operator-=(vec3& lhs, const vec3& rhs);
 
 //! Returns the negation of a vector.
-template<typename T, index_t d>
-const vec_t<T, d> operator-(const vec_t<T, d>& rhs);
+template<typename T, index d>
+const vec<T, d> operator-(const vec<T, d>& rhs);
 
 //! Returns the negation of a vector three.
 //! \note Template specialization.
 template<>
-constexpr const vec3_t operator-(const vec3_t& rhs);
+constexpr const vec3 operator-(const vec3& rhs);
 
 //! Returns a vector multiplied by a scalar quantity.
-template<typename T, index_t d>
-constexpr const vec_t<T, d> operator*(const vec_t<T, d>& lhs, T val);
+template<typename T, index d>
+constexpr const vec<T, d> operator*(const vec<T, d>& lhs, T val);
 
 //! Returns a vector three multiplied by a scalar quantity.
 //! \note Template specialization.
 template<>
-constexpr const vec3_t operator*(const vec3_t& lhs, real_t val);
+constexpr const vec3 operator*(const vec3& lhs, real val);
 
 //! Returns a vector multiplied by a scalar quantity.
 //! \note operator* overload with arguments switched.
-template<typename T, index_t d>
-constexpr const vec_t<T, d> operator*(T val, const vec_t<T, d>& rhs);
+template<typename T, index d>
+constexpr const vec<T, d> operator*(T val, const vec<T, d>& rhs);
 
 //! Returns a vector three multiplied by a scalar quantity.
 //! \note operator* overload with arguments switched.
 //! \note Template specialization.
 template<>
-constexpr const vec3_t operator*(real_t val, const vec3_t& rhs);
+constexpr const vec3 operator*(real val, const vec3& rhs);
 
 //! Performs a multiplication assignment of a vector and a scalar quantity.
-template<typename T, index_t d>
-constexpr vec_t<T, d>& operator*=(vec_t<T, d>& lhs, T val);
+template<typename T, index d>
+constexpr vec<T, d>& operator*=(vec<T, d>& lhs, T val);
 
 //! Performs a multiplication assignment of a vector three and a scalar
 //! quantity. \note Template specialization.
 template<>
-constexpr vec3_t& operator*=(vec3_t& lhs, real_t val);
+constexpr vec3& operator*=(vec3& lhs, real val);
 
 //! Returns a vector multiplied by another vector.
 //! \note Elements are multiplied componentwise.
-template<typename T, index_t d>
-constexpr const vec_t<T, d> operator*(
-  const vec_t<T, d>& lhs, const vec_t<T, d>& rhs);
+template<typename T, index d>
+constexpr const vec<T, d> operator*(const vec<T, d>& lhs, const vec<T, d>& rhs);
 
 //! Returns a vector three multiplied by another vector three.
 //! \note Elements are multiplied componentwise.
 //! \note Template specialization.
 template<>
-constexpr const vec3_t operator*(const vec3_t& lhs, const vec3_t& rhs);
+constexpr const vec3 operator*(const vec3& lhs, const vec3& rhs);
 
 //! Performs a multiplication assignment of two vectors.
 //! \note Elements are multiplied componentwise.
-template<typename T, index_t d>
-constexpr vec_t<T, d>& operator*=(vec_t<T, d>& lhs, const vec_t<T, d>& rhs);
+template<typename T, index d>
+constexpr vec<T, d>& operator*=(vec<T, d>& lhs, const vec<T, d>& rhs);
 
 //! Performs a multiplication assignment of two vector threes.
 //! \note Elements are multiplied componentwise.
 //! \note Template specialization.
 template<>
-constexpr vec3_t& operator*=(vec3_t& lhs, const vec3_t& rhs);
+constexpr vec3& operator*=(vec3& lhs, const vec3& rhs);
 
 //! Returns a vector divided by a scalar quantity.
 //! \note Elements are divided componentwise.
-template<typename T, index_t d>
-constexpr const vec_t<T, d> operator/(const vec_t<T, d>& lhs, T val);
+template<typename T, index d>
+constexpr const vec<T, d> operator/(const vec<T, d>& lhs, T val);
 
 //! Returns a vector three divided by a scalar quantity.
 //! \note Elements are divided componentwise.
 //! \note Template specialization.
 template<>
-constexpr const vec3_t operator/(const vec3_t& lhs, real_t val);
+constexpr const vec3 operator/(const vec3& lhs, real val);
 
 //! Performs a division assignment of two vectors.
-template<typename T, index_t d>
-constexpr vec_t<T, d>& operator/=(vec_t<T, d>& lhs, T val);
+template<typename T, index d>
+constexpr vec<T, d>& operator/=(vec<T, d>& lhs, T val);
 
 //! Performs a division assignment of two vector threes.
 //! \note Template specialization.
 template<>
-constexpr vec3_t& operator/=(vec3_t& lhs, real_t val);
+constexpr vec3& operator/=(vec3& lhs, real val);
 
 //! Returns a vector divided by another vector.
 //! \note Elements are divided componentwise.
-template<typename T, index_t d>
-constexpr const vec_t<T, d> operator/(
-  const vec_t<T, d>& lhs, const vec_t<T, d>& rhs);
+template<typename T, index d>
+constexpr const vec<T, d> operator/(const vec<T, d>& lhs, const vec<T, d>& rhs);
 
 //! Returns a vector three divided by another vector three.
 //! \note Elements are divided componentwise.
 //! \note Template specialization.
 template<>
-constexpr const vec3_t operator/(const vec3_t& lhs, const vec3_t& rhs);
+constexpr const vec3 operator/(const vec3& lhs, const vec3& rhs);
 
 //! Performs a division assignment of two vectors.
-template<typename T, index_t d>
-constexpr vec_t<T, d>& operator/=(vec_t<T, d>& lhs, const vec_t<T, d>& rhs);
+template<typename T, index d>
+constexpr vec<T, d>& operator/=(vec<T, d>& lhs, const vec<T, d>& rhs);
 
 //! Performs a division assignment of two vector threes.
 //! \note Template specialization.
 template<>
-constexpr vec3_t& operator/=(vec3_t& lhs, const vec3_t& rhs);
+constexpr vec3& operator/=(vec3& lhs, const vec3& rhs);
 
 } // namespace as
 

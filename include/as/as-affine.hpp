@@ -11,19 +11,19 @@ namespace as
 
 //! Represents an a transformation.
 //! A geometric transformation that preserves lines and parrellism.
-struct affine_t
+struct affine
 {
-  affine_t() noexcept = default;
+  affine() noexcept = default;
 
-  //! Constructs affine_t with `(mat3_t::identity(), translation_)`
-  constexpr explicit affine_t(const vec3_t& translation_);
-  //! Constructs affine_t with `(rotation_, translation_)`
+  //! Constructs affine with `(mat3::identity(), translation_)`
+  constexpr explicit affine(const vec3& translation_);
+  //! Constructs affine with `(rotation_, translation_)`
   //! \note \p translation_ defaults to zero.
-  constexpr explicit affine_t(
-    const mat3_t& rotation_, const vec3_t& translation_ = as::vec3_t::zero());
+  constexpr explicit affine(
+    const mat3& rotation_, const vec3& translation_ = as::vec3::zero());
 
-  mat3_t rotation; //!< The rotation applied by this transformation.
-  vec3_t translation; //!< The translation applied by this transformation.
+  mat3 rotation; //!< The rotation applied by this transformation.
+  vec3 translation; //!< The translation applied by this transformation.
 };
 
 } // namespace as

@@ -9,7 +9,7 @@ namespace as
 {
 
 //! Mathematical constant Pi to 21 significant digits.
-constexpr real_t kPi = 3.14159265358979323846_r;
+constexpr real kPi = 3.14159265358979323846_r;
 
 //! Returns a linearly interpolated value between `begin` and `end`.
 //! \param t The amount of interpolation between `begin` and `end`. Must be in
@@ -63,10 +63,10 @@ template<typename T>
 constexpr T snap(T in, T step);
 
 //! Returns the value in radians as degrees.
-constexpr real_t deg_to_rad(real_t degrees);
+constexpr real deg_to_rad(real degrees);
 
 //! Returns the value in degrees as radians.
-constexpr real_t rad_to_deg(real_t radians);
+constexpr real rad_to_deg(real radians);
 
 //! Returns if `a` and `b` are almost equal (within a given tolerance/epsilon).
 //! \param a The first value to compare.
@@ -75,8 +75,8 @@ constexpr real_t rad_to_deg(real_t radians);
 //! \param max_rel_diff The epsilon value to use for all other values.
 //! `max_rel_diff` will be scaled by the largest of the two values.
 bool almost_equal(
-  real_t a, real_t b, real_t max_diff = std::numeric_limits<real_t>::epsilon(),
-  real_t max_rel_diff = std::numeric_limits<real_t>::epsilon());
+  real a, real b, real max_diff = std::numeric_limits<real>::epsilon(),
+  real max_rel_diff = std::numeric_limits<real>::epsilon());
 
 } // namespace as
 

@@ -2,10 +2,10 @@ namespace as
 {
 
 // openGL default
-AS_API inline mat4_t perspective_gl_rh(
-  const real_t fovy, const real_t aspect, const real_t n, const real_t f)
+AS_API inline mat4 perspective_gl_rh(
+  const real fovy, const real aspect, const real n, const real f)
 {
-  const real_t e = 1.0_r / std::tan(fovy * 0.5_r);
+  const real e = 1.0_r / std::tan(fovy * 0.5_r);
 
   // clang-format off
     return {
@@ -17,10 +17,10 @@ AS_API inline mat4_t perspective_gl_rh(
   // clang-format on
 }
 
-AS_API inline mat4_t perspective_gl_lh(
-  const real_t fovy, const real_t aspect, const real_t n, const real_t f)
+AS_API inline mat4 perspective_gl_lh(
+  const real fovy, const real aspect, const real n, const real f)
 {
-  const real_t e = 1.0_r / std::tan(fovy * 0.5_r);
+  const real e = 1.0_r / std::tan(fovy * 0.5_r);
 
   // clang-format off
     return {
@@ -32,10 +32,10 @@ AS_API inline mat4_t perspective_gl_lh(
   // clang-format on
 }
 
-AS_API inline mat4_t perspective_d3d_rh(
-  const real_t fovy, const real_t aspect, const real_t n, const real_t f)
+AS_API inline mat4 perspective_d3d_rh(
+  const real fovy, const real aspect, const real n, const real f)
 {
-  const real_t e = 1.0_r / std::tan(fovy * 0.5_r);
+  const real e = 1.0_r / std::tan(fovy * 0.5_r);
 
   // clang-format off
     return {
@@ -47,10 +47,10 @@ AS_API inline mat4_t perspective_d3d_rh(
   // clang-format on
 }
 
-AS_API inline mat4_t perspective_d3d_lh(
-  const real_t fovy, const real_t aspect, const real_t n, const real_t f)
+AS_API inline mat4 perspective_d3d_lh(
+  const real fovy, const real aspect, const real n, const real f)
 {
-  const real_t e = 1.0_r / std::tan(fovy * 0.5_r);
+  const real e = 1.0_r / std::tan(fovy * 0.5_r);
 
   // clang-format off
     return {
@@ -64,7 +64,7 @@ AS_API inline mat4_t perspective_d3d_lh(
 
 // clang-format off
 // vulkan clip space has inverted Y and half z
-constexpr mat4_t vulkan_clip{
+constexpr mat4 vulkan_clip{
     1.0_r, 0.0_r,  0.0_r, 0.0_r,
     0.0_r, -1.0_r, 0.0_r, 0.0_r,
     0.0_r, 0.0_r,  0.5_r, 0.0_r,
@@ -73,25 +73,25 @@ constexpr mat4_t vulkan_clip{
 // clang-format on
 
 // vulkan default
-AS_API inline mat4_t perspective_vulkan_rh(
-  const real_t fovy, const real_t aspect, const real_t n, const real_t f)
+AS_API inline mat4 perspective_vulkan_rh(
+  const real fovy, const real aspect, const real n, const real f)
 {
   return as::mat_mul(perspective_gl_rh(fovy, aspect, n, f), vulkan_clip);
 }
 
-AS_API inline mat4_t perspective_vulkan_lh(
-  const real_t fovy, const real_t aspect, const real_t n, const real_t f)
+AS_API inline mat4 perspective_vulkan_lh(
+  const real fovy, const real aspect, const real n, const real f)
 {
   return as::mat_mul(perspective_gl_lh(fovy, aspect, n, f), vulkan_clip);
 }
 
-AS_API constexpr mat4_t ortho_gl_rh(
-  const real_t l, const real_t r, const real_t b, const real_t t,
-  const real_t n, const real_t f)
+AS_API constexpr mat4 ortho_gl_rh(
+  const real l, const real r, const real b, const real t, const real n,
+  const real f)
 {
-  const real_t x = 1.0_r / (r - l);
-  const real_t y = 1.0_r / (t - b);
-  const real_t z = 1.0_r / (f - n);
+  const real x = 1.0_r / (r - l);
+  const real y = 1.0_r / (t - b);
+  const real z = 1.0_r / (f - n);
 
   // clang-format off
     return {
@@ -103,13 +103,13 @@ AS_API constexpr mat4_t ortho_gl_rh(
   // clang-format on
 }
 
-AS_API constexpr mat4_t ortho_gl_lh(
-  const real_t l, const real_t r, const real_t b, const real_t t,
-  const real_t n, const real_t f)
+AS_API constexpr mat4 ortho_gl_lh(
+  const real l, const real r, const real b, const real t, const real n,
+  const real f)
 {
-  const real_t x = 1.0_r / (r - l);
-  const real_t y = 1.0_r / (t - b);
-  const real_t z = 1.0_r / (f - n);
+  const real x = 1.0_r / (r - l);
+  const real y = 1.0_r / (t - b);
+  const real z = 1.0_r / (f - n);
 
   // clang-format off
     return {
@@ -121,13 +121,13 @@ AS_API constexpr mat4_t ortho_gl_lh(
   // clang-format on
 }
 
-AS_API constexpr mat4_t ortho_d3d_rh(
-  const real_t l, const real_t r, const real_t b, const real_t t,
-  const real_t n, const real_t f)
+AS_API constexpr mat4 ortho_d3d_rh(
+  const real l, const real r, const real b, const real t, const real n,
+  const real f)
 {
-  const real_t x = 1.0_r / (r - l);
-  const real_t y = 1.0_r / (t - b);
-  const real_t z = 1.0_r / (f - n);
+  const real x = 1.0_r / (r - l);
+  const real y = 1.0_r / (t - b);
+  const real z = 1.0_r / (f - n);
 
   // clang-format off
     return {
@@ -139,13 +139,13 @@ AS_API constexpr mat4_t ortho_d3d_rh(
   // clang-format on
 }
 
-AS_API constexpr mat4_t ortho_d3d_lh(
-  const real_t l, const real_t r, const real_t b, const real_t t,
-  const real_t n, const real_t f)
+AS_API constexpr mat4 ortho_d3d_lh(
+  const real l, const real r, const real b, const real t, const real n,
+  const real f)
 {
-  const real_t x = 1.0_r / (r - l);
-  const real_t y = 1.0_r / (t - b);
-  const real_t z = 1.0_r / (f - n);
+  const real x = 1.0_r / (r - l);
+  const real y = 1.0_r / (t - b);
+  const real z = 1.0_r / (f - n);
 
   // clang-format off
     return {
@@ -157,14 +157,14 @@ AS_API constexpr mat4_t ortho_d3d_lh(
   // clang-format on
 }
 
-AS_API inline mat4_t ortho_vulkan_rh(
-  real_t l, real_t r, real_t b, real_t t, real_t n, real_t f)
+AS_API inline mat4 ortho_vulkan_rh(
+  real l, real r, real b, real t, real n, real f)
 {
   return as::mat_mul(ortho_gl_rh(l, r, b, t, n, f), vulkan_clip);
 }
 
-AS_API inline mat4_t ortho_vulkan_lh(
-  real_t l, real_t r, real_t b, real_t t, real_t n, real_t f)
+AS_API inline mat4 ortho_vulkan_lh(
+  real l, real r, real b, real t, real n, real f)
 {
   return as::mat_mul(ortho_gl_lh(l, r, b, t, n, f), vulkan_clip);
 }

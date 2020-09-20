@@ -8,22 +8,22 @@ namespace unit_test
 {
 
 // types
-using as::real_t;
+using as::real;
 
-inline std::array<real_t, 2> arr(const real_t x, const real_t y)
+inline std::array<real, 2> arr(const real x, const real y)
 {
-  return std::array<real_t, 2>{x, y};
+  return std::array<real, 2>{x, y};
 }
 
-inline std::array<real_t, 3> arr(const real_t x, const real_t y, const real_t z)
+inline std::array<real, 3> arr(const real x, const real y, const real z)
 {
-  return std::array<real_t, 3>{x, y, z};
+  return std::array<real, 3>{x, y, z};
 }
 
-inline std::array<real_t, 4> arr(
-  const real_t x, const real_t y, const real_t z, const real_t w)
+inline std::array<real, 4> arr(
+  const real x, const real y, const real z, const real w)
 {
-  return std::array<real_t, 4>{x, y, z, w};
+  return std::array<real, 4>{x, y, z, w};
 }
 
 } // namespace unit_test

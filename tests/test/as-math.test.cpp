@@ -7,7 +7,7 @@ namespace unit_test
 {
 
 // types
-using as::real_t;
+using as::real;
 
 // functions
 using as::deg_to_rad;
@@ -18,97 +18,97 @@ using as::smooth_step;
 using as::smoother_step;
 using as::operator""_r;
 
-const real_t g_epsilon = real_t(std::numeric_limits<float>::epsilon());
+const real g_epsilon = real(std::numeric_limits<float>::epsilon());
 
 TEST_CASE("max", "[as_math]")
 {
-  const real_t a = 5.0_r;
-  const real_t b = 2.0_r;
+  const real a = 5.0_r;
+  const real b = 2.0_r;
 
   {
-    const real_t max_result = max(a, b);
+    const real max_result = max(a, b);
     CHECK(max_result == Approx(a).epsilon(g_epsilon));
   }
 
   {
-    const real_t max_result = max(b, a);
+    const real max_result = max(b, a);
     CHECK(max_result == Approx(a).epsilon(g_epsilon));
   }
 
   {
-    const real_t aa = 5.0_r;
-    const real_t max_result = max(aa, a);
+    const real aa = 5.0_r;
+    const real max_result = max(aa, a);
     CHECK(max_result == Approx(aa).epsilon(g_epsilon));
   }
 }
 
 TEST_CASE("min", "[as_math]")
 {
-  const real_t a = 10.0_r;
-  const real_t b = 5.0_r;
+  const real a = 10.0_r;
+  const real b = 5.0_r;
 
   {
-    const real_t min_result = min(a, b);
+    const real min_result = min(a, b);
     CHECK(min_result == Approx(b).epsilon(g_epsilon));
   }
 
   {
-    const real_t min_result = min(b, a);
+    const real min_result = min(b, a);
     CHECK(min_result == Approx(b).epsilon(g_epsilon));
   }
 
   {
-    const real_t bb = 5.0_r;
-    const real_t max_result = min(bb, b);
+    const real bb = 5.0_r;
+    const real max_result = min(bb, b);
     CHECK(max_result == Approx(bb).epsilon(g_epsilon));
   }
 }
 
 TEST_CASE("smooth_step", "[as_math]")
 {
-  constexpr real_t real_epsilon = 1e-3_r;
+  constexpr real real_epsilon = 1e-3_r;
 
-  real_t quarter_value;
+  real quarter_value;
   quarter_value = smooth_step(0.25_r, 0.0_r, 1.0_r);
   CHECK(quarter_value == Approx(0.15625_r).epsilon(real_epsilon));
 
-  real_t mid_value;
+  real mid_value;
   mid_value = smooth_step(0.5_r, 0.0_r, 1.0_r);
   CHECK(mid_value == Approx(0.5_r).epsilon(real_epsilon));
 
-  real_t three_quarter_value;
+  real three_quarter_value;
   three_quarter_value = smooth_step(0.75_r, 0.0_r, 1.0_r);
   CHECK(three_quarter_value == Approx(0.84375_r).epsilon(real_epsilon));
 }
 
 TEST_CASE("smoother_step", "[as_math]")
 {
-  constexpr real_t real_epsilon = 1e-3_r;
+  constexpr real real_epsilon = 1e-3_r;
 
-  real_t ten_percent_value;
+  real ten_percent_value;
   ten_percent_value = smoother_step(0.1_r, 0.0_r, 1.0_r);
   CHECK(ten_percent_value == Approx(0.00856_r).epsilon(real_epsilon));
 
-  real_t quarter_value;
+  real quarter_value;
   quarter_value = smoother_step(0.25_r, 0.0_r, 1.0_r);
   CHECK(quarter_value == Approx(0.10351_r).epsilon(real_epsilon));
 
-  real_t mid_value;
+  real mid_value;
   mid_value = smoother_step(0.5_r, 0.0_r, 1.0_r);
   CHECK(mid_value == Approx(0.5_r).epsilon(real_epsilon));
 
-  real_t three_quarter_value;
+  real three_quarter_value;
   three_quarter_value = smoother_step(0.75_r, 0.0_r, 1.0_r);
   CHECK(three_quarter_value == Approx(0.89648_r).epsilon(real_epsilon));
 
-  real_t ninety_percent_value;
+  real ninety_percent_value;
   ninety_percent_value = smoother_step(0.9_r, 0.0_r, 1.0_r);
   CHECK(ninety_percent_value == Approx(0.99144_r).epsilon(real_epsilon));
 }
 
 TEST_CASE("degrees_to_radians", "[as_math]")
 {
-  constexpr real_t real_epsilon = 1e-3_r;
+  constexpr real real_epsilon = 1e-3_r;
 
   CHECK(deg_to_rad(57.2958_r) == Approx(1.0_r).epsilon(real_epsilon));
   CHECK(deg_to_rad(90.0_r) == Approx(1.5708_r).epsilon(real_epsilon));
@@ -119,7 +119,7 @@ TEST_CASE("degrees_to_radians", "[as_math]")
 
 TEST_CASE("radians_to_degrees", "[as_math]")
 {
-  constexpr real_t real_epsilon = 1e-3_r;
+  constexpr real real_epsilon = 1e-3_r;
 
   CHECK(rad_to_deg(1.0_r) == Approx(57.2958_r).epsilon(real_epsilon));
   CHECK(rad_to_deg(1.5708_r) == Approx(90.0_r).epsilon(real_epsilon));
@@ -131,32 +131,32 @@ TEST_CASE("radians_to_degrees", "[as_math]")
 TEST_CASE("snap", "[as_math]")
 {
   {
-    const real_t result = as::snap(4.0_r, 10.0_r);
+    const real result = as::snap(4.0_r, 10.0_r);
     CHECK(result == Approx(0.0_r).epsilon(g_epsilon));
   }
 
   {
-    const real_t result = as::snap(6.0_r, 10.0_r);
+    const real result = as::snap(6.0_r, 10.0_r);
     CHECK(result == Approx(10.0_r).epsilon(g_epsilon));
   }
 
   {
-    const real_t result = as::snap(1.0_r, 2.0_r);
+    const real result = as::snap(1.0_r, 2.0_r);
     CHECK(result == Approx(2.0_r).epsilon(g_epsilon));
   }
 
   {
-    const real_t result = as::snap(0.99_r, 2.0_r);
+    const real result = as::snap(0.99_r, 2.0_r);
     CHECK(result == Approx(0.0_r).epsilon(g_epsilon));
   }
 
   {
-    const real_t result = as::snap(22.0_r, 20.0_r);
+    const real result = as::snap(22.0_r, 20.0_r);
     CHECK(result == Approx(20.0_r).epsilon(g_epsilon));
   }
 
   {
-    const real_t result = as::snap(32.0_r, 20.0_r);
+    const real result = as::snap(32.0_r, 20.0_r);
     CHECK(result == Approx(40.0_r).epsilon(g_epsilon));
   }
 }
@@ -164,6 +164,5 @@ TEST_CASE("snap", "[as_math]")
 } // namespace unit_test
 
 // explicit instantiations (for coverage)
-template as::real_t as::smooth_step(as::real_t t, as::real_t v0, as::real_t v1);
-template as::real_t as::smoother_step(
-  as::real_t t, as::real_t v0, as::real_t v1);
+template as::real as::smooth_step(as::real t, as::real v0, as::real v1);
+template as::real as::smoother_step(as::real t, as::real v0, as::real v1);
