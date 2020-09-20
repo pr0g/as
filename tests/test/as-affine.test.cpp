@@ -19,10 +19,6 @@ using as::vec3_t;
 using as::deg_to_rad;
 using as::operator""_r;
 
-// namespaces
-namespace vec = as::vec;
-namespace vec3 = as::vec3;
-
 // use float epsilon for comparisons
 const real_t g_epsilon = real_t(std::numeric_limits<float>::epsilon());
 
@@ -33,7 +29,7 @@ TEST_CASE("affine_constructor_position_rotation", "[as_affine]")
   vec3_t translation = vec3_t(0.0_r, 2.0_r, 2.0_r);
   affine = affine_t(rotation, translation);
 
-  CHECK(vec::equal(translation, affine.translation));
+  CHECK(vec_equal(translation, affine.translation));
   CHECK(as::mat_equal(rotation, affine.rotation));
 }
 
@@ -247,7 +243,7 @@ TEST_CASE("affine_concatenation", "[as_affine]")
   as::mat_to_arr(affine_result.rotation, expected_orientation);
 
   real_t expected_position[3];
-  vec::to_arr(affine_result.translation, expected_position);
+  vec_to_arr(affine_result.translation, expected_position);
 
   CHECK_THAT(
     make_span(expected_orientation),
@@ -255,7 +251,7 @@ TEST_CASE("affine_concatenation", "[as_affine]")
 
   CHECK_THAT(
     make_span(expected_position),
-    make_elements_sub(vec3::from_vec4(as::mat4_translation(mat_result)), 3));
+    make_elements_sub(vec3_from_vec4(as::mat4_translation(mat_result)), 3));
 }
 
 TEST_CASE("affine_inverse", "[as_affine]")

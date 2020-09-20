@@ -17,9 +17,6 @@ using as::vec3_t;
 using as::deg_to_rad;
 using as::operator""_r;
 
-// namespaces
-namespace vec3 = as::vec3;
-
 // use float epsilon for comparisons
 const real_t g_epsilon = 1e-6_r;
 
@@ -263,8 +260,8 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
     vec3_t result_quat_from_mat =
       as::quat_rotate(rotation_axis_quat_from_mat, vec);
 
-    CHECK(as::vec::equal(result_matrix, result_quat, g_epsilon));
-    CHECK(as::vec::equal(result_matrix, result_quat_from_mat, g_epsilon));
+    CHECK(as::vec_equal(result_matrix, result_quat, g_epsilon));
+    CHECK(as::vec_equal(result_matrix, result_quat_from_mat, g_epsilon));
   }
 
   {
@@ -283,8 +280,8 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
     vec3_t result_quat_from_mat =
       as::quat_rotate(rotation_axis_quat_from_mat, vec);
 
-    CHECK(as::vec::equal(result_matrix, result_quat, g_epsilon));
-    CHECK(as::vec::equal(result_matrix, result_quat_from_mat, g_epsilon));
+    CHECK(as::vec_equal(result_matrix, result_quat, g_epsilon));
+    CHECK(as::vec_equal(result_matrix, result_quat_from_mat, g_epsilon));
   }
 
   {
@@ -303,8 +300,8 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
     vec3_t result_quat_from_mat =
       as::quat_rotate(rotation_axis_quat_from_mat, vec);
 
-    CHECK(as::vec::equal(result_matrix, result_quat, g_epsilon));
-    CHECK(as::vec::equal(result_matrix, result_quat_from_mat, g_epsilon));
+    CHECK(as::vec_equal(result_matrix, result_quat, g_epsilon));
+    CHECK(as::vec_equal(result_matrix, result_quat_from_mat, g_epsilon));
   }
 
   {
@@ -323,8 +320,8 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
     vec3_t result_quat_from_mat =
       as::quat_rotate(rotation_axis_quat_from_mat, vec);
 
-    CHECK(as::vec::equal(result_matrix, result_quat, g_epsilon));
-    CHECK(as::vec::equal(result_matrix, result_quat_from_mat, g_epsilon));
+    CHECK(as::vec_equal(result_matrix, result_quat, g_epsilon));
+    CHECK(as::vec_equal(result_matrix, result_quat_from_mat, g_epsilon));
   }
 }
 
