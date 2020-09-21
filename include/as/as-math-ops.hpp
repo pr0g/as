@@ -653,6 +653,9 @@ constexpr quat quat_conjugate(const quat& q);
 //! \param radians The amount to rotate by in radians.
 quat quat_rotation_axis(const vec3& axis, real radians);
 
+//! Returns a rotation about x, then y, then z.
+quat quat_rotation_xyz(real x, real y, real z);
+
 //! Returns a rotation about z, then x, then y.
 quat quat_rotation_zxy(real x, real y, real z);
 

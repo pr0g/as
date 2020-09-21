@@ -1211,6 +1211,13 @@ AS_API inline quat quat_rotation_axis(const vec3& axis, const real radians)
   return {std::cos(0.5_r * radians), axis * std::sin(0.5_r * radians)};
 }
 
+AS_API inline quat quat_rotation_xyz(const real x, const real y, const real z)
+{
+  return quat{std::cos(0.5_r * z), 0.0_r, 0.0_r, std::sin(0.5_r * z)}
+       * quat{std::cos(0.5_r * y), 0.0_r, std::sin(0.5_r * y), 0.0_r}
+       * quat{std::cos(0.5_r * x), std::sin(0.5_r * x), 0.0_r, 0.0_r};
+}
+
 AS_API inline quat quat_rotation_zxy(const real x, const real y, const real z)
 {
   return quat{std::cos(0.5_r * y), 0.0_r, std::sin(0.5_r * y), 0.0_r}
