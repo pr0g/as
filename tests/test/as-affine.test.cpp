@@ -16,7 +16,7 @@ using as::real;
 using as::vec3;
 
 // functions
-using as::deg_to_rad;
+using as::radians;
 using as::operator""_r;
 
 // use float epsilon for comparisons
@@ -25,7 +25,7 @@ const real g_epsilon = real(std::numeric_limits<float>::epsilon());
 TEST_CASE("affine_constructor_position_rotation", "[as_affine]")
 {
   affine a;
-  mat3 rotation = as::mat3_rotation_x(deg_to_rad(90.0_r));
+  mat3 rotation = as::mat3_rotation_x(radians(90.0_r));
   vec3 translation = vec3(0.0_r, 2.0_r, 2.0_r);
   a = affine(rotation, translation);
 
@@ -45,7 +45,7 @@ TEST_CASE("affine_constructor_position", "[as_affine]")
 TEST_CASE("affine_transform_dir", "[as_affine]")
 {
   const affine a(
-    as::mat3_rotation_y(deg_to_rad(90.0_r)), vec3(5.0_r, 0.0_r, 0.0_r));
+    as::mat3_rotation_y(radians(90.0_r)), vec3(5.0_r, 0.0_r, 0.0_r));
 
   const vec3 result = as::affine_transform_dir(a, vec3{1.0_r, 0.0_r, 0.0_r});
 
@@ -69,7 +69,7 @@ TEST_CASE("affine_inv_transform_pos", "[as_affine]")
 
   {
     const affine a = affine(
-      as::mat3_rotation_z(deg_to_rad(90.0_r)), vec3(0.0_r, 10.0_r, 0.0_r));
+      as::mat3_rotation_z(radians(90.0_r)), vec3(0.0_r, 10.0_r, 0.0_r));
 
     const point3 result =
       as::affine_inv_transform_pos(a, point3{5.0_r, 0.0_r, 0.0_r});
@@ -83,7 +83,7 @@ TEST_CASE("affine_inv_transform_pos", "[as_affine]")
 TEST_CASE("affine_transform_pos", "[as_affine]")
 {
   const affine a =
-    affine(as::mat3_rotation_y(deg_to_rad(90.0_r)), vec3(5.0_r, 0.0_r, 0.0_r));
+    affine(as::mat3_rotation_y(radians(90.0_r)), vec3(5.0_r, 0.0_r, 0.0_r));
 
   const point3 result =
     as::affine_transform_pos(a, point3(1.0_r, 0.0_r, 0.0_r));
@@ -108,7 +108,7 @@ TEST_CASE("affine_inv_transform_dir", "[as_affine]")
 
   {
     const affine a = affine(
-      as::mat3_rotation_z(deg_to_rad(90.0_r)), vec3(0.0_r, 10.0_r, 0.0_r));
+      as::mat3_rotation_z(radians(90.0_r)), vec3(0.0_r, 10.0_r, 0.0_r));
 
     const vec3 result =
       as::affine_inv_transform_dir(a, vec3{5.0_r, 0.0_r, 0.0_r});
@@ -210,13 +210,13 @@ TEST_CASE("affine_concatenation", "[as_affine]")
   using gsl::make_span;
 
   mat4 mat_a = as::mat4_from_mat3_vec3(
-    as::mat3_rotation_x(deg_to_rad(45.0_r)), vec3::axis_x(5.0_r));
+    as::mat3_rotation_x(radians(45.0_r)), vec3::axis_x(5.0_r));
 
   mat4 mat_b = as::mat4_from_mat3_vec3(
-    as::mat3_rotation_y(deg_to_rad(90.0_r)), vec3::axis_y(10.0_r));
+    as::mat3_rotation_y(radians(90.0_r)), vec3::axis_y(10.0_r));
 
   mat4 mat_c = as::mat4_from_mat3_vec3(
-    as::mat3_rotation_y(deg_to_rad(180.0_r)), vec3::axis_z(20.0_r));
+    as::mat3_rotation_y(radians(180.0_r)), vec3::axis_z(20.0_r));
 
   mat4 mat_result;
   mat_result = as::mat_mul(as::mat_mul(mat_a, mat_b), mat_c);
@@ -248,10 +248,10 @@ TEST_CASE("affine_inverse", "[as_affine]")
   using gsl::make_span;
 
   const affine a(
-    as::mat3_rotation_y(deg_to_rad(90.0_r)), vec3(5.0_r, 10.0_r, 20.0_r));
+    as::mat3_rotation_y(radians(90.0_r)), vec3(5.0_r, 10.0_r, 20.0_r));
 
   const affine affine_expected_inverse(
-    as::mat3_rotation_y(deg_to_rad(-90.0_r)), vec3(20.0_r, -10.0_r, -5.0_r));
+    as::mat3_rotation_y(radians(-90.0_r)), vec3(20.0_r, -10.0_r, -5.0_r));
 
   real expected_affine[12];
   as::affine_to_arr(affine_expected_inverse, expected_affine);

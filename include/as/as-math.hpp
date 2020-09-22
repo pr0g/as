@@ -62,11 +62,11 @@ constexpr T clamp(T in, T low, T high);
 template<typename T>
 constexpr T snap(T in, T step);
 
-//! Returns the value in radians as degrees.
-constexpr real deg_to_rad(real degrees);
-
 //! Returns the value in degrees as radians.
-constexpr real rad_to_deg(real radians);
+constexpr real radians(real degrees);
+
+//! Returns the value in radians as degrees.
+constexpr real degrees(real radians);
 
 //! Returns if `a` and `b` are almost equal (within a given tolerance/epsilon).
 //! \param a The first value to compare.

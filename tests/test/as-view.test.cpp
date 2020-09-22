@@ -12,7 +12,7 @@ using as::mat4;
 using as::real;
 
 // functions
-using as::deg_to_rad;
+using as::radians;
 using as::operator""_r;
 
 static const real g_epsilon = 1e-6_r;
@@ -21,7 +21,7 @@ TEST_CASE("perspective_gl_rh", "[as_view]")
 {
   using gsl::make_span;
 
-  const real fov = deg_to_rad(90.0_r);
+  const real fov = radians(90.0_r);
   const real aspect = real(16.0_r) / real(9.0_r);
   mat4 perspective_gl_rh = as::perspective_gl_rh(fov, aspect, 0.01_r, 1000.0_r);
 
@@ -39,7 +39,7 @@ TEST_CASE("perspective_gl_lh", "[as_view]")
 {
   using gsl::make_span;
 
-  const real fov = deg_to_rad(90.0_r);
+  const real fov = radians(90.0_r);
   const real aspect = real(16.0_r) / real(9.0_r);
   mat4 perspective_gl_lh = as::perspective_gl_lh(fov, aspect, 0.01_r, 1000.0_r);
 
@@ -57,7 +57,7 @@ TEST_CASE("perspective_d3d_rh", "[as_view]")
 {
   using gsl::make_span;
 
-  const real fov = deg_to_rad(90.0_r);
+  const real fov = radians(90.0_r);
   const real aspect = real(16.0_r) / real(9.0_r);
   mat4 perspective_d3d_rh =
     as::perspective_d3d_rh(fov, aspect, 0.01_r, 1000.0_r);
@@ -76,7 +76,7 @@ TEST_CASE("perspective_d3d_lh", "[as_view]")
 {
   using gsl::make_span;
 
-  const real fov = deg_to_rad(90.0_r);
+  const real fov = radians(90.0_r);
   const real aspect = real(16.0_r) / real(9.0_r);
   mat4 perspective_d3d_lh =
     as::perspective_d3d_lh(fov, aspect, 0.01_r, 1000.0_r);
@@ -95,7 +95,7 @@ TEST_CASE("perspective_vulkan_rh", "[as_view]")
 {
   using gsl::make_span;
 
-  const real fov = deg_to_rad(90.0_r);
+  const real fov = radians(90.0_r);
   const real aspect = real(16.0_r) / real(9.0_r);
   mat4 perspective_vulkan_rh =
     as::perspective_vulkan_rh(fov, aspect, 0.01_r, 1000.0_r);
@@ -114,7 +114,7 @@ TEST_CASE("perspective_vulkan_lh", "[as_view]")
 {
   using gsl::make_span;
 
-  const real fov = deg_to_rad(90.0_r);
+  const real fov = radians(90.0_r);
   const real aspect = real(16.0_r) / real(9.0_r);
   mat4 perspective_vulkan_lh =
     as::perspective_vulkan_lh(fov, aspect, 0.01_r, 1000.0_r);

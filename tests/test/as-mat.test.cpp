@@ -21,7 +21,7 @@ using as::vec3;
 using as::vec4;
 
 // functions
-using as::deg_to_rad;
+using as::radians;
 using as::operator""_r;
 
 const real g_epsilon = real(std::numeric_limits<float>::epsilon());
@@ -728,9 +728,9 @@ TEST_CASE("multiply_mul", "[as_mat]")
 {
   using gsl::make_span;
 
-  mat3 rotate_x = as::mat3_rotation_x(deg_to_rad(30.0f));
-  mat3 rotate_y = as::mat3_rotation_y(deg_to_rad(30.0f));
-  mat3 rotate_z = as::mat3_rotation_z(deg_to_rad(30.0f));
+  mat3 rotate_x = as::mat3_rotation_x(radians(30.0f));
+  mat3 rotate_y = as::mat3_rotation_y(radians(30.0f));
+  mat3 rotate_z = as::mat3_rotation_z(radians(30.0f));
 
   mat3 result_mul;
   result_mul = as::mat_mul(as::mat_mul(rotate_x, rotate_y), rotate_z);
@@ -1210,7 +1210,7 @@ TEST_CASE("mat3_rotation_axis", "[as_mat]")
 
   {
     mat3 rotation_axis =
-      as::mat3_rotation_axis(vec3::axis_x(), deg_to_rad(90.0_r));
+      as::mat3_rotation_axis(vec3::axis_x(), radians(90.0_r));
     real result_reference[] = {0.0_r, -1.0_r, 0.0_r};
 
     vec3 result;
@@ -1228,7 +1228,7 @@ TEST_CASE("mat3_rotation_axis", "[as_mat]")
 
   {
     mat3 rotation_axis =
-      as::mat3_rotation_axis(vec3::axis_y(), deg_to_rad(90.0_r));
+      as::mat3_rotation_axis(vec3::axis_y(), radians(90.0_r));
     real result_reference[] = {0.0_r, 0.0_r, -1.0_r};
 
     vec3 result;
@@ -1251,7 +1251,7 @@ TEST_CASE("mat3_rotate_xyz", "[as_mat]")
 
   {
     mat3 rotation_axis = as::mat3_rotation_xyz(
-      deg_to_rad(45.0_r), deg_to_rad(90.0_r), deg_to_rad(45.0_r));
+      radians(45.0_r), radians(90.0_r), radians(45.0_r));
     real result_reference[] = {0.0_r, 1.0_r, 0.0_r};
 
     vec3 result;
@@ -1269,7 +1269,7 @@ TEST_CASE("mat3_rotate_xyz", "[as_mat]")
 
   {
     mat3 rotation_axis = as::mat3_rotation_xyz(
-      deg_to_rad(-180.0_r), deg_to_rad(90.0_r), deg_to_rad(-90.0_r));
+      radians(-180.0_r), radians(90.0_r), radians(-90.0_r));
     real result_reference[] = {0.0_r, 1.0_r, 0.0_r};
 
     vec3 result;
@@ -1292,7 +1292,7 @@ TEST_CASE("mat3_rotate_zxy", "[as_mat]")
 
   {
     mat3 rotation_axis = as::mat3_rotation_zxy(
-      deg_to_rad(90.0_r), deg_to_rad(90.0_r), deg_to_rad(0.0_r));
+      radians(90.0_r), radians(90.0_r), radians(0.0_r));
     real result_reference_y[] = {1.0_r, 0.0_r, 0.0_r};
     real result_reference_z[] = {0.0_r, -1.0_r, 0.0_r};
 
@@ -1318,7 +1318,7 @@ TEST_CASE("mat3_rotate_zxy", "[as_mat]")
 
   {
     mat3 rotation_axis = as::mat3_rotation_zxy(
-      deg_to_rad(0.0_r), deg_to_rad(-90.0_r), deg_to_rad(-90.0_r));
+      radians(0.0_r), radians(-90.0_r), radians(-90.0_r));
     real result_reference_x[] = {0.0_r, -1.0_r, 0.0_r};
     real result_reference_y[] = {0.0_r, 0.0_r, 1.0_r};
 
@@ -1349,9 +1349,9 @@ TEST_CASE("mat3_from_quat", "[as_mat]")
 
   {
     mat3 rotation_axis_mat = as::mat3_rotation_zxy(
-      deg_to_rad(90.0_r), deg_to_rad(90.0_r), deg_to_rad(0.0_r));
+      radians(90.0_r), radians(90.0_r), radians(0.0_r));
     quat rotation_axis_quat = as::quat_rotation_zxy(
-      deg_to_rad(90.0_r), deg_to_rad(90.0_r), deg_to_rad(0.0_r));
+      radians(90.0_r), radians(90.0_r), radians(0.0_r));
 
     mat3 rotation_axis_mat_from_quat;
     rotation_axis_mat_from_quat = as::mat3_from_quat(rotation_axis_quat);
@@ -1394,9 +1394,9 @@ TEST_CASE("mat3_rotate_x_y_z_separate", "[as_mat]")
   using gsl::make_span;
 
   {
-    mat3 axis_x = as::mat3_rotation_x(deg_to_rad(45.0_r));
-    mat3 axis_y = as::mat3_rotation_y(deg_to_rad(90.0_r));
-    mat3 axis_z = as::mat3_rotation_z(deg_to_rad(45.0_r));
+    mat3 axis_x = as::mat3_rotation_x(radians(45.0_r));
+    mat3 axis_y = as::mat3_rotation_y(radians(90.0_r));
+    mat3 axis_z = as::mat3_rotation_z(radians(45.0_r));
 
     real result_reference[] = {0.0_r, 1.0_r, 0.0_r};
 
@@ -1414,9 +1414,9 @@ TEST_CASE("mat3_rotate_x_y_z_separate", "[as_mat]")
   }
 
   {
-    mat3 axis_x = as::mat3_rotation_x(deg_to_rad(-180.0_r));
-    mat3 axis_y = as::mat3_rotation_y(deg_to_rad(90.0_r));
-    mat3 axis_z = as::mat3_rotation_z(deg_to_rad(-90.0_r));
+    mat3 axis_x = as::mat3_rotation_x(radians(-180.0_r));
+    mat3 axis_y = as::mat3_rotation_y(radians(90.0_r));
+    mat3 axis_z = as::mat3_rotation_z(radians(-90.0_r));
 
     real result_reference[] = {0.0_r, 1.0_r, 0.0_r};
 

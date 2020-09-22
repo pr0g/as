@@ -20,7 +20,7 @@ using as::vec3;
 using as::vec4;
 
 // functions
-using as::deg_to_rad;
+using as::radians;
 using as::operator""_r;
 
 // use float epsilon for comparisons

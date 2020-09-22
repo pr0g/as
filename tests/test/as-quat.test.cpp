@@ -14,7 +14,7 @@ using as::real;
 using as::vec3;
 
 // functions
-using as::deg_to_rad;
+using as::radians;
 using as::operator""_r;
 
 // use float epsilon for comparisons
@@ -81,8 +81,8 @@ TEST_CASE("quat_negation", "[as_quat]")
 
 TEST_CASE("quat_multiplication", "[as_quat]")
 {
-  const quat quat_a = quat_rotation_axis(vec3::axis_x(), deg_to_rad(90.0_r));
-  const quat quat_b = quat_rotation_axis(vec3::axis_y(), deg_to_rad(180.0_r));
+  const quat quat_a = quat_rotation_axis(vec3::axis_x(), radians(90.0_r));
+  const quat quat_b = quat_rotation_axis(vec3::axis_y(), radians(180.0_r));
 
   {
     const quat result = quat_a * quat_b;
@@ -159,7 +159,7 @@ TEST_CASE("quat_inverse", "[as_quat]")
 TEST_CASE("quat_rotate_vec", "[as_quat]")
 {
   {
-    const quat q = as::quat_rotation_zxy(deg_to_rad(90.0_r), 0.0_r, 0.0_r);
+    const quat q = as::quat_rotation_zxy(radians(90.0_r), 0.0_r, 0.0_r);
     const vec3 result = quat_rotate(q, vec3::axis_y());
 
     CHECK(result.x == Approx(0.0_r).margin(g_epsilon));
@@ -169,7 +169,7 @@ TEST_CASE("quat_rotate_vec", "[as_quat]")
 
   {
     const quat q = as::quat_rotation_zxy(
-      deg_to_rad(0.0_r), deg_to_rad(-90.0_r), deg_to_rad(-90.0_r));
+      radians(0.0_r), radians(-90.0_r), radians(-90.0_r));
     const vec3 result = quat_rotate(q, vec3::axis_y());
 
     CHECK(result.x == Approx(0.0_r).margin(g_epsilon));
@@ -179,7 +179,7 @@ TEST_CASE("quat_rotate_vec", "[as_quat]")
 
   {
     const quat q = as::quat_rotation_zxy(
-      deg_to_rad(0.0_r), deg_to_rad(-90.0_r), deg_to_rad(-90.0_r));
+      radians(0.0_r), radians(-90.0_r), radians(-90.0_r));
     const vec3 result = quat_rotate(q, vec3::axis_x());
 
     CHECK(result.x == Approx(0.0_r).margin(g_epsilon));
@@ -189,7 +189,7 @@ TEST_CASE("quat_rotate_vec", "[as_quat]")
 
   {
     const quat q = as::quat_rotation_xyz(
-      deg_to_rad(90.0_r), deg_to_rad(0.0_r), deg_to_rad(0.0_r));
+      radians(90.0_r), radians(0.0_r), radians(0.0_r));
     const vec3 result = quat_rotate(q, vec3::axis_z());
 
     CHECK(result.x == Approx(0.0_r).margin(g_epsilon));
@@ -199,7 +199,7 @@ TEST_CASE("quat_rotate_vec", "[as_quat]")
 
   {
     const quat q = as::quat_rotation_xyz(
-      deg_to_rad(90.0_r), deg_to_rad(0.0_r), deg_to_rad(90.0_r));
+      radians(90.0_r), radians(0.0_r), radians(90.0_r));
     const vec3 result = quat_rotate(q, vec3::axis_z());
 
     CHECK(result.x == Approx(1.0_r).margin(g_epsilon));
@@ -208,8 +208,8 @@ TEST_CASE("quat_rotate_vec", "[as_quat]")
   }
 
   {
-    const quat quat_x = quat_rotation_axis(vec3::axis_x(), deg_to_rad(270.0_r));
-    const quat quat_z = quat_rotation_axis(vec3::axis_z(), deg_to_rad(-90.0_r));
+    const quat quat_x = quat_rotation_axis(vec3::axis_x(), radians(270.0_r));
+    const quat quat_z = quat_rotation_axis(vec3::axis_z(), radians(-90.0_r));
     const quat quat_zx = quat_z * quat_x;
 
     const vec3 result = quat_rotate(quat_zx, vec3::axis_z());
@@ -224,7 +224,7 @@ TEST_CASE("quat_slerp", "[as_quat]")
 {
   {
     const quat quat_y = quat_rotation_axis(vec3::axis_z(), 0.0_r);
-    const quat quat_x = quat_rotation_axis(vec3::axis_z(), deg_to_rad(90.0_r));
+    const quat quat_x = quat_rotation_axis(vec3::axis_z(), radians(90.0_r));
 
     {
       const quat result_quat = quat_slerp(quat_x, quat_y, 0.5_r);
@@ -261,9 +261,9 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
 
   {
     quat rotation_axis_quat = as::quat_rotation_zxy(
-      deg_to_rad(45.0_r), deg_to_rad(45.0_r), deg_to_rad(0.0_r));
+      radians(45.0_r), radians(45.0_r), radians(0.0_r));
     mat3 rotation_axis_mat = as::mat3_rotation_zxy(
-      deg_to_rad(45.0_r), deg_to_rad(45.0_r), deg_to_rad(0.0_r));
+      radians(45.0_r), radians(45.0_r), radians(0.0_r));
 
     quat rotation_axis_quat_from_mat;
     rotation_axis_quat_from_mat = quat_from_mat3(rotation_axis_mat);
@@ -279,9 +279,9 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
 
   {
     quat rotation_axis_quat = as::quat_rotation_xyz(
-      deg_to_rad(45.0_r), deg_to_rad(45.0_r), deg_to_rad(0.0_r));
+      radians(45.0_r), radians(45.0_r), radians(0.0_r));
     mat3 rotation_axis_mat = as::mat3_rotation_xyz(
-      deg_to_rad(45.0_r), deg_to_rad(45.0_r), deg_to_rad(0.0_r));
+      radians(45.0_r), radians(45.0_r), radians(0.0_r));
 
     quat rotation_axis_quat_from_mat;
     rotation_axis_quat_from_mat = quat_from_mat3(rotation_axis_mat);
@@ -297,9 +297,9 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
 
   {
     quat rotation_axis_quat = as::quat_rotation_zxy(
-      deg_to_rad(95.0_r), deg_to_rad(180.0_r), deg_to_rad(0.0_r));
+      radians(95.0_r), radians(180.0_r), radians(0.0_r));
     mat3 rotation_axis_mat = as::mat3_rotation_zxy(
-      deg_to_rad(95.0_r), deg_to_rad(180.0_r), deg_to_rad(0.0_r));
+      radians(95.0_r), radians(180.0_r), radians(0.0_r));
 
     quat rotation_axis_quat_from_mat;
     rotation_axis_quat_from_mat = quat_from_mat3(rotation_axis_mat);
@@ -315,9 +315,9 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
 
   {
     quat rotation_axis_quat = as::quat_rotation_xyz(
-      deg_to_rad(95.0_r), deg_to_rad(180.0_r), deg_to_rad(0.0_r));
+      radians(95.0_r), radians(180.0_r), radians(0.0_r));
     mat3 rotation_axis_mat = as::mat3_rotation_xyz(
-      deg_to_rad(95.0_r), deg_to_rad(180.0_r), deg_to_rad(0.0_r));
+      radians(95.0_r), radians(180.0_r), radians(0.0_r));
 
     quat rotation_axis_quat_from_mat;
     rotation_axis_quat_from_mat = quat_from_mat3(rotation_axis_mat);
@@ -333,9 +333,9 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
 
   {
     quat rotation_axis_quat = as::quat_rotation_zxy(
-      deg_to_rad(0.0_r), deg_to_rad(95.0_r), deg_to_rad(180.0_r));
+      radians(0.0_r), radians(95.0_r), radians(180.0_r));
     mat3 rotation_axis_mat = as::mat3_rotation_zxy(
-      deg_to_rad(0.0_r), deg_to_rad(95.0_r), deg_to_rad(180.0_r));
+      radians(0.0_r), radians(95.0_r), radians(180.0_r));
 
     quat rotation_axis_quat_from_mat;
     rotation_axis_quat_from_mat = quat_from_mat3(rotation_axis_mat);
@@ -351,9 +351,9 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
 
   {
     quat rotation_axis_quat = as::quat_rotation_xyz(
-      deg_to_rad(0.0_r), deg_to_rad(95.0_r), deg_to_rad(180.0_r));
+      radians(0.0_r), radians(95.0_r), radians(180.0_r));
     mat3 rotation_axis_mat = as::mat3_rotation_xyz(
-      deg_to_rad(0.0_r), deg_to_rad(95.0_r), deg_to_rad(180.0_r));
+      radians(0.0_r), radians(95.0_r), radians(180.0_r));
 
     quat rotation_axis_quat_from_mat;
     rotation_axis_quat_from_mat = quat_from_mat3(rotation_axis_mat);
@@ -369,9 +369,9 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
 
   {
     quat rotation_axis_quat = as::quat_rotation_zxy(
-      deg_to_rad(95.0_r), deg_to_rad(0.0_r), deg_to_rad(180.0_r));
+      radians(95.0_r), radians(0.0_r), radians(180.0_r));
     mat3 rotation_axis_mat = as::mat3_rotation_zxy(
-      deg_to_rad(95.0_r), deg_to_rad(0.0_r), deg_to_rad(180.0_r));
+      radians(95.0_r), radians(0.0_r), radians(180.0_r));
 
     quat rotation_axis_quat_from_mat;
     rotation_axis_quat_from_mat = quat_from_mat3(rotation_axis_mat);
@@ -387,9 +387,9 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
 
   {
     quat rotation_axis_quat = as::quat_rotation_xyz(
-      deg_to_rad(95.0_r), deg_to_rad(0.0_r), deg_to_rad(180.0_r));
+      radians(95.0_r), radians(0.0_r), radians(180.0_r));
     mat3 rotation_axis_mat = as::mat3_rotation_xyz(
-      deg_to_rad(95.0_r), deg_to_rad(0.0_r), deg_to_rad(180.0_r));
+      radians(95.0_r), radians(0.0_r), radians(180.0_r));
 
     quat rotation_axis_quat_from_mat;
     rotation_axis_quat_from_mat = quat_from_mat3(rotation_axis_mat);

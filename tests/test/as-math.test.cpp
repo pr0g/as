@@ -10,10 +10,10 @@ namespace unit_test
 using as::real;
 
 // functions
-using as::deg_to_rad;
+using as::radians;
 using as::max;
 using as::min;
-using as::rad_to_deg;
+using as::degrees;
 using as::smooth_step;
 using as::smoother_step;
 using as::operator""_r;
@@ -110,22 +110,22 @@ TEST_CASE("degrees_to_radians", "[as_math]")
 {
   constexpr real real_epsilon = 1e-3_r;
 
-  CHECK(deg_to_rad(57.2958_r) == Approx(1.0_r).epsilon(real_epsilon));
-  CHECK(deg_to_rad(90.0_r) == Approx(1.5708_r).epsilon(real_epsilon));
-  CHECK(deg_to_rad(180.0_r) == Approx(3.14159_r).epsilon(real_epsilon));
-  CHECK(deg_to_rad(270.0_r) == Approx(4.71239_r).epsilon(real_epsilon));
-  CHECK(deg_to_rad(360.0_r) == Approx(6.28319_r).epsilon(real_epsilon));
+  CHECK(radians(57.2958_r) == Approx(1.0_r).epsilon(real_epsilon));
+  CHECK(radians(90.0_r) == Approx(1.5708_r).epsilon(real_epsilon));
+  CHECK(radians(180.0_r) == Approx(3.14159_r).epsilon(real_epsilon));
+  CHECK(radians(270.0_r) == Approx(4.71239_r).epsilon(real_epsilon));
+  CHECK(radians(360.0_r) == Approx(6.28319_r).epsilon(real_epsilon));
 }
 
 TEST_CASE("radians_to_degrees", "[as_math]")
 {
   constexpr real real_epsilon = 1e-3_r;
 
-  CHECK(rad_to_deg(1.0_r) == Approx(57.2958_r).epsilon(real_epsilon));
-  CHECK(rad_to_deg(1.5708_r) == Approx(90.0_r).epsilon(real_epsilon));
-  CHECK(rad_to_deg(3.14159_r) == Approx(180.0_r).epsilon(real_epsilon));
-  CHECK(rad_to_deg(4.71239_r) == Approx(270.0_r).epsilon(real_epsilon));
-  CHECK(rad_to_deg(6.28319_r) == Approx(360.0_r).epsilon(real_epsilon));
+  CHECK(degrees(1.0_r) == Approx(57.2958_r).epsilon(real_epsilon));
+  CHECK(degrees(1.5708_r) == Approx(90.0_r).epsilon(real_epsilon));
+  CHECK(degrees(3.14159_r) == Approx(180.0_r).epsilon(real_epsilon));
+  CHECK(degrees(4.71239_r) == Approx(270.0_r).epsilon(real_epsilon));
+  CHECK(degrees(6.28319_r) == Approx(360.0_r).epsilon(real_epsilon));
 }
 
 TEST_CASE("snap", "[as_math]")
