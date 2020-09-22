@@ -556,7 +556,7 @@ AS_API T determinant(const mat<T, d>& m)
 }
 
 template<typename T, index d>
-AS_API mat<T, d> inverse(const mat<T, d>& m)
+AS_API mat<T, d> mat_inverse(const mat<T, d>& m)
 {
   mat<T, d> result;
 
@@ -568,11 +568,11 @@ AS_API mat<T, d> inverse(const mat<T, d>& m)
 }
 
 template<typename T>
-AS_API mat<T, 2> inverse(const mat<T, 2>& m)
+AS_API mat<T, 2> mat_inverse(const mat<T, 2>& m)
 {
   // clang-format off
   return mat<T, 2>{m[3], -m[1],
-                    -m[2],  m[0]}
+                  -m[2],  m[0]}
         * (T(1.0) / determinant(m));
   // clang-format on
 }
@@ -1377,7 +1377,7 @@ AS_API inline point3 affine_transform_pos(
 AS_API inline vec3 affine_inv_transform_dir(
   const affine& a, const vec3& direction)
 {
-  const mat3 inv_rotation = inverse(a.rotation);
+  const mat3 inv_rotation = mat_inverse(a.rotation);
 #ifdef AS_COL_MAJOR
   return inv_rotation * direction;
 #elif defined AS_ROW_MAJOR
@@ -1388,7 +1388,7 @@ AS_API inline vec3 affine_inv_transform_dir(
 AS_API inline vec3 affine_inv_transform_pos(
   const affine& a, const vec3& position)
 {
-  const mat3 inv_rotation = inverse(a.rotation);
+  const mat3 inv_rotation = mat_inverse(a.rotation);
 #ifdef AS_COL_MAJOR
   return inv_rotation * (position - a.translation);
 #elif defined AS_ROW_MAJOR

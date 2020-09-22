@@ -1096,7 +1096,7 @@ TEST_CASE("mat_inverse", "[as_mat]")
     };
     // clang-format on
 
-    const mat2 mat2_inverse = as::inverse(m2);
+    const mat2 mat2_inverse = as::mat_inverse(m2);
     const real mat2_inverse_ref[]{-2.0_r, 1.0_r, 3.0_r / 2.0_r, -1.0_r / 2.0_r};
 
     CHECK_THAT(make_span(mat2_inverse_ref), make_elements_sub(mat2_inverse, 4));
@@ -1111,7 +1111,7 @@ TEST_CASE("mat_inverse", "[as_mat]")
     };
     // clang-format on
 
-    const mat3 mat3_inverse = as::inverse(m3);
+    const mat3 mat3_inverse = as::mat_inverse(m3);
 
     // clang-format off
     const real mat3_inverse_ref[] {
@@ -1134,7 +1134,7 @@ TEST_CASE("mat_inverse", "[as_mat]")
     };
     // clang-format on
 
-    const mat4 mat4_inverse = as::inverse(m4);
+    const mat4 mat4_inverse = as::mat_inverse(m4);
 
     // clang-format off
     const real mat4_inverse_reference[] {
