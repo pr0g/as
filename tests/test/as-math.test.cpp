@@ -10,10 +10,10 @@ namespace unit_test
 using as::real;
 
 // functions
-using as::radians;
+using as::degrees;
 using as::max;
 using as::min;
-using as::degrees;
+using as::radians;
 using as::smooth_step;
 using as::smoother_step;
 using as::operator""_r;

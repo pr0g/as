@@ -1250,8 +1250,8 @@ TEST_CASE("mat3_rotate_xyz", "[as_mat]")
   using gsl::make_span;
 
   {
-    mat3 rotation_axis = as::mat3_rotation_xyz(
-      radians(45.0_r), radians(90.0_r), radians(45.0_r));
+    mat3 rotation_axis =
+      as::mat3_rotation_xyz(radians(45.0_r), radians(90.0_r), radians(45.0_r));
     real result_reference[] = {0.0_r, 1.0_r, 0.0_r};
 
     vec3 result;
@@ -1291,8 +1291,8 @@ TEST_CASE("mat3_rotate_zxy", "[as_mat]")
   using gsl::make_span;
 
   {
-    mat3 rotation_axis = as::mat3_rotation_zxy(
-      radians(90.0_r), radians(90.0_r), radians(0.0_r));
+    mat3 rotation_axis =
+      as::mat3_rotation_zxy(radians(90.0_r), radians(90.0_r), radians(0.0_r));
     real result_reference_y[] = {1.0_r, 0.0_r, 0.0_r};
     real result_reference_z[] = {0.0_r, -1.0_r, 0.0_r};
 
@@ -1317,8 +1317,8 @@ TEST_CASE("mat3_rotate_zxy", "[as_mat]")
   }
 
   {
-    mat3 rotation_axis = as::mat3_rotation_zxy(
-      radians(0.0_r), radians(-90.0_r), radians(-90.0_r));
+    mat3 rotation_axis =
+      as::mat3_rotation_zxy(radians(0.0_r), radians(-90.0_r), radians(-90.0_r));
     real result_reference_x[] = {0.0_r, -1.0_r, 0.0_r};
     real result_reference_y[] = {0.0_r, 0.0_r, 1.0_r};
 
@@ -1348,10 +1348,10 @@ TEST_CASE("mat3_from_quat", "[as_mat]")
   using gsl::make_span;
 
   {
-    mat3 rotation_axis_mat = as::mat3_rotation_zxy(
-      radians(90.0_r), radians(90.0_r), radians(0.0_r));
-    quat rotation_axis_quat = as::quat_rotation_zxy(
-      radians(90.0_r), radians(90.0_r), radians(0.0_r));
+    mat3 rotation_axis_mat =
+      as::mat3_rotation_zxy(radians(90.0_r), radians(90.0_r), radians(0.0_r));
+    quat rotation_axis_quat =
+      as::quat_rotation_zxy(radians(90.0_r), radians(90.0_r), radians(0.0_r));
 
     mat3 rotation_axis_mat_from_quat;
     rotation_axis_mat_from_quat = as::mat3_from_quat(rotation_axis_quat);
