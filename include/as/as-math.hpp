@@ -5,6 +5,8 @@
 
 #include "as-types.hpp"
 
+#include <algorithm>
+
 namespace as
 {
 
@@ -17,41 +19,33 @@ constexpr real kPi = 3.14159265358979323846_r;
 //! \param begin The value to interpolate from.
 //! \param end The value to interpolate to.
 template<typename T>
-constexpr T lerp(T t, T begin, T end);
+constexpr T mix(T begin, T end, T t);
 
 //! Returns the result of Hermite interpolation between `begin` and `end`.
 //! \note `smooth_step` is not second-order continuous at either `t=0` or `t=1`.
 //! \param t The amount of interpolation between `begin` and `end`. Must be in
 //! the range `[0-1]`.
-//! \param begin The value to interpolate from.
-//! \param end The value to interpolate to.
 template<typename T>
-constexpr T smooth_step(T t, T begin, T end);
+constexpr T smooth_step(T t);
 
 //! Returns the result of Hermite interpolation between `begin` and `end`.
 //! \note `smoother_step` is second-order continuous at both `t=0` and `t=1`.
 //! \param t The amount of interpolation between `begin` and `end`. Must be in
 //! the range `[0-1]`.
-//! \param begin The value to interpolate from.
-//! \param end The value to interpolate to.
 template<typename T>
-constexpr T smoother_step(T t, T begin, T end);
+constexpr T smoother_step(T t);
 
 //! Returns the larger of the two values.
-template<typename T>
-constexpr T max(T v0, T v1);
+//! https://en.cppreference.com/w/cpp/algorithm/max
+using std::max;
 
 //! Returns the smaller of the two values.
-template<typename T>
-constexpr T min(T v0, T v1);
+//! https://en.cppreference.com/w/cpp/algorithm/min
+using std::min;
 
-//! Returns `low` if `in` is less than `low`, `high` if `in` is greater than
-//! `high` and `in` otherwise.
-//! \param in The value to clamp.
-//! \param low The minimum value to clamp to.
-//! \param high The maximum value to clamp to.
-template<typename T>
-constexpr T clamp(T in, T low, T high);
+//! Clamps the input between two values.
+//! https://en.cppreference.com/w/cpp/algorithm/clamp
+using std::clamp;
 
 //! Returns the closest `step` value to `in`.
 //! \param in The value to snap.

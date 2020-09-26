@@ -167,11 +167,12 @@ AS_API vec<T, d> vec_saturate(const vec<T, d>& v)
 }
 
 template<typename T, index d>
-AS_API vec<T, d> vec_lerp(T t, const vec<T, d>& begin, const vec<T, d>& end)
+AS_API vec<T, d> vec_mix(
+  const vec<T, d>& begin, const vec<T, d>& end, const T t)
 {
   vec<T, d> result;
   for (index i = 0; i < d; ++i) {
-    result[i] = as::lerp(t, begin[i], end[i]);
+    result[i] = as::mix(begin[i], end[i], t);
   }
 
   return result;

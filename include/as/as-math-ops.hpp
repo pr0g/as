@@ -122,7 +122,7 @@ vec<T, d> vec_saturate(const vec<T, d>& v);
 //! \param begin The vector to interpolate from.
 //! \param end The vector to interpolate to.
 template<typename T, index d>
-vec<T, d> vec_lerp(T t, const vec<T, d>& begin, const vec<T, d>& end);
+vec<T, d> vec_mix(const vec<T, d>& begin, const vec<T, d>& end, T t);
 
 //! Returns `v0` if `select0` is true, otherwise `v1`.
 template<typename T, index d>

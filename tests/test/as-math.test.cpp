@@ -13,9 +13,11 @@ using as::real;
 using as::degrees;
 using as::max;
 using as::min;
+using as::mix;
 using as::radians;
 using as::smooth_step;
 using as::smoother_step;
+using as::snap;
 using as::operator""_r;
 
 const real g_epsilon = real(std::numeric_limits<float>::epsilon());
@@ -69,15 +71,15 @@ TEST_CASE("smooth_step", "[as_math]")
   constexpr real real_epsilon = 1e-3_r;
 
   real quarter_value;
-  quarter_value = smooth_step(0.25_r, 0.0_r, 1.0_r);
+  quarter_value = mix(0.0_r, 1.0_r, smooth_step(0.25_r));
   CHECK(quarter_value == Approx(0.15625_r).epsilon(real_epsilon));
 
   real mid_value;
-  mid_value = smooth_step(0.5_r, 0.0_r, 1.0_r);
+  mid_value = mix(0.0_r, 1.0_r, smooth_step(0.5_r));
   CHECK(mid_value == Approx(0.5_r).epsilon(real_epsilon));
 
   real three_quarter_value;
-  three_quarter_value = smooth_step(0.75_r, 0.0_r, 1.0_r);
+  three_quarter_value = mix(0.0_r, 1.0_r, smooth_step(0.75_r));
   CHECK(three_quarter_value == Approx(0.84375_r).epsilon(real_epsilon));
 }
 
@@ -86,23 +88,23 @@ TEST_CASE("smoother_step", "[as_math]")
   constexpr real real_epsilon = 1e-3_r;
 
   real ten_percent_value;
-  ten_percent_value = smoother_step(0.1_r, 0.0_r, 1.0_r);
+  ten_percent_value = mix(0.0_r, 1.0_r, smoother_step(0.1_r));
   CHECK(ten_percent_value == Approx(0.00856_r).epsilon(real_epsilon));
 
   real quarter_value;
-  quarter_value = smoother_step(0.25_r, 0.0_r, 1.0_r);
+  quarter_value = mix(0.0_r, 1.0_r, smoother_step(0.25_r));
   CHECK(quarter_value == Approx(0.10351_r).epsilon(real_epsilon));
 
   real mid_value;
-  mid_value = smoother_step(0.5_r, 0.0_r, 1.0_r);
+  mid_value = mix(0.0_r, 1.0_r, smoother_step(0.5_r));
   CHECK(mid_value == Approx(0.5_r).epsilon(real_epsilon));
 
   real three_quarter_value;
-  three_quarter_value = smoother_step(0.75_r, 0.0_r, 1.0_r);
+  three_quarter_value = mix(0.0_r, 1.0_r, smoother_step(0.75_r));
   CHECK(three_quarter_value == Approx(0.89648_r).epsilon(real_epsilon));
 
   real ninety_percent_value;
-  ninety_percent_value = smoother_step(0.9_r, 0.0_r, 1.0_r);
+  ninety_percent_value = mix(0.0_r, 1.0_r, smoother_step(0.9_r));
   CHECK(ninety_percent_value == Approx(0.99144_r).epsilon(real_epsilon));
 }
 
@@ -131,32 +133,32 @@ TEST_CASE("radians_to_degrees", "[as_math]")
 TEST_CASE("snap", "[as_math]")
 {
   {
-    const real result = as::snap(4.0_r, 10.0_r);
+    const real result = snap(4.0_r, 10.0_r);
     CHECK(result == Approx(0.0_r).epsilon(g_epsilon));
   }
 
   {
-    const real result = as::snap(6.0_r, 10.0_r);
+    const real result = snap(6.0_r, 10.0_r);
     CHECK(result == Approx(10.0_r).epsilon(g_epsilon));
   }
 
   {
-    const real result = as::snap(1.0_r, 2.0_r);
+    const real result = snap(1.0_r, 2.0_r);
     CHECK(result == Approx(2.0_r).epsilon(g_epsilon));
   }
 
   {
-    const real result = as::snap(0.99_r, 2.0_r);
+    const real result = snap(0.99_r, 2.0_r);
     CHECK(result == Approx(0.0_r).epsilon(g_epsilon));
   }
 
   {
-    const real result = as::snap(22.0_r, 20.0_r);
+    const real result = snap(22.0_r, 20.0_r);
     CHECK(result == Approx(20.0_r).epsilon(g_epsilon));
   }
 
   {
-    const real result = as::snap(32.0_r, 20.0_r);
+    const real result = snap(32.0_r, 20.0_r);
     CHECK(result == Approx(40.0_r).epsilon(g_epsilon));
   }
 }
@@ -164,5 +166,5 @@ TEST_CASE("snap", "[as_math]")
 } // namespace unit_test
 
 // explicit instantiations (for coverage)
-template as::real as::smooth_step(as::real t, as::real v0, as::real v1);
-template as::real as::smoother_step(as::real t, as::real v0, as::real v1);
+template as::real as::smooth_step(as::real t);
+template as::real as::smoother_step(as::real t);

@@ -2,41 +2,21 @@ namespace as
 {
 
 template<typename T>
-AS_API constexpr T lerp(const T t, const T begin, const T end)
+AS_API constexpr T mix(const T begin, const T end, const T t)
 {
   return (T(1) - t) * begin + t * end;
 }
 
 template<typename T>
-AS_API constexpr T smooth_step(const T t, const T begin, const T end)
+AS_API constexpr T smooth_step(const T t)
 {
-  const T val = t * t * (T(3) - T(2) * t);
-  return lerp(val, begin, end);
+  return t * t * (T(3) - T(2) * t);
 }
 
 template<typename T>
-AS_API constexpr T smoother_step(const T t, const T begin, const T end)
+AS_API constexpr T smoother_step(const T t)
 {
-  const T val = t * t * t * (t * (t * T(6) - T(15)) + T(10));
-  return lerp(val, begin, end);
-}
-
-template<typename T>
-AS_API constexpr T max(const T v0, const T v1)
-{
-  return v0 > v1 ? v0 : v1;
-}
-
-template<typename T>
-AS_API constexpr T min(const T v0, const T v1)
-{
-  return v0 < v1 ? v0 : v1;
-}
-
-template<typename T>
-AS_API constexpr T clamp(const T in, const T low, const T high)
-{
-  return in < low ? low : in > high ? high : in;
+  return t * t * t * (t * (t * T(6) - T(15)) + T(10));
 }
 
 template<typename T>

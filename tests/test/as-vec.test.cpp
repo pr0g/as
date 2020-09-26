@@ -1528,9 +1528,9 @@ TEST_CASE("lerp", "[as_vec]")
     vec3 start(0.0_r, 10.0_r, 20.0_r);
     vec3 end(10.0_r, 40.0_r, 100.0_r);
 
-    vec3 result_begin = vec_lerp(real(0.0), start, end);
-    vec3 result_mid = vec_lerp(real(0.5), start, end);
-    vec3 result_end = vec_lerp(real(1.0), start, end);
+    vec3 result_begin = vec_mix(start, end, 0.0_r);
+    vec3 result_mid = vec_mix(start, end, 0.5_r);
+    vec3 result_end = vec_mix(start, end, 1.0_r);
 
     const real result_begin_arr[] = {0.0_r, 10.0_r, 20.0_r};
     CHECK_THAT(make_span(result_begin_arr), make_elements_sub(result_begin, 3));
@@ -1843,7 +1843,7 @@ template as::vec<as::real, 5> as::vec_clamp(
   const as::vec<as::real, 5>&, const as::vec<as::real, 5>&,
   const as::vec<as::real, 5>&);
 template as::vec<as::real, 5> as::vec_saturate(const as::vec<as::real, 5>&);
-template as::vec<as::real, 5> as::vec_lerp(
-  as::real t, const as::vec<as::real, 5>&, const as::vec<as::real, 5>&);
+template as::vec<as::real, 5> as::vec_mix(
+  const as::vec<as::real, 5>&, const as::vec<as::real, 5>&, as::real t);
 template as::vec<as::real, 5> as::vec_select(
   const as::vec<as::real, 5>&, const as::vec<as::real, 5>&, bool);
