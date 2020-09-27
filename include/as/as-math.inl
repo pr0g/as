@@ -4,19 +4,19 @@ namespace as
 template<typename T>
 AS_API constexpr T mix(const T begin, const T end, const T t)
 {
-  return (T(1) - t) * begin + t * end;
+  return (T(1.0) - t) * begin + t * end;
 }
 
 template<typename T>
 AS_API constexpr T smooth_step(const T t)
 {
-  return t * t * (T(3) - T(2) * t);
+  return t * t * (T(3.0) - T(2.0) * t);
 }
 
 template<typename T>
 AS_API constexpr T smoother_step(const T t)
 {
-  return t * t * t * (t * (t * T(6) - T(15)) + T(10));
+  return t * t * t * (t * (t * T(6.0) - T(15.0)) + T(10.0));
 }
 
 template<typename T>
