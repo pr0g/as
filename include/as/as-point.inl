@@ -71,44 +71,6 @@ AS_API constexpr const vec<T, 2>& point<T, 2>::as_vec() const&
 }
 
 template<typename T>
-AS_API constexpr const vec<T, 2> operator-(const point<T, 2>& lhs, const point<T, 2>& rhs)
-{
-  return lhs.v - rhs.v;
-}
-
-template<typename T>
-AS_API constexpr const point<T, 2> operator+(const point<T, 2>& p, const vec<T, 2>& v)
-{
-  return point<T, 2>(p.v + v);
-}
-
-template<typename T>
-AS_API constexpr point<T, 2>& operator+=(point<T, 2>& p, const vec<T, 2>& v)
-{
-  p.v += v;
-  return p;
-}
-
-template<typename T>
-AS_API constexpr const point<T, 2> operator-(const point<T, 2>& p, const vec<T, 2>& v)
-{
-  return point<T, 2>(p.v - v);
-}
-
-template<typename T>
-AS_API constexpr point<T, 2>& operator-=(point<T, 2>& p, const vec<T, 2>& v)
-{
-  p.v -= v;
-  return p;
-}
-
-template<typename T>
-AS_API constexpr const point<T, 2> operator-(const point<T, 2>& p)
-{
-  return point<T, 2>{-p.v};
-}
-
-template<typename T>
 AS_API constexpr point<T, 3>::point(const T xyz_) : v{xyz_, xyz_, xyz_}
 {
 }
@@ -188,44 +150,6 @@ template<typename T>
 AS_API constexpr const vec<T, 3>& point<T, 3>::as_vec() const&
 {
   return v;
-}
-
-template<typename T>
-AS_API constexpr const vec<T, 3> operator-(const point<T, 3>& lhs, const point<T, 3>& rhs)
-{
-  return lhs.v - rhs.v;
-}
-
-template<typename T>
-AS_API constexpr const point<T, 3> operator+(const point<T, 3>& p, const vec3& v)
-{
-  return point<T, 3>(p.v + v);
-}
-
-template<typename T>
-AS_API constexpr point<T, 3>& operator+=(point<T, 3>& p, const vec3& v)
-{
-  p.v += v;
-  return p;
-}
-
-template<typename T>
-AS_API constexpr const point<T, 3> operator-(const point<T, 3>& p, const vec3& v)
-{
-  return point<T, 3>(p.v - v);
-}
-
-template<typename T>
-AS_API constexpr point<T, 3>& operator-=(point<T, 3>& p, const vec3& v)
-{
-  p.v -= v;
-  return p;
-}
-
-template<typename T>
-AS_API constexpr const point<T, 3> operator-(const point<T, 3>& p)
-{
-  return point<T, 3>{-p.v};
 }
 
 } // namespace as

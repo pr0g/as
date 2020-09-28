@@ -69,17 +69,45 @@ struct point<T, 2>
 private:
   //! Returns the result of the right hand point2 subtracted from the left
   //! hand point2.
-  friend constexpr const vec<T, 2> operator-(const point<T, 2>& lhs, const point<T, 2>& rhs);
+  friend constexpr const vec<T, 2> operator-(
+    const point<T, 2>& lhs, const point<T, 2>& rhs)
+  {
+    return lhs.v - rhs.v;
+  }
+
   //! Returns the result of a vec2 added to a point2.
-  friend constexpr const point<T, 2> operator+(const point<T, 2>& p, const vec<T, 2>& v);
+  friend constexpr const point<T, 2> operator+(
+    const point<T, 2>& p, const vec<T, 2>& v)
+  {
+    return point<T, 2>(p.v + v);
+  }
+
   //! Performs addition assignment of a point2 and a vec2.
-  friend constexpr point<T, 2>& operator+=(point<T, 2>& p, const vec<T, 2>& v);
+  friend constexpr point<T, 2>& operator+=(point<T, 2>& p, const vec<T, 2>& v)
+  {
+    p.v += v;
+    return p;
+  }
+
   //! Returns the result of a vec2 subtracted from a point2.
-  friend constexpr const point<T, 2> operator-(const point<T, 2>& p, const vec<T, 2>& v);
+  friend constexpr const point<T, 2> operator-(
+    const point<T, 2>& p, const vec<T, 2>& v)
+  {
+    return point<T, 2>(p.v - v);
+  }
+
   //! Performs subtraction assignment of a point2 and a vec2.
-  friend constexpr point<T, 2>& operator-=(point<T, 2>& p, const vec<T, 2>& v);
+  friend constexpr point<T, 2>& operator-=(point<T, 2>& p, const vec<T, 2>& v)
+  {
+    p.v -= v;
+    return p;
+  }
+
   //! Returns the negation of a point2.
-  friend constexpr point<T, 2> operator-(const point<T, 2>& p);
+  friend constexpr point<T, 2> operator-(const point<T, 2>& p)
+  {
+    return point<T, 2>{-p.v};
+  }
 
   vec<T, 2> v; //!< point2 is implemented in terms of vec2.
 };
@@ -154,17 +182,45 @@ struct point<T, 3>
 private:
   //! Returns the result of the right hand point3 subtracted from the left
   //! hand point3.
-  friend constexpr const vec<T, 3> operator-(const point<T, 3>& lhs, const point<T, 3>& rhs);
+  friend constexpr const vec<T, 3> operator-(
+    const point<T, 3>& lhs, const point<T, 3>& rhs)
+  {
+    return lhs.v - rhs.v;
+  }
+
   //! Returns the result of a vec3 added to a point3.
-  friend constexpr const point<T, 3> operator+(const point<T, 3>& p, const vec<T, 3>& v);
+  friend constexpr const point<T, 3> operator+(
+    const point<T, 3>& p, const vec<T, 3>& v)
+  {
+    return point<T, 3>(p.v + v);
+  }
+
   //! Performs addition assignment of a point3 and a vec3.
-  friend constexpr point<T, 3>& operator+=(point<T, 3>& p, const vec<T, 3>& v);
+  friend constexpr point<T, 3>& operator+=(point<T, 3>& p, const vec<T, 3>& v)
+  {
+    p.v += v;
+    return p;
+  }
+
   //! Returns the result of a vec3 subtracted from a point3.
-  friend constexpr const point<T, 3> operator-(const point<T, 3>& p, const vec<T, 3>& v);
+  friend constexpr const point<T, 3> operator-(
+    const point<T, 3>& p, const vec<T, 3>& v)
+  {
+    return point<T, 3>(p.v - v);
+  }
+
   //! Performs subtraction assignment of a point3 and a vec3.
-  friend constexpr point<T, 3>& operator-=(point<T, 3>& p, const vec<T, 3>& v);
+  friend constexpr point<T, 3>& operator-=(point<T, 3>& p, const vec<T, 3>& v)
+  {
+    p.v -= v;
+    return p;
+  }
+
   //! Returns the negation of a point3.
-  friend constexpr const point<T, 3> operator-(const point<T, 3>& p);
+  friend constexpr const point<T, 3> operator-(const point<T, 3>& p)
+  {
+    return point<T, 3>{-p.v};
+  }
 
   vec<T, 3> v; //!< point3 is implemented in terms of vec3.
 };
