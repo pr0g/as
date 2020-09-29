@@ -453,7 +453,7 @@ AS_API bool mat_equal(
 }
 
 template<typename T, index d>
-AS_API mat<T, d> transpose(const mat<T, d>& m)
+AS_API mat<T, d> mat_transpose(const mat<T, d>& m)
 {
   mat<T, d> result;
   for (index ci = 0; ci < d; ++ci) {
@@ -562,7 +562,7 @@ AS_API mat<T, d> mat_inverse(const mat<T, d>& m)
   mat<T, d> result;
 
   result = internal::minor_impl(m, internal::int2type<d>{});
-  result = transpose(result);
+  result = mat_transpose(result);
   result *= T(1.0) / determinant(m);
 
   return result;
@@ -1346,7 +1346,7 @@ AS_API inline affine affine_mul(const affine& lhs, const affine& rhs)
 
 AS_API inline affine affine_inverse(const affine& a)
 {
-  const mat3 inv_rot = transpose(a.rotation);
+  const mat3 inv_rot = mat_transpose(a.rotation);
   const vec3 inv_pos = affine_transform_pos(affine(inv_rot), -a.translation);
   return affine(inv_rot, inv_pos);
 }

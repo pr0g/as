@@ -986,7 +986,7 @@ TEST_CASE("mat_transpose", "[as_mat]")
       7.0_r, 8.0_r, 9.0_r
     };
 
-    const mat3 mat3_transposed = as::transpose(m3);
+    const mat3 mat3_transposed = as::mat_transpose(m3);
 
     const real mat3_transposed_ref[] {
         1.0_r, 4.0_r, 7.0_r,
@@ -1008,7 +1008,7 @@ TEST_CASE("mat_transpose", "[as_mat]")
       13.0_r, 14.0_r, 15.0_r, 16.0_r
     };
 
-    const mat4 mat4_transposed = as::transpose(m4);
+    const mat4 mat4_transposed = as::mat_transpose(m4);
 
     const real mat4_transposed_reference[] {
       1.0_r, 5.0_r, 9.0_r, 13.0_r,
