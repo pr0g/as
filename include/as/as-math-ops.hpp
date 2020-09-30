@@ -430,6 +430,9 @@ mat<T, 3> mat3_from_ptr(const T* data);
 template<typename T>
 constexpr mat<T, 3> mat3_from_mat4(const mat<T, 4>& transform);
 
+//! Returns a mat<T, 3> from an ::affine.
+constexpr mat3 mat3_from_affine(const affine& a);
+
 //! Returns a rotation about a given axis.
 //! \param axis The axis of rotation.
 //! \param radians The amount to rotate by in radians.

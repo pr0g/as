@@ -1366,6 +1366,24 @@ TEST_CASE("mat3_from_quat", "[as_mat]")
   }
 }
 
+TEST_CASE("mat3_from_affine", "[as_mat]")
+{
+  using gsl::make_span;
+
+  mat3 rotation =
+    mat3(2.0_r, 4.0_r, 6.0_r, 8.0_r, 10.0_r, 12.0_r, 14.0_r, 16.0_r, 18.0_r);
+
+  affine a = affine(rotation, vec3::zero());
+
+  mat3 result = mat3_from_affine(a);
+
+  real expected[9];
+  as::mat_to_arr(rotation, expected);
+
+  CHECK_THAT(
+    make_span(expected), make_elements_sub(rotation, 9).margin(g_epsilon));
+}
+
 TEST_CASE("mat4_from_affine", "[as_mat]")
 {
   using gsl::make_span;

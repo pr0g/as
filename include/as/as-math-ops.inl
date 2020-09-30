@@ -747,6 +747,11 @@ AS_API constexpr mat<T, 3> mat3_from_mat4(const mat<T, 4>& transform)
   // clang-format on
 }
 
+AS_API constexpr mat3 mat3_from_affine(const affine& a)
+{
+  return a.rotation;
+}
+
 AS_API inline mat3 mat3_rotation_axis(const vec3& axis, const real radians)
 {
   const real cos_radians = std::cos(radians);
