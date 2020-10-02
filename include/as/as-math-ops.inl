@@ -62,6 +62,12 @@ AS_API T vec_length(const vec<T, d>& v)
 }
 
 template<typename T, index d>
+AS_API T vec_distance(const vec<T, d>& lhs, const vec<T, d>& rhs)
+{
+  return vec_length(rhs - lhs);
+}
+
+template<typename T, index d>
 AS_API vec<T, d> vec_normalize(const vec<T, d>& v)
 {
   return v / vec_length(v);

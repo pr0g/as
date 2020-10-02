@@ -57,6 +57,10 @@ constexpr T vec_length_sq(const vec<T, d>& v);
 template<typename T, index d>
 T vec_length(const vec<T, d>& v);
 
+//! Returns the distance between two vectors.
+template<typename T, index d>
+T vec_distance(const vec<T, d>& lhs, const vec<T, d>& rhs);
+
 //! Returns the input vector with unit length.
 template<typename T, index d>
 vec<T, d> vec_normalize(const vec<T, d>& v);

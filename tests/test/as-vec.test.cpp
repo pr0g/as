@@ -1543,6 +1543,17 @@ TEST_CASE("lerp", "[as_vec]")
   }
 }
 
+TEST_CASE("distance", "[as_vec]")
+{
+  const vec3 lhs = vec3(100, 100, 100);
+  const vec3 rhs = vec3(50, 50, 50);
+
+  float distance;
+  distance = vec_distance(lhs, rhs);
+
+  CHECK(distance == Approx(86.6025403784_r).epsilon(g_epsilon));
+}
+
 TEST_CASE("normalize_and_length", "[as_vec]")
 {
   const vec3 v(3.0_r, 4.0_r, 0.0_r);
