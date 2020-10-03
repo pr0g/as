@@ -1794,6 +1794,33 @@ TEST_CASE("orthonomal_basis", "[as_vec]")
   }
 }
 
+TEST_CASE("average", "[as_vec]")
+{
+  {
+    vec2 avg = vec_average_fold(vec2{2.0_r, 2.0_r}, vec2{4.0_r, 4.0_r});
+    CHECK_THAT(arr(3.0_r, 3.0_r), make_elements_sub(avg, 2));
+  }
+
+  {
+    vec2 vecs[] = {vec2{2.0_r, 2.0_r}, vec2{4.0_r, 4.0_r}};
+    vec2 avg = vec_average(vecs, std::size(vecs));
+    CHECK_THAT(arr(3.0_r, 3.0_r), make_elements_sub(avg, 2));
+  }
+
+  {
+    vec3 avg = vec_average_fold(
+      vec3{3.0_r, 3.0_r, 3.0_r}, vec3{5.0_r, 5.0_r, 5.0_r});
+    CHECK_THAT(arr(4.0_r, 4.0_r, 4.0_r), make_elements_sub(avg, 3));
+  }
+
+  {
+    vec3 vecs[] = {
+      vec3{3.0_r, 3.0_r, 3.0_r}, vec3{5.0_r, 5.0_r, 5.0_r}};
+    vec3 avg = vec_average(vecs, std::size(vecs));
+    CHECK_THAT(arr(4.0_r, 4.0_r, 4.0_r), make_elements_sub(avg, 3));
+  }
+}
+
 } // namespace unit_test
 
 // explicit instantiations (for coverage)
@@ -1847,6 +1874,10 @@ template as::vec<as::real, 5> as::vec_clamp(
   const as::vec<as::real, 5>&);
 template as::vec<as::real, 5> as::vec_saturate(const as::vec<as::real, 5>&);
 template as::vec<as::real, 5> as::vec_mix(
-  const as::vec<as::real, 5>&, const as::vec<as::real, 5>&, as::real t);
+  const as::vec<as::real, 5>&, const as::vec<as::real, 5>&, as::real);
 template as::vec<as::real, 5> as::vec_select(
   const as::vec<as::real, 5>&, const as::vec<as::real, 5>&, bool);
+template as::vec<as::real, 5> as::vec_average(
+  const as::vec<as::real, 5>* v, as::index);
+template auto as::vec_average_fold<as::vec<as::real, 5>, as::vec<as::real, 5>>(
+    as::vec<as::real, 5>&&, as::vec<as::real, 5>&&);
