@@ -831,8 +831,9 @@ TEST_CASE("addition", "[as_vec]")
 
   // vec operator '+'
   {
-    vec5 v = vec5{10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r}
-           + vec5{40.0_r, 30.0_r, 20.0_r, 10.0_r, 0.0_r};
+    vec5 v;
+    v = vec5{10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r}
+      + vec5{40.0_r, 30.0_r, 20.0_r, 10.0_r, 0.0_r};
 
     CHECK(vec_equal(v, vec5(50.0_r, 50.0_r, 50.0_r, 50.0_r, 50.0_r)));
   }
@@ -849,7 +850,8 @@ TEST_CASE("addition_vec3", "[as_vec]")
 {
   // vec3 operator '+'
   {
-    vec3 v = vec3{10.0_r, 20.0_r, 30.0_r} + vec3{20.0_r, 10.0_r, 0.0_r};
+    vec3 v;
+    v = vec3{10.0_r, 20.0_r, 30.0_r} + vec3{20.0_r, 10.0_r, 0.0_r};
     CHECK(vec_equal(v, vec3(30.0_r, 30.0_r, 30.0_r)));
   }
 
@@ -867,8 +869,9 @@ TEST_CASE("substraction", "[as_vec]")
 
   // vec operator '-'
   {
-    vec5 v = vec5{40.0_r, 30.0_r, 20.0_r, 10.0_r, 0.0_r}
-           - vec5{10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r};
+    vec5 v;
+    v = vec5{40.0_r, 30.0_r, 20.0_r, 10.0_r, 0.0_r}
+      - vec5{10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r};
 
     CHECK(vec_equal(v, vec5(30.0_r, 10.0_r, -10.0_r, -30.0_r, -50.0_r)));
   }
@@ -885,7 +888,8 @@ TEST_CASE("substraction_vec3", "[as_vec]")
 {
   // vec3 operator '-'
   {
-    vec3 v = vec3{40.0_r, 30.0_r, 20.0_r} - vec3{10.0_r, 20.0_r, 30.0_r};
+    vec3 v;
+    v = vec3{40.0_r, 30.0_r, 20.0_r} - vec3{10.0_r, 20.0_r, 30.0_r};
     CHECK(vec_equal(v, vec3(30.0_r, 10.0_r, -10.0_r)));
   }
 
