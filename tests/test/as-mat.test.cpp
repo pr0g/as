@@ -1377,7 +1377,7 @@ TEST_CASE("mat3_from_affine", "[as_mat]")
   mat3 result = mat3_from_affine(a);
 
   real expected[9];
-  as::mat_to_arr(rotation, expected);
+  as::mat_to_arr(result, expected);
 
   CHECK_THAT(
     make_span(expected), make_elements_sub(rotation, 9).margin(g_epsilon));
