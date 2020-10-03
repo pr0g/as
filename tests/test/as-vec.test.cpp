@@ -1808,14 +1808,13 @@ TEST_CASE("average", "[as_vec]")
   }
 
   {
-    vec3 avg = vec_average_fold(
-      vec3{3.0_r, 3.0_r, 3.0_r}, vec3{5.0_r, 5.0_r, 5.0_r});
+    vec3 avg =
+      vec_average_fold(vec3{3.0_r, 3.0_r, 3.0_r}, vec3{5.0_r, 5.0_r, 5.0_r});
     CHECK_THAT(arr(4.0_r, 4.0_r, 4.0_r), make_elements_sub(avg, 3));
   }
 
   {
-    vec3 vecs[] = {
-      vec3{3.0_r, 3.0_r, 3.0_r}, vec3{5.0_r, 5.0_r, 5.0_r}};
+    vec3 vecs[] = {vec3{3.0_r, 3.0_r, 3.0_r}, vec3{5.0_r, 5.0_r, 5.0_r}};
     vec3 avg = vec_average(vecs, std::size(vecs));
     CHECK_THAT(arr(4.0_r, 4.0_r, 4.0_r), make_elements_sub(avg, 3));
   }
@@ -1880,4 +1879,4 @@ template as::vec<as::real, 5> as::vec_select(
 template as::vec<as::real, 5> as::vec_average(
   const as::vec<as::real, 5>* v, as::index);
 template auto as::vec_average_fold<as::vec<as::real, 5>, as::vec<as::real, 5>>(
-    as::vec<as::real, 5>&&, as::vec<as::real, 5>&&);
+  as::vec<as::real, 5>&&, as::vec<as::real, 5>&&);

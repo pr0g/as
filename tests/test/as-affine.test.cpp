@@ -84,8 +84,7 @@ TEST_CASE("affine_transform_pos", "[as_affine]")
   const affine a =
     affine(as::mat3_rotation_y(radians(90.0_r)), vec3(5.0_r, 0.0_r, 0.0_r));
 
-  const vec3 result =
-    as::affine_transform_pos(a, vec3(1.0_r, 0.0_r, 0.0_r));
+  const vec3 result = as::affine_transform_pos(a, vec3(1.0_r, 0.0_r, 0.0_r));
 
   CHECK(result.x == Approx(5.0_r).margin(g_epsilon));
   CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
