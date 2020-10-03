@@ -1545,10 +1545,10 @@ TEST_CASE("lerp", "[as_vec]")
 
 TEST_CASE("distance", "[as_vec]")
 {
-  const vec3 lhs = vec3(100, 100, 100);
-  const vec3 rhs = vec3(50, 50, 50);
+  const vec3 lhs = vec3(100.0_r, 100.0_r, 100.0_r);
+  const vec3 rhs = vec3(50.0_r, 50.0_r, 50.0_r);
 
-  float distance;
+  real distance;
   distance = vec_distance(lhs, rhs);
 
   CHECK(distance == Approx(86.6025403784_r).epsilon(g_epsilon));
