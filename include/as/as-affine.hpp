@@ -4,7 +4,7 @@
 #pragma once
 
 #include "as-mat3.hpp"
-#include "as-point.hpp"
+#include "as-vec.hpp"
 
 namespace as
 {

@@ -273,7 +273,7 @@ With this approach I can now do this:
 mat3_t m = // ... build some rotation
 quat_t q = quat::from_mat3(m); // free (update: this was rubbish)
 
-quat_t q = quat_from_mat3(m); // free (update: now looks like this)
+quat q = quat_from_mat3(m); // free (update: now looks like this)
 ```
 
 ~~When you type `mat3::` in an IDE you'll get the list of all operations supported for `mat3_t`. Another idea (which is perhaps more contentious) is to put all common/generic matrix operations in the `mat` namespace, and specific operations (like `rotation_xyz`) in the `mat3` namespace. This might actually make things slightly harder to find in certain cases but I like the preciseness of the grouping so again this will remain until I've had a chance to start hating it 😉.~~
@@ -282,20 +282,20 @@ _Update: I started hating it._
 
 ### Specializations
 
-The core idea of the library is to create types that are (_pretty_) generic and write all functions in terms of those generic versions. This is so in theory you could have a `vec_t<int, 10>` and ~~all~~ most of the operations you get with a friendly `vec3_t` all still work.
+The core idea of the library is to create types that are (_pretty_) generic and write all functions in terms of those generic versions. This is so in theory you could have a `vec<int, 10>` and ~~all~~ most of the operations you get with a friendly `vec3` all still work.
 
-The reality is 99.9% of the time people just want to use `vec3_t` and `mat3_t/mat4_t`. To make these common cases more ergonomic, I provide explicit (full) template specializations for the class templates `vec2/3/4_t` and `mat3/4_t`. The reason for doing this is purely for ease of use. I provide accessors for fields such as `x`, `y`, `z` and useful constructor overloads (I'll get on to function template specializations later which are done for performance reasons).
+The reality is 99.9% of the time people just want to use `vec3` and `mat3/mat4`. To make these common cases more ergonomic, I provide explicit (full) template specializations for the class templates `vec2/3/4` and `mat3/4`. The reason for doing this is purely for ease of use. I provide accessors for fields such as `x`, `y`, `z` and useful constructor overloads (I'll get on to function template specializations later which are done for performance reasons).
 
 This is most commonly done by using a `union` in `C/C++`.
 
 ```c++
-template<typename T> struct Vec<T, 3>
+template<typename T> struct vec<T, 3>
 {
     union
     {
         T data[3];
         struct { T x; T y; T z; };
-        Vec<T, 2> xy;
+        vec<T, 2> xy;
     };
 
     T& operator[](int i) { return data[i]; }
@@ -307,7 +307,7 @@ There are a few problems with this approach unfortunately. First, `C++` does not
 For the record the following approach can also technically lead to undefined behaviour:
 
 ```c++
-template<typename T>struct Vec<T, 3>
+template<typename T>struct vec<T, 3>
 {
     T x; T y; T z;
     T& operator[](int i) { return ((&x)[i]); }
@@ -317,25 +317,25 @@ template<typename T>struct Vec<T, 3>
 I spent a while digging into possible alternatives and eventually came across a post on [gamedev.net](https://www.gamedev.net/forums/topic/328530-c-union-question/) about this very topic. In it there's what I believe to be quite an elegant solution to the problem which is standard compliant! 😄
 
 ```c++
-template<typename T> struct Vec<T, 3>
+template<typename T> struct vec<T, 3>
 {
     T x, y, z;
     T& operator[](size_t i) { return this->*elem[i]; }
     const T& operator[](size_t i) const { return this->*elem[i]; }
 
 private:
-    static T Vec::*elem[3];
+    static T vec::*elem[3];
 };
 
-using vec3_t = Vec<float, 3>;
+using vec3 = vec<float, 3>;
 
 template<typename T>
-T vec3_t<T>::*vec3_t<T>::elem[3] = { &vec3_t<T>::x, &vec3_t<T>::y, &vec3_t<T>::z }; // .cpp file
+T vec3<T>::*vec3<T>::elem[3] = { &vec3<T>::x, &vec3<T>::y, &vec3<T>::z }; // .cpp file
 ```
 
 This definitely looks more complicated than the previous snippets but it isn't as bad as it looks at first glance. Essentially what's happening is we introduce 3 new member variables (`x`, `y`, `z`) for this specialization which is where the actual data is stored per instance (no surprises there).
 
-The first unusual bit of code to examine is the declaration of the static member `float Vec::*elem[3];`. The syntax may be unfamiliar but this is declaring an array of _member pointers_ (not just regular pointers) indicated by the `Vec::` prefix before `*elem[3]`. Because it's static we need to initialize it in the .cpp file. Here were setup each member pointer to point to the address of the member variables of the class (so `elem[0]` corresponds to the address/offset of `x` in `vec3_t`).
+The first unusual bit of code to examine is the declaration of the static member `float vec::*elem[3];`. The syntax may be unfamiliar but this is declaring an array of _member pointers_ (not just regular pointers) indicated by the `vec::` prefix before `*elem[3]`. Because it's static we need to initialize it in the .cpp file. Here were setup each member pointer to point to the address of the member variables of the class (so `elem[0]` corresponds to the address/offset of `x` in `vec3`).
 
 The last line of interest is `return this->*elem[i];` used in the `operator[]` overloads. Remember that in a normal member function there's always an implicit `this` pointer:
 
@@ -371,7 +371,7 @@ We're doing the exact same thing but just using `this` as the object instead of 
 
 One drawback to this approach is if you provide a full template specialization you have to put the static definitions in the .cpp file, which sort of throws a spanner in the works with creating a header-only library 😫. The good news is if you only partially specialize the class template you can put the definition of the static variables in the header and the linker won't complain 🙂 This is because the definition of the static data member is itself a template 🥳.
 
-The last thing to mention is the function template specializations. These were made specifically for performance reasons. It's unfortunate but the reality is the hand crafted implementations of the various functions for `vec3_t` are considerably faster than their generic counterparts. This came to my attention when using the `as` math library for the [ToyMeshPathTracer](https://github.com/pr0g/ToyMeshPathTracer). I dropped in the `as` library in place of the existing simple `float3` type and was disappointed to see my version taking a lot longer to render the scene 😔. I spent a while trying to figure out why things were so much slower (thank you Nathan Reed for your ideas and suggestions) and in the end it all seemed to come down to the code the compiler would generate for the generic versions vs the handcrafted ones. I suppose this finding does slightly negate the point of writing a generic math library in the first place but I still think having a standard interface for all types is useful (you don't fall into the trap of having a slightly lacking Vector2 type which hasn't received as much love) and you can get up and running with the generic versions and write custom specializations later only if you need to for performance reasons.
+The last thing to mention is the function template specializations. These were made specifically for performance reasons. It's unfortunate but the reality is the hand crafted implementations of the various functions for `vec3` are considerably faster than their generic counterparts. This came to my attention when using the `as` math library for the [ToyMeshPathTracer](https://github.com/pr0g/ToyMeshPathTracer). I dropped in the `as` library in place of the existing simple `float3` type and was disappointed to see my version taking a lot longer to render the scene 😔. I spent a while trying to figure out why things were so much slower (thank you Nathan Reed for your ideas and suggestions) and in the end it all seemed to come down to the code the compiler would generate for the generic versions vs the handcrafted ones. I suppose this finding does slightly negate the point of writing a generic math library in the first place but I still think having a standard interface for all types is useful (you don't fall into the trap of having a slightly lacking Vector2 type which hasn't received as much love) and you can get up and running with the generic versions and write custom specializations later only if you need to for performance reasons.
 
 ### Row/Column Major
 

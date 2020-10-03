@@ -11,7 +11,6 @@ namespace unit_test
 using as::affine;
 using as::mat3;
 using as::mat4;
-using as::point3;
 using as::real;
 using as::vec3;
 
@@ -59,24 +58,24 @@ TEST_CASE("affine_inv_transform_pos", "[as_affine]")
   {
     const affine a = affine(mat3::identity(), vec3(5.0_r, 0.0_r, 0.0_r));
 
-    const point3 result =
-      as::affine_inv_transform_pos(a, point3{6.0_r, 0.0_r, 0.0_r});
+    const vec3 result =
+      as::affine_inv_transform_pos(a, vec3(6.0_r, 0.0_r, 0.0_r));
 
-    CHECK(result.as_vec().x == Approx(1.0_r).margin(g_epsilon));
-    CHECK(result.as_vec().y == Approx(0.0_r).margin(g_epsilon));
-    CHECK(result.as_vec().z == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.x == Approx(1.0_r).margin(g_epsilon));
+    CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.z == Approx(0.0_r).margin(g_epsilon));
   }
 
   {
     const affine a =
       affine(as::mat3_rotation_z(radians(90.0_r)), vec3(0.0_r, 10.0_r, 0.0_r));
 
-    const point3 result =
-      as::affine_inv_transform_pos(a, point3{5.0_r, 0.0_r, 0.0_r});
+    const vec3 result =
+      as::affine_inv_transform_pos(a, vec3(5.0_r, 0.0_r, 0.0_r));
 
-    CHECK(result.as_vec().x == Approx(-10.0_r).margin(g_epsilon));
-    CHECK(result.as_vec().y == Approx(-5.0_r).margin(g_epsilon));
-    CHECK(result.as_vec().z == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.x == Approx(-10.0_r).margin(g_epsilon));
+    CHECK(result.y == Approx(-5.0_r).margin(g_epsilon));
+    CHECK(result.z == Approx(0.0_r).margin(g_epsilon));
   }
 }
 
@@ -85,12 +84,12 @@ TEST_CASE("affine_transform_pos", "[as_affine]")
   const affine a =
     affine(as::mat3_rotation_y(radians(90.0_r)), vec3(5.0_r, 0.0_r, 0.0_r));
 
-  const point3 result =
-    as::affine_transform_pos(a, point3(1.0_r, 0.0_r, 0.0_r));
+  const vec3 result =
+    as::affine_transform_pos(a, vec3(1.0_r, 0.0_r, 0.0_r));
 
-  CHECK(result.as_vec().x == Approx(5.0_r).margin(g_epsilon));
-  CHECK(result.as_vec().y == Approx(0.0_r).margin(g_epsilon));
-  CHECK(result.as_vec().z == Approx(-1.0_r).margin(g_epsilon));
+  CHECK(result.x == Approx(5.0_r).margin(g_epsilon));
+  CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
+  CHECK(result.z == Approx(-1.0_r).margin(g_epsilon));
 }
 
 TEST_CASE("affine_inv_transform_dir", "[as_affine]")
@@ -190,19 +189,6 @@ TEST_CASE("affine_from_vec3", "[as_affine]")
 
   CHECK(as::mat_equal(mat3::identity(), a.rotation));
   CHECK_THAT(arr(99.0_r, 98.0_r, 97.0_r), make_elements_sub(a.translation, 3));
-}
-
-TEST_CASE("affine_from_point3", "[as_affine]")
-{
-  using gsl::make_span;
-
-  point3 p3{5.0_r, 10.0_r, 15.0_r};
-
-  affine a;
-  a = as::affine_from_point3(p3);
-
-  CHECK(as::mat_equal(mat3::identity(), a.rotation));
-  CHECK_THAT(arr(5.0_r, 10.0_r, 15.0_r), make_elements_sub(a.translation, 3));
 }
 
 TEST_CASE("affine_concatenation", "[as_affine]")

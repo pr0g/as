@@ -13,7 +13,6 @@ using as::index;
 using as::mat;
 using as::mat3;
 using as::mat4;
-using as::point3;
 using as::quat;
 using as::real;
 using as::vec;
@@ -1491,9 +1490,9 @@ TEST_CASE("mat4_shear", "[as_mat]")
     mat4 shear_about_x;
     shear_about_x = as::mat4_shear_x(1.0_r, 0.0_r);
 
-    const point3 position{1.0_r, 0.0_r, 0.0_r};
+    const vec3 position(1.0_r, 0.0_r, 0.0_r);
 
-    point3 result;
+    vec3 result;
     result =
       as::affine_transform_pos(as::affine_from_mat4(shear_about_x), position);
 
@@ -1504,9 +1503,9 @@ TEST_CASE("mat4_shear", "[as_mat]")
     mat4 shear_about_x;
     shear_about_x = as::mat4_shear_x(0.0_r, 1.0_r);
 
-    const point3 position{1.0_r, 0.0_r, 0.0_r};
+    const vec3 position{1.0_r, 0.0_r, 0.0_r};
 
-    point3 result;
+    vec3 result;
     result =
       as::affine_transform_pos(as::affine_from_mat4(shear_about_x), position);
 
@@ -1517,9 +1516,9 @@ TEST_CASE("mat4_shear", "[as_mat]")
     mat4 shear_about_y;
     shear_about_y = as::mat4_shear_y(1.0_r, 0.0_r);
 
-    const point3 position{1.0_r, 1.0_r, 0.0_r};
+    const vec3 position{1.0_r, 1.0_r, 0.0_r};
 
-    point3 result;
+    vec3 result;
     result =
       as::affine_transform_pos(as::affine_from_mat4(shear_about_y), position);
 
@@ -1530,9 +1529,9 @@ TEST_CASE("mat4_shear", "[as_mat]")
     mat4 shear_about_y;
     shear_about_y = as::mat4_shear_y(0.0_r, 1.0_r);
 
-    const point3 position{1.0_r, 1.0_r, 0.0_r};
+    const vec3 position{1.0_r, 1.0_r, 0.0_r};
 
-    point3 result;
+    vec3 result;
     result =
       as::affine_transform_pos(as::affine_from_mat4(shear_about_y), position);
 
@@ -1543,9 +1542,9 @@ TEST_CASE("mat4_shear", "[as_mat]")
     mat4 shear_about_z;
     shear_about_z = as::mat4_shear_z(1.0_r, 0.0_r);
 
-    const point3 position{0.0_r, 0.0_r, 1.0_r};
+    const vec3 position{0.0_r, 0.0_r, 1.0_r};
 
-    point3 result;
+    vec3 result;
     result =
       as::affine_transform_pos(as::affine_from_mat4(shear_about_z), position);
 
@@ -1556,9 +1555,9 @@ TEST_CASE("mat4_shear", "[as_mat]")
     mat4 shear_about_z;
     shear_about_z = as::mat4_shear_z(0.0_r, 1.0_r);
 
-    const point3 position{1.0_r, 0.0_r, 1.0_r};
+    const vec3 position{1.0_r, 0.0_r, 1.0_r};
 
-    point3 result;
+    vec3 result;
     result =
       as::affine_transform_pos(as::affine_from_mat4(shear_about_z), position);
 

@@ -26,7 +26,6 @@ add_executable(
     main.cpp
     as-affine.test.cpp
     as-mat.test.cpp
-    as-point.test.cpp
     as-quat.test.cpp
     as-vec.test.cpp
     as-math.test.cpp

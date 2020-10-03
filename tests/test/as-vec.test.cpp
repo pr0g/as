@@ -12,7 +12,6 @@ namespace unit_test
 // types
 using as::index;
 using as::mat3;
-using as::point3;
 using as::real;
 using as::vec;
 using as::vec2;
@@ -1704,17 +1703,6 @@ TEST_CASE("round", "[as_vec]")
 
     CHECK_THAT(make_span(round_expected), make_elements_sub(round_vec, 4));
   }
-}
-
-TEST_CASE("point3_to_vec4", "[as_vec]")
-{
-  point3 p3{2.0_r, 4.0_r, 6.0_r};
-
-  vec4 actual_vec4;
-  actual_vec4 = vec4_from_point3(p3);
-
-  CHECK_THAT(
-    arr(2.0_r, 4.0_r, 6.0_r, 1.0_r), make_elements_sub(actual_vec4, 4));
 }
 
 TEST_CASE("snap_vec", "[as_vec]")

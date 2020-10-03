@@ -367,9 +367,21 @@ AS_API constexpr vec<T, 4> vec4_from_vec3(const vec<T, 3>& v, T w)
   return {v.x, v.y, v.z, w};
 }
 
-AS_API inline vec4 vec4_from_point3(const point3& p)
+template<typename T, index d>
+AS_API vec<T, d> vec_average(const vec<T, d>* vectors, index count)
 {
-  return {p[0], p[1], p[2], 1.0_r};
+  return vec<T, d>(
+    std::accumulate(
+      vectors, vectors + count, vec<T, d>{},
+      [](auto acc, const auto v) { return acc + v; })
+    / real(count));
+}
+
+template<typename... vectors>
+AS_API auto vec_average_fold(vectors&&... vecs)
+{
+  return std::common_type_t<decltype(vecs)...>(
+    (vecs + ...) / real(sizeof...(vecs)));
 }
 
 AS_API constexpr index mat_rc(index r, index c, index d)
@@ -1150,38 +1162,6 @@ AS_API constexpr mat<T, 4> mat4_shear_z(const T x, const T y)
   // clang-format on
 }
 
-AS_API inline bool point_equal(
-  const point2& lhs, const point2& rhs,
-  const real epsilon /*= std::numeric_limits<real>::epsilon()*/)
-{
-  return vec_equal(lhs.as_vec(), rhs.as_vec(), epsilon);
-}
-
-AS_API inline bool point_equal(
-  const point3& lhs, const point3& rhs,
-  const real epsilon /*= std::numeric_limits<real>::epsilon()*/)
-{
-  return vec_equal(lhs.as_vec(), rhs.as_vec(), epsilon);
-}
-
-template<typename... points_t>
-AS_API auto point_average_fold(points_t&&... points)
-{
-  return std::common_type_t<decltype(points)...>(
-    (points.as_vec() + ...) / real(sizeof...(points)));
-}
-
-template<typename point>
-AS_API point point_average(const point* points, const index count)
-{
-  return point(
-    std::accumulate(
-      points, points + count, point{},
-      [](auto acc, const auto p) { return acc + p.as_vec(); })
-      .as_vec()
-    / real(count));
-}
-
 AS_API constexpr real quat_dot(const quat& lhs, const quat& rhs)
 {
   return lhs.w * rhs.w + lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;
@@ -1343,11 +1323,6 @@ AS_API inline affine affine_from_vec3(const vec3& v)
   return affine(v);
 }
 
-AS_API inline affine affine_from_point3(const point3& p)
-{
-  return affine(p.as_vec());
-}
-
 AS_API inline affine affine_mul(const affine& lhs, const affine& rhs)
 {
   return affine(
@@ -1380,12 +1355,6 @@ AS_API inline vec3 affine_transform_pos(const affine& a, const vec3& position)
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
-AS_API inline point3 affine_transform_pos(
-  const affine& a, const point3& position)
-{
-  return point3(affine_transform_pos(a, position.as_vec()));
-}
-
 AS_API inline vec3 affine_inv_transform_dir(
   const affine& a, const vec3& direction)
 {
@@ -1406,12 +1375,6 @@ AS_API inline vec3 affine_inv_transform_pos(
 #elif defined AS_ROW_MAJOR
   return (position - a.translation) * inv_rotation;
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
-}
-
-AS_API inline point3 affine_inv_transform_pos(
-  const affine& a, const point3& position)
-{
-  return point3(affine_inv_transform_pos(a, position.as_vec()));
 }
 
 } // namespace as

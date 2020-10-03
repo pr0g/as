@@ -10,7 +10,7 @@
 #include "as-affine.hpp"
 #include "as-mat3.hpp"
 #include "as-mat4.hpp"
-#include "as-point.hpp"
+#include "as-math.hpp"
 #include "as-quat.hpp"
 #include "as-vec.hpp"
 
@@ -244,9 +244,13 @@ constexpr vec<T, 4> vec4_from_vec2(
 template<typename T>
 constexpr vec<T, 4> vec4_from_vec3(const vec<T, 3>& v, T w = T(0.0));
 
-//! Returns a vec4 from a point3.
-//! \note The fourth paramter of the vec4 will be set to 1.
-vec4 vec4_from_point3(const point3& p);
+//! Returns the average of an array of vectors.
+template<typename T, index d>
+vec<T, d> vec_average(const vec<T, d>* vectors, index count);
+
+//! Returns the average of a parameter pack of vectors.
+template<typename... vectors>
+auto vec_average_fold(vectors&&... vecs);
 
 //! Performs a mapping from a row and column index to a single offset.
 //! \param r Row index.
@@ -616,28 +620,6 @@ constexpr mat<T, 4> mat4_shear_y(T x, T z);
 template<typename T>
 constexpr mat<T, 4> mat4_shear_z(T x, T y);
 
-//! Returns if two point2 types are the same as each other (within a certain
-//! tolerance).
-bool point_equal(
-  const point2& lhs, const point2& rhs,
-  real epsilon = std::numeric_limits<real>::epsilon());
-
-//! Returns if two point3 types are the same as each other (within a certain
-//! tolerance).
-bool point_equal(
-  const point3& lhs, const point3& rhs,
-  real epsilon = std::numeric_limits<real>::epsilon());
-
-//! Returns the average position of an array of points.
-//! \note This is provided as adding points together is not supported.
-template<typename point>
-point point_average(const point* points, index count);
-
-//! Returns the average position of a parameter pack of points.
-//! \note This is provided as adding points together is not supported.
-template<typename... points_t>
-auto point_average_fold(points_t&&... points);
-
 //! Returns the dot product of two quaternions.
 //! \note The corresponding scalar parts are multiplied together and then
 //! summed.
@@ -720,10 +702,6 @@ affine affine_from_mat3_vec3(const mat3& m, const vec3& v);
 //! \note The rotation part will be initialized to the identity.
 affine affine_from_vec3(const vec3& v);
 
-//! Returns an affine from a point3.
-//! \note The rotation part will be initialized to the identity.
-affine affine_from_point3(const point3& p);
-
 //! Returns the result of two affine types multiplied together.
 //! \note `lhs` is performed first, then `rhs`
 affine affine_mul(const affine& lhs, const affine& rhs);
@@ -744,10 +722,6 @@ vec3 affine_transform_dir(const affine& a, const vec3& direction);
 //! \note No rotation occurs, just translation.
 vec3 affine_transform_pos(const affine& a, const vec3& position);
 
-//! Returns the input position transformed by the affine.
-//! \note No rotation occurs, just translation.
-point3 affine_transform_pos(const affine& a, const point3& position);
-
 //! Returns the input direction transformed by the inverse of the affine.
 //! \note No translation occurs, just rotation.
 vec3 affine_inv_transform_dir(const affine& a, const vec3& direction);
@@ -755,10 +729,6 @@ vec3 affine_inv_transform_dir(const affine& a, const vec3& direction);
 //! Returns the input position transformed by the inverse of the affine.
 //! \note No rotation occurs, just translation.
 vec3 affine_inv_transform_pos(const affine& a, const vec3& position);
-
-//! Returns the input position transformed by the inverse of the affine.
-//! \note No rotation occurs, just translation.
-point3 affine_inv_transform_pos(const affine& a, const point3& position);
 
 } // namespace as
 
