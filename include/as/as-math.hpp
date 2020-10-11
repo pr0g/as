@@ -35,6 +35,11 @@ constexpr T smooth_step(T t);
 template<typename T>
 constexpr T smoother_step(T t);
 
+//! Returns `1.0` when `x` is positive, `-1.0` when `x` is negative and `0.0`
+//! when `x` is zero.
+template<typename T>
+constexpr T sign(T x);
+
 //! Returns the larger of the two values.
 //! https://en.cppreference.com/w/cpp/algorithm/max
 using std::max;

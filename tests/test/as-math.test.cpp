@@ -163,6 +163,25 @@ TEST_CASE("snap", "[as_math]")
   }
 }
 
+TEST_CASE("sign", "[as_math]")
+{
+  float minus_one;
+  minus_one = as::sign(-5.0f);
+  CHECK(minus_one == Approx(-1.0f).epsilon(g_epsilon));
+
+  float zero;
+  zero = as::sign(-0.0f);
+  CHECK(zero == Approx(0.0f).epsilon(g_epsilon));
+
+  float negative_zero;
+  negative_zero = as::sign(-0.0f);
+  CHECK(negative_zero == Approx(0.0f).epsilon(g_epsilon));
+
+  float one;
+  one = as::sign(10.0f);
+  CHECK(one == Approx(1.0f).epsilon(g_epsilon));
+}
+
 } // namespace unit_test
 
 // explicit instantiations (for coverage)

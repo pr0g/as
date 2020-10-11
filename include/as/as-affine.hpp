@@ -9,7 +9,7 @@
 namespace as
 {
 
-//! Represents an a transformation.
+//! Represents an affine transformation.
 //! A geometric transformation that preserves lines and parrellism.
 struct affine
 {

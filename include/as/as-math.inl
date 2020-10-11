@@ -20,6 +20,20 @@ AS_API constexpr T smoother_step(const T t)
 }
 
 template<typename T>
+AS_API constexpr T sign(const T x)
+{
+  if (x > 0.0f) {
+    return 1.0f;
+  }
+
+  if (x < 0.0f) {
+    return -1.0f;
+  }
+
+  return 0.0f;
+}
+
+template<typename T>
 AS_API constexpr T snap(const T in, const T step)
 {
   return std::floor((in / step) + T(0.5)) * step;
