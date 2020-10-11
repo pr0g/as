@@ -8,7 +8,7 @@
 #include <cstdint>
 
 //! \mainpage `as` linear algebra math library
-//! \section overview as tries to combine the best of C and C++
+//! \section overview as is a work-in-progress math library
 
 //! `as` linear algebra math library.
 namespace as
