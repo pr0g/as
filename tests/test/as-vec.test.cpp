@@ -1747,7 +1747,7 @@ TEST_CASE("orthogonal", "[as_vec]")
     orthogonal_vec = as::orthogonal(vec);
 
     float dot = as::vec_dot(orthogonal_vec, vec);
-    CHECK(dot == Approx(0.0f).epsilon(g_epsilon));
+    CHECK(dot == Approx(0.0f).margin(g_epsilon));
   }
 
   {
@@ -1757,7 +1757,7 @@ TEST_CASE("orthogonal", "[as_vec]")
     orthogonal_vec = as::orthogonal(vec);
 
     float dot = as::vec_dot(orthogonal_vec, vec);
-    CHECK(dot == Approx(0.0f).epsilon(g_epsilon));
+    CHECK(dot == Approx(0.0f).margin(g_epsilon));
   }
 
   {
@@ -1767,7 +1767,7 @@ TEST_CASE("orthogonal", "[as_vec]")
     orthogonal_vec = as::orthogonal(vec);
 
     float dot = as::vec_dot(orthogonal_vec, vec);
-    CHECK(dot == Approx(0.0f).epsilon(g_epsilon));
+    CHECK(dot == Approx(0.0f).margin(g_epsilon));
   }
 
   {
@@ -1777,7 +1777,7 @@ TEST_CASE("orthogonal", "[as_vec]")
     orthogonal_vec = as::orthogonal(vec);
 
     float dot = as::vec_dot(orthogonal_vec, vec);
-    CHECK(dot == Approx(0.0f).epsilon(g_epsilon));
+    CHECK(dot == Approx(0.0f).margin(g_epsilon));
   }
 }
 
