@@ -320,14 +320,12 @@ AS_API void vec3_right_and_up_rh(
   across = vec_normalize(vec3_cross(dir, up));
 }
 
-// ref: John F. Hughes & Tomas Moller (1999) Building an Orthonormal
-// Basis from a Unit Vector, Journal of Graphics Tools, 4:4, 33-35
 template<typename T>
-AS_API mat<T, 3> orthonormal_basis(const vec<T, 3>& u)
+AS_API vec<T, 3> orthogonal(const vec<T, 3>& u)
 {
   const auto [x, y, z] = vec_abs(u);
 
-  const vec<T, 3> v = vec_normalize([u, x = x, y = y, z = z] {
+  return vec_normalize([u, x = x, y = y, z = z] {
     if (x <= y && x <= z) {
       return vec<T, 3>(0.0_r, -u.z, u.y);
     }
@@ -337,7 +335,14 @@ AS_API mat<T, 3> orthonormal_basis(const vec<T, 3>& u)
     // z <= x && z <= y
     return vec<T, 3>(-u.y, u.x, 0.0_r);
   }());
+}
 
+// ref: John F. Hughes & Tomas Moller (1999) Building an Orthonormal
+// Basis from a Unit Vector, Journal of Graphics Tools, 4:4, 33-35
+template<typename T>
+AS_API mat<T, 3> orthonormal_basis(const vec<T, 3>& u)
+{
+  const vec<T, 3> v = orthogonal(u);
   const vec<T, 3> w = vec3_cross(u, v);
   return mat<T, 3>(u, v, w);
 }

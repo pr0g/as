@@ -219,6 +219,10 @@ void vec3_right_and_up_rh(
   const vec<T, 3>& dir, vec<T, 3>& across, vec<T, 3>& up,
   const vec<T, 3>& world_up = vec<T, 3>::axis_y());
 
+//! Returns a vector orthogonal to u.
+template<typename T>
+vec<T, 3> orthogonal(const vec<T, 3>& u);
+
 //! Returns an orthonormal basis for the given input vector.
 //! \note This should be preferred to `right_and_up` variants.
 template<typename T>

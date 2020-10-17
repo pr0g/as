@@ -1738,6 +1738,49 @@ TEST_CASE("snap_vec", "[as_vec]")
   }
 }
 
+TEST_CASE("orthogonal", "[as_vec]")
+{
+  {
+    const auto vec = as::vec3::axis_x();
+
+    vec3 orthogonal_vec;
+    orthogonal_vec = as::orthogonal(vec);
+
+    float dot = as::vec_dot(orthogonal_vec, vec);
+    CHECK(dot == Approx(0.0f).epsilon(g_epsilon));
+  }
+
+  {
+    const auto vec = as::vec3::axis_z();
+
+    vec3 orthogonal_vec;
+    orthogonal_vec = as::orthogonal(vec);
+
+    float dot = as::vec_dot(orthogonal_vec, vec);
+    CHECK(dot == Approx(0.0f).epsilon(g_epsilon));
+  }
+
+  {
+    const auto vec = vec_normalize(as::vec3(-2.0f, 4.0f, 10.0f));
+
+    vec3 orthogonal_vec;
+    orthogonal_vec = as::orthogonal(vec);
+
+    float dot = as::vec_dot(orthogonal_vec, vec);
+    CHECK(dot == Approx(0.0f).epsilon(g_epsilon));
+  }
+
+  {
+    const auto vec = vec_normalize(as::vec3(-150.0f, -40.0f, 0.1f));
+
+    vec3 orthogonal_vec;
+    orthogonal_vec = as::orthogonal(vec);
+
+    float dot = as::vec_dot(orthogonal_vec, vec);
+    CHECK(dot == Approx(0.0f).epsilon(g_epsilon));
+  }
+}
+
 TEST_CASE("orthonomal_basis", "[as_vec]")
 {
   {
