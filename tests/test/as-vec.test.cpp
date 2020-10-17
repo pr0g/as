@@ -1747,7 +1747,7 @@ TEST_CASE("orthogonal", "[as_vec]")
     orthogonal_vec = as::orthogonal(vec);
 
     float dot = as::vec_dot(orthogonal_vec, vec);
-    CHECK(dot == Approx(0.0f).margin(g_epsilon));
+    CHECK(dot == Approx(0.0_r).margin(g_epsilon));
   }
 
   {
@@ -1757,27 +1757,27 @@ TEST_CASE("orthogonal", "[as_vec]")
     orthogonal_vec = as::orthogonal(vec);
 
     float dot = as::vec_dot(orthogonal_vec, vec);
-    CHECK(dot == Approx(0.0f).margin(g_epsilon));
+    CHECK(dot == Approx(0.0_r).margin(g_epsilon));
   }
 
   {
-    const auto vec = vec_normalize(as::vec3(-2.0f, 4.0f, 10.0f));
+    const auto vec = vec_normalize(as::vec3(-2.0_r, 4.0_r, 10.0_r));
 
     vec3 orthogonal_vec;
     orthogonal_vec = as::orthogonal(vec);
 
     float dot = as::vec_dot(orthogonal_vec, vec);
-    CHECK(dot == Approx(0.0f).margin(g_epsilon));
+    CHECK(dot == Approx(0.0_r).margin(g_epsilon));
   }
 
   {
-    const auto vec = vec_normalize(as::vec3(-150.0f, -40.0f, 0.1f));
+    const auto vec = vec_normalize(as::vec3(-150.0_r, -40.0_r, 0.1_r));
 
     vec3 orthogonal_vec;
     orthogonal_vec = as::orthogonal(vec);
 
     float dot = as::vec_dot(orthogonal_vec, vec);
-    CHECK(dot == Approx(0.0f).margin(g_epsilon));
+    CHECK(dot == Approx(0.0_r).margin(g_epsilon));
   }
 }
 
