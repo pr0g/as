@@ -221,7 +221,7 @@ void vec3_right_and_up_rh(
 
 //! Returns a vector orthogonal to u.
 template<typename T>
-vec<T, 3> orthogonal(const vec<T, 3>& u);
+vec<T, 3> vec3_orthogonal(const vec<T, 3>& u);
 
 //! Returns an orthonormal basis for the given input vector.
 //! \note This should be preferred to `right_and_up` variants.

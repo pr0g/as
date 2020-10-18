@@ -321,7 +321,7 @@ AS_API void vec3_right_and_up_rh(
 }
 
 template<typename T>
-AS_API vec<T, 3> orthogonal(const vec<T, 3>& u)
+AS_API vec<T, 3> vec3_orthogonal(const vec<T, 3>& u)
 {
   const auto [x, y, z] = vec_abs(u);
 
@@ -342,7 +342,7 @@ AS_API vec<T, 3> orthogonal(const vec<T, 3>& u)
 template<typename T>
 AS_API mat<T, 3> orthonormal_basis(const vec<T, 3>& u)
 {
-  const vec<T, 3> v = orthogonal(u);
+  const vec<T, 3> v = vec3_orthogonal(u);
   const vec<T, 3> w = vec3_cross(u, v);
   return mat<T, 3>(u, v, w);
 }
