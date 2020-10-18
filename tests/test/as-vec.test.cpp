@@ -1738,6 +1738,30 @@ TEST_CASE("snap_vec", "[as_vec]")
   }
 }
 
+TEST_CASE("reflect", "[as_vec]")
+{
+  {
+    const auto l = as::vec3(1.0f, -1.0f, 0.0f);
+    const auto n = as::vec3(0.0f, 1.0f, 0.0f);
+    const auto r = as::vec3_reflect(l, n);
+    CHECK_THAT(arr(1.0_r, 1.0_r, 0.0_r), make_elements_sub(r, 3));
+  }
+
+  {
+    const auto l = as::vec3(1.0f, -1.0f, 0.0f);
+    const auto n = as::vec3(-1.0f, 0.0f, 0.0f);
+    const auto r = as::vec3_reflect(l, n);
+    CHECK_THAT(arr(-1.0_r, -1.0_r, 0.0_r), make_elements_sub(r, 3));
+  }
+
+  {
+    const auto l = as::vec3(0.0f, -5.0f, -5.0f);
+    const auto n = as::vec3(0.0f, -1.0f, 0.0f);
+    const auto r = as::vec3_reflect(l, n);
+    CHECK_THAT(arr(0.0_r, 5.0_r, -5.0_r), make_elements_sub(r, 3));
+  }
+}
+
 TEST_CASE("orthogonal", "[as_vec]")
 {
   {

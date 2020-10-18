@@ -301,6 +301,12 @@ AS_API constexpr vec<T, 3> vec3_cross(
 }
 
 template<typename T>
+AS_API vec<T, 3> vec3_reflect(const vec<T, 3>& l, const vec<T, 3>& n)
+{
+  return l - n * T(2.0) * vec_dot(l, n);
+}
+
+template<typename T>
 AS_API void vec3_right_and_up_lh(
   const vec<T, 3>& dir, vec<T, 3>& across, vec<T, 3>& up,
   const vec<T, 3>& world_up)

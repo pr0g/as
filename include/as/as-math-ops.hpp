@@ -201,6 +201,12 @@ constexpr vec<T, 3> vec3_from_vec4(const vec<T, 4>& v);
 template<typename T>
 constexpr vec<T, 3> vec3_cross(const vec<T, 3>& lhs, const vec<T, 3>& rhs);
 
+//! Returns the reflection of vector `l` about the normal `n`.
+//! \param l Incoming light direction.
+//! \param n Surface normal.
+template<typename T>
+vec<T, 3> vec3_reflect(const vec<T, 3>& l, const vec<T, 3>& n);
+
 //! Sets the across and up axes for the given input vector so all axes remain
 //! orthogonal to one another.
 //! \note Across and up will be invalid if dir is equal to +/-world_up.
