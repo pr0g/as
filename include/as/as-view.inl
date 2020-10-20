@@ -169,4 +169,45 @@ AS_API inline mat4 ortho_vulkan_lh(
   return as::mat_mul(ortho_gl_lh(l, r, b, t, n, f), vulkan_clip);
 }
 
+AS_API inline vec2i world_to_screen(
+  const vec3& world_position, const mat4& projection, const affine& view,
+  const vec2i& screen_dimension)
+{
+  const vec4 clip = mat_mul(
+    vec4_from_vec3(world_position, 1.0_r),
+    mat_mul(mat4_from_affine(view), projection));
+  const vec3 ndc = vec3_from_vec4(clip / clip.w);
+  const vec2 screen = (vec2_from_vec3(ndc) + vec2::one()) * 0.5_r;
+  return vec2i(
+    vec2i::value_type(
+      std::round(screen.x * vec2::value_type(screen_dimension.x))),
+    vec2i::value_type(
+      std::round((1.0_r - screen.y) * vec2::value_type(screen_dimension.y))));
+}
+
+AS_API inline vec3 screen_to_world(
+  const vec2i& screen_position, const mat4& projection, const affine& view,
+  const vec2i& screen_dimension)
+{
+  const vec2 normalized_screen =
+    vec2_from_ints(screen_position.x, screen_dimension.y - screen_position.y)
+    / vec2_from_vec2i(screen_dimension);
+  const vec2 ndc = (normalized_screen * 2.0_r) - vec2::one();
+  vec4 world_position = mat_mul(
+    vec4(ndc.x, ndc.y, -1.0_r, 1.0_r),
+    mat_mul(mat_inverse(projection), mat4_from_affine(affine_inverse(view))));
+  world_position /= world_position.w;
+  return vec3_from_vec4(world_position);
+}
+
+vec2 vec2_from_ints(const int32_t x, const int32_t y)
+{
+  return {vec2::value_type(x), vec2::value_type(y)};
+}
+
+vec2 vec2_from_vec2i(const as::vec2i& v)
+{
+  return vec2_from_ints(v.x, v.y);
+}
+
 } // namespace as

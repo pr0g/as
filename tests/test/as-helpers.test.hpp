@@ -7,23 +7,23 @@
 namespace unit_test
 {
 
-// types
-using as::real;
-
-inline std::array<real, 2> arr(const real x, const real y)
+template<typename T>
+std::array<T, 2> arr(const T x, const T y)
 {
-  return std::array<real, 2>{x, y};
+  return std::array<T, 2>{x, y};
 }
 
-inline std::array<real, 3> arr(const real x, const real y, const real z)
+template<typename T>
+std::array<T, 3> arr(const T x, const T y, const T z)
 {
-  return std::array<real, 3>{x, y, z};
+  return std::array<T, 3>{x, y, z};
 }
 
-inline std::array<real, 4> arr(
-  const real x, const real y, const real z, const real w)
+template<typename T>
+std::array<T, 4> arr(
+  const T x, const T y, const T z, const T w)
 {
-  return std::array<real, 4>{x, y, z, w};
+  return std::array<T, 4>{x, y, z, w};
 }
 
 } // namespace unit_test

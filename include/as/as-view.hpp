@@ -122,6 +122,33 @@ mat4 ortho_vulkan_rh(real l, real r, real b, real t, real n, real f);
 //! \param f The far plane of the clipping volume.
 mat4 ortho_vulkan_lh(real l, real r, real b, real t, real n, real f);
 
+//! Takes a position in world space and transforms it to screen coordinates.
+//! \param world_position The position in world space.
+//! \param projection The camera projection matrix.
+//! \param view The camera view matrix (stored as an affine transformation due
+//! to axis orthogonality).
+//! \param screen_dimension The size of the screen/viewport.
+vec2i world_to_screen(
+  const vec3& world_position, const mat4& projection, const affine& view,
+  const vec2i& screen_dimension);
+
+//! Takes a position in screen space and returns it in world space aligned to
+//! the near clip plane of the camera.
+//! \param screen_position The position in screen space.
+//! \param projection The camera projection matrix.
+//! \param view The camera view matrix (stored as an affine transformation due
+//! to axis orthogonality).
+//! \param screen_dimension The size of the screen/viewport.
+vec3 screen_to_world(
+  const vec2i& screen_position, const mat4& projection, const affine& view,
+  const vec2i& screen_dimension);
+
+//! Returns a vec2 `(real, real)` from two `int32_t`s.
+vec2 vec2_from_ints(const int32_t x, const int32_t y);
+
+//! Returns a vec2 `(real, real)` from a vec2i.
+vec2 vec2_from_vec2i(const as::vec2i& v);
+
 } // namespace as
 
 #include "as-view.inl"

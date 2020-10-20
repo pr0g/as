@@ -617,6 +617,16 @@ AS_API mat<T, d> mat_mul(const mat<T, d>& lhs, const mat<T, d>& rhs)
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
+template<typename T, index d>
+AS_API vec<T, d> mat_mul(const vec<T, d>& v, const mat<T, d>& m)
+{
+#ifdef AS_COL_MAJOR
+  return m * v;
+#elif defined AS_ROW_MAJOR
+  return v * m;
+#endif // AS_COL_MAJOR ? AS_ROW_MAJOR
+}
+
 AS_API constexpr index mat3_rc(const index r, const index c)
 {
   return mat_rc(r, c, 3);

@@ -353,10 +353,20 @@ mat<T, d> mat_inverse(const mat<T, d>& m);
 //! // Column major
 //! result = rhs * lhs; // right to left
 //! // Row major
-//! result = lhs * rhs; // left ro right
+//! result = lhs * rhs; // left to right
 //! ```
 template<typename T, index d>
 mat<T, d> mat_mul(const mat<T, d>& lhs, const mat<T, d>& rhs);
+
+//! Returns the result of transforming the vector `v` by `m`.
+//! ```{.cpp}
+//! // Column major
+//! result = m * v; // right to left
+//! // Row major
+//! result = v * m; // left to right
+//! ```
+template<typename T, index d>
+vec<T, d> mat_mul(const vec<T, d>& v, const mat<T, d>& m);
 
 //! Performs a mapping from a row and column index to a single offset for
 //! ::mat3. \param r Row index. \param c Column index.
