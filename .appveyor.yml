@@ -18,7 +18,7 @@ environment:
 
 build_script:
 - mkdir catch2 && cd catch2
-- git clone --depth=1 --branch=master https://github.com/catchorg/Catch2.git .
+- git clone --depth=1 --branch=v2.x https://github.com/catchorg/Catch2.git .
 - cmake -S . -B build -G "%GENERATOR%" -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=../tests/test/build/catch2_install/
 - cmake --build build --config "%CONFIG%" --target install
 - cd ..
