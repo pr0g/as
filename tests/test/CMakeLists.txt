@@ -19,8 +19,6 @@ find_package(as REQUIRED)
 find_package(Catch2 REQUIRED)
 find_package(Microsoft.GSL CONFIG REQUIRED)
 
-enable_testing()
-
 add_executable(
     ${PROJECT_NAME}
     main.cpp
@@ -30,8 +28,6 @@ add_executable(
     as-vec.test.cpp
     as-math.test.cpp
     as-view.test.cpp)
-
-add_test(NAME as.test.all COMMAND ${PROJECT_NAME})
 
 # cmake-format: off
 string(
@@ -97,6 +93,10 @@ target_compile_definitions(
             $<$<BOOL:${AS_ROW_MAJOR}>:AS_ROW_MAJOR>
             $<$<BOOL:${AS_COVERAGE}>:AS_COVERAGE>)
 target_link_libraries(${PROJECT_NAME} as::as Catch2::Catch2 Microsoft.GSL::GSL)
+
+include(CTest)
+include(Catch)
+catch_discover_tests(${PROJECT_NAME})
 
 add_custom_target(
     scrub
