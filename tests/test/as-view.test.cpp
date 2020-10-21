@@ -261,7 +261,7 @@ static vec3 world_to_screen_to_world(
   return view_position + vec_normalize(world_near) * distance;
 }
 
-TEST_CASE("screen_to_world", "[as_view]")
+TEST_CASE("screen_to_world_to_screen", "[as_view]")
 {
   const real fov = radians(90.0_r);
   const real aspect = 16.0_r / 9.0_r;
@@ -325,7 +325,7 @@ TEST_CASE("screen_to_world", "[as_view]")
   }
 }
 
-TEST_CASE("world_to_screen", "[as_view]")
+TEST_CASE("world_to_screen_to_world", "[as_view]")
 {
   const real fov = radians(90.0_r);
   const real aspect = 16.0_r / 9.0_r;
@@ -378,6 +378,42 @@ TEST_CASE("world_to_screen", "[as_view]")
         expected_world_position.x, expected_world_position.y,
         expected_world_position.z),
       make_elements_sub(returned_world_position, 3).margin(g_epsilon));
+  }
+
+  {
+    const mat4 perspective_vulkan_rh =
+      as::perspective_vulkan_rh(fov, aspect, 0.01_r, 1000.0_r);
+
+    const auto expected_world_position = vec3(0.0_r, -10.0_r, 0.0_r);
+    const auto returned_world_position = world_to_screen_to_world(
+      expected_world_position, perspective_vulkan_rh,
+      affine(as::mat3_rotation_x(radians(90.0_r)), vec3::axis_z(5.0_r)),
+      screen_dimension);
+
+    CHECK_THAT(
+      arr(
+        expected_world_position.x, expected_world_position.y,
+        expected_world_position.z),
+      make_elements_sub(returned_world_position, 3).margin(g_epsilon));
+  }
+}
+
+TEST_CASE("screen_to_world_near_clip", "[as_view]")
+{
+  const real fov = radians(90.0_r);
+  const real aspect = 16.0_r / 9.0_r;
+  const vec2i screen_dimension = vec2i(1024, 768);
+  const mat4 perspective_gl_lh =
+    as::perspective_gl_lh(fov, aspect, 0.01_r, 1000.0_r);
+
+  {
+    const auto returned_world_position = as::screen_to_world(
+      vec2i(512, 384), perspective_gl_lh, affine(vec3::zero()),
+      screen_dimension);
+
+    CHECK_THAT(
+      arr(0.0_r, 0.0_r, 0.01_r),
+      make_elements_sub(returned_world_position, 3));
   }
 }
 
