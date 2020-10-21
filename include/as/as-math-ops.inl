@@ -443,6 +443,18 @@ AS_API constexpr void mat_col(mat<T, d>& m, index c, const vec<T, d>& col)
 }
 
 template<typename T, index d>
+AS_API T* mat_data(mat<T, d>& m)
+{
+  return m[0];
+}
+
+template<typename T, index d>
+AS_API const T* mat_const_data(const mat<T, d>& m)
+{
+  return m[0];
+}
+
+template<typename T, index d>
 AS_API mat<T, d> mat_from_arr(const T (&data)[d * d])
 {
   return mat_from_ptr<T, d>(data);
