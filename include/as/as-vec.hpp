@@ -146,7 +146,7 @@ struct vec<T, 3>
   //! Constructs vec with `(xyz_, xyz_, xyz_)`.
   constexpr explicit vec(T xyz_);
   //! Constructs vec with `(xy_.x, xy_.y, z_)`.
-  constexpr vec(const vec<T, 2>& xy_, T z_);
+  constexpr vec(const vec<T, 2>& xy_, T z_ = T(0.0));
   //! Constructs vec with `(x_, y_, z_)`.
   constexpr vec(T x_, T y_, T z_);
 
@@ -227,9 +227,9 @@ struct vec<T, 4>
   //! Constructs vec with `(xyzw_, xyzw_, xyzw_, xyzw_)`.
   constexpr explicit vec(T xyzw_);
   //! Constructs vec with `(xyz_.x, xyz_.y, xyz_.z, w_)`.
-  constexpr vec(const vec<T, 3>& xyz_, T w_);
+  constexpr vec(const vec<T, 3>& xyz_, T w_ = T(0.0));
   //! Constructs vec with `(xy_.x, xy_.y, z_, w_)`.
-  constexpr vec(const vec<T, 2>& xy_, T z_, T w_);
+  constexpr vec(const vec<T, 2>& xy_, T z_ = T(0.0), T w_ = T(0.0));
   //! Constructs vec with `(xy_.x, xy_.y, zw_.z, zw_.w)`.
   constexpr vec(const vec<T, 2>& xy_, const vec<T, 2>& zw_);
   //! Constructs vec with `(x_, y_, z_, w_)`.
