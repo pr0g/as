@@ -6,8 +6,7 @@
 #include "gsl/span_ext"
 
 template<typename Sub1, typename Sub2>
-class ElementsAreSubscript
-  : public Catch::MatcherBase<Sub2>
+class ElementsAreSubscript : public Catch::MatcherBase<Sub2>
 {
   using value_t = typename Sub1::value_type;
   value_t m_epsilon = value_t(std::numeric_limits<float>::epsilon());
@@ -71,17 +70,17 @@ ElementsAreSubscript<Sub, Sub> elements_are(const Sub& subscriptable)
 }
 
 template<typename Sub>
-ElementsAreSubscript<Sub, std::array<typename Sub::value_type, Sub::size()>> elements_are_array(
-    const Sub& subscriptable)
+ElementsAreSubscript<Sub, std::array<typename Sub::value_type, Sub::size()>>
+elements_are_array(const Sub& subscriptable)
 {
-  return ElementsAreSubscript<Sub, std::array<typename Sub::value_type, Sub::size()>>(
-      subscriptable);
+  return ElementsAreSubscript<
+    Sub, std::array<typename Sub::value_type, Sub::size()>>(subscriptable);
 }
 
 template<typename Sub>
-ElementsAreSubscript<Sub, gsl::span<const typename Sub::value_type>> elements_are_span(
-    const Sub& subscriptable)
+ElementsAreSubscript<Sub, gsl::span<const typename Sub::value_type>>
+elements_are_span(const Sub& subscriptable)
 {
   return ElementsAreSubscript<Sub, gsl::span<const typename Sub::value_type>>(
-      subscriptable);
+    subscriptable);
 }

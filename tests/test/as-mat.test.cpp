@@ -1018,8 +1018,7 @@ TEST_CASE("mat_transpose", "[as_mat]")
     // clang-format on
 
     CHECK_THAT(
-      make_span(mat4_transposed_reference),
-      elements_are_span(mat4_transposed));
+      make_span(mat4_transposed_reference), elements_are_span(mat4_transposed));
   }
 }
 
@@ -1039,8 +1038,7 @@ TEST_CASE("mat_identity", "[as_mat]")
     };
     // clang-format on
 
-    CHECK_THAT(
-      make_span(mat3_identity_ref), elements_are_span(mat3_identity));
+    CHECK_THAT(make_span(mat3_identity_ref), elements_are_span(mat3_identity));
   }
 
   {
@@ -1056,8 +1054,7 @@ TEST_CASE("mat_identity", "[as_mat]")
     };
     // clang-format on
 
-    CHECK_THAT(
-      make_span(mat4_identity_ref), elements_are_span(mat4_identity));
+    CHECK_THAT(make_span(mat4_identity_ref), elements_are_span(mat4_identity));
   }
 
   {
@@ -1076,8 +1073,7 @@ TEST_CASE("mat_identity", "[as_mat]")
     };
     // clang-format on
 
-    CHECK_THAT(
-      make_span(mat5_identity_ref), elements_are_span(mat5_identity));
+    CHECK_THAT(make_span(mat5_identity_ref), elements_are_span(mat5_identity));
   }
 }
 
@@ -1178,8 +1174,7 @@ TEST_CASE("mat_scale", "[as_mat]")
   // clang-format on
 
   CHECK_THAT(
-    make_span(mat3_uniform_scale_reference),
-    elements_are_span(uniform_scale));
+    make_span(mat3_uniform_scale_reference), elements_are_span(uniform_scale));
 }
 
 TEST_CASE("mat3_from_mat4", "[as_mat]")
@@ -1221,8 +1216,7 @@ TEST_CASE("mat3_rotation_axis", "[as_mat]")
 
     // note - checking against 0.0_r requires margin
     CHECK_THAT(
-      make_span(result_reference),
-      elements_are_span(result).margin(g_epsilon));
+      make_span(result_reference), elements_are_span(result).margin(g_epsilon));
   }
 
   {
@@ -1239,8 +1233,7 @@ TEST_CASE("mat3_rotation_axis", "[as_mat]")
 
     // note - checking against 0.0_r requires margin
     CHECK_THAT(
-      make_span(result_reference),
-      elements_are_span(result).margin(g_epsilon));
+      make_span(result_reference), elements_are_span(result).margin(g_epsilon));
   }
 }
 
@@ -1262,8 +1255,7 @@ TEST_CASE("mat3_rotate_xyz", "[as_mat]")
 
     // note - checking against 0.0_r requires margin
     CHECK_THAT(
-      make_span(result_reference),
-      elements_are_span(result).margin(g_epsilon));
+      make_span(result_reference), elements_are_span(result).margin(g_epsilon));
   }
 
   {
@@ -1280,8 +1272,7 @@ TEST_CASE("mat3_rotate_xyz", "[as_mat]")
 
     // note - checking against 0.0_r requires margin
     CHECK_THAT(
-      make_span(result_reference),
-      elements_are_span(result).margin(g_epsilon));
+      make_span(result_reference), elements_are_span(result).margin(g_epsilon));
   }
 }
 
@@ -1401,8 +1392,7 @@ TEST_CASE("mat4_from_affine", "[as_mat]")
                          1.0_r,  2.0_r, 3.0_r,  1.0_r};
 
     // note - checking against 0.0 requires margin
-    CHECK_THAT(
-      make_span(expected), elements_are_span(m4).margin(g_epsilon));
+    CHECK_THAT(make_span(expected), elements_are_span(m4).margin(g_epsilon));
   }
 }
 
@@ -1426,8 +1416,7 @@ TEST_CASE("mat3_rotate_x_y_z_separate", "[as_mat]")
 
     // note - checking against 0.0_r requires margin
     CHECK_THAT(
-      make_span(result_reference),
-      elements_are_span(result).margin(g_epsilon));
+      make_span(result_reference), elements_are_span(result).margin(g_epsilon));
   }
 
   {
@@ -1446,8 +1435,7 @@ TEST_CASE("mat3_rotate_x_y_z_separate", "[as_mat]")
 
     // note - checking against 0.0_r requires margin
     CHECK_THAT(
-      make_span(result_reference),
-      elements_are_span(result).margin(g_epsilon));
+      make_span(result_reference), elements_are_span(result).margin(g_epsilon));
   }
 }
 
@@ -1661,12 +1649,12 @@ TEST_CASE("mat_basis_mutate_mat4", "[as_mat]")
 
 TEST_CASE("mat_data", "[as_mat]")
 {
-    mat4 mat = mat4::identity();
-    real* matp = mat_data(mat);
-    CHECK(*matp == Approx(1.0f).epsilon(g_epsilon));
-    CHECK(*(matp + 5) == Approx(1.0f).epsilon(g_epsilon));
-    CHECK(*(matp + 10) == Approx(1.0f).epsilon(g_epsilon));
-    CHECK(*(matp + 15) == Approx(1.0f).epsilon(g_epsilon));
+  mat4 mat = mat4::identity();
+  real* matp = mat_data(mat);
+  CHECK(*matp == Approx(1.0f).epsilon(g_epsilon));
+  CHECK(*(matp + 5) == Approx(1.0f).epsilon(g_epsilon));
+  CHECK(*(matp + 10) == Approx(1.0f).epsilon(g_epsilon));
+  CHECK(*(matp + 15) == Approx(1.0f).epsilon(g_epsilon));
 }
 
 } // namespace unit_test

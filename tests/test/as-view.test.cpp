@@ -181,8 +181,7 @@ TEST_CASE("ortho_d3d_lh", "[as_view]")
                             -0.000000_r, -0.000000_r, -0.000010_r, 1.000000_r};
 
   CHECK_THAT(
-    make_span(reference),
-    elements_are_span(ortho_d3d_lh).margin(g_epsilon));
+    make_span(reference), elements_are_span(ortho_d3d_lh).margin(g_epsilon));
 }
 
 TEST_CASE("ortho_d3d_rh", "[as_view]")
@@ -199,8 +198,7 @@ TEST_CASE("ortho_d3d_rh", "[as_view]")
                             -0.000000_r, -0.000000_r, -0.000010_r, 1.000000_r};
 
   CHECK_THAT(
-    make_span(reference),
-    elements_are_span(ortho_d3d_rh).margin(g_epsilon));
+    make_span(reference), elements_are_span(ortho_d3d_rh).margin(g_epsilon));
 }
 
 TEST_CASE("ortho_vulkan_rh", "[as_view]")
@@ -217,8 +215,7 @@ TEST_CASE("ortho_vulkan_rh", "[as_view]")
                             -0.000000_r, -0.000000_r, -0.000010_r, 1.000000_r};
 
   CHECK_THAT(
-    make_span(reference),
-    elements_are_span(ortho_vulkan_rh).margin(g_epsilon));
+    make_span(reference), elements_are_span(ortho_vulkan_rh).margin(g_epsilon));
 }
 
 TEST_CASE("ortho_vulkan_lh", "[as_view]")
@@ -235,8 +232,7 @@ TEST_CASE("ortho_vulkan_lh", "[as_view]")
                             -0.000000_r, -0.000000_r, -0.000010_r, 1.000000_r};
 
   CHECK_THAT(
-    make_span(reference),
-    elements_are_span(ortho_vulkan_lh).margin(g_epsilon));
+    make_span(reference), elements_are_span(ortho_vulkan_lh).margin(g_epsilon));
 }
 
 static vec2i screen_to_world_to_screen(
@@ -355,8 +351,8 @@ TEST_CASE("world_to_screen_to_world", "[as_view]")
       affine(as::mat3_rotation_y(radians(-90.0_r))), screen_dimension);
 
     CHECK_THAT(
-        expected_world_position,
-        elements_are(returned_world_position).margin(g_epsilon));
+      expected_world_position,
+      elements_are(returned_world_position).margin(g_epsilon));
   }
 
   {
@@ -370,8 +366,8 @@ TEST_CASE("world_to_screen_to_world", "[as_view]")
       screen_dimension);
 
     CHECK_THAT(
-        expected_world_position,
-        elements_are(returned_world_position).margin(g_epsilon));
+      expected_world_position,
+      elements_are(returned_world_position).margin(g_epsilon));
   }
 
   {
@@ -385,8 +381,8 @@ TEST_CASE("world_to_screen_to_world", "[as_view]")
       screen_dimension);
 
     CHECK_THAT(
-        expected_world_position,
-        elements_are(returned_world_position).margin(g_epsilon));
+      expected_world_position,
+      elements_are(returned_world_position).margin(g_epsilon));
   }
 }
 
@@ -404,8 +400,7 @@ TEST_CASE("screen_to_world_near_clip", "[as_view]")
       screen_dimension);
 
     CHECK_THAT(
-      arr(0.0_r, 0.0_r, 0.01_r),
-      elements_are_array(returned_world_position));
+      arr(0.0_r, 0.0_r, 0.01_r), elements_are_array(returned_world_position));
   }
 }
 

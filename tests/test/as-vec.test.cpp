@@ -1886,52 +1886,58 @@ TEST_CASE("vec4_translation_direction", "[as_vec]")
 {
   vec3 vector3(5.0_r, 10.0_r, 15.0_r);
   const vec4 translation = vec4_translation(vector3);
-  CHECK_THAT(
-    arr(5.0_r, 10.0_r, 15.0_r, 1.0f), elements_are_array(translation));
+  CHECK_THAT(arr(5.0_r, 10.0_r, 15.0_r, 1.0f), elements_are_array(translation));
 
   vec3 translation_3(5.0_r, 10.0_r, 15.0_r);
   vec4 expected_direction(translation_3, 0.0f);
   const vec4 direction = vec4_direction(vector3);
-  CHECK_THAT(
-    arr(5.0_r, 10.0_r, 15.0_r, 0.0f), elements_are_array(direction));
+  CHECK_THAT(arr(5.0_r, 10.0_r, 15.0_r, 0.0f), elements_are_array(direction));
 
   CHECK_THAT(expected_direction, elements_are(direction));
   CHECK_THAT(arr(5.0_r, 10.0_r, 15.0_r, 0.0f), elements_are_array(direction));
 }
 
 template<typename T, index d>
-std::string print_vec(const as::vec<T, d>& vec) {
+std::string print_vec(const as::vec<T, d>& vec)
+{
   std::stringstream ss;
   ss << "{ ";
   for (index i = 0; i < d - 1; ++i) {
-      ss << std::to_string(vec[i]) << ", ";
+    ss << std::to_string(vec[i]) << ", ";
   }
-  ss << std::to_string(vec[d-1]) << " }";
+  ss << std::to_string(vec[d - 1]) << " }";
   return ss.str();
 }
 
 } // namespace unit_test
 
-namespace Catch {
-  template<>
-  struct StringMaker<as::vec2> {
-    static std::string convert(const as::vec2& vec) {
-      return unit_test::print_vec(vec);
-    }
-  };
-  template<>
-  struct StringMaker<as::vec3> {
-    static std::string convert(const as::vec3& vec) {
-      return unit_test::print_vec(vec);
-    }
-  };
-  template<>
-  struct StringMaker<as::vec4> {
-    static std::string convert(const as::vec4& vec) {
-      return unit_test::print_vec(vec);
-    }
-  };
-}
+namespace Catch
+{
+template<>
+struct StringMaker<as::vec2>
+{
+  static std::string convert(const as::vec2& vec)
+  {
+    return unit_test::print_vec(vec);
+  }
+};
+template<>
+struct StringMaker<as::vec3>
+{
+  static std::string convert(const as::vec3& vec)
+  {
+    return unit_test::print_vec(vec);
+  }
+};
+template<>
+struct StringMaker<as::vec4>
+{
+  static std::string convert(const as::vec4& vec)
+  {
+    return unit_test::print_vec(vec);
+  }
+};
+} // namespace Catch
 
 // explicit instantiations (for coverage)
 

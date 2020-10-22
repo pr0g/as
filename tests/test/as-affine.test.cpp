@@ -244,8 +244,7 @@ TEST_CASE("affine_inverse", "[as_affine]")
   affine result;
   result = affine_inverse(a);
 
-  CHECK_THAT(
-    make_span(expected_affine, 9), elements_are_span(result.rotation));
+  CHECK_THAT(make_span(expected_affine, 9), elements_are_span(result.rotation));
   CHECK_THAT(
     make_span(&expected_affine[9], 3),
     elements_are_span(result.translation).margin(0.000001_r));

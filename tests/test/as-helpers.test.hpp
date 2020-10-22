@@ -20,8 +20,7 @@ std::array<T, 3> arr(const T x, const T y, const T z)
 }
 
 template<typename T>
-std::array<T, 4> arr(
-  const T x, const T y, const T z, const T w)
+std::array<T, 4> arr(const T x, const T y, const T z, const T w)
 {
   return std::array<T, 4>{x, y, z, w};
 }
