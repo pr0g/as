@@ -22,15 +22,15 @@ AS_API constexpr T smoother_step(const T t)
 template<typename T>
 AS_API constexpr T sign(const T x)
 {
-  if (x > 0.0f) {
-    return 1.0f;
+  if (x > T(0.0)) {
+    return T(1.0);
   }
 
-  if (x < 0.0f) {
-    return -1.0f;
+  if (x < T(0.0)) {
+    return T(-1.0);
   }
 
-  return 0.0f;
+  return T(0.0);
 }
 
 template<typename T>

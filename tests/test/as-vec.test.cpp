@@ -1726,22 +1726,22 @@ TEST_CASE("snap_vec", "[as_vec]")
 TEST_CASE("reflect", "[as_vec]")
 {
   {
-    const auto l = as::vec3(1.0f, -1.0f, 0.0f);
-    const auto n = as::vec3(0.0f, 1.0f, 0.0f);
+    const auto l = as::vec3(1.0_r, -1.0_r, 0.0_r);
+    const auto n = as::vec3(0.0_r, 1.0_r, 0.0_r);
     const auto r = as::vec3_reflect(l, n);
     CHECK_THAT(arr(1.0_r, 1.0_r, 0.0_r), elements_are_array(r));
   }
 
   {
-    const auto l = as::vec3(1.0f, -1.0f, 0.0f);
-    const auto n = as::vec3(-1.0f, 0.0f, 0.0f);
+    const auto l = as::vec3(1.0_r, -1.0_r, 0.0_r);
+    const auto n = as::vec3(-1.0_r, 0.0_r, 0.0_r);
     const auto r = as::vec3_reflect(l, n);
     CHECK_THAT(arr(-1.0_r, -1.0_r, 0.0_r), elements_are_array(r));
   }
 
   {
-    const auto l = as::vec3(0.0f, -5.0f, -5.0f);
-    const auto n = as::vec3(0.0f, -1.0f, 0.0f);
+    const auto l = as::vec3(0.0_r, -5.0_r, -5.0_r);
+    const auto n = as::vec3(0.0_r, -1.0_r, 0.0_r);
     const auto r = as::vec3_reflect(l, n);
     CHECK_THAT(arr(0.0_r, 5.0_r, -5.0_r), elements_are_array(r));
   }
@@ -1886,15 +1886,15 @@ TEST_CASE("vec4_translation_direction", "[as_vec]")
 {
   vec3 vector3(5.0_r, 10.0_r, 15.0_r);
   const vec4 translation = vec4_translation(vector3);
-  CHECK_THAT(arr(5.0_r, 10.0_r, 15.0_r, 1.0f), elements_are_array(translation));
+  CHECK_THAT(arr(5.0_r, 10.0_r, 15.0_r, 1.0_r), elements_are_array(translation));
 
   vec3 translation_3(5.0_r, 10.0_r, 15.0_r);
-  vec4 expected_direction(translation_3, 0.0f);
+  vec4 expected_direction(translation_3, 0.0_r);
   const vec4 direction = vec4_direction(vector3);
-  CHECK_THAT(arr(5.0_r, 10.0_r, 15.0_r, 0.0f), elements_are_array(direction));
+  CHECK_THAT(arr(5.0_r, 10.0_r, 15.0_r, 0.0_r), elements_are_array(direction));
 
   CHECK_THAT(expected_direction, elements_are(direction));
-  CHECK_THAT(arr(5.0_r, 10.0_r, 15.0_r, 0.0f), elements_are_array(direction));
+  CHECK_THAT(arr(5.0_r, 10.0_r, 15.0_r, 0.0_r), elements_are_array(direction));
 }
 
 template<typename T, index d>

@@ -387,13 +387,13 @@ AS_API constexpr vec<T, 4> vec4_from_vec3(const vec<T, 3>& v, T w)
 template<typename T>
 AS_API constexpr vec<T, 4> vec4_translation(const vec<T, 3>& v)
 {
-  return vec4_from_vec3(v, 1.0f);
+  return vec4_from_vec3(v, T(1.0));
 }
 
 template<typename T>
 AS_API constexpr vec<T, 4> vec4_direction(const vec<T, 3>& v)
 {
-  return vec4_from_vec3(v, 0.0f);
+  return vec4_from_vec3(v, T(0.0));
 }
 
 template<typename T, index d>

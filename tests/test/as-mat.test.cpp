@@ -727,9 +727,9 @@ TEST_CASE("multiply_mul", "[as_mat]")
 {
   using gsl::make_span;
 
-  mat3 rotate_x = as::mat3_rotation_x(radians(30.0f));
-  mat3 rotate_y = as::mat3_rotation_y(radians(30.0f));
-  mat3 rotate_z = as::mat3_rotation_z(radians(30.0f));
+  mat3 rotate_x = as::mat3_rotation_x(radians(30.0_r));
+  mat3 rotate_y = as::mat3_rotation_y(radians(30.0_r));
+  mat3 rotate_z = as::mat3_rotation_z(radians(30.0_r));
 
   mat3 result_mul;
   result_mul = as::mat_mul(as::mat_mul(rotate_x, rotate_y), rotate_z);
