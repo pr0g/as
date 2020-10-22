@@ -38,6 +38,14 @@ vec<T, d> vec_from_ptr(const T* data);
 template<typename T, index d>
 void vec_to_arr(const vec<T, d>& v, T (&data)[d]);
 
+//! Returns a pointer to the start of the vector data.
+template<typename T, index d>
+T* vec_data(vec<T, d>& v);
+
+//! Returns a pointer to the start of the  vector data (const/immutable).
+template<typename T, index d>
+const T* vec_const_data(const vec<T, d>& v);
+
 //! Returns the dot product of two vectors.
 //! \note Result is equivalent to: `|lhs| * |rhs| * cos(θ)`
 //! \note Result is positive for acute angles, negative for obtuse angles and
@@ -305,7 +313,7 @@ constexpr void mat_col(mat<T, d>& m, index c, const vec<T, d>& col);
 template<typename T, index d>
 T* mat_data(mat<T, d>& m);
 
-//! Returns a const pointer to the start of the matrix data.
+//! Returns a pointer to the start of the  matrix data (const/immutable).
 template<typename T, index d>
 const T* mat_const_data(const mat<T, d>& m);
 

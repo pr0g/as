@@ -33,6 +33,18 @@ AS_API void vec_to_arr(const vec<T, d>& v, T (&data)[d])
 }
 
 template<typename T, index d>
+AS_API T* vec_data(vec<T, d>& v)
+{
+  return &v[0];
+}
+
+template<typename T, index d>
+AS_API const T* vec_const_data(const vec<T, d>& v)
+{
+  return vec_data(v);
+}
+
+template<typename T, index d>
 AS_API constexpr T vec_dot(const vec<T, d>& lhs, const vec<T, d>& rhs)
 {
   T result{0};
@@ -451,7 +463,7 @@ AS_API T* mat_data(mat<T, d>& m)
 template<typename T, index d>
 AS_API const T* mat_const_data(const mat<T, d>& m)
 {
-  return &m[0];
+  return mat_data(m);
 }
 
 template<typename T, index d>
