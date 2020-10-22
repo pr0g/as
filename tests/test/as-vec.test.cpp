@@ -608,29 +608,24 @@ TEST_CASE("vec_size", "[as_vec]")
   static_assert(vec2::size() == 2, "vec2 size must be 2");
   index vec2_size;
   vec2_size = vec2::size();
-  vec2 v2;
   CHECK(vec2_size == 2);
 
   static_assert(vec3::size() == 3, "vec3 size must be 3");
   index vec3_size;
   vec3_size = vec3::size();
-  vec3 v3;
   CHECK(vec3_size == static_cast<index>(3));
 
   static_assert(vec4::size() == 4, "vec4 size must be 4");
   index vec4_size;
   vec4_size = vec4::size();
-  vec4 v4;
   CHECK(vec4_size == static_cast<index>(4));
 
   using short7 = vec<short, 7>;
-  short7 vec_short7;
   index short7_size;
   short7_size = short7::size();
   CHECK(short7_size == static_cast<index>(7));
 
   using int5 = vec<int, 5>;
-  int5 vec_short5;
   index int5_size = int5::size();
   CHECK(int5_size == static_cast<index>(5));
 }
