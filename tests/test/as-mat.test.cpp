@@ -1659,6 +1659,16 @@ TEST_CASE("mat_basis_mutate_mat4", "[as_mat]")
     make_span(translation), make_elements_sub(as::mat4_translation(m4), 4));
 }
 
+TEST_CASE("mat_data", "[as_mat]")
+{
+    mat4 mat = mat4::identity();
+    real* matp = mat_data(mat);
+    CHECK(*matp == Approx(1.0f).epsilon(g_epsilon));
+    CHECK(*(matp + 5) == Approx(1.0f).epsilon(g_epsilon));
+    CHECK(*(matp + 10) == Approx(1.0f).epsilon(g_epsilon));
+    CHECK(*(matp + 15) == Approx(1.0f).epsilon(g_epsilon));
+}
+
 } // namespace unit_test
 
 // explicit instantiations (for coverage)
@@ -1706,3 +1716,6 @@ template as::mat<as::real, 3>& as::operator*=(
   as::mat<as::real, 3>&, as::real scalar);
 template as::mat<as::real, 4>& as::operator*=(
   as::mat<as::real, 4>&, as::real scalar);
+
+template as::real* as::mat_data(as::mat<as::real, 5>&);
+template const as::real* as::mat_const_data(const as::mat<as::real, 5>&);

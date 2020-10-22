@@ -1887,6 +1887,16 @@ TEST_CASE("average", "[as_vec]")
   }
 }
 
+TEST_CASE("vec_data", "[as_vec]")
+{
+    vec4 vec = vec4(1.0_r, 2.0_r, 3.0_r, 4.0_r);
+    real* vecp = vec_data(vec);
+    CHECK(*vecp == Approx(1.0f).epsilon(g_epsilon));
+    CHECK(*(vecp + 1) == Approx(2.0f).epsilon(g_epsilon));
+    CHECK(*(vecp + 2) == Approx(3.0f).epsilon(g_epsilon));
+    CHECK(*(vecp + 3) == Approx(4.0f).epsilon(g_epsilon));
+}
+
 } // namespace unit_test
 
 // explicit instantiations (for coverage)
@@ -1947,3 +1957,5 @@ template as::vec<as::real, 5> as::vec_average(
   const as::vec<as::real, 5>* v, as::index);
 template auto as::vec_average_fold<as::vec<as::real, 5>, as::vec<as::real, 5>>(
   as::vec<as::real, 5>&&, as::vec<as::real, 5>&&);
+template as::real* as::vec_data(as::vec<as::real, 5>&);
+template const as::real* as::vec_const_data(const as::vec<as::real, 5>&);

@@ -35,13 +35,13 @@ AS_API void vec_to_arr(const vec<T, d>& v, T (&data)[d])
 template<typename T, index d>
 AS_API T* vec_data(vec<T, d>& v)
 {
-  return &v[0];
+  return const_cast<T*>(vec_const_data(static_cast<const vec<T, d>&>(v)));
 }
 
 template<typename T, index d>
 AS_API const T* vec_const_data(const vec<T, d>& v)
 {
-  return vec_data(v);
+  return &v[0];
 }
 
 template<typename T, index d>
@@ -457,13 +457,13 @@ AS_API constexpr void mat_col(mat<T, d>& m, index c, const vec<T, d>& col)
 template<typename T, index d>
 AS_API T* mat_data(mat<T, d>& m)
 {
-  return &m[0];
+  return const_cast<T*>(mat_const_data(static_cast<const mat<T, d>&>(m)));
 }
 
 template<typename T, index d>
 AS_API const T* mat_const_data(const mat<T, d>& m)
 {
-  return mat_data(m);
+  return &m[0];
 }
 
 template<typename T, index d>
