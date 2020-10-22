@@ -37,7 +37,7 @@ TEST_CASE("affine_constructor_position", "[as_affine]")
   affine a;
   a = affine(vec3(1.0_r, 2.0_r, 3.0_r));
 
-  CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r), make_elements_sub(a.translation, 3));
+  CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r), elements_are_array(a.translation));
   CHECK(as::mat_equal(mat3::identity(), a.rotation));
 }
 
@@ -129,9 +129,9 @@ TEST_CASE("affine_to_arr", "[as_affine]")
   real expected_affine[12];
   as::affine_to_arr(a, expected_affine);
 
-  CHECK_THAT(make_span(expected_affine, 9), make_elements_sub(a.rotation, 9));
+  CHECK_THAT(make_span(expected_affine, 9), elements_are_span(a.rotation));
   CHECK_THAT(
-    make_span(&expected_affine[9], 3), make_elements_sub(a.translation, 3));
+    make_span(&expected_affine[9], 3), elements_are_span(a.translation));
 }
 
 TEST_CASE("affine_from_arr", "[as_affine]")
@@ -144,8 +144,8 @@ TEST_CASE("affine_from_arr", "[as_affine]")
   affine a;
   a = as::affine_from_arr(affine_arr);
 
-  CHECK_THAT(make_span(affine_arr, 9), make_elements_sub(a.rotation, 9));
-  CHECK_THAT(make_span(&affine_arr[9], 3), make_elements_sub(a.translation, 3));
+  CHECK_THAT(make_span(affine_arr, 9), elements_are_span(a.rotation));
+  CHECK_THAT(make_span(&affine_arr[9], 3), elements_are_span(a.translation));
 }
 
 TEST_CASE("affine_from_mat3", "[as_affine]")
@@ -159,7 +159,7 @@ TEST_CASE("affine_from_mat3", "[as_affine]")
   a = as::affine_from_mat3(m3);
 
   CHECK(as::mat_equal(m3, a.rotation));
-  CHECK_THAT(arr(0.0_r, 0.0_r, 0.0_r), make_elements_sub(a.translation, 3));
+  CHECK_THAT(arr(0.0_r, 0.0_r, 0.0_r), elements_are_array(a.translation));
 }
 
 TEST_CASE("affine_from_mat3_vec3", "[as_affine]")
@@ -174,7 +174,7 @@ TEST_CASE("affine_from_mat3_vec3", "[as_affine]")
   a = as::affine_from_mat3_vec3(m3, v3);
 
   CHECK(as::mat_equal(m3, a.rotation));
-  CHECK_THAT(arr(99.0_r, 98.0_r, 97.0_r), make_elements_sub(a.translation, 3));
+  CHECK_THAT(arr(99.0_r, 98.0_r, 97.0_r), elements_are_array(a.translation));
 }
 
 TEST_CASE("affine_from_vec3", "[as_affine]")
@@ -187,7 +187,7 @@ TEST_CASE("affine_from_vec3", "[as_affine]")
   a = as::affine_from_vec3(v3);
 
   CHECK(as::mat_equal(mat3::identity(), a.rotation));
-  CHECK_THAT(arr(99.0_r, 98.0_r, 97.0_r), make_elements_sub(a.translation, 3));
+  CHECK_THAT(arr(99.0_r, 98.0_r, 97.0_r), elements_are_array(a.translation));
 }
 
 TEST_CASE("affine_concatenation", "[as_affine]")
@@ -221,11 +221,11 @@ TEST_CASE("affine_concatenation", "[as_affine]")
 
   CHECK_THAT(
     make_span(expected_orientation),
-    make_elements_sub(as::mat3_from_mat4(mat_result), 9));
+    elements_are_span(as::mat3_from_mat4(mat_result)));
 
   CHECK_THAT(
     make_span(expected_position),
-    make_elements_sub(vec3_from_vec4(as::mat4_translation(mat_result)), 3));
+    elements_are_span(vec3_from_vec4(as::mat4_translation(mat_result))));
 }
 
 TEST_CASE("affine_inverse", "[as_affine]")
@@ -245,10 +245,10 @@ TEST_CASE("affine_inverse", "[as_affine]")
   result = affine_inverse(a);
 
   CHECK_THAT(
-    make_span(expected_affine, 9), make_elements_sub(result.rotation, 9));
+    make_span(expected_affine, 9), elements_are_span(result.rotation));
   CHECK_THAT(
     make_span(&expected_affine[9], 3),
-    make_elements_sub(result.translation, 3).margin(0.000001_r));
+    elements_are_span(result.translation).margin(0.000001_r));
 }
 
 } // namespace unit_test

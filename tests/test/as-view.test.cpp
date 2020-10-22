@@ -36,7 +36,7 @@ TEST_CASE("perspective_gl_rh", "[as_view]")
 
   CHECK_THAT(
     make_span(reference),
-    make_elements_sub(perspective_gl_rh, 16).margin(g_epsilon));
+    elements_are_span(perspective_gl_rh).margin(g_epsilon));
 }
 
 TEST_CASE("perspective_gl_lh", "[as_view]")
@@ -54,7 +54,7 @@ TEST_CASE("perspective_gl_lh", "[as_view]")
 
   CHECK_THAT(
     make_span(reference),
-    make_elements_sub(perspective_gl_lh, 16).margin(g_epsilon));
+    elements_are_span(perspective_gl_lh).margin(g_epsilon));
 }
 
 TEST_CASE("perspective_d3d_rh", "[as_view]")
@@ -73,7 +73,7 @@ TEST_CASE("perspective_d3d_rh", "[as_view]")
 
   CHECK_THAT(
     make_span(reference),
-    make_elements_sub(perspective_d3d_rh, 16).margin(g_epsilon));
+    elements_are_span(perspective_d3d_rh).margin(g_epsilon));
 }
 
 TEST_CASE("perspective_d3d_lh", "[as_view]")
@@ -92,7 +92,7 @@ TEST_CASE("perspective_d3d_lh", "[as_view]")
 
   CHECK_THAT(
     make_span(reference),
-    make_elements_sub(perspective_d3d_lh, 16).margin(g_epsilon));
+    elements_are_span(perspective_d3d_lh).margin(g_epsilon));
 }
 
 TEST_CASE("perspective_vulkan_rh", "[as_view]")
@@ -111,7 +111,7 @@ TEST_CASE("perspective_vulkan_rh", "[as_view]")
 
   CHECK_THAT(
     make_span(reference),
-    make_elements_sub(perspective_vulkan_rh, 16).margin(g_epsilon));
+    elements_are_span(perspective_vulkan_rh).margin(g_epsilon));
 }
 
 TEST_CASE("perspective_vulkan_lh", "[as_view]")
@@ -130,7 +130,7 @@ TEST_CASE("perspective_vulkan_lh", "[as_view]")
 
   CHECK_THAT(
     make_span(reference),
-    make_elements_sub(perspective_vulkan_lh, 16).margin(g_epsilon));
+    elements_are_span(perspective_vulkan_lh).margin(g_epsilon));
 }
 
 TEST_CASE("ortho_gl_rh", "[as_view]")
@@ -147,7 +147,7 @@ TEST_CASE("ortho_gl_rh", "[as_view]")
                             -0.000000_r, -0.000000_r, -1.000020_r, 1.000000_r};
 
   CHECK_THAT(
-    make_span(reference), make_elements_sub(ortho_gl_rh, 16).margin(g_epsilon));
+    make_span(reference), elements_are_span(ortho_gl_rh).margin(g_epsilon));
 }
 
 TEST_CASE("ortho_gl_lh", "[as_view]")
@@ -164,7 +164,7 @@ TEST_CASE("ortho_gl_lh", "[as_view]")
                             -0.000000_r, -0.000000_r, -1.000020_r, 1.000000_r};
 
   CHECK_THAT(
-    make_span(reference), make_elements_sub(ortho_gl_lh, 16).margin(g_epsilon));
+    make_span(reference), elements_are_span(ortho_gl_lh).margin(g_epsilon));
 }
 
 TEST_CASE("ortho_d3d_lh", "[as_view]")
@@ -182,7 +182,7 @@ TEST_CASE("ortho_d3d_lh", "[as_view]")
 
   CHECK_THAT(
     make_span(reference),
-    make_elements_sub(ortho_d3d_lh, 16).margin(g_epsilon));
+    elements_are_span(ortho_d3d_lh).margin(g_epsilon));
 }
 
 TEST_CASE("ortho_d3d_rh", "[as_view]")
@@ -200,7 +200,7 @@ TEST_CASE("ortho_d3d_rh", "[as_view]")
 
   CHECK_THAT(
     make_span(reference),
-    make_elements_sub(ortho_d3d_rh, 16).margin(g_epsilon));
+    elements_are_span(ortho_d3d_rh).margin(g_epsilon));
 }
 
 TEST_CASE("ortho_vulkan_rh", "[as_view]")
@@ -218,7 +218,7 @@ TEST_CASE("ortho_vulkan_rh", "[as_view]")
 
   CHECK_THAT(
     make_span(reference),
-    make_elements_sub(ortho_vulkan_rh, 16).margin(g_epsilon));
+    elements_are_span(ortho_vulkan_rh).margin(g_epsilon));
 }
 
 TEST_CASE("ortho_vulkan_lh", "[as_view]")
@@ -236,7 +236,7 @@ TEST_CASE("ortho_vulkan_lh", "[as_view]")
 
   CHECK_THAT(
     make_span(reference),
-    make_elements_sub(ortho_vulkan_lh, 16).margin(g_epsilon));
+    elements_are_span(ortho_vulkan_lh).margin(g_epsilon));
 }
 
 static vec2i screen_to_world_to_screen(
@@ -275,7 +275,7 @@ TEST_CASE("screen_to_world_to_screen", "[as_view]")
       expected_screen_position, perspective_gl_rh, affine(vec3::zero()),
       screen_dimension);
 
-    CHECK_THAT(arr(400, 300), make_elements_sub(returned_screen_position, 2));
+    CHECK_THAT(arr(400, 300), elements_are_array(returned_screen_position));
   }
 
   {
@@ -284,7 +284,7 @@ TEST_CASE("screen_to_world_to_screen", "[as_view]")
       expected_screen_position, perspective_gl_rh, affine(vec3::zero()),
       screen_dimension);
 
-    CHECK_THAT(arr(0, 0), make_elements_sub(returned_screen_position, 2));
+    CHECK_THAT(arr(0, 0), elements_are_array(returned_screen_position));
   }
 
   {
@@ -293,7 +293,7 @@ TEST_CASE("screen_to_world_to_screen", "[as_view]")
       expected_screen_position, perspective_gl_rh, affine(vec3::zero()),
       screen_dimension);
 
-    CHECK_THAT(arr(800, 600), make_elements_sub(returned_screen_position, 2));
+    CHECK_THAT(arr(800, 600), elements_are_array(returned_screen_position));
   }
 
   {
@@ -302,7 +302,7 @@ TEST_CASE("screen_to_world_to_screen", "[as_view]")
       expected_screen_position, perspective_gl_rh, affine(vec3::zero()),
       screen_dimension);
 
-    CHECK_THAT(arr(327, 589), make_elements_sub(returned_screen_position, 2));
+    CHECK_THAT(arr(327, 589), elements_are_array(returned_screen_position));
   }
 
   {
@@ -311,7 +311,7 @@ TEST_CASE("screen_to_world_to_screen", "[as_view]")
       expected_screen_position, perspective_gl_rh, affine(vec3::zero()),
       screen_dimension);
 
-    CHECK_THAT(arr(15, 45), make_elements_sub(returned_screen_position, 2));
+    CHECK_THAT(arr(15, 45), elements_are_array(returned_screen_position));
   }
 
   {
@@ -321,7 +321,7 @@ TEST_CASE("screen_to_world_to_screen", "[as_view]")
       affine(as::mat3_rotation_y(radians(-90.0_r)), vec3::axis_z(10.0_r)),
       screen_dimension);
 
-    CHECK_THAT(arr(78, 127), make_elements_sub(returned_screen_position, 2));
+    CHECK_THAT(arr(78, 127), elements_are_array(returned_screen_position));
   }
 }
 
@@ -341,10 +341,8 @@ TEST_CASE("world_to_screen_to_world", "[as_view]")
       screen_dimension);
 
     CHECK_THAT(
-      arr(
-        expected_world_position.x, expected_world_position.y,
-        expected_world_position.z),
-      make_elements_sub(returned_world_position, 3).margin(g_epsilon));
+      expected_world_position,
+      elements_are(returned_world_position).margin(g_epsilon));
   }
 
   {
@@ -357,10 +355,8 @@ TEST_CASE("world_to_screen_to_world", "[as_view]")
       affine(as::mat3_rotation_y(radians(-90.0_r))), screen_dimension);
 
     CHECK_THAT(
-      arr(
-        expected_world_position.x, expected_world_position.y,
-        expected_world_position.z),
-      make_elements_sub(returned_world_position, 3).margin(g_epsilon));
+        expected_world_position,
+        elements_are(returned_world_position).margin(g_epsilon));
   }
 
   {
@@ -374,10 +370,8 @@ TEST_CASE("world_to_screen_to_world", "[as_view]")
       screen_dimension);
 
     CHECK_THAT(
-      arr(
-        expected_world_position.x, expected_world_position.y,
-        expected_world_position.z),
-      make_elements_sub(returned_world_position, 3).margin(g_epsilon));
+        expected_world_position,
+        elements_are(returned_world_position).margin(g_epsilon));
   }
 
   {
@@ -391,10 +385,8 @@ TEST_CASE("world_to_screen_to_world", "[as_view]")
       screen_dimension);
 
     CHECK_THAT(
-      arr(
-        expected_world_position.x, expected_world_position.y,
-        expected_world_position.z),
-      make_elements_sub(returned_world_position, 3).margin(g_epsilon));
+        expected_world_position,
+        elements_are(returned_world_position).margin(g_epsilon));
   }
 }
 
@@ -413,7 +405,7 @@ TEST_CASE("screen_to_world_near_clip", "[as_view]")
 
     CHECK_THAT(
       arr(0.0_r, 0.0_r, 0.01_r),
-      make_elements_sub(returned_world_position, 3));
+      elements_are_array(returned_world_position));
   }
 }
 

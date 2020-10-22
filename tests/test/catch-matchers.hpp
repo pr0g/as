@@ -5,48 +5,18 @@
 #include "gsl/span"
 #include "gsl/span_ext"
 
-template<typename T>
-class ElementsAreSpan : public Catch::MatcherBase<gsl::span<const T>>
-{
-  gsl::span<const T> m_span;
-
-public:
-  ElementsAreSpan(const T* const t, size_t size) : m_span(t, size) {}
-  explicit ElementsAreSpan(gsl::span<const T> span) : m_span(span) {}
-  explicit ElementsAreSpan(gsl::span<T> span) : m_span(span) {}
-
-  bool match(const gsl::span<const T>& span) const override
-  {
-    return m_span == span;
-  }
-
-  [[nodiscard]] std::string describe() const override
-  {
-    std::ostringstream ss;
-    ss << "actual, expected: { ";
-
-    for (const auto& element : m_span) {
-      ss << element << ", ";
-    }
-
-    ss << "}";
-    return ss.str();
-  }
-};
-
-template<typename Sub>
+template<typename Sub1, typename Sub2>
 class ElementsAreSubscript
-  : public Catch::MatcherBase<gsl::span<const typename Sub::value_type>>
+  : public Catch::MatcherBase<Sub2>
 {
-  using value_t = typename Sub::value_type;
-  size_t m_len;
+  using value_t = typename Sub1::value_type;
   value_t m_epsilon = value_t(std::numeric_limits<float>::epsilon());
   value_t m_margin = value_t(0.0);
-  Sub m_subscriptable;
+  Sub1 m_subscriptable;
 
 public:
-  ElementsAreSubscript(const Sub& subscriptable, const size_t len)
-    : m_len(len), m_subscriptable(subscriptable)
+  ElementsAreSubscript(const Sub1& subscriptable)
+    : m_subscriptable(subscriptable)
   {
   }
 
@@ -62,15 +32,14 @@ public:
     return *this;
   }
 
-  bool match(
-    const gsl::span<const typename Sub::value_type>& span) const override
+  bool match(const Sub2& sub2) const override
   {
-    for (size_t i = 0; i < span.size(); ++i) {
+    using std::size;
+    for (int64_t i = 0; i < size(m_subscriptable); ++i) {
       const auto approx_elem{
-        Approx(span[i]).epsilon(m_epsilon).margin(m_margin)};
+        Approx(sub2[i]).epsilon(m_epsilon).margin(m_margin)};
 
       auto subscript = gsl::narrow_cast<ptrdiff_t>(i);
-
       if (m_subscriptable[subscript] != approx_elem) {
         return false;
       }
@@ -84,7 +53,8 @@ public:
     std::ostringstream ss;
     ss << "was expected, actual: { ";
 
-    for (size_t i = 0; i < m_len; ++i) {
+    using std::size;
+    for (int64_t i = 0; i < size(m_subscriptable); ++i) {
       auto subscript = gsl::narrow_cast<ptrdiff_t>(i);
       ss << std::fixed << m_subscriptable[subscript] << ", ";
     }
@@ -95,8 +65,23 @@ public:
 };
 
 template<typename Sub>
-ElementsAreSubscript<Sub> make_elements_sub(
-  const Sub& subscriptable, const size_t len)
+ElementsAreSubscript<Sub, Sub> elements_are(const Sub& subscriptable)
 {
-  return ElementsAreSubscript<Sub>(subscriptable, len);
+  return ElementsAreSubscript<Sub, Sub>(subscriptable);
+}
+
+template<typename Sub>
+ElementsAreSubscript<Sub, std::array<typename Sub::value_type, Sub::size()>> elements_are_array(
+    const Sub& subscriptable)
+{
+  return ElementsAreSubscript<Sub, std::array<typename Sub::value_type, Sub::size()>>(
+      subscriptable);
+}
+
+template<typename Sub>
+ElementsAreSubscript<Sub, gsl::span<const typename Sub::value_type>> elements_are_span(
+    const Sub& subscriptable)
+{
+  return ElementsAreSubscript<Sub, gsl::span<const typename Sub::value_type>>(
+      subscriptable);
 }

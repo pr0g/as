@@ -36,70 +36,70 @@ TEST_CASE("vec2_initialization", "[as_vec]")
   // zero initialization
   {
     vec2 v2{};
-    CHECK_THAT(arr(0.0_r, 0.0_r), make_elements_sub(v2, 2));
+    CHECK_THAT(arr(0.0_r, 0.0_r), elements_are_array(v2));
   }
 
   // value initialization
   {
     vec2 v2 = vec2();
-    CHECK_THAT(arr(0.0_r, 0.0_r), make_elements_sub(v2, 2));
+    CHECK_THAT(arr(0.0_r, 0.0_r), elements_are_array(v2));
   }
 
   // direct initialization (braces)
   {
     vec2 v2{1.0_r, 2.0_r};
-    CHECK_THAT(arr(1.0_r, 2.0_r), make_elements_sub(v2, 2));
+    CHECK_THAT(arr(1.0_r, 2.0_r), elements_are_array(v2));
   }
 
   // direct initialization - single argument (braces)
   {
     vec2 v2{5.0_r};
-    CHECK_THAT(arr(5.0_r, 5.0_r), make_elements_sub(v2, 2));
+    CHECK_THAT(arr(5.0_r, 5.0_r), elements_are_array(v2));
   }
 
   // direct initialization (parens)
   {
     vec2 v2(5.0_r, 10.0_r);
-    CHECK_THAT(arr(5.0_r, 10.0_r), make_elements_sub(v2, 2));
+    CHECK_THAT(arr(5.0_r, 10.0_r), elements_are_array(v2));
   }
 
   // direct initialization - single argument (parens)
   {
     vec2 v2;
     v2 = vec2(6.0_r);
-    CHECK_THAT(arr(6.0_r, 6.0_r), make_elements_sub(v2, 2));
+    CHECK_THAT(arr(6.0_r, 6.0_r), elements_are_array(v2));
   }
 
   // direct/copy initialization (braces)
   {
     vec2 v2 = vec2{3.0_r, 4.0_r};
-    CHECK_THAT(arr(3.0_r, 4.0_r), make_elements_sub(v2, 2));
+    CHECK_THAT(arr(3.0_r, 4.0_r), elements_are_array(v2));
   }
 
   // direct/copy initialization (parens)
   {
     vec2 v2 = vec2(3.0_r, 4.0_r);
-    CHECK_THAT(arr(3.0_r, 4.0_r), make_elements_sub(v2, 2));
+    CHECK_THAT(arr(3.0_r, 4.0_r), elements_are_array(v2));
   }
 
   // direct/copy initialization - single argument (braces)
   {
     const real value{123.0_r};
     vec2 v2 = vec2{value};
-    CHECK_THAT(arr(123.0_r, 123.0_r), make_elements_sub(v2, 2));
+    CHECK_THAT(arr(123.0_r, 123.0_r), elements_are_array(v2));
   }
 
   // direct/copy initialization - single argument (parens)
   {
     auto v2 = vec2(25.0_r);
-    CHECK_THAT(arr(25.0_r, 25.0_r), make_elements_sub(v2, 2));
+    CHECK_THAT(arr(25.0_r, 25.0_r), elements_are_array(v2));
   }
 
   // assignment initialization - single argument (braces)
   {
     vec2 v2;
     v2 = vec2{75.0_r};
-    CHECK_THAT(arr(75.0_r, 75.0_r), make_elements_sub(v2, 2));
+    CHECK_THAT(arr(75.0_r, 75.0_r), elements_are_array(v2));
   }
 
   // direct + copy initialization
@@ -107,7 +107,7 @@ TEST_CASE("vec2_initialization", "[as_vec]")
     vec2 vec2_a(300.0_r, 400.0_r);
     vec2 vec2_b(vec2_a);
 
-    CHECK_THAT(arr(300.0_r, 400.0_r), make_elements_sub(vec2_b, 2));
+    CHECK_THAT(arr(300.0_r, 400.0_r), elements_are_array(vec2_b));
   }
 
   // direct + copy initialization (assignment)
@@ -115,7 +115,7 @@ TEST_CASE("vec2_initialization", "[as_vec]")
     vec2 vec2_a(100.0_r, 200.0_r);
     vec2 vec2_b = vec2_a;
 
-    CHECK_THAT(arr(100.0_r, 200.0_r), make_elements_sub(vec2_b, 2));
+    CHECK_THAT(arr(100.0_r, 200.0_r), elements_are_array(vec2_b));
   }
 
   // direct + copy initialization (assignment)
@@ -125,7 +125,7 @@ TEST_CASE("vec2_initialization", "[as_vec]")
 
     vec2_b = vec2_a;
 
-    CHECK_THAT(arr(500.0_r, 600.0_r), make_elements_sub(vec2_b, 2));
+    CHECK_THAT(arr(500.0_r, 600.0_r), elements_are_array(vec2_b));
   }
 }
 
@@ -142,69 +142,69 @@ TEST_CASE("vec3_initialization", "[as_vec]")
   // zero initialization
   {
     vec3 v3{};
-    CHECK_THAT(arr(0.0_r, 0.0_r, 0.0_r), make_elements_sub(v3, 3));
+    CHECK_THAT(arr(0.0_r, 0.0_r, 0.0_r), elements_are_array(v3));
   }
 
   // value initialization
   {
     vec3 v3 = vec3();
-    CHECK_THAT(arr(0.0_r, 0.0_r, 0.0_r), make_elements_sub(v3, 3));
+    CHECK_THAT(arr(0.0_r, 0.0_r, 0.0_r), elements_are_array(v3));
   }
 
   // direct initialization (braces)
   {
     vec3 v3{1.0_r, 2.0_r, 3.0_r};
-    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r), make_elements_sub(v3, 3));
+    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r), elements_are_array(v3));
   }
 
   // direct initialization (parens)
   {
     vec3 v3(5.0_r, 10.0_r, 15.0_r);
-    CHECK_THAT(arr(5.0_r, 10.0_r, 15.0_r), make_elements_sub(v3, 3));
+    CHECK_THAT(arr(5.0_r, 10.0_r, 15.0_r), elements_are_array(v3));
   }
 
   // direct/copy initialization (braces)
   {
     vec3 v3 = vec3{1.0_r, 2.0_r, 3.0_r};
-    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r), make_elements_sub(v3, 3));
+    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r), elements_are_array(v3));
   }
 
   // direct/copy initialization (parens)
   {
     vec3 v3 = vec3(3.0_r, 4.0_r, 5.0_r);
-    CHECK_THAT(arr(3.0_r, 4.0_r, 5.0_r), make_elements_sub(v3, 3));
+    CHECK_THAT(arr(3.0_r, 4.0_r, 5.0_r), elements_are_array(v3));
   }
 
   // direct/copy initialization - single argument (braces)
   {
     vec3 v3 = vec3{50.0_r};
-    CHECK_THAT(arr(50.0_r, 50.0_r, 50.0_r), make_elements_sub(v3, 3));
+    CHECK_THAT(arr(50.0_r, 50.0_r, 50.0_r), elements_are_array(v3));
   }
 
   // assignment initialization - single argument (braces)
   {
     vec3 v3;
     v3 = vec3{50.0_r};
-    CHECK_THAT(arr(50.0_r, 50.0_r, 50.0_r), make_elements_sub(v3, 3));
+    CHECK_THAT(arr(50.0_r, 50.0_r, 50.0_r), elements_are_array(v3));
   }
 
   // direct/copy initialization - single argument (parens)
   {
     auto v3 = vec3(25.0_r);
-    CHECK_THAT(arr(25.0_r, 25.0_r, 25.0_r), make_elements_sub(v3, 3));
+    CHECK_THAT(arr(25.0_r, 25.0_r, 25.0_r), elements_are_array(v3));
   }
 
   // direct/copy initialization - double argument (braces)
   {
     vec3 v3 = vec3{vec2{1.0_r, 2.0_r}, 3.0_r};
-    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r), make_elements_sub(v3, 3));
+    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r), elements_are_array(v3));
   }
 
   // direct/copy initialization - double argument (parens)
   {
     vec2 v2 = vec2(1.0_r, 2.0_r);
     vec3 v3 = vec3(v2, 3.0_r);
-    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r), make_elements_sub(v3, 3));
+    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r), elements_are_array(v3));
   }
 
   // direct + copy initialization
@@ -212,7 +212,7 @@ TEST_CASE("vec3_initialization", "[as_vec]")
     vec3 vec3_a(100.0_r, 200.0_r, 300.0_r);
     vec3 vec3_b(vec3_a);
 
-    CHECK_THAT(arr(100.0_r, 200.0_r, 300.0_r), make_elements_sub(vec3_b, 3));
+    CHECK_THAT(arr(100.0_r, 200.0_r, 300.0_r), elements_are_array(vec3_b));
   }
 
   // direct + copy initialization
@@ -220,7 +220,7 @@ TEST_CASE("vec3_initialization", "[as_vec]")
     vec3 vec3_a(400.0_r, 500.0_r, 600.0_r);
     vec3 vec3_b = vec3_a;
 
-    CHECK_THAT(arr(400.0_r, 500.0_r, 600.0_r), make_elements_sub(vec3_b, 3));
+    CHECK_THAT(arr(400.0_r, 500.0_r, 600.0_r), elements_are_array(vec3_b));
   }
 
   // direct + copy initialization (assignment)
@@ -230,7 +230,7 @@ TEST_CASE("vec3_initialization", "[as_vec]")
 
     vec3_b = vec3_a;
 
-    CHECK_THAT(arr(500.0_r, 600.0_r, 700.0_r), make_elements_sub(vec3_b, 3));
+    CHECK_THAT(arr(500.0_r, 600.0_r, 700.0_r), elements_are_array(vec3_b));
   }
 }
 
@@ -245,92 +245,92 @@ TEST_CASE("vec4_initialization", "[as_vec]")
   // zero initialization
   {
     vec4 v4{};
-    CHECK_THAT(arr(0.0_r, 0.0_r, 0.0_r, 0.0_r), make_elements_sub(v4, 4));
+    CHECK_THAT(arr(0.0_r, 0.0_r, 0.0_r, 0.0_r), elements_are_array(v4));
   }
 
   // value initialization
   {
     vec4 v4 = vec4();
-    CHECK_THAT(arr(0.0_r, 0.0_r, 0.0_r, 0.0_r), make_elements_sub(v4, 4));
+    CHECK_THAT(arr(0.0_r, 0.0_r, 0.0_r, 0.0_r), elements_are_array(v4));
   }
 
   // direct initialization (braces)
   {
     vec4 v4{1.0_r, 2.0_r, 3.0_r, 4.0_r};
-    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r, 4.0_r), make_elements_sub(v4, 4));
+    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r, 4.0_r), elements_are_array(v4));
   }
 
   // direct initialization (parens)
   {
     vec4 v4(1.0_r, 2.0_r, 3.0_r, 4.0_r);
-    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r, 4.0_r), make_elements_sub(v4, 4));
+    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r, 4.0_r), elements_are_array(v4));
   }
 
   // direct/copy initialization (braces)
   {
     vec4 v4 = vec4{3.0_r, 4.0_r, 5.0_r, 6.0_r};
-    CHECK_THAT(arr(3.0_r, 4.0_r, 5.0_r, 6.0_r), make_elements_sub(v4, 4));
+    CHECK_THAT(arr(3.0_r, 4.0_r, 5.0_r, 6.0_r), elements_are_array(v4));
   }
 
   // direct/copy initialization (parens)
   {
     vec4 v4 = vec4(3.0_r, 4.0_r, 5.0_r, 6.0_r);
-    CHECK_THAT(arr(3.0_r, 4.0_r, 5.0_r, 6.0_r), make_elements_sub(v4, 4));
+    CHECK_THAT(arr(3.0_r, 4.0_r, 5.0_r, 6.0_r), elements_are_array(v4));
   }
 
   // direct/copy initialization - single argument (braces)
   {
     vec4 v4 = vec4{50.0_r};
-    CHECK_THAT(arr(50.0_r, 50.0_r, 50.0_r, 50.0_r), make_elements_sub(v4, 4));
+    CHECK_THAT(arr(50.0_r, 50.0_r, 50.0_r, 50.0_r), elements_are_array(v4));
   }
 
   // assignment initialization - single argument (braces)
   {
     vec4 v4;
     v4 = vec4{99.0_r};
-    CHECK_THAT(arr(99.0_r, 99.0_r, 99.0_r, 99.0_r), make_elements_sub(v4, 4));
+    CHECK_THAT(arr(99.0_r, 99.0_r, 99.0_r, 99.0_r), elements_are_array(v4));
   }
 
   // direct/copy initialization - single argument (parens)
   {
     auto v4 = vec4(25.0_r);
-    CHECK_THAT(arr(25.0_r, 25.0_r, 25.0_r, 25.0_r), make_elements_sub(v4, 4));
+    CHECK_THAT(arr(25.0_r, 25.0_r, 25.0_r, 25.0_r), elements_are_array(v4));
   }
 
   // direct/copy initialization - double argument (braces)
   {
     vec4 v4 = vec4{vec3{1.0_r, 2.0_r, 3.0_r}, 4.0_r};
-    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r, 4.0_r), make_elements_sub(v4, 4));
+    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r, 4.0_r), elements_are_array(v4));
   }
 
   // direct/copy initialization - double argument (parens)
   {
     vec4 v4 = vec4(vec3(1.0_r, 2.0_r, 3.0_r), 4.0_r);
-    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r, 4.0_r), make_elements_sub(v4, 4));
+    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r, 4.0_r), elements_are_array(v4));
   }
 
   // direct/copy initialization - double argument (braces)
   {
     vec4 v4 = vec4{vec2{1.0_r, 2.0_r}, vec2{3.0_r, 4.0_r}};
-    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r, 4.0_r), make_elements_sub(v4, 4));
+    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r, 4.0_r), elements_are_array(v4));
   }
 
   // direct/copy initialization - double argument (parens)
   {
     vec4 v4 = vec4(vec2(1.0_r, 2.0_r), vec2(3.0_r, 4.0_r));
-    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r, 4.0_r), make_elements_sub(v4, 4));
+    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r, 4.0_r), elements_are_array(v4));
   }
 
   // direct/copy initialization - triple argument (braces)
   {
     vec4 v4 = vec4{vec2{1.0_r, 2.0_r}, 3.0_r, 4.0_r};
-    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r, 4.0_r), make_elements_sub(v4, 4));
+    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r, 4.0_r), elements_are_array(v4));
   }
 
   // direct/copy initialization - triple argument (parens)
   {
     vec4 v4 = vec4(vec2(1.0_r, 2.0_r), 3.0_r, 4.0_r);
-    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r, 4.0_r), make_elements_sub(v4, 4));
+    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r, 4.0_r), elements_are_array(v4));
   }
 
   // direct + copy initialization
@@ -339,7 +339,7 @@ TEST_CASE("vec4_initialization", "[as_vec]")
     vec4 vec4_b(vec4_a);
 
     CHECK_THAT(
-      arr(100.0_r, 200.0_r, 300.0_r, 400.0_r), make_elements_sub(vec4_b, 4));
+      arr(100.0_r, 200.0_r, 300.0_r, 400.0_r), elements_are_array(vec4_b));
   }
 
   // direct + copy initialization
@@ -348,7 +348,7 @@ TEST_CASE("vec4_initialization", "[as_vec]")
     vec4 vec4_b = vec4_a;
 
     CHECK_THAT(
-      arr(500.0_r, 600.0_r, 700.0_r, 800.0_r), make_elements_sub(vec4_b, 4));
+      arr(500.0_r, 600.0_r, 700.0_r, 800.0_r), elements_are_array(vec4_b));
   }
 
   // direct + copy initialization (assignment)
@@ -359,7 +359,7 @@ TEST_CASE("vec4_initialization", "[as_vec]")
     vec4_b = vec4_a;
 
     CHECK_THAT(
-      arr(500.0_r, 600.0_r, 700.0_r, 800.0_r), make_elements_sub(vec4_b, 4));
+      arr(500.0_r, 600.0_r, 700.0_r, 800.0_r), elements_are_array(vec4_b));
   }
 }
 
@@ -517,7 +517,7 @@ TEST_CASE("const_elem_access_vec_const", "[as_vec]")
   const real elem_4 = vec5[4];
 
   const real vec_arr[] = {elem_0, elem_1, elem_2, elem_3, elem_4};
-  CHECK_THAT(make_span(vec_arr), make_elements_sub(vec5, 5));
+  CHECK_THAT(make_span(vec_arr), elements_are_span(vec5));
 }
 
 TEST_CASE("elem_access_vec", "[as_vec]")
@@ -532,7 +532,7 @@ TEST_CASE("elem_access_vec", "[as_vec]")
   real elem_4 = vec5[4];
 
   const real vec_arr[] = {elem_0, elem_1, elem_2, elem_3, elem_4};
-  CHECK_THAT(make_span(vec_arr), make_elements_sub(vec5, 5));
+  CHECK_THAT(make_span(vec_arr), elements_are_span(vec5));
 }
 
 TEST_CASE("const_elem_access_vec2_3_4", "[as_vec]")
@@ -546,7 +546,7 @@ TEST_CASE("const_elem_access_vec2_3_4", "[as_vec]")
     const real elem_1 = v2[1];
 
     const real vec_arr[] = {elem_0, elem_1};
-    CHECK_THAT(make_span(vec_arr), make_elements_sub(v2, 2));
+    CHECK_THAT(make_span(vec_arr), elements_are_span(v2));
   }
 
   {
@@ -557,7 +557,7 @@ TEST_CASE("const_elem_access_vec2_3_4", "[as_vec]")
     const real elem_2 = v3[2];
 
     const real vec_arr[] = {elem_0, elem_1, elem_2};
-    CHECK_THAT(make_span(vec_arr), make_elements_sub(v3, 3));
+    CHECK_THAT(make_span(vec_arr), elements_are_span(v3));
   }
 
   {
@@ -570,7 +570,7 @@ TEST_CASE("const_elem_access_vec2_3_4", "[as_vec]")
     const real elem_3 = v4[3];
 
     const real vec_arr[] = {elem_0, elem_1, elem_2, elem_3};
-    CHECK_THAT(make_span(vec_arr), make_elements_sub(v4, 4));
+    CHECK_THAT(make_span(vec_arr), elements_are_span(v4));
   }
 }
 
@@ -609,45 +609,30 @@ TEST_CASE("vec_size", "[as_vec]")
   index vec2_size;
   vec2_size = vec2::size();
   vec2 v2;
-  index vec2_inst_size;
-  vec2_inst_size = vec_size(v2);
   CHECK(vec2_size == 2);
-  CHECK(vec2_inst_size == vec2_size);
 
   static_assert(vec3::size() == 3, "vec3 size must be 3");
   index vec3_size;
   vec3_size = vec3::size();
   vec3 v3;
-  index vec3_inst_size;
-  vec3_inst_size = vec_size(v3);
   CHECK(vec3_size == static_cast<index>(3));
-  CHECK(vec3_inst_size == Approx(vec3_size).epsilon(g_epsilon));
 
   static_assert(vec4::size() == 4, "vec4 size must be 4");
   index vec4_size;
   vec4_size = vec4::size();
   vec4 v4;
-  index vec4_inst_size;
-  vec4_inst_size = vec_size(v4);
   CHECK(vec4_size == static_cast<index>(4));
-  CHECK(vec4_inst_size == Approx(vec4_size).epsilon(g_epsilon));
 
   using short7 = vec<short, 7>;
   short7 vec_short7;
-  index vec_short7_inst_size;
-  vec_short7_inst_size = vec_size(vec_short7);
   index short7_size;
   short7_size = short7::size();
   CHECK(short7_size == static_cast<index>(7));
-  CHECK(vec_short7_inst_size == Approx(short7_size).epsilon(g_epsilon));
 
   using int5 = vec<int, 5>;
   int5 vec_short5;
-  index vec_short5_inst_size;
-  vec_short5_inst_size = vec_size(vec_short5);
   index int5_size = int5::size();
   CHECK(int5_size == static_cast<index>(5));
-  CHECK(vec_short5_inst_size == Approx(int5_size).epsilon(g_epsilon));
 }
 
 TEST_CASE("vec_make_from_arr", "[as_vec]")
@@ -1132,28 +1117,28 @@ TEST_CASE("axes_vec2", "[as_vec]")
   using gsl::make_span;
 
   constexpr real x_axis[] = {1.0_r, 0.0_r};
-  CHECK_THAT(make_span(x_axis), make_elements_sub(vec2::axis_x(), 2));
+  CHECK_THAT(make_span(x_axis), elements_are_span(vec2::axis_x()));
 
   constexpr real y_axis[] = {0.0_r, 1.0_r};
-  CHECK_THAT(make_span(y_axis), make_elements_sub(vec2::axis_y(), 2));
+  CHECK_THAT(make_span(y_axis), elements_are_span(vec2::axis_y()));
 
   constexpr real zero[] = {0.0_r, 0.0_r};
-  CHECK_THAT(make_span(zero), make_elements_sub(vec2::zero(), 2));
+  CHECK_THAT(make_span(zero), elements_are_span(vec2::zero()));
 
   constexpr real one[] = {1.0_r, 1.0_r};
-  CHECK_THAT(make_span(one), make_elements_sub(vec2::one(), 2));
+  CHECK_THAT(make_span(one), elements_are_span(vec2::one()));
 
   constexpr real max_val = std::numeric_limits<real>::max();
   constexpr real max_val_vec[] = {max_val, max_val};
-  CHECK_THAT(make_span(max_val_vec), make_elements_sub(vec2::max(), 2));
+  CHECK_THAT(make_span(max_val_vec), elements_are_span(vec2::max()));
 
   constexpr real min_val = std::numeric_limits<real>::min();
   constexpr real min_val_vec[] = {min_val, min_val};
-  CHECK_THAT(make_span(min_val_vec), make_elements_sub(vec2::min(), 2));
+  CHECK_THAT(make_span(min_val_vec), elements_are_span(vec2::min()));
 
   constexpr real lowest_val = std::numeric_limits<real>::lowest();
   constexpr real lowest_val_vec[] = {lowest_val, lowest_val};
-  CHECK_THAT(make_span(lowest_val_vec), make_elements_sub(vec2::lowest(), 2));
+  CHECK_THAT(make_span(lowest_val_vec), elements_are_span(vec2::lowest()));
 }
 
 TEST_CASE("axes_vec3", "[as_vec]")
@@ -1161,31 +1146,31 @@ TEST_CASE("axes_vec3", "[as_vec]")
   using gsl::make_span;
 
   constexpr real x_axis[] = {1.0_r, 0.0_r, 0.0_r};
-  CHECK_THAT(make_span(x_axis), make_elements_sub(vec3::axis_x(), 3));
+  CHECK_THAT(make_span(x_axis), elements_are_span(vec3::axis_x()));
 
   constexpr real y_axis[] = {0.0_r, 1.0_r, 0.0_r};
-  CHECK_THAT(make_span(y_axis), make_elements_sub(vec3::axis_y(), 3));
+  CHECK_THAT(make_span(y_axis), elements_are_span(vec3::axis_y()));
 
   constexpr real z_axis[] = {0.0_r, 0.0_r, 1.0_r};
-  CHECK_THAT(make_span(z_axis), make_elements_sub(vec3::axis_z(), 3));
+  CHECK_THAT(make_span(z_axis), elements_are_span(vec3::axis_z()));
 
   constexpr real zero[] = {0.0_r, 0.0_r, 0.0_r};
-  CHECK_THAT(make_span(zero), make_elements_sub(vec3::zero(), 3));
+  CHECK_THAT(make_span(zero), elements_are_span(vec3::zero()));
 
   constexpr real one[] = {1.0_r, 1.0_r, 1.0_r};
-  CHECK_THAT(make_span(one), make_elements_sub(vec3::one(), 3));
+  CHECK_THAT(make_span(one), elements_are_span(vec3::one()));
 
   constexpr real max_val = std::numeric_limits<real>::max();
   constexpr real max_val_vec[] = {max_val, max_val, max_val};
-  CHECK_THAT(make_span(max_val_vec), make_elements_sub(vec3::max(), 3));
+  CHECK_THAT(make_span(max_val_vec), elements_are_span(vec3::max()));
 
   constexpr real min_val = std::numeric_limits<real>::min();
   constexpr real min_val_vec[] = {min_val, min_val, min_val};
-  CHECK_THAT(make_span(min_val_vec), make_elements_sub(vec3::min(), 3));
+  CHECK_THAT(make_span(min_val_vec), elements_are_span(vec3::min()));
 
   constexpr real lowest_val = std::numeric_limits<real>::lowest();
   constexpr real lowest_val_vec[] = {lowest_val, lowest_val, lowest_val};
-  CHECK_THAT(make_span(lowest_val_vec), make_elements_sub(vec3::lowest(), 3));
+  CHECK_THAT(make_span(lowest_val_vec), elements_are_span(vec3::lowest()));
 }
 
 TEST_CASE("axes_vec4", "[as_vec]")
@@ -1193,35 +1178,35 @@ TEST_CASE("axes_vec4", "[as_vec]")
   using gsl::make_span;
 
   constexpr real x_axis[] = {1.0_r, 0.0_r, 0.0_r, 0.0_r};
-  CHECK_THAT(make_span(x_axis), make_elements_sub(vec4::axis_x(), 4));
+  CHECK_THAT(make_span(x_axis), elements_are_span(vec4::axis_x()));
 
   constexpr real y_axis[] = {0.0_r, 1.0_r, 0.0_r, 0.0_r};
-  CHECK_THAT(make_span(y_axis), make_elements_sub(vec4::axis_y(), 4));
+  CHECK_THAT(make_span(y_axis), elements_are_span(vec4::axis_y()));
 
   constexpr real z_axis[] = {0.0_r, 0.0_r, 1.0_r, 0.0_r};
-  CHECK_THAT(make_span(z_axis), make_elements_sub(vec4::axis_z(), 4));
+  CHECK_THAT(make_span(z_axis), elements_are_span(vec4::axis_z()));
 
   constexpr real w_axis[] = {0.0_r, 0.0_r, 0.0_r, 1.0_r};
-  CHECK_THAT(make_span(w_axis), make_elements_sub(vec4::axis_w(), 4));
+  CHECK_THAT(make_span(w_axis), elements_are_span(vec4::axis_w()));
 
   constexpr real zero[] = {0.0_r, 0.0_r, 0.0_r, 0.0_r};
-  CHECK_THAT(make_span(zero), make_elements_sub(vec4::zero(), 4));
+  CHECK_THAT(make_span(zero), elements_are_span(vec4::zero()));
 
   constexpr real one[] = {1.0_r, 1.0_r, 1.0_r, 1.0_r};
-  CHECK_THAT(make_span(one), make_elements_sub(vec4::one(), 4));
+  CHECK_THAT(make_span(one), elements_are_span(vec4::one()));
 
   constexpr real max_val = std::numeric_limits<real>::max();
   constexpr real max_val_vec[] = {max_val, max_val, max_val, max_val};
-  CHECK_THAT(make_span(max_val_vec), make_elements_sub(vec4::max(), 4));
+  CHECK_THAT(make_span(max_val_vec), elements_are_span(vec4::max()));
 
   constexpr real min_val = std::numeric_limits<real>::min();
   constexpr real min_val_vec[] = {min_val, min_val, min_val, min_val};
-  CHECK_THAT(make_span(min_val_vec), make_elements_sub(vec4::min(), 4));
+  CHECK_THAT(make_span(min_val_vec), elements_are_span(vec4::min()));
 
   constexpr real lowest_val = std::numeric_limits<real>::lowest();
   constexpr real lowest_val_vec[] = {
     lowest_val, lowest_val, lowest_val, lowest_val};
-  CHECK_THAT(make_span(lowest_val_vec), make_elements_sub(vec4::lowest(), 4));
+  CHECK_THAT(make_span(lowest_val_vec), elements_are_span(vec4::lowest()));
 }
 
 TEST_CASE("cross", "[as_vec]")
@@ -1536,13 +1521,13 @@ TEST_CASE("lerp", "[as_vec]")
     vec3 result_end = vec_mix(start, end, 1.0_r);
 
     const real result_begin_arr[] = {0.0_r, 10.0_r, 20.0_r};
-    CHECK_THAT(make_span(result_begin_arr), make_elements_sub(result_begin, 3));
+    CHECK_THAT(make_span(result_begin_arr), elements_are_span(result_begin));
 
     const real result_mid_arr[] = {5.0_r, 25.0_r, 60.0_r};
-    CHECK_THAT(make_span(result_mid_arr), make_elements_sub(result_mid, 3));
+    CHECK_THAT(make_span(result_mid_arr), elements_are_span(result_mid));
 
     const real result_end_arr[] = {10.0_r, 40.0_r, 100.0_r};
-    CHECK_THAT(make_span(result_end_arr), make_elements_sub(result_end, 3));
+    CHECK_THAT(make_span(result_end_arr), elements_are_span(result_end));
   }
 }
 
@@ -1637,7 +1622,7 @@ TEST_CASE("vec_to_arr", "[as_vec]")
   real vec5_arr[5];
   vec_to_arr(vec5, vec5_arr);
 
-  CHECK_THAT(make_span(vec5_arr), make_elements_sub(vec5, 5));
+  CHECK_THAT(make_span(vec5_arr), elements_are_span(vec5));
 }
 
 TEST_CASE("floor", "[as_vec]")
@@ -1650,7 +1635,7 @@ TEST_CASE("floor", "[as_vec]")
 
     real floor_expected[] = {1.0_r, 2.0_r, 3.0_r};
 
-    CHECK_THAT(make_span(floor_expected), make_elements_sub(floor_vec, 3));
+    CHECK_THAT(make_span(floor_expected), elements_are_span(floor_vec));
   }
 
   {
@@ -1659,7 +1644,7 @@ TEST_CASE("floor", "[as_vec]")
 
     real floor_expected[] = {-2.0_r, -3.0_r, -4.0_r, -5.0_r};
 
-    CHECK_THAT(make_span(floor_expected), make_elements_sub(floor_vec, 4));
+    CHECK_THAT(make_span(floor_expected), elements_are_span(floor_vec));
   }
 }
 
@@ -1673,7 +1658,7 @@ TEST_CASE("ceil", "[as_vec]")
 
     real ceil_expected[] = {2.0_r, 3.0_r, 4.0_r};
 
-    CHECK_THAT(make_span(ceil_expected), make_elements_sub(ceil_vec, 3));
+    CHECK_THAT(make_span(ceil_expected), elements_are_span(ceil_vec));
   }
 
   {
@@ -1682,7 +1667,7 @@ TEST_CASE("ceil", "[as_vec]")
 
     real ceil_expected[] = {-1.0_r, -2.0_r, -3.0_r, -4.0_r};
 
-    CHECK_THAT(make_span(ceil_expected), make_elements_sub(ceil_vec, 4));
+    CHECK_THAT(make_span(ceil_expected), elements_are_span(ceil_vec));
   }
 }
 
@@ -1696,7 +1681,7 @@ TEST_CASE("round", "[as_vec]")
 
     real round_expected[] = {2.0_r, 2.0_r, 4.0_r};
 
-    CHECK_THAT(make_span(round_expected), make_elements_sub(round_vec, 3));
+    CHECK_THAT(make_span(round_expected), elements_are_span(round_vec));
   }
 
   {
@@ -1705,7 +1690,7 @@ TEST_CASE("round", "[as_vec]")
 
     real round_expected[] = {-1.0_r, -3.0_r, -4.0_r, -4.0_r};
 
-    CHECK_THAT(make_span(round_expected), make_elements_sub(round_vec, 4));
+    CHECK_THAT(make_span(round_expected), elements_are_span(round_vec));
   }
 }
 
@@ -1715,14 +1700,14 @@ TEST_CASE("snap_vec", "[as_vec]")
     vec2 v2{70.0_r, 95.0};
     vec2 result = as::vec_snap(v2, 30.0_r);
 
-    CHECK_THAT(arr(60.0_r, 90.0_r), make_elements_sub(result, 2));
+    CHECK_THAT(arr(60.0_r, 90.0_r), elements_are_array(result));
   }
 
   {
     vec3 v3{1.0_r, 2.0_r, 3.0_r};
     vec3 result = as::vec_snap(v3, 0.5_r);
 
-    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r), make_elements_sub(result, 3));
+    CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r), elements_are_array(result));
   }
 
   {
@@ -1734,7 +1719,7 @@ TEST_CASE("snap_vec", "[as_vec]")
     const auto expected =
       std::array<real, 5>{5.0_r, 10.0_r, 20.0_r, 20.0_r, 1000.0_r};
 
-    CHECK_THAT(expected, make_elements_sub(result, 5));
+    CHECK_THAT(expected, elements_are_array(result));
   }
 }
 
@@ -1744,21 +1729,21 @@ TEST_CASE("reflect", "[as_vec]")
     const auto l = as::vec3(1.0f, -1.0f, 0.0f);
     const auto n = as::vec3(0.0f, 1.0f, 0.0f);
     const auto r = as::vec3_reflect(l, n);
-    CHECK_THAT(arr(1.0_r, 1.0_r, 0.0_r), make_elements_sub(r, 3));
+    CHECK_THAT(arr(1.0_r, 1.0_r, 0.0_r), elements_are_array(r));
   }
 
   {
     const auto l = as::vec3(1.0f, -1.0f, 0.0f);
     const auto n = as::vec3(-1.0f, 0.0f, 0.0f);
     const auto r = as::vec3_reflect(l, n);
-    CHECK_THAT(arr(-1.0_r, -1.0_r, 0.0_r), make_elements_sub(r, 3));
+    CHECK_THAT(arr(-1.0_r, -1.0_r, 0.0_r), elements_are_array(r));
   }
 
   {
     const auto l = as::vec3(0.0f, -5.0f, -5.0f);
     const auto n = as::vec3(0.0f, -1.0f, 0.0f);
     const auto r = as::vec3_reflect(l, n);
-    CHECK_THAT(arr(0.0_r, 5.0_r, -5.0_r), make_elements_sub(r, 3));
+    CHECK_THAT(arr(0.0_r, 5.0_r, -5.0_r), elements_are_array(r));
   }
 }
 
@@ -1810,41 +1795,41 @@ TEST_CASE("orthonomal_basis", "[as_vec]")
   {
     const mat3 basis = orthonormal_basis(vec3(1.0_r, 0.0_r, 0.0_r));
     CHECK_THAT(
-      arr(1.0_r, 0.0_r, 0.0_r), make_elements_sub(as::mat3_basis_x(basis), 3));
+      arr(1.0_r, 0.0_r, 0.0_r), elements_are_array(as::mat3_basis_x(basis)));
     CHECK_THAT(
-      arr(0.0_r, 0.0_r, 1.0_r), make_elements_sub(as::mat3_basis_y(basis), 3));
+      arr(0.0_r, 0.0_r, 1.0_r), elements_are_array(as::mat3_basis_y(basis)));
     CHECK_THAT(
-      arr(0.0_r, -1.0_r, 0.0_r), make_elements_sub(as::mat3_basis_z(basis), 3));
+      arr(0.0_r, -1.0_r, 0.0_r), elements_are_array(as::mat3_basis_z(basis)));
   }
 
   {
     const mat3 basis = orthonormal_basis(vec3(0.0_r, -1.0_r, 0.0_r));
     CHECK_THAT(
-      arr(0.0_r, -1.0_r, 0.0_r), make_elements_sub(as::mat3_basis_x(basis), 3));
+      arr(0.0_r, -1.0_r, 0.0_r), elements_are_array(as::mat3_basis_x(basis)));
     CHECK_THAT(
-      arr(0.0_r, 0.0_r, -1.0_r), make_elements_sub(as::mat3_basis_y(basis), 3));
+      arr(0.0_r, 0.0_r, -1.0_r), elements_are_array(as::mat3_basis_y(basis)));
     CHECK_THAT(
-      arr(1.0_r, 0.0_r, 0.0_r), make_elements_sub(as::mat3_basis_z(basis), 3));
+      arr(1.0_r, 0.0_r, 0.0_r), elements_are_array(as::mat3_basis_z(basis)));
   }
 
   {
     const mat3 basis = orthonormal_basis(vec3(0.0_r, 1.0_r, 0.0_r));
     CHECK_THAT(
-      arr(0.0_r, 1.0_r, 0.0_r), make_elements_sub(as::mat3_basis_x(basis), 3));
+      arr(0.0_r, 1.0_r, 0.0_r), elements_are_array(as::mat3_basis_x(basis)));
     CHECK_THAT(
-      arr(0.0_r, 0.0_r, 1.0_r), make_elements_sub(as::mat3_basis_y(basis), 3));
+      arr(0.0_r, 0.0_r, 1.0_r), elements_are_array(as::mat3_basis_y(basis)));
     CHECK_THAT(
-      arr(1.0_r, 0.0_r, 0.0_r), make_elements_sub(as::mat3_basis_z(basis), 3));
+      arr(1.0_r, 0.0_r, 0.0_r), elements_are_array(as::mat3_basis_z(basis)));
   }
 
   {
     const mat3 basis = orthonormal_basis(vec3(0.0_r, 0.0_r, 1.0_r));
     CHECK_THAT(
-      arr(0.0_r, 0.0_r, 1.0_r), make_elements_sub(as::mat3_basis_x(basis), 3));
+      arr(0.0_r, 0.0_r, 1.0_r), elements_are_array(as::mat3_basis_x(basis)));
     CHECK_THAT(
-      arr(0.0_r, -1.0_r, 0.0_r), make_elements_sub(as::mat3_basis_y(basis), 3));
+      arr(0.0_r, -1.0_r, 0.0_r), elements_are_array(as::mat3_basis_y(basis)));
     CHECK_THAT(
-      arr(1.0_r, 0.0_r, 0.0_r), make_elements_sub(as::mat3_basis_z(basis), 3));
+      arr(1.0_r, 0.0_r, 0.0_r), elements_are_array(as::mat3_basis_z(basis)));
   }
 
   {
@@ -1852,12 +1837,12 @@ TEST_CASE("orthonomal_basis", "[as_vec]")
       orthonormal_basis(vec_normalize(vec3(1.0_r, 1.0_r, 0.0_r)));
     CHECK_THAT(
       arr(0.707107_r, 0.707107_r, 0.000000_r),
-      make_elements_sub(as::mat3_basis_x(basis), 3).epsilon(0.001_r));
+      elements_are_array(as::mat3_basis_x(basis)).epsilon(0.001_r));
     CHECK_THAT(
       arr(-0.707107_r, 0.707107_r, 0.000000_r),
-      make_elements_sub(as::mat3_basis_y(basis), 3).epsilon(0.001_r));
+      elements_are_array(as::mat3_basis_y(basis)).epsilon(0.001_r));
     CHECK_THAT(
-      arr(0.0_r, 0.0_r, 1.0_r), make_elements_sub(as::mat3_basis_z(basis), 3));
+      arr(0.0_r, 0.0_r, 1.0_r), elements_are_array(as::mat3_basis_z(basis)));
   }
 }
 
@@ -1865,52 +1850,88 @@ TEST_CASE("average", "[as_vec]")
 {
   {
     vec2 avg = vec_average_fold(vec2{2.0_r, 2.0_r}, vec2{4.0_r, 4.0_r});
-    CHECK_THAT(arr(3.0_r, 3.0_r), make_elements_sub(avg, 2));
+    CHECK_THAT(arr(3.0_r, 3.0_r), elements_are_array(avg));
   }
 
   {
     vec2 vecs[] = {vec2{2.0_r, 2.0_r}, vec2{4.0_r, 4.0_r}};
     vec2 avg = vec_average(vecs, std::size(vecs));
-    CHECK_THAT(arr(3.0_r, 3.0_r), make_elements_sub(avg, 2));
+    CHECK_THAT(arr(3.0_r, 3.0_r), elements_are_array(avg));
   }
 
   {
     vec3 avg =
       vec_average_fold(vec3{3.0_r, 3.0_r, 3.0_r}, vec3{5.0_r, 5.0_r, 5.0_r});
-    CHECK_THAT(arr(4.0_r, 4.0_r, 4.0_r), make_elements_sub(avg, 3));
+    CHECK_THAT(arr(4.0_r, 4.0_r, 4.0_r), elements_are_array(avg));
   }
 
   {
     vec3 vecs[] = {vec3{3.0_r, 3.0_r, 3.0_r}, vec3{5.0_r, 5.0_r, 5.0_r}};
     vec3 avg = vec_average(vecs, std::size(vecs));
-    CHECK_THAT(arr(4.0_r, 4.0_r, 4.0_r), make_elements_sub(avg, 3));
+    CHECK_THAT(arr(4.0_r, 4.0_r, 4.0_r), elements_are_array(avg));
   }
 }
 
 TEST_CASE("vec_data", "[as_vec]")
 {
-    vec4 vec = vec4(1.0_r, 2.0_r, 3.0_r, 4.0_r);
-    real* vecp = vec_data(vec);
-    CHECK(*vecp == Approx(1.0f).epsilon(g_epsilon));
-    CHECK(*(vecp + 1) == Approx(2.0f).epsilon(g_epsilon));
-    CHECK(*(vecp + 2) == Approx(3.0f).epsilon(g_epsilon));
-    CHECK(*(vecp + 3) == Approx(4.0f).epsilon(g_epsilon));
+  vec4 vec = vec4(1.0_r, 2.0_r, 3.0_r, 4.0_r);
+  real* vecp = vec_data(vec);
+  CHECK(*vecp == Approx(1.0f).epsilon(g_epsilon));
+  CHECK(*(vecp + 1) == Approx(2.0f).epsilon(g_epsilon));
+  CHECK(*(vecp + 2) == Approx(3.0f).epsilon(g_epsilon));
+  CHECK(*(vecp + 3) == Approx(4.0f).epsilon(g_epsilon));
 }
 
 TEST_CASE("vec4_translation_direction", "[as_vec]")
 {
-    vec3 vector3(5.0_r, 10.0_r, 15.0_r);
-    const vec4 translation = vec4_translation(vector3);
-    CHECK_THAT(
-        arr(5.0_r, 10.0_r, 15.0_r, 1.0f), make_elements_sub(translation, 4));
+  vec3 vector3(5.0_r, 10.0_r, 15.0_r);
+  const vec4 translation = vec4_translation(vector3);
+  CHECK_THAT(
+    arr(5.0_r, 10.0_r, 15.0_r, 1.0f), elements_are_array(translation));
 
-    vec3 translation_3(5.0_r, 10.0_r, 15.0_r);
-    const vec4 direction = vec4_direction(vector3);
-    CHECK_THAT(
-        arr(5.0_r, 10.0_r, 15.0_r, 0.0f), make_elements_sub(direction, 4));
+  vec3 translation_3(5.0_r, 10.0_r, 15.0_r);
+  vec4 expected_direction(translation_3, 0.0f);
+  const vec4 direction = vec4_direction(vector3);
+  CHECK_THAT(
+    arr(5.0_r, 10.0_r, 15.0_r, 0.0f), elements_are_array(direction));
+
+  CHECK_THAT(expected_direction, elements_are(direction));
+  CHECK_THAT(arr(5.0_r, 10.0_r, 15.0_r, 0.0f), elements_are_array(direction));
+}
+
+template<typename T, index d>
+std::string print_vec(const as::vec<T, d>& vec) {
+  std::stringstream ss;
+  ss << "{ ";
+  for (index i = 0; i < d - 1; ++i) {
+      ss << std::to_string(vec[i]) << ", ";
+  }
+  ss << std::to_string(vec[d-1]) << " }";
+  return ss.str();
 }
 
 } // namespace unit_test
+
+namespace Catch {
+  template<>
+  struct StringMaker<as::vec2> {
+    static std::string convert(const as::vec2& vec) {
+      return unit_test::print_vec(vec);
+    }
+  };
+  template<>
+  struct StringMaker<as::vec3> {
+    static std::string convert(const as::vec3& vec) {
+      return unit_test::print_vec(vec);
+    }
+  };
+  template<>
+  struct StringMaker<as::vec4> {
+    static std::string convert(const as::vec4& vec) {
+      return unit_test::print_vec(vec);
+    }
+  };
+}
 
 // explicit instantiations (for coverage)
 
@@ -1946,7 +1967,6 @@ template const as::vec<as::real, 5> as::operator/(
 // functions
 template void as::vec_to_arr(
   const as::vec<as::real, 5>& v, as::real (&data)[5]);
-template as::index as::vec_size<as::real, 5>(const as::vec<as::real, 5>&);
 template as::real as::vec_dot(
   const as::vec<as::real, 5>&, const as::vec<as::real, 5>&);
 template std::tuple<as::vec<as::real, 5>, as::real> as::

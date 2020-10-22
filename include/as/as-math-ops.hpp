@@ -17,11 +17,6 @@
 namespace as
 {
 
-//! Returns the number of elements in the vector.
-//! \note This is equivalent with `d`, the dimension.
-template<typename T, index d>
-constexpr index vec_size(const vec<T, d>& v);
-
 //! Creates a vector from a fixed size array of the same type and dimension.
 template<typename T, index d>
 vec<T, d> vec_from_arr(const T (&data)[d]);

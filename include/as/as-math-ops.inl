@@ -2,12 +2,6 @@ namespace as
 {
 
 template<typename T, index d>
-AS_API constexpr index vec_size(const vec<T, d>& /*unused*/)
-{
-  return d;
-}
-
-template<typename T, index d>
 AS_API vec<T, d> vec_from_arr(const T (&data)[d])
 {
   return vec_from_ptr<T, d>(&data[0]);
@@ -1347,13 +1341,11 @@ AS_API inline affine affine_from_ptr(const real* data)
 {
   affine result;
 
-  constexpr auto mat_size = mat3::size();
-  for (index i = 0; i < mat_size; ++i) {
+  for (index i = 0; i < mat3::size(); ++i) {
     result.rotation[i] = data[i];
   }
 
-  constexpr auto vec_size = vec3::size();
-  for (index i = 0; i < vec_size; ++i) {
+  for (index i = 0; i < vec3::size(); ++i) {
     result.translation[i] = data[result.rotation.size() + i];
   }
 
