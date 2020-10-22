@@ -390,6 +390,18 @@ AS_API constexpr vec<T, 4> vec4_from_vec3(const vec<T, 3>& v, T w)
   return {v.x, v.y, v.z, w};
 }
 
+template<typename T>
+AS_API constexpr vec<T, 4> vec4_translation(const vec<T, 3>& v)
+{
+    return vec4_from_vec3(v, 1.0f);
+}
+
+template<typename T>
+AS_API constexpr vec<T, 4> vec4_direction(const vec<T, 3>& v)
+{
+    return vec4_from_vec3(v, 0.0f);
+}
+
 template<typename T, index d>
 AS_API vec<T, d> vec_average(const vec<T, d>* vectors, index count)
 {

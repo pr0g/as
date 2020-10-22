@@ -262,6 +262,14 @@ constexpr vec<T, 4> vec4_from_vec2(
 template<typename T>
 constexpr vec<T, 4> vec4_from_vec3(const vec<T, 3>& v, T w = T(0.0));
 
+//! Returns a vec<T, 4> with the xyz components of `v` and w as `1.0`.
+template<typename T>
+constexpr vec<T, 4> vec4_translation(const vec<T, 3>& v);
+
+//! Returns a vec<T, 4> with the xyz components of `v` and w as `0.0`.
+template<typename T>
+constexpr vec<T, 4> vec4_direction(const vec<T, 3>& v);
+
 //! Returns the average of an array of vectors.
 template<typename T, index d>
 vec<T, d> vec_average(const vec<T, d>* vectors, index count);

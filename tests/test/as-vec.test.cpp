@@ -1897,6 +1897,19 @@ TEST_CASE("vec_data", "[as_vec]")
     CHECK(*(vecp + 3) == Approx(4.0f).epsilon(g_epsilon));
 }
 
+TEST_CASE("vec4_translation_direction", "[as_vec]")
+{
+    vec3 vector3(5.0_r, 10.0_r, 15.0_r);
+    const vec4 translation = vec4_translation(vector3);
+    CHECK_THAT(
+        arr(5.0_r, 10.0_r, 15.0_r, 1.0f), make_elements_sub(translation, 4));
+
+    vec3 translation_3(5.0_r, 10.0_r, 15.0_r);
+    const vec4 direction = vec4_direction(vector3);
+    CHECK_THAT(
+        arr(5.0_r, 10.0_r, 15.0_r, 0.0f), make_elements_sub(direction, 4));
+}
+
 } // namespace unit_test
 
 // explicit instantiations (for coverage)
@@ -1959,3 +1972,5 @@ template auto as::vec_average_fold<as::vec<as::real, 5>, as::vec<as::real, 5>>(
   as::vec<as::real, 5>&&, as::vec<as::real, 5>&&);
 template as::real* as::vec_data(as::vec<as::real, 5>&);
 template const as::real* as::vec_const_data(const as::vec<as::real, 5>&);
+template as::vec<as::real, 4> as::vec4_translation(const as::vec<as::real, 3>&);
+template as::vec<as::real, 4> as::vec4_direction(const as::vec<as::real, 3>&);
