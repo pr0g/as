@@ -75,7 +75,10 @@ string(
             "$<COMPILE_LANGUAGE:CXX>,"
             "$<CXX_COMPILER_ID:GNU>"
         ">:"
-        "-Wall;-Wextra;-Wshadow;"
+        "-Wall;-Wextra;-Wshadow;-Wnon-virtual-dtor;-Wpedantic;-Wold-style-cast;"
+        "-Wcast-align;-Wunused;-Wconversion;-Wsign-conversion;"
+        "-Wmisleading-indentation;-Wduplicated-cond;-Wduplicated-branches;"
+        "-Wlogical-op;-Wnull-dereference;-Wdouble-promotion;-Wuseless-cast"
     ">")
 # cmake-format: on
 
