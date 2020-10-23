@@ -9,16 +9,16 @@ environment:
   matrix:
     - PRECISION: -DAS_PRECISION_FLOAT=ON
       ORDER: -DAS_COL_MAJOR=ON
-      ARCH: -A x64
+      ARCH: "-A x64"
     - PRECISION: -DAS_PRECISION_FLOAT=ON
       ORDER: -DAS_ROW_MAJOR=ON
-      ARCH: -A Win32
+      ARCH: "-A Win32"
     - PRECISION: -DAS_PRECISION_DOUBLE=ON
       ORDER: -DAS_COL_MAJOR=ON
-      ARCH: -A x64
+      ARCH: "-A x64"
     - PRECISION: -DAS_PRECISION_DOUBLE=ON
       ORDER: -DAS_ROW_MAJOR=ON
-      ARCH: -A Win32
+      ARCH: "-A Win32"
 
 build_script:
 - mkdir catch2 && cd catch2
