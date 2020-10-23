@@ -1573,6 +1573,33 @@ TEST_CASE("mat_basis_access_mat3", "[as_mat]")
   CHECK_THAT(make_span(basis_z), elements_are_span(as::mat3_basis_z(m3)));
 }
 
+TEST_CASE("mat_dimension_access_mat4", "[as_mat]")
+{
+  using gsl::make_span;
+
+  // clang-format off
+  mat4 m4 {
+    1.0_r,  2.0_r,  3.0_r,  4.0_r,
+    4.0_r,  5.0_r,  6.0_r,  7.0_r,
+    7.0_r,  8.0_r,  9.0_r,  8.0_r,
+    10.0_r, 11.0_r, 12.0_r, 9.0_r
+  };
+  // clang-format on
+
+  CHECK_THAT(
+    arr(1.0_r, 2.0_r, 3.0_r, 4.0_r),
+    elements_are_array(as::mat4_dimension0(m4)));
+  CHECK_THAT(
+    arr(4.0_r, 5.0_r, 6.0_r, 7.0_r),
+    elements_are_span(as::mat4_dimension1(m4)));
+  CHECK_THAT(
+    arr(7.0_r, 8.0_r, 9.0_r, 8.0_r),
+    elements_are_span(as::mat4_dimension2(m4)));
+  CHECK_THAT(
+    make_span(arr(10.0_r, 11.0_r, 12.0_r, 9.0_r)),
+    elements_are_span(as::mat4_dimension3(m4)));
+}
+
 TEST_CASE("mat_basis_access_mat4", "[as_mat]")
 {
   using gsl::make_span;
@@ -1586,15 +1613,13 @@ TEST_CASE("mat_basis_access_mat4", "[as_mat]")
   };
   // clang-format on
 
-  const real basis_x[] = {1.0_r, 2.0_r, 3.0_r, 4.0_r};
-  CHECK_THAT(make_span(basis_x), elements_are_span(as::mat4_basis_x(m4)));
-  const real basis_y[] = {4.0_r, 5.0_r, 6.0_r, 7.0_r};
-  CHECK_THAT(make_span(basis_y), elements_are_span(as::mat4_basis_y(m4)));
-  const real basis_z[] = {7.0_r, 8.0_r, 9.0_r, 8.0_r};
-  CHECK_THAT(make_span(basis_z), elements_are_span(as::mat4_basis_z(m4)));
-  const real translation[] = {10.0_r, 11.0_r, 12.0_r, 9.0_r};
   CHECK_THAT(
-    make_span(translation), elements_are_span(as::mat4_translation(m4)));
+    arr(1.0_r, 2.0_r, 3.0_r), elements_are_array(as::mat4_basis_x(m4)));
+  CHECK_THAT(arr(4.0_r, 5.0_r, 6.0_r), elements_are_span(as::mat4_basis_y(m4)));
+  CHECK_THAT(arr(7.0_r, 8.0_r, 9.0_r), elements_are_span(as::mat4_basis_z(m4)));
+  CHECK_THAT(
+    make_span(arr(10.0_r, 11.0_r, 12.0_r)),
+    elements_are_span(as::mat4_translation(m4)));
 }
 
 TEST_CASE("mat_basis_mutate_mat3", "[as_mat]")
@@ -1619,7 +1644,7 @@ TEST_CASE("mat_basis_mutate_mat3", "[as_mat]")
   CHECK_THAT(make_span(basis_z), elements_are_span(as::mat3_basis_z(m3)));
 }
 
-TEST_CASE("mat_basis_mutate_mat4", "[as_mat]")
+TEST_CASE("mat_dimension_mutate_mat4", "[as_mat]")
 {
   using gsl::make_span;
 
@@ -1627,24 +1652,58 @@ TEST_CASE("mat_basis_mutate_mat4", "[as_mat]")
 
   const real basis_x[] = {1.0_r, 2.0_r, 3.0_r, 4.0_r};
   const vec4 x = as::vec4_from_arr(basis_x);
-  as::mat4_basis_x(m4, x);
-  CHECK_THAT(make_span(basis_x), elements_are_span(as::mat4_basis_x(m4)));
+  as::mat4_dimension0(m4, x);
+  CHECK_THAT(make_span(basis_x), elements_are_span(as::mat4_dimension0(m4)));
 
   const real basis_y[] = {4.0_r, 5.0_r, 6.0_r, 7.0_r};
   const vec4 y = as::vec4_from_arr(basis_y);
-  as::mat4_basis_y(m4, y);
-  CHECK_THAT(make_span(basis_y), elements_are_span(as::mat4_basis_y(m4)));
+  as::mat4_dimension1(m4, y);
+  CHECK_THAT(make_span(basis_y), elements_are_span(as::mat4_dimension1(m4)));
 
   const real basis_z[] = {7.0_r, 8.0_r, 9.0_r, 10.0_r};
   const vec4 z = as::vec4_from_arr(basis_z);
-  as::mat4_basis_z(m4, z);
-  CHECK_THAT(make_span(basis_z), elements_are_span(as::mat4_basis_z(m4)));
+  as::mat4_dimension2(m4, z);
+  CHECK_THAT(make_span(basis_z), elements_are_span(as::mat4_dimension2(m4)));
 
   const real translation[] = {10.0_r, 11.0_r, 12.0_r, 9.0_r};
   const vec4 t = as::vec4_from_arr(translation);
-  as::mat4_translation(m4, t);
+  as::mat4_dimension3(m4, t);
   CHECK_THAT(
-    make_span(translation), elements_are_span(as::mat4_translation(m4)));
+    make_span(translation), elements_are_span(as::mat4_dimension3(m4)));
+}
+
+TEST_CASE("mat_basis_mutate_mat4", "[as_mat]")
+{
+  using gsl::make_span;
+
+  // clang-format off
+  mat4 m4 {
+    1.0_r,  2.0_r,  3.0_r,  4.0_r,
+    4.0_r,  5.0_r,  6.0_r,  7.0_r,
+    7.0_r,  8.0_r,  9.0_r,  8.0_r,
+    10.0_r, 11.0_r, 12.0_r, 9.0_r
+  };
+  // clang-format on
+
+  const auto basis_x = vec3(14.0_r, 16.0_r, 18.0_r);
+  as::mat4_basis_x(m4, basis_x);
+  CHECK_THAT(
+    vec4_from_vec3(basis_x, 0.0_r), elements_are(as::mat4_dimension0(m4)));
+
+  const auto basis_y = vec3(22.0_r, 23.0_r, 23.0_r);
+  as::mat4_basis_y(m4, basis_y);
+  CHECK_THAT(
+    vec4_from_vec3(basis_y, 0.0_r), elements_are(as::mat4_dimension1(m4)));
+
+  const auto basis_z = vec3(32.0_r, 34.0_r, 36.0_r);
+  as::mat4_basis_z(m4, basis_z);
+  CHECK_THAT(
+    vec4_from_vec3(basis_z, 0.0_r), elements_are(as::mat4_dimension2(m4)));
+
+  const auto translation = vec3(8.0_r, 6.0_r, 4.0_r);
+  as::mat4_translation(m4, translation);
+  CHECK_THAT(
+    vec4_from_vec3(translation, 1.0_r), elements_are(as::mat4_dimension3(m4)));
 }
 
 TEST_CASE("mat_data", "[as_mat]")

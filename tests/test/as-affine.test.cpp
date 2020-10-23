@@ -225,7 +225,7 @@ TEST_CASE("affine_concatenation", "[as_affine]")
 
   CHECK_THAT(
     make_span(expected_position),
-    elements_are_span(vec3_from_vec4(as::mat4_translation(mat_result))));
+    elements_are_span(as::mat4_translation(mat_result)));
 }
 
 TEST_CASE("affine_inverse", "[as_affine]")

@@ -144,7 +144,7 @@ vec3 screen_to_world(
   const vec2i& screen_dimension);
 
 //! Returns a vec2 `(real, real)` from two `int32_t`s.
-vec2 vec2_from_ints(const int32_t x, const int32_t y);
+vec2 vec2_from_ints(int32_t x, int32_t y);
 
 //! Returns a vec2 `(real, real)` from a vec2i.
 vec2 vec2_from_vec2i(const as::vec2i& v);

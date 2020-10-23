@@ -486,22 +486,17 @@ TEST_CASE("vec2_vec3_vec4_accessors", "[as_vec]")
 
   CHECK(vec3_from_vec2(v2).x == Approx(v2.x).epsilon(g_epsilon));
   CHECK(vec3_from_vec2(v2).y == Approx(v2.y).epsilon(g_epsilon));
-  CHECK(
-    vec3_from_vec2(v2, 3.0_r).z == Approx(3.0_r).epsilon(g_epsilon));
+  CHECK(vec3_from_vec2(v2, 3.0_r).z == Approx(3.0_r).epsilon(g_epsilon));
 
   CHECK(vec4_from_vec2(v2).x == Approx(v2.x).epsilon(g_epsilon));
   CHECK(vec4_from_vec2(v2).y == Approx(v2.y).epsilon(g_epsilon));
-  CHECK(
-    vec4_from_vec2(v2, 3.0_r).z == Approx(3.0_r).epsilon(g_epsilon));
-  CHECK(
-    vec4_from_vec2(v2, 3.0_r, 4.0_r).w
-    == Approx(4.0_r).epsilon(g_epsilon));
+  CHECK(vec4_from_vec2(v2, 3.0_r).z == Approx(3.0_r).epsilon(g_epsilon));
+  CHECK(vec4_from_vec2(v2, 3.0_r, 4.0_r).w == Approx(4.0_r).epsilon(g_epsilon));
 
   CHECK(vec4_from_vec3(v3).x == Approx(v2.x).epsilon(g_epsilon));
   CHECK(vec4_from_vec3(v3).y == Approx(v2.y).epsilon(g_epsilon));
   CHECK(vec4_from_vec3(v3).z == Approx(3.0_r).epsilon(g_epsilon));
-  CHECK(
-    vec4_from_vec3(v3, 4.0_r).w == Approx(4.0_r).epsilon(g_epsilon));
+  CHECK(vec4_from_vec3(v3, 4.0_r).w == Approx(4.0_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("const_elem_access_vec_const", "[as_vec]")
@@ -1881,7 +1876,8 @@ TEST_CASE("vec4_translation_direction", "[as_vec]")
 {
   vec3 vector3(5.0_r, 10.0_r, 15.0_r);
   const vec4 translation = vec4_translation(vector3);
-  CHECK_THAT(arr(5.0_r, 10.0_r, 15.0_r, 1.0_r), elements_are_array(translation));
+  CHECK_THAT(
+    arr(5.0_r, 10.0_r, 15.0_r, 1.0_r), elements_are_array(translation));
 
   vec3 translation_3(5.0_r, 10.0_r, 15.0_r);
   vec4 expected_direction(translation_3, 0.0_r);
@@ -1892,47 +1888,7 @@ TEST_CASE("vec4_translation_direction", "[as_vec]")
   CHECK_THAT(arr(5.0_r, 10.0_r, 15.0_r, 0.0_r), elements_are_array(direction));
 }
 
-template<typename T, index d>
-std::string print_vec(const as::vec<T, d>& vec)
-{
-  std::stringstream ss;
-  ss << "{ ";
-  for (index i = 0; i < d - 1; ++i) {
-    ss << std::to_string(vec[i]) << ", ";
-  }
-  ss << std::to_string(vec[d - 1]) << " }";
-  return ss.str();
-}
-
 } // namespace unit_test
-
-namespace Catch
-{
-template<>
-struct StringMaker<as::vec2>
-{
-  static std::string convert(const as::vec2& vec)
-  {
-    return unit_test::print_vec(vec);
-  }
-};
-template<>
-struct StringMaker<as::vec3>
-{
-  static std::string convert(const as::vec3& vec)
-  {
-    return unit_test::print_vec(vec);
-  }
-};
-template<>
-struct StringMaker<as::vec4>
-{
-  static std::string convert(const as::vec4& vec)
-  {
-    return unit_test::print_vec(vec);
-  }
-};
-} // namespace Catch
 
 // explicit instantiations (for coverage)
 

@@ -379,7 +379,7 @@ AS_API constexpr vec<T, 4> vec4_from_vec2(
 }
 
 template<typename T>
-AS_API constexpr vec<T, 4> vec4_from_vec3(const vec<T, 3>& v, T w)
+AS_API constexpr vec<T, 4> vec4_from_vec3(const vec<T, 3>& v, const T w)
 {
   return {v.x, v.y, v.z, w};
 }
@@ -397,7 +397,7 @@ AS_API constexpr vec<T, 4> vec4_direction(const vec<T, 3>& v)
 }
 
 template<typename T, index d>
-AS_API vec<T, d> vec_average(const vec<T, d>* vectors, index count)
+AS_API vec<T, d> vec_average(const vec<T, d>* vectors, const index count)
 {
   return vec<T, d>(
     std::accumulate(
@@ -413,7 +413,7 @@ AS_API auto vec_average_fold(vectors&&... vecs)
     (vecs + ...) / real(sizeof...(vecs)));
 }
 
-AS_API constexpr index mat_rc(index r, index c, index d)
+AS_API constexpr index mat_rc(const index r, const index c, const index d)
 {
 #ifdef AS_COL_MAJOR
   return c * d + r;
@@ -423,7 +423,7 @@ AS_API constexpr index mat_rc(index r, index c, index d)
 }
 
 template<typename T, index d>
-AS_API vec<T, d> mat_row(const mat<T, d>& m, index r)
+AS_API vec<T, d> mat_row(const mat<T, d>& m, const index r)
 {
   vec<T, d> v;
   for (index c = 0; c < d; ++c) {
@@ -434,7 +434,7 @@ AS_API vec<T, d> mat_row(const mat<T, d>& m, index r)
 }
 
 template<typename T, index d>
-AS_API vec<T, d> mat_col(const mat<T, d>& m, index c)
+AS_API vec<T, d> mat_col(const mat<T, d>& m, const index c)
 {
   vec<T, d> v;
   for (index r = 0; r < d; ++r) {
@@ -445,7 +445,7 @@ AS_API vec<T, d> mat_col(const mat<T, d>& m, index c)
 }
 
 template<typename T, index d>
-AS_API constexpr void mat_row(mat<T, d>& m, index r, const vec<T, d>& row)
+AS_API constexpr void mat_row(mat<T, d>& m, const index r, const vec<T, d>& row)
 {
   for (index c = 0; c < d; ++c) {
     m[mat_rc(r, c, d)] = row[c];
@@ -453,7 +453,7 @@ AS_API constexpr void mat_row(mat<T, d>& m, index r, const vec<T, d>& row)
 }
 
 template<typename T, index d>
-AS_API constexpr void mat_col(mat<T, d>& m, index c, const vec<T, d>& col)
+AS_API constexpr void mat_col(mat<T, d>& m, const index c, const vec<T, d>& col)
 {
   for (index r = 0; r < d; ++r) {
     m[mat_rc(r, c, d)] = col[r];
@@ -1064,7 +1064,7 @@ AS_API constexpr void mat4_col3(mat<T, 4>& m, const vec<T, 4>& col)
 }
 
 template<typename T>
-AS_API constexpr vec<T, 4> mat4_basis_x(const mat<T, 4>& m)
+AS_API constexpr vec<T, 4> mat4_dimension0(const mat<T, 4>& m)
 {
 #ifdef AS_COL_MAJOR
   return mat4_col0(m);
@@ -1074,7 +1074,7 @@ AS_API constexpr vec<T, 4> mat4_basis_x(const mat<T, 4>& m)
 }
 
 template<typename T>
-AS_API constexpr vec<T, 4> mat4_basis_y(const mat<T, 4>& m)
+AS_API constexpr vec<T, 4> mat4_dimension1(const mat<T, 4>& m)
 {
 #ifdef AS_COL_MAJOR
   return mat4_col1(m);
@@ -1084,7 +1084,7 @@ AS_API constexpr vec<T, 4> mat4_basis_y(const mat<T, 4>& m)
 }
 
 template<typename T>
-AS_API constexpr vec<T, 4> mat4_basis_z(const mat<T, 4>& m)
+AS_API constexpr vec<T, 4> mat4_dimension2(const mat<T, 4>& m)
 {
 #ifdef AS_COL_MAJOR
   return mat4_col2(m);
@@ -1094,7 +1094,7 @@ AS_API constexpr vec<T, 4> mat4_basis_z(const mat<T, 4>& m)
 }
 
 template<typename T>
-AS_API constexpr vec<T, 4> mat4_translation(const mat<T, 4>& m)
+AS_API constexpr vec<T, 4> mat4_dimension3(const mat<T, 4>& m)
 {
 #ifdef AS_COL_MAJOR
   return mat4_col3(m);
@@ -1104,44 +1104,92 @@ AS_API constexpr vec<T, 4> mat4_translation(const mat<T, 4>& m)
 }
 
 template<typename T>
-AS_API constexpr void mat4_basis_x(mat<T, 4>& m, const vec<T, 4>& basis)
+AS_API constexpr void mat4_dimension0(mat<T, 4>& m, const vec<T, 4>& v)
 {
 #ifdef AS_COL_MAJOR
-  return mat4_col0(m, basis);
+  return mat4_col0(m, v);
 #elif defined AS_ROW_MAJOR
-  return mat4_row0(m, basis);
+  return mat4_row0(m, v);
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
 template<typename T>
-AS_API constexpr void mat4_basis_y(mat<T, 4>& m, const vec<T, 4>& basis)
+AS_API constexpr void mat4_dimension1(mat<T, 4>& m, const vec<T, 4>& v)
 {
 #ifdef AS_COL_MAJOR
-  return mat4_col1(m, basis);
+  return mat4_col1(m, v);
 #elif defined AS_ROW_MAJOR
-  return mat4_row1(m, basis);
+  return mat4_row1(m, v);
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
 template<typename T>
-AS_API constexpr void mat4_basis_z(mat<T, 4>& m, const vec<T, 4>& basis)
+AS_API constexpr void mat4_dimension2(mat<T, 4>& m, const vec<T, 4>& v)
 {
 #ifdef AS_COL_MAJOR
-  return mat4_col2(m, basis);
+  return mat4_col2(m, v);
 #elif defined AS_ROW_MAJOR
-  return mat4_row2(m, basis);
+  return mat4_row2(m, v);
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
+}
+
+template<typename T>
+AS_API constexpr void mat4_dimension3(mat<T, 4>& m, const vec<T, 4>& v)
+{
+#ifdef AS_COL_MAJOR
+  return mat4_col3(m, v);
+#elif defined AS_ROW_MAJOR
+  return mat4_row3(m, v);
+#endif // AS_COL_MAJOR ? AS_ROW_MAJOR
+}
+
+template<typename T>
+AS_API constexpr vec<T, 3> mat4_basis_x(const mat<T, 4>& m)
+{
+  return vec3_from_vec4(mat4_dimension0(m));
+}
+
+template<typename T>
+AS_API constexpr vec<T, 3> mat4_basis_y(const mat<T, 4>& m)
+{
+  return vec3_from_vec4(mat4_dimension1(m));
+}
+
+template<typename T>
+AS_API constexpr vec<T, 3> mat4_basis_z(const mat<T, 4>& m)
+{
+  return vec3_from_vec4(mat4_dimension2(m));
+}
+
+template<typename T>
+AS_API constexpr vec<T, 3> mat4_translation(const mat<T, 4>& m)
+{
+  return vec3_from_vec4(mat4_dimension3(m));
+}
+
+template<typename T>
+AS_API constexpr void mat4_basis_x(mat<T, 4>& m, const vec<T, 3>& basis)
+{
+  mat4_dimension0(m, vec<T, 4>(basis));
+}
+
+template<typename T>
+AS_API constexpr void mat4_basis_y(mat<T, 4>& m, const vec<T, 3>& basis)
+{
+  mat4_dimension1(m, vec<T, 4>(basis));
+}
+
+template<typename T>
+AS_API constexpr void mat4_basis_z(mat<T, 4>& m, const vec<T, 3>& basis)
+{
+  mat4_dimension2(m, vec<T, 4>(basis));
 }
 
 template<typename T>
 AS_API constexpr void mat4_translation(
-  mat<T, 4>& m, const vec<T, 4>& translation)
+  mat<T, 4>& m, const vec<T, 3>& translation)
 {
-#ifdef AS_COL_MAJOR
-  return mat4_col3(m, translation);
-#elif defined AS_ROW_MAJOR
-  return mat4_row3(m, translation);
-#endif // AS_COL_MAJOR ? AS_ROW_MAJOR
+  mat4_dimension3(m, vec<T, 4>(translation, T(1.0)));
 }
 
 template<typename T>
@@ -1356,7 +1404,7 @@ AS_API inline affine affine_from_ptr(const real* data)
 
 AS_API inline affine affine_from_mat4(const mat4& m)
 {
-  return affine(mat3_from_mat4(m), vec3_from_vec4(mat4_translation(m)));
+  return affine(mat3_from_mat4(m), mat4_translation(m));
 }
 
 AS_API inline affine affine_from_mat3(const mat3& m)

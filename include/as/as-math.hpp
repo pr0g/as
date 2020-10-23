@@ -11,7 +11,7 @@ namespace as
 {
 
 //! Mathematical constant Pi to 21 significant digits.
-constexpr real kPi = 3.14159265358979323846_r;
+constexpr real k_pi = 3.14159265358979323846_r;
 
 //! Returns a linearly interpolated value between `begin` and `end`.
 //! \param t The amount of interpolation between `begin` and `end`. Must be in

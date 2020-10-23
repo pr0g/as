@@ -431,27 +431,27 @@ constexpr void mat3_col1(mat<T, 3>& m, const vec<T, 3>& col);
 template<typename T>
 constexpr void mat3_col2(mat<T, 3>& m, const vec<T, 3>& col);
 
-//! Returns the x basis vector for the ::mat3.
+//! Returns the x basis vector of the ::mat3.
 template<typename T>
 constexpr vec<T, 3> mat3_basis_x(const mat<T, 3>& m);
 
-//! Returns the y basis vector for the ::mat3.
+//! Returns the y basis vector of the ::mat3.
 template<typename T>
 constexpr vec<T, 3> mat3_basis_y(const mat<T, 3>& m);
 
-//! Returns the z basis vector for the ::mat3.
+//! Returns the z basis vector of the ::mat3.
 template<typename T>
 constexpr vec<T, 3> mat3_basis_z(const mat<T, 3>& m);
 
-//! Sets the x basis vector for the ::mat3.
+//! Sets the x basis vector of the ::mat3.
 template<typename T>
 constexpr void mat3_basis_x(mat<T, 3>& m, const vec<T, 3>& basis);
 
-//! Sets the y basis vector for the ::mat3.
+//! Sets the y basis vector of the ::mat3.
 template<typename T>
 constexpr void mat3_basis_y(mat<T, 3>& m, const vec<T, 3>& basis);
 
-//! Sets the z basis vector for the ::mat3.
+//! Sets the z basis vector of the ::mat3.
 template<typename T>
 constexpr void mat3_basis_z(mat<T, 3>& m, const vec<T, 3>& basis);
 
@@ -481,7 +481,7 @@ mat3 mat3_rotation_axis(const vec3& axis, real radians);
 mat3 mat3_rotation_xyz(real x, real y, real z);
 
 //! Returns a rotation about `z`, then `x`, then `y`.
-//! \note This is often useful for free-look cameras.
+//! \note This is often useful for free-look/fps cameras.
 mat3 mat3_rotation_zxy(real x, real y, real z);
 
 //! Returns a rotation about the x axis.
@@ -573,42 +573,89 @@ constexpr void mat4_col2(const mat<T, 4>& m, const vec<T, 4>& col);
 template<typename T>
 constexpr void mat4_col3(const mat<T, 4>& m, const vec<T, 4>& col);
 
-//! Returns the x basis vector for the ::mat4.
-//! \note The fourth (w) element of the vector will be `0`.
+//! Returns the first vector of the ::mat4.
+//! \note This is either the first row or column depending on
+//! AS_COL_MAJOR or AS_ROW_MAJOR being defined.
 template<typename T>
-constexpr vec<T, 4> mat4_basis_x(const mat<T, 4>& m);
+constexpr vec<T, 4> mat4_dimension0(const mat<T, 4>& m);
 
-//! Returns the y basis vector for the ::mat4.
-//! \note The fourth (w) element of the vector will be `0`.
+//! Returns the second vector of the ::mat4.
+//! \note This is either the first row or column depending on
+//! AS_COL_MAJOR or AS_ROW_MAJOR being defined.
 template<typename T>
-constexpr vec<T, 4> mat4_basis_y(const mat<T, 4>& m);
+constexpr vec<T, 4> mat4_dimension1(const mat<T, 4>& m);
 
-//! Returns the z basis vector for the ::mat4.
-//! \note The fourth (w) element of the vector will be `0`.
+//! Returns the third vector of the ::mat4.
+//! \note This is either the first row or column depending on
+//! AS_COL_MAJOR or AS_ROW_MAJOR being defined.
 template<typename T>
-constexpr vec<T, 4> mat4_basis_z(const mat<T, 4>& m);
+constexpr vec<T, 4> mat4_dimension2(const mat<T, 4>& m);
+
+//! Returns the fourth vector of the ::mat4.
+//! \note This is either the first row or column depending on
+//! AS_COL_MAJOR or AS_ROW_MAJOR being defined.
+template<typename T>
+constexpr vec<T, 4> mat4_dimension3(const mat<T, 4>& m);
+
+//! Sets the first vector of the ::mat4.
+//! \note This is either the first row or column depending on
+//! AS_COL_MAJOR or AS_ROW_MAJOR being defined.
+template<typename T>
+constexpr void mat4_dimension0(mat<T, 4>& m, const vec<T, 4>& v);
+
+//! Sets the second vector of the ::mat4.
+//! \note This is either the first row or column depending on
+//! AS_COL_MAJOR or AS_ROW_MAJOR being defined.
+template<typename T>
+constexpr void mat4_dimension1(mat<T, 4>& m, const vec<T, 4>& v);
+
+//! Sets the third vector of the ::mat4.
+//! \note This is either the first row or column depending on
+//! AS_COL_MAJOR or AS_ROW_MAJOR being defined.
+template<typename T>
+constexpr void mat4_dimension2(mat<T, 4>& m, const vec<T, 4>& v);
+
+//! Sets the fourth vector of the ::mat4.
+//! \note This is either the first row or column depending on
+//! AS_COL_MAJOR or AS_ROW_MAJOR being defined.
+template<typename T>
+constexpr void mat4_dimension3(mat<T, 4>& m, const vec<T, 4>& v);
+
+//! Returns the x basis vector of the ::mat4.
+template<typename T>
+constexpr vec<T, 3> mat4_basis_x(const mat<T, 4>& m);
+
+//! Returns the y basis vector of the ::mat4.
+template<typename T>
+constexpr vec<T, 3> mat4_basis_y(const mat<T, 4>& m);
+
+//! Returns the z basis vector of the ::mat4.
+template<typename T>
+constexpr vec<T, 3> mat4_basis_z(const mat<T, 4>& m);
 
 //! Returns the translation component of the ::mat4.
-//! \note The fourth (w) element of the vector will be `1`.
 template<typename T>
-constexpr vec<T, 4> mat4_translation(const mat<T, 4>& m);
+constexpr vec<T, 3> mat4_translation(const mat<T, 4>& m);
 
-//! Sets the x basis vector for the ::mat4.
+//! Sets the x basis vector of the ::mat4.
+//! \note The fourth component of the matrix vector will be set to 0.
 template<typename T>
-constexpr void mat4_basis_x(mat<T, 4>& m, const vec<T, 4>& basis);
+constexpr void mat4_basis_x(mat<T, 4>& m, const vec<T, 3>& basis);
 
-//! Sets the y basis vector for the ::mat4.
+//! Sets the y basis vector of the ::mat4.
+//! \note The fourth component of the matrix vector will be set to 0.
 template<typename T>
-constexpr void mat4_basis_y(mat<T, 4>& m, const vec<T, 4>& basis);
+constexpr void mat4_basis_y(mat<T, 4>& m, const vec<T, 3>& basis);
 
-//! Sets the z basis vector for the ::mat4.
+//! Sets the z basis vector of the ::mat4.
+//! \note The fourth component of the matrix vector will be set to 0.
 template<typename T>
-constexpr void mat4_basis_z(mat<T, 4>& m, const vec<T, 4>& basis);
+constexpr void mat4_basis_z(mat<T, 4>& m, const vec<T, 3>& basis);
 
-//! Sets the translation component for the ::mat4.
-//! \note The vec4 should usually have its fourth (w) component set to `1`.
+//! Sets the translation vector of the ::mat4.
+//! \note The fourth component of the matrix vector will be set to 1.
 template<typename T>
-constexpr void mat4_translation(mat<T, 4>& m, const vec<T, 4>& translation);
+constexpr void mat4_translation(mat<T, 4>& m, const vec<T, 3>& translation);
 
 //! Creates a mat<T, 4> from a fixed size array of the same type and
 //! dimension.
