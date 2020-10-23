@@ -1651,10 +1651,10 @@ TEST_CASE("mat_data", "[as_mat]")
 {
   mat4 mat = mat4::identity();
   real* matp = mat_data(mat);
-  CHECK(*matp == Approx(1.0f).epsilon(g_epsilon));
-  CHECK(*(matp + 5) == Approx(1.0f).epsilon(g_epsilon));
-  CHECK(*(matp + 10) == Approx(1.0f).epsilon(g_epsilon));
-  CHECK(*(matp + 15) == Approx(1.0f).epsilon(g_epsilon));
+  CHECK(*matp == Approx(1.0_r).epsilon(g_epsilon));
+  CHECK(*(matp + 5) == Approx(1.0_r).epsilon(g_epsilon));
+  CHECK(*(matp + 10) == Approx(1.0_r).epsilon(g_epsilon));
+  CHECK(*(matp + 15) == Approx(1.0_r).epsilon(g_epsilon));
 }
 
 } // namespace unit_test

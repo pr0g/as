@@ -1871,10 +1871,10 @@ TEST_CASE("vec_data", "[as_vec]")
 {
   vec4 vec = vec4(1.0_r, 2.0_r, 3.0_r, 4.0_r);
   real* vecp = vec_data(vec);
-  CHECK(*vecp == Approx(1.0f).epsilon(g_epsilon));
-  CHECK(*(vecp + 1) == Approx(2.0f).epsilon(g_epsilon));
-  CHECK(*(vecp + 2) == Approx(3.0f).epsilon(g_epsilon));
-  CHECK(*(vecp + 3) == Approx(4.0f).epsilon(g_epsilon));
+  CHECK(*vecp == Approx(1.0_r).epsilon(g_epsilon));
+  CHECK(*(vecp + 1) == Approx(2.0_r).epsilon(g_epsilon));
+  CHECK(*(vecp + 2) == Approx(3.0_r).epsilon(g_epsilon));
+  CHECK(*(vecp + 3) == Approx(4.0_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("vec4_translation_direction", "[as_vec]")
