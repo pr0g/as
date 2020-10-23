@@ -487,21 +487,21 @@ TEST_CASE("vec2_vec3_vec4_accessors", "[as_vec]")
   CHECK(vec3_from_vec2(v2).x == Approx(v2.x).epsilon(g_epsilon));
   CHECK(vec3_from_vec2(v2).y == Approx(v2.y).epsilon(g_epsilon));
   CHECK(
-    vec3_from_vec2(v2, real(3.0)).z == Approx(real(3.0)).epsilon(g_epsilon));
+    vec3_from_vec2(v2, 3.0_r).z == Approx(3.0_r).epsilon(g_epsilon));
 
   CHECK(vec4_from_vec2(v2).x == Approx(v2.x).epsilon(g_epsilon));
   CHECK(vec4_from_vec2(v2).y == Approx(v2.y).epsilon(g_epsilon));
   CHECK(
-    vec4_from_vec2(v2, real(3.0)).z == Approx(real(3.0)).epsilon(g_epsilon));
+    vec4_from_vec2(v2, 3.0_r).z == Approx(3.0_r).epsilon(g_epsilon));
   CHECK(
-    vec4_from_vec2(v2, real(3.0), real(4.0)).w
-    == Approx(real(4.0)).epsilon(g_epsilon));
+    vec4_from_vec2(v2, 3.0_r, 4.0_r).w
+    == Approx(4.0_r).epsilon(g_epsilon));
 
   CHECK(vec4_from_vec3(v3).x == Approx(v2.x).epsilon(g_epsilon));
   CHECK(vec4_from_vec3(v3).y == Approx(v2.y).epsilon(g_epsilon));
-  CHECK(vec4_from_vec3(v3).z == Approx(real(3.0)).epsilon(g_epsilon));
+  CHECK(vec4_from_vec3(v3).z == Approx(3.0_r).epsilon(g_epsilon));
   CHECK(
-    vec4_from_vec3(v3, real(4.0)).w == Approx(real(4.0)).epsilon(g_epsilon));
+    vec4_from_vec3(v3, 4.0_r).w == Approx(4.0_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("const_elem_access_vec_const", "[as_vec]")
@@ -904,14 +904,14 @@ TEST_CASE("multiplication_scalar", "[as_vec]")
   // vec operator '*'
   {
     vec5 v;
-    v = real(5.0) * vec5{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r};
+    v = 5.0_r * vec5{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r};
     CHECK(vec_equal(v, vec5(250.0_r, 200.0_r, 125.0_r, 100.0_r, 50.0_r)));
   }
 
   // vec operator '*='
   {
     vec5 v = vec5{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r};
-    v *= real(5.0);
+    v *= 5.0_r;
     CHECK(vec_equal(v, vec5(250.0_r, 200.0_r, 125.0_r, 100.0_r, 50.0_r)));
   }
 }
@@ -921,14 +921,14 @@ TEST_CASE("multiplication_scalar_vec3", "[as_vec]")
   // vec3 operator '*'
   {
     vec3 v;
-    v = real(5.0) * vec3{50.0_r, 40.0_r, 25.0_r};
+    v = 5.0_r * vec3{50.0_r, 40.0_r, 25.0_r};
     CHECK(vec_equal(v, vec3(250.0_r, 200.0_r, 125.0)));
   }
 
   // vec3 operator '*='
   {
     vec3 v = vec3{50.0_r, 40.0_r, 25.0_r};
-    v *= real(5.0);
+    v *= 5.0_r;
     CHECK(vec_equal(v, vec3(250.0_r, 200.0_r, 125.0)));
   }
 }
@@ -980,14 +980,14 @@ TEST_CASE("divide_scalar", "[as_vec]")
   // vec operator '/'
   {
     vec5 v;
-    v = vec5{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r} / real(5.0);
+    v = vec5{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r} / 5.0_r;
     CHECK(vec_equal(v, vec5(10.0_r, 8.0_r, 5.0_r, 4.0_r, 2.0_r)));
   }
 
   // vec operator '/='
   {
     vec5 v = vec5{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r};
-    v /= real(5.0_r);
+    v /= 5.0_r;
     CHECK(vec_equal(v, vec5(10.0_r, 8.0_r, 5.0_r, 4.0_r, 2.0_r)));
   }
 }
@@ -997,14 +997,14 @@ TEST_CASE("divide_scalar_vec3", "[as_vec]")
   // vec operator '/'
   {
     vec3 v;
-    v = vec3{50.0_r, 40.0_r, 25.0_r} / real(5.0);
+    v = vec3{50.0_r, 40.0_r, 25.0_r} / 5.0_r;
     CHECK(vec_equal(v, vec3(10.0_r, 8.0_r, 5.0_r)));
   }
 
   // vec operator '/='
   {
     vec3 v = vec3{50.0_r, 40.0_r, 25.0_r};
-    v /= real(5.0);
+    v /= 5.0_r;
     CHECK(vec_equal(v, vec3(10.0_r, 8.0_r, 5.0_r)));
   }
 }

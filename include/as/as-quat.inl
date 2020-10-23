@@ -14,7 +14,7 @@ AS_API constexpr quat::quat(const real w_, const vec3& xyz_)
 
 AS_API constexpr quat quat::identity()
 {
-  return {real(1.0), real(0.0), real(0.0), real(0.0)};
+  return {1.0_r, 0.0_r, 0.0_r, 0.0_r};
 }
 
 AS_API constexpr const quat operator*(const quat& lhs, const quat& rhs)

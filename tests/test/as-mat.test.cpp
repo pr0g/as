@@ -822,7 +822,7 @@ TEST_CASE("multiply_scalar", "[as_mat]")
   };
   // clang-format on
 
-  mat3 result33 = m3 * real(2.0);
+  mat3 result33 = m3 * 2.0_r;
 
   // clang-format off
   const real mat3_arr[] = {
@@ -842,7 +842,7 @@ TEST_CASE("multiply_scalar", "[as_mat]")
     26.0_r, 28.0_r, 30.0_r, 32.0_r
   };
 
-  const mat4 result4 = m4 * real(2.0);
+  const mat4 result4 = m4 * 2.0_r;
 
   const real mat4_arr[] = {
     4.0_r, 8.0_r, 12.0_r, 16.0_r,
