@@ -9,37 +9,36 @@ template<typename Sub1, typename Sub2>
 class ElementsAreSubscript : public Catch::MatcherBase<Sub2>
 {
   using value_t = typename Sub1::value_type;
-  value_t m_epsilon = value_t(std::numeric_limits<float>::epsilon());
-  value_t m_margin = value_t(0.0);
-  Sub1 m_subscriptable;
+  value_t epsilon_ = value_t(std::numeric_limits<float>::epsilon());
+  value_t margin_ = value_t(0.0);
+  Sub1 subscriptable1_;
 
 public:
   ElementsAreSubscript(const Sub1& subscriptable)
-    : m_subscriptable(subscriptable)
+    : subscriptable1_(subscriptable)
   {
   }
 
   ElementsAreSubscript& epsilon(const value_t epsilon)
   {
-    m_epsilon = epsilon;
+    epsilon_ = epsilon;
     return *this;
   }
 
   ElementsAreSubscript& margin(const value_t margin)
   {
-    m_margin = margin;
+    margin_ = margin;
     return *this;
   }
 
-  bool match(const Sub2& sub2) const override
+  bool match(const Sub2& subscriptable2) const override
   {
     using std::size;
-    for (int64_t i = 0; i < size(m_subscriptable); ++i) {
+    for (decltype(size(subscriptable2)) i = 0; i < size(subscriptable2); ++i) {
       const auto approx_elem{
-        Approx(sub2[i]).epsilon(m_epsilon).margin(m_margin)};
-
-      auto subscript = gsl::narrow_cast<ptrdiff_t>(i);
-      if (m_subscriptable[subscript] != approx_elem) {
+        Approx(subscriptable2[i]).epsilon(epsilon_).margin(margin_)};
+      auto subscript = gsl::narrow_cast<decltype(size(subscriptable1_))>(i);
+      if (subscriptable1_[subscript] != approx_elem) {
         return false;
       }
     }
@@ -53,9 +52,9 @@ public:
     ss << "was expected, actual: { ";
 
     using std::size;
-    for (int64_t i = 0; i < size(m_subscriptable); ++i) {
+    for (int64_t i = 0; i < size(subscriptable1_); ++i) {
       auto subscript = gsl::narrow_cast<ptrdiff_t>(i);
-      ss << std::fixed << m_subscriptable[subscript] << ", ";
+      ss << std::fixed << subscriptable1_[subscript] << ", ";
     }
 
     ss << "}";
