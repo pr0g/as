@@ -9,31 +9,31 @@ environment:
   matrix:
     - PRECISION: -DAS_PRECISION_FLOAT=ON
       ORDER: -DAS_COL_MAJOR=ON
-      ARCH: "-A x64"
+      ARCH: x64
     - PRECISION: -DAS_PRECISION_FLOAT=ON
       ORDER: -DAS_ROW_MAJOR=ON
-      ARCH: "-A Win32"
+      ARCH: Win32
     - PRECISION: -DAS_PRECISION_DOUBLE=ON
       ORDER: -DAS_COL_MAJOR=ON
-      ARCH: "-A x64"
+      ARCH: x64
     - PRECISION: -DAS_PRECISION_DOUBLE=ON
       ORDER: -DAS_ROW_MAJOR=ON
-      ARCH: "-A Win32"
+      ARCH: Win32
 
 build_script:
 - mkdir catch2 && cd catch2
 - git clone --depth=1 --branch=v2.x https://github.com/catchorg/Catch2.git .
-- cmake -S . -B build -G "%GENERATOR%" "%ARCH%" -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=../tests/test/build/catch2_install/
+- cmake -S . -B build -G "%GENERATOR%" -A "%ARCH%" -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=../tests/test/build/catch2_install/
 - cmake --build build --config "%CONFIG%" --target install
 - cd ..
 - mkdir gsl && cd gsl
 - git clone --depth=1 https://github.com/microsoft/GSL.git .
-- cmake -S . -B build -G "%GENERATOR%" "%ARCH%" -DGSL_TEST=OFF -DCMAKE_INSTALL_PREFIX=../tests/test/build/gsl_install/
+- cmake -S . -B build -G "%GENERATOR%" -A "%ARCH%" -DGSL_TEST=OFF -DCMAKE_INSTALL_PREFIX=../tests/test/build/gsl_install/
 - cmake --build build --config "%CONFIG%" --target install
 - cd ..
-- cmake -S . -B build -G "%GENERATOR%" "%ARCH%" -DCMAKE_INSTALL_PREFIX=./tests/test/build/as_install/
+- cmake -S . -B build -G "%GENERATOR%" -A "%ARCH%" -DCMAKE_INSTALL_PREFIX=./tests/test/build/as_install/
 - cmake --build build --target install --config "%CONFIG%"
 - cd tests/test
-- cmake -S . -B build -G "%GENERATOR%" "%ARCH%" "%PRECISION%" "%ORDER%" -DDEV_LIB_DIR=../ -DCMAKE_PREFIX_PATH=%cd%\build\catch2_install;%cd%\build\gsl_install;%cd%\build\as_install
+- cmake -S . -B build -G "%GENERATOR%" -A "%ARCH%" "%PRECISION%" "%ORDER%" -DDEV_LIB_DIR=../ -DCMAKE_PREFIX_PATH=%cd%\build\catch2_install;%cd%\build\gsl_install;%cd%\build\as_install
 - cmake --build build --config "%CONFIG%"
 - "build\\\"%CONFIG%\"\\as-test.exe"
