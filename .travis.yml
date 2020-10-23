@@ -90,7 +90,7 @@ after_success:
 - |
   if [ $BUILD_TYPE == "Debug" ] && [ $CXX_COMPILER == "g++-7" ]; then
     lcov --capture --directory build --output-file coverage.info --gcov-tool=gcov-7
-    lcov --remove coverage.info '*/gsl_install/*' '*/catch2/*' '*/7.4.0/*' '*/usr/include/*' '*/tests/test/*.test.cpp' '*/tests/test/catch-*' --output-file coverage.info --gcov-tool=gcov-7 # filter external files
+    lcov --remove coverage.info '*/gsl_install/*' '*/catch2/*' '*/7.4.0/*' '*/usr/include/*' '*/tests/test/*.test.*' '*/tests/test/catch-*' --output-file coverage.info --gcov-tool=gcov-7 # filter external files
     lcov --list coverage.info --gcov-tool=gcov-7 # debug info
     # codecov
     bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports" # uploading report to codecov
