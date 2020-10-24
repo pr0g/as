@@ -308,6 +308,12 @@ AS_API constexpr const vec<T, d> operator+(
 }
 
 template<>
+AS_API constexpr const vec2 operator+(const vec2& lhs, const vec2& rhs)
+{
+  return {lhs.x + rhs.x, lhs.y + rhs.y};
+}
+
+template<>
 AS_API constexpr const vec3 operator+(const vec3& lhs, const vec3& rhs)
 {
   return {lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z};

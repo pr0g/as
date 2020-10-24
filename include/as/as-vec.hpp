@@ -308,6 +308,10 @@ using vec4l = vec<int64_t, 4>;
 template<typename T, index d>
 constexpr const vec<T, d> operator+(const vec<T, d>& lhs, const vec<T, d>& rhs);
 
+//! Returns the sum of two vector twos.
+template<>
+constexpr const vec2 operator+(const vec2& lhs, const vec2& rhs);
+
 //! Returns the sum of two vector threes.
 template<>
 constexpr const vec3 operator+(const vec3& lhs, const vec3& rhs);
