@@ -49,14 +49,14 @@ AS_API constexpr T vec_dot(const vec<T, d>& lhs, const vec<T, d>& rhs)
   return result;
 }
 
-template<typename T, index d>
-AS_API constexpr T vec_dot(const vec<T, 2>& lhs, const vec<T, 2>& rhs)
+template<>
+AS_API constexpr real vec_dot(const vec2& lhs, const vec2& rhs)
 {
   return lhs.x * rhs.x + lhs.y * rhs.y;
 }
 
-template<typename T, index d>
-AS_API constexpr T vec_dot(const vec<T, 3>& lhs, const vec<T, 3>& rhs)
+template<>
+AS_API constexpr real vec_dot(const vec3& lhs, const vec3& rhs)
 {
   return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;
 }

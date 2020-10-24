@@ -307,9 +307,8 @@ AS_API constexpr const vec<T, d> operator+(
   return result;
 }
 
-template<typename T, index d>
-AS_API constexpr const vec<T, 3> operator+(
-  const vec<T, 3>& lhs, const vec<T, 3>& rhs)
+template<>
+AS_API constexpr const vec3 operator+(const vec3& lhs, const vec3& rhs)
 {
   return {lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z};
 }
@@ -324,8 +323,8 @@ AS_API constexpr vec<T, d>& operator+=(vec<T, d>& lhs, const vec<T, d>& rhs)
   return lhs;
 }
 
-template<typename T, index d>
-AS_API constexpr vec<T, 3>& operator+=(vec<T, 3>& lhs, const vec<T, 3>& rhs)
+template<>
+AS_API constexpr vec3& operator+=(vec3& lhs, const vec3& rhs)
 {
   lhs.x += rhs.x;
   lhs.y += rhs.y;
@@ -342,16 +341,14 @@ AS_API constexpr const vec<T, d> operator-(
   return result;
 }
 
-template<typename T, index d>
-AS_API constexpr const vec<T, 2> operator-(
-  const vec<T, 2>& lhs, const vec<T, 2>& rhs)
+template<>
+AS_API constexpr const vec2 operator-(const vec2& lhs, const vec2& rhs)
 {
   return {lhs.x - rhs.x, lhs.y - rhs.y};
 }
 
-template<typename T, index d>
-AS_API constexpr const vec<T, 3> operator-(
-  const vec<T, 3>& lhs, const vec<T, 3>& rhs)
+template<>
+AS_API constexpr const vec3 operator-(const vec3& lhs, const vec3& rhs)
 {
   return {lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z};
 }
@@ -366,8 +363,8 @@ AS_API constexpr vec<T, d>& operator-=(vec<T, d>& lhs, const vec<T, d>& rhs)
   return lhs;
 }
 
-template<typename T, index d>
-AS_API constexpr vec<T, 3>& operator-=(vec<T, 3>& lhs, const vec<T, 3>& rhs)
+template<>
+AS_API constexpr vec3& operator-=(vec3& lhs, const vec3& rhs)
 {
   lhs.x -= rhs.x;
   lhs.y -= rhs.y;
@@ -386,8 +383,8 @@ AS_API const vec<T, d> operator-(const vec<T, d>& rhs)
   return result;
 }
 
-template<typename T, index d>
-AS_API constexpr const vec<T, 3> operator-(const vec<T, 3>& rhs)
+template<>
+AS_API constexpr const vec3 operator-(const vec3& rhs)
 {
   return {-rhs.x, -rhs.y, -rhs.z};
 }
@@ -400,8 +397,8 @@ AS_API constexpr const vec<T, d> operator*(const vec<T, d>& lhs, const T val)
   return result;
 }
 
-template<typename T, index d>
-AS_API constexpr const vec<T, 3> operator*(const vec<T, 3>& lhs, const T val)
+template<>
+AS_API constexpr const vec3 operator*(const vec3& lhs, const real val)
 {
   return {lhs.x * val, lhs.y * val, lhs.z * val};
 }
@@ -412,8 +409,8 @@ AS_API constexpr const vec<T, d> operator*(T val, const vec<T, d>& rhs)
   return rhs * val;
 }
 
-template<typename T, index d>
-AS_API constexpr const vec<T, 3> operator*(const T val, const vec<T, 3>& rhs)
+template<>
+AS_API constexpr const vec3 operator*(const real val, const vec3& rhs)
 {
   return rhs * val;
 }
@@ -428,8 +425,8 @@ AS_API constexpr vec<T, d>& operator*=(vec<T, d>& lhs, const T val)
   return lhs;
 }
 
-template<typename T, index d>
-AS_API constexpr vec<T, 3>& operator*=(vec<T, 3>& lhs, const T val)
+template<>
+AS_API constexpr vec3& operator*=(vec3& lhs, const real val)
 {
   lhs.x *= val;
   lhs.y *= val;
@@ -446,9 +443,8 @@ AS_API constexpr const vec<T, d> operator*(
   return result;
 }
 
-template<typename T, index d>
-AS_API constexpr const vec<T, 3> operator*(
-  const vec<T, 3>& lhs, const vec<T, 3>& rhs)
+template<>
+AS_API constexpr const vec3 operator*(const vec3& lhs, const vec3& rhs)
 {
   return {lhs.x * rhs.x, lhs.y * rhs.y, lhs.z * rhs.z};
 }
@@ -463,8 +459,8 @@ AS_API constexpr vec<T, d>& operator*=(vec<T, d>& lhs, const vec<T, d>& rhs)
   return lhs;
 }
 
-template<typename T, index d>
-AS_API constexpr vec<T, 3>& operator*=(vec<T, 3>& lhs, const vec<T, 3>& rhs)
+template<>
+AS_API constexpr vec3& operator*=(vec3& lhs, const vec3& rhs)
 {
   lhs.x *= rhs.x;
   lhs.y *= rhs.y;
@@ -480,10 +476,10 @@ AS_API constexpr const vec<T, d> operator/(const vec<T, d>& lhs, const T val)
   return result;
 }
 
-template<typename T, index d>
-AS_API constexpr const vec<T, 3> operator/(const vec<T, 3>& lhs, const T val)
+template<>
+AS_API constexpr const vec3 operator/(const vec3& lhs, const real val)
 {
-  const T val_recip = T(1.0) / val;
+  const real val_recip = 1.0_r / val;
   return {lhs.x * val_recip, lhs.y * val_recip, lhs.z * val_recip};
 }
 
@@ -498,10 +494,10 @@ AS_API constexpr vec<T, d>& operator/=(vec<T, d>& lhs, const T val)
   return lhs;
 }
 
-template<typename T, index d>
-AS_API constexpr vec<T, 3>& operator/=(vec<T, 3>& lhs, const T val)
+template<>
+AS_API constexpr vec3& operator/=(vec3& lhs, const real val)
 {
-  const T val_recip = T(1.0) / val;
+  const real val_recip = 1.0_r / val;
   lhs.x *= val_recip;
   lhs.y *= val_recip;
   lhs.z *= val_recip;
@@ -517,9 +513,8 @@ AS_API constexpr const vec<T, d> operator/(
   return result;
 }
 
-template<typename T, index d>
-AS_API constexpr const vec<T, 3> operator/(
-  const vec<T, 3>& lhs, const vec<T, 3>& rhs)
+template<>
+AS_API constexpr const vec3 operator/(const vec3& lhs, const vec3& rhs)
 {
   return {lhs.x / rhs.x, lhs.y / rhs.y, lhs.z / rhs.z};
 }
@@ -534,8 +529,8 @@ AS_API constexpr vec<T, d>& operator/=(vec<T, d>& lhs, const vec<T, d>& rhs)
   return lhs;
 }
 
-template<typename T, index d>
-AS_API constexpr vec<T, 3>& operator/=(vec<T, 3>& lhs, const vec<T, 3>& rhs)
+template<>
+AS_API constexpr vec3& operator/=(vec3& lhs, const vec3& rhs)
 {
   lhs.x /= rhs.x;
   lhs.y /= rhs.y;
