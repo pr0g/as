@@ -48,9 +48,13 @@ const T* vec_const_data(const vec<T, d>& v);
 template<typename T, index d>
 constexpr T vec_dot(const vec<T, d>& lhs, const vec<T, d>& rhs);
 
+//! Returns the dot product of two vector twos.
+template<typename T>
+constexpr T vec_dot(const vec<T, 2>& lhs, const vec<T, 2>& rhs);
+
 //! Returns the dot product of two vector threes.
-template<>
-constexpr real vec_dot(const vec3& lhs, const vec3& rhs);
+template<typename T>
+constexpr T vec_dot(const vec<T, 3>& lhs, const vec<T, 3>& rhs);
 
 //! Returns the length squared of the vector.
 template<typename T, index d>
