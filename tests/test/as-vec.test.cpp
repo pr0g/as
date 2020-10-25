@@ -1543,7 +1543,7 @@ TEST_CASE("mix", "[as_vec]")
     CHECK_THAT(make_span(result_end_arr), elements_are_span(result_end));
   }
 
- {
+  {
     vec2 start(0.0_r, 10.0_r);
     vec2 end(10.0_r, 40.0_r);
 

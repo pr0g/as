@@ -55,7 +55,8 @@ constexpr T fract(T x);
 
 //! Returns the fractional part of `x` (equivalent to `x - floor(x)`) but first
 //! calculates the absolute value of `x`.
-//! \note Use this function for `-0.3` to return `0.3` not `0.7` as ::fract does.
+//! \note Use this function for `-0.3` to return `0.3` not `0.7` as ::fract
+//! does.
 template<typename T>
 constexpr T fract_abs(T x);
 
