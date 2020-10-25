@@ -47,8 +47,24 @@ template<typename T>
 constexpr T sign(T x);
 
 //! Returns the fractional part of `x` (equivalent to `x - floor(x)`).
+//! \note Be careful with negative numbers - this function preserves the
+//! behavior of shading languages and will return `0.9` when `-0.1` is passed.
+//! Use ::fract_abs or ::fract_abs_signed for more intuitive behavior.
 template<typename T>
 constexpr T fract(T x);
+
+//! Returns the fractional part of `x` (equivalent to `x - floor(x)`) but first
+//! calculates the absolute value of `x`.
+//! \note Use this function for `-0.3` to return `0.3` not `0.7` as ::fract does.
+template<typename T>
+constexpr T fract_abs(T x);
+
+//! Returns the fractional part of `x` (equivalent to `x - floor(x)`) but first
+//! calculates the absolute value of `x` and then preserves the original sign.
+//! \note Use this function for `-0.3` to return `-0.3` not `0.7` (as ::fract
+//! does) or `0.3` (as ::fract_abs does).
+template<typename T>
+constexpr T fract_abs_signed(T x);
 
 //! Returns the larger of the two values.
 //! https://en.cppreference.com/w/cpp/algorithm/max

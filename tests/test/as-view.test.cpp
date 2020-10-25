@@ -12,6 +12,7 @@ namespace unit_test
 using as::affine;
 using as::mat4;
 using as::real;
+using as::vec2;
 using as::vec2i;
 using as::vec3;
 
@@ -401,6 +402,35 @@ TEST_CASE("screen_to_world_near_clip", "[as_view]")
 
     CHECK_THAT(
       arr(0.0_r, 0.0_r, 0.01_r), elements_are_array(returned_world_position));
+  }
+}
+
+TEST_CASE("vec2_to_vec2i_conversions", "[as_view]")
+{
+  {
+    auto v = vec2(1.0_r, 2.0_r);
+    vec2i vi;
+    vi = as::vec2i_from_vec2(v);
+    CHECK_THAT(arr(1, 2), elements_are_array(vi));
+  }
+
+  {
+    vec2i vi;
+    vi = as::vec2i_from_reals(3.0_r, 6.0_r);
+    CHECK_THAT(arr(3, 6), elements_are_array(vi));
+  }
+
+  {
+    auto vi = vec2i(4, 5);
+    vec2 v;
+    v = as::vec2_from_vec2i(vi);
+    CHECK_THAT(arr(4.0_r, 5.0_r), elements_are_array(v));
+  }
+
+  {
+    vec2 v;
+    v = as::vec2_from_ints(6, 7);
+    CHECK_THAT(arr(6.0_r, 7.0_r), elements_are_array(v));
   }
 }
 

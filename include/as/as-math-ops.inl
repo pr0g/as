@@ -199,15 +199,14 @@ AS_API vec<T, d> vec_mix(
 template<>
 AS_API constexpr vec2 vec_mix(const vec2& begin, const vec2& end, const real t)
 {
-  return {mix(begin[0], end[0], t), mix(begin[1], end[1], t)};
+  return {mix(begin.x, end.x, t), mix(begin.y, end.y, t)};
 }
 
 template<>
 AS_API constexpr vec3 vec_mix(const vec3& begin, const vec3& end, const real t)
 {
   return {
-    mix(begin[0], end[0], t), mix(begin[1], end[1], t),
-    mix(begin[2], end[2], t)};
+    mix(begin.x, end.x, t), mix(begin.y, end.y, t), mix(begin.z, end.z, t)};
 }
 
 template<typename T, index d>

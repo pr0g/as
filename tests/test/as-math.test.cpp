@@ -182,8 +182,96 @@ TEST_CASE("sign", "[as_math]")
   CHECK(one == Approx(1.0_r).epsilon(g_epsilon));
 }
 
+TEST_CASE("fract", "[as_math]")
+{
+  constexpr real real_epsilon = 1e-5_r;
+
+  {
+    real result;
+    result = as::fract(103.4_r);
+    CHECK(result == Approx(0.4_r).epsilon(real_epsilon));
+  }
+
+  {
+    real result;
+    result = as::fract(-2.1_r);
+    CHECK(result == Approx(0.9_r).epsilon(real_epsilon));
+  }
+
+  {
+    real result;
+    result = as::fract(-3.5_r);
+    CHECK(result == Approx(0.5_r).epsilon(real_epsilon));
+  }
+
+  {
+    real result;
+    result = as::fract(-4.7_r);
+    CHECK(result == Approx(0.3_r).epsilon(real_epsilon));
+  }
+
+  {
+    real result;
+    result = as::fract(0.0_r);
+    CHECK(result == Approx(0.0_r).epsilon(real_epsilon));
+  }
+
+  {
+    real result;
+    result = as::fract(0.342_r);
+    CHECK(result == Approx(0.342_r).epsilon(real_epsilon));
+  }
+}
+
+TEST_CASE("fract_abs", "[as_math]")
+{
+  constexpr real real_epsilon = 1e-5_r;
+
+  {
+    real result;
+    result = as::fract_abs(-50.4_r);
+    CHECK(result == Approx(0.4_r).epsilon(real_epsilon));
+  }
+
+  {
+    real result;
+    result = as::fract_abs(-2.1_r);
+    CHECK(result == Approx(0.1_r).epsilon(real_epsilon));
+  }
+
+  {
+    real result;
+    result = as::fract_abs(9.2_r);
+    CHECK(result == Approx(0.2_r).epsilon(real_epsilon));
+  }
+}
+
+TEST_CASE("fract_abs_signed", "[as_math]")
+{
+  constexpr real real_epsilon = 1e-5_r;
+
+  {
+    real result;
+    result = as::fract_abs_signed(-50.4_r);
+    CHECK(result == Approx(-0.4_r).epsilon(real_epsilon));
+  }
+
+  {
+    real result;
+    result = as::fract_abs_signed(-2.1_r);
+    CHECK(result == Approx(-0.1_r).epsilon(real_epsilon));
+  }
+
+  {
+    real result;
+    result = as::fract_abs_signed(9.2_r);
+    CHECK(result == Approx(0.2_r).epsilon(real_epsilon));
+  }
+}
+
 } // namespace unit_test
 
 // explicit instantiations (for coverage)
 template as::real as::smooth_step(as::real t);
 template as::real as::smoother_step(as::real t);
+template as::real as::fract(as::real t);

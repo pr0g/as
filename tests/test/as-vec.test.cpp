@@ -815,9 +815,9 @@ TEST_CASE("addition", "[as_vec]")
 
   // vec operator '+='
   {
-    vec5 vec1(10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r);
-    vec1 += vec5(25.0_r, 15.0_r, 5.0_r, 10.0_r, 1.0_r);
-    CHECK(vec_equal(vec1, vec5(35.0_r, 35.0_r, 35.0_r, 50.0_r, 51.0_r)));
+    vec5 v1(10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r);
+    v1 += vec5(25.0_r, 15.0_r, 5.0_r, 10.0_r, 1.0_r);
+    CHECK(vec_equal(v1, vec5(35.0_r, 35.0_r, 35.0_r, 50.0_r, 51.0_r)));
   }
 }
 
@@ -943,10 +943,10 @@ TEST_CASE("multiplication_vector", "[as_vec]")
 
   // vec operator '*='
   {
-    vec5 vec1 = vec5{2.0_r, 3.0_r, 4.0_r, 5.0_r, 0.5_r};
+    vec5 v1 = vec5{2.0_r, 3.0_r, 4.0_r, 5.0_r, 0.5_r};
     vec5 v2 = vec5{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r};
-    vec1 *= v2;
-    CHECK(vec_equal(vec1, vec5(100.0_r, 120.0_r, 100.0_r, 100.0_r, 5.0_r)));
+    v1 *= v2;
+    CHECK(vec_equal(v1, vec5(100.0_r, 120.0_r, 100.0_r, 100.0_r, 5.0_r)));
   }
 }
 
@@ -961,10 +961,10 @@ TEST_CASE("multiplication_vector_vec3", "[as_vec]")
 
   // vec operator '*='
   {
-    vec3 vec1 = vec3{0.5_r, 3.0_r, 4.0_r};
+    vec3 v1 = vec3{0.5_r, 3.0_r, 4.0_r};
     vec3 v2 = vec3{50.0_r, 40.0_r, 25.0_r};
-    vec1 *= v2;
-    CHECK(vec_equal(vec1, vec3(25.0_r, 120.0_r, 100.0_r)));
+    v1 *= v2;
+    CHECK(vec_equal(v1, vec3(25.0_r, 120.0_r, 100.0_r)));
   }
 }
 
@@ -1019,10 +1019,10 @@ TEST_CASE("divide_vector", "[as_vec]")
 
   // vec operator '/='
   {
-    vec5 vec1 = vec5{33.0_r, 48.0_r, 10.0_r, 120.0_r, 2.0_r};
+    vec5 v1 = vec5{33.0_r, 48.0_r, 10.0_r, 120.0_r, 2.0_r};
     vec5 v2 = vec5{3.0_r, 6.0_r, 2.0_r, 3.0_r, 0.5_r};
-    vec1 /= v2;
-    CHECK(vec_equal(vec1, vec5(11.0_r, 8.0_r, 5.0_r, 40.0_r, 4.0_r)));
+    v1 /= v2;
+    CHECK(vec_equal(v1, vec5(11.0_r, 8.0_r, 5.0_r, 40.0_r, 4.0_r)));
   }
 }
 
@@ -1037,10 +1037,10 @@ TEST_CASE("divide_vector_vec3", "[as_vec]")
 
   // vec operator '/='
   {
-    vec3 vec1 = vec3{33.0_r, 48.0_r, 10.0_r};
+    vec3 v1 = vec3{33.0_r, 48.0_r, 10.0_r};
     vec3 v2 = vec3{3.0_r, 6.0_r, 2.0_r};
-    vec1 /= v2;
-    CHECK(vec_equal(vec1, vec3(11.0_r, 8.0_r, 5.0_r)));
+    v1 /= v2;
+    CHECK(vec_equal(v1, vec3(11.0_r, 8.0_r, 5.0_r)));
   }
 }
 
@@ -1048,56 +1048,79 @@ TEST_CASE("dot", "[as_vec]")
 {
   using vec5 = vec<real, 5>;
 
-  // note: comparison values calculated using - http://calculator.vhex.net
+  // note: comparison values calculated using:
+  // https://www.symbolab.com/solver/vector-scalar-projection-calculator
   {
-    const vec5 vec1(1.0_r, 2.0_r, 3.0_r, 4.0_r, 5.0_r);
+    const vec5 v1(1.0_r, 2.0_r, 3.0_r, 4.0_r, 5.0_r);
     const vec5 v2(4.0_r, 5.0_r, 6.0_r, 8.0_r, 4.0_r);
 
-    const real dot_result = vec_dot(vec1, v2);
+    const real dot_result = vec_dot(v1, v2);
     CHECK(dot_result == Approx(84.0_r).epsilon(g_epsilon));
   }
 
   {
-    const vec5 vec1(-50.0_r, 20.0_r, 9.0_r, 11.0_r, 3.0_r);
+    const vec5 v1(-50.0_r, 20.0_r, 9.0_r, 11.0_r, 3.0_r);
     const vec5 v2(-1.0_r, -7.0_r, 4.0_r, 2.0_r, 0.5_r);
 
-    const real dot_result = vec_dot(vec1, v2);
+    const real dot_result = vec_dot(v1, v2);
     CHECK(dot_result == Approx(-30.5).epsilon(g_epsilon));
   }
 
   {
-    const vec5 vec1(-2.3_r, 0.1_r, 0.92_r, 0.123_r, 0.543_r);
+    const vec5 v1(-2.3_r, 0.1_r, 0.92_r, 0.123_r, 0.543_r);
     const vec5 v2(-1.456_r, -7.732_r, 2.491_r, -1.321_r, -0.261_r);
 
-    const real dot_result = vec_dot(vec1, v2);
+    const real dot_result = vec_dot(v1, v2);
     CHECK(dot_result == Approx(4.563114_r).epsilon(g_epsilon));
+  }
+}
+
+TEST_CASE("dot_vec2", "[as_vec]")
+{
+  // note: comparison values calculated using:
+  // https://www.symbolab.com/solver/vector-scalar-projection-calculator
+  {
+    const vec2 v1(1.0_r, 0.0_r);
+    const vec2 v2(0.0_r, 1.0_r);
+
+    const real dot_result = vec_dot(v1, v2);
+    CHECK(dot_result == Approx(0.0_r).epsilon(g_epsilon));
+  }
+
+  {
+    const vec2 v1(4.0_r, 5.0_r);
+    const vec2 v2(-9.0_r, 11.0_r);
+
+    const real dot_result = vec_dot(v1, v2);
+    CHECK(dot_result == Approx(19.0_r).epsilon(g_epsilon));
   }
 }
 
 TEST_CASE("dot_vec3", "[as_vec]")
 {
-  // note: comparison values calculated using - http://calculator.vhex.net
+  // note: comparison values calculated using:
+  // https://www.symbolab.com/solver/vector-scalar-projection-calculator
   {
-    const vec3 vec1(1.0_r, 2.0_r, 3.0_r);
+    const vec3 v1(1.0_r, 2.0_r, 3.0_r);
     const vec3 v2(4.0_r, 5.0_r, 6.0_r);
 
-    const real dot_result = vec_dot(vec1, v2);
+    const real dot_result = vec_dot(v1, v2);
     CHECK(dot_result == Approx(32.0_r).epsilon(g_epsilon));
   }
 
   {
-    const vec3 vec1(-50.0_r, 20.0_r, 9.0_r);
+    const vec3 v1(-50.0_r, 20.0_r, 9.0_r);
     const vec3 v2(-1.0_r, -7.0_r, 4.0_r);
 
-    const real dot_result = vec_dot(vec1, v2);
+    const real dot_result = vec_dot(v1, v2);
     CHECK(dot_result == Approx(-54.0_r).epsilon(g_epsilon));
   }
 
   {
-    const vec3 vec1(-2.3_r, 0.1_r, 0.92_r);
+    const vec3 v1(-2.3_r, 0.1_r, 0.92_r);
     const vec3 v2(-1.456_r, -7.732_r, 2.491_r);
 
-    const real dot_result = vec_dot(vec1, v2);
+    const real dot_result = vec_dot(v1, v2);
     CHECK(dot_result == Approx(4.86732_r).epsilon(g_epsilon));
   }
 }
@@ -1204,35 +1227,35 @@ TEST_CASE("cross", "[as_vec]")
   // note: comparison values calculated using
   // https://www.symbolab.com/solver/vector-cross-product-calculator
   {
-    vec3 vec1(1.0_r, 2.0_r, 3.0_r);
+    vec3 v1(1.0_r, 2.0_r, 3.0_r);
     vec3 v2(4.0_r, 5.0_r, 6.0_r);
 
-    vec3 cross_result = vec3_cross(vec1, v2);
+    vec3 cross_result = vec3_cross(v1, v2);
     CHECK(cross_result.x == Approx(-3.0_r).epsilon(g_epsilon));
     CHECK(cross_result.y == Approx(6.0_r).epsilon(g_epsilon));
     CHECK(cross_result.z == Approx(-3.0_r).epsilon(g_epsilon));
   }
 
   {
-    vec3 vec1(1.0_r, 0.0_r, 0.0_r);
+    vec3 v1(1.0_r, 0.0_r, 0.0_r);
     vec3 v2(0.0_r, 1.0_r, 0.0_r);
 
-    vec3 cross_result1 = vec3_cross(vec1, v2);
+    vec3 cross_result1 = vec3_cross(v1, v2);
     CHECK(cross_result1.x == Approx(0.0_r).epsilon(g_epsilon));
     CHECK(cross_result1.y == Approx(0.0_r).epsilon(g_epsilon));
     CHECK(cross_result1.z == Approx(1.0_r).epsilon(g_epsilon));
 
-    vec3 cross_result2 = vec3_cross(v2, vec1);
+    vec3 cross_result2 = vec3_cross(v2, v1);
     CHECK(cross_result2.x == Approx(0.0_r).epsilon(g_epsilon));
     CHECK(cross_result2.y == Approx(0.0_r).epsilon(g_epsilon));
     CHECK(cross_result2.z == Approx(-1.0_r).epsilon(g_epsilon));
   }
 
   {
-    vec3 vec1(0.0_r, 5.0_r, 0.0_r);
+    vec3 v1(0.0_r, 5.0_r, 0.0_r);
     vec3 v2(0.0_r, 0.0_r, 12.0_r);
 
-    vec3 cross_result = vec3_cross(vec1, v2);
+    vec3 cross_result = vec3_cross(v1, v2);
     CHECK(cross_result.x == Approx(60.0_r).epsilon(g_epsilon));
     CHECK(cross_result.y == Approx(0.0_r).epsilon(g_epsilon));
     CHECK(cross_result.z == Approx(0.0_r).epsilon(g_epsilon));
@@ -1292,24 +1315,24 @@ TEST_CASE("right_and_up", "[as_vec]")
 TEST_CASE("equal", "[as_vec]")
 {
   {
-    vec3 vec1(1.11_r, 0.3_r, 517.2_r);
+    vec3 v1(1.11_r, 0.3_r, 517.2_r);
     vec3 v2(1.11_r, 0.3_r, 517.2_r);
 
-    CHECK(vec_equal(vec1, v2));
+    CHECK(vec_equal(v1, v2));
   }
 
   {
-    vec3 vec1(1.11_r, 0.3_r, 514.2_r);
+    vec3 v1(1.11_r, 0.3_r, 514.2_r);
     vec3 v2(1.114_r, 0.3_r, 517.2_r);
 
-    CHECK_FALSE(vec_equal(vec1, v2));
+    CHECK_FALSE(vec_equal(v1, v2));
   }
 
   {
-    vec3 vec1(1.11_r, 0.3_r, 514.2_r);
+    vec3 v1(1.11_r, 0.3_r, 514.2_r);
     vec3 v2(1.11_r, 0.311_r, 514.2_r);
 
-    CHECK_FALSE(vec_equal(vec1, v2));
+    CHECK_FALSE(vec_equal(v1, v2));
   }
 }
 
@@ -1348,23 +1371,23 @@ TEST_CASE("abs", "[as_vec]")
 TEST_CASE("min_vec", "[as_vec]")
 {
   {
-    vec4 vec1(-1.0_r, 2.0_r, -100.0_r, -7.0_r);
+    vec4 v1(-1.0_r, 2.0_r, -100.0_r, -7.0_r);
     vec4 v2(-10.0_r, 7.0_r, -50.0_r, -16.0_r);
 
     vec4 vec_reference(-10.0_r, 2.0_r, -100.0_r, -16.0_r);
 
-    vec4 result = vec_min(vec1, v2);
+    vec4 result = vec_min(v1, v2);
 
     CHECK(vec_equal(vec_reference, result));
   }
 
   {
-    vec4 vec1(1.0_r, 2.0_r, 3.0_r, 4.0_r);
+    vec4 v1(1.0_r, 2.0_r, 3.0_r, 4.0_r);
     vec4 v2(2.0_r, 3.0_r, 4.0_r, 5.0_r);
 
     vec4 vec_reference(1.0_r, 2.0_r, 3.0_r, 4.0_r);
 
-    vec4 result = vec_min(vec1, v2);
+    vec4 result = vec_min(v1, v2);
 
     CHECK(vec_equal(vec_reference, result));
   }
@@ -1390,23 +1413,23 @@ TEST_CASE("min_elem", "[as_vec]")
 TEST_CASE("max_vec", "[as_vec]")
 {
   {
-    vec4 vec1(-1.0_r, 2.0_r, -100.0_r, -7.0_r);
+    vec4 v1(-1.0_r, 2.0_r, -100.0_r, -7.0_r);
     vec4 v2(-10.0_r, 7.0_r, -50.0_r, -16.0_r);
 
     vec4 vec_reference(-1.0_r, 7.0_r, -50.0_r, -7.0_r);
 
-    vec4 result = vec_max(vec1, v2);
+    vec4 result = vec_max(v1, v2);
 
     CHECK(vec_equal(vec_reference, result));
   }
 
   {
-    vec4 vec1(1.0_r, 2.0_r, 3.0_r, 4.0_r);
+    vec4 v1(1.0_r, 2.0_r, 3.0_r, 4.0_r);
     vec4 v2(2.0_r, 3.0_r, 4.0_r, 5.0_r);
 
     vec4 vec_reference(2.0_r, 3.0_r, 4.0_r, 5.0_r);
 
-    vec4 result = vec_max(vec1, v2);
+    vec4 result = vec_max(v1, v2);
 
     CHECK(vec_equal(vec_reference, result));
   }
@@ -1498,11 +1521,11 @@ TEST_CASE("saturate", "[as_vec]")
   }
 }
 
-TEST_CASE("lerp", "[as_vec]")
+TEST_CASE("mix", "[as_vec]")
 {
-  {
-    using gsl::make_span;
+  using gsl::make_span;
 
+  {
     vec3 start(0.0_r, 10.0_r, 20.0_r);
     vec3 end(10.0_r, 40.0_r, 100.0_r);
 
@@ -1517,6 +1540,44 @@ TEST_CASE("lerp", "[as_vec]")
     CHECK_THAT(make_span(result_mid_arr), elements_are_span(result_mid));
 
     const real result_end_arr[] = {10.0_r, 40.0_r, 100.0_r};
+    CHECK_THAT(make_span(result_end_arr), elements_are_span(result_end));
+  }
+
+ {
+    vec2 start(0.0_r, 10.0_r);
+    vec2 end(10.0_r, 40.0_r);
+
+    vec2 result_begin = vec_mix(start, end, 0.0_r);
+    vec2 result_mid = vec_mix(start, end, 0.5_r);
+    vec2 result_end = vec_mix(start, end, 1.0_r);
+
+    const real result_begin_arr[] = {0.0_r, 10.0_r};
+    CHECK_THAT(make_span(result_begin_arr), elements_are_span(result_begin));
+
+    const real result_mid_arr[] = {5.0_r, 25.0_r};
+    CHECK_THAT(make_span(result_mid_arr), elements_are_span(result_mid));
+
+    const real result_end_arr[] = {10.0_r, 40.0_r};
+    CHECK_THAT(make_span(result_end_arr), elements_are_span(result_end));
+  }
+
+  {
+    using vec5 = vec<real, 5>;
+
+    vec5 start(0.0_r, 10.0_r, 20.0_r, 30.0_r, 50.0_r);
+    vec5 end(10.0_r, 40.0_r, 100.0_r, 60.0_r, 0.0_r);
+
+    vec5 result_begin = vec_mix(start, end, 0.0_r);
+    vec5 result_mid = vec_mix(start, end, 0.5_r);
+    vec5 result_end = vec_mix(start, end, 1.0_r);
+
+    const real result_begin_arr[] = {0.0_r, 10.0_r, 20.0_r, 30.0_r, 50.0_r};
+    CHECK_THAT(make_span(result_begin_arr), elements_are_span(result_begin));
+
+    const real result_mid_arr[] = {5.0_r, 25.0_r, 60.0_r, 45.0_r, 25.0_r};
+    CHECK_THAT(make_span(result_mid_arr), elements_are_span(result_mid));
+
+    const real result_end_arr[] = {10.0_r, 40.0_r, 100.0_r, 60.0_r, 0.0_r};
     CHECK_THAT(make_span(result_end_arr), elements_are_span(result_end));
   }
 }
@@ -1587,17 +1648,17 @@ TEST_CASE("select", "[as_vec]")
 TEST_CASE("wedge_vec2", "[as_vec]")
 {
   {
-    const vec2 vec1(2.0_r, 0.0_r);
+    const vec2 v1(2.0_r, 0.0_r);
     const vec2 v2(0.0_r, 2.0_r);
-    const real result = vec2_wedge(vec1, v2);
+    const real result = vec2_wedge(v1, v2);
 
     CHECK(result == Approx(4.0_r).epsilon(g_epsilon));
   }
 
   {
-    const vec2 vec1(10.0_r, 10.0_r);
+    const vec2 v1(10.0_r, 10.0_r);
     const vec2 v2(20.0_r, 5.0_r);
-    const real result = vec2_wedge(vec1, v2);
+    const real result = vec2_wedge(v1, v2);
 
     CHECK(result == Approx(-150.0_r).epsilon(g_epsilon));
   }
