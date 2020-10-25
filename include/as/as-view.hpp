@@ -147,7 +147,13 @@ vec3 screen_to_world(
 vec2 vec2_from_ints(int32_t x, int32_t y);
 
 //! Returns a vec2 `(real, real)` from a vec2i.
-vec2 vec2_from_vec2i(const as::vec2i& v);
+vec2 vec2_from_vec2i(const vec2i& v);
+
+//! Returns a vec2i `(int32_t, int32_t)` from two reals.
+vec2i vec2i_from_reals(real x, real y);
+
+//! Returns a vec2i `(int32_t, int32_t)` from a vec2.
+vec2i vec2i_from_vec2(const vec2& v);
 
 } // namespace as
 

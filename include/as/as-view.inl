@@ -200,14 +200,24 @@ AS_API inline vec3 screen_to_world(
   return vec3_from_vec4(world_position);
 }
 
-vec2 vec2_from_ints(const int32_t x, const int32_t y)
+AS_API inline vec2 vec2_from_ints(const int32_t x, const int32_t y)
 {
   return {vec2::value_type(x), vec2::value_type(y)};
 }
 
-vec2 vec2_from_vec2i(const as::vec2i& v)
+AS_API inline vec2 vec2_from_vec2i(const as::vec2i& v)
 {
   return vec2_from_ints(v.x, v.y);
+}
+
+AS_API inline vec2i vec2i_from_reals(const real x, const real y)
+{
+  return {vec2i::value_type(x), vec2i::value_type(y)};
+}
+
+AS_API inline vec2i vec2i_from_vec2(const vec2& v)
+{
+  return vec2i_from_reals(v.x, v.y);
 }
 
 } // namespace as
