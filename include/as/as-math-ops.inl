@@ -98,7 +98,7 @@ AS_API bool vec_equal(
   real epsilon /*= std::numeric_limits<real>::epsilon()*/)
 {
   for (index i = 0; i < d; ++i) {
-    if (!as::almost_equal(lhs[i], rhs[i], epsilon, epsilon)) {
+    if (!almost_equal(lhs[i], rhs[i], epsilon, epsilon)) {
       return false;
     }
   }
@@ -111,7 +111,7 @@ AS_API vec<T, d> vec_min(const vec<T, d>& lhs, const vec<T, d>& rhs)
 {
   vec<T, d> result;
   for (index i = 0; i < d; ++i) {
-    result[i] = as::min(lhs[i], rhs[i]);
+    result[i] = min(lhs[i], rhs[i]);
   }
 
   return result;
@@ -122,7 +122,7 @@ AS_API constexpr T vec_min_elem(const vec<T, d>& v)
 {
   T val = v[0];
   for (index i = 1; i < d; ++i) {
-    val = as::min(val, v[i]);
+    val = min(val, v[i]);
   }
 
   return val;
@@ -133,7 +133,7 @@ AS_API vec<T, d> vec_max(const vec<T, d>& lhs, const vec<T, d>& rhs)
 {
   vec<T, d> result;
   for (index i = 0; i < d; ++i) {
-    result[i] = as::max(lhs[i], rhs[i]);
+    result[i] = max(lhs[i], rhs[i]);
   }
 
   return result;
@@ -144,7 +144,7 @@ AS_API constexpr T vec_max_elem(const vec<T, d>& v)
 {
   T val = v[0];
   for (index i = 1; i < d; ++i) {
-    val = as::max(val, v[i]);
+    val = max(val, v[i]);
   }
 
   return val;
@@ -167,7 +167,7 @@ AS_API vec<T, d> vec_clamp(
 {
   vec<T, d> result;
   for (index i = 0; i < d; ++i) {
-    result[i] = as::clamp(v[i], min[i], max[i]);
+    result[i] = clamp(v[i], min[i], max[i]);
   }
 
   return result;
@@ -178,7 +178,7 @@ AS_API vec<T, d> vec_saturate(const vec<T, d>& v)
 {
   vec<T, d> result;
   for (index i = 0; i < d; ++i) {
-    result[i] = as::clamp(v[i], T(0.0), T(1.0));
+    result[i] = clamp(v[i], T(0.0), T(1.0));
   }
 
   return result;
@@ -190,10 +190,24 @@ AS_API vec<T, d> vec_mix(
 {
   vec<T, d> result;
   for (index i = 0; i < d; ++i) {
-    result[i] = as::mix(begin[i], end[i], t);
+    result[i] = mix(begin[i], end[i], t);
   }
 
   return result;
+}
+
+template<>
+AS_API constexpr vec2 vec_mix(const vec2& begin, const vec2& end, const real t)
+{
+  return {mix(begin[0], end[0], t), mix(begin[1], end[1], t)};
+}
+
+template<>
+AS_API constexpr vec3 vec_mix(const vec3& begin, const vec3& end, const real t)
+{
+  return {
+    mix(begin[0], end[0], t), mix(begin[1], end[1], t),
+    mix(begin[2], end[2], t)};
 }
 
 template<typename T, index d>
@@ -241,7 +255,7 @@ AS_API vec<T, d> vec_snap(const vec<T, d>& v, const T step)
 {
   vec<T, d> result;
   for (index i = 0; i < d; ++i) {
-    result[i] = as::snap(v[i], step);
+    result[i] = snap(v[i], step);
   }
 
   return result;
@@ -509,7 +523,7 @@ AS_API bool mat_equal(
   const real epsilon /* = std::numeric_limits<real>::epsilon() */)
 {
   for (index i = 0; i < mat<T, d>::size(); ++i) {
-    if (!as::almost_equal(lhs[i], rhs[i], epsilon, epsilon)) {
+    if (!almost_equal(lhs[i], rhs[i], epsilon, epsilon)) {
       return false;
     }
   }

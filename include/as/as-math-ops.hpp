@@ -135,6 +135,14 @@ vec<T, d> vec_saturate(const vec<T, d>& v);
 template<typename T, index d>
 vec<T, d> vec_mix(const vec<T, d>& begin, const vec<T, d>& end, T t);
 
+//! Template specialization of vec_mix for vec2.
+template<>
+constexpr vec2 vec_mix(const vec2& begin, const vec2& end, real t);
+
+//! Template specialization of vec_mix for vec3.
+template<>
+constexpr vec3 vec_mix(const vec3& begin, const vec3& end, real t);
+
 //! Returns `v0` if `select0` is true, otherwise `v1`.
 template<typename T, index d>
 constexpr vec<T, d> vec_select(
