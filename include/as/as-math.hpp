@@ -46,6 +46,10 @@ constexpr T smoother_step(T t);
 template<typename T>
 constexpr T sign(T x);
 
+//! Returns the fractional part of `x` (equivalent to `x - floor(x)`).
+template<typename T>
+constexpr T fract(T x);
+
 //! Returns the larger of the two values.
 //! https://en.cppreference.com/w/cpp/algorithm/max
 using std::max;

@@ -34,6 +34,12 @@ AS_API constexpr T sign(const T x)
 }
 
 template<typename T>
+AS_API constexpr T fract(const T x)
+{
+  return x - std::floor(x);
+}
+
+template<typename T>
 AS_API constexpr T snap(const T in, const T step)
 {
   return std::floor((in / step) + T(0.5)) * step;
