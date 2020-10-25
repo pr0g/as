@@ -13,6 +13,12 @@ namespace as
 //! Mathematical constant Pi to 21 significant digits.
 constexpr real k_pi = 3.14159265358979323846_r;
 
+//! Mathematical constant 2 * Pi to 21 significant digits.
+constexpr real k_two_pi = 6.28318530717958647692_r;
+
+//! Mathematical constant Tau to 21 significant digits (equivalent to 2 * Pi).
+constexpr real k_tau = k_two_pi;
+
 //! Returns a linearly interpolated value between `begin` and `end`.
 //! \param t The amount of interpolation between `begin` and `end`. Must be in
 //! the range `[0-1]`.
