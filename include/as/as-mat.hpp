@@ -43,7 +43,7 @@ struct mat
   constexpr mat(Args... args) noexcept : elem_rc{std::forward<Args>(args)...}
   {
     static_assert(
-      sizeof...(args) == size(), "Incorrent number of arguments for dimension");
+      sizeof...(args) == size(), "Incorrect number of arguments for dimension");
   }
 
   //! Returns a mutable reference to the value at the given index.
