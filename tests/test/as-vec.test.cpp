@@ -1979,9 +1979,8 @@ TEST_CASE("vec_range_iteration_vec3", "[as_vec]")
     const vec3 v(1.0_r, 2.0_r, 3.0_r);
 
     vec3 next_vec;
-    std::transform(
-      begin(v), end(v), begin(next_vec), [](const real elem) {
-        return elem + 1;
+    std::transform(begin(v), end(v), begin(next_vec), [](const real elem) {
+      return elem + 1;
     });
 
     CHECK_THAT(expected, elements_are(next_vec));
@@ -2016,9 +2015,8 @@ TEST_CASE("vec_range_iteration_vec5", "[as_vec]")
     const vec<real, 5> v(1.0_r, 2.0_r, 3.0_r, 4.0_r, 5.0_r);
 
     vec<real, 5> next_vec;
-    std::transform(
-      cbegin(v), cend(v), begin(next_vec), [](const real elem) {
-        return elem + 1;
+    std::transform(cbegin(v), cend(v), begin(next_vec), [](const real elem) {
+      return elem + 1;
     });
 
     CHECK_THAT(expected, elements_are(next_vec));

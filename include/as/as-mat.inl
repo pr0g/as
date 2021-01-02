@@ -134,37 +134,37 @@ AS_API constexpr mat<T, d>& operator*=(mat<T, d>& m, const T scalar)
 template<typename T, index d>
 AS_API constexpr subscript_iterator<mat<T, d>> begin(mat<T, d>& m)
 {
-    return subscript_iterator<mat<T,d>>(m, 0);
+  return subscript_iterator<mat<T, d>>(m, 0);
 }
 
 template<typename T, index d>
 AS_API constexpr subscript_iterator<mat<T, d>> end(mat<T, d>& m)
 {
-    return subscript_iterator<mat<T,d>>(m, mat<T, d>::size());
+  return subscript_iterator<mat<T, d>>(m, mat<T, d>::size());
 }
 
 template<typename T, index d>
 AS_API constexpr subscript_const_iterator<mat<T, d>> begin(const mat<T, d>& m)
 {
-    return subscript_const_iterator<mat<T,d>>(m, 0);
+  return subscript_const_iterator<mat<T, d>>(m, 0);
 }
 
 template<typename T, index d>
 AS_API constexpr subscript_const_iterator<mat<T, d>> end(const mat<T, d>& m)
 {
-    return subscript_const_iterator<mat<T,d>>(m, mat<T, d>::size());
+  return subscript_const_iterator<mat<T, d>>(m, mat<T, d>::size());
 }
 
 template<typename T, index d>
 AS_API constexpr subscript_const_iterator<mat<T, d>> cbegin(const mat<T, d>& m)
 {
-    return begin(m);
+  return begin(m);
 }
 
 template<typename T, index d>
 AS_API constexpr subscript_const_iterator<mat<T, d>> cend(const mat<T, d>& m)
 {
-    return end(m);
+  return end(m);
 }
 
 } // namespace as

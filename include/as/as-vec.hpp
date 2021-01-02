@@ -7,8 +7,8 @@
 #include <type_traits>
 #include <utility>
 
-#include "as-types.hpp"
 #include "as-iterator.hpp"
+#include "as-types.hpp"
 
 namespace as
 {

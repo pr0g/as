@@ -1719,10 +1719,8 @@ TEST_CASE("mat_data", "[as_mat]")
 TEST_CASE("mat_range_iteration_mat3", "[as_mat]")
 {
   {
-    const real expected[] {
-      1.0_r, 2.0_r, 3.0_r,
-      4.0_r, 5.0_r, 6.0_r,
-      7.0_r, 8.0_r, 9.0_r};
+    const real expected[]{1.0_r, 2.0_r, 3.0_r, 4.0_r, 5.0_r,
+                          6.0_r, 7.0_r, 8.0_r, 9.0_r};
 
     // clang-format off
     const mat3 mat {
@@ -1740,10 +1738,8 @@ TEST_CASE("mat_range_iteration_mat3", "[as_mat]")
   }
 
   {
-    const real expected[] {
-      2.0_r, 4.0_r, 6.0_r,
-      8.0_r, 10.0_r, 12.0_r,
-      14.0_r, 16.0_r, 18.0_r};
+    const real expected[]{2.0_r,  4.0_r,  6.0_r,  8.0_r, 10.0_r,
+                          12.0_r, 14.0_r, 16.0_r, 18.0_r};
 
     // clang-format off
     mat3 mat {
@@ -1762,10 +1758,8 @@ TEST_CASE("mat_range_iteration_mat3", "[as_mat]")
   }
 
   {
-    const mat3 expected {
-      2.0_r, 3.0_r, 4.0_r,
-      5.0_r, 6.0_r, 7.0_r,
-      8.0_r, 9.0_r, 10.0_r};
+    const mat3 expected{2.0_r, 3.0_r, 4.0_r, 5.0_r, 6.0_r,
+                        7.0_r, 8.0_r, 9.0_r, 10.0_r};
 
     // clang-format off
     mat3 m {
@@ -1776,9 +1770,8 @@ TEST_CASE("mat_range_iteration_mat3", "[as_mat]")
     // clang-format on
 
     mat3 next_mat;
-    std::transform(
-      cbegin(m), cend(m), begin(next_mat), [](const real elem) {
-        return elem + 1;
+    std::transform(cbegin(m), cend(m), begin(next_mat), [](const real elem) {
+      return elem + 1;
     });
 
     CHECK_THAT(expected, elements_are(next_mat));
