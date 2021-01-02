@@ -1716,6 +1716,75 @@ TEST_CASE("mat_data", "[as_mat]")
   CHECK(*(matp + 15) == Approx(1.0_r).epsilon(g_epsilon));
 }
 
+TEST_CASE("mat_range_iteration_mat3", "[as_mat]")
+{
+  {
+    const real expected[] {
+      1.0_r, 2.0_r, 3.0_r,
+      4.0_r, 5.0_r, 6.0_r,
+      7.0_r, 8.0_r, 9.0_r};
+
+    // clang-format off
+    const mat3 mat {
+      1.0_r, 2.0_r, 3.0_r,
+      4.0_r, 5.0_r, 6.0_r,
+      7.0_r, 8.0_r, 9.0_r
+    };
+    // clang-format on
+
+    as::index i = 0;
+    for (const auto& elem : mat) {
+      CHECK(elem == Approx(expected[i++]).epsilon(g_epsilon));
+    }
+    CHECK(i == 9);
+  }
+
+  {
+    const real expected[] {
+      2.0_r, 4.0_r, 6.0_r,
+      8.0_r, 10.0_r, 12.0_r,
+      14.0_r, 16.0_r, 18.0_r};
+
+    // clang-format off
+    mat3 mat {
+      1.0_r, 2.0_r, 3.0_r,
+      4.0_r, 5.0_r, 6.0_r,
+      7.0_r, 8.0_r, 9.0_r
+    };
+    // clang-format on
+
+    as::index i = 0;
+    for (auto& elem : mat) {
+      elem *= 2.0_r;
+      CHECK(elem == Approx(expected[i++]).epsilon(g_epsilon));
+    }
+    CHECK(i == 9);
+  }
+
+  {
+    const mat3 expected {
+      2.0_r, 3.0_r, 4.0_r,
+      5.0_r, 6.0_r, 7.0_r,
+      8.0_r, 9.0_r, 10.0_r};
+
+    // clang-format off
+    mat3 m {
+      1.0_r, 2.0_r, 3.0_r,
+      4.0_r, 5.0_r, 6.0_r,
+      7.0_r, 8.0_r, 9.0_r
+    };
+    // clang-format on
+
+    mat3 next_mat;
+    std::transform(
+      cbegin(m), cend(m), begin(next_mat), [](const real elem) {
+        return elem + 1;
+    });
+
+    CHECK_THAT(expected, elements_are(next_mat));
+  }
+}
+
 } // namespace unit_test
 
 // explicit instantiations (for coverage)

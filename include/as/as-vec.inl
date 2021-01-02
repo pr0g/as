@@ -544,4 +544,40 @@ AS_API constexpr vec3& operator/=(vec3& lhs, const vec3& rhs)
   return lhs;
 }
 
+template<typename T, index d>
+AS_API constexpr subscript_iterator<vec<T, d>> begin(vec<T, d>& v)
+{
+    return subscript_iterator<vec<T,d>>(v, 0);
+}
+
+template<typename T, index d>
+AS_API constexpr subscript_iterator<vec<T, d>> end(vec<T, d>& v)
+{
+    return subscript_iterator<vec<T,d>>(v, d);
+}
+
+template<typename T, index d>
+AS_API constexpr subscript_const_iterator<vec<T, d>> begin(const vec<T, d>& v)
+{
+    return subscript_const_iterator<vec<T,d>>(v, 0);
+}
+
+template<typename T, index d>
+AS_API constexpr subscript_const_iterator<vec<T, d>> end(const vec<T, d>& v)
+{
+    return subscript_const_iterator<vec<T,d>>(v, d);
+}
+
+template<typename T, index d>
+AS_API constexpr subscript_const_iterator<vec<T, d>> cbegin(const vec<T, d>& v)
+{
+    return begin(v);
+}
+
+template<typename T, index d>
+AS_API constexpr subscript_const_iterator<vec<T, d>> cend(const vec<T, d>& v)
+{
+    return end(v);
+}
+
 } // namespace as

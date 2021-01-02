@@ -8,6 +8,7 @@
 #include <utility>
 
 #include "as-types.hpp"
+#include "as-iterator.hpp"
 
 namespace as
 {
@@ -437,6 +438,32 @@ constexpr vec<T, d>& operator/=(vec<T, d>& lhs, const vec<T, d>& rhs);
 //! Performs a division assignment of two vector threes.
 template<>
 constexpr vec3& operator/=(vec3& lhs, const vec3& rhs);
+
+//! Returns an iterator to the beginning of the vector.
+template<typename T, index d>
+constexpr subscript_iterator<vec<T, d>> begin(vec<T, d>& vec);
+
+//! Returns an iterator to the end of the vector.
+template<typename T, index d>
+constexpr subscript_iterator<vec<T, d>> end(vec<T, d>& vec);
+
+//! Returns an iterator to the beginning of the vector.
+//! \note `const` overload
+template<typename T, index d>
+constexpr subscript_const_iterator<vec<T, d>> begin(const vec<T, d>& vec);
+
+//! Returns an iterator to the end of the vector.
+//! \note `const` overload
+template<typename T, index d>
+constexpr subscript_const_iterator<vec<T, d>> end(const vec<T, d>& vec);
+
+//! Returns a const iterator to the beginning of the vector.
+template<typename T, index d>
+constexpr subscript_const_iterator<vec<T, d>> cbegin(const vec<T, d>& vec);
+
+//! Returns a const iterator to the end of the vector.
+template<typename T, index d>
+constexpr subscript_const_iterator<vec<T, d>> cend(const vec<T, d>& vec);
 
 } // namespace as
 

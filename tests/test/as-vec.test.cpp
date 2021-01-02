@@ -1949,6 +1949,82 @@ TEST_CASE("vec4_translation_direction", "[as_vec]")
   CHECK_THAT(arr(5.0_r, 10.0_r, 15.0_r, 0.0_r), elements_are_array(direction));
 }
 
+TEST_CASE("vec_range_iteration_vec3", "[as_vec]")
+{
+  {
+    real expected[] = {1.0_r, 2.0_r, 3.0_r};
+    const vec3 vec(1.0_r, 2.0_r, 3.0_r);
+
+    as::index i = 0;
+    for (const auto& elem : vec) {
+      CHECK(elem == Approx(expected[i++]).epsilon(g_epsilon));
+    }
+    CHECK(i == 3);
+  }
+
+  {
+    real expected[] = {2.0_r, 4.0_r, 6.0_r};
+    vec3 vec(1.0_r, 2.0_r, 3.0_r);
+
+    as::index i = 0;
+    for (auto& elem : vec) {
+      elem *= 2.0_r;
+      CHECK(elem == Approx(expected[i++]).epsilon(g_epsilon));
+    }
+    CHECK(i == 3);
+  }
+
+  {
+    const vec3 expected(2.0_r, 3.0_r, 4.0_r);
+    const vec3 v(1.0_r, 2.0_r, 3.0_r);
+
+    vec3 next_vec;
+    std::transform(
+      begin(v), end(v), begin(next_vec), [](const real elem) {
+        return elem + 1;
+    });
+
+    CHECK_THAT(expected, elements_are(next_vec));
+  }
+}
+
+TEST_CASE("vec_range_iteration_vec5", "[as_vec]")
+{
+  {
+    real expected[] = {1.0_r, 2.0_r, 3.0_r, 4.0_r, 5.0_r};
+    const vec<real, 5> vec(1.0_r, 2.0_r, 3.0_r, 4.0_r, 5.0_r);
+
+    as::index i = 0;
+    for (const auto& elem : vec) {
+      CHECK(elem == Approx(expected[i++]).epsilon(g_epsilon));
+    }
+  }
+
+  {
+    real expected[] = {2.0_r, 4.0_r, 6.0_r, 8.0_r, 10.0_r};
+    vec<real, 5> vec(1.0_r, 2.0_r, 3.0_r, 4.0_r, 5.0_r);
+
+    as::index i = 0;
+    for (auto& elem : vec) {
+      elem *= 2.0_r;
+      CHECK(elem == Approx(expected[i++]).epsilon(g_epsilon));
+    }
+  }
+
+  {
+    const vec<real, 5> expected(2.0_r, 3.0_r, 4.0_r, 5.0_r, 6.0_r);
+    const vec<real, 5> v(1.0_r, 2.0_r, 3.0_r, 4.0_r, 5.0_r);
+
+    vec<real, 5> next_vec;
+    std::transform(
+      cbegin(v), cend(v), begin(next_vec), [](const real elem) {
+        return elem + 1;
+    });
+
+    CHECK_THAT(expected, elements_are(next_vec));
+  }
+}
+
 } // namespace unit_test
 
 // explicit instantiations (for coverage)

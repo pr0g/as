@@ -102,6 +102,32 @@ constexpr const mat<T, d> operator*(const mat<T, d>& m, T scalar);
 template<typename T, index d>
 constexpr mat<T, d>& operator*=(mat<T, d>& m, T scalar);
 
+//! Returns an iterator to the beginning of the matrix.
+template<typename T, index d>
+constexpr subscript_iterator<mat<T, d>> begin(mat<T, d>& mat);
+
+//! Returns an iterator to the end of the matrix.
+template<typename T, index d>
+constexpr subscript_iterator<mat<T, d>> end(mat<T, d>& mat);
+
+//! Returns an iterator to the beginning of the matrix.
+//! \note `const` overload
+template<typename T, index d>
+constexpr subscript_const_iterator<mat<T, d>> begin(const mat<T, d>& mat);
+
+//! Returns an iterator to the end of the matrix.
+//! \note `const` overload
+template<typename T, index d>
+constexpr subscript_const_iterator<mat<T, d>> end(const mat<T, d>& mat);
+
+//! Returns a const iterator to the beginning of the matrix.
+template<typename T, index d>
+constexpr subscript_const_iterator<mat<T, d>> cbegin(const mat<T, d>& mat);
+
+//! Returns a const iterator to the end of the matrix.
+template<typename T, index d>
+constexpr subscript_const_iterator<mat<T, d>> cend(const mat<T, d>& mat);
+
 } // namespace as
 
 #include "as-mat.inl"
