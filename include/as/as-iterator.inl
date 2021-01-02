@@ -2,8 +2,8 @@ namespace as
 {
 
 template<typename subscriptable_t, bool is_const>
-AS_API subscript_iterator_type<subscriptable_t, is_const>::subscript_iterator_type(
-  subscriptable_t& subscriptable_, index index_)
+AS_API subscript_iterator_type<subscriptable_t, is_const>::
+  subscript_iterator_type(subscriptable_t& subscriptable_, index index_)
   : i(index_), subscriptable(subscriptable_)
 {
 }
@@ -23,16 +23,16 @@ AS_API bool subscript_iterator_type<subscriptable_t, is_const>::operator!=(
 }
 
 template<typename subscriptable_t, bool is_const>
-AS_API subscript_iterator_type<subscriptable_t, is_const>& subscript_iterator_type<
-  subscriptable_t, is_const>::operator++()
+AS_API subscript_iterator_type<subscriptable_t, is_const>&
+subscript_iterator_type<subscriptable_t, is_const>::operator++()
 {
   ++i;
   return *this;
 }
 
 template<typename subscriptable_t, bool is_const>
-AS_API subscript_iterator_type<subscriptable_t, is_const> subscript_iterator_type<
-  subscriptable_t, is_const>::operator++(int)
+AS_API subscript_iterator_type<subscriptable_t, is_const>
+subscript_iterator_type<subscriptable_t, is_const>::operator++(int)
 {
   auto temp(*this);
   ++i;
@@ -40,16 +40,16 @@ AS_API subscript_iterator_type<subscriptable_t, is_const> subscript_iterator_typ
 }
 
 template<typename subscriptable_t, bool is_const>
-AS_API subscript_iterator_type<subscriptable_t, is_const>& subscript_iterator_type<
-  subscriptable_t, is_const>::operator--()
+AS_API subscript_iterator_type<subscriptable_t, is_const>&
+subscript_iterator_type<subscriptable_t, is_const>::operator--()
 {
   --i;
   return *this;
 }
 
 template<typename subscriptable_t, bool is_const>
-AS_API subscript_iterator_type<subscriptable_t, is_const> subscript_iterator_type<
-  subscriptable_t, is_const>::operator--(int)
+AS_API subscript_iterator_type<subscriptable_t, is_const>
+subscript_iterator_type<subscriptable_t, is_const>::operator--(int)
 {
   auto temp(*this);
   --i;
@@ -57,24 +57,27 @@ AS_API subscript_iterator_type<subscriptable_t, is_const> subscript_iterator_typ
 }
 
 template<typename subscriptable_t, bool is_const>
-AS_API subscript_iterator_type<subscriptable_t, is_const>& subscript_iterator_type<
-  subscriptable_t, is_const>::operator+=(const difference_type& movement)
+AS_API subscript_iterator_type<subscriptable_t, is_const>&
+subscript_iterator_type<subscriptable_t, is_const>::operator+=(
+  const difference_type& movement)
 {
   i += movement;
   return *this;
 }
 
 template<typename subscriptable_t, bool is_const>
-AS_API subscript_iterator_type<subscriptable_t, is_const>& subscript_iterator_type<
-  subscriptable_t, is_const>::operator-=(const difference_type& movement)
+AS_API subscript_iterator_type<subscriptable_t, is_const>&
+subscript_iterator_type<subscriptable_t, is_const>::operator-=(
+  const difference_type& movement)
 {
   i -= movement;
   return *this;
 }
 
 template<typename subscriptable_t, bool is_const>
-AS_API subscript_iterator_type<subscriptable_t, is_const> subscript_iterator_type<
-  subscriptable_t, is_const>::operator+(const difference_type& movement)
+AS_API subscript_iterator_type<subscriptable_t, is_const>
+subscript_iterator_type<subscriptable_t, is_const>::operator+(
+  const difference_type& movement)
 {
   auto temp(*this);
   temp += movement;
@@ -82,8 +85,9 @@ AS_API subscript_iterator_type<subscriptable_t, is_const> subscript_iterator_typ
 }
 
 template<typename subscriptable_t, bool is_const>
-AS_API subscript_iterator_type<subscriptable_t, is_const> subscript_iterator_type<
-  subscriptable_t, is_const>::operator-(const difference_type& movement)
+AS_API subscript_iterator_type<subscriptable_t, is_const>
+subscript_iterator_type<subscriptable_t, is_const>::operator-(
+  const difference_type& movement)
 {
   auto temp(*this);
   temp -= movement;
@@ -91,9 +95,10 @@ AS_API subscript_iterator_type<subscriptable_t, is_const> subscript_iterator_typ
 }
 
 template<typename subscriptable_t, bool is_const>
-AS_API typename subscript_iterator_type<subscriptable_t, is_const>::difference_type
-subscript_iterator_type<subscriptable_t, is_const>::operator-(
-  const subscript_iterator_type& sub_it) const
+AS_API
+  typename subscript_iterator_type<subscriptable_t, is_const>::difference_type
+  subscript_iterator_type<subscriptable_t, is_const>::operator-(
+    const subscript_iterator_type& sub_it) const
 {
   return i - sub_it.i;
 }
