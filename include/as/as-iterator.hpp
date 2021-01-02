@@ -13,7 +13,8 @@ namespace as
 template<typename subscriptable_t, bool is_const>
 class subscript_iterator_type
 {
-  std::conditional_t<is_const, const subscriptable_t*, subscriptable_t*> subscriptable;
+  std::conditional_t<is_const, const subscriptable_t*, subscriptable_t*>
+    subscriptable;
   index i;
 
 public:
@@ -28,20 +29,22 @@ public:
     typename subscriptable_t::value_type*>;
 
   explicit subscript_iterator_type(
-    std::conditional_t<is_const, const subscriptable_t&,
-    subscriptable_t&> subscriptable_, index index_ = 0);
+    std::conditional_t<is_const, const subscriptable_t&, subscriptable_t&>
+      subscriptable_,
+    index index_ = 0);
   subscript_iterator_type(const subscript_iterator_type&) = default;
   subscript_iterator_type& operator=(const subscript_iterator_type&) = default;
 
   template<bool now_const, typename = std::enable_if_t<is_const && !now_const>>
-  subscript_iterator_type(const subscript_iterator_type<subscriptable_t, now_const>& rhs)
-      : subscriptable(rhs.subscriptable), i(rhs.i)
+  subscript_iterator_type(
+    const subscript_iterator_type<subscriptable_t, now_const>& rhs)
+    : subscriptable(rhs.subscriptable), i(rhs.i)
   {
   }
 
   template<bool now_const, typename = std::enable_if_t<is_const && !now_const>>
   subscript_iterator_type& operator=(
-      const subscript_iterator_type<subscriptable_t, now_const>& rhs)
+    const subscript_iterator_type<subscriptable_t, now_const>& rhs)
   {
     subscriptable = rhs.subscriptable;
     i = rhs.i;
@@ -77,7 +80,7 @@ public:
   }
 
   friend std::conditional_t<
-        !is_const, subscript_iterator_type<subscriptable_t, true>, void>;
+    !is_const, subscript_iterator_type<subscriptable_t, true>, void>;
 };
 
 template<typename subscriptable_t>

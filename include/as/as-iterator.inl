@@ -3,8 +3,10 @@ namespace as
 
 template<typename subscriptable_t, bool is_const>
 AS_API subscript_iterator_type<subscriptable_t, is_const>::
-  subscript_iterator_type(std::conditional_t<is_const, const subscriptable_t&,
-    subscriptable_t&> subscriptable_, index index_)
+  subscript_iterator_type(
+    std::conditional_t<is_const, const subscriptable_t&, subscriptable_t&>
+      subscriptable_,
+    index index_)
   : subscriptable(&subscriptable_), i(index_)
 {
 }
