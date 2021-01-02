@@ -20,10 +20,10 @@ struct mat<T, 3>
 
   //! Constructs a mat<T, 3> from individual elements of type `T`.
   // clang-format off
-    constexpr mat(
-        T x0, T y0, T z0,
-        T x1, T y1, T z1,
-        T x2, T y2, T z2);
+  constexpr mat(
+    T x0, T y0, T z0,
+    T x1, T y1, T z1,
+    T x2, T y2, T z2);
   // clang-format on
 
 #ifdef AS_ROW_MAJOR

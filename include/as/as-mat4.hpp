@@ -20,11 +20,11 @@ struct mat<T, 4>
 
   //! Constructs a mat<T, 4> from individual elements of type `T`.
   // clang-format off
-    constexpr mat(
-        T x0, T y0, T z0, T w0,
-        T x1, T y1, T z1, T w1,
-        T x2, T y2, T z2, T w2,
-        T x3, T y3, T z3, T w3);
+  constexpr mat(
+    T x0, T y0, T z0, T w0,
+    T x1, T y1, T z1, T w1,
+    T x2, T y2, T z2, T w2,
+    T x3, T y3, T z3, T w3);
   // clang-format on
 
   //! Constructs mat<T, 4> from a mat<T, 3> and vec<T, 3>.

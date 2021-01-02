@@ -34,15 +34,15 @@ AS_API constexpr mat<T, 4> mat<T, 4>::identity()
 // clang-format off
 template<typename T>
 AS_API constexpr mat<T, 4>::mat(
-    T x0, T y0, T z0, T w0,
-    T x1, T y1, T z1, T w1,
-    T x2, T y2, T z2, T w2,
-    T x3, T y3, T z3, T w3)
-    : elem_rc{
-        x0, y0, z0, w0,
-        x1, y1, z1, w1,
-        x2, y2, z2, w2,
-        x3, y3, z3, w3}
+  T x0, T y0, T z0, T w0,
+  T x1, T y1, T z1, T w1,
+  T x2, T y2, T z2, T w2,
+  T x3, T y3, T z3, T w3)
+  : elem_rc{
+    x0, y0, z0, w0,
+    x1, y1, z1, w1,
+    x2, y2, z2, w2,
+    x3, y3, z3, w3}
 {
 }
 // clang-format on
@@ -69,11 +69,11 @@ AS_API constexpr mat<T, 4>::mat(
 // clang-format off
 template<typename T>
 AS_API constexpr mat<T, 4>::mat(
-    const mat<T, 3>& m, const vec<T, 3>& pos)
-    : elem_rc{m[0],  m[1],  m[2],  T(0.0),
-    	        m[3],  m[4],  m[5],  T(0.0),
-              m[6],  m[7],  m[8],  T(0.0),
-	            pos.x, pos.y, pos.z, T(1.0)}
+  const mat<T, 3>& m, const vec<T, 3>& pos)
+  : elem_rc{m[0],  m[1],  m[2],  T(0.0),
+            m[3],  m[4],  m[5],  T(0.0),
+            m[6],  m[7],  m[8],  T(0.0),
+            pos.x, pos.y, pos.z, T(1.0)}
 {
 }
 // clang-format on

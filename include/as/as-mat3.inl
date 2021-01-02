@@ -4,13 +4,13 @@ namespace as
 // clang-format off
 template<typename T>
 AS_API constexpr mat<T, 3>::mat(
-    T x0, T y0, T z0,
-    T x1, T y1, T z1,
-    T x2, T y2, T z2)
-    : elem_rc{
-        x0, y0, z0,
-        x1, y1, z1,
-        x2, y2, z2}
+  T x0, T y0, T z0,
+  T x1, T y1, T z1,
+  T x2, T y2, T z2)
+  : elem_rc{
+    x0, y0, z0,
+    x1, y1, z1,
+    x2, y2, z2}
 {
 }
 // clang-format on
