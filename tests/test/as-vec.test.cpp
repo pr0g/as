@@ -2186,10 +2186,16 @@ TEST_CASE("vec_iterator_equality", "[as_vec]")
 
 TEST_CASE("vec_iterator_assignment", "[as_vec]")
 {
-  // does not compile
-  // vec<int, 7> v(1, 2, 3, 4, 5, 6, 7);
-  // as::subscript_iterator<vec<int, 7>> it(v);
-  // as::subscript_const_iterator<vec<int, 7>> const_it = it;
+  static_assert(std::is_copy_constructible_v<as::subscript_const_iterator<vec<int, 7>>>);
+  static_assert(std::is_trivially_copy_constructible_v<as::subscript_const_iterator<vec<int, 7>>>);
+
+  vec<int, 7> v(1, 2, 3, 4, 5, 6, 7);
+  as::subscript_iterator<vec<int, 7>> it(v);
+  as::subscript_const_iterator<vec<int, 7>> const_it(v);
+
+  const_it = it;
+
+  CHECK(const_it == it);
 }
 
 } // namespace unit_test
