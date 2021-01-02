@@ -2027,10 +2027,171 @@ TEST_CASE("vec_range_iteration_vec5", "[as_vec]")
 
 TEST_CASE("vec_algo_iterator", "[as_vec]")
 {
+  {
     vec4 expected(1.0_r, 2.0_r, 3.0_r, 4.0_r);
     vec4 vec(4.0_r, 3.0_r, 2.0_r, 1.0_r);
     std::reverse(begin(vec), end(vec));
     CHECK_THAT(expected, elements_are(vec));
+  }
+
+  {
+    vec4 expected(1.0_r, 2.0_r, 3.0_r, 4.0_r);
+    vec4 vec(2.0_r, 3.0_r, 1.0_r, 4.0_r);
+    std::sort(begin(vec), end(vec));
+    CHECK_THAT(expected, elements_are(vec));
+  }
+}
+
+TEST_CASE("vec_iterator_pre_increment", "[as_vec]")
+{
+  {
+    vec<int, 4> vec(4, 3, 2, 1);
+    auto first = begin(vec);
+    auto was = ++first;
+
+    CHECK(*was == 3);
+    CHECK(*first == 3);
+  }
+}
+
+TEST_CASE("vec_iterator_post_increment", "[as_vec]")
+{
+  {
+    vec<int, 4> vec(4, 3, 2, 1);
+    auto first = begin(vec);
+    auto was = first++;
+
+    CHECK(*was == 4);
+    CHECK(*first == 3);
+  }
+}
+
+TEST_CASE("vec_iterator_pre_decrement", "[as_vec]")
+{
+  {
+    vec<int, 4> vec(4, 3, 2, 1);
+    auto last = end(vec);
+    auto was = --last;
+
+    CHECK(*was == 1);
+    CHECK(*last == 1);
+  }
+}
+
+TEST_CASE("vec_iterator_post_decrement", "[as_vec]")
+{
+  {
+    vec<int, 4> vec(4, 3, 2, 1);
+    auto last = end(vec) - 1;
+    auto was = last--;
+
+    CHECK(*was == 1);
+    CHECK(*last == 2);
+  }
+}
+
+TEST_CASE("vec_iterator_addition", "[as_vec]")
+{
+  {
+    vec<int, 4> vec(4, 3, 2, 1);
+    auto elem_it = begin(vec);
+    elem_it += 2;
+
+    CHECK(*elem_it == 2);
+  }
+
+  {
+    vec<int, 7> vec(1, 2, 3, 4, 5, 6, 7);
+    auto elem_it = begin(vec) + 1;
+    auto next_it = elem_it + 4;
+
+    CHECK(*next_it == 6);
+  }
+}
+
+TEST_CASE("vec_iterator_substraction", "[as_vec]")
+{
+  {
+    vec<int, 4> vec(4, 3, 2, 1);
+    auto elem_it = end(vec);
+    elem_it -= 2;
+
+    CHECK(*elem_it == 2);
+
+    elem_it -= 1;
+
+    CHECK(*elem_it == 3);
+  }
+
+  {
+    vec<int, 7> vec(1, 2, 3, 4, 5, 6, 7);
+    auto elem_it = begin(vec) + 6;
+    auto next_it = elem_it - 2;
+
+    CHECK(*next_it == 5);
+  }
+}
+
+TEST_CASE("vec_iterator_difference", "[as_vec]")
+{
+  {
+    vec<int, 4> vec(4, 3, 2, 1);
+    auto far_it = begin(vec) + 3;
+    auto near_it = begin(vec) + 1;
+
+    auto diff = far_it - near_it;
+
+    CHECK(diff == 2);
+  }
+
+  {
+    vec<int, 7> vec(1, 2, 3, 4, 5, 6, 7);
+    auto far_it = begin(vec) + 5;
+    auto near_it = begin(vec) + 2;
+
+    auto diff = far_it - near_it;
+
+    CHECK(diff == 3);
+  }
+}
+
+TEST_CASE("vec_iterator_equality", "[as_vec]")
+{
+  {
+    vec<int, 4> vec(4, 3, 2, 1);
+    auto far_it = begin(vec) + 3;
+    auto near_it = begin(vec) + 1;
+
+    CHECK(far_it > near_it);
+
+    far_it -= 2;
+
+    CHECK(far_it >= near_it);
+    CHECK(far_it == near_it);
+    CHECK_FALSE(far_it > near_it);
+  }
+
+  {
+    vec<int, 7> vec(1, 2, 3, 4, 5, 6, 7);
+    auto far_it = begin(vec) + 5;
+    auto near_it = begin(vec) + 2;
+
+    CHECK(near_it < far_it);
+
+    near_it += 3;
+
+    CHECK(near_it <= far_it);
+    CHECK(near_it == far_it);
+    CHECK_FALSE(near_it < far_it);
+  }
+}
+
+TEST_CASE("vec_iterator_assignment", "[as_vec]")
+{
+  // does not compile
+  // vec<int, 7> v(1, 2, 3, 4, 5, 6, 7);
+  // as::subscript_iterator<vec<int, 7>> it(v);
+  // as::subscript_const_iterator<vec<int, 7>> const_it = it;
 }
 
 } // namespace unit_test
