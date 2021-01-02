@@ -2025,6 +2025,14 @@ TEST_CASE("vec_range_iteration_vec5", "[as_vec]")
   }
 }
 
+TEST_CASE("vec_algo_iterator", "[as_vec]")
+{
+    vec4 expected(1.0_r, 2.0_r, 3.0_r, 4.0_r);
+    vec4 vec(4.0_r, 3.0_r, 2.0_r, 1.0_r);
+    std::reverse(begin(vec), end(vec));
+    CHECK_THAT(expected, elements_are(vec));
+}
+
 } // namespace unit_test
 
 // explicit instantiations (for coverage)
