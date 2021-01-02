@@ -8,7 +8,7 @@
 namespace as
 {
 
-//! A quaternion used to store rotation/orientaton in (_w_, __v__) format.
+//! A quaternion used to store rotation/orientation in (_w_, __v__) format.
 struct quat
 {
   //! Type alias for ::real.
