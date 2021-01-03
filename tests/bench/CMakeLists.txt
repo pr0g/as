@@ -2,6 +2,25 @@ cmake_minimum_required(VERSION 3.15)
 
 project(as-bench VERSION 0.0.1 LANGUAGES CXX)
 
+if(NOT DEFINED DEV_LIB_DIR)
+    message(
+        FATAL_ERROR
+            " Please provide the path to the library in active development.\n"
+            " Example: cmake -DDEV_LIB_DIR=<path/to/library/in/development>")
+endif()
+
+include(FetchContent)
+
+FetchContent_Declare(
+    cmake-helpers
+    GIT_REPOSITORY https://github.com/pr0g/cmake-helpers.git
+    GIT_TAG        origin/main)
+FetchContent_MakeAvailable(cmake-helpers)
+list(APPEND CMAKE_MODULE_PATH ${cmake-helpers_SOURCE_DIR})
+
+include(auto-install)
+install_it(${DEV_LIB_DIR})
+
 find_package(as REQUIRED)
 find_package(Catch2 REQUIRED)
 
