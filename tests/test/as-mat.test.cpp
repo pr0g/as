@@ -1859,9 +1859,9 @@ template as::mat<as::real, 3>& as::operator*=(
 template as::mat<as::real, 4>& as::operator*=(
   as::mat<as::real, 4>&, as::real scalar);
 template bool as::operator==(
-  const as::mat<as::real, 4>& lhs, const as::mat<as::real, 4>& rhs);
+  const as::mat<int32_t, 4>& lhs, const as::mat<int32_t, 4>& rhs);
 template bool as::operator!=(
-  const as::mat<as::real, 4>& lhs, const as::mat<as::real, 4>& rhs);
+  const as::mat<int32_t, 4>& lhs, const as::mat<int32_t, 4>& rhs);
 
 template as::real* as::mat_data(as::mat<as::real, 5>&);
 template const as::real* as::mat_const_data(const as::mat<as::real, 5>&);
