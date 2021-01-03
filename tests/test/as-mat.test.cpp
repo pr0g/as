@@ -12,7 +12,9 @@ using as::affine;
 using as::index;
 using as::mat;
 using as::mat3;
+using as::mat3i;
 using as::mat4;
+using as::mat4i;
 using as::quat;
 using as::real;
 using as::vec;
@@ -1778,6 +1780,37 @@ TEST_CASE("mat_range_iteration_mat3", "[as_mat]")
   }
 }
 
+TEST_CASE("mat_equal", "[as_mat]")
+{
+  {
+    // clang-format off
+    mat4i m4i_lhs{1,  2,  3,  4,
+                  5,  6,  7,  8,
+                  9,  10, 11, 12,
+                  13, 14, 15, 16};
+    mat4i m4i_rhs{1,  2,  3,  4,
+                  5,  6,  7,  8,
+                  9,  10, 11, 12,
+                  13, 14, 15, 16};
+    // clang-format on
+
+    CHECK(m4i_lhs == m4i_rhs);
+  }
+
+  {
+    // clang-format off
+    mat3i m3i_lhs{1,  2,  4,
+                  5,  6,  7,
+                  9,  10, 1};
+    mat3i m3i_rhs{1,  2,  4,
+                  5,  6,  7,
+                  1,  10, 1};
+    // clang-format on
+
+    CHECK(m3i_lhs != m3i_rhs);
+  }
+}
+
 } // namespace unit_test
 
 // explicit instantiations (for coverage)
@@ -1825,6 +1858,10 @@ template as::mat<as::real, 3>& as::operator*=(
   as::mat<as::real, 3>&, as::real scalar);
 template as::mat<as::real, 4>& as::operator*=(
   as::mat<as::real, 4>&, as::real scalar);
+template bool as::operator==(
+  const as::mat<as::real, 4>& lhs, const as::mat<as::real, 4>& rhs);
+template bool as::operator!=(
+  const as::mat<as::real, 4>& lhs, const as::mat<as::real, 4>& rhs);
 
 template as::real* as::mat_data(as::mat<as::real, 5>&);
 template const as::real* as::mat_const_data(const as::mat<as::real, 5>&);

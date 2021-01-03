@@ -132,6 +132,27 @@ AS_API constexpr mat<T, d>& operator*=(mat<T, d>& m, const T scalar)
 }
 
 template<typename T, index d>
+AS_API constexpr bool operator==(const mat<T, d>& lhs, const mat<T, d>& rhs)
+{
+  return !(lhs != rhs);
+}
+
+template<typename T, index d>
+AS_API constexpr bool operator!=(const mat<T, d>& lhs, const mat<T, d>& rhs)
+{
+  for (index row = 0; row < d; ++row) {
+    for (index col = 0; col < d; ++col) {
+      const index lookup = row * d + col;
+      if (lhs[lookup] != rhs[lookup]) {
+          return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+template<typename T, index d>
 AS_API constexpr subscript_iterator<mat<T, d>> begin(mat<T, d>& m)
 {
   return subscript_iterator<mat<T, d>>(m, 0);

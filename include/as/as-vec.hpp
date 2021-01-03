@@ -439,6 +439,16 @@ constexpr vec<T, d>& operator/=(vec<T, d>& lhs, const vec<T, d>& rhs);
 template<>
 constexpr vec3& operator/=(vec3& lhs, const vec3& rhs);
 
+//! Returns if two vectors are identical (equal).
+//! \note For real values (float/double), ::vec_near should be preferred.
+template<typename T, index d>
+constexpr bool operator==(const vec<T, d>& lhs, const vec<T, d>& rhs);
+
+//! Returns if two vectors are different (not equal).
+//! \note For real values (float/double), ::vec_near should be preferred.
+template<typename T, index d>
+constexpr bool operator!=(const vec<T, d>& lhs, const vec<T, d>& rhs);
+
 //! Returns an iterator to the beginning of the vector.
 template<typename T, index d>
 constexpr subscript_iterator<vec<T, d>> begin(vec<T, d>& vec);

@@ -102,6 +102,16 @@ constexpr const mat<T, d> operator*(const mat<T, d>& m, T scalar);
 template<typename T, index d>
 constexpr mat<T, d>& operator*=(mat<T, d>& m, T scalar);
 
+//! Returns if two matrices are identical (equal).
+//! \note For real values (float/double), ::mat_near should be preferred.
+template<typename T, index d>
+constexpr bool operator==(const mat<T, d>& lhs, const mat<T, d>& rhs);
+
+//! Returns if two matrices are different (not equal).
+//! \note For real values (float/double), ::mat_near should be preferred.
+template<typename T, index d>
+constexpr bool operator!=(const mat<T, d>& lhs, const mat<T, d>& rhs);
+
 //! Returns an iterator to the beginning of the matrix.
 template<typename T, index d>
 constexpr subscript_iterator<mat<T, d>> begin(mat<T, d>& mat);

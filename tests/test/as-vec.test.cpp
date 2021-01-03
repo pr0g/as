@@ -16,7 +16,9 @@ using as::real;
 using as::vec;
 using as::vec2;
 using as::vec3;
+using as::vec3i;
 using as::vec4;
+using as::vec4i;
 
 // functions
 using as::radians;
@@ -2200,6 +2202,23 @@ TEST_CASE("vec_iterator_assignment", "[as_vec]")
   CHECK(const_it == it);
 }
 
+TEST_CASE("vec_equal", "[as_mat]")
+{
+  {
+    vec3i v3i_lhs{11,  22,  33};
+    vec3i v3i_rhs{11,  22,  33};
+
+    CHECK(v3i_lhs == v3i_rhs);
+  }
+
+  {
+    vec4i v4i_lhs{11,  22,  33, 44};
+    vec4i v4i_rhs{10,  22,  33, 44};
+
+    CHECK(v4i_lhs != v4i_rhs);
+  }
+}
+
 } // namespace unit_test
 
 // explicit instantiations (for coverage)
@@ -2231,6 +2250,10 @@ template const as::vec<as::real, 5> as::operator*(
 template const as::vec<as::real, 5> as::operator/(
   const as::vec<as::real, 5>&, as::real);
 template const as::vec<as::real, 5> as::operator/(
+  const as::vec<as::real, 5>&, const as::vec<as::real, 5>&);
+template bool as::operator==(
+  const as::vec<as::real, 5>&, const as::vec<as::real, 5>&);
+template bool as::operator!=(
   const as::vec<as::real, 5>&, const as::vec<as::real, 5>&);
 
 // functions

@@ -545,6 +545,24 @@ AS_API constexpr vec3& operator/=(vec3& lhs, const vec3& rhs)
 }
 
 template<typename T, index d>
+AS_API constexpr bool operator==(const vec<T, d>& lhs, const vec<T, d>& rhs)
+{
+  return !(lhs != rhs);
+}
+
+template<typename T, index d>
+AS_API constexpr bool operator!=(const vec<T, d>& lhs, const vec<T, d>& rhs)
+{
+  for (index i = 0; i < d; ++i) {
+    if (lhs[i] != rhs[i]) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+template<typename T, index d>
 AS_API constexpr subscript_iterator<vec<T, d>> begin(vec<T, d>& v)
 {
   return subscript_iterator<vec<T, d>>(v, 0);
