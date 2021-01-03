@@ -72,7 +72,7 @@ AS_API constexpr real degrees(const real radians)
 // floating p comparison by Bruce Dawson
 // ref:
 // https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
-AS_API inline bool almost_equal(
+AS_API inline bool real_near(
   const real a, const real b,
   const real max_diff /*= std::numeric_limits<real>::epsilon()*/,
   const real max_rel_diff /*= std::numeric_limits<real>::epsilon()*/)

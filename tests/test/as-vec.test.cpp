@@ -810,14 +810,14 @@ TEST_CASE("addition", "[as_vec]")
     v = vec5{10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r}
       + vec5{40.0_r, 30.0_r, 20.0_r, 10.0_r, 0.0_r};
 
-    CHECK(vec_equal(v, vec5(50.0_r, 50.0_r, 50.0_r, 50.0_r, 50.0_r)));
+    CHECK(vec_near(v, vec5(50.0_r, 50.0_r, 50.0_r, 50.0_r, 50.0_r)));
   }
 
   // vec operator '+='
   {
     vec5 v1(10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r);
     v1 += vec5(25.0_r, 15.0_r, 5.0_r, 10.0_r, 1.0_r);
-    CHECK(vec_equal(v1, vec5(35.0_r, 35.0_r, 35.0_r, 50.0_r, 51.0_r)));
+    CHECK(vec_near(v1, vec5(35.0_r, 35.0_r, 35.0_r, 50.0_r, 51.0_r)));
   }
 }
 
@@ -827,14 +827,14 @@ TEST_CASE("addition_vec3", "[as_vec]")
   {
     vec3 v;
     v = vec3{10.0_r, 20.0_r, 30.0_r} + vec3{20.0_r, 10.0_r, 0.0_r};
-    CHECK(vec_equal(v, vec3(30.0_r, 30.0_r, 30.0_r)));
+    CHECK(vec_near(v, vec3(30.0_r, 30.0_r, 30.0_r)));
   }
 
   // vec3 operator '+='
   {
     vec3 v(10.0_r, 20.0_r, 30.0_r);
     v += vec3(25.0_r, 15.0_r, 5.0_r);
-    CHECK(vec_equal(v, vec3(35.0_r, 35.0_r, 35.0_r)));
+    CHECK(vec_near(v, vec3(35.0_r, 35.0_r, 35.0_r)));
   }
 }
 
@@ -848,14 +848,14 @@ TEST_CASE("substraction", "[as_vec]")
     v = vec5{40.0_r, 30.0_r, 20.0_r, 10.0_r, 0.0_r}
       - vec5{10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r};
 
-    CHECK(vec_equal(v, vec5(30.0_r, 10.0_r, -10.0_r, -30.0_r, -50.0_r)));
+    CHECK(vec_near(v, vec5(30.0_r, 10.0_r, -10.0_r, -30.0_r, -50.0_r)));
   }
 
   // vec operator '-='
   {
     vec5 v(10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r);
     v -= vec5(25.0_r, 15.0_r, 5.0_r, 10.0_r, 1.0_r);
-    CHECK(vec_equal(v, vec5(-15.0_r, 5.0_r, 25.0_r, 30.0_r, 49.0_r)));
+    CHECK(vec_near(v, vec5(-15.0_r, 5.0_r, 25.0_r, 30.0_r, 49.0_r)));
   }
 }
 
@@ -865,14 +865,14 @@ TEST_CASE("substraction_vec3", "[as_vec]")
   {
     vec3 v;
     v = vec3{40.0_r, 30.0_r, 20.0_r} - vec3{10.0_r, 20.0_r, 30.0_r};
-    CHECK(vec_equal(v, vec3(30.0_r, 10.0_r, -10.0_r)));
+    CHECK(vec_near(v, vec3(30.0_r, 10.0_r, -10.0_r)));
   }
 
   // vec3 operator '-='
   {
     vec3 v(10.0_r, 20.0_r, 30.0_r);
     v -= vec3(25.0_r, 15.0_r, 5.0_r);
-    CHECK(vec_equal(v, vec3(-15.0_r, 5.0_r, 25.0_r)));
+    CHECK(vec_near(v, vec3(-15.0_r, 5.0_r, 25.0_r)));
   }
 }
 
@@ -882,14 +882,14 @@ TEST_CASE("negation", "[as_vec]")
 
   vec5 v = vec5{40.0_r, 30.0_r, 20.0_r, 10.0_r, 0.0_r};
   vec5 neg_vec = -v;
-  CHECK(vec_equal(neg_vec, vec5(-40.0_r, -30.0_r, -20.0_r, -10.0_r, -0.0_r)));
+  CHECK(vec_near(neg_vec, vec5(-40.0_r, -30.0_r, -20.0_r, -10.0_r, -0.0_r)));
 }
 
 TEST_CASE("negation_vec3", "[as_vec]")
 {
   vec3 v = vec3{20.0_r, 10.0_r, 0.0_r};
   vec3 neg_vec = -v;
-  CHECK(vec_equal(neg_vec, vec3(-20.0_r, -10.0_r, -0.0_r)));
+  CHECK(vec_near(neg_vec, vec3(-20.0_r, -10.0_r, -0.0_r)));
 }
 
 TEST_CASE("multiplication_scalar", "[as_vec]")
@@ -900,14 +900,14 @@ TEST_CASE("multiplication_scalar", "[as_vec]")
   {
     vec5 v;
     v = 5.0_r * vec5{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r};
-    CHECK(vec_equal(v, vec5(250.0_r, 200.0_r, 125.0_r, 100.0_r, 50.0_r)));
+    CHECK(vec_near(v, vec5(250.0_r, 200.0_r, 125.0_r, 100.0_r, 50.0_r)));
   }
 
   // vec operator '*='
   {
     vec5 v = vec5{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r};
     v *= 5.0_r;
-    CHECK(vec_equal(v, vec5(250.0_r, 200.0_r, 125.0_r, 100.0_r, 50.0_r)));
+    CHECK(vec_near(v, vec5(250.0_r, 200.0_r, 125.0_r, 100.0_r, 50.0_r)));
   }
 }
 
@@ -917,14 +917,14 @@ TEST_CASE("multiplication_scalar_vec3", "[as_vec]")
   {
     vec3 v;
     v = 5.0_r * vec3{50.0_r, 40.0_r, 25.0_r};
-    CHECK(vec_equal(v, vec3(250.0_r, 200.0_r, 125.0)));
+    CHECK(vec_near(v, vec3(250.0_r, 200.0_r, 125.0)));
   }
 
   // vec3 operator '*='
   {
     vec3 v = vec3{50.0_r, 40.0_r, 25.0_r};
     v *= 5.0_r;
-    CHECK(vec_equal(v, vec3(250.0_r, 200.0_r, 125.0)));
+    CHECK(vec_near(v, vec3(250.0_r, 200.0_r, 125.0)));
   }
 }
 
@@ -938,7 +938,7 @@ TEST_CASE("multiplication_vector", "[as_vec]")
     v = vec5{2.0_r, 3.0_r, 4.0_r, 5.0_r, 0.5_r}
       * vec5{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r};
 
-    CHECK(vec_equal(v, vec5(100.0_r, 120.0_r, 100.0_r, 100.0_r, 5.0_r)));
+    CHECK(vec_near(v, vec5(100.0_r, 120.0_r, 100.0_r, 100.0_r, 5.0_r)));
   }
 
   // vec operator '*='
@@ -946,7 +946,7 @@ TEST_CASE("multiplication_vector", "[as_vec]")
     vec5 v1 = vec5{2.0_r, 3.0_r, 4.0_r, 5.0_r, 0.5_r};
     vec5 v2 = vec5{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r};
     v1 *= v2;
-    CHECK(vec_equal(v1, vec5(100.0_r, 120.0_r, 100.0_r, 100.0_r, 5.0_r)));
+    CHECK(vec_near(v1, vec5(100.0_r, 120.0_r, 100.0_r, 100.0_r, 5.0_r)));
   }
 }
 
@@ -956,7 +956,7 @@ TEST_CASE("multiplication_vector_vec3", "[as_vec]")
   {
     vec3 v;
     v = vec3{0.5_r, 3.0_r, 4.0_r} * vec3{50.0_r, 40.0_r, 25.0_r};
-    CHECK(vec_equal(v, vec3(25.0_r, 120.0_r, 100.0_r)));
+    CHECK(vec_near(v, vec3(25.0_r, 120.0_r, 100.0_r)));
   }
 
   // vec operator '*='
@@ -964,7 +964,7 @@ TEST_CASE("multiplication_vector_vec3", "[as_vec]")
     vec3 v1 = vec3{0.5_r, 3.0_r, 4.0_r};
     vec3 v2 = vec3{50.0_r, 40.0_r, 25.0_r};
     v1 *= v2;
-    CHECK(vec_equal(v1, vec3(25.0_r, 120.0_r, 100.0_r)));
+    CHECK(vec_near(v1, vec3(25.0_r, 120.0_r, 100.0_r)));
   }
 }
 
@@ -976,14 +976,14 @@ TEST_CASE("divide_scalar", "[as_vec]")
   {
     vec5 v;
     v = vec5{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r} / 5.0_r;
-    CHECK(vec_equal(v, vec5(10.0_r, 8.0_r, 5.0_r, 4.0_r, 2.0_r)));
+    CHECK(vec_near(v, vec5(10.0_r, 8.0_r, 5.0_r, 4.0_r, 2.0_r)));
   }
 
   // vec operator '/='
   {
     vec5 v = vec5{50.0_r, 40.0_r, 25.0_r, 20.0_r, 10.0_r};
     v /= 5.0_r;
-    CHECK(vec_equal(v, vec5(10.0_r, 8.0_r, 5.0_r, 4.0_r, 2.0_r)));
+    CHECK(vec_near(v, vec5(10.0_r, 8.0_r, 5.0_r, 4.0_r, 2.0_r)));
   }
 }
 
@@ -993,14 +993,14 @@ TEST_CASE("divide_scalar_vec3", "[as_vec]")
   {
     vec3 v;
     v = vec3{50.0_r, 40.0_r, 25.0_r} / 5.0_r;
-    CHECK(vec_equal(v, vec3(10.0_r, 8.0_r, 5.0_r)));
+    CHECK(vec_near(v, vec3(10.0_r, 8.0_r, 5.0_r)));
   }
 
   // vec operator '/='
   {
     vec3 v = vec3{50.0_r, 40.0_r, 25.0_r};
     v /= 5.0_r;
-    CHECK(vec_equal(v, vec3(10.0_r, 8.0_r, 5.0_r)));
+    CHECK(vec_near(v, vec3(10.0_r, 8.0_r, 5.0_r)));
   }
 }
 
@@ -1014,7 +1014,7 @@ TEST_CASE("divide_vector", "[as_vec]")
     v = vec5{33.0_r, 48.0_r, 10.0_r, 120.0_r, 2.0_r}
       / vec5{3.0_r, 6.0_r, 2.0_r, 3.0_r, 0.5_r};
 
-    CHECK(vec_equal(v, vec5(11.0_r, 8.0_r, 5.0_r, 40.0_r, 4.0_r)));
+    CHECK(vec_near(v, vec5(11.0_r, 8.0_r, 5.0_r, 40.0_r, 4.0_r)));
   }
 
   // vec operator '/='
@@ -1022,7 +1022,7 @@ TEST_CASE("divide_vector", "[as_vec]")
     vec5 v1 = vec5{33.0_r, 48.0_r, 10.0_r, 120.0_r, 2.0_r};
     vec5 v2 = vec5{3.0_r, 6.0_r, 2.0_r, 3.0_r, 0.5_r};
     v1 /= v2;
-    CHECK(vec_equal(v1, vec5(11.0_r, 8.0_r, 5.0_r, 40.0_r, 4.0_r)));
+    CHECK(vec_near(v1, vec5(11.0_r, 8.0_r, 5.0_r, 40.0_r, 4.0_r)));
   }
 }
 
@@ -1032,7 +1032,7 @@ TEST_CASE("divide_vector_vec3", "[as_vec]")
   {
     vec3 v;
     v = vec3{33.0_r, 48.0_r, 10.0_r} / vec3{3.0_r, 6.0_r, 2.0_r};
-    CHECK(vec_equal(v, vec3(11.0_r, 8.0_r, 5.0_r)));
+    CHECK(vec_near(v, vec3(11.0_r, 8.0_r, 5.0_r)));
   }
 
   // vec operator '/='
@@ -1040,7 +1040,7 @@ TEST_CASE("divide_vector_vec3", "[as_vec]")
     vec3 v1 = vec3{33.0_r, 48.0_r, 10.0_r};
     vec3 v2 = vec3{3.0_r, 6.0_r, 2.0_r};
     v1 /= v2;
-    CHECK(vec_equal(v1, vec3(11.0_r, 8.0_r, 5.0_r)));
+    CHECK(vec_near(v1, vec3(11.0_r, 8.0_r, 5.0_r)));
   }
 }
 
@@ -1312,27 +1312,27 @@ TEST_CASE("right_and_up", "[as_vec]")
   }
 }
 
-TEST_CASE("equal", "[as_vec]")
+TEST_CASE("near", "[as_vec]")
 {
   {
     vec3 v1(1.11_r, 0.3_r, 517.2_r);
     vec3 v2(1.11_r, 0.3_r, 517.2_r);
 
-    CHECK(vec_equal(v1, v2));
+    CHECK(vec_near(v1, v2));
   }
 
   {
     vec3 v1(1.11_r, 0.3_r, 514.2_r);
     vec3 v2(1.114_r, 0.3_r, 517.2_r);
 
-    CHECK_FALSE(vec_equal(v1, v2));
+    CHECK_FALSE(vec_near(v1, v2));
   }
 
   {
     vec3 v1(1.11_r, 0.3_r, 514.2_r);
     vec3 v2(1.11_r, 0.311_r, 514.2_r);
 
-    CHECK_FALSE(vec_equal(v1, v2));
+    CHECK_FALSE(vec_near(v1, v2));
   }
 }
 
@@ -1344,7 +1344,7 @@ TEST_CASE("abs", "[as_vec]")
 
     vec4 vec_reference = {1.0_r, 2.0_r, 100.0_r, 7.0_r};
 
-    CHECK(vec_equal(vec_reference, result));
+    CHECK(vec_near(vec_reference, result));
   }
 
   {
@@ -1353,7 +1353,7 @@ TEST_CASE("abs", "[as_vec]")
 
     vec4 vec_reference = {1.0_r, 4.0_r, 6.0_r, 50.0_r};
 
-    CHECK(vec_equal(vec_reference, result));
+    CHECK(vec_near(vec_reference, result));
   }
 
   {
@@ -1364,7 +1364,7 @@ TEST_CASE("abs", "[as_vec]")
 
     vec5 vec_reference = {1.0_r, 2.0_r, 100.0_r, 7.0_r, 4.0_r};
 
-    CHECK(vec_equal(vec_reference, result));
+    CHECK(vec_near(vec_reference, result));
   }
 }
 
@@ -1378,7 +1378,7 @@ TEST_CASE("min_vec", "[as_vec]")
 
     vec4 result = vec_min(v1, v2);
 
-    CHECK(vec_equal(vec_reference, result));
+    CHECK(vec_near(vec_reference, result));
   }
 
   {
@@ -1389,7 +1389,7 @@ TEST_CASE("min_vec", "[as_vec]")
 
     vec4 result = vec_min(v1, v2);
 
-    CHECK(vec_equal(vec_reference, result));
+    CHECK(vec_near(vec_reference, result));
   }
 }
 
@@ -1420,7 +1420,7 @@ TEST_CASE("max_vec", "[as_vec]")
 
     vec4 result = vec_max(v1, v2);
 
-    CHECK(vec_equal(vec_reference, result));
+    CHECK(vec_near(vec_reference, result));
   }
 
   {
@@ -1431,7 +1431,7 @@ TEST_CASE("max_vec", "[as_vec]")
 
     vec4 result = vec_max(v1, v2);
 
-    CHECK(vec_equal(vec_reference, result));
+    CHECK(vec_near(vec_reference, result));
   }
 }
 
@@ -1462,7 +1462,7 @@ TEST_CASE("clamp", "[as_vec]")
 
     vec3 result = vec_clamp(v, min_val, max_val);
 
-    CHECK(vec_equal(result, min_val));
+    CHECK(vec_near(result, min_val));
   }
 
   {
@@ -1473,7 +1473,7 @@ TEST_CASE("clamp", "[as_vec]")
 
     vec3 result = vec_clamp(v, min_val, max_val);
 
-    CHECK(vec_equal(result, max_val));
+    CHECK(vec_near(result, max_val));
   }
 
   {
@@ -1485,7 +1485,7 @@ TEST_CASE("clamp", "[as_vec]")
 
     vec3 result = vec_clamp(v, min_val, max_val);
 
-    CHECK(vec_equal(result, vec_reference));
+    CHECK(vec_near(result, vec_reference));
   }
 
   {
@@ -1496,7 +1496,7 @@ TEST_CASE("clamp", "[as_vec]")
 
     vec3 result = vec_clamp(v, min_val, max_val);
 
-    CHECK(vec_equal(result, v));
+    CHECK(vec_near(result, v));
   }
 }
 
@@ -1508,7 +1508,7 @@ TEST_CASE("saturate", "[as_vec]")
 
     vec3 vec_reference(0.0_r, 0.5_r, 1.0_r);
 
-    CHECK(vec_equal(result, vec_reference));
+    CHECK(vec_near(result, vec_reference));
   }
 
   {
@@ -1517,7 +1517,7 @@ TEST_CASE("saturate", "[as_vec]")
 
     vec3 vec_reference(1.0_r, 0.1_r, 0.0_r);
 
-    CHECK(vec_equal(result, vec_reference));
+    CHECK(vec_near(result, vec_reference));
   }
 }
 

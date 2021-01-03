@@ -93,12 +93,13 @@ AS_API std::tuple<vec<T, d>, T> vec_normalize_and_length(const vec<T, d>& v)
 }
 
 template<typename T, index d>
-AS_API bool vec_equal(
+AS_API bool vec_near(
   const vec<T, d>& lhs, const vec<T, d>& rhs,
-  real epsilon /*= std::numeric_limits<real>::epsilon()*/)
+  const real max_diff /*= std::numeric_limits<real>::epsilon()*/,
+  const real max_rel_diff /*= std::numeric_limits<real>::epsilon()*/)
 {
   for (index i = 0; i < d; ++i) {
-    if (!almost_equal(lhs[i], rhs[i], epsilon, epsilon)) {
+    if (!real_near(lhs[i], rhs[i], max_diff, max_rel_diff)) {
       return false;
     }
   }
@@ -517,12 +518,13 @@ AS_API void mat_to_arr(const mat<T, d>& m, T (&data)[d * d])
 }
 
 template<typename T, index d>
-AS_API bool mat_equal(
+AS_API bool mat_near(
   const mat<T, d>& lhs, const mat<T, d>& rhs,
-  const real epsilon /* = std::numeric_limits<real>::epsilon() */)
+  const real max_diff /*= std::numeric_limits<real>::epsilon()*/,
+  const real max_rel_diff /*= std::numeric_limits<real>::epsilon()*/)
 {
   for (index i = 0; i < mat<T, d>::size(); ++i) {
-    if (!almost_equal(lhs[i], rhs[i], epsilon, epsilon)) {
+    if (!real_near(lhs[i], rhs[i], max_diff, max_rel_diff)) {
       return false;
     }
   }

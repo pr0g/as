@@ -81,10 +81,14 @@ std::tuple<vec<T, d>, T> vec_normalize_and_length(const vec<T, d>& v);
 
 //! Returns if two vectors are the same as each other (within a certain
 //! tolerance).
+//! \param max_diff The epsilon value to use for values very close to zero.
+//! \param max_rel_diff The epsilon value to use for all other values.
+//! `max_rel_diff` will be scaled by the largest of the two values.
 template<typename T, index d>
-bool vec_equal(
+bool vec_near(
   const vec<T, d>& lhs, const vec<T, d>& rhs,
-  real epsilon = std::numeric_limits<real>::epsilon());
+  real max_diff = std::numeric_limits<real>::epsilon(),
+  real max_rel_diff = std::numeric_limits<real>::epsilon());
 
 //! Performs a `min` on each element of the two vectors, returning the
 //! smallest value at each element.
@@ -347,10 +351,14 @@ void mat_to_arr(const mat<T, d>& m, T (&data)[d * d]);
 
 //! Returns if two matrices are the same as each other (within a certain
 //! tolerance).
+//! \param max_diff The epsilon value to use for values very close to zero.
+//! \param max_rel_diff The epsilon value to use for all other values.
+//! `max_rel_diff` will be scaled by the largest of the two values.
 template<typename T, index d>
-bool mat_equal(
+bool mat_near(
   const mat<T, d>& lhs, const mat<T, d>& rhs,
-  real epsilon = std::numeric_limits<real>::epsilon());
+  real max_diff = std::numeric_limits<real>::epsilon(),
+  real max_rel_diff = std::numeric_limits<real>::epsilon());
 
 //! Returns the transpose of the matrix.
 //! \note Rows and columns are swapped.

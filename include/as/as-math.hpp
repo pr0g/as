@@ -100,7 +100,7 @@ constexpr real degrees(real radians);
 //! \param max_diff The epsilon value to use for values very close to zero.
 //! \param max_rel_diff The epsilon value to use for all other values.
 //! `max_rel_diff` will be scaled by the largest of the two values.
-bool almost_equal(
+bool real_near(
   real a, real b, real max_diff = std::numeric_limits<real>::epsilon(),
   real max_rel_diff = std::numeric_limits<real>::epsilon());
 

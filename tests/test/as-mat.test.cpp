@@ -745,10 +745,10 @@ TEST_CASE("multiply_mul", "[as_mat]")
   as::mat_to_arr(result, result_arr);
 
   CHECK_THAT(make_span(result_arr), elements_are_span(result_mul));
-  CHECK(as::mat_equal(result_mul, result));
+  CHECK(as::mat_near(result_mul, result));
 }
 
-TEST_CASE("equal_mat", "[as_mat]")
+TEST_CASE("near_mat", "[as_mat]")
 {
   // clang-format off
   const mat4 mat_a = as::mat4{
@@ -761,10 +761,10 @@ TEST_CASE("equal_mat", "[as_mat]")
 
   const mat4 mat_a_again = mat_a;
 
-  CHECK(as::mat_equal(mat_a, mat_a_again));
+  CHECK(as::mat_near(mat_a, mat_a_again));
 }
 
-TEST_CASE("not_equal_mat", "[as_mat]")
+TEST_CASE("not_near_mat", "[as_mat]")
 {
   // clang-format off
   const mat4 mat_a = as::mat4{
@@ -782,7 +782,7 @@ TEST_CASE("not_equal_mat", "[as_mat]")
   };
   // clang-format on
 
-  CHECK(!as::mat_equal(mat_a, mat_b));
+  CHECK(!as::mat_near(mat_a, mat_b));
 }
 
 TEST_CASE("multiply_vector", "[as_mat]")

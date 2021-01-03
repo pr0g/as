@@ -28,8 +28,8 @@ TEST_CASE("affine_constructor_position_rotation", "[as_affine]")
   vec3 translation = vec3(0.0_r, 2.0_r, 2.0_r);
   a = affine(rotation, translation);
 
-  CHECK(vec_equal(translation, a.translation));
-  CHECK(as::mat_equal(rotation, a.rotation));
+  CHECK(vec_near(translation, a.translation));
+  CHECK(as::mat_near(rotation, a.rotation));
 }
 
 TEST_CASE("affine_constructor_position", "[as_affine]")
@@ -38,7 +38,7 @@ TEST_CASE("affine_constructor_position", "[as_affine]")
   a = affine(vec3(1.0_r, 2.0_r, 3.0_r));
 
   CHECK_THAT(arr(1.0_r, 2.0_r, 3.0_r), elements_are_array(a.translation));
-  CHECK(as::mat_equal(mat3::identity(), a.rotation));
+  CHECK(as::mat_near(mat3::identity(), a.rotation));
 }
 
 TEST_CASE("affine_transform_dir", "[as_affine]")
@@ -158,7 +158,7 @@ TEST_CASE("affine_from_mat3", "[as_affine]")
   affine a;
   a = as::affine_from_mat3(m3);
 
-  CHECK(as::mat_equal(m3, a.rotation));
+  CHECK(as::mat_near(m3, a.rotation));
   CHECK_THAT(arr(0.0_r, 0.0_r, 0.0_r), elements_are_array(a.translation));
 }
 
@@ -173,7 +173,7 @@ TEST_CASE("affine_from_mat3_vec3", "[as_affine]")
   affine a;
   a = as::affine_from_mat3_vec3(m3, v3);
 
-  CHECK(as::mat_equal(m3, a.rotation));
+  CHECK(as::mat_near(m3, a.rotation));
   CHECK_THAT(arr(99.0_r, 98.0_r, 97.0_r), elements_are_array(a.translation));
 }
 
@@ -186,7 +186,7 @@ TEST_CASE("affine_from_vec3", "[as_affine]")
   affine a;
   a = as::affine_from_vec3(v3);
 
-  CHECK(as::mat_equal(mat3::identity(), a.rotation));
+  CHECK(as::mat_near(mat3::identity(), a.rotation));
   CHECK_THAT(arr(99.0_r, 98.0_r, 97.0_r), elements_are_array(a.translation));
 }
 
