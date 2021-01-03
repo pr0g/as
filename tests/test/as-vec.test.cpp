@@ -2252,9 +2252,9 @@ template const as::vec<as::real, 5> as::operator/(
 template const as::vec<as::real, 5> as::operator/(
   const as::vec<as::real, 5>&, const as::vec<as::real, 5>&);
 template bool as::operator==(
-  const as::vec<as::real, 5>&, const as::vec<as::real, 5>&);
+  const as::vec<int32_t, 5>&, const as::vec<int32_t, 5>&);
 template bool as::operator!=(
-  const as::vec<as::real, 5>&, const as::vec<as::real, 5>&);
+  const as::vec<int32_t, 5>&, const as::vec<int32_t, 5>&);
 
 // functions
 template void as::vec_to_arr(
