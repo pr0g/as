@@ -144,7 +144,7 @@ AS_API constexpr bool operator!=(const mat<T, d>& lhs, const mat<T, d>& rhs)
     for (index col = 0; col < d; ++col) {
       const index lookup = row * d + col;
       if (lhs[lookup] != rhs[lookup]) {
-          return true;
+        return true;
       }
     }
   }
