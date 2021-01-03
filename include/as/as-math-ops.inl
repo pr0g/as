@@ -1410,14 +1410,14 @@ AS_API inline affine affine_from_ptr(const real* data)
 {
   affine result;
 
-  constexpr auto mat_size = result.rotation.size();
-  for (index i = 0; i < mat_size; ++i) {
+  constexpr auto mat3_size = result.rotation.size();
+  for (index i = 0; i < mat3_size; ++i) {
     result.rotation[i] = data[i];
   }
 
-  constexpr auto vec_size = result.translation.size();
-  for (index i = 0; i < vec_size; ++i) {
-    result.translation[i] = data[mat_size + i];
+  constexpr auto vec3_size = result.translation.size();
+  for (index i = 0; i < vec3_size; ++i) {
+    result.translation[i] = data[mat3_size + i];
   }
 
   return result;
