@@ -67,10 +67,7 @@ public:
   bool operator<=(const subscript_iterator_type& sub_it) const;
   bool operator>=(const subscript_iterator_type& sub_it) const;
 
-  const reference operator*() const
-  {
-    return (*subscriptable)[i];
-  }
+  const reference operator*() const { return (*subscriptable)[i]; }
 
   template<bool now_const = is_const>
   std::enable_if_t<!now_const, reference> operator*()
