@@ -1,6 +1,5 @@
 build/
-as-build/
-as-docs/
 install/
+as-docs/
 .idea/
 .vscode/
