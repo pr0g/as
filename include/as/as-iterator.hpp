@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <iterator>
 #include <type_traits>
 
 #include "as-types.hpp"
