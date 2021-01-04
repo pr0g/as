@@ -20,6 +20,10 @@ using as::operator""_r;
 // use float epsilon for comparisons
 const real g_epsilon = 1e-6_r;
 
+static_assert(std::is_trivial_v<quat>);
+static_assert(std::is_standard_layout_v<quat>);
+static_assert(std::is_pod_v<quat>);
+
 TEST_CASE("quat_identity", "[as_quat]")
 {
   {

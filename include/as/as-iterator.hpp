@@ -29,6 +29,7 @@ public:
     is_const, const typename subscriptable_t::value_type*,
     typename subscriptable_t::value_type*>;
 
+  subscript_iterator_type() = default;
   explicit subscript_iterator_type(
     std::conditional_t<is_const, const subscriptable_t&, subscriptable_t&>
       subscriptable_,

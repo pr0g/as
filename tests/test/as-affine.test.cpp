@@ -21,6 +21,10 @@ using as::operator""_r;
 // use float epsilon for comparisons
 const real g_epsilon = real(std::numeric_limits<float>::epsilon());
 
+static_assert(std::is_trivial_v<affine>);
+static_assert(std::is_standard_layout_v<affine>);
+static_assert(std::is_pod_v<affine>);
+
 TEST_CASE("affine_constructor_position_rotation", "[as_affine]")
 {
   affine a;

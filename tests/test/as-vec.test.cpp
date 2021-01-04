@@ -27,6 +27,30 @@ using as::operator""_r;
 // use float epsilon for comparisons
 const real g_epsilon = real(std::numeric_limits<float>::epsilon());
 
+static_assert(std::is_trivial_v<vec2>);
+static_assert(std::is_standard_layout_v<vec2>);
+static_assert(std::is_pod_v<vec2>);
+
+static_assert(std::is_trivial_v<vec3>);
+static_assert(std::is_standard_layout_v<vec3>);
+static_assert(std::is_pod_v<vec3>);
+
+static_assert(std::is_trivial_v<vec4>);
+static_assert(std::is_standard_layout_v<vec4>);
+static_assert(std::is_pod_v<vec4>);
+
+static_assert(std::is_trivial_v<vec<int, 5>>);
+static_assert(std::is_standard_layout_v<vec<int, 5>>);
+static_assert(std::is_pod_v<vec<int, 5>>);
+
+static_assert(std::is_trivial_v<as::subscript_iterator<vec2>>);
+static_assert(std::is_standard_layout_v<as::subscript_iterator<vec2>>);
+static_assert(std::is_pod_v<as::subscript_iterator<vec2>>);
+
+static_assert(std::is_trivial_v<as::subscript_const_iterator<vec2>>);
+static_assert(std::is_standard_layout_v<as::subscript_const_iterator<vec2>>);
+static_assert(std::is_pod_v<as::subscript_const_iterator<vec2>>);
+
 TEST_CASE("vec2_initialization", "[as_vec]")
 {
   // default initialization

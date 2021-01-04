@@ -27,6 +27,18 @@ using as::operator""_r;
 
 const real g_epsilon = real(std::numeric_limits<float>::epsilon());
 
+static_assert(std::is_trivial_v<mat3>);
+static_assert(std::is_standard_layout_v<mat3>);
+static_assert(std::is_pod_v<mat3>);
+
+static_assert(std::is_trivial_v<mat4>);
+static_assert(std::is_standard_layout_v<mat4>);
+static_assert(std::is_pod_v<mat4>);
+
+static_assert(std::is_trivial_v<mat<int, 5>>);
+static_assert(std::is_standard_layout_v<mat<int, 5>>);
+static_assert(std::is_pod_v<mat<int, 5>>);
+
 TEST_CASE("mat_row_col_access_mat3", "[as_mat]")
 {
   using gsl::make_span;
