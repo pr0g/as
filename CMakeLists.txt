@@ -5,23 +5,21 @@ project(
     VERSION 1.0.0
     LANGUAGES CXX)
 
+include(FetchContent)
+
+FetchContent_Declare(
+    cmake-helpers
+    GIT_REPOSITORY https://github.com/pr0g/cmake-helpers.git
+    GIT_TAG        origin/main)
+
+FetchContent_MakeAvailable(cmake-helpers)
+list(APPEND CMAKE_MODULE_PATH ${cmake-helpers_SOURCE_DIR})
+
 add_library(${PROJECT_NAME} INTERFACE)
-
-include(GNUInstallDirs)
-
 target_include_directories(
     ${PROJECT_NAME}
-    INTERFACE $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-              $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
-
+    INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
 
-install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}-config)
-
-install(
-    EXPORT ${PROJECT_NAME}-config
-    NAMESPACE ${PROJECT_NAME}::
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
-
-install(DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/include/${PROJECT_NAME}/
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME})
+include(thh-install)
+thh_install_header_only_no_dependencies(${PROJECT_NAME})
