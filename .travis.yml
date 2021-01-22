@@ -78,7 +78,7 @@ before_script:
 - tools/install-gsl.sh
 - tools/install-as.sh
 - cd tests/test
-- 'cmake -S . -B build -DDEV_LIB_DIR=../ -DCATCH_CONFIG_DISABLE_EXCEPTIONS=1 -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
+- 'cmake -S . -B build -DCATCH_CONFIG_DISABLE_EXCEPTIONS=1 -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
   -DCMAKE_PREFIX_PATH=$(pwd)/build/as_install/\;$(pwd)/build/catch2_install/\;$(pwd)/build/gsl_install/
   ${PRECISION} ${ORDER} ${COVERAGE}
 

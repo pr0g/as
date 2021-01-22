@@ -34,6 +34,6 @@ build_script:
 - cmake -S . -B build -G "%GENERATOR%" -A "%ARCH%" -DCMAKE_INSTALL_PREFIX=./tests/test/build/as_install/
 - cmake --build build --target install --config "%CONFIG%"
 - cd tests/test
-- cmake -S . -B build -G "%GENERATOR%" -A "%ARCH%" "%PRECISION%" "%ORDER%" -DDEV_LIB_DIR=../ -DCMAKE_PREFIX_PATH=%cd%\build\catch2_install;%cd%\build\gsl_install;%cd%\build\as_install
+- cmake -S . -B build -G "%GENERATOR%" -A "%ARCH%" "%PRECISION%" "%ORDER%" -DCMAKE_PREFIX_PATH=%cd%\build\catch2_install;%cd%\build\gsl_install;%cd%\build\as_install
 - cmake --build build --config "%CONFIG%"
 - "build\\\"%CONFIG%\"\\as-test.exe"
