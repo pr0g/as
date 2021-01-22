@@ -5,32 +5,18 @@ project(
     VERSION 0.0.1
     LANGUAGES CXX)
 
-if(NOT DEFINED DEV_LIB_DIR)
-    message(
-        FATAL_ERROR
-            " Please provide the path to the library in active development.\n"
-            " Example: cmake -DDEV_LIB_DIR=<path/to/library/in/development>")
-endif()
-
 include(FetchContent)
 
 FetchContent_Declare(
-    cmake-helpers
-    GIT_REPOSITORY https://github.com/pr0g/cmake-helpers.git
-    GIT_TAG origin/main)
-FetchContent_MakeAvailable(cmake-helpers)
-list(APPEND CMAKE_MODULE_PATH ${cmake-helpers_SOURCE_DIR})
+    as
+    SOURCE_DIR ../../../)
+FetchContent_MakeAvailable(as)
 
-include(auto-install)
-install_it(${DEV_LIB_DIR})
-
-find_package(as REQUIRED)
-find_package(Catch2 REQUIRED)
+find_package(Catch2 CONFIG REQUIRED)
 find_package(Microsoft.GSL CONFIG REQUIRED)
 
 add_executable(
     ${PROJECT_NAME}
-    main.cpp
     as-affine.test.cpp
     as-mat.test.cpp
     as-quat.test.cpp
@@ -70,7 +56,8 @@ string(
                 "$<CXX_COMPILER_ID:AppleClang>"
             ">"
         ">:"
-        "-Weverything;-Wno-c++98-compat;-Wno-;-Wno-global-constructors;-Wno-"
+        "-Weverything;-Wno-c++98-compat;-Wno-;-Wno-global-constructors;-Wno-;"
+        "-Wno-c++98-compat-pedantic;-Wno-"
     ">"
     "$<"
         "$<AND:"
@@ -97,7 +84,7 @@ target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE "${compile_options}")
 target_link_options(${CMAKE_PROJECT_NAME} PRIVATE "${link_options}")
 set_target_properties(
     ${PROJECT_NAME} PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED YES
-                               CXX_EXTENSIONS NO NO_SYSTEM_FROM_IMPORTED true)
+                               CXX_EXTENSIONS NO NO_SYSTEM_FROM_IMPORTED false)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 target_compile_definitions(
     ${PROJECT_NAME}
@@ -106,7 +93,8 @@ target_compile_definitions(
             $<$<BOOL:${AS_COL_MAJOR}>:AS_COL_MAJOR>
             $<$<BOOL:${AS_ROW_MAJOR}>:AS_ROW_MAJOR>
             $<$<BOOL:${AS_COVERAGE}>:AS_COVERAGE>)
-target_link_libraries(${PROJECT_NAME} as::as Catch2::Catch2 Microsoft.GSL::GSL)
+target_link_libraries(
+    ${PROJECT_NAME} as Catch2::Catch2WithMain Microsoft.GSL::GSL)
 
 include(CTest)
 include(Catch)

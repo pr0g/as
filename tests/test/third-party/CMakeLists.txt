@@ -28,7 +28,7 @@ ExternalProject_Add(
 ExternalProject_Add(
     Catch2
     GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-    GIT_TAG        origin/v2.x
+    GIT_TAG        origin/devel
     GIT_SHALLOW    1
     BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/Catch2/build/${build_type_dir}
     INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}

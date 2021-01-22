@@ -1,5 +1,5 @@
 #include "catch-matchers.hpp"
-#include "catch2/catch.hpp"
+#include "catch2/catch_all.hpp"
 
 #include "as/as-math-ops.hpp"
 
@@ -29,19 +29,19 @@ TEST_CASE("quat_identity", "[as_quat]")
   {
     quat q;
     q = quat::identity();
-    CHECK(q.x == Approx(0.0_r).epsilon(g_epsilon));
-    CHECK(q.y == Approx(0.0_r).epsilon(g_epsilon));
-    CHECK(q.z == Approx(0.0_r).epsilon(g_epsilon));
-    CHECK(q.w == Approx(1.0_r).epsilon(g_epsilon));
+    CHECK(q.x == Catch::Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(q.y == Catch::Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(q.z == Catch::Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(q.w == Catch::Approx(1.0_r).epsilon(g_epsilon));
   }
 
   {
     quat q;
     q = quat(1.0_r, vec3::zero());
-    CHECK(q.x == Approx(0.0_r).epsilon(g_epsilon));
-    CHECK(q.y == Approx(0.0_r).epsilon(g_epsilon));
-    CHECK(q.z == Approx(0.0_r).epsilon(g_epsilon));
-    CHECK(q.w == Approx(1.0_r).epsilon(g_epsilon));
+    CHECK(q.x == Catch::Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(q.y == Catch::Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(q.z == Catch::Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(q.w == Catch::Approx(1.0_r).epsilon(g_epsilon));
   }
 }
 
@@ -52,10 +52,10 @@ TEST_CASE("quat_addition", "[as_quat]")
 
   const quat result = quat_a + quat_b;
 
-  CHECK(result.w == Approx(2.0_r).epsilon(g_epsilon));
-  CHECK(result.x == Approx(0.3_r).epsilon(g_epsilon));
-  CHECK(result.y == Approx(0.6_r).epsilon(g_epsilon));
-  CHECK(result.z == Approx(0.9_r).epsilon(g_epsilon));
+  CHECK(result.w == Catch::Approx(2.0_r).epsilon(g_epsilon));
+  CHECK(result.x == Catch::Approx(0.3_r).epsilon(g_epsilon));
+  CHECK(result.y == Catch::Approx(0.6_r).epsilon(g_epsilon));
+  CHECK(result.z == Catch::Approx(0.9_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("quat_subtraction", "[as_quat]")
@@ -65,10 +65,10 @@ TEST_CASE("quat_subtraction", "[as_quat]")
 
   const quat result = quat_a - quat_b;
 
-  CHECK(result.w == Approx(0.0_r).epsilon(g_epsilon));
-  CHECK(result.x == Approx(0.2_r).epsilon(g_epsilon));
-  CHECK(result.y == Approx(0.2_r).epsilon(g_epsilon));
-  CHECK(result.z == Approx(0.2_r).epsilon(g_epsilon));
+  CHECK(result.w == Catch::Approx(0.0_r).epsilon(g_epsilon));
+  CHECK(result.x == Catch::Approx(0.2_r).epsilon(g_epsilon));
+  CHECK(result.y == Catch::Approx(0.2_r).epsilon(g_epsilon));
+  CHECK(result.z == Catch::Approx(0.2_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("quat_negation", "[as_quat]")
@@ -77,10 +77,10 @@ TEST_CASE("quat_negation", "[as_quat]")
 
   const quat result = -quat_a;
 
-  CHECK(result.w == Approx(-1.0_r).epsilon(g_epsilon));
-  CHECK(result.x == Approx(-0.4_r).epsilon(g_epsilon));
-  CHECK(result.y == Approx(-0.6_r).epsilon(g_epsilon));
-  CHECK(result.z == Approx(-0.8_r).epsilon(g_epsilon));
+  CHECK(result.w == Catch::Approx(-1.0_r).epsilon(g_epsilon));
+  CHECK(result.x == Catch::Approx(-0.4_r).epsilon(g_epsilon));
+  CHECK(result.y == Catch::Approx(-0.6_r).epsilon(g_epsilon));
+  CHECK(result.z == Catch::Approx(-0.8_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("quat_multiplication", "[as_quat]")
@@ -91,20 +91,20 @@ TEST_CASE("quat_multiplication", "[as_quat]")
   {
     const quat result = quat_a * quat_b;
 
-    CHECK(result.w == Approx(0.0_r).margin(g_epsilon));
-    CHECK(result.x == Approx(0.0_r).margin(g_epsilon));
-    CHECK(result.y == Approx(0.70711_r).margin(g_epsilon));
-    CHECK(result.z == Approx(0.70711_r).margin(g_epsilon));
+    CHECK(result.w == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.x == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.y == Catch::Approx(0.70711_r).margin(g_epsilon));
+    CHECK(result.z == Catch::Approx(0.70711_r).margin(g_epsilon));
   }
 
   {
     quat quat_mut = quat_a;
     quat_mut *= quat_b;
 
-    CHECK(quat_mut.w == Approx(0.0_r).margin(g_epsilon));
-    CHECK(quat_mut.x == Approx(0.0_r).margin(g_epsilon));
-    CHECK(quat_mut.y == Approx(0.70711_r).margin(g_epsilon));
-    CHECK(quat_mut.z == Approx(0.70711_r).margin(g_epsilon));
+    CHECK(quat_mut.w == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(quat_mut.x == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(quat_mut.y == Catch::Approx(0.70711_r).margin(g_epsilon));
+    CHECK(quat_mut.z == Catch::Approx(0.70711_r).margin(g_epsilon));
   }
 }
 
@@ -113,10 +113,10 @@ TEST_CASE("quat_conjugate", "[as_quat]")
   const quat q = quat{7.0_r, 4.0_r, 5.0_r, 9.0_r};
   const quat result = quat_conjugate(q);
 
-  CHECK(result.w == Approx(7.0_r).epsilon(g_epsilon));
-  CHECK(result.x == Approx(-4.0_r).epsilon(g_epsilon));
-  CHECK(result.y == Approx(-5.0_r).epsilon(g_epsilon));
-  CHECK(result.z == Approx(-9.0_r).epsilon(g_epsilon));
+  CHECK(result.w == Catch::Approx(7.0_r).epsilon(g_epsilon));
+  CHECK(result.x == Catch::Approx(-4.0_r).epsilon(g_epsilon));
+  CHECK(result.y == Catch::Approx(-5.0_r).epsilon(g_epsilon));
+  CHECK(result.z == Catch::Approx(-9.0_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("quat_length", "[as_quat]")
@@ -124,7 +124,7 @@ TEST_CASE("quat_length", "[as_quat]")
   const quat q = quat{1.0_r, 2.0_r, 3.0_r, 4.0_r};
   const real result = quat_length(q);
 
-  CHECK(result == Approx(5.47722558_r).epsilon(g_epsilon));
+  CHECK(result == Catch::Approx(5.47722558_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("quat_normalize", "[as_quat]")
@@ -132,10 +132,10 @@ TEST_CASE("quat_normalize", "[as_quat]")
   const quat q = quat{2.0_r, 3.0_r, 4.0_r, 5.0_r};
   const quat result = quat_normalize(q);
 
-  CHECK(result.w == Approx(0.2721655269759087_r).epsilon(g_epsilon));
-  CHECK(result.x == Approx(0.4082482904638630_r).epsilon(g_epsilon));
-  CHECK(result.y == Approx(0.5443310539518173_r).epsilon(g_epsilon));
-  CHECK(result.z == Approx(0.6804138174397717_r).epsilon(g_epsilon));
+  CHECK(result.w == Catch::Approx(0.2721655269759087_r).epsilon(g_epsilon));
+  CHECK(result.x == Catch::Approx(0.4082482904638630_r).epsilon(g_epsilon));
+  CHECK(result.y == Catch::Approx(0.5443310539518173_r).epsilon(g_epsilon));
+  CHECK(result.z == Catch::Approx(0.6804138174397717_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("quat_scale", "[as_quat]")
@@ -143,10 +143,10 @@ TEST_CASE("quat_scale", "[as_quat]")
   const quat q = quat{2.0_r, 3.0_r, 4.0_r, 5.0_r};
   const quat result = q * 2.0_r;
 
-  CHECK(result.w == Approx(4.0_r).epsilon(g_epsilon));
-  CHECK(result.x == Approx(6.0_r).epsilon(g_epsilon));
-  CHECK(result.y == Approx(8.0_r).epsilon(g_epsilon));
-  CHECK(result.z == Approx(10.0_r).epsilon(g_epsilon));
+  CHECK(result.w == Catch::Approx(4.0_r).epsilon(g_epsilon));
+  CHECK(result.x == Catch::Approx(6.0_r).epsilon(g_epsilon));
+  CHECK(result.y == Catch::Approx(8.0_r).epsilon(g_epsilon));
+  CHECK(result.z == Catch::Approx(10.0_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("quat_inverse", "[as_quat]")
@@ -154,10 +154,10 @@ TEST_CASE("quat_inverse", "[as_quat]")
   const quat q = quat{7.0_r, 4.0_r, 5.0_r, 9.0_r};
   const quat result = quat_inverse(q);
 
-  CHECK(result.w == Approx(0.0409357_r).margin(g_epsilon));
-  CHECK(result.x == Approx(-0.0233918_r).margin(g_epsilon));
-  CHECK(result.y == Approx(-0.0292398_r).margin(g_epsilon));
-  CHECK(result.z == Approx(-0.0526316_r).margin(g_epsilon));
+  CHECK(result.w == Catch::Approx(0.0409357_r).margin(g_epsilon));
+  CHECK(result.x == Catch::Approx(-0.0233918_r).margin(g_epsilon));
+  CHECK(result.y == Catch::Approx(-0.0292398_r).margin(g_epsilon));
+  CHECK(result.z == Catch::Approx(-0.0526316_r).margin(g_epsilon));
 }
 
 TEST_CASE("quat_rotate_vec", "[as_quat]")
@@ -166,9 +166,9 @@ TEST_CASE("quat_rotate_vec", "[as_quat]")
     const quat q = as::quat_rotation_zxy(radians(90.0_r), 0.0_r, 0.0_r);
     const vec3 result = quat_rotate(q, vec3::axis_y());
 
-    CHECK(result.x == Approx(0.0_r).margin(g_epsilon));
-    CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
-    CHECK(result.z == Approx(1.0_r).margin(g_epsilon));
+    CHECK(result.x == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.y == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.z == Catch::Approx(1.0_r).margin(g_epsilon));
   }
 
   {
@@ -176,9 +176,9 @@ TEST_CASE("quat_rotate_vec", "[as_quat]")
       as::quat_rotation_zxy(radians(0.0_r), radians(-90.0_r), radians(-90.0_r));
     const vec3 result = quat_rotate(q, vec3::axis_y());
 
-    CHECK(result.x == Approx(0.0_r).margin(g_epsilon));
-    CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
-    CHECK(result.z == Approx(1.0_r).margin(g_epsilon));
+    CHECK(result.x == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.y == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.z == Catch::Approx(1.0_r).margin(g_epsilon));
   }
 
   {
@@ -186,9 +186,9 @@ TEST_CASE("quat_rotate_vec", "[as_quat]")
       as::quat_rotation_zxy(radians(0.0_r), radians(-90.0_r), radians(-90.0_r));
     const vec3 result = quat_rotate(q, vec3::axis_x());
 
-    CHECK(result.x == Approx(0.0_r).margin(g_epsilon));
-    CHECK(result.y == Approx(-1.0_r).margin(g_epsilon));
-    CHECK(result.z == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.x == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.y == Catch::Approx(-1.0_r).margin(g_epsilon));
+    CHECK(result.z == Catch::Approx(0.0_r).margin(g_epsilon));
   }
 
   {
@@ -196,9 +196,9 @@ TEST_CASE("quat_rotate_vec", "[as_quat]")
       as::quat_rotation_xyz(radians(90.0_r), radians(0.0_r), radians(0.0_r));
     const vec3 result = quat_rotate(q, vec3::axis_z());
 
-    CHECK(result.x == Approx(0.0_r).margin(g_epsilon));
-    CHECK(result.y == Approx(-1.0_r).margin(g_epsilon));
-    CHECK(result.z == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.x == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.y == Catch::Approx(-1.0_r).margin(g_epsilon));
+    CHECK(result.z == Catch::Approx(0.0_r).margin(g_epsilon));
   }
 
   {
@@ -206,9 +206,9 @@ TEST_CASE("quat_rotate_vec", "[as_quat]")
       as::quat_rotation_xyz(radians(90.0_r), radians(0.0_r), radians(90.0_r));
     const vec3 result = quat_rotate(q, vec3::axis_z());
 
-    CHECK(result.x == Approx(1.0_r).margin(g_epsilon));
-    CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
-    CHECK(result.z == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.x == Catch::Approx(1.0_r).margin(g_epsilon));
+    CHECK(result.y == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.z == Catch::Approx(0.0_r).margin(g_epsilon));
   }
 
   {
@@ -218,9 +218,9 @@ TEST_CASE("quat_rotate_vec", "[as_quat]")
 
     const vec3 result = quat_rotate(quat_zx, vec3::axis_z());
 
-    CHECK(result.x == Approx(1.0_r).margin(g_epsilon));
-    CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
-    CHECK(result.z == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.x == Catch::Approx(1.0_r).margin(g_epsilon));
+    CHECK(result.y == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.z == Catch::Approx(0.0_r).margin(g_epsilon));
   }
 }
 
@@ -234,27 +234,27 @@ TEST_CASE("quat_slerp", "[as_quat]")
       const quat result_quat = quat_slerp(quat_x, quat_y, 0.5_r);
       const vec3 result_vec = quat_rotate(result_quat, vec3::axis_x());
 
-      CHECK(result_vec.x == Approx(0.70711_r).margin(g_epsilon));
-      CHECK(result_vec.y == Approx(0.70711_r).margin(g_epsilon));
-      CHECK(result_vec.z == Approx(0.0_r).margin(g_epsilon));
+      CHECK(result_vec.x == Catch::Approx(0.70711_r).margin(g_epsilon));
+      CHECK(result_vec.y == Catch::Approx(0.70711_r).margin(g_epsilon));
+      CHECK(result_vec.z == Catch::Approx(0.0_r).margin(g_epsilon));
     }
 
     {
       const quat result_quat = quat_slerp(quat_x, quat_y, 0.333333_r);
       const vec3 result_vec = quat_rotate(result_quat, vec3::axis_x());
 
-      CHECK(result_vec.x == Approx(0.499995_r).margin(g_epsilon));
-      CHECK(result_vec.y == Approx(0.86602_r).margin(g_epsilon));
-      CHECK(result_vec.z == Approx(0.0_r).margin(g_epsilon));
+      CHECK(result_vec.x == Catch::Approx(0.499995_r).margin(g_epsilon));
+      CHECK(result_vec.y == Catch::Approx(0.86602_r).margin(g_epsilon));
+      CHECK(result_vec.z == Catch::Approx(0.0_r).margin(g_epsilon));
     }
 
     {
       const quat result_quat = quat_slerp(quat_x, quat_y, 0.666666_r);
       const vec3 result_vec = quat_rotate(result_quat, vec3::axis_x());
 
-      CHECK(result_vec.x == Approx(0.86602_r).margin(g_epsilon));
-      CHECK(result_vec.y == Approx(0.5_r).margin(g_epsilon));
-      CHECK(result_vec.z == Approx(0.0_r).margin(g_epsilon));
+      CHECK(result_vec.x == Catch::Approx(0.86602_r).margin(g_epsilon));
+      CHECK(result_vec.y == Catch::Approx(0.5_r).margin(g_epsilon));
+      CHECK(result_vec.z == Catch::Approx(0.0_r).margin(g_epsilon));
     }
   }
 }

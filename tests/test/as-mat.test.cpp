@@ -1,6 +1,6 @@
 #include "as-helpers.test.hpp"
 #include "catch-matchers.hpp"
-#include "catch2/catch.hpp"
+#include "catch2/catch_all.hpp"
 
 #include "as/as-math-ops.hpp"
 
@@ -339,7 +339,7 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
   CHECK_THAT(make_span(col0), elements_are_span(as::mat4_col0(m4)));
   as::mat_col(m4, 0, c0);
   CHECK_THAT(make_span(col0), elements_are_span(as::mat_col(m4, 0)));
-  CHECK(col0[0] == Approx(as::mat_col(m4, 0)[0]).epsilon(g_epsilon));
+  CHECK(col0[0] == Catch::Approx(as::mat_col(m4, 0)[0]).epsilon(g_epsilon));
 
   const real col1[] = {5.0_r, 6.0_r, 7.0_r, 8.0_r};
   const vec4 c1 = as::vec4_from_arr(col1);
@@ -347,7 +347,7 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
   CHECK_THAT(make_span(col1), elements_are_span(as::mat4_col1(m4)));
   as::mat_col(m4, 1, c1);
   CHECK_THAT(make_span(col1), elements_are_span(as::mat_col(m4, 1)));
-  CHECK(col1[1] == Approx(as::mat_col(m4, 1)[1]).epsilon(g_epsilon));
+  CHECK(col1[1] == Catch::Approx(as::mat_col(m4, 1)[1]).epsilon(g_epsilon));
 
   const real col2[] = {9.0_r, 10.0_r, 11.0_r, 12.0_r};
   const vec4 c2 = as::vec4_from_arr(col2);
@@ -355,7 +355,7 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
   CHECK_THAT(make_span(col2), elements_are_span(as::mat4_col2(m4)));
   as::mat_col(m4, 2, c2);
   CHECK_THAT(make_span(col2), elements_are_span(as::mat_col(m4, 2)));
-  CHECK(col2[2] == Approx(as::mat_col(m4, 2)[2]).epsilon(g_epsilon));
+  CHECK(col2[2] == Catch::Approx(as::mat_col(m4, 2)[2]).epsilon(g_epsilon));
 
   const real col3[] = {13.0_r, 14.0_r, 15.0_r, 16.0_r};
   const vec4 c3 = as::vec4_from_arr(col3);
@@ -363,7 +363,7 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
   CHECK_THAT(make_span(col3), elements_are_span(as::mat4_col3(m4)));
   as::mat_col(m4, 3, c3);
   CHECK_THAT(make_span(col3), elements_are_span(as::mat_col(m4, 3)));
-  CHECK(col3[3] == Approx(as::mat_col(m4, 3)[3]).epsilon(g_epsilon));
+  CHECK(col3[3] == Catch::Approx(as::mat_col(m4, 3)[3]).epsilon(g_epsilon));
 
   const real row0[] = {1.0_r, 5.0_r, 9.0_r, 13.0_r};
   const vec4 r0 = as::vec4_from_arr(row0);
@@ -371,7 +371,7 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
   CHECK_THAT(make_span(row0), elements_are_span(as::mat4_row0(m4)));
   as::mat_row(m4, 0, r0);
   CHECK_THAT(make_span(row0), elements_are_span(as::mat_row(m4, 0)));
-  CHECK(row0[0] == Approx(as::mat_row(m4, 0)[0]).epsilon(g_epsilon));
+  CHECK(row0[0] == Catch::Approx(as::mat_row(m4, 0)[0]).epsilon(g_epsilon));
 
   const real row1[] = {2.0_r, 6.0_r, 10.0_r, 14.0_r};
   const vec4 r1 = as::vec4_from_arr(row1);
@@ -379,7 +379,7 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
   CHECK_THAT(make_span(row1), elements_are_span(as::mat4_row1(m4)));
   as::mat_row(m4, 1, r1);
   CHECK_THAT(make_span(row1), elements_are_span(as::mat_row(m4, 1)));
-  CHECK(row1[1] == Approx(as::mat_row(m4, 1)[1]).epsilon(g_epsilon));
+  CHECK(row1[1] == Catch::Approx(as::mat_row(m4, 1)[1]).epsilon(g_epsilon));
 
   const real row2[] = {3.0_r, 7.0_r, 11.0_r, 15.0_r};
   const vec4 r2 = as::vec4_from_arr(row2);
@@ -387,7 +387,7 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
   CHECK_THAT(make_span(row2), elements_are_span(as::mat4_row2(m4)));
   as::mat_row(m4, 2, r2);
   CHECK_THAT(make_span(row2), elements_are_span(as::mat_row(m4, 2)));
-  CHECK(row2[2] == Approx(as::mat_row(m4, 2)[2]).epsilon(g_epsilon));
+  CHECK(row2[2] == Catch::Approx(as::mat_row(m4, 2)[2]).epsilon(g_epsilon));
 
   const real row3[] = {4.0_r, 8.0_r, 12.0_r, 16.0_r};
   const vec4 r3 = as::vec4_from_arr(row3);
@@ -395,14 +395,14 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
   CHECK_THAT(make_span(row3), elements_are_span(as::mat4_row3(m4)));
   as::mat_row(m4, 3, r3);
   CHECK_THAT(make_span(row3), elements_are_span(as::mat_row(m4, 3)));
-  CHECK(row3[3] == Approx(as::mat_row(m4, 3)[3]).epsilon(g_epsilon));
+  CHECK(row3[3] == Catch::Approx(as::mat_row(m4, 3)[3]).epsilon(g_epsilon));
 #elif defined AS_ROW_MAJOR
   const real row0[] = {1.0_r, 2.0_r, 3.0_r, 4.0_r};
   const vec4 c0 = as::vec4_from_arr(row0);
   as::mat4_row0(m4, c0);
   CHECK_THAT(make_span(row0), elements_are_span(as::mat4_row0(m4)));
   as::mat_row(m4, 0, c0);
-  CHECK(row0[0] == Approx(as::mat_row(m4, 0)[0]).epsilon(g_epsilon));
+  CHECK(row0[0] == Catch::Approx(as::mat_row(m4, 0)[0]).epsilon(g_epsilon));
 
   const real row1[] = {5.0_r, 6.0_r, 7.0_r, 8.0_r};
   const vec4 c1 = as::vec4_from_arr(row1);
@@ -410,7 +410,7 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
   CHECK_THAT(make_span(row1), elements_are_span(as::mat4_row1(m4)));
   as::mat_row(m4, 1, c1);
   CHECK_THAT(make_span(row1), elements_are_span(as::mat_row(m4, 1)));
-  CHECK(row1[1] == Approx(as::mat_row(m4, 1)[1]).epsilon(g_epsilon));
+  CHECK(row1[1] == Catch::Approx(as::mat_row(m4, 1)[1]).epsilon(g_epsilon));
 
   const real row2[] = {9.0_r, 10.0_r, 11.0_r, 12.0_r};
   const vec4 c2 = as::vec4_from_arr(row2);
@@ -418,7 +418,7 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
   CHECK_THAT(make_span(row2), elements_are_span(as::mat4_row2(m4)));
   as::mat_row(m4, 2, c2);
   CHECK_THAT(make_span(row2), elements_are_span(as::mat_row(m4, 2)));
-  CHECK(row2[2] == Approx(as::mat_row(m4, 2)[2]).epsilon(g_epsilon));
+  CHECK(row2[2] == Catch::Approx(as::mat_row(m4, 2)[2]).epsilon(g_epsilon));
 
   const real row3[] = {13.0_r, 14.0_r, 15.0_r, 16.0_r};
   const vec4 c3 = as::vec4_from_arr(row3);
@@ -426,7 +426,7 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
   CHECK_THAT(make_span(row3), elements_are_span(as::mat4_row3(m4)));
   as::mat_row(m4, 3, c3);
   CHECK_THAT(make_span(row3), elements_are_span(as::mat_row(m4, 3)));
-  CHECK(row3[3] == Approx(as::mat_row(m4, 3)[3]).epsilon(g_epsilon));
+  CHECK(row3[3] == Catch::Approx(as::mat_row(m4, 3)[3]).epsilon(g_epsilon));
 
   const real col0[] = {1.0_r, 5.0_r, 9.0_r, 13.0_r};
   const vec4 r0 = as::vec4_from_arr(col0);
@@ -434,7 +434,7 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
   CHECK_THAT(make_span(col0), elements_are_span(as::mat4_col0(m4)));
   as::mat_col(m4, 0, r0);
   CHECK_THAT(make_span(col0), elements_are_span(as::mat_col(m4, 0)));
-  CHECK(col0[0] == Approx(as::mat_col(m4, 0)[0]).epsilon(g_epsilon));
+  CHECK(col0[0] == Catch::Approx(as::mat_col(m4, 0)[0]).epsilon(g_epsilon));
 
   const real col1[] = {2.0_r, 6.0_r, 10.0_r, 14.0_r};
   const vec4 r1 = as::vec4_from_arr(col1);
@@ -442,7 +442,7 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
   CHECK_THAT(make_span(col1), elements_are_span(as::mat4_col1(m4)));
   as::mat_col(m4, 1, r1);
   CHECK_THAT(make_span(col1), elements_are_span(as::mat_col(m4, 1)));
-  CHECK(col1[1] == Approx(as::mat_col(m4, 1)[1]).epsilon(g_epsilon));
+  CHECK(col1[1] == Catch::Approx(as::mat_col(m4, 1)[1]).epsilon(g_epsilon));
 
   const real col2[] = {3.0_r, 7.0_r, 11.0_r, 15.0_r};
   const vec4 r2 = as::vec4_from_arr(col2);
@@ -450,7 +450,7 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
   CHECK_THAT(make_span(col2), elements_are_span(as::mat4_col2(m4)));
   as::mat_col(m4, 2, r2);
   CHECK_THAT(make_span(col2), elements_are_span(as::mat_col(m4, 2)));
-  CHECK(col2[2] == Approx(as::mat_col(m4, 2)[2]).epsilon(g_epsilon));
+  CHECK(col2[2] == Catch::Approx(as::mat_col(m4, 2)[2]).epsilon(g_epsilon));
 
   const real col3[] = {4.0_r, 8.0_r, 12.0_r, 16.0_r};
   const vec4 r3 = as::vec4_from_arr(col3);
@@ -458,7 +458,7 @@ TEST_CASE("mat_row_col_mutate_mat4", "[as_mat]")
   CHECK_THAT(make_span(col3), elements_are_span(as::mat4_col3(m4)));
   as::mat_col(m4, 3, r3);
   CHECK_THAT(make_span(col3), elements_are_span(as::mat_col(m4, 3)));
-  CHECK(col3[3] == Approx(as::mat_col(m4, 3)[3]).epsilon(g_epsilon));
+  CHECK(col3[3] == Catch::Approx(as::mat_col(m4, 3)[3]).epsilon(g_epsilon));
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
@@ -607,8 +607,8 @@ TEST_CASE("elem_access_mat4_const", "[as_mat]")
   // clang-format on
 
   const real mat4_8 = m4[8];
-  CHECK(mat4_8 == Approx(mat_arr[8]).epsilon(g_epsilon));
-  CHECK(mat4_8 == Approx(9.0_r).epsilon(g_epsilon));
+  CHECK(mat4_8 == Catch::Approx(mat_arr[8]).epsilon(g_epsilon));
+  CHECK(mat4_8 == Catch::Approx(9.0_r).epsilon(g_epsilon));
 
   CHECK_THAT(make_span(mat_arr), elements_are_span(m4));
 }
@@ -618,10 +618,10 @@ TEST_CASE("rvalue_elem_access_mat2_3_4", "[as_mat]")
   using gsl::make_span;
 
   auto make_mat2 = []() { return mat<real, 2>{5.0_r, 10.0_r, 15.0_r, 20.0_r}; };
-  CHECK(make_mat2()[0] == Approx(5.0_r).epsilon(g_epsilon));
-  CHECK(make_mat2()[1] == Approx(10.0_r).epsilon(g_epsilon));
-  CHECK(make_mat2()[2] == Approx(15.0_r).epsilon(g_epsilon));
-  CHECK(make_mat2()[3] == Approx(20.0_r).epsilon(g_epsilon));
+  CHECK(make_mat2()[0] == Catch::Approx(5.0_r).epsilon(g_epsilon));
+  CHECK(make_mat2()[1] == Catch::Approx(10.0_r).epsilon(g_epsilon));
+  CHECK(make_mat2()[2] == Catch::Approx(15.0_r).epsilon(g_epsilon));
+  CHECK(make_mat2()[3] == Catch::Approx(20.0_r).epsilon(g_epsilon));
 
   // clang-format off
   auto make_mat3 = []() {
@@ -633,7 +633,7 @@ TEST_CASE("rvalue_elem_access_mat2_3_4", "[as_mat]")
   };
   // clang-format on
 
-  CHECK(make_mat3()[4] == Approx(5.0_r).epsilon(g_epsilon));
+  CHECK(make_mat3()[4] == Catch::Approx(5.0_r).epsilon(g_epsilon));
 
   // clang-format off
   auto make_mat4 = [](){
@@ -646,8 +646,8 @@ TEST_CASE("rvalue_elem_access_mat2_3_4", "[as_mat]")
   };
   // clang-format on
 
-  CHECK(make_mat4()[7] == Approx(8.0_r).epsilon(g_epsilon));
-  CHECK(make_mat4()[15] == Approx(16.0_r).epsilon(g_epsilon));
+  CHECK(make_mat4()[7] == Catch::Approx(8.0_r).epsilon(g_epsilon));
+  CHECK(make_mat4()[15] == Catch::Approx(16.0_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("mat_dimensions_are_valid", "[as_mat]")
@@ -1724,10 +1724,10 @@ TEST_CASE("mat_data", "[as_mat]")
 {
   mat4 mat = mat4::identity();
   real* matp = mat_data(mat);
-  CHECK(*matp == Approx(1.0_r).epsilon(g_epsilon));
-  CHECK(*(matp + 5) == Approx(1.0_r).epsilon(g_epsilon));
-  CHECK(*(matp + 10) == Approx(1.0_r).epsilon(g_epsilon));
-  CHECK(*(matp + 15) == Approx(1.0_r).epsilon(g_epsilon));
+  CHECK(*matp == Catch::Approx(1.0_r).epsilon(g_epsilon));
+  CHECK(*(matp + 5) == Catch::Approx(1.0_r).epsilon(g_epsilon));
+  CHECK(*(matp + 10) == Catch::Approx(1.0_r).epsilon(g_epsilon));
+  CHECK(*(matp + 15) == Catch::Approx(1.0_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("mat_range_iteration_mat3", "[as_mat]")
@@ -1746,7 +1746,7 @@ TEST_CASE("mat_range_iteration_mat3", "[as_mat]")
 
     as::index i = 0;
     for (const auto& elem : mat) {
-      CHECK(elem == Approx(expected[i++]).epsilon(g_epsilon));
+      CHECK(elem == Catch::Approx(expected[i++]).epsilon(g_epsilon));
     }
     CHECK(i == 9);
   }
@@ -1766,7 +1766,7 @@ TEST_CASE("mat_range_iteration_mat3", "[as_mat]")
     as::index i = 0;
     for (auto& elem : mat) {
       elem *= 2.0_r;
-      CHECK(elem == Approx(expected[i++]).epsilon(g_epsilon));
+      CHECK(elem == Catch::Approx(expected[i++]).epsilon(g_epsilon));
     }
     CHECK(i == 9);
   }

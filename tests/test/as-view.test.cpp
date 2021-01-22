@@ -1,6 +1,6 @@
 #include "as-helpers.test.hpp"
 #include "catch-matchers.hpp"
-#include "catch2/catch.hpp"
+#include "catch2/catch_all.hpp"
 
 #include "as/as-math.hpp"
 #include "as/as-view.hpp"

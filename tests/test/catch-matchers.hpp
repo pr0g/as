@@ -1,4 +1,4 @@
-#include "catch2/catch.hpp"
+#include "catch2/catch_all.hpp"
 
 #include <sstream>
 
@@ -6,7 +6,7 @@
 #include "gsl/span_ext"
 
 template<typename Sub1, typename Sub2>
-class ElementsAreSubscript : public Catch::MatcherBase<Sub2>
+class ElementsAreSubscript : public Catch::Matchers::MatcherBase<Sub2>
 {
   using value_t = typename Sub1::value_type;
   value_t epsilon_ = value_t(std::numeric_limits<float>::epsilon());
@@ -36,7 +36,7 @@ public:
     using std::size;
     for (decltype(size(subscriptable2)) i = 0; i < size(subscriptable2); ++i) {
       const auto approx_elem{
-        Approx(subscriptable2[i]).epsilon(epsilon_).margin(margin_)};
+        Catch::Approx(subscriptable2[i]).epsilon(epsilon_).margin(margin_)};
       auto subscript = gsl::narrow_cast<decltype(size(subscriptable1_))>(i);
       if (subscriptable1_[subscript] != approx_elem) {
         return false;

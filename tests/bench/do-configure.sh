@@ -8,9 +8,9 @@
 
 # configure benchmarks
 cmake -B build -S .                                 \
-    -DDEV_LIB_DIR=../..                             \
     -DCMAKE_EXPORT_COMPILE_COMMANDS=ON              \
-    -DCMAKE_PREFIX_PATH=$(pwd)/../../install/       \
+    -DCMAKE_PREFIX_PATH="$(pwd)/../../install;\
+$(pwd)/../test/third-party/build"                   \
     -DCMAKE_BUILD_TYPE=Release                      \
     -DAS_PRECISION_FLOAT=ON                         \
     -DAS_ROW_MAJOR=ON

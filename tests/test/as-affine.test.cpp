@@ -1,6 +1,6 @@
 #include "as-helpers.test.hpp"
 #include "catch-matchers.hpp"
-#include "catch2/catch.hpp"
+#include "catch2/catch_all.hpp"
 
 #include "as/as-math-ops.hpp"
 
@@ -52,9 +52,9 @@ TEST_CASE("affine_transform_dir", "[as_affine]")
 
   const vec3 result = as::affine_transform_dir(a, vec3{1.0_r, 0.0_r, 0.0_r});
 
-  CHECK(result.x == Approx(0.0_r).margin(g_epsilon));
-  CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
-  CHECK(result.z == Approx(-1.0_r).margin(g_epsilon));
+  CHECK(result.x == Catch::Approx(0.0_r).margin(g_epsilon));
+  CHECK(result.y == Catch::Approx(0.0_r).margin(g_epsilon));
+  CHECK(result.z == Catch::Approx(-1.0_r).margin(g_epsilon));
 }
 
 TEST_CASE("affine_inv_transform_pos", "[as_affine]")
@@ -65,9 +65,9 @@ TEST_CASE("affine_inv_transform_pos", "[as_affine]")
     const vec3 result =
       as::affine_inv_transform_pos(a, vec3(6.0_r, 0.0_r, 0.0_r));
 
-    CHECK(result.x == Approx(1.0_r).margin(g_epsilon));
-    CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
-    CHECK(result.z == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.x == Catch::Approx(1.0_r).margin(g_epsilon));
+    CHECK(result.y == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.z == Catch::Approx(0.0_r).margin(g_epsilon));
   }
 
   {
@@ -77,9 +77,9 @@ TEST_CASE("affine_inv_transform_pos", "[as_affine]")
     const vec3 result =
       as::affine_inv_transform_pos(a, vec3(5.0_r, 0.0_r, 0.0_r));
 
-    CHECK(result.x == Approx(-10.0_r).margin(g_epsilon));
-    CHECK(result.y == Approx(-5.0_r).margin(g_epsilon));
-    CHECK(result.z == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.x == Catch::Approx(-10.0_r).margin(g_epsilon));
+    CHECK(result.y == Catch::Approx(-5.0_r).margin(g_epsilon));
+    CHECK(result.z == Catch::Approx(0.0_r).margin(g_epsilon));
   }
 }
 
@@ -90,9 +90,9 @@ TEST_CASE("affine_transform_pos", "[as_affine]")
 
   const vec3 result = as::affine_transform_pos(a, vec3(1.0_r, 0.0_r, 0.0_r));
 
-  CHECK(result.x == Approx(5.0_r).margin(g_epsilon));
-  CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
-  CHECK(result.z == Approx(-1.0_r).margin(g_epsilon));
+  CHECK(result.x == Catch::Approx(5.0_r).margin(g_epsilon));
+  CHECK(result.y == Catch::Approx(0.0_r).margin(g_epsilon));
+  CHECK(result.z == Catch::Approx(-1.0_r).margin(g_epsilon));
 }
 
 TEST_CASE("affine_inv_transform_dir", "[as_affine]")
@@ -103,9 +103,9 @@ TEST_CASE("affine_inv_transform_dir", "[as_affine]")
     const vec3 result =
       as::affine_inv_transform_dir(a, vec3{6.0_r, 0.0_r, 0.0_r});
 
-    CHECK(result.x == Approx(6.0_r).margin(g_epsilon));
-    CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
-    CHECK(result.z == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.x == Catch::Approx(6.0_r).margin(g_epsilon));
+    CHECK(result.y == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.z == Catch::Approx(0.0_r).margin(g_epsilon));
   }
 
   {
@@ -116,9 +116,9 @@ TEST_CASE("affine_inv_transform_dir", "[as_affine]")
       as::affine_inv_transform_dir(a, vec3{5.0_r, 0.0_r, 0.0_r});
 
     const real local_epsilon = 1.0e-6_r;
-    CHECK(result.x == Approx(0.0_r).margin(local_epsilon));
-    CHECK(result.y == Approx(-5.0_r).margin(local_epsilon));
-    CHECK(result.z == Approx(0.0_r).margin(local_epsilon));
+    CHECK(result.x == Catch::Approx(0.0_r).margin(local_epsilon));
+    CHECK(result.y == Catch::Approx(-5.0_r).margin(local_epsilon));
+    CHECK(result.z == Catch::Approx(0.0_r).margin(local_epsilon));
   }
 }
 

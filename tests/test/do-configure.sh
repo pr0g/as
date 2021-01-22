@@ -8,7 +8,6 @@
 
 # configure tests
 cmake -B build -S .                                 \
-    -DDEV_LIB_DIR=../..                             \
     -DCMAKE_EXPORT_COMPILE_COMMANDS=ON              \
     -DCMAKE_PREFIX_PATH="$(pwd)/../../install;\
 $(pwd)/third-party/build"                           \
