@@ -3,7 +3,7 @@
 `as` (short for _almost-something_) is an attempt at creating an easy to use header-only math library for prototype and hobby projects.
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/24b277ef4cdf4d699e7c6acb96d1fce6)](https://app.codacy.com/manual/pr0g/as?utm_source=github.com&utm_medium=referral&utm_content=pr0g/as&utm_campaign=Badge_Grade_Dashboard)
-[![Build Status](https://travis-ci.org/pr0g/as.svg?branch=main)](https://travis-ci.org/pr0g/as)
+[![Build Status](https://www.travis-ci.com/pr0g/as.svg?branch=main)](https://www.travis-ci.com/pr0g/as)
 [![Build status](https://ci.appveyor.com/api/projects/status/github/pr0g/as?branch=main&svg=true)](https://ci.appveyor.com/project/pr0g/as)
 [![codecov](https://codecov.io/gh/pr0g/as/branch/main/graphs/badge.svg)](https://codecov.io/gh/pr0g/as)
 [![coveralls](https://coveralls.io/repos/github/pr0g/as/badge.svg?branch=main)](https://coveralls.io/github/pr0g/as?branch=main)
@@ -38,102 +38,44 @@ Deficiencies include but are not limited to:
 
 ### CMake
 
-#### Installing
+#### FetchContent (_preferred_)
 
-This is my preferred approach and if you're a CMake wiz you'll probably want to do something similar to this. If you'd like to learn more about installing and CMake do checkout my other repo here: [cmake-examples](https://github.com/pr0g/cmake-examples) 🙂
+The easiest way to use the library is with CMake's `FetchContent` module.
 
-1.  Make a folder somewhere for the `as` library.
+Add these commands to the top of your `CMakeLists.txt` file:
 
-    ```bash
-    cd documents/
-    mkdir as && cd as
-    ```
+```cmake
+include(FetchContent)
+FetchContent_Declare(
+    as
+    GIT_REPOSITORY https://github.com/pr0g/as.git
+    GIT_TAG        v2.0.2) # most recent stable release
+FetchContent_MakeAvailable(as)
+```
 
-2.  Download or clone the library to that folder
+Then just link against `as` in the `target_link_libraries` command:
 
-    ```bash
-    git clone https://github.com/pr0g/as.git .
-    ```
+```cmake
+target_link_libraries(
+    ${PROJECT_NAME} PUBLIC as)
+```
 
-3.  Configure CMake
+You can then simply include `as` files like so:
 
-    ```bash
-    cmake -S . -B build
-    ```
-
-4.  Install library
-
-    ```bash
-    cmake --build build/ --target install
-    ```
-
-    Note: If you wish to install the library to a specific location please checkout `CMAKE_INSTALL_PREFIX` and `CMAKE_PREFIX_PATH`. The repo I mentioned earlier has more info about this if you're interested! 🙂([cmake-examples - installing to custom locations](https://github.com/pr0g/cmake-examples/tree/master/installing#installing-to-custom-locations)).
-
-5.  Navigate to your application and then find the library from your `CMakeLists.txt` file
-
-    ```cmake
-    find_package(as REQUIRED)
-    ```
-
-6.  Specify the required defines
-
-    ```cmake
-    # AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE
-    # AS_COL_MAJOR or AS_ROW_MAJOR
-
-    target_compile_definitions(
-        ${PROJECT_NAME} PRIVATE
-        AS_PRECISION_FLOAT AS_COL_MAJOR)
-    ```
-
-7.  Link against it in `target_link_libraries`
-
-    ```cmake
-    target_link_libraries(${PROJECT_NAME} PUBLIC as::as)
-    ```
-
-8.  A full `CMakeLists.txt` example using `as`:
-
-    ```cmake
-    cmake_minimum_required(VERSION 3.15)
-    project(app VERSION 0.0.1 LANGUAGES CXX)
-
-    # required for as
-    find_package(as REQUIRED)
-
-    add_executable(${PROJECT_NAME})
-    target_sources(${PROJECT_NAME} PRIVATE main.cpp)
-
-    # required for as
-    target_compile_definitions(
-        ${PROJECT_NAME} PRIVATE
-        AS_PRECISION_FLOAT AS_COL_MAJOR)
-
-    # required for as
-    target_link_libraries(${PROJECT_NAME} PUBLIC as::as)
-    ```
-
-9.  Include the library in one of your files
-
-    ```c++
-    #include "as/as-math-ops.hpp"
-    ```
-
-10. Build your application
-
-    ```bash
-    cmake -S . -B build
-    cmake --build build/
-    ```
+```c++
+#include "as/as-math-ops.hpp"
+// etc...
+```
 
 #### Full Include
 
-It is also possible to drop the repo into your project as-is and use `add_subdirectory`
+It is also possible to drop the repo into your project _as-is_ and use `add_subdirectory`
 
 ```bash
 |-- root
     |-- as #added (<root>)
         |-- CMakeLists.txt
+        |-- ...
     |-- main.cpp
     |-- CMakeLists.txt
 ```
@@ -197,7 +139,7 @@ target_compile_definitions(
 target_compile_features(
     ${PROJECT_NAME} PRIVATE cxx_std_11)
 
-# needed if adding as to a nested folder called external/3rdParty
+# needed if adding as to a nested folder called 'external'
 target_include_directories(
     ${PROJECT_NAME} PRIVATE external) # optional
 ```
