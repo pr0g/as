@@ -489,7 +489,7 @@ mat<T, 3> mat3_from_ptr(const T* data);
 template<typename T>
 constexpr mat<T, 3> mat3_from_mat4(const mat<T, 4>& transform);
 
-//! Returns a mat<T, 3> from an affine.
+//! Returns a mat<T, 3> from an \ref affine.
 constexpr mat3 mat3_from_affine(const affine& a);
 
 //! Returns a rotation about a given axis.
@@ -701,7 +701,7 @@ template<typename T>
 constexpr mat<T, 4> mat4_from_mat3_vec3(
   const mat<T, 3>& rotation, const vec<T, 3>& translation);
 
-//! Returns a mat<T, 4> from an affine.
+//! Returns a mat<T, 4> from an \ref affine.
 //! \note The effect of the transformation will be the same, it is only the type
 //! that changes.
 constexpr mat4 mat4_from_affine(const affine& a);
@@ -766,65 +766,66 @@ quat quat_slerp(const quat& lhs, const quat& rhs, real t);
 //! \note Ensure ::mat3 is a valid rotation.
 quat quat_from_mat3(const mat3& m);
 
-//! Writes the values stored in the affine to an array of the same type and
-//! dimension.
+//! Writes the values stored in the \ref affine to an array of the same type
+//! and dimension.
 //! \note affine uses a ::mat3 and a ::vec3 internally.
 void quat_to_arr(const affine& a, real (&data)[12]);
 
-//! Creates an affine from a fixed size array of the same type and dimension.
+//! Creates an \ref affine from a fixed size array of the same type and
+//! dimension.
 //! \note affine uses a ::mat3 and a ::vec3 internally.
 affine affine_from_arr(const real (&data)[12]);
 
-//! Creates an affine from a pointer to an array of the same type.
+//! Creates an \ref affine from a pointer to an array of the same type.
 //! \note Ensure that the array has at least 12 elements from where it is read.
 affine affine_from_ptr(const real* data);
 
-//! Returns an affine from a ::mat4.
+//! Returns an \ref affine from a ::mat4.
 //! \note Ensure that the ::mat4 holds a valid a transformation
 //! (translation/scale/rotation) and not a non-affine transformation such as a
 //! projection.
 affine affine_from_mat4(const mat4& m);
 
-//! Returns an affine from a ::mat3.
+//! Returns an \ref affine from a ::mat3.
 //! \note Ensure that the ::mat3 holds a valid a transformation
 //! (scale/rotation)
 //! \note The translation portion of affine will be zero.
 affine affine_from_mat3(const mat3& m);
 
-//! Returns an affine from a ::mat3 and a ::vec3.
+//! Returns an \ref affine from a ::mat3 and a ::vec3.
 //! \note Ensure that the ::mat3 holds a valid a transformation
 //! (scale/rotation)
 affine affine_from_mat3_vec3(const mat3& m, const vec3& v);
 
-//! Returns an affine from a ::vec3.
+//! Returns an \ref affine from a ::vec3.
 //! \note The rotation part will be initialized to the identity.
 affine affine_from_vec3(const vec3& v);
 
-//! Returns the result of two affine types multiplied together.
+//! Returns the result of two \ref affine types multiplied together.
 //! \note `lhs` is performed first, then `rhs`
 affine affine_mul(const affine& lhs, const affine& rhs);
 
-//! Returns the inverse of the affine.
+//! Returns the inverse of the \ref affine.
 //! ```{.cpp}
 //! // a * inv(a) = identity
 //! ```
-//! \note The inverse of affine is just the transpose of the rotation part,
-//! so ensure it holds a valid a transformation (axes are orthogonal).
+//! \note The inverse of \ref affine is just the transpose of the rotation part.
+//! Ensure it holds a valid a \ref affine transformation (axes are orthogonal).
 affine affine_inverse(const affine& a);
 
-//! Returns the input direction transformed by the affine.
+//! Returns the input direction transformed by the \ref affine.
 //! \note No translation occurs, just rotation.
 vec3 affine_transform_dir(const affine& a, const vec3& direction);
 
-//! Returns the input position transformed by the affine.
+//! Returns the input position transformed by the \ref affine.
 //! \note No rotation occurs, just translation.
 vec3 affine_transform_pos(const affine& a, const vec3& position);
 
-//! Returns the input direction transformed by the inverse of the affine.
+//! Returns the input direction transformed by the inverse of the \ref affine.
 //! \note No translation occurs, just rotation.
 vec3 affine_inv_transform_dir(const affine& a, const vec3& direction);
 
-//! Returns the input position transformed by the inverse of the affine.
+//! Returns the input position transformed by the inverse of the \ref affine.
 //! \note No rotation occurs, just translation.
 vec3 affine_inv_transform_pos(const affine& a, const vec3& position);
 
