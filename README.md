@@ -232,7 +232,7 @@ As all the types I'm creating are pretty simple I decided not to hide any intern
 
 ~~All~~ Most functions are implemented as free functions. I wanted to avoid using static functions because you get into problems with circular dependencies (for example when static functions on one type need to include a type in another file and you'd like the API to be symmetrical).
 
-_Update: Currently there's limited use of static functions to reduce boilerplate when writing template functions, they might wind up being removed to further simplify the API. The do not rely on any other types._
+> _Update: Currently there's limited use of static functions to reduce boilerplate when writing template functions, they might wind up being removed to further simplify the API. The do not rely on any other types._
 
 For example if we want to be able to create a quaternion from a 3 by 3 matrix and vice versa, the api might look like this:
 
@@ -265,7 +265,7 @@ When I first tried this, a big problem I ran into was how to logically group fun
 
 ~~I realized I could take advantage of C++ namespaces to group functions by type. Irritatingly using the name `vec3` or `mat4` for the namespace means I lose the ability to use them as type names 😖 however a workaround I decided to borrow from `C` and `C++` was to add a `_t` postfix to indicate the type itself and use the unadorned name as the namespace (I know any name ending with `_t` is technically reserved, in C at least, but as I'm keeping everything inside my own namespace I think I should be safe - failing that I could use `_s` instead for `struct` but I'm sticking with `_t` for now).~~
 
-_Update: The approach above actually wound up making the library cumbersome and difficult to use (basically it was hard to remember what `namespace` something actually lived in) so I've now opted to just use a single flat `namespace` and use type prefixes on function names._
+> _Update: The approach above actually wound up making the library cumbersome and difficult to use (basically it was hard to remember what `namespace` something actually lived in) so I've now opted to just use a single flat `namespace` and use type prefixes on function names._
 
 With this approach I can now do this:
 
@@ -278,7 +278,7 @@ quat q = quat_from_mat3(m); // free (update: now looks like this)
 
 ~~When you type `mat3::` in an IDE you'll get the list of all operations supported for `mat3_t`. Another idea (which is perhaps more contentious) is to put all common/generic matrix operations in the `mat` namespace, and specific operations (like `rotation_xyz`) in the `mat3` namespace. This might actually make things slightly harder to find in certain cases but I like the preciseness of the grouping so again this will remain until I've had a chance to start hating it 😉.~~
 
-_Update: I started hating it._
+> _Update: I started hating it._
 
 ### Specializations
 
