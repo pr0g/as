@@ -1,5 +1,5 @@
 //! \file
-//! as-affine
+//! `as-affine`
 
 #pragma once
 

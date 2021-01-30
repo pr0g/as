@@ -1,5 +1,5 @@
 //! \file
-//! as-types
+//! `as-types`
 
 #pragma once
 
@@ -7,10 +7,16 @@
 #include <cmath>
 #include <cstdint>
 
-//! \mainpage `as` linear algebra math library
-//! \section overview as is a work-in-progress math library
+//! \mainpage `as` - a header-only linear algebra math library written in C++
+//! \section overview as
+//! `as` is written in C++ and relies on templates to parameterize vectors and
+//! matrices by both type and dimension. Template specializations exist for
+//! common vector and matrix types such as `vec3` and `mat4`. Row or Column major
+//! ordering must be determined by defining either `AS_COL_MAJOR` or
+//! `AS_ROW_MAJOR`. The default type `real` must also be set by either defining
+//! `AS_PRECISION_FLOAT` or `AS_PRECISION_DOUBLE`.
 
-//! `as` linear algebra math library.
+//! `as` - a header-only linear algebra math library written in C++.
 namespace as
 {
 

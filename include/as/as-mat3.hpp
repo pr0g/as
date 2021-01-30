@@ -1,5 +1,5 @@
 //! \file
-//! as-mat3
+//! `as-mat3`
 
 #pragma once
 

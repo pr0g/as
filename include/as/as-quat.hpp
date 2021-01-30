@@ -1,5 +1,5 @@
 //! \file
-//! as-quat
+//! `as-quat`
 
 #pragma once
 

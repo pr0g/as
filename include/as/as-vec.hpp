@@ -1,5 +1,5 @@
 //! \file
-//! as-vec
+//! `as-vec`
 
 #pragma once
 
