@@ -52,13 +52,11 @@ jobs:
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 https://git.io/JvXDl
 
-    # ✏️ If the Autobuild fails above, remove it and uncomment the following three lines
-    #    and modify them (or add more) to build your code if your project
-    #    uses a compiled language
-
-    #- run: |
-    #   make bootstrap
-    #   make release
+    - run: |
+      cmake -S tests/test/third-party -B tests/test/third-party/build
+      cmake --build tests/test/third-party/build
+      cmake -S tests/test -B tests/test/build -DCMAKE_PREFIX_PATH="$(pwd)/third-party/build" -DCMAKE_BUILD_TYPE=Debug -DAS_PRECISION_FLOAT=ON -DAS_ROW_MAJOR=ON
+      cmake --build tests/test/build
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
