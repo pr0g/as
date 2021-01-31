@@ -52,11 +52,10 @@ jobs:
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 https://git.io/JvXDl
 
-    - run: |
-      - cmake -S tests/test/third-party -B tests/test/third-party/build
-      - cmake --build tests/test/third-party/build
-      - cmake -S tests/test -B tests/test/build -DCMAKE_PREFIX_PATH="$(pwd)/tests/test/third-party/build" -DCMAKE_BUILD_TYPE=Debug -DAS_PRECISION_FLOAT=ON -DAS_ROW_MAJOR=ON
-      - cmake --build tests/test/build
+    - run: cmake -S tests/test/third-party -B tests/test/third-party/build
+    - run: cmake --build tests/test/third-party/build
+    - run: cmake -S tests/test -B tests/test/build -DCMAKE_PREFIX_PATH="$(pwd)/tests/test/third-party/build" -DCMAKE_BUILD_TYPE=Debug -DAS_PRECISION_FLOAT=ON -DAS_ROW_MAJOR=ON
+    - run: cmake --build tests/test/build
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
