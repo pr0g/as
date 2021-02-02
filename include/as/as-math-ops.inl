@@ -1339,14 +1339,15 @@ AS_API inline quat quat_rotation_zxy(const real x, const real y, const real z)
 
 AS_API inline quat quat_nlerp(const quat& q0, const quat& q1, const real t)
 {
-    return mix(q0, q1, t);
+    const quat q1_s = quat_dot(q0, q1) < 0.0_r ? q1 * -1.0_r : q1;
+    return mix(q0, q1_s, t);
 }
 
 AS_API inline quat quat_slerp(const quat& q0, const quat& q1, const real t)
 {
   const real dot = clamp(quat_dot(q0, q1), -1.0_r, 1.0_r);
   if (dot > 0.995_r) {
-      return quat_nlerp(q0, q1, t);
+      return mix(q0, q1, t);
   }
   const quat q1_s = dot < 0.0_r ? q1 * -1.0_r : q1;
   const real theta = std::acos(dot);
