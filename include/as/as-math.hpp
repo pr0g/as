@@ -24,8 +24,8 @@ constexpr real k_tau = k_two_pi;
 //! the range `[0-1]`.
 //! \param begin The value to interpolate from.
 //! \param end The value to interpolate to.
-template<typename T>
-constexpr T mix(T begin, T end, T t);
+template<typename T, typename V>
+constexpr V mix(const V& begin, const V& end, T t);
 
 //! Returns the result of Hermite interpolation between `begin` and `end`.
 //! \note `smooth_step` is not second-order continuous at either `t=0` or `t=1`.

@@ -757,10 +757,15 @@ quat quat_inverse(const quat& q);
 //! Returns the input vector rotated by the given quaternion.
 vec3 quat_rotate(const quat& q, const vec3& v);
 
+//! Returns the result of a linear interpolation between the two quaternions
+//! by ratio `t`.
+//! \note `t` should be in the range `[0-1]`.
+quat quat_nlerp(const quat& q0, const quat& q1, real t);
+
 //! Returns the result of a spherical interpolation between the two quaternions
 //! by ratio `t`.
 //! \note `t` should be in the range `[0-1]`.
-quat quat_slerp(const quat& lhs, const quat& rhs, real t);
+quat quat_slerp(const quat& q0, const quat& q1, real t);
 
 //! Converts a rotation matrix to a quaternion.
 //! \note Ensure ::mat3 is a valid rotation.

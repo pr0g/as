@@ -37,9 +37,27 @@ AS_API constexpr const quat operator+(const quat& lhs, const quat& rhs)
   return {lhs.w + rhs.w, lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z};
 }
 
+AS_API constexpr quat& operator+=(quat& lhs, const quat& rhs)
+{
+  lhs.w += rhs.w;
+  lhs.x += rhs.x;
+  lhs.y += rhs.y;
+  lhs.z += rhs.z;
+  return lhs;
+}
+
 AS_API constexpr const quat operator-(const quat& lhs, const quat& rhs)
 {
   return {lhs.w - rhs.w, lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z};
+}
+
+AS_API constexpr quat& operator-=(quat& lhs, const quat& rhs)
+{
+  lhs.w -= rhs.w;
+  lhs.x -= rhs.x;
+  lhs.y -= rhs.y;
+  lhs.z -= rhs.z;
+  return lhs;
 }
 
 AS_API constexpr const quat operator-(const quat& q)
@@ -57,6 +75,11 @@ AS_API constexpr const quat operator/(const quat& lhs, const real rhs)
 AS_API constexpr const quat operator*(const quat& lhs, const real rhs)
 {
   return {lhs.w * rhs, lhs.x * rhs, lhs.y * rhs, lhs.z * rhs};
+}
+
+AS_API constexpr const quat operator*(const real lhs, const quat& rhs)
+{
+    return operator*(rhs, lhs);
 }
 
 } // namespace as

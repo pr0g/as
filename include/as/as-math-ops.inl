@@ -1337,11 +1337,22 @@ AS_API inline quat quat_rotation_zxy(const real x, const real y, const real z)
        * quat{std::cos(0.5_r * z), 0.0_r, 0.0_r, std::sin(0.5_r * z)};
 }
 
-AS_API inline quat quat_slerp(const quat& lhs, const quat& rhs, const real t)
+AS_API inline quat quat_nlerp(const quat& q0, const quat& q1, const real t)
 {
-  const real theta = std::acos(quat_dot(lhs, rhs));
-  return (lhs * std::sin((1.0_r - t) * theta) + rhs * std::sin(t * theta))
-       / std::sin(theta);
+    return mix(q0, q1, t);
+}
+
+AS_API inline quat quat_slerp(const quat& q0, const quat& q1, const real t)
+{
+  const real dot = clamp(quat_dot(q0, q1), -1.0_r, 1.0_r);
+  if (dot > 0.995_r) {
+      return quat_nlerp(q0, q1, t);
+  }
+  const quat q1_s = dot < 0.0_r ? q1 * -1.0_r : q1;
+  const real theta = std::acos(dot);
+  const real sin_theta = std::sin(theta);
+  return (q0 * std::sin((1.0_r - t) * theta) + q1_s * std::sin(t * theta))
+          / sin_theta;
 }
 
 // ref: euclidean space

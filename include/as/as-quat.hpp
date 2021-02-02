@@ -39,14 +39,20 @@ constexpr const quat operator*(const quat& lhs, const quat& rhs);
 constexpr quat& operator*=(quat& lhs, const quat& rhs);
 //! Returns the sum of two quaternions.
 constexpr const quat operator+(const quat& lhs, const quat& rhs);
+//! Performs addition assignment of two quaternions.
+constexpr quat& operator+=(quat& lhs, const quat& rhs);
 //! Returns the result of `rhs` subtracted from `lhs`.
 constexpr const quat operator-(const quat& lhs, const quat& rhs);
+//! Performs subtraction assignment of two quaternions.
+constexpr quat& operator-=(quat& lhs, const quat& rhs);
 //! Returns the negation of `quat`.
 constexpr const quat operator-(const quat& q);
 //! Returns a quat divided by a scalar quantity.
 constexpr const quat operator/(const quat& lhs, real rhs);
 //! Returns a quat multiplied by a scalar quantity.
 constexpr const quat operator*(const quat& lhs, real rhs);
+//! Returns a quat multiplied by a scalar quantity (overload).
+constexpr const quat operator*(real lhs, const quat& rhs);
 
 } // namespace as
 

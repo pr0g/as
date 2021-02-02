@@ -1,8 +1,8 @@
 namespace as
 {
 
-template<typename T>
-AS_API constexpr T mix(const T begin, const T end, const T t)
+template<typename T, typename V>
+AS_API constexpr V mix(const V& begin, const V& end, const T t)
 {
   return (T(1.0) - t) * begin + t * end;
 }
