@@ -774,7 +774,7 @@ quat quat_from_mat3(const mat3& m);
 //! Writes the values stored in the \ref affine to an array of the same type
 //! and dimension.
 //! \note affine uses a ::mat3 and a ::vec3 internally.
-void quat_to_arr(const affine& a, real (&data)[12]);
+void affine_to_arr(const affine& a, real (&data)[12]);
 
 //! Creates an \ref affine from a fixed size array of the same type and
 //! dimension.
