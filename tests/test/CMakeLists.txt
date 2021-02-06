@@ -22,7 +22,8 @@ add_executable(
     as-quat.test.cpp
     as-vec.test.cpp
     as-math.test.cpp
-    as-view.test.cpp)
+    as-view.test.cpp
+    as-rigid.test.cpp)
 
 # cmake-format: off
 string(

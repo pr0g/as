@@ -482,4 +482,46 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
   }
 }
 
+TEST_CASE("quat_near", "[as_quat]")
+{
+  {
+    quat q0(1.0_r, 2.0_r, 3.0_r, 4.0_r);
+    quat q1(1.0_r, -2.0_r, 3.0_r, 4.0_r);
+    CHECK(!as::quat_near(q0, q1, g_epsilon));
+  }
+
+  {
+    quat q0(1.0_r, -2.0_r, 3.0_r, -4.0_r);
+    quat q1(1.0_r, -2.0_r, 3.0_r, -4.0_r);
+    CHECK(as::quat_near(q0, q1, g_epsilon));
+  }
+
+  {
+    quat q0(1.0_r,  -2.0_r, -3.0_r, -4.0_r);
+    quat q1(-1.0_r,  2.0_r,  3.0_r,  4.0_r);
+    CHECK(as::quat_near(q0, q1, g_epsilon));
+  }
+}
+
+TEST_CASE("quat_iterator", "[as_quat]")
+{
+  const real w = quat(3.0_r, 4.0_r, 5.0_r, 6.0_r)[0];
+  CHECK(w == Catch::Approx(3.0_r).epsilon(g_epsilon));
+
+  {
+    const quat q = quat::identity();
+    auto result = std::min_element(cbegin(q), cend(q));
+    CHECK(*result == Catch::Approx(0.0_r).epsilon(g_epsilon));
+  }
+
+  {
+    quat q = quat::identity();
+    std::reverse(begin(q), end(q));
+    CHECK(q[0] == Catch::Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(q[1] == Catch::Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(q[2] == Catch::Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(q[3] == Catch::Approx(1.0_r).epsilon(g_epsilon));
+  }
+}
+
 } // namespace unit_test

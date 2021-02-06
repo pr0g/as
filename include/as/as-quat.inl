@@ -17,6 +17,26 @@ AS_API constexpr quat quat::identity()
   return {1.0_r, 0.0_r, 0.0_r, 0.0_r};
 }
 
+AS_API constexpr index quat::size()
+{
+  return 4;
+}
+
+AS_API inline real& quat::operator[](const index i) &
+{
+  return this->*elem[i];
+}
+
+AS_API inline const real& quat::operator[](const index i) const&
+{
+  return this->*elem[i];
+}
+
+AS_API inline real quat::operator[](const index i) &&
+{
+  return this->*elem[i];
+}
+
 AS_API constexpr const quat operator*(const quat& lhs, const quat& rhs)
 {
   return {
@@ -80,6 +100,36 @@ AS_API constexpr const quat operator*(const quat& lhs, const real rhs)
 AS_API constexpr const quat operator*(const real lhs, const quat& rhs)
 {
     return operator*(rhs, lhs);
+}
+
+AS_API inline subscript_iterator<quat> begin(quat& q)
+{
+  return subscript_iterator<quat>(q, 0);
+}
+
+AS_API inline subscript_iterator<quat> end(quat& q)
+{
+  return subscript_iterator<quat>(q, quat::size());
+}
+
+AS_API inline subscript_const_iterator<quat> begin(const quat& q)
+{
+  return subscript_const_iterator<quat>(q, 0);
+}
+
+AS_API inline subscript_const_iterator<quat> end(const quat& q)
+{
+  return subscript_const_iterator<quat>(q, quat::size());
+}
+
+AS_API inline subscript_const_iterator<quat> cbegin(const quat& q)
+{
+  return begin(q);
+}
+
+AS_API inline subscript_const_iterator<quat> cend(const quat& q)
+{
+  return end(q);
 }
 
 } // namespace as

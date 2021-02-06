@@ -17,6 +17,7 @@ using as::mat4;
 using as::mat4i;
 using as::quat;
 using as::real;
+using as::rigid;
 using as::vec;
 using as::vec3;
 using as::vec4;
@@ -1821,6 +1822,14 @@ TEST_CASE("mat_equal", "[as_mat]")
 
     CHECK(m3i_lhs != m3i_rhs);
   }
+}
+
+TEST_CASE("mat4_from_rigid", "[as_mat]")
+{
+  mat4 result;
+  result = as::mat4_from_rigid(rigid(quat::identity(), vec3::zero()));
+
+  CHECK_THAT(mat4::identity(), elements_are(result));
 }
 
 } // namespace unit_test

@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <algorithm>
 #include <iterator>
 #include <numeric>
 #include <tuple>
@@ -12,6 +13,7 @@
 #include "as-mat4.hpp"
 #include "as-math.hpp"
 #include "as-quat.hpp"
+#include "as-rigid.hpp"
 #include "as-vec.hpp"
 
 namespace as
@@ -706,6 +708,11 @@ constexpr mat<T, 4> mat4_from_mat3_vec3(
 //! that changes.
 constexpr mat4 mat4_from_affine(const affine& a);
 
+//! Returns a mat<T, 4> from a \ref rigid.
+//! \note The effect of the transformation will be the same, it is only the type
+//! that changes.
+constexpr mat4 mat4_from_rigid(const rigid& r);
+
 //! Returns a shear transformation about the `x` axis in `y` and/or `z`.
 template<typename T>
 constexpr mat<T, 4> mat4_shear_x(T y, T z);
@@ -717,6 +724,12 @@ constexpr mat<T, 4> mat4_shear_y(T x, T z);
 //! Returns a shear transformation about the `z` axis in `x` and/or `y`.
 template<typename T>
 constexpr mat<T, 4> mat4_shear_z(T x, T y);
+
+//! Returns if two quaternions are within a certain tolerance of one another.
+bool quat_near(
+  const quat& q0, const quat& q1,
+  real max_diff = std::numeric_limits<real>::epsilon(),
+  real max_rel_diff = std::numeric_limits<real>::epsilon());
 
 //! Returns the dot product of two quaternions.
 //! \note The corresponding scalar parts are multiplied together and then
@@ -739,6 +752,15 @@ constexpr quat quat_conjugate(const quat& q);
 //! \param axis The axis of rotation.
 //! \param radians The amount to rotate by in radians.
 quat quat_rotation_axis(const vec3& axis, real radians);
+
+//! Returns a rotation about the x axis.
+quat quat_rotation_x(real radians);
+
+//! Returns a rotation about the y axis.
+quat quat_rotation_y(real radians);
+
+//! Returns a rotation about the z axis.
+quat quat_rotation_z(real radians);
 
 //! Returns a rotation about x, then y, then z.
 quat quat_rotation_xyz(real x, real y, real z);
@@ -770,6 +792,10 @@ quat quat_slerp(const quat& q0, const quat& q1, real t);
 //! Converts a rotation matrix to a quaternion.
 //! \note Ensure ::mat3 is a valid rotation.
 quat quat_from_mat3(const mat3& m);
+
+//! Writes the values stored in the \ref quat to an array of the same type
+//! and dimension.
+void quat_to_arr(const quat& q, real (&data)[quat::size()]);
 
 //! Writes the values stored in the \ref affine to an array of the same type
 //! and dimension.
@@ -806,6 +832,9 @@ affine affine_from_mat3_vec3(const mat3& m, const vec3& v);
 //! \note The rotation part will be initialized to the identity.
 affine affine_from_vec3(const vec3& v);
 
+//! Returns an \ref affine from a \ref rigid.
+affine affine_from_rigid(const rigid& r);
+
 //! Returns the result of two \ref affine types multiplied together.
 //! \note `lhs` is performed first, then `rhs`
 affine affine_mul(const affine& lhs, const affine& rhs);
@@ -815,24 +844,77 @@ affine affine_mul(const affine& lhs, const affine& rhs);
 //! // a * inv(a) = identity
 //! ```
 //! \note The inverse of \ref affine is just the transpose of the rotation part.
-//! Ensure it holds a valid a \ref affine transformation (axes are orthogonal).
+//! Ensure it holds a valid a rotation (axes are orthogonal).
 affine affine_inverse(const affine& a);
 
 //! Returns the input direction transformed by the \ref affine.
-//! \note No translation occurs, just rotation.
 vec3 affine_transform_dir(const affine& a, const vec3& direction);
 
 //! Returns the input position transformed by the \ref affine.
-//! \note No rotation occurs, just translation.
 vec3 affine_transform_pos(const affine& a, const vec3& position);
 
 //! Returns the input direction transformed by the inverse of the \ref affine.
-//! \note No translation occurs, just rotation.
 vec3 affine_inv_transform_dir(const affine& a, const vec3& direction);
 
 //! Returns the input position transformed by the inverse of the \ref affine.
-//! \note No rotation occurs, just translation.
 vec3 affine_inv_transform_pos(const affine& a, const vec3& position);
+
+//! Writes the values stored in the \ref rigid to an array of the same type
+//! and dimension.
+//! \note rigid uses a \ref quat and a ::vec3 internally.
+void rigid_to_arr(const rigid& r, real (&data)[7]);
+
+//! Creates a \ref rigid from a fixed size array of the same type and
+//! dimension.
+//! \note rigid uses a \ref quat and a ::vec3 internally.
+rigid rigid_from_arr(const real (&data)[7]);
+
+//! Creates a \ref rigid from a pointer to an array of the same type.
+//! \note Ensure that the array has at least 7 elements from where it is read.
+rigid rigid_from_ptr(const real* data);
+
+//! Returns a \ref rigid from a ::mat4.
+//! \note Ensure that the ::mat4 holds a valid a transformation
+//! (translation/scale/rotation) and not a non-affine transformation such as a
+//! projection.
+rigid rigid_from_mat4(const mat4& m);
+
+//! Returns a \ref rigid from a \ref quat.
+//! \note Ensure that the \ref quat holds a valid a transformation
+//! (scale/rotation)
+//! \note The translation portion of rigid will be zero.
+rigid rigid_from_quat(const quat& q);
+
+//! Returns a \ref rigid from a \ref quat and a ::vec3.
+//! \note Ensure that the \ref quat holds a valid a transformation
+//! (scale/rotation)
+rigid rigid_from_quat_vec3(const quat& q, const vec3& v);
+
+//! Returns a \ref rigid from a ::vec3.
+//! \note The rotation part will be initialized to the identity.
+rigid rigid_from_vec3(const vec3& v);
+
+//! Returns the result of two \ref rigid types multiplied together.
+//! \note `lhs` is performed first, then `rhs`
+rigid rigid_mul(const rigid& lhs, const rigid& rhs);
+
+//! Returns the inverse of the \ref rigid.
+//! ```{.cpp}
+//! // r * inv(r) = identity
+//! ```
+rigid rigid_inverse(const rigid& r);
+
+//! Returns the input direction transformed by the \ref rigid.
+vec3 rigid_transform_dir(const rigid& r, const vec3& direction);
+
+//! Returns the input position transformed by the \ref rigid.
+vec3 rigid_transform_pos(const rigid& r, const vec3& position);
+
+//! Returns the input direction transformed by the inverse of the \ref rigid.
+vec3 rigid_inv_transform_dir(const rigid& r, const vec3& direction);
+
+//! Returns the input position transformed by the inverse of the \ref rigid.
+vec3 rigid_inv_transform_pos(const rigid& r, const vec3& position);
 
 } // namespace as
 

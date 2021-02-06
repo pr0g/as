@@ -15,7 +15,7 @@ FetchContent_MakeAvailable(as)
 find_package(Catch2 CONFIG REQUIRED)
 
 add_executable(${PROJECT_NAME} as-vec.bench.cpp as-affine.bench.cpp
-                               as-mat.bench.cpp)
+                               as-mat.bench.cpp as-rigid.bench.cpp)
 
 set_target_properties(
     ${PROJECT_NAME} PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED YES

@@ -1249,6 +1249,11 @@ AS_API constexpr mat4 mat4_from_affine(const affine& a)
   return mat4_from_mat3_vec3(a.rotation, a.translation);
 }
 
+AS_API constexpr mat4 mat4_from_rigid(const rigid& r)
+{
+  return mat4_from_mat3_vec3(mat3_from_quat(r.rotation), r. translation);
+}
+
 template<typename T>
 AS_API constexpr mat<T, 4> mat4_shear_x(const T y, const T z)
 {
@@ -1280,6 +1285,23 @@ AS_API constexpr mat<T, 4> mat4_shear_z(const T x, const T y)
           x,      y,      T(1.0), T(0.0),
           T(0.0), T(0.0), T(0.0), T(1.0)};
   // clang-format on
+}
+
+AS_API inline bool quat_near(
+  const quat& q0, const quat& q1,
+  const real max_diff /*= std::numeric_limits<real>::epsilon()*/,
+  const real max_rel_diff /*= std::numeric_limits<real>::epsilon()*/)
+{
+  return std::equal(
+    begin(q0), end(q0), begin(q1),
+    [max_diff, max_rel_diff](const auto& lhs, const auto& rhs){
+      return real_near(lhs, rhs, max_diff, max_rel_diff);
+    }) ||
+    std::equal(
+      begin(q0), end(q0), begin(q1),
+      [max_diff, max_rel_diff](const auto& lhs, const auto& rhs){
+        return real_near(lhs, -rhs, max_diff, max_rel_diff);
+      });
 }
 
 AS_API constexpr real quat_dot(const quat& lhs, const quat& rhs)
@@ -1320,7 +1342,23 @@ AS_API inline vec3 quat_rotate(const quat& q, const vec3& v)
 
 AS_API inline quat quat_rotation_axis(const vec3& axis, const real radians)
 {
-  return {std::cos(0.5_r * radians), axis * std::sin(0.5_r * radians)};
+  return quat_normalize(
+      {std::cos(0.5_r * radians), axis * std::sin(0.5_r * radians)});
+}
+
+AS_API inline quat quat_rotation_x(const real radians)
+{
+  return quat_rotation_axis(vec3::axis_x(), radians);
+}
+
+AS_API inline quat quat_rotation_y(const real radians)
+{
+  return quat_rotation_axis(vec3::axis_y(), radians);
+}
+
+AS_API inline quat quat_rotation_z(const real radians)
+{
+  return quat_rotation_axis(vec3::axis_z(), radians);
 }
 
 AS_API inline quat quat_rotation_xyz(const real x, const real y, const real z)
@@ -1402,6 +1440,13 @@ AS_API inline quat quat_from_mat3(const mat3& m)
   return q;
 }
 
+AS_API inline void quat_to_arr(const quat& q, real (&data)[quat::size()])
+{
+  for (index i = 0; i < q.size(); ++i) {
+    data[i] = q[i];
+  }
+}
+
 AS_API inline void affine_to_arr(const affine& a, real (&data)[12])
 {
   for (index i = 0; i < a.rotation.size(); ++i) {
@@ -1455,6 +1500,11 @@ AS_API inline affine affine_from_vec3(const vec3& v)
   return affine(v);
 }
 
+AS_API inline affine affine_from_rigid(const rigid& r)
+{
+  return affine(mat3_from_quat(r.rotation), r.translation);
+}
+
 AS_API inline affine affine_mul(const affine& lhs, const affine& rhs)
 {
   return affine(
@@ -1490,7 +1540,7 @@ AS_API inline vec3 affine_transform_pos(const affine& a, const vec3& position)
 AS_API inline vec3 affine_inv_transform_dir(
   const affine& a, const vec3& direction)
 {
-  const mat3 inv_rotation = mat_inverse(a.rotation);
+  const mat3 inv_rotation = mat_transpose(a.rotation);
 #ifdef AS_COL_MAJOR
   return inv_rotation * direction;
 #elif defined AS_ROW_MAJOR
@@ -1501,12 +1551,99 @@ AS_API inline vec3 affine_inv_transform_dir(
 AS_API inline vec3 affine_inv_transform_pos(
   const affine& a, const vec3& position)
 {
-  const mat3 inv_rotation = mat_inverse(a.rotation);
+  const mat3 inv_rotation = mat_transpose(a.rotation);
 #ifdef AS_COL_MAJOR
   return inv_rotation * (position - a.translation);
 #elif defined AS_ROW_MAJOR
   return (position - a.translation) * inv_rotation;
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
+}
+
+AS_API inline void rigid_to_arr(const rigid& r, real (&data)[7])
+{
+  for (index i = 0; i < r.rotation.size(); ++i) {
+    data[i] = r.rotation[i];
+  }
+
+  for (index i = 0; i < r.translation.size(); ++i) {
+    data[r.rotation.size() + i] = r.translation[i];
+  }
+}
+
+AS_API inline rigid rigid_from_arr(const real (&data)[7])
+{
+  return rigid_from_ptr(data);
+}
+
+AS_API inline rigid rigid_from_ptr(const real* data)
+{
+  rigid result;
+
+  constexpr auto quat_size = result.rotation.size();
+  for (index i = 0; i < quat_size; ++i) {
+    result.rotation[i] = data[i];
+  }
+
+  constexpr auto vec3_size = result.translation.size();
+  for (index i = 0; i < vec3_size; ++i) {
+    result.translation[i] = data[quat_size + i];
+  }
+
+  return result;
+}
+
+AS_API inline rigid rigid_from_mat4(const mat4& m)
+{
+  return rigid(quat_from_mat3(mat3_from_mat4(m)), mat4_translation(m));
+}
+
+AS_API inline rigid rigid_from_quat(const quat& q)
+{
+  return rigid(q);
+}
+
+AS_API inline rigid rigid_from_quat_vec3(const quat& q, const vec3& v)
+{
+  return rigid(q, v);
+}
+
+AS_API inline rigid rigid_from_vec3(const vec3& v)
+{
+  return rigid(v);
+}
+
+AS_API inline rigid rigid_mul(const rigid& lhs, const rigid& rhs)
+{
+  return rigid(
+    rhs.rotation * lhs.rotation,
+    rigid_transform_pos(rhs, lhs.translation));
+}
+
+AS_API inline rigid rigid_inverse(const rigid& r)
+{
+  const quat inv_rot = quat_inverse(as::quat_normalize(r.rotation));
+  const vec3 inv_pos = rigid_transform_pos(rigid(inv_rot), -r.translation);
+  return rigid(inv_rot, inv_pos);
+}
+
+AS_API inline vec3 rigid_transform_dir(const rigid& r, const vec3& direction)
+{
+  return quat_rotate(r.rotation, direction);
+}
+
+AS_API inline vec3 rigid_transform_pos(const rigid& r, const vec3& position)
+{
+  return quat_rotate(r.rotation, position) + r.translation;
+}
+
+AS_API inline vec3 rigid_inv_transform_dir(const rigid& r, const vec3& direction)
+{
+  return quat_rotate(quat_inverse(r.rotation), direction);
+}
+
+AS_API inline vec3 rigid_inv_transform_pos(const rigid& r, const vec3& position)
+{
+  return quat_rotate(quat_inverse(r.rotation), position - r.translation);
 }
 
 } // namespace as

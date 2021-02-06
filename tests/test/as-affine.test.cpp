@@ -11,7 +11,9 @@ namespace unit_test
 using as::affine;
 using as::mat3;
 using as::mat4;
+using as::quat;
 using as::real;
+using as::rigid;
 using as::vec3;
 
 // functions
@@ -252,6 +254,15 @@ TEST_CASE("affine_inverse", "[as_affine]")
   CHECK_THAT(
     make_span(&expected_affine[9], 3),
     elements_are_span(result.translation).margin(0.000001_r));
+}
+
+TEST_CASE("affine_from_rigid", "[as_affine]")
+{
+  affine a;
+  a = affine_from_rigid(rigid(quat::identity(), vec3::zero()));
+
+  CHECK_THAT(mat3::identity(), elements_are(a.rotation));
+  CHECK_THAT(vec3::zero(), elements_are(a.translation));
 }
 
 } // namespace unit_test
