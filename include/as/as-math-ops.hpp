@@ -894,6 +894,10 @@ rigid rigid_from_quat_vec3(const quat& q, const vec3& v);
 //! \note The rotation part will be initialized to the identity.
 rigid rigid_from_vec3(const vec3& v);
 
+//! Returns a \ref rigid from an \ref affine.
+//! \note The ::mat3 part of the \ref affine must be a valid rotation matrix.
+rigid rigid_from_affine(const affine& a);
+
 //! Returns the result of two \ref rigid types multiplied together.
 //! \note `lhs` is performed first, then `rhs`
 rigid rigid_mul(const rigid& lhs, const rigid& rhs);

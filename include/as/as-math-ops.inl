@@ -1612,6 +1612,11 @@ AS_API inline rigid rigid_from_vec3(const vec3& v)
   return rigid(v);
 }
 
+AS_API inline rigid rigid_from_affine(const affine& a)
+{
+  return rigid(quat_from_mat3(a.rotation), a.translation);
+}
+
 AS_API inline rigid rigid_mul(const rigid& lhs, const rigid& rhs)
 {
   return rigid(

@@ -8,6 +8,7 @@ namespace unit_test
 {
 
 // types
+using as::affine;
 using as::mat3;
 using as::mat4;
 using as::quat;
@@ -249,6 +250,19 @@ TEST_CASE("rigid_inverse", "[as_rigid]")
   CHECK_THAT(
     make_span(&expected_rigid[4], 3),
     elements_are_span(result.translation));
+}
+
+TEST_CASE("rigid_from_affine", "[as_rigid]")
+{
+  using gsl::make_span;
+
+  affine a = affine(as::mat3_rotation_y(as::radians(90.0_r)), as::vec3(5.0_r, 0.0_r, 10.0_r));
+  rigid r = rigid_from_affine(a);
+
+  vec3 result_affine = as::affine_transform_pos(a, vec3::axis_x(5.0_r));
+  vec3 result_rigid = as::rigid_transform_pos(r, vec3::axis_x(5.0_r));
+
+  CHECK_THAT(result_affine, elements_are(result_rigid));
 }
 
 } // namespace unit_test
