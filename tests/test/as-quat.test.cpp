@@ -497,8 +497,8 @@ TEST_CASE("quat_near", "[as_quat]")
   }
 
   {
-    quat q0(1.0_r,  -2.0_r, -3.0_r, -4.0_r);
-    quat q1(-1.0_r,  2.0_r,  3.0_r,  4.0_r);
+    quat q0(1.0_r, -2.0_r, -3.0_r, -4.0_r);
+    quat q1(-1.0_r, 2.0_r, 3.0_r, 4.0_r);
     CHECK(as::quat_near(q0, q1, g_epsilon));
   }
 }

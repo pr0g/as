@@ -99,7 +99,7 @@ AS_API constexpr const quat operator*(const quat& lhs, const real rhs)
 
 AS_API constexpr const quat operator*(const real lhs, const quat& rhs)
 {
-    return operator*(rhs, lhs);
+  return operator*(rhs, lhs);
 }
 
 AS_API inline subscript_iterator<quat> begin(quat& q)

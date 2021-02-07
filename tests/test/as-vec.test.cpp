@@ -517,7 +517,9 @@ TEST_CASE("vec2_vec3_vec4_accessors", "[as_vec]")
   CHECK(vec4_from_vec2(v2).x == Catch::Approx(v2.x).epsilon(g_epsilon));
   CHECK(vec4_from_vec2(v2).y == Catch::Approx(v2.y).epsilon(g_epsilon));
   CHECK(vec4_from_vec2(v2, 3.0_r).z == Catch::Approx(3.0_r).epsilon(g_epsilon));
-  CHECK(vec4_from_vec2(v2, 3.0_r, 4.0_r).w == Catch::Approx(4.0_r).epsilon(g_epsilon));
+  CHECK(
+    vec4_from_vec2(v2, 3.0_r, 4.0_r).w
+    == Catch::Approx(4.0_r).epsilon(g_epsilon));
 
   CHECK(vec4_from_vec3(v3).x == Catch::Approx(v2.x).epsilon(g_epsilon));
   CHECK(vec4_from_vec3(v3).y == Catch::Approx(v2.y).epsilon(g_epsilon));

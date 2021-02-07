@@ -28,8 +28,8 @@ public:
   //! Required aliases provided by the iterator type.
   //!@{
   /** The kind of iterator (see https://en.cppreference.com/w/cpp/iterator
-    * and https://en.cppreference.com/w/cpp/iterator/iterator_tags for more
-    * details). */
+   * and https://en.cppreference.com/w/cpp/iterator/iterator_tags for more
+   * details). */
   using iterator_category = std::random_access_iterator_tag;
   /** The type of the element the iterator can point to. */
   using value_type = typename subscriptable_t::value_type;

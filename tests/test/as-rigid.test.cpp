@@ -128,9 +128,7 @@ TEST_CASE("rigid_to_arr", "[as_rigid]")
 {
   using gsl::make_span;
 
-  rigid r(
-    quat(1.0_r, 2.0_r, 3.0_r, 4.0_r),
-    vec3(10.0_r, 20.0_r, 30.0_r));
+  rigid r(quat(1.0_r, 2.0_r, 3.0_r, 4.0_r), vec3(10.0_r, 20.0_r, 30.0_r));
 
   real expected_rigid[7];
   as::rigid_to_arr(r, expected_rigid);
@@ -144,7 +142,7 @@ TEST_CASE("rigid_from_arr", "[as_rigid]")
 {
   using gsl::make_span;
 
-  real rigid_arr[] = {1.0_r, 2.0_r, 3.0_r, 4.0_r,  5.0_r,  6.0_r, 7.0_r};
+  real rigid_arr[] = {1.0_r, 2.0_r, 3.0_r, 4.0_r, 5.0_r, 6.0_r, 7.0_r};
 
   rigid r;
   r = as::rigid_from_arr(rigid_arr);
@@ -248,15 +246,15 @@ TEST_CASE("rigid_inverse", "[as_rigid]")
 
   CHECK_THAT(make_span(expected_rigid, 4), elements_are_span(result.rotation));
   CHECK_THAT(
-    make_span(&expected_rigid[4], 3),
-    elements_are_span(result.translation));
+    make_span(&expected_rigid[4], 3), elements_are_span(result.translation));
 }
 
 TEST_CASE("rigid_from_affine", "[as_rigid]")
 {
   using gsl::make_span;
 
-  affine a = affine(as::mat3_rotation_y(as::radians(90.0_r)), as::vec3(5.0_r, 0.0_r, 10.0_r));
+  affine a = affine(
+    as::mat3_rotation_y(as::radians(90.0_r)), as::vec3(5.0_r, 0.0_r, 10.0_r));
   rigid r = rigid_from_affine(a);
 
   vec3 result_affine = as::affine_transform_pos(a, vec3::axis_x(5.0_r));

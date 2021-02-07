@@ -1251,7 +1251,7 @@ AS_API constexpr mat4 mat4_from_affine(const affine& a)
 
 AS_API constexpr mat4 mat4_from_rigid(const rigid& r)
 {
-  return mat4_from_mat3_vec3(mat3_from_quat(r.rotation), r. translation);
+  return mat4_from_mat3_vec3(mat3_from_quat(r.rotation), r.translation);
 }
 
 template<typename T>
@@ -1293,15 +1293,15 @@ AS_API inline bool quat_near(
   const real max_rel_diff /*= std::numeric_limits<real>::epsilon()*/)
 {
   return std::equal(
-    begin(q0), end(q0), begin(q1),
-    [max_diff, max_rel_diff](const auto& lhs, const auto& rhs){
-      return real_near(lhs, rhs, max_diff, max_rel_diff);
-    }) ||
-    std::equal(
-      begin(q0), end(q0), begin(q1),
-      [max_diff, max_rel_diff](const auto& lhs, const auto& rhs){
-        return real_near(lhs, -rhs, max_diff, max_rel_diff);
-      });
+           begin(q0), end(q0), begin(q1),
+           [max_diff, max_rel_diff](const auto& lhs, const auto& rhs) {
+             return real_near(lhs, rhs, max_diff, max_rel_diff);
+           })
+      || std::equal(
+           begin(q0), end(q0), begin(q1),
+           [max_diff, max_rel_diff](const auto& lhs, const auto& rhs) {
+             return real_near(lhs, -rhs, max_diff, max_rel_diff);
+           });
 }
 
 AS_API constexpr real quat_dot(const quat& lhs, const quat& rhs)
@@ -1343,7 +1343,7 @@ AS_API inline vec3 quat_rotate(const quat& q, const vec3& v)
 AS_API inline quat quat_rotation_axis(const vec3& axis, const real radians)
 {
   return quat_normalize(
-      {std::cos(0.5_r * radians), axis * std::sin(0.5_r * radians)});
+    {std::cos(0.5_r * radians), axis * std::sin(0.5_r * radians)});
 }
 
 AS_API inline quat quat_rotation_x(const real radians)
@@ -1377,21 +1377,21 @@ AS_API inline quat quat_rotation_zxy(const real x, const real y, const real z)
 
 AS_API inline quat quat_nlerp(const quat& q0, const quat& q1, const real t)
 {
-    const quat q1_s = quat_dot(q0, q1) < 0.0_r ? q1 * -1.0_r : q1;
-    return mix(q0, q1_s, t);
+  const quat q1_s = quat_dot(q0, q1) < 0.0_r ? q1 * -1.0_r : q1;
+  return mix(q0, q1_s, t);
 }
 
 AS_API inline quat quat_slerp(const quat& q0, const quat& q1, const real t)
 {
   const real dot = clamp(quat_dot(q0, q1), -1.0_r, 1.0_r);
   if (dot > 0.995_r) {
-      return mix(q0, q1, t);
+    return mix(q0, q1, t);
   }
   const quat q1_s = dot < 0.0_r ? q1 * -1.0_r : q1;
   const real theta = std::acos(dot);
   const real sin_theta = std::sin(theta);
   return (q0 * std::sin((1.0_r - t) * theta) + q1_s * std::sin(t * theta))
-          / sin_theta;
+       / sin_theta;
 }
 
 // ref: euclidean space
@@ -1620,8 +1620,7 @@ AS_API inline rigid rigid_from_affine(const affine& a)
 AS_API inline rigid rigid_mul(const rigid& lhs, const rigid& rhs)
 {
   return rigid(
-    rhs.rotation * lhs.rotation,
-    rigid_transform_pos(rhs, lhs.translation));
+    rhs.rotation * lhs.rotation, rigid_transform_pos(rhs, lhs.translation));
 }
 
 AS_API inline rigid rigid_inverse(const rigid& r)
@@ -1641,7 +1640,8 @@ AS_API inline vec3 rigid_transform_pos(const rigid& r, const vec3& position)
   return quat_rotate(r.rotation, position) + r.translation;
 }
 
-AS_API inline vec3 rigid_inv_transform_dir(const rigid& r, const vec3& direction)
+AS_API inline vec3 rigid_inv_transform_dir(
+  const rigid& r, const vec3& direction)
 {
   return quat_rotate(quat_inverse(r.rotation), direction);
 }

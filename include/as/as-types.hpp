@@ -11,8 +11,8 @@
 //! \section overview as
 //! `as` is written in C++ and relies on templates to parameterize vectors and
 //! matrices by both type and dimension. Template specializations exist for
-//! common vector and matrix types such as `vec3` and `mat4`. Row or Column major
-//! ordering must be determined by defining either `AS_COL_MAJOR` or
+//! common vector and matrix types such as `vec3` and `mat4`. Row or Column
+//! major ordering must be determined by defining either `AS_COL_MAJOR` or
 //! `AS_ROW_MAJOR`. The default type `real` must also be set by either defining
 //! `AS_PRECISION_FLOAT` or `AS_PRECISION_DOUBLE`.
 
