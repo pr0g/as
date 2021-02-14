@@ -790,7 +790,8 @@ quat quat_nlerp(const quat& q0, const quat& q1, real t);
 quat quat_slerp(const quat& q0, const quat& q1, real t);
 
 //! Converts a rotation matrix to a quaternion.
-//! \note Ensure ::mat3 is a valid rotation.
+//! \note Ensure ::mat3 is a valid rotation. It must be 'special orthogonal'
+//! (pure rotation without reflection).
 quat quat_from_mat3(const mat3& m);
 
 //! Writes the values stored in the \ref quat to an array of the same type
