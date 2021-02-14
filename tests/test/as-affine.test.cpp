@@ -156,8 +156,6 @@ TEST_CASE("affine_from_arr", "[as_affine]")
 
 TEST_CASE("affine_from_mat3", "[as_affine]")
 {
-  using gsl::make_span;
-
   mat3 m3(
     10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r, 60.0_r, 70.0_r, 80.0_r, 90.0_r);
 
@@ -170,8 +168,6 @@ TEST_CASE("affine_from_mat3", "[as_affine]")
 
 TEST_CASE("affine_from_mat3_vec3", "[as_affine]")
 {
-  using gsl::make_span;
-
   mat3 m3(
     10.0_r, 20.0_r, 30.0_r, 40.0_r, 50.0_r, 60.0_r, 70.0_r, 80.0_r, 90.0_r);
   vec3 v3(99.0_r, 98.0_r, 97.0_r);
@@ -185,8 +181,6 @@ TEST_CASE("affine_from_mat3_vec3", "[as_affine]")
 
 TEST_CASE("affine_from_vec3", "[as_affine]")
 {
-  using gsl::make_span;
-
   vec3 v3(99.0_r, 98.0_r, 97.0_r);
 
   affine a;
@@ -263,6 +257,15 @@ TEST_CASE("affine_from_rigid", "[as_affine]")
 
   CHECK_THAT(mat3::identity(), elements_are(a.rotation));
   CHECK_THAT(vec3::zero(), elements_are(a.translation));
+}
+
+TEST_CASE("affine_identity", "[as_affine]")
+{
+  affine a;
+  a = affine::identity();
+
+  CHECK_THAT(a.rotation, elements_are(mat3::identity()));
+  CHECK_THAT(a.translation, elements_are(vec3::zero()));
 }
 
 } // namespace unit_test

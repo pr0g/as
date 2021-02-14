@@ -22,6 +22,9 @@ struct rigid
   constexpr explicit rigid(
     const quat& rotation_, const vec3& translation_ = vec3::zero());
 
+  //! Returns an identity rigid (identity transform).
+  constexpr static rigid identity();
+
   quat rotation; //!< The rotation applied by this transformation.
   vec3 translation; //!< The translation applied by this transformation.
 };

@@ -168,8 +168,6 @@ TEST_CASE("rigid_from_quat", "[as_rigid]")
 
 TEST_CASE("rigid_from_quat_vec3", "[as_rigid]")
 {
-  using gsl::make_span;
-
   quat q(10.0_r, 20.0_r, 30.0_r, 40.0_r);
   vec3 v3(99.0_r, 98.0_r, 97.0_r);
 
@@ -182,8 +180,6 @@ TEST_CASE("rigid_from_quat_vec3", "[as_rigid]")
 
 TEST_CASE("rigid_from_vec3", "[as_rigid]")
 {
-  using gsl::make_span;
-
   vec3 v3(99.0_r, 98.0_r, 97.0_r);
 
   rigid r;
@@ -254,8 +250,6 @@ TEST_CASE("rigid_inverse", "[as_rigid]")
 
 TEST_CASE("rigid_from_affine", "[as_rigid]")
 {
-  using gsl::make_span;
-
   affine a = affine(as::mat3_rotation_y(as::radians(90.0_r)), as::vec3(5.0_r, 0.0_r, 10.0_r));
   rigid r = rigid_from_affine(a);
 
@@ -263,6 +257,15 @@ TEST_CASE("rigid_from_affine", "[as_rigid]")
   vec3 result_rigid = as::rigid_transform_pos(r, vec3::axis_x(5.0_r));
 
   CHECK_THAT(result_affine, elements_are(result_rigid));
+}
+
+TEST_CASE("rigid_identity", "[as_rigid]")
+{
+  rigid r;
+  r = rigid::identity();
+
+  CHECK_THAT(r.rotation, elements_are(quat::identity()));
+  CHECK_THAT(r.translation, elements_are(vec3::zero()));
 }
 
 } // namespace unit_test

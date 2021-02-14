@@ -22,6 +22,9 @@ struct affine
   constexpr explicit affine(
     const mat3& rotation_, const vec3& translation_ = vec3::zero());
 
+  //! Returns an identity affine (identity transform).
+  constexpr static affine identity();
+
   mat3 rotation; //!< The rotation applied by this transformation.
   vec3 translation; //!< The translation applied by this transformation.
 };
