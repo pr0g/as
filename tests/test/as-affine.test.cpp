@@ -1,8 +1,7 @@
 #include "as-helpers.test.hpp"
-#include "catch-matchers.hpp"
-#include "catch2/catch_all.hpp"
-
 #include "as/as-math-ops.hpp"
+#include "catch-matchers.hpp"
+#include "catch2/catch_test_macros.hpp"
 
 namespace unit_test
 {
