@@ -6,6 +6,9 @@
 namespace unit_test
 {
 
+// testing
+using Catch::Approx;
+
 // types
 using as::affine;
 using as::mat3;
@@ -53,9 +56,9 @@ TEST_CASE("rigid_transform_dir", "[as_rigid]")
 
   const vec3 result = as::rigid_transform_dir(r, vec3{1.0_r, 0.0_r, 0.0_r});
 
-  CHECK(result.x == Catch::Approx(0.0_r).margin(g_epsilon));
-  CHECK(result.y == Catch::Approx(0.0_r).margin(g_epsilon));
-  CHECK(result.z == Catch::Approx(-1.0_r).margin(g_epsilon));
+  CHECK(result.x == Approx(0.0_r).margin(g_epsilon));
+  CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
+  CHECK(result.z == Approx(-1.0_r).margin(g_epsilon));
 }
 
 TEST_CASE("rigid_inv_transform_pos", "[as_rigid]")
@@ -66,9 +69,9 @@ TEST_CASE("rigid_inv_transform_pos", "[as_rigid]")
     const vec3 result =
       as::rigid_inv_transform_pos(r, vec3(6.0_r, 0.0_r, 0.0_r));
 
-    CHECK(result.x == Catch::Approx(1.0_r).margin(g_epsilon));
-    CHECK(result.y == Catch::Approx(0.0_r).margin(g_epsilon));
-    CHECK(result.z == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.x == Approx(1.0_r).margin(g_epsilon));
+    CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.z == Approx(0.0_r).margin(g_epsilon));
   }
 
   {
@@ -78,9 +81,9 @@ TEST_CASE("rigid_inv_transform_pos", "[as_rigid]")
     const vec3 result =
       as::rigid_inv_transform_pos(r, vec3(5.0_r, 0.0_r, 0.0_r));
 
-    CHECK(result.x == Catch::Approx(-10.0_r).margin(g_epsilon));
-    CHECK(result.y == Catch::Approx(-5.0_r).margin(g_epsilon));
-    CHECK(result.z == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.x == Approx(-10.0_r).margin(g_epsilon));
+    CHECK(result.y == Approx(-5.0_r).margin(g_epsilon));
+    CHECK(result.z == Approx(0.0_r).margin(g_epsilon));
   }
 }
 
@@ -91,9 +94,9 @@ TEST_CASE("rigid_transform_pos", "[as_rigid]")
 
   const vec3 result = as::rigid_transform_pos(r, vec3(1.0_r, 0.0_r, 0.0_r));
 
-  CHECK(result.x == Catch::Approx(5.0_r).margin(g_epsilon));
-  CHECK(result.y == Catch::Approx(0.0_r).margin(g_epsilon));
-  CHECK(result.z == Catch::Approx(-1.0_r).margin(g_epsilon));
+  CHECK(result.x == Approx(5.0_r).margin(g_epsilon));
+  CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
+  CHECK(result.z == Approx(-1.0_r).margin(g_epsilon));
 }
 
 TEST_CASE("rigid_inv_transform_dir", "[as_rigid]")
@@ -104,9 +107,9 @@ TEST_CASE("rigid_inv_transform_dir", "[as_rigid]")
     const vec3 result =
       as::rigid_inv_transform_dir(r, vec3{6.0_r, 0.0_r, 0.0_r});
 
-    CHECK(result.x == Catch::Approx(6.0_r).margin(g_epsilon));
-    CHECK(result.y == Catch::Approx(0.0_r).margin(g_epsilon));
-    CHECK(result.z == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.x == Approx(6.0_r).margin(g_epsilon));
+    CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.z == Approx(0.0_r).margin(g_epsilon));
   }
 
   {
@@ -117,9 +120,9 @@ TEST_CASE("rigid_inv_transform_dir", "[as_rigid]")
       as::rigid_inv_transform_dir(r, vec3{5.0_r, 0.0_r, 0.0_r});
 
     const real local_epsilon = 1.0e-6_r;
-    CHECK(result.x == Catch::Approx(0.0_r).margin(local_epsilon));
-    CHECK(result.y == Catch::Approx(-5.0_r).margin(local_epsilon));
-    CHECK(result.z == Catch::Approx(0.0_r).margin(local_epsilon));
+    CHECK(result.x == Approx(0.0_r).margin(local_epsilon));
+    CHECK(result.y == Approx(-5.0_r).margin(local_epsilon));
+    CHECK(result.z == Approx(0.0_r).margin(local_epsilon));
   }
 }
 
