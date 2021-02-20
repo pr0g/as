@@ -20,9 +20,15 @@ Deficiencies include but are not limited to:
 -   The API is not stable (I'm still iterating on it)
 
 -   ~~The test coverage is currently woefully inadequate (I'm working on improving this)~~
-    -   I now _technically_ have **100%** test coverage! 🥳I'm sure not all corner cases are covered but given reasonable inputs things seem to be behaving as expected.
+    -   I now _technically_ have **100%** test coverage! 🥳 I'm sure not all corner cases are covered but given reasonable inputs things seem to be behaving as expected.
 
--   I have used this in a few projects (see [vulkan-fruit](https://twitter.com/tom_h_h/status/957656446258307073)) and my fork of Aras Pranckevičius' ([aras_p's](https://twitter.com/aras_p)) [ToyMeshPathTracer](https://github.com/pr0g/ToyMeshPathTracer), but nothing much else (yet...)
+-   I have used this in a few projects now
+    -   [Vulkan-Fruit](https://github.com/pr0g/vulkan-experiments) (Twitter [link](https://twitter.com/tom_h_h/status/957656446258307073)) - Experiment to learn more about Vulkan
+    -   [ToyMeshPathTracer](https://github.com/pr0g/ToyMeshPathTracer) - Fork of Aras Pranckevičius' ([aras_p's](https://twitter.com/aras_p)) interview task/assignment.
+    -   [as-camera](https://github.com/pr0g/as-camera) - Simple camera representation
+    -   [as-camera-input](https://github.com/pr0g/as-camera-input) - Interesting camera behaviours, built on-top of `as-camera`.
+    -   [sdl-bgfx-imgui-marching-cubes](https://github.com/pr0g/sdl-bgfx-imgui-marching-cubes) - Marching Cubes implementation
+    -   [sdl-bgfx-imgui-1d-nonlinear-transforms](https://github.com/pr0g/sdl-bgfx-imgui-as_1d-nonlinear-transformations) - Random experiments with interpolation and noise
 
 -   There's bound to be bugs!
 
