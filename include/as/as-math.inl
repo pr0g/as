@@ -42,13 +42,13 @@ AS_API constexpr T fract(const T x)
 template<typename T>
 AS_API constexpr T fract_abs(const T x)
 {
-  return fract(std::abs(x));
+  return fract(abs(x));
 }
 
 template<typename T>
 constexpr T fract_abs_signed(const T x)
 {
-  return fract(std::abs(x)) * sign(x);
+  return fract(abs(x)) * sign(x);
 }
 
 template<typename T>
@@ -79,13 +79,13 @@ AS_API inline bool real_near(
 {
   // check if the numbers are really close
   // needed when comparing numbers near zero
-  const real diff = std::abs(a - b);
+  const real diff = abs(a - b);
 
   if (diff <= max_diff) {
     return true;
   }
 
-  const real largest = max(std::abs(a), std::abs(b));
+  const real largest = max(abs(a), abs(b));
 
   // find relative difference
   return diff <= largest * max_rel_diff;
