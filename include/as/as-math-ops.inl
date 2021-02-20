@@ -119,6 +119,17 @@ AS_API vec<T, d> vec_min(const vec<T, d>& lhs, const vec<T, d>& rhs)
 }
 
 template<typename T, index d>
+AS_API vec<T, d> vec_min(const vec<T, d>& lhs, const T rhs)
+{
+  vec<T, d> result;
+  for (index i = 0; i < d; ++i) {
+    result[i] = min(lhs[i], rhs);
+  }
+
+  return result;
+}
+
+template<typename T, index d>
 AS_API constexpr T vec_min_elem(const vec<T, d>& v)
 {
   T val = v[0];
@@ -135,6 +146,17 @@ AS_API vec<T, d> vec_max(const vec<T, d>& lhs, const vec<T, d>& rhs)
   vec<T, d> result;
   for (index i = 0; i < d; ++i) {
     result[i] = max(lhs[i], rhs[i]);
+  }
+
+  return result;
+}
+
+template<typename T, index d>
+AS_API vec<T, d> vec_max(const vec<T, d>& lhs, const T rhs)
+{
+  vec<T, d> result;
+  for (index i = 0; i < d; ++i) {
+    result[i] = max(lhs[i], rhs);
   }
 
   return result;

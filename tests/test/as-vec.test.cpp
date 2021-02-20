@@ -1419,6 +1419,15 @@ TEST_CASE("min_vec", "[as_vec]")
 
     CHECK(vec_near(vec_reference, result));
   }
+
+  {
+    vec4 v1(2.0_r, 4.0_r, 6.0_r, 8.0_r);
+    real r = 3.0_r;
+
+    vec4 result = vec_min(v1, r);
+
+    CHECK_THAT(vec4(2.0_r, 3.0_r, 3.0_r, 3.0_r), elements_are(result));
+  }
 }
 
 TEST_CASE("min_elem", "[as_vec]")
@@ -1460,6 +1469,15 @@ TEST_CASE("max_vec", "[as_vec]")
     vec4 result = vec_max(v1, v2);
 
     CHECK(vec_near(vec_reference, result));
+  }
+
+  {
+    vec4 v1(2.0_r, 4.0_r, 6.0_r, 8.0_r);
+    real r = 3.0_r;
+
+    vec4 result = vec_max(v1, r);
+
+    CHECK_THAT(vec4(3.0_r, 4.0_r, 6.0_r, 8.0_r), elements_are(result));
   }
 }
 
@@ -2291,9 +2309,11 @@ template std::tuple<as::vec<as::real, 5>, as::real> as::
   vec_normalize_and_length(const as::vec<as::real, 5>&);
 template as::vec<as::real, 5> as::vec_min(
   const as::vec<as::real, 5>&, const as::vec<as::real, 5>&);
+template as::vec<as::real, 5> as::vec_min(const as::vec<as::real, 5>&, real);
 template as::real as::vec_min_elem(const as::vec<as::real, 5>&);
 template as::vec<as::real, 5> as::vec_max(
   const as::vec<as::real, 5>&, const as::vec<as::real, 5>&);
+template as::vec<as::real, 5> as::vec_max(const as::vec<as::real, 5>&, real);
 template as::real as::vec_max_elem(const as::vec<as::real, 5>&);
 template as::vec<as::real, 5> as::vec_abs(const as::vec<as::real, 5>&);
 template as::vec<as::real, 5> as::vec_clamp(
