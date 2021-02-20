@@ -6,9 +6,9 @@ lcov --directory build/ --capture                                 \
      --output-file build/app.info                                 \
      --gcov-tool=/usr/local/bin/gcov-7
 lcov --remove build/app.info                                      \
-    '*/catch2/*' '*/7.4.0/*' '*/usr/include/*'                    \
+    '*/7.5.0/*' '*/usr/include/*'                                 \
     '*/usr/local/include/*' '*/tests/test/catch-*'                \
-    '*/tests/test/*.test.*'                                       \
+    '*/tests/test/*.test.*' '*/third-party/*'                     \
     -o build/app-filtered.info                                    \
     --gcov-tool=/usr/local/bin/gcov-7
 genhtml build/app-filtered.info --output-directory build/html/
