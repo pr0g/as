@@ -1,7 +1,7 @@
 #pragma once
 
 #include "as/as-math-ops.hpp"
-#include "catch2/catch_all.hpp"
+#include "catch2/catch_tostring.hpp"
 
 #include <array>
 #include <sstream>

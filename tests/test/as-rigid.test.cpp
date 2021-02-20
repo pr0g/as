@@ -1,11 +1,13 @@
 #include "as-helpers.test.hpp"
-#include "catch-matchers.hpp"
-#include "catch2/catch_all.hpp"
-
 #include "as/as-math-ops.hpp"
+#include "catch-matchers.hpp"
+#include "catch2/catch_test_macros.hpp"
 
 namespace unit_test
 {
+
+// testing
+using Catch::Approx;
 
 // types
 using as::affine;
@@ -54,9 +56,9 @@ TEST_CASE("rigid_transform_dir", "[as_rigid]")
 
   const vec3 result = as::rigid_transform_dir(r, vec3{1.0_r, 0.0_r, 0.0_r});
 
-  CHECK(result.x == Catch::Approx(0.0_r).margin(g_epsilon));
-  CHECK(result.y == Catch::Approx(0.0_r).margin(g_epsilon));
-  CHECK(result.z == Catch::Approx(-1.0_r).margin(g_epsilon));
+  CHECK(result.x == Approx(0.0_r).margin(g_epsilon));
+  CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
+  CHECK(result.z == Approx(-1.0_r).margin(g_epsilon));
 }
 
 TEST_CASE("rigid_inv_transform_pos", "[as_rigid]")
@@ -67,9 +69,9 @@ TEST_CASE("rigid_inv_transform_pos", "[as_rigid]")
     const vec3 result =
       as::rigid_inv_transform_pos(r, vec3(6.0_r, 0.0_r, 0.0_r));
 
-    CHECK(result.x == Catch::Approx(1.0_r).margin(g_epsilon));
-    CHECK(result.y == Catch::Approx(0.0_r).margin(g_epsilon));
-    CHECK(result.z == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.x == Approx(1.0_r).margin(g_epsilon));
+    CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.z == Approx(0.0_r).margin(g_epsilon));
   }
 
   {
@@ -79,9 +81,9 @@ TEST_CASE("rigid_inv_transform_pos", "[as_rigid]")
     const vec3 result =
       as::rigid_inv_transform_pos(r, vec3(5.0_r, 0.0_r, 0.0_r));
 
-    CHECK(result.x == Catch::Approx(-10.0_r).margin(g_epsilon));
-    CHECK(result.y == Catch::Approx(-5.0_r).margin(g_epsilon));
-    CHECK(result.z == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.x == Approx(-10.0_r).margin(g_epsilon));
+    CHECK(result.y == Approx(-5.0_r).margin(g_epsilon));
+    CHECK(result.z == Approx(0.0_r).margin(g_epsilon));
   }
 }
 
@@ -92,9 +94,9 @@ TEST_CASE("rigid_transform_pos", "[as_rigid]")
 
   const vec3 result = as::rigid_transform_pos(r, vec3(1.0_r, 0.0_r, 0.0_r));
 
-  CHECK(result.x == Catch::Approx(5.0_r).margin(g_epsilon));
-  CHECK(result.y == Catch::Approx(0.0_r).margin(g_epsilon));
-  CHECK(result.z == Catch::Approx(-1.0_r).margin(g_epsilon));
+  CHECK(result.x == Approx(5.0_r).margin(g_epsilon));
+  CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
+  CHECK(result.z == Approx(-1.0_r).margin(g_epsilon));
 }
 
 TEST_CASE("rigid_inv_transform_dir", "[as_rigid]")
@@ -105,9 +107,9 @@ TEST_CASE("rigid_inv_transform_dir", "[as_rigid]")
     const vec3 result =
       as::rigid_inv_transform_dir(r, vec3{6.0_r, 0.0_r, 0.0_r});
 
-    CHECK(result.x == Catch::Approx(6.0_r).margin(g_epsilon));
-    CHECK(result.y == Catch::Approx(0.0_r).margin(g_epsilon));
-    CHECK(result.z == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.x == Approx(6.0_r).margin(g_epsilon));
+    CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.z == Approx(0.0_r).margin(g_epsilon));
   }
 
   {
@@ -118,9 +120,9 @@ TEST_CASE("rigid_inv_transform_dir", "[as_rigid]")
       as::rigid_inv_transform_dir(r, vec3{5.0_r, 0.0_r, 0.0_r});
 
     const real local_epsilon = 1.0e-6_r;
-    CHECK(result.x == Catch::Approx(0.0_r).margin(local_epsilon));
-    CHECK(result.y == Catch::Approx(-5.0_r).margin(local_epsilon));
-    CHECK(result.z == Catch::Approx(0.0_r).margin(local_epsilon));
+    CHECK(result.x == Approx(0.0_r).margin(local_epsilon));
+    CHECK(result.y == Approx(-5.0_r).margin(local_epsilon));
+    CHECK(result.z == Approx(0.0_r).margin(local_epsilon));
   }
 }
 
@@ -166,8 +168,6 @@ TEST_CASE("rigid_from_quat", "[as_rigid]")
 
 TEST_CASE("rigid_from_quat_vec3", "[as_rigid]")
 {
-  using gsl::make_span;
-
   quat q(10.0_r, 20.0_r, 30.0_r, 40.0_r);
   vec3 v3(99.0_r, 98.0_r, 97.0_r);
 
@@ -180,8 +180,6 @@ TEST_CASE("rigid_from_quat_vec3", "[as_rigid]")
 
 TEST_CASE("rigid_from_vec3", "[as_rigid]")
 {
-  using gsl::make_span;
-
   vec3 v3(99.0_r, 98.0_r, 97.0_r);
 
   rigid r;
@@ -251,8 +249,6 @@ TEST_CASE("rigid_inverse", "[as_rigid]")
 
 TEST_CASE("rigid_from_affine", "[as_rigid]")
 {
-  using gsl::make_span;
-
   affine a = affine(
     as::mat3_rotation_y(as::radians(90.0_r)), as::vec3(5.0_r, 0.0_r, 10.0_r));
   rigid r = rigid_from_affine(a);
@@ -261,6 +257,15 @@ TEST_CASE("rigid_from_affine", "[as_rigid]")
   vec3 result_rigid = as::rigid_transform_pos(r, vec3::axis_x(5.0_r));
 
   CHECK_THAT(result_affine, elements_are(result_rigid));
+}
+
+TEST_CASE("rigid_identity", "[as_rigid]")
+{
+  rigid r;
+  r = rigid::identity();
+
+  CHECK_THAT(r.rotation, elements_are(quat::identity()));
+  CHECK_THAT(r.translation, elements_are(vec3::zero()));
 }
 
 } // namespace unit_test

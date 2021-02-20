@@ -5,6 +5,7 @@
 
 #include <cfloat>
 #include <cmath>
+#include <cstddef>
 #include <cstdint>
 
 //! \mainpage `as` - a header-only linear algebra math library written in C++

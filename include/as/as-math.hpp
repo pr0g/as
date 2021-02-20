@@ -79,6 +79,10 @@ using std::min;
 //! https://en.cppreference.com/w/cpp/algorithm/clamp
 using std::clamp;
 
+//! Returns the absolute value of the input.
+//! https://en.cppreference.com/w/cpp/numeric/math/abs
+using std::abs;
+
 //! Returns the closest `step` value to `in`.
 //! \param in The value to snap.
 //! \param step The step size to snap to.

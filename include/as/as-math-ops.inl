@@ -119,6 +119,17 @@ AS_API vec<T, d> vec_min(const vec<T, d>& lhs, const vec<T, d>& rhs)
 }
 
 template<typename T, index d>
+AS_API vec<T, d> vec_min(const vec<T, d>& lhs, const T rhs)
+{
+  vec<T, d> result;
+  for (index i = 0; i < d; ++i) {
+    result[i] = min(lhs[i], rhs);
+  }
+
+  return result;
+}
+
+template<typename T, index d>
 AS_API constexpr T vec_min_elem(const vec<T, d>& v)
 {
   T val = v[0];
@@ -141,6 +152,17 @@ AS_API vec<T, d> vec_max(const vec<T, d>& lhs, const vec<T, d>& rhs)
 }
 
 template<typename T, index d>
+AS_API vec<T, d> vec_max(const vec<T, d>& lhs, const T rhs)
+{
+  vec<T, d> result;
+  for (index i = 0; i < d; ++i) {
+    result[i] = max(lhs[i], rhs);
+  }
+
+  return result;
+}
+
+template<typename T, index d>
 AS_API constexpr T vec_max_elem(const vec<T, d>& v)
 {
   T val = v[0];
@@ -156,7 +178,7 @@ AS_API vec<T, d> vec_abs(const vec<T, d>& v)
 {
   vec<T, d> result;
   for (index i = 0; i < d; ++i) {
-    result[i] = std::abs(v[i]);
+    result[i] = abs(v[i]);
   }
 
   return result;
@@ -1388,7 +1410,7 @@ AS_API inline quat quat_slerp(const quat& q0, const quat& q1, const real t)
     return mix(q0, q1, t);
   }
   const quat q1_s = dot < 0.0_r ? q1 * -1.0_r : q1;
-  const real theta = std::acos(dot);
+  const real theta = std::acos(abs(dot));
   const real sin_theta = std::sin(theta);
   return (q0 * std::sin((1.0_r - t) * theta) + q1_s * std::sin(t * theta))
        / sin_theta;

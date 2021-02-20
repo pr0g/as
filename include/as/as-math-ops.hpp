@@ -100,6 +100,14 @@ bool vec_near(
 template<typename T, index d>
 vec<T, d> vec_min(const vec<T, d>& lhs, const vec<T, d>& rhs);
 
+//! Performs a `min` on each element of the vector with `rhs`, returning the
+//! smallest value at each element.
+//! ```{.cpp}
+//! min((2, 4, 6), 3) = (2, 3, 3)
+//! ```
+template<typename T, index d>
+vec<T, d> vec_min(const vec<T, d>& lhs, T rhs);
+
 //! Returns the smallest element in the vector.
 template<typename T, index d>
 constexpr T vec_min_elem(const vec<T, d>& v);
@@ -107,10 +115,18 @@ constexpr T vec_min_elem(const vec<T, d>& v);
 //! Performs a `max` on each element of the two vectors, returning the
 //! largest value at each element.
 //! ```{.cpp}
-//! min((2, 4, 6), (3, 8, 1)) = (3, 8, 6)
+//! max((2, 4, 6), (3, 8, 1)) = (3, 8, 6)
 //! ```
 template<typename T, index d>
 vec<T, d> vec_max(const vec<T, d>& lhs, const vec<T, d>& rhs);
+
+//! Performs a `max` on each element of the vector with `rhs`, returning the
+//! largest value at each element.
+//! ```{.cpp}
+//! max((2, 4, 6), 3) = (3, 4, 6)
+//! ```
+template<typename T, index d>
+vec<T, d> vec_max(const vec<T, d>& lhs, T rhs);
 
 //! Returns the largest element in the vector.
 template<typename T, index d>
@@ -790,7 +806,8 @@ quat quat_nlerp(const quat& q0, const quat& q1, real t);
 quat quat_slerp(const quat& q0, const quat& q1, real t);
 
 //! Converts a rotation matrix to a quaternion.
-//! \note Ensure ::mat3 is a valid rotation.
+//! \note Ensure ::mat3 is a valid rotation. It must be 'special orthogonal'
+//! (pure rotation without reflection).
 quat quat_from_mat3(const mat3& m);
 
 //! Writes the values stored in the \ref quat to an array of the same type

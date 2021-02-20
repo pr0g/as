@@ -1,13 +1,15 @@
 #include "as-helpers.test.hpp"
-#include "catch-matchers.hpp"
-#include "catch2/catch_all.hpp"
-
 #include "as/as-math-ops.hpp"
+#include "catch-matchers.hpp"
+#include "catch2/catch_test_macros.hpp"
 
 #include <memory>
 
 namespace unit_test
 {
+
+// testing
+using Catch::Approx;
 
 // types
 using as::index;
@@ -394,15 +396,15 @@ TEST_CASE("vec2_accessors", "[as_vec]")
   // member and subscript operator - zero initializer
   {
     vec2 v2{};
-    CHECK(v2.x == Catch::Approx(v2[0]).epsilon(g_epsilon));
-    CHECK(v2.y == Catch::Approx(v2[1]).epsilon(g_epsilon));
+    CHECK(v2.x == Approx(v2[0]).epsilon(g_epsilon));
+    CHECK(v2.y == Approx(v2[1]).epsilon(g_epsilon));
   }
 
   // member and subscript operator - explicit construction
   {
     vec2 v2(1.0_r, 2.0_r);
-    CHECK(v2.x == Catch::Approx(v2[0]).epsilon(g_epsilon));
-    CHECK(v2.y == Catch::Approx(v2[1]).epsilon(g_epsilon));
+    CHECK(v2.x == Approx(v2[0]).epsilon(g_epsilon));
+    CHECK(v2.y == Approx(v2[1]).epsilon(g_epsilon));
   }
 
   // member and const subscript operator - explicit construction
@@ -411,8 +413,8 @@ TEST_CASE("vec2_accessors", "[as_vec]")
     const real& x = v2[0];
     const real& y = v2[1];
 
-    CHECK(v2.x == Catch::Approx(x).epsilon(g_epsilon));
-    CHECK(v2.y == Catch::Approx(y).epsilon(g_epsilon));
+    CHECK(v2.x == Approx(x).epsilon(g_epsilon));
+    CHECK(v2.y == Approx(y).epsilon(g_epsilon));
   }
 }
 
@@ -421,26 +423,26 @@ TEST_CASE("vec3_accessors", "[as_vec]")
   // member and subscript operator - zero initializer
   {
     vec3 v3{};
-    CHECK(v3.x == Catch::Approx(v3[0]).epsilon(g_epsilon));
-    CHECK(v3.y == Catch::Approx(v3[1]).epsilon(g_epsilon));
-    CHECK(v3.z == Catch::Approx(v3[2]).epsilon(g_epsilon));
+    CHECK(v3.x == Approx(v3[0]).epsilon(g_epsilon));
+    CHECK(v3.y == Approx(v3[1]).epsilon(g_epsilon));
+    CHECK(v3.z == Approx(v3[2]).epsilon(g_epsilon));
   }
 
   // member and subscript operator - explicit construction
   {
     vec3 v3(1.0_r, 2.0_r, 3.0_r);
-    CHECK(v3.x == Catch::Approx(v3[0]).epsilon(g_epsilon));
-    CHECK(v3.y == Catch::Approx(v3[1]).epsilon(g_epsilon));
-    CHECK(v3.z == Catch::Approx(v3[2]).epsilon(g_epsilon));
+    CHECK(v3.x == Approx(v3[0]).epsilon(g_epsilon));
+    CHECK(v3.y == Approx(v3[1]).epsilon(g_epsilon));
+    CHECK(v3.z == Approx(v3[2]).epsilon(g_epsilon));
   }
 
   // member and subscript operator - explicit construction
   {
     vec3 v3(1.0_r, 2.0_r, 3.0_r);
-    CHECK(vec2_from_vec3(v3)[0] == Catch::Approx(v3.x).epsilon(g_epsilon));
-    CHECK(vec2_from_vec3(v3)[1] == Catch::Approx(v3.y).epsilon(g_epsilon));
-    CHECK(vec2_from_vec3(v3).x == Catch::Approx(v3.x).epsilon(g_epsilon));
-    CHECK(vec2_from_vec3(v3).y == Catch::Approx(v3.y).epsilon(g_epsilon));
+    CHECK(vec2_from_vec3(v3)[0] == Approx(v3.x).epsilon(g_epsilon));
+    CHECK(vec2_from_vec3(v3)[1] == Approx(v3.y).epsilon(g_epsilon));
+    CHECK(vec2_from_vec3(v3).x == Approx(v3.x).epsilon(g_epsilon));
+    CHECK(vec2_from_vec3(v3).y == Approx(v3.y).epsilon(g_epsilon));
   }
 
   // member and const subscript operator - explicit construction
@@ -450,9 +452,9 @@ TEST_CASE("vec3_accessors", "[as_vec]")
     const real& y = v3[1];
     const real& z = v3[2];
 
-    CHECK(v3.x == Catch::Approx(x).epsilon(g_epsilon));
-    CHECK(v3.y == Catch::Approx(y).epsilon(g_epsilon));
-    CHECK(v3.z == Catch::Approx(z).epsilon(g_epsilon));
+    CHECK(v3.x == Approx(x).epsilon(g_epsilon));
+    CHECK(v3.y == Approx(y).epsilon(g_epsilon));
+    CHECK(v3.z == Approx(z).epsilon(g_epsilon));
   }
 }
 
@@ -461,29 +463,29 @@ TEST_CASE("vec4_accessors", "[as_vec]")
   // member and subscript operator - zero initializer
   {
     vec4 v4{};
-    CHECK(v4.x == Catch::Approx(v4[0]).epsilon(g_epsilon));
-    CHECK(v4.y == Catch::Approx(v4[1]).epsilon(g_epsilon));
-    CHECK(v4.z == Catch::Approx(v4[2]).epsilon(g_epsilon));
-    CHECK(v4.w == Catch::Approx(v4[3]).epsilon(g_epsilon));
+    CHECK(v4.x == Approx(v4[0]).epsilon(g_epsilon));
+    CHECK(v4.y == Approx(v4[1]).epsilon(g_epsilon));
+    CHECK(v4.z == Approx(v4[2]).epsilon(g_epsilon));
+    CHECK(v4.w == Approx(v4[3]).epsilon(g_epsilon));
   }
 
   // member and subscript operator - explicit construction
   {
     vec4 v4(1.0_r, 2.0_r, 3.0_r, 4.0_r);
-    CHECK(v4.x == Catch::Approx(v4[0]).epsilon(g_epsilon));
-    CHECK(v4.y == Catch::Approx(v4[1]).epsilon(g_epsilon));
-    CHECK(v4.z == Catch::Approx(v4[2]).epsilon(g_epsilon));
-    CHECK(v4.w == Catch::Approx(v4[3]).epsilon(g_epsilon));
+    CHECK(v4.x == Approx(v4[0]).epsilon(g_epsilon));
+    CHECK(v4.y == Approx(v4[1]).epsilon(g_epsilon));
+    CHECK(v4.z == Approx(v4[2]).epsilon(g_epsilon));
+    CHECK(v4.w == Approx(v4[3]).epsilon(g_epsilon));
   }
 
   // member and subscript operator - explicit construction
   {
     vec4 v4(1.0_r, 2.0_r, 3.0_r, 4.0_r);
-    CHECK(vec2_from_vec4(v4)[0] == Catch::Approx(v4[0]).epsilon(g_epsilon));
-    CHECK(vec2_from_vec4(v4)[1] == Catch::Approx(v4[1]).epsilon(g_epsilon));
-    CHECK(vec3_from_vec4(v4)[0] == Catch::Approx(v4[0]).epsilon(g_epsilon));
-    CHECK(vec3_from_vec4(v4)[1] == Catch::Approx(v4[1]).epsilon(g_epsilon));
-    CHECK(vec3_from_vec4(v4)[2] == Catch::Approx(v4[2]).epsilon(g_epsilon));
+    CHECK(vec2_from_vec4(v4)[0] == Approx(v4[0]).epsilon(g_epsilon));
+    CHECK(vec2_from_vec4(v4)[1] == Approx(v4[1]).epsilon(g_epsilon));
+    CHECK(vec3_from_vec4(v4)[0] == Approx(v4[0]).epsilon(g_epsilon));
+    CHECK(vec3_from_vec4(v4)[1] == Approx(v4[1]).epsilon(g_epsilon));
+    CHECK(vec3_from_vec4(v4)[2] == Approx(v4[2]).epsilon(g_epsilon));
   }
 }
 
@@ -497,34 +499,32 @@ TEST_CASE("vec2_vec3_vec4_accessors", "[as_vec]")
   vec4 vec4_c(v3, 4.0_r);
 
   // member accessors
-  CHECK(vec4_a.x == Catch::Approx(v2.x).epsilon(g_epsilon));
-  CHECK(vec4_a.y == Catch::Approx(v2.y).epsilon(g_epsilon));
+  CHECK(vec4_a.x == Approx(v2.x).epsilon(g_epsilon));
+  CHECK(vec4_a.y == Approx(v2.y).epsilon(g_epsilon));
 
-  CHECK(vec4_b.x == Catch::Approx(v2.x).epsilon(g_epsilon));
-  CHECK(vec4_b.y == Catch::Approx(v2.y).epsilon(g_epsilon));
-  CHECK(vec4_b.z == Catch::Approx(v2.x).epsilon(g_epsilon));
-  CHECK(vec4_b.w == Catch::Approx(v2.y).epsilon(g_epsilon));
+  CHECK(vec4_b.x == Approx(v2.x).epsilon(g_epsilon));
+  CHECK(vec4_b.y == Approx(v2.y).epsilon(g_epsilon));
+  CHECK(vec4_b.z == Approx(v2.x).epsilon(g_epsilon));
+  CHECK(vec4_b.w == Approx(v2.y).epsilon(g_epsilon));
 
-  CHECK(vec4_c.x == Catch::Approx(v2.x).epsilon(g_epsilon));
-  CHECK(vec4_c.y == Catch::Approx(v2.y).epsilon(g_epsilon));
-  CHECK(vec4_c.z == Catch::Approx(vec4_a.z).epsilon(g_epsilon));
-  CHECK(vec4_c.w == Catch::Approx(vec4_a.w).epsilon(g_epsilon));
+  CHECK(vec4_c.x == Approx(v2.x).epsilon(g_epsilon));
+  CHECK(vec4_c.y == Approx(v2.y).epsilon(g_epsilon));
+  CHECK(vec4_c.z == Approx(vec4_a.z).epsilon(g_epsilon));
+  CHECK(vec4_c.w == Approx(vec4_a.w).epsilon(g_epsilon));
 
-  CHECK(vec3_from_vec2(v2).x == Catch::Approx(v2.x).epsilon(g_epsilon));
-  CHECK(vec3_from_vec2(v2).y == Catch::Approx(v2.y).epsilon(g_epsilon));
-  CHECK(vec3_from_vec2(v2, 3.0_r).z == Catch::Approx(3.0_r).epsilon(g_epsilon));
+  CHECK(vec3_from_vec2(v2).x == Approx(v2.x).epsilon(g_epsilon));
+  CHECK(vec3_from_vec2(v2).y == Approx(v2.y).epsilon(g_epsilon));
+  CHECK(vec3_from_vec2(v2, 3.0_r).z == Approx(3.0_r).epsilon(g_epsilon));
 
-  CHECK(vec4_from_vec2(v2).x == Catch::Approx(v2.x).epsilon(g_epsilon));
-  CHECK(vec4_from_vec2(v2).y == Catch::Approx(v2.y).epsilon(g_epsilon));
-  CHECK(vec4_from_vec2(v2, 3.0_r).z == Catch::Approx(3.0_r).epsilon(g_epsilon));
-  CHECK(
-    vec4_from_vec2(v2, 3.0_r, 4.0_r).w
-    == Catch::Approx(4.0_r).epsilon(g_epsilon));
+  CHECK(vec4_from_vec2(v2).x == Approx(v2.x).epsilon(g_epsilon));
+  CHECK(vec4_from_vec2(v2).y == Approx(v2.y).epsilon(g_epsilon));
+  CHECK(vec4_from_vec2(v2, 3.0_r).z == Approx(3.0_r).epsilon(g_epsilon));
+  CHECK(vec4_from_vec2(v2, 3.0_r, 4.0_r).w == Approx(4.0_r).epsilon(g_epsilon));
 
-  CHECK(vec4_from_vec3(v3).x == Catch::Approx(v2.x).epsilon(g_epsilon));
-  CHECK(vec4_from_vec3(v3).y == Catch::Approx(v2.y).epsilon(g_epsilon));
-  CHECK(vec4_from_vec3(v3).z == Catch::Approx(3.0_r).epsilon(g_epsilon));
-  CHECK(vec4_from_vec3(v3, 4.0_r).w == Catch::Approx(4.0_r).epsilon(g_epsilon));
+  CHECK(vec4_from_vec3(v3).x == Approx(v2.x).epsilon(g_epsilon));
+  CHECK(vec4_from_vec3(v3).y == Approx(v2.y).epsilon(g_epsilon));
+  CHECK(vec4_from_vec3(v3).z == Approx(3.0_r).epsilon(g_epsilon));
+  CHECK(vec4_from_vec3(v3, 4.0_r).w == Approx(4.0_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("const_elem_access_vec_const", "[as_vec]")
@@ -602,28 +602,28 @@ TEST_CASE("rvalue_elem_access_vec2_3_4_5", "[as_vec]")
   using gsl::make_span;
 
   auto make_vec2 = []() { return vec2{5.0_r, 10.0_r}; };
-  CHECK(make_vec2()[0] == Catch::Approx(5.0_r).epsilon(g_epsilon));
-  CHECK(make_vec2()[1] == Catch::Approx(10.0_r).epsilon(g_epsilon));
+  CHECK(make_vec2()[0] == Approx(5.0_r).epsilon(g_epsilon));
+  CHECK(make_vec2()[1] == Approx(10.0_r).epsilon(g_epsilon));
 
   auto make_vec3 = []() { return vec3{5.0_r, 10.0_r, 15.0_r}; };
-  CHECK(make_vec3()[0] == Catch::Approx(5.0_r).epsilon(g_epsilon));
-  CHECK(make_vec3()[1] == Catch::Approx(10.0_r).epsilon(g_epsilon));
-  CHECK(make_vec3()[2] == Catch::Approx(15.0_r).epsilon(g_epsilon));
+  CHECK(make_vec3()[0] == Approx(5.0_r).epsilon(g_epsilon));
+  CHECK(make_vec3()[1] == Approx(10.0_r).epsilon(g_epsilon));
+  CHECK(make_vec3()[2] == Approx(15.0_r).epsilon(g_epsilon));
 
   auto make_vec4 = []() { return vec4{7.0_r, 14.0_r, 21.0_r, 28.0_r}; };
-  CHECK(make_vec4()[0] == Catch::Approx(7.0_r).epsilon(g_epsilon));
-  CHECK(make_vec4()[1] == Catch::Approx(14.0_r).epsilon(g_epsilon));
-  CHECK(make_vec4()[2] == Catch::Approx(21.0_r).epsilon(g_epsilon));
-  CHECK(make_vec4()[3] == Catch::Approx(28.0_r).epsilon(g_epsilon));
+  CHECK(make_vec4()[0] == Approx(7.0_r).epsilon(g_epsilon));
+  CHECK(make_vec4()[1] == Approx(14.0_r).epsilon(g_epsilon));
+  CHECK(make_vec4()[2] == Approx(21.0_r).epsilon(g_epsilon));
+  CHECK(make_vec4()[3] == Approx(28.0_r).epsilon(g_epsilon));
 
   auto make_vec5 = []() {
     return vec<real, 5>{1.0_r, 2.0_r, 3.0_r, 4.0_r, 5.0_r};
   };
-  CHECK(make_vec5()[0] == Catch::Approx(1.0_r).epsilon(g_epsilon));
-  CHECK(make_vec5()[1] == Catch::Approx(2.0_r).epsilon(g_epsilon));
-  CHECK(make_vec5()[2] == Catch::Approx(3.0_r).epsilon(g_epsilon));
-  CHECK(make_vec5()[3] == Catch::Approx(4.0_r).epsilon(g_epsilon));
-  CHECK(make_vec5()[4] == Catch::Approx(5.0_r).epsilon(g_epsilon));
+  CHECK(make_vec5()[0] == Approx(1.0_r).epsilon(g_epsilon));
+  CHECK(make_vec5()[1] == Approx(2.0_r).epsilon(g_epsilon));
+  CHECK(make_vec5()[2] == Approx(3.0_r).epsilon(g_epsilon));
+  CHECK(make_vec5()[3] == Approx(4.0_r).epsilon(g_epsilon));
+  CHECK(make_vec5()[4] == Approx(5.0_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("vec_size", "[as_vec]")
@@ -660,8 +660,8 @@ TEST_CASE("vec_make_from_arr", "[as_vec]")
     real vec_data[2] = {2.0_r, 4.0_r};
     vec2 v2 = as::vec_from_arr(vec_data);
 
-    CHECK(v2.x == Catch::Approx(2.0_r).epsilon(g_epsilon));
-    CHECK(v2.y == Catch::Approx(4.0_r).epsilon(g_epsilon));
+    CHECK(v2.x == Approx(2.0_r).epsilon(g_epsilon));
+    CHECK(v2.y == Approx(4.0_r).epsilon(g_epsilon));
 
     // won't compile (array length 2 to vec3)
     // vec3 v3 = make_from(vec_data);
@@ -672,9 +672,9 @@ TEST_CASE("vec_make_from_arr", "[as_vec]")
     real vec_data[3] = {1.0_r, 2.0_r, 3.0_r};
     vec3 v3 = as::vec_from_arr(vec_data);
 
-    CHECK(v3.x == Catch::Approx(1.0_r).epsilon(g_epsilon));
-    CHECK(v3.y == Catch::Approx(2.0_r).epsilon(g_epsilon));
-    CHECK(v3.z == Catch::Approx(3.0_r).epsilon(g_epsilon));
+    CHECK(v3.x == Approx(1.0_r).epsilon(g_epsilon));
+    CHECK(v3.y == Approx(2.0_r).epsilon(g_epsilon));
+    CHECK(v3.z == Approx(3.0_r).epsilon(g_epsilon));
   }
 
   // generic make_from_arr <char, 6>
@@ -695,8 +695,8 @@ TEST_CASE("vec_make_from_arr", "[as_vec]")
     real vec_data[2] = {2.0_r, 4.0_r};
     vec2 v2 = as::vec2_from_arr(vec_data);
 
-    CHECK(v2.x == Catch::Approx(2.0_r).epsilon(g_epsilon));
-    CHECK(v2.y == Catch::Approx(4.0_r).epsilon(g_epsilon));
+    CHECK(v2.x == Approx(2.0_r).epsilon(g_epsilon));
+    CHECK(v2.y == Approx(4.0_r).epsilon(g_epsilon));
   }
 
   // vec3_make_from_arr
@@ -704,9 +704,9 @@ TEST_CASE("vec_make_from_arr", "[as_vec]")
     real vec_data[3] = {1.0_r, 2.0_r, 3.0_r};
     vec3 v3 = as::vec3_from_arr(vec_data);
 
-    CHECK(v3.x == Catch::Approx(1.0_r).epsilon(g_epsilon));
-    CHECK(v3.y == Catch::Approx(2.0_r).epsilon(g_epsilon));
-    CHECK(v3.z == Catch::Approx(3.0_r).epsilon(g_epsilon));
+    CHECK(v3.x == Approx(1.0_r).epsilon(g_epsilon));
+    CHECK(v3.y == Approx(2.0_r).epsilon(g_epsilon));
+    CHECK(v3.z == Approx(3.0_r).epsilon(g_epsilon));
   }
 
   // vec4_make_from_arr
@@ -714,10 +714,10 @@ TEST_CASE("vec_make_from_arr", "[as_vec]")
     real vec_data[4] = {4.0_r, 8.0_r, 12.0_r, 16.0_r};
     vec4 v4 = as::vec4_from_arr(vec_data);
 
-    CHECK(v4.x == Catch::Approx(4.0_r).epsilon(g_epsilon));
-    CHECK(v4.y == Catch::Approx(8.0_r).epsilon(g_epsilon));
-    CHECK(v4.z == Catch::Approx(12.0_r).epsilon(g_epsilon));
-    CHECK(v4.w == Catch::Approx(16.0_r).epsilon(g_epsilon));
+    CHECK(v4.x == Approx(4.0_r).epsilon(g_epsilon));
+    CHECK(v4.y == Approx(8.0_r).epsilon(g_epsilon));
+    CHECK(v4.z == Approx(12.0_r).epsilon(g_epsilon));
+    CHECK(v4.w == Approx(16.0_r).epsilon(g_epsilon));
   }
 }
 
@@ -730,8 +730,8 @@ TEST_CASE("vec_make_from_ptr", "[as_vec]")
     vec_data[1] = 4.0_r;
     vec2 v2 = as::vec_from_ptr<real, 2>(vec_data.get());
 
-    CHECK(v2.x == Catch::Approx(2.0_r).epsilon(g_epsilon));
-    CHECK(v2.y == Catch::Approx(4.0_r).epsilon(g_epsilon));
+    CHECK(v2.x == Approx(2.0_r).epsilon(g_epsilon));
+    CHECK(v2.y == Approx(4.0_r).epsilon(g_epsilon));
   }
 
   // generic make_from_ptr vec3
@@ -742,9 +742,9 @@ TEST_CASE("vec_make_from_ptr", "[as_vec]")
     vec_data[2] = 3.0_r;
     vec3 v3 = as::vec_from_ptr<real, 3>(vec_data.get());
 
-    CHECK(v3.x == Catch::Approx(1.0_r).epsilon(g_epsilon));
-    CHECK(v3.y == Catch::Approx(2.0_r).epsilon(g_epsilon));
-    CHECK(v3.z == Catch::Approx(3.0_r).epsilon(g_epsilon));
+    CHECK(v3.x == Approx(1.0_r).epsilon(g_epsilon));
+    CHECK(v3.y == Approx(2.0_r).epsilon(g_epsilon));
+    CHECK(v3.z == Approx(3.0_r).epsilon(g_epsilon));
   }
 
   // generic make_from_ptr <char, 6>
@@ -783,8 +783,8 @@ TEST_CASE("vec_make_from_ptr", "[as_vec]")
     vec_data[1] = 4.0_r;
     vec2 v2 = as::vec2_from_ptr(vec_data.get());
 
-    CHECK(v2.x == Catch::Approx(2.0_r).epsilon(g_epsilon));
-    CHECK(v2.y == Catch::Approx(4.0_r).epsilon(g_epsilon));
+    CHECK(v2.x == Approx(2.0_r).epsilon(g_epsilon));
+    CHECK(v2.y == Approx(4.0_r).epsilon(g_epsilon));
   }
 
   // vec3_make_from_ptr
@@ -795,9 +795,9 @@ TEST_CASE("vec_make_from_ptr", "[as_vec]")
     vec_data[2] = 3.0_r;
     vec3 v3 = as::vec3_from_ptr(vec_data.get());
 
-    CHECK(v3.x == Catch::Approx(1.0_r).epsilon(g_epsilon));
-    CHECK(v3.y == Catch::Approx(2.0_r).epsilon(g_epsilon));
-    CHECK(v3.z == Catch::Approx(3.0_r).epsilon(g_epsilon));
+    CHECK(v3.x == Approx(1.0_r).epsilon(g_epsilon));
+    CHECK(v3.y == Approx(2.0_r).epsilon(g_epsilon));
+    CHECK(v3.z == Approx(3.0_r).epsilon(g_epsilon));
   }
 
   // vec4_make_from_ptr
@@ -809,10 +809,10 @@ TEST_CASE("vec_make_from_ptr", "[as_vec]")
     vec_data[3] = 16.0_r;
     vec4 v4 = as::vec4_from_ptr(vec_data.get());
 
-    CHECK(v4.x == Catch::Approx(4.0_r).epsilon(g_epsilon));
-    CHECK(v4.y == Catch::Approx(8.0_r).epsilon(g_epsilon));
-    CHECK(v4.z == Catch::Approx(12.0_r).epsilon(g_epsilon));
-    CHECK(v4.w == Catch::Approx(16.0_r).epsilon(g_epsilon));
+    CHECK(v4.x == Approx(4.0_r).epsilon(g_epsilon));
+    CHECK(v4.y == Approx(8.0_r).epsilon(g_epsilon));
+    CHECK(v4.z == Approx(12.0_r).epsilon(g_epsilon));
+    CHECK(v4.w == Approx(16.0_r).epsilon(g_epsilon));
   }
 
   // generic type check
@@ -1083,7 +1083,7 @@ TEST_CASE("dot", "[as_vec]")
     const vec5 v2(4.0_r, 5.0_r, 6.0_r, 8.0_r, 4.0_r);
 
     const real dot_result = vec_dot(v1, v2);
-    CHECK(dot_result == Catch::Approx(84.0_r).epsilon(g_epsilon));
+    CHECK(dot_result == Approx(84.0_r).epsilon(g_epsilon));
   }
 
   {
@@ -1091,7 +1091,7 @@ TEST_CASE("dot", "[as_vec]")
     const vec5 v2(-1.0_r, -7.0_r, 4.0_r, 2.0_r, 0.5_r);
 
     const real dot_result = vec_dot(v1, v2);
-    CHECK(dot_result == Catch::Approx(-30.5).epsilon(g_epsilon));
+    CHECK(dot_result == Approx(-30.5).epsilon(g_epsilon));
   }
 
   {
@@ -1099,7 +1099,7 @@ TEST_CASE("dot", "[as_vec]")
     const vec5 v2(-1.456_r, -7.732_r, 2.491_r, -1.321_r, -0.261_r);
 
     const real dot_result = vec_dot(v1, v2);
-    CHECK(dot_result == Catch::Approx(4.563114_r).epsilon(g_epsilon));
+    CHECK(dot_result == Approx(4.563114_r).epsilon(g_epsilon));
   }
 }
 
@@ -1112,7 +1112,7 @@ TEST_CASE("dot_vec2", "[as_vec]")
     const vec2 v2(0.0_r, 1.0_r);
 
     const real dot_result = vec_dot(v1, v2);
-    CHECK(dot_result == Catch::Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(dot_result == Approx(0.0_r).epsilon(g_epsilon));
   }
 
   {
@@ -1120,7 +1120,7 @@ TEST_CASE("dot_vec2", "[as_vec]")
     const vec2 v2(-9.0_r, 11.0_r);
 
     const real dot_result = vec_dot(v1, v2);
-    CHECK(dot_result == Catch::Approx(19.0_r).epsilon(g_epsilon));
+    CHECK(dot_result == Approx(19.0_r).epsilon(g_epsilon));
   }
 }
 
@@ -1133,7 +1133,7 @@ TEST_CASE("dot_vec3", "[as_vec]")
     const vec3 v2(4.0_r, 5.0_r, 6.0_r);
 
     const real dot_result = vec_dot(v1, v2);
-    CHECK(dot_result == Catch::Approx(32.0_r).epsilon(g_epsilon));
+    CHECK(dot_result == Approx(32.0_r).epsilon(g_epsilon));
   }
 
   {
@@ -1141,7 +1141,7 @@ TEST_CASE("dot_vec3", "[as_vec]")
     const vec3 v2(-1.0_r, -7.0_r, 4.0_r);
 
     const real dot_result = vec_dot(v1, v2);
-    CHECK(dot_result == Catch::Approx(-54.0_r).epsilon(g_epsilon));
+    CHECK(dot_result == Approx(-54.0_r).epsilon(g_epsilon));
   }
 
   {
@@ -1149,7 +1149,7 @@ TEST_CASE("dot_vec3", "[as_vec]")
     const vec3 v2(-1.456_r, -7.732_r, 2.491_r);
 
     const real dot_result = vec_dot(v1, v2);
-    CHECK(dot_result == Catch::Approx(4.86732_r).epsilon(g_epsilon));
+    CHECK(dot_result == Approx(4.86732_r).epsilon(g_epsilon));
   }
 }
 
@@ -1259,9 +1259,9 @@ TEST_CASE("cross", "[as_vec]")
     vec3 v2(4.0_r, 5.0_r, 6.0_r);
 
     vec3 cross_result = vec3_cross(v1, v2);
-    CHECK(cross_result.x == Catch::Approx(-3.0_r).epsilon(g_epsilon));
-    CHECK(cross_result.y == Catch::Approx(6.0_r).epsilon(g_epsilon));
-    CHECK(cross_result.z == Catch::Approx(-3.0_r).epsilon(g_epsilon));
+    CHECK(cross_result.x == Approx(-3.0_r).epsilon(g_epsilon));
+    CHECK(cross_result.y == Approx(6.0_r).epsilon(g_epsilon));
+    CHECK(cross_result.z == Approx(-3.0_r).epsilon(g_epsilon));
   }
 
   {
@@ -1269,14 +1269,14 @@ TEST_CASE("cross", "[as_vec]")
     vec3 v2(0.0_r, 1.0_r, 0.0_r);
 
     vec3 cross_result1 = vec3_cross(v1, v2);
-    CHECK(cross_result1.x == Catch::Approx(0.0_r).epsilon(g_epsilon));
-    CHECK(cross_result1.y == Catch::Approx(0.0_r).epsilon(g_epsilon));
-    CHECK(cross_result1.z == Catch::Approx(1.0_r).epsilon(g_epsilon));
+    CHECK(cross_result1.x == Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(cross_result1.y == Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(cross_result1.z == Approx(1.0_r).epsilon(g_epsilon));
 
     vec3 cross_result2 = vec3_cross(v2, v1);
-    CHECK(cross_result2.x == Catch::Approx(0.0_r).epsilon(g_epsilon));
-    CHECK(cross_result2.y == Catch::Approx(0.0_r).epsilon(g_epsilon));
-    CHECK(cross_result2.z == Catch::Approx(-1.0_r).epsilon(g_epsilon));
+    CHECK(cross_result2.x == Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(cross_result2.y == Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(cross_result2.z == Approx(-1.0_r).epsilon(g_epsilon));
   }
 
   {
@@ -1284,9 +1284,9 @@ TEST_CASE("cross", "[as_vec]")
     vec3 v2(0.0_r, 0.0_r, 12.0_r);
 
     vec3 cross_result = vec3_cross(v1, v2);
-    CHECK(cross_result.x == Catch::Approx(60.0_r).epsilon(g_epsilon));
-    CHECK(cross_result.y == Catch::Approx(0.0_r).epsilon(g_epsilon));
-    CHECK(cross_result.z == Catch::Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(cross_result.x == Approx(60.0_r).epsilon(g_epsilon));
+    CHECK(cross_result.y == Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(cross_result.z == Approx(0.0_r).epsilon(g_epsilon));
   }
 
   {
@@ -1295,13 +1295,13 @@ TEST_CASE("cross", "[as_vec]")
     vec3 z(0.0_r, 0.0_r, 1.0_r);
 
     vec3 cross_result1 = vec3_cross(x, y);
-    CHECK(cross_result1.z == Catch::Approx(1.0_r).epsilon(g_epsilon));
+    CHECK(cross_result1.z == Approx(1.0_r).epsilon(g_epsilon));
 
     vec3 cross_result2 = vec3_cross(y, z);
-    CHECK(cross_result2.x == Catch::Approx(1.0_r).epsilon(g_epsilon));
+    CHECK(cross_result2.x == Approx(1.0_r).epsilon(g_epsilon));
 
     vec3 cross_result3 = vec3_cross(z, x);
-    CHECK(cross_result3.y == Catch::Approx(1.0_r).epsilon(g_epsilon));
+    CHECK(cross_result3.y == Approx(1.0_r).epsilon(g_epsilon));
   }
 }
 
@@ -1314,13 +1314,13 @@ TEST_CASE("right_and_up", "[as_vec]")
     vec3 up_lh;
     vec3_right_and_up_lh(dir, across_lh, up_lh);
 
-    CHECK(across_lh.x == Catch::Approx(1.0_r).epsilon(g_epsilon));
-    CHECK(across_lh.y == Catch::Approx(0.0_r).epsilon(g_epsilon));
-    CHECK(across_lh.z == Catch::Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(across_lh.x == Approx(1.0_r).epsilon(g_epsilon));
+    CHECK(across_lh.y == Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(across_lh.z == Approx(0.0_r).epsilon(g_epsilon));
 
-    CHECK(up_lh.x == Catch::Approx(0.0_r).epsilon(g_epsilon));
-    CHECK(up_lh.y == Catch::Approx(1.0_r).epsilon(g_epsilon));
-    CHECK(up_lh.z == Catch::Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(up_lh.x == Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(up_lh.y == Approx(1.0_r).epsilon(g_epsilon));
+    CHECK(up_lh.z == Approx(0.0_r).epsilon(g_epsilon));
   }
 
   {
@@ -1330,13 +1330,13 @@ TEST_CASE("right_and_up", "[as_vec]")
     vec3 up_rh;
     vec3_right_and_up_rh(dir, across_rh, up_rh);
 
-    CHECK(across_rh.x == Catch::Approx(-1.0_r).epsilon(g_epsilon));
-    CHECK(across_rh.y == Catch::Approx(0.0_r).epsilon(g_epsilon));
-    CHECK(across_rh.z == Catch::Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(across_rh.x == Approx(-1.0_r).epsilon(g_epsilon));
+    CHECK(across_rh.y == Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(across_rh.z == Approx(0.0_r).epsilon(g_epsilon));
 
-    CHECK(up_rh.x == Catch::Approx(0.0_r).epsilon(g_epsilon));
-    CHECK(up_rh.y == Catch::Approx(1.0_r).epsilon(g_epsilon));
-    CHECK(up_rh.z == Catch::Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(up_rh.x == Approx(0.0_r).epsilon(g_epsilon));
+    CHECK(up_rh.y == Approx(1.0_r).epsilon(g_epsilon));
+    CHECK(up_rh.z == Approx(0.0_r).epsilon(g_epsilon));
   }
 }
 
@@ -1419,6 +1419,15 @@ TEST_CASE("min_vec", "[as_vec]")
 
     CHECK(vec_near(vec_reference, result));
   }
+
+  {
+    vec4 v1(2.0_r, 4.0_r, 6.0_r, 8.0_r);
+    real r = 3.0_r;
+
+    vec4 result = vec_min(v1, r);
+
+    CHECK_THAT(vec4(2.0_r, 3.0_r, 3.0_r, 3.0_r), elements_are(result));
+  }
 }
 
 TEST_CASE("min_elem", "[as_vec]")
@@ -1427,14 +1436,14 @@ TEST_CASE("min_elem", "[as_vec]")
     vec3 v{-1.0_r, 2.0_r, -100.0_r};
     real result = vec_min_elem(v);
 
-    CHECK(result == Catch::Approx(-100.0_r).epsilon(g_epsilon));
+    CHECK(result == Approx(-100.0_r).epsilon(g_epsilon));
   }
 
   {
     vec3 v{1.0_r, 2.0_r, 3.0_r};
     real result = vec_min_elem(v);
 
-    CHECK(result == Catch::Approx(1.0_r).epsilon(g_epsilon));
+    CHECK(result == Approx(1.0_r).epsilon(g_epsilon));
   }
 }
 
@@ -1461,6 +1470,15 @@ TEST_CASE("max_vec", "[as_vec]")
 
     CHECK(vec_near(vec_reference, result));
   }
+
+  {
+    vec4 v1(2.0_r, 4.0_r, 6.0_r, 8.0_r);
+    real r = 3.0_r;
+
+    vec4 result = vec_max(v1, r);
+
+    CHECK_THAT(vec4(3.0_r, 4.0_r, 6.0_r, 8.0_r), elements_are(result));
+  }
 }
 
 TEST_CASE("max_elem", "[as_vec]")
@@ -1469,14 +1487,14 @@ TEST_CASE("max_elem", "[as_vec]")
     vec3 v{-1.0_r, 2.0_r, -100.0_r};
     real result = vec_max_elem(v);
 
-    CHECK(result == Catch::Approx(2.0_r).epsilon(g_epsilon));
+    CHECK(result == Approx(2.0_r).epsilon(g_epsilon));
   }
 
   {
     vec3 v{1.0_r, 2.0_r, 3.0_r};
     real result = vec_max_elem(v);
 
-    CHECK(result == Catch::Approx(3.0_r).epsilon(g_epsilon));
+    CHECK(result == Approx(3.0_r).epsilon(g_epsilon));
   }
 }
 
@@ -1618,7 +1636,7 @@ TEST_CASE("distance", "[as_vec]")
   real distance;
   distance = vec_distance(lhs, rhs);
 
-  CHECK(distance == Catch::Approx(86.6025403784_r).epsilon(g_epsilon));
+  CHECK(distance == Approx(86.6025403784_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("normalize_and_length", "[as_vec]")
@@ -1626,8 +1644,8 @@ TEST_CASE("normalize_and_length", "[as_vec]")
   const vec3 v(3.0_r, 4.0_r, 0.0_r);
   const auto [vec_normalized, length] = vec_normalize_and_length(v);
 
-  CHECK(length == Catch::Approx(5.0_r).epsilon(g_epsilon));
-  CHECK(vec_length(vec_normalized) == Catch::Approx(1.0_r).epsilon(g_epsilon));
+  CHECK(length == Approx(5.0_r).epsilon(g_epsilon));
+  CHECK(vec_length(vec_normalized) == Approx(1.0_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("length_squared_v3", "[as_vec]")
@@ -1635,7 +1653,7 @@ TEST_CASE("length_squared_v3", "[as_vec]")
   const vec3 v(3.0_r, 4.0_r, 0.0_r);
   const real length_sq = vec_length_sq(v);
 
-  CHECK(length_sq == Catch::Approx(25.0_r).epsilon(g_epsilon));
+  CHECK(length_sq == Approx(25.0_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("length_squared_generic", "[as_vec]")
@@ -1645,7 +1663,7 @@ TEST_CASE("length_squared_generic", "[as_vec]")
   const vec5 v(3.0_r, 4.0_r, 5.0_r, 6.0_r, 7.0_r);
   const real length_sq = vec_length_sq(v);
 
-  CHECK(length_sq == Catch::Approx(135.0_r).epsilon(g_epsilon));
+  CHECK(length_sq == Approx(135.0_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("select", "[as_vec]")
@@ -1680,7 +1698,7 @@ TEST_CASE("wedge_vec2", "[as_vec]")
     const vec2 v2(0.0_r, 2.0_r);
     const real result = vec2_wedge(v1, v2);
 
-    CHECK(result == Catch::Approx(4.0_r).epsilon(g_epsilon));
+    CHECK(result == Approx(4.0_r).epsilon(g_epsilon));
   }
 
   {
@@ -1688,7 +1706,7 @@ TEST_CASE("wedge_vec2", "[as_vec]")
     const vec2 v2(20.0_r, 5.0_r);
     const real result = vec2_wedge(v1, v2);
 
-    CHECK(result == Catch::Approx(-150.0_r).epsilon(g_epsilon));
+    CHECK(result == Approx(-150.0_r).epsilon(g_epsilon));
   }
 }
 
@@ -1835,7 +1853,7 @@ TEST_CASE("orthogonal", "[as_vec]")
     orthogonal_vec = as::vec3_orthogonal(vec);
 
     real dot = as::vec_dot(orthogonal_vec, vec);
-    CHECK(dot == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(dot == Approx(0.0_r).margin(g_epsilon));
   }
 
   {
@@ -1845,7 +1863,7 @@ TEST_CASE("orthogonal", "[as_vec]")
     orthogonal_vec = as::vec3_orthogonal(vec);
 
     real dot = as::vec_dot(orthogonal_vec, vec);
-    CHECK(dot == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(dot == Approx(0.0_r).margin(g_epsilon));
   }
 
   {
@@ -1855,7 +1873,7 @@ TEST_CASE("orthogonal", "[as_vec]")
     orthogonal_vec = as::vec3_orthogonal(vec);
 
     real dot = as::vec_dot(orthogonal_vec, vec);
-    CHECK(dot == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(dot == Approx(0.0_r).margin(g_epsilon));
   }
 
   {
@@ -1865,7 +1883,7 @@ TEST_CASE("orthogonal", "[as_vec]")
     orthogonal_vec = as::vec3_orthogonal(vec);
 
     real dot = as::vec_dot(orthogonal_vec, vec);
-    CHECK(dot == Catch::Approx(0.0_r).margin(g_epsilon));
+    CHECK(dot == Approx(0.0_r).margin(g_epsilon));
   }
 }
 
@@ -1955,10 +1973,10 @@ TEST_CASE("vec_data", "[as_vec]")
 {
   vec4 vec = vec4(1.0_r, 2.0_r, 3.0_r, 4.0_r);
   real* vecp = vec_data(vec);
-  CHECK(*vecp == Catch::Approx(1.0_r).epsilon(g_epsilon));
-  CHECK(*(vecp + 1) == Catch::Approx(2.0_r).epsilon(g_epsilon));
-  CHECK(*(vecp + 2) == Catch::Approx(3.0_r).epsilon(g_epsilon));
-  CHECK(*(vecp + 3) == Catch::Approx(4.0_r).epsilon(g_epsilon));
+  CHECK(*vecp == Approx(1.0_r).epsilon(g_epsilon));
+  CHECK(*(vecp + 1) == Approx(2.0_r).epsilon(g_epsilon));
+  CHECK(*(vecp + 2) == Approx(3.0_r).epsilon(g_epsilon));
+  CHECK(*(vecp + 3) == Approx(4.0_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("vec4_translation_direction", "[as_vec]")
@@ -1985,7 +2003,7 @@ TEST_CASE("vec_range_iteration_vec3", "[as_vec]")
 
     as::index i = 0;
     for (const auto& elem : vec) {
-      CHECK(elem == Catch::Approx(expected[i++]).epsilon(g_epsilon));
+      CHECK(elem == Approx(expected[i++]).epsilon(g_epsilon));
     }
     CHECK(i == 3);
   }
@@ -1997,7 +2015,7 @@ TEST_CASE("vec_range_iteration_vec3", "[as_vec]")
     as::index i = 0;
     for (auto& elem : vec) {
       elem *= 2.0_r;
-      CHECK(elem == Catch::Approx(expected[i++]).epsilon(g_epsilon));
+      CHECK(elem == Approx(expected[i++]).epsilon(g_epsilon));
     }
     CHECK(i == 3);
   }
@@ -2023,7 +2041,7 @@ TEST_CASE("vec_range_iteration_vec5", "[as_vec]")
 
     as::index i = 0;
     for (const auto& elem : vec) {
-      CHECK(elem == Catch::Approx(expected[i++]).epsilon(g_epsilon));
+      CHECK(elem == Approx(expected[i++]).epsilon(g_epsilon));
     }
   }
 
@@ -2034,7 +2052,7 @@ TEST_CASE("vec_range_iteration_vec5", "[as_vec]")
     as::index i = 0;
     for (auto& elem : vec) {
       elem *= 2.0_r;
-      CHECK(elem == Catch::Approx(expected[i++]).epsilon(g_epsilon));
+      CHECK(elem == Approx(expected[i++]).epsilon(g_epsilon));
     }
   }
 
@@ -2291,9 +2309,11 @@ template std::tuple<as::vec<as::real, 5>, as::real> as::
   vec_normalize_and_length(const as::vec<as::real, 5>&);
 template as::vec<as::real, 5> as::vec_min(
   const as::vec<as::real, 5>&, const as::vec<as::real, 5>&);
+template as::vec<as::real, 5> as::vec_min(const as::vec<as::real, 5>&, real);
 template as::real as::vec_min_elem(const as::vec<as::real, 5>&);
 template as::vec<as::real, 5> as::vec_max(
   const as::vec<as::real, 5>&, const as::vec<as::real, 5>&);
+template as::vec<as::real, 5> as::vec_max(const as::vec<as::real, 5>&, real);
 template as::real as::vec_max_elem(const as::vec<as::real, 5>&);
 template as::vec<as::real, 5> as::vec_abs(const as::vec<as::real, 5>&);
 template as::vec<as::real, 5> as::vec_clamp(
