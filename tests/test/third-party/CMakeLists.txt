@@ -16,7 +16,7 @@ endif()
 ExternalProject_Add(
     gsl
     GIT_REPOSITORY https://github.com/microsoft/GSL.git
-    GIT_TAG        origin/master
+    GIT_TAG        origin/main
     GIT_SHALLOW    1
     BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/gsl/build/${build_type_dir}
     INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}
