@@ -46,7 +46,7 @@ AS_API constexpr T fract_abs(const T x)
 }
 
 template<typename T>
-constexpr T fract_abs_signed(const T x)
+AS_API constexpr T fract_abs_signed(const T x)
 {
   return fract(abs(x)) * sign(x);
 }
