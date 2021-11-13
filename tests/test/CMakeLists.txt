@@ -75,10 +75,11 @@ string(
             "$<CXX_COMPILER_ID:GNU>"
         ">:"
         "-Wall;-Wextra;-Wshadow;-Wnon-virtual-dtor;-Wpedantic;-Wold-style-cast;"
-        "-Wcast-align;-Wunused;-Wconversion;-Wsign-conversion;"
+        "-Wcast-align;-Wunused;-Wconversion;"
         "-Wmisleading-indentation;-Wduplicated-cond;-Wduplicated-branches;"
         "-Wlogical-op;-Wnull-dereference;-Wdouble-promotion;-Wuseless-cast"
     ">")
+    # disabled - -Wsign-conversion
 # cmake-format: on
 
 target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE "${compile_options}")

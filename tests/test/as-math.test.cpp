@@ -22,7 +22,7 @@ using as::smoother_step;
 using as::snap;
 using as::operator""_r;
 
-const real g_epsilon = real(std::numeric_limits<float>::epsilon());
+static const real g_epsilon = real(std::numeric_limits<float>::epsilon());
 
 TEST_CASE("max", "[as_math]")
 {

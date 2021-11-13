@@ -20,8 +20,7 @@ using as::vec3;
 using as::radians;
 using as::operator""_r;
 
-// use float epsilon for comparisons
-const real g_epsilon = 1e-6_r;
+static const real g_epsilon = 1e-6_r;
 
 [[maybe_unused]] constexpr auto quat_type_check =
   unit_test::trivial_standard_layout_check<quat>();

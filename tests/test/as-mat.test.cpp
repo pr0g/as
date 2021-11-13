@@ -28,7 +28,7 @@ using as::vec4;
 using as::radians;
 using as::operator""_r;
 
-const real g_epsilon = real(std::numeric_limits<float>::epsilon());
+static const real g_epsilon = real(std::numeric_limits<float>::epsilon());
 
 [[maybe_unused]] constexpr auto mat3_type_check =
   unit_test::trivial_standard_layout_check<mat3>();

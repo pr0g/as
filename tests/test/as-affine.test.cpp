@@ -23,7 +23,7 @@ using as::radians;
 using as::operator""_r;
 
 // use float epsilon for comparisons
-const real g_epsilon = real(std::numeric_limits<float>::epsilon());
+static const real g_epsilon = real(std::numeric_limits<float>::epsilon());
 
 [[maybe_unused]] constexpr auto affine_type_check =
   unit_test::trivial_standard_layout_check<affine>();
