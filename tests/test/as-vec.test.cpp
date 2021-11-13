@@ -1700,6 +1700,55 @@ TEST_CASE("wedge_vec2", "[as_vec]")
   }
 }
 
+TEST_CASE("orthogonal_vec2", "[as_vec]")
+{
+  using gsl::make_span;
+
+  {
+    const auto vec = as::vec2::one();
+
+    vec2 orthogonal_vec;
+    orthogonal_vec = as::vec2_orthogonal_cw(vec);
+
+    real dot = as::vec_dot(orthogonal_vec, vec);
+    CHECK(dot == Approx(0.0_r).margin(g_epsilon));
+    CHECK_THAT(orthogonal_vec, elements_are(as::vec2(1, -1)));
+  }
+
+  {
+    const auto vec = as::vec2(-3.0_r, -10.0_r);
+
+    vec2 orthogonal_vec;
+    orthogonal_vec = as::vec2_orthogonal_cw(vec);
+
+    real dot = as::vec_dot(orthogonal_vec, vec);
+    CHECK(dot == Approx(0.0_r).margin(g_epsilon));
+    CHECK_THAT(orthogonal_vec, elements_are(as::vec2(-10.0_r, 3.0_r)));
+  }
+
+  {
+    const auto vec = as::vec2::one();
+
+    vec2 orthogonal_vec;
+    orthogonal_vec = as::vec2_orthogonal_ccw(vec);
+
+    real dot = as::vec_dot(orthogonal_vec, vec);
+    CHECK(dot == Approx(0.0_r).margin(g_epsilon));
+    CHECK_THAT(orthogonal_vec, elements_are(as::vec2(-1, 1)));
+  }
+
+  {
+    const auto vec = as::vec2(-3.0_r, -10.0_r);
+
+    vec2 orthogonal_vec;
+    orthogonal_vec = as::vec2_orthogonal_ccw(vec);
+
+    real dot = as::vec_dot(orthogonal_vec, vec);
+    CHECK(dot == Approx(0.0_r).margin(g_epsilon));
+    CHECK_THAT(orthogonal_vec, elements_are(as::vec2(10.0_r, -3.0_r)));
+  }
+}
+
 TEST_CASE("vec_to_arr", "[as_vec]")
 {
   using gsl::make_span;
@@ -1834,7 +1883,7 @@ TEST_CASE("reflect", "[as_vec]")
   }
 }
 
-TEST_CASE("orthogonal", "[as_vec]")
+TEST_CASE("orthogonal_vec3", "[as_vec]")
 {
   {
     const auto vec = as::vec3::axis_x();

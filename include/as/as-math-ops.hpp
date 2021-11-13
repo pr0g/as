@@ -212,6 +212,14 @@ constexpr vec<T, 2> vec2_from_vec4(const vec<T, 4>& v);
 template<typename T>
 constexpr T vec2_wedge(const vec<T, 2>& lhs, const vec<T, 2>& rhs);
 
+//! Returns the vector orthogonal/perpendicular to v (clockwise).
+template<typename T>
+constexpr vec<T, 2> vec2_orthogonal_cw(const vec<T, 2>& v);
+
+//! Returns the vector orthogonal/perpendicular to v (counter clockwise).
+template<typename T>
+constexpr vec<T, 2> vec2_orthogonal_ccw(const vec<T, 2>& v);
+
 //! Creates a vec<T, 3> from a fixed size array of the same type and
 //! dimension.
 template<typename T>

@@ -314,6 +314,18 @@ AS_API constexpr T vec2_wedge(const vec<T, 2>& lhs, const vec<T, 2>& rhs)
 }
 
 template<typename T>
+AS_API constexpr vec<T, 2> vec2_orthogonal_cw(const vec<T, 2>& v)
+{
+  return {v.y, -v.x};
+}
+
+template<typename T>
+AS_API constexpr vec<T, 2> vec2_orthogonal_ccw(const vec<T, 2>& v)
+{
+  return {-v.y, v.x};
+}
+
+template<typename T>
 AS_API vec<T, 3> vec3_from_ptr(const T* data)
 {
   return vec_from_ptr<T, 3>(data);
