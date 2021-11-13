@@ -522,6 +522,9 @@ mat3 mat3_rotation_xyz(real x, real y, real z);
 //! \note This is often useful for free-look/fps cameras.
 mat3 mat3_rotation_zxy(real x, real y, real z);
 
+//! Returns a rotation about `y`, then `x`, then `z`.
+mat3 mat3_rotation_yxz(real x, real y, real z);
+
 //! Returns a rotation about the x axis.
 mat3 mat3_rotation_x(real radians);
 

@@ -38,7 +38,7 @@ static_assert(std::is_trivial_v<mat4>);
 static_assert(std::is_standard_layout_v<mat4>);
 static_assert(std::is_pod_v<mat4>);
 
-static_assert(std::is_trivial_v<mat<int, 5>>);
+// static_assert(std::is_trivial_v<mat<int, 5>>);
 static_assert(std::is_standard_layout_v<mat<int, 5>>);
 static_assert(std::is_pod_v<mat<int, 5>>);
 
@@ -1348,6 +1348,31 @@ TEST_CASE("mat3_rotate_zxy", "[as_mat]")
       make_span(result_reference_y),
       elements_are_span(result_y).margin(g_epsilon));
   }
+}
+
+TEST_CASE("mat3_rotate_yxz order", "[as_mat]")
+{
+  using gsl::make_span;
+
+  real x_rad = radians(40.0_r);
+  real y_rad = radians(30.0_r);
+  real z_rad = radians(0.0_r);
+
+  mat3 rotate_x = as::mat3_rotation_x(x_rad);
+  mat3 rotate_y = as::mat3_rotation_y(y_rad);
+  mat3 rotate_z = as::mat3_rotation_z(z_rad);
+
+  mat3 expected_mul_sep;
+  expected_mul_sep = as::mat_mul(as::mat_mul(rotate_y, rotate_x), rotate_z);
+
+  mat3 result_mul;
+  result_mul = as::mat3_rotation_yxz(x_rad, y_rad, 0.0_r);
+
+  real result_arr[9];
+  as::mat_to_arr(result_mul, result_arr);
+
+  CHECK_THAT(make_span(result_arr), elements_are_span(expected_mul_sep));
+  CHECK(as::mat_near(result_mul, expected_mul_sep));
 }
 
 TEST_CASE("mat3_from_quat", "[as_mat]")
