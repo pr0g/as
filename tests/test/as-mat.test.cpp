@@ -1350,13 +1350,13 @@ TEST_CASE("mat3_rotate_zxy", "[as_mat]")
   }
 }
 
-TEST_CASE("mat3_rotate_yxz order", "[as_mat]")
+TEST_CASE("mat3_rotate_yxz", "[as_mat]")
 {
   using gsl::make_span;
 
   real x_rad = radians(40.0_r);
   real y_rad = radians(30.0_r);
-  real z_rad = radians(0.0_r);
+  real z_rad = radians(20.0_r);
 
   mat3 rotate_x = as::mat3_rotation_x(x_rad);
   mat3 rotate_y = as::mat3_rotation_y(y_rad);
@@ -1366,7 +1366,7 @@ TEST_CASE("mat3_rotate_yxz order", "[as_mat]")
   expected_mul_sep = as::mat_mul(as::mat_mul(rotate_y, rotate_x), rotate_z);
 
   mat3 result_mul;
-  result_mul = as::mat3_rotation_yxz(x_rad, y_rad, 0.0_r);
+  result_mul = as::mat3_rotation_yxz(x_rad, y_rad, z_rad);
 
   real result_arr[9];
   as::mat_to_arr(result_mul, result_arr);

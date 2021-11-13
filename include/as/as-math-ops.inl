@@ -934,9 +934,16 @@ AS_API inline mat3 mat3_rotation_yxz(real x, real y, real z)
   const real sin_y = std::sin(y);
   const real sin_z = std::sin(z);
 
-return {cos_y, sin_y * sin_x, sin_y * -cos_x,
-        0.0_r, cos_x, sin_x,
-        sin_y, cos_y * -sin_x, cos_y * cos_x};
+  return {
+    cos_z * cos_y - sin_z * sin_y * sin_x,
+    sin_z * cos_y + cos_z * sin_y * sin_x,
+    -sin_y * cos_x,
+    -sin_z * cos_x,
+    cos_z * cos_x,
+    sin_x,
+    cos_z * sin_y + sin_z * sin_x * cos_y,
+    sin_z * sin_y - cos_z * sin_x * cos_y,
+    cos_x * cos_y};
 }
 
 AS_API inline mat3 mat3_rotation_x(const real radians)
