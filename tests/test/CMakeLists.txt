@@ -58,7 +58,7 @@ string(
             ">"
         ">:"
         "-Weverything;-Wno-c++98-compat;-Wno-;-Wno-global-constructors;-Wno-;"
-        "-Wno-c++98-compat-pedantic;-Wno-"
+        "-Wno-c++98-compat-pedantic;-Wno-;-Wno-padded;-Wno-"
     ">"
     "$<"
         "$<AND:"

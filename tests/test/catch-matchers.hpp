@@ -37,7 +37,8 @@ public:
     for (decltype(size(subscriptable2)) i = 0; i < size(subscriptable2); ++i) {
       const auto approx_elem{
         Catch::Approx(subscriptable2[i]).epsilon(epsilon_).margin(margin_)};
-      auto subscript = gsl::narrow_cast<decltype(size(subscriptable1_))>(i);
+      const auto subscript =
+        gsl::narrow_cast<decltype(size(subscriptable1_))>(i);
       if (subscriptable1_[subscript] != approx_elem) {
         return false;
       }
@@ -53,7 +54,7 @@ public:
 
     using std::size;
     for (int64_t i = 0; i < size(subscriptable1_); ++i) {
-      auto subscript = gsl::narrow_cast<ptrdiff_t>(i);
+      const auto subscript = gsl::narrow_cast<ptrdiff_t>(i);
       ss << std::fixed << subscriptable1_[subscript] << ", ";
     }
 

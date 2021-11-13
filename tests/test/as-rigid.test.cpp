@@ -25,9 +25,8 @@ using as::operator""_r;
 // use float epsilon for comparisons
 const real g_epsilon = real(std::numeric_limits<float>::epsilon());
 
-static_assert(std::is_trivial_v<rigid>);
-static_assert(std::is_standard_layout_v<rigid>);
-static_assert(std::is_pod_v<rigid>);
+[[maybe_unused]] constexpr auto rigid_type_check =
+  unit_test::trivial_standard_layout_check<rigid>();
 
 TEST_CASE("rigid_constructor_position_rotation", "[as_rigid]")
 {

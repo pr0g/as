@@ -29,29 +29,19 @@ using as::operator""_r;
 // use float epsilon for comparisons
 const real g_epsilon = real(std::numeric_limits<float>::epsilon());
 
-static_assert(std::is_trivial_v<vec2>);
-static_assert(std::is_standard_layout_v<vec2>);
-static_assert(std::is_pod_v<vec2>);
-
-static_assert(std::is_trivial_v<vec3>);
-static_assert(std::is_standard_layout_v<vec3>);
-static_assert(std::is_pod_v<vec3>);
-
-static_assert(std::is_trivial_v<vec4>);
-static_assert(std::is_standard_layout_v<vec4>);
-static_assert(std::is_pod_v<vec4>);
-
-// static_assert(std::is_trivial_v<vec<int, 5>>);
-static_assert(std::is_standard_layout_v<vec<int, 5>>);
-static_assert(std::is_pod_v<vec<int, 5>>);
-
-static_assert(std::is_trivial_v<as::subscript_iterator<vec2>>);
-static_assert(std::is_standard_layout_v<as::subscript_iterator<vec2>>);
-static_assert(std::is_pod_v<as::subscript_iterator<vec2>>);
-
-static_assert(std::is_trivial_v<as::subscript_const_iterator<vec2>>);
-static_assert(std::is_standard_layout_v<as::subscript_const_iterator<vec2>>);
-static_assert(std::is_pod_v<as::subscript_const_iterator<vec2>>);
+[[maybe_unused]] constexpr auto vec2_type_check =
+  unit_test::trivial_standard_layout_check<vec2>();
+[[maybe_unused]] constexpr auto vec3_type_check =
+  unit_test::trivial_standard_layout_check<vec3>();
+[[maybe_unused]] constexpr auto vec4_type_check =
+  unit_test::trivial_standard_layout_check<vec4>();
+[[maybe_unused]] constexpr auto vec5i_type_check =
+  unit_test::trivial_standard_layout_check<vec<int, 5>>();
+[[maybe_unused]] constexpr auto sub_it_type_check =
+  unit_test::trivial_standard_layout_check<as::subscript_iterator<vec2>>();
+[[maybe_unused]] constexpr auto sub_cit_type_check =
+  unit_test::trivial_standard_layout_check<
+    as::subscript_const_iterator<vec2>>();
 
 TEST_CASE("vec2_initialization", "[as_vec]")
 {

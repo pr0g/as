@@ -1,3 +1,4 @@
+#include "as-helpers.test.hpp"
 #include "as/as-math-ops.hpp"
 #include "catch-matchers.hpp"
 #include "catch2/catch_test_macros.hpp"
@@ -22,9 +23,8 @@ using as::operator""_r;
 // use float epsilon for comparisons
 const real g_epsilon = 1e-6_r;
 
-static_assert(std::is_trivial_v<quat>);
-static_assert(std::is_standard_layout_v<quat>);
-static_assert(std::is_pod_v<quat>);
+[[maybe_unused]] constexpr auto quat_type_check =
+  unit_test::trivial_standard_layout_check<quat>();
 
 TEST_CASE("quat_identity", "[as_quat]")
 {

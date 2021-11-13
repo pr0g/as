@@ -10,6 +10,23 @@ namespace unit_test
 {
 
 template<typename T>
+constexpr bool trivial_standard_layout_check()
+{
+  static_assert(std::is_trivially_copyable_v<T>);
+  static_assert(std::is_trivially_constructible_v<T>);
+  static_assert(std::is_trivially_default_constructible_v<T>);
+  static_assert(std::is_trivially_copy_constructible_v<T>);
+  static_assert(std::is_trivially_move_constructible_v<T>);
+  static_assert(std::is_trivially_assignable_v<T&, T>);
+  static_assert(std::is_trivially_copy_assignable_v<T>);
+  static_assert(std::is_trivially_move_assignable_v<T>);
+  static_assert(std::is_trivially_destructible_v<T>);
+  static_assert(std::is_standard_layout_v<T>);
+
+  return true;
+}
+
+template<typename T>
 std::array<T, 2> arr(const T x, const T y)
 {
   return std::array<T, 2>{{x, y}};

@@ -30,17 +30,12 @@ using as::operator""_r;
 
 const real g_epsilon = real(std::numeric_limits<float>::epsilon());
 
-static_assert(std::is_trivial_v<mat3>);
-static_assert(std::is_standard_layout_v<mat3>);
-static_assert(std::is_pod_v<mat3>);
-
-static_assert(std::is_trivial_v<mat4>);
-static_assert(std::is_standard_layout_v<mat4>);
-static_assert(std::is_pod_v<mat4>);
-
-// static_assert(std::is_trivial_v<mat<int, 5>>);
-static_assert(std::is_standard_layout_v<mat<int, 5>>);
-static_assert(std::is_pod_v<mat<int, 5>>);
+[[maybe_unused]] constexpr auto mat3_type_check =
+  unit_test::trivial_standard_layout_check<mat3>();
+[[maybe_unused]] constexpr auto mat4_type_check =
+  unit_test::trivial_standard_layout_check<mat4>();
+[[maybe_unused]] constexpr auto mati5_type_check =
+  unit_test::trivial_standard_layout_check<mat<int, 5>>();
 
 TEST_CASE("mat_row_col_access_mat3", "[as_mat]")
 {
