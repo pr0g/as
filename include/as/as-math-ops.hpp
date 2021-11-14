@@ -527,6 +527,10 @@ mat3 mat3_rotation_axis(const vec3& axis, real radians);
 mat3 mat3_rotation_xyz(real x, real y, real z);
 
 //! Returns a rotation about `z`, then `x`, then `y`.
+//! Each rotation occurs about the world frame (global axes), not the local
+//! frame. Each time a new rotation is introduced from the left, it has no
+//! concern for the current local frame, it always rotates in terms of the
+//! world frame.
 //! \note This is often useful for free-look/fps cameras.
 mat3 mat3_rotation_zxy(real x, real y, real z);
 
