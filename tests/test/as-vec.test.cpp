@@ -2302,6 +2302,27 @@ TEST_CASE("vec_equal", "[as_mat]")
   }
 }
 
+TEST_CASE("vec_radians", "[as_mat]")
+{
+  constexpr real real_epsilon = 1e-3_r;
+  const vec<real, 5> vec_degrees(57.2958_r, 90.0_r, 180.0_r, 270.0_r, 360.0_r);
+  CHECK_THAT(
+    as::vec_radians(vec_degrees),
+    elements_are(vec<real, 5>(1.0_r, 1.5708_r, 3.14159_r, 4.71239_r, 6.28319_r))
+      .epsilon(real_epsilon));
+}
+
+TEST_CASE("vec_degrees", "[as_mat]")
+{
+  constexpr real real_epsilon = 1e-3_r;
+  const vec<real, 5> vec_radians(
+    1.0_r, 1.5708_r, 3.14159_r, 4.71239_r, 6.28319_r);
+  CHECK_THAT(
+    as::vec_degrees(vec_radians),
+    elements_are(vec<real, 5>(57.2958_r, 90.0_r, 180.0_r, 270.0_r, 360.0_r))
+      .epsilon(real_epsilon));
+}
+
 } // namespace unit_test
 
 // explicit instantiations (for coverage)
@@ -2371,3 +2392,5 @@ template as::real* as::vec_data(as::vec<as::real, 5>&);
 template const as::real* as::vec_const_data(const as::vec<as::real, 5>&);
 template as::vec<as::real, 4> as::vec4_translation(const as::vec<as::real, 3>&);
 template as::vec<as::real, 4> as::vec4_direction(const as::vec<as::real, 3>&);
+template as::vec<as::real, 4> as::vec_radians(const as::vec<as::real, 4>&);
+template as::vec<as::real, 4> as::vec_degrees(const as::vec<as::real, 4>&);

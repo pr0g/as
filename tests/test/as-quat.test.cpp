@@ -231,6 +231,16 @@ TEST_CASE("quat_rotate_vec", "[as_quat]")
   }
 
   {
+    const quat q = as::quat_rotation_zxy(
+      vec3(radians(0.0_r), radians(-90.0_r), radians(-90.0_r)));
+    const vec3 result = quat_rotate(q, vec3::axis_x());
+
+    CHECK(result.x == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.y == Approx(-1.0_r).margin(g_epsilon));
+    CHECK(result.z == Approx(0.0_r).margin(g_epsilon));
+  }
+
+  {
     const quat q =
       as::quat_rotation_xyz(radians(90.0_r), radians(0.0_r), radians(0.0_r));
     const vec3 result = quat_rotate(q, vec3::axis_z());
@@ -241,8 +251,28 @@ TEST_CASE("quat_rotate_vec", "[as_quat]")
   }
 
   {
+    const quat q = as::quat_rotation_xyz(
+      vec3(radians(90.0_r), radians(0.0_r), radians(0.0_r)));
+    const vec3 result = quat_rotate(q, vec3::axis_z());
+
+    CHECK(result.x == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.y == Approx(-1.0_r).margin(g_epsilon));
+    CHECK(result.z == Approx(0.0_r).margin(g_epsilon));
+  }
+
+  {
     const quat q =
       as::quat_rotation_xyz(radians(90.0_r), radians(0.0_r), radians(90.0_r));
+    const vec3 result = quat_rotate(q, vec3::axis_z());
+
+    CHECK(result.x == Approx(1.0_r).margin(g_epsilon));
+    CHECK(result.y == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result.z == Approx(0.0_r).margin(g_epsilon));
+  }
+
+  {
+    const quat q = as::quat_rotation_xyz(
+      vec3(radians(90.0_r), radians(0.0_r), radians(90.0_r)));
     const vec3 result = quat_rotate(q, vec3::axis_z());
 
     CHECK(result.x == Approx(1.0_r).margin(g_epsilon));

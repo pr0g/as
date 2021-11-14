@@ -269,4 +269,28 @@ TEST_CASE("affine_identity", "[as_affine]")
   CHECK_THAT(a.translation, elements_are(vec3::zero()));
 }
 
+TEST_CASE("affine_near", "[as_affine]")
+{
+  {
+    auto a = affine(mat3::identity(), vec3::one());
+    auto b = a;
+
+    CHECK(as::affine_near(a, b));
+  }
+
+  {
+    auto a = affine(mat3::identity(), vec3::one());
+    auto b = affine(mat3{}, vec3::one());
+
+    CHECK(!as::affine_near(a, b));
+  }
+
+  {
+    auto a = affine(mat3::identity(), vec3::one());
+    auto b = affine(mat3::identity(), vec3::zero());
+
+    CHECK(!as::affine_near(a, b));
+  }
+}
+
 } // namespace unit_test

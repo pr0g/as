@@ -14,7 +14,6 @@ AS_API vec<T, d> vec_from_ptr(const T* data)
   for (index i = 0; i < d; ++i) {
     result[i] = data[i];
   }
-
   return result;
 }
 
@@ -45,7 +44,6 @@ AS_API constexpr T vec_dot(const vec<T, d>& lhs, const vec<T, d>& rhs)
   for (index i = 0; i < d; ++i) {
     result += lhs[i] * rhs[i];
   }
-
   return result;
 }
 
@@ -103,7 +101,6 @@ AS_API bool vec_near(
       return false;
     }
   }
-
   return true;
 }
 
@@ -114,7 +111,6 @@ AS_API vec<T, d> vec_min(const vec<T, d>& lhs, const vec<T, d>& rhs)
   for (index i = 0; i < d; ++i) {
     result[i] = min(lhs[i], rhs[i]);
   }
-
   return result;
 }
 
@@ -125,7 +121,6 @@ AS_API vec<T, d> vec_min(const vec<T, d>& lhs, const T rhs)
   for (index i = 0; i < d; ++i) {
     result[i] = min(lhs[i], rhs);
   }
-
   return result;
 }
 
@@ -136,7 +131,6 @@ AS_API constexpr T vec_min_elem(const vec<T, d>& v)
   for (index i = 1; i < d; ++i) {
     val = min(val, v[i]);
   }
-
   return val;
 }
 
@@ -147,7 +141,6 @@ AS_API vec<T, d> vec_max(const vec<T, d>& lhs, const vec<T, d>& rhs)
   for (index i = 0; i < d; ++i) {
     result[i] = max(lhs[i], rhs[i]);
   }
-
   return result;
 }
 
@@ -158,7 +151,6 @@ AS_API vec<T, d> vec_max(const vec<T, d>& lhs, const T rhs)
   for (index i = 0; i < d; ++i) {
     result[i] = max(lhs[i], rhs);
   }
-
   return result;
 }
 
@@ -169,7 +161,6 @@ AS_API constexpr T vec_max_elem(const vec<T, d>& v)
   for (index i = 1; i < d; ++i) {
     val = max(val, v[i]);
   }
-
   return val;
 }
 
@@ -180,7 +171,6 @@ AS_API vec<T, d> vec_abs(const vec<T, d>& v)
   for (index i = 0; i < d; ++i) {
     result[i] = abs(v[i]);
   }
-
   return result;
 }
 
@@ -192,7 +182,6 @@ AS_API vec<T, d> vec_clamp(
   for (index i = 0; i < d; ++i) {
     result[i] = clamp(v[i], min[i], max[i]);
   }
-
   return result;
 }
 
@@ -203,7 +192,6 @@ AS_API vec<T, d> vec_saturate(const vec<T, d>& v)
   for (index i = 0; i < d; ++i) {
     result[i] = clamp(v[i], T(0.0), T(1.0));
   }
-
   return result;
 }
 
@@ -215,7 +203,6 @@ AS_API vec<T, d> vec_mix(
   for (index i = 0; i < d; ++i) {
     result[i] = mix(begin[i], end[i], t);
   }
-
   return result;
 }
 
@@ -246,7 +233,6 @@ AS_API vec<T, d> vec_floor(const vec<T, d>& v)
   for (index i = 0; i < d; ++i) {
     result[i] = std::floor(v[i]);
   }
-
   return result;
 }
 
@@ -257,7 +243,6 @@ AS_API vec<T, d> vec_ceil(const vec<T, d>& v)
   for (index i = 0; i < d; ++i) {
     result[i] = std::ceil(v[i]);
   }
-
   return result;
 }
 
@@ -268,7 +253,6 @@ AS_API vec<T, d> vec_round(const vec<T, d>& v)
   for (index i = 0; i < d; ++i) {
     result[i] = std::round(v[i]);
   }
-
   return result;
 }
 
@@ -279,7 +263,26 @@ AS_API vec<T, d> vec_snap(const vec<T, d>& v, const T step)
   for (index i = 0; i < d; ++i) {
     result[i] = snap(v[i], step);
   }
+  return result;
+}
 
+template<typename T, index d>
+AS_API vec<T, d> vec_radians(const vec<T, d>& degrees)
+{
+  vec<T, d> result;
+  for (index i = 0; i < d; ++i) {
+    result[i] = radians(degrees[i]);
+  }
+  return result;
+}
+
+template<typename T, index d>
+AS_API vec<T, d> vec_degrees(const vec<T, d>& radians)
+{
+  vec<T, d> result;
+  for (index i = 0; i < d; ++i) {
+    result[i] = degrees(radians[i]);
+  }
   return result;
 }
 
@@ -483,7 +486,6 @@ AS_API vec<T, d> mat_row(const mat<T, d>& m, const index r)
   for (index c = 0; c < d; ++c) {
     v[c] = m[mat_rc(r, c, d)];
   }
-
   return v;
 }
 
@@ -494,7 +496,6 @@ AS_API vec<T, d> mat_col(const mat<T, d>& m, const index c)
   for (index r = 0; r < d; ++r) {
     v[r] = m[mat_rc(r, c, d)];
   }
-
   return v;
 }
 
@@ -539,7 +540,6 @@ AS_API mat<T, d> mat_from_ptr(const T* data)
   for (index i = 0; i < d * d; ++i) {
     result[i] = data[i];
   }
-
   return result;
 }
 
@@ -562,7 +562,6 @@ AS_API bool mat_near(
       return false;
     }
   }
-
   return true;
 }
 
@@ -575,7 +574,6 @@ AS_API mat<T, d> mat_transpose(const mat<T, d>& m)
       result[ci * d + ri] = m[ri * d + ci];
     }
   }
-
   return result;
 }
 
@@ -600,11 +598,9 @@ AS_API mat<T, d - 1> sub_matrix(
       if (ri == r || ci == c) {
         continue;
       }
-
       result[i++] = m[ci * d + ri];
     }
   }
-
   return result;
 }
 
@@ -620,16 +616,14 @@ AS_API T minor(const mat<T, 2>& m)
 template<typename T, index d, index I>
 AS_API T determinant_impl(const mat<T, d>& m, int2type<I> /*unused*/)
 {
-  T sign{1.0};
-  T result{0.0};
-
+  auto sign = T(1.0);
+  auto result = T(0.0);
   for (index i = 0; i < d; ++i) {
     const T minor_det =
       determinant_impl(sub_matrix(m, i, 0), int2type<I - 1>{});
     result += (m[i] * minor_det) * sign;
     sign *= T{-1.0};
   }
-
   return result;
 }
 
@@ -645,20 +639,17 @@ template<typename T, index d, index I>
 AS_API mat<T, d> minor_impl(const mat<T, d>& m, int2type<I> /*unused*/)
 {
   mat<T, d> result;
-  T outer_sign = T{1.0};
-
+  auto outer_sign = T(1.0);
   for (index c = 0; c < d; ++c) {
-    T inner_sign{outer_sign};
+    auto inner_sign = outer_sign;
     for (index r = 0; r < d; ++r) {
       const T minor_det =
         determinant_impl<T>(internal::sub_matrix(m, r, c), int2type<d - 1>{});
       result[c * d + r] = minor_det * inner_sign;
       inner_sign *= T{-1.0};
     }
-
-    outer_sign *= T{-1.0};
+    outer_sign *= T(-1.0);
   }
-
   return result;
 }
 
@@ -674,11 +665,9 @@ template<typename T, index d>
 AS_API mat<T, d> mat_inverse(const mat<T, d>& m)
 {
   mat<T, d> result;
-
   result = internal::minor_impl(m, internal::int2type<d>{});
   result = mat_transpose(result);
   result *= T(1.0) / determinant(m);
-
   return result;
 }
 
@@ -881,7 +870,6 @@ AS_API inline mat3 mat3_rotation_axis(const vec3& axis, const real radians)
   const real cos_radians = std::cos(radians);
   const real sin_radians = std::sin(radians);
   const real inv_cos_radians = 1.0_r - cos_radians;
-
   return {
     cos_radians + ((axis.x * axis.x) * inv_cos_radians),
     (axis.y * axis.x * inv_cos_radians) + (axis.z * sin_radians),
@@ -902,7 +890,6 @@ AS_API inline mat3 mat3_rotation_xyz(const real x, const real y, const real z)
   const real sin_x = std::sin(x);
   const real sin_y = std::sin(y);
   const real sin_z = std::sin(z);
-
   return {
     cos_y * cos_z,
     cos_y * sin_z,
@@ -915,6 +902,11 @@ AS_API inline mat3 mat3_rotation_xyz(const real x, const real y, const real z)
     cos_x * cos_y};
 }
 
+AS_API inline mat3 mat3_rotation_xyz(const vec3& xyz)
+{
+  return mat3_rotation_xyz(xyz.x, xyz.y, xyz.z);
+}
+
 AS_API inline mat3 mat3_rotation_zxy(const real x, const real y, const real z)
 {
   const real cos_x = std::cos(x);
@@ -923,7 +915,6 @@ AS_API inline mat3 mat3_rotation_zxy(const real x, const real y, const real z)
   const real sin_x = std::sin(x);
   const real sin_y = std::sin(y);
   const real sin_z = std::sin(z);
-
   return {
     cos_z * cos_y + sin_x * sin_y * sin_z,
     sin_z * cos_x,
@@ -937,11 +928,15 @@ AS_API inline mat3 mat3_rotation_zxy(const real x, const real y, const real z)
   };
 }
 
+AS_API inline mat3 mat3_rotation_zxy(const vec3& xyz)
+{
+  return mat3_rotation_zxy(xyz.x, xyz.y, xyz.z);
+}
+
 AS_API inline mat3 mat3_rotation_x(const real radians)
 {
   const real cos_radians = std::cos(radians);
   const real sin_radians = std::sin(radians);
-
   // clang-format off
   return {1.0_r, 0.0_r,        0.0_r,
           0.0_r, cos_radians,  sin_radians,
@@ -953,7 +948,6 @@ AS_API inline mat3 mat3_rotation_y(const real radians)
 {
   const real cos_radians = std::cos(radians);
   const real sin_radians = std::sin(radians);
-
   // clang-format off
   return {cos_radians, 0.0_r, -sin_radians,
           0.0_r,       1.0_r, 0.0_r,
@@ -965,7 +959,6 @@ AS_API inline mat3 mat3_rotation_z(const real radians)
 {
   const real cos_radians = std::cos(radians);
   const real sin_radians = std::sin(radians);
-
   // clang-format off
   return {cos_radians,  sin_radians, 0.0_r,
           -sin_radians, cos_radians, 0.0_r,
@@ -978,7 +971,6 @@ AS_API constexpr mat3 mat3_scale(const real scale)
   return mat3_scale(scale, scale, scale);
 }
 
-//! Returns a (potentially) non-uniform scale martix.
 AS_API constexpr mat3 mat3_scale(const real x, const real y, const real z)
 {
   // clang-format off
@@ -998,7 +990,6 @@ AS_API constexpr mat3 mat3_scale(const vec3& scale)
 AS_API constexpr mat3 mat3_from_quat(const quat& q)
 {
   const real s{2.0_r / (q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w)};
-
   const real xs{s * q.x};
   const real ys{s * q.y};
   const real zs{s * q.z};
@@ -1402,11 +1393,21 @@ AS_API inline quat quat_rotation_xyz(const real x, const real y, const real z)
        * quat{std::cos(0.5_r * x), std::sin(0.5_r * x), 0.0_r, 0.0_r};
 }
 
+AS_API inline quat quat_rotation_xyz(const vec3& xyz)
+{
+  return quat_rotation_xyz(xyz.x, xyz.y, xyz.z);
+}
+
 AS_API inline quat quat_rotation_zxy(const real x, const real y, const real z)
 {
   return quat{std::cos(0.5_r * y), 0.0_r, std::sin(0.5_r * y), 0.0_r}
        * quat{std::cos(0.5_r * x), std::sin(0.5_r * x), 0.0_r, 0.0_r}
        * quat{std::cos(0.5_r * z), 0.0_r, 0.0_r, std::sin(0.5_r * z)};
+}
+
+AS_API inline quat quat_rotation_zxy(const vec3& xyz)
+{
+  return quat_rotation_zxy(xyz.x, xyz.y, xyz.z);
 }
 
 AS_API inline quat quat_nlerp(const quat& q0, const quat& q1, const real t)
@@ -1433,13 +1434,11 @@ AS_API inline quat quat_slerp(const quat& q0, const quat& q1, const real t)
 AS_API inline quat quat_from_mat3(const mat3& m)
 {
   quat q;
-
   const auto rc = [](const index r, const index c) {
     return c * mat3::dim() + r;
   };
 
   const real trace = m[rc(0, 0)] + m[rc(1, 1)] + m[rc(2, 2)];
-
   if (trace > 0.0_r) {
     real s = 0.5_r / std::sqrt(trace + 1.0_r);
     q.w = 0.25_r / s;
@@ -1470,7 +1469,6 @@ AS_API inline quat quat_from_mat3(const mat3& m)
       q.z = 0.25_r * s;
     }
   }
-
   return q;
 }
 
@@ -1486,7 +1484,6 @@ AS_API inline void affine_to_arr(const affine& a, real (&data)[12])
   for (index i = 0; i < a.rotation.size(); ++i) {
     data[i] = a.rotation[i];
   }
-
   for (index i = 0; i < a.translation.size(); ++i) {
     data[a.rotation.size() + i] = a.translation[i];
   }
@@ -1500,17 +1497,14 @@ AS_API inline affine affine_from_arr(const real (&data)[12])
 AS_API inline affine affine_from_ptr(const real* data)
 {
   affine result;
-
   constexpr auto mat3_size = result.rotation.size();
   for (index i = 0; i < mat3_size; ++i) {
     result.rotation[i] = data[i];
   }
-
   constexpr auto vec3_size = result.translation.size();
   for (index i = 0; i < vec3_size; ++i) {
     result.translation[i] = data[mat3_size + i];
   }
-
   return result;
 }
 
@@ -1551,6 +1545,15 @@ AS_API inline affine affine_inverse(const affine& a)
   const mat3 inv_rot = mat_transpose(a.rotation);
   const vec3 inv_pos = affine_transform_pos(affine(inv_rot), -a.translation);
   return affine(inv_rot, inv_pos);
+}
+
+AS_API inline bool affine_near(
+  const affine& lhs, const affine& rhs,
+  const real max_diff /*= std::numeric_limits<real>::epsilon()*/,
+  const real max_rel_diff /*= std::numeric_limits<real>::epsilon()*/)
+{
+  return as::vec_near(lhs.translation, rhs.translation, max_diff, max_rel_diff)
+      && as::mat_near(lhs.rotation, rhs.rotation, max_diff, max_rel_diff);
 }
 
 AS_API inline vec3 affine_transform_dir(const affine& a, const vec3& direction)
@@ -1598,7 +1601,6 @@ AS_API inline void rigid_to_arr(const rigid& r, real (&data)[7])
   for (index i = 0; i < r.rotation.size(); ++i) {
     data[i] = r.rotation[i];
   }
-
   for (index i = 0; i < r.translation.size(); ++i) {
     data[r.rotation.size() + i] = r.translation[i];
   }
@@ -1612,17 +1614,14 @@ AS_API inline rigid rigid_from_arr(const real (&data)[7])
 AS_API inline rigid rigid_from_ptr(const real* data)
 {
   rigid result;
-
   constexpr auto quat_size = result.rotation.size();
   for (index i = 0; i < quat_size; ++i) {
     result.rotation[i] = data[i];
   }
-
   constexpr auto vec3_size = result.translation.size();
   for (index i = 0; i < vec3_size; ++i) {
     result.translation[i] = data[quat_size + i];
   }
-
   return result;
 }
 
@@ -1662,6 +1661,15 @@ AS_API inline rigid rigid_inverse(const rigid& r)
   const quat inv_rot = quat_inverse(as::quat_normalize(r.rotation));
   const vec3 inv_pos = rigid_transform_pos(rigid(inv_rot), -r.translation);
   return rigid(inv_rot, inv_pos);
+}
+
+AS_API inline bool rigid_near(
+  const rigid& lhs, const rigid& rhs,
+  const real max_diff /*= std::numeric_limits<real>::epsilon()*/,
+  const real max_rel_diff /*= std::numeric_limits<real>::epsilon()*/)
+{
+  return as::vec_near(lhs.translation, rhs.translation, max_diff, max_rel_diff)
+      && as::quat_near(lhs.rotation, rhs.rotation, max_diff, max_rel_diff);
 }
 
 AS_API inline vec3 rigid_transform_dir(const rigid& r, const vec3& direction)

@@ -267,4 +267,28 @@ TEST_CASE("rigid_identity", "[as_rigid]")
   CHECK_THAT(r.translation, elements_are(vec3::zero()));
 }
 
+TEST_CASE("rigid_near", "[as_rigid]")
+{
+  {
+    auto a = rigid(quat::identity(), vec3::one());
+    auto b = a;
+
+    CHECK(as::rigid_near(a, b));
+  }
+
+  {
+    auto a = rigid(quat::identity(), vec3::one());
+    auto b = rigid(quat{}, vec3::one());
+
+    CHECK(!as::rigid_near(a, b));
+  }
+
+  {
+    auto a = rigid(quat::identity(), vec3::one());
+    auto b = rigid(quat::identity(), vec3::zero());
+
+    CHECK(!as::rigid_near(a, b));
+  }
+}
+
 } // namespace unit_test

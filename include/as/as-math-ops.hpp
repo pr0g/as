@@ -190,6 +190,14 @@ vec<T, d> vec_round(const vec<T, d>& v);
 template<typename T, index d>
 vec<T, d> vec_snap(const vec<T, d>& v, T step);
 
+//! Returns a vector with each element converted from degrees to radians.
+template<typename T, index d>
+vec<T, d> vec_radians(const vec<T, d>& degrees);
+
+//! Returns a vector with each element converted from radians to degrees.
+template<typename T, index d>
+vec<T, d> vec_degrees(const vec<T, d>& radians);
+
 //! Creates a vec<T, 2> from a fixed size array of the same type and
 //! dimension.
 template<typename T>
@@ -526,6 +534,9 @@ mat3 mat3_rotation_axis(const vec3& axis, real radians);
 //! Returns a rotation about `x`, then `y`, then `z`.
 mat3 mat3_rotation_xyz(real x, real y, real z);
 
+//! Returns a rotation about `x`, then `y`, then `z` of vector `xyz`.
+mat3 mat3_rotation_xyz(const vec3& xyz);
+
 //! Returns a rotation about `z`, then `x`, then `y`.
 //! Each rotation occurs about the world frame (global axes), not the local
 //! frame. Each time a new rotation is introduced from the left, it has no
@@ -533,6 +544,9 @@ mat3 mat3_rotation_xyz(real x, real y, real z);
 //! world frame.
 //! \note This is often useful for free-look/fps cameras.
 mat3 mat3_rotation_zxy(real x, real y, real z);
+
+//! Returns a rotation about `z`, then `x`, then `y` of vector `xyz`.
+mat3 mat3_rotation_zxy(const vec3& xyz);
 
 //! Returns a rotation about the x axis.
 mat3 mat3_rotation_x(real radians);
@@ -793,8 +807,14 @@ quat quat_rotation_z(real radians);
 //! Returns a rotation about x, then y, then z.
 quat quat_rotation_xyz(real x, real y, real z);
 
+//! Returns a rotation about x, then y, then z of vector `xyz`.
+quat quat_rotation_xyz(const vec3& xyz);
+
 //! Returns a rotation about z, then x, then y.
 quat quat_rotation_zxy(real x, real y, real z);
+
+//! Returns a rotation about z, then x, then y of vector `xyz`.
+quat quat_rotation_zxy(const vec3& xyz);
 
 //! Returns the input quaternion normalized.
 quat quat_normalize(const quat& q);
@@ -876,6 +896,13 @@ affine affine_mul(const affine& lhs, const affine& rhs);
 //! Ensure it holds a valid a rotation (axes are orthogonal).
 affine affine_inverse(const affine& a);
 
+//! Returns if two affine transformations are the same as each other (within
+//! a certain tolerance).
+bool affine_near(
+  const affine& lhs, const affine& rhs,
+  real max_diff = std::numeric_limits<real>::epsilon(),
+  real max_rel_diff = std::numeric_limits<real>::epsilon());
+
 //! Returns the input direction transformed by the \ref affine.
 vec3 affine_transform_dir(const affine& a, const vec3& direction);
 
@@ -936,6 +963,13 @@ rigid rigid_mul(const rigid& lhs, const rigid& rhs);
 //! // r * inv(r) = identity
 //! ```
 rigid rigid_inverse(const rigid& r);
+
+//! Returns if two rigid transformations are the same as each other (within
+//! a certain tolerance).
+bool rigid_near(
+  const rigid& lhs, const rigid& rhs,
+  real max_diff = std::numeric_limits<real>::epsilon(),
+  real max_rel_diff = std::numeric_limits<real>::epsilon());
 
 //! Returns the input direction transformed by the \ref rigid.
 vec3 rigid_transform_dir(const rigid& r, const vec3& direction);

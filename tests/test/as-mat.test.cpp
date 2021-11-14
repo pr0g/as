@@ -1259,11 +1259,7 @@ TEST_CASE("mat3_rotate_xyz", "[as_mat]")
     real result_reference[] = {0.0_r, 1.0_r, 0.0_r};
 
     vec3 result;
-#ifdef AS_ROW_MAJOR
-    result = vec3::axis_y() * rotation_axis;
-#elif defined AS_COL_MAJOR
-    result = rotation_axis * vec3::axis_y();
-#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+    result = as::mat_mul(vec3::axis_y(), rotation_axis);
 
     // note - checking against 0.0_r requires margin
     CHECK_THAT(
@@ -1276,11 +1272,20 @@ TEST_CASE("mat3_rotate_xyz", "[as_mat]")
     real result_reference[] = {0.0_r, 1.0_r, 0.0_r};
 
     vec3 result;
-#ifdef AS_ROW_MAJOR
-    result = vec3::axis_z() * rotation_axis;
-#elif defined AS_COL_MAJOR
-    result = rotation_axis * vec3::axis_z();
-#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+    result = as::mat_mul(vec3::axis_z(), rotation_axis);
+
+    // note - checking against 0.0_r requires margin
+    CHECK_THAT(
+      make_span(result_reference), elements_are_span(result).margin(g_epsilon));
+  }
+
+  {
+    mat3 rotation_axis = as::mat3_rotation_xyz(
+      vec3(radians(-180.0_r), radians(90.0_r), radians(-90.0_r)));
+    real result_reference[] = {0.0_r, 1.0_r, 0.0_r};
+
+    vec3 result;
+    result = as::mat_mul(vec3::axis_z(), rotation_axis);
 
     // note - checking against 0.0_r requires margin
     CHECK_THAT(
@@ -1300,13 +1305,29 @@ TEST_CASE("mat3_rotate_zxy", "[as_mat]")
 
     vec3 result_y;
     vec3 result_z;
-#ifdef AS_ROW_MAJOR
-    result_y = vec3::axis_y() * rotation_axis;
-    result_z = vec3::axis_z() * rotation_axis;
-#elif defined AS_COL_MAJOR
-    result_y = rotation_axis * vec3::axis_y();
-    result_z = rotation_axis * vec3::axis_z();
-#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+    result_y = as::mat_mul(vec3::axis_y(), rotation_axis);
+    result_z = as::mat_mul(vec3::axis_z(), rotation_axis);
+
+    // note - checking against 0.0_r requires margin
+    CHECK_THAT(
+      make_span(result_reference_y),
+      elements_are_span(result_y).margin(g_epsilon));
+
+    CHECK_THAT(
+      make_span(result_reference_z),
+      elements_are_span(result_z).margin(g_epsilon));
+  }
+
+  {
+    mat3 rotation_axis = as::mat3_rotation_zxy(
+      vec3(radians(90.0_r), radians(90.0_r), radians(0.0_r)));
+    real result_reference_y[] = {1.0_r, 0.0_r, 0.0_r};
+    real result_reference_z[] = {0.0_r, -1.0_r, 0.0_r};
+
+    vec3 result_y;
+    vec3 result_z;
+    result_y = as::mat_mul(vec3::axis_y(), rotation_axis);
+    result_z = as::mat_mul(vec3::axis_z(), rotation_axis);
 
     // note - checking against 0.0_r requires margin
     CHECK_THAT(
@@ -1326,13 +1347,8 @@ TEST_CASE("mat3_rotate_zxy", "[as_mat]")
 
     vec3 result_x;
     vec3 result_y;
-#ifdef AS_ROW_MAJOR
-    result_x = vec3::axis_x() * rotation_axis;
-    result_y = vec3::axis_y() * rotation_axis;
-#elif defined AS_COL_MAJOR
-    result_x = rotation_axis * vec3::axis_x();
-    result_y = rotation_axis * vec3::axis_y();
-#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
+    result_x = as::mat_mul(vec3::axis_x(), rotation_axis);
+    result_y = as::mat_mul(vec3::axis_y(), rotation_axis);
 
     // note - checking against 0.0_r requires margin
     CHECK_THAT(
