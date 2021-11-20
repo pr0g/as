@@ -25,11 +25,9 @@ AS_API constexpr T sign(const T x)
   if (x > T(0.0)) {
     return T(1.0);
   }
-
   if (x < T(0.0)) {
     return T(-1.0);
   }
-
   return T(0.0);
 }
 

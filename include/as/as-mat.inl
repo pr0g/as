@@ -8,7 +8,6 @@ AS_API mat<T, d> mat_identity()
   for (index i = 0; i < mat<T, d>::size(); i += d + 1) {
     identity[i] = T(1.0);
   }
-
   return identity;
 }
 
@@ -67,22 +66,20 @@ AS_API const mat<T, d> operator*(const mat<T, d>& lhs, const mat<T, d>& rhs)
 #ifdef AS_COL_MAJOR
   for (index col = 0; col < d; ++col) {
     for (index row = 0; row < d; ++row) {
-      T value{0};
+      auto value = T(0.0);
       for (index step = 0; step < d; ++step) {
         value += lhs[row + d * step] * rhs[col * d + step];
       }
-
       result[col * d + row] = value;
     }
   }
 #elif defined AS_ROW_MAJOR
   for (index row = 0; row < d; ++row) {
     for (index col = 0; col < d; ++col) {
-      T value{0};
+      auto value = T(0.0);
       for (index step = 0; step < d; ++step) {
         value += lhs[row * d + step] * rhs[col + d * step];
       }
-
       result[row * d + col] = value;
     }
   }
@@ -99,15 +96,12 @@ AS_API const vec<T, d> operator*(const mat<T, d>& m, const vec<T, d>& v)
 {
   vec<T, d> result;
   for (index i = 0; i < d; ++i) {
-    T value{0};
-
+    auto value = T(0.0);
     for (index step = 0; step < d; ++step) {
       value += v[step] * m[i + step * d];
     }
-
     result[i] = value;
   }
-
   return result;
 }
 
@@ -127,7 +121,6 @@ AS_API constexpr mat<T, d>& operator*=(mat<T, d>& m, const T scalar)
       m[row * d + col] *= scalar;
     }
   }
-
   return m;
 }
 
@@ -148,7 +141,6 @@ AS_API constexpr bool operator!=(const mat<T, d>& lhs, const mat<T, d>& rhs)
       }
     }
   }
-
   return false;
 }
 

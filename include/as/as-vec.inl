@@ -325,7 +325,6 @@ AS_API constexpr vec<T, d>& operator+=(vec<T, d>& lhs, const vec<T, d>& rhs)
   for (index i = 0; i < d; ++i) {
     lhs[i] += rhs[i];
   }
-
   return lhs;
 }
 
@@ -365,7 +364,6 @@ AS_API constexpr vec<T, d>& operator-=(vec<T, d>& lhs, const vec<T, d>& rhs)
   for (index i = 0; i < d; ++i) {
     lhs[i] -= rhs[i];
   }
-
   return lhs;
 }
 
@@ -385,7 +383,6 @@ AS_API const vec<T, d> operator-(const vec<T, d>& rhs)
   for (index i = 0; i < d; ++i) {
     result[i] = -rhs[i];
   }
-
   return result;
 }
 
@@ -427,7 +424,6 @@ AS_API constexpr vec<T, d>& operator*=(vec<T, d>& lhs, const T val)
   for (index i = 0; i < d; ++i) {
     lhs[i] *= val;
   }
-
   return lhs;
 }
 
@@ -461,7 +457,6 @@ AS_API constexpr vec<T, d>& operator*=(vec<T, d>& lhs, const vec<T, d>& rhs)
   for (index i = 0; i < d; ++i) {
     lhs[i] *= rhs[i];
   }
-
   return lhs;
 }
 
@@ -496,7 +491,6 @@ AS_API constexpr vec<T, d>& operator/=(vec<T, d>& lhs, const T val)
   for (index i = 0; i < d; ++i) {
     lhs[i] *= val_recip;
   }
-
   return lhs;
 }
 
@@ -531,7 +525,6 @@ AS_API constexpr vec<T, d>& operator/=(vec<T, d>& lhs, const vec<T, d>& rhs)
   for (index i = 0; i < d; ++i) {
     lhs[i] /= rhs[i];
   }
-
   return lhs;
 }
 
@@ -558,7 +551,6 @@ AS_API constexpr bool operator!=(const vec<T, d>& lhs, const vec<T, d>& rhs)
       return true;
     }
   }
-
   return false;
 }
 
