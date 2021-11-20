@@ -1,5 +1,5 @@
-#include "as-helpers.test.hpp"
 #include "as/as-view.hpp"
+#include "as-helpers.test.hpp"
 #include "catch-matchers.hpp"
 #include "catch2/catch_test_macros.hpp"
 
@@ -18,7 +18,7 @@ using as::vec3;
 using as::radians;
 using as::operator""_r;
 
-static const real g_epsilon = 1e-6_r;
+static const real k_view_epsilon = 1e-6_r;
 
 TEST_CASE("perspective_gl_rh", "[as_view]")
 {
@@ -35,7 +35,7 @@ TEST_CASE("perspective_gl_rh", "[as_view]")
 
   CHECK_THAT(
     make_span(reference),
-    elements_are_span(perspective_gl_rh).margin(g_epsilon));
+    elements_are_span(perspective_gl_rh).margin(k_view_epsilon));
 }
 
 TEST_CASE("perspective_gl_lh", "[as_view]")
@@ -53,7 +53,7 @@ TEST_CASE("perspective_gl_lh", "[as_view]")
 
   CHECK_THAT(
     make_span(reference),
-    elements_are_span(perspective_gl_lh).margin(g_epsilon));
+    elements_are_span(perspective_gl_lh).margin(k_view_epsilon));
 }
 
 TEST_CASE("perspective_d3d_rh", "[as_view]")
@@ -351,7 +351,7 @@ TEST_CASE("world_to_screen_to_world", "[as_view]")
 
     CHECK_THAT(
       expected_world_position,
-      elements_are(returned_world_position).margin(g_epsilon));
+      elements_are(returned_world_position).margin(k_view_epsilon));
   }
 
   {
@@ -366,7 +366,7 @@ TEST_CASE("world_to_screen_to_world", "[as_view]")
 
     CHECK_THAT(
       expected_world_position,
-      elements_are(returned_world_position).margin(g_epsilon));
+      elements_are(returned_world_position).margin(k_view_epsilon));
   }
 
   {
@@ -381,7 +381,7 @@ TEST_CASE("world_to_screen_to_world", "[as_view]")
 
     CHECK_THAT(
       expected_world_position,
-      elements_are(returned_world_position).margin(g_epsilon));
+      elements_are(returned_world_position).margin(k_view_epsilon));
   }
 }
 

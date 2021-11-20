@@ -22,9 +22,6 @@ using as::vec3;
 using as::radians;
 using as::operator""_r;
 
-// use float epsilon for comparisons
-static const real g_epsilon = real(std::numeric_limits<float>::epsilon());
-
 [[maybe_unused]] constexpr auto affine_type_check =
   unit_test::trivial_standard_layout_check<affine>();
 
@@ -291,6 +288,11 @@ TEST_CASE("affine_near", "[as_affine]")
 
     CHECK(!as::affine_near(a, b));
   }
+}
+
+TEST_CASE("affine_size", "[as_affine]")
+{
+  CHECK(affine::size() == 12);
 }
 
 } // namespace unit_test

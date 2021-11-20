@@ -20,7 +20,7 @@ using as::vec3;
 using as::radians;
 using as::operator""_r;
 
-static const real g_epsilon = 1e-6_r;
+static const real k_quat_epsilon = 1e-6_r;
 
 [[maybe_unused]] constexpr auto quat_type_check =
   unit_test::trivial_standard_layout_check<quat>();
@@ -419,7 +419,7 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
     vec3 result_quat_from_mat = as::quat_rotate(rotation_axis_quat_from_mat, v);
 
     CHECK(as::vec_near(result_matrix, result_quat, g_epsilon));
-    CHECK(as::vec_near(result_matrix, result_quat_from_mat, g_epsilon));
+    CHECK(as::vec_near(result_matrix, result_quat_from_mat, k_quat_epsilon));
   }
 
   {
@@ -437,7 +437,7 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
     vec3 result_quat_from_mat = as::quat_rotate(rotation_axis_quat_from_mat, v);
 
     CHECK(as::vec_near(result_matrix, result_quat, g_epsilon));
-    CHECK(as::vec_near(result_matrix, result_quat_from_mat, g_epsilon));
+    CHECK(as::vec_near(result_matrix, result_quat_from_mat, k_quat_epsilon));
   }
 
   {
@@ -455,7 +455,7 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
     vec3 result_quat_from_mat = as::quat_rotate(rotation_axis_quat_from_mat, v);
 
     CHECK(as::vec_near(result_matrix, result_quat, g_epsilon));
-    CHECK(as::vec_near(result_matrix, result_quat_from_mat, g_epsilon));
+    CHECK(as::vec_near(result_matrix, result_quat_from_mat, k_quat_epsilon));
   }
 
   {
@@ -473,7 +473,7 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
     vec3 result_quat_from_mat = as::quat_rotate(rotation_axis_quat_from_mat, v);
 
     CHECK(as::vec_near(result_matrix, result_quat, g_epsilon));
-    CHECK(as::vec_near(result_matrix, result_quat_from_mat, g_epsilon));
+    CHECK(as::vec_near(result_matrix, result_quat_from_mat, k_quat_epsilon));
   }
 
   {
@@ -491,7 +491,7 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
     vec3 result_quat_from_mat = as::quat_rotate(rotation_axis_quat_from_mat, v);
 
     CHECK(as::vec_near(result_matrix, result_quat, g_epsilon));
-    CHECK(as::vec_near(result_matrix, result_quat_from_mat, g_epsilon));
+    CHECK(as::vec_near(result_matrix, result_quat_from_mat, k_quat_epsilon));
   }
 
   {
@@ -509,7 +509,7 @@ TEST_CASE("quat_from_mat3", "[as_quat]")
     vec3 result_quat_from_mat = as::quat_rotate(rotation_axis_quat_from_mat, v);
 
     CHECK(as::vec_near(result_matrix, result_quat, g_epsilon));
-    CHECK(as::vec_near(result_matrix, result_quat_from_mat, g_epsilon));
+    CHECK(as::vec_near(result_matrix, result_quat_from_mat, k_quat_epsilon));
   }
 }
 

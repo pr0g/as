@@ -26,9 +26,6 @@ using as::vec4i;
 using as::radians;
 using as::operator""_r;
 
-// use float epsilon for comparisons
-static const real g_epsilon = real(std::numeric_limits<float>::epsilon());
-
 [[maybe_unused]] constexpr auto vec2_type_check =
   unit_test::trivial_standard_layout_check<vec2>();
 [[maybe_unused]] constexpr auto vec3_type_check =

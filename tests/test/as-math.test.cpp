@@ -1,4 +1,5 @@
 #include "as/as-math.hpp"
+#include "as-helpers.test.hpp"
 #include "catch-matchers.hpp"
 #include "catch2/catch_test_macros.hpp"
 
@@ -21,8 +22,6 @@ using as::smooth_step;
 using as::smoother_step;
 using as::snap;
 using as::operator""_r;
-
-static const real g_epsilon = real(std::numeric_limits<float>::epsilon());
 
 TEST_CASE("max", "[as_math]")
 {

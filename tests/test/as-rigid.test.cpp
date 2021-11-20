@@ -22,9 +22,6 @@ using as::vec3;
 using as::radians;
 using as::operator""_r;
 
-// use float epsilon for comparisons
-static const real g_epsilon = real(std::numeric_limits<float>::epsilon());
-
 [[maybe_unused]] constexpr auto rigid_type_check =
   unit_test::trivial_standard_layout_check<rigid>();
 
@@ -289,6 +286,11 @@ TEST_CASE("rigid_near", "[as_rigid]")
 
     CHECK(!as::rigid_near(a, b));
   }
+}
+
+TEST_CASE("rigid_size", "[as_rigid]")
+{
+  CHECK(rigid::size() == 7);
 }
 
 } // namespace unit_test
