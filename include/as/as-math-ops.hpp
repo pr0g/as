@@ -607,35 +607,35 @@ constexpr vec<T, 4> mat4_col3(const mat<T, 4>& m);
 
 //! Sets the first row of the ::mat4.
 template<typename T>
-constexpr void mat4_row0(const mat<T, 4>& m, const vec<T, 4>& row);
+constexpr void mat4_row0(mat<T, 4>& m, const vec<T, 4>& row);
 
 //! Sets the second row of the ::mat4.
 template<typename T>
-constexpr void mat4_row1(const mat<T, 4>& m, const vec<T, 4>& row);
+constexpr void mat4_row1(mat<T, 4>& m, const vec<T, 4>& row);
 
 //! Sets the third row of the ::mat4.
 template<typename T>
-constexpr void mat4_row2(const mat<T, 4>& m, const vec<T, 4>& row);
+constexpr void mat4_row2(mat<T, 4>& m, const vec<T, 4>& row);
 
 //! Sets the fourth row of the ::mat4.
 template<typename T>
-constexpr void mat4_row3(const mat<T, 4>& m, const vec<T, 4>& row);
+constexpr void mat4_row3(mat<T, 4>& m, const vec<T, 4>& row);
 
 //! Sets the first column of the ::mat4.
 template<typename T>
-constexpr void mat4_col0(const mat<T, 4>& m, const vec<T, 4>& col);
+constexpr void mat4_col0(mat<T, 4>& m, const vec<T, 4>& col);
 
 //! Sets the second column of the ::mat4.
 template<typename T>
-constexpr void mat4_col1(const mat<T, 4>& m, const vec<T, 4>& col);
+constexpr void mat4_col1(mat<T, 4>& m, const vec<T, 4>& col);
 
 //! Sets the third column of the ::mat4.
 template<typename T>
-constexpr void mat4_col2(const mat<T, 4>& m, const vec<T, 4>& col);
+constexpr void mat4_col2(mat<T, 4>& m, const vec<T, 4>& col);
 
 //! Sets the fourth column of the ::mat4.
 template<typename T>
-constexpr void mat4_col3(const mat<T, 4>& m, const vec<T, 4>& col);
+constexpr void mat4_col3(mat<T, 4>& m, const vec<T, 4>& col);
 
 //! Returns the first vector of the ::mat4.
 //! \note This is either the first row or column depending on
@@ -849,12 +849,12 @@ void quat_to_arr(const quat& q, real (&data)[quat::size()]);
 //! Writes the values stored in the \ref affine to an array of the same type
 //! and dimension.
 //! \note affine uses a ::mat3 and a ::vec3 internally.
-void affine_to_arr(const affine& a, real (&data)[12]);
+void affine_to_arr(const affine& a, real (&data)[affine::size()]);
 
 //! Creates an \ref affine from a fixed size array of the same type and
 //! dimension.
 //! \note affine uses a ::mat3 and a ::vec3 internally.
-affine affine_from_arr(const real (&data)[12]);
+affine affine_from_arr(const real (&data)[affine::size()]);
 
 //! Creates an \ref affine from a pointer to an array of the same type.
 //! \note Ensure that the array has at least 12 elements from where it is read.
@@ -918,12 +918,12 @@ vec3 affine_inv_transform_pos(const affine& a, const vec3& position);
 //! Writes the values stored in the \ref rigid to an array of the same type
 //! and dimension.
 //! \note rigid uses a \ref quat and a ::vec3 internally.
-void rigid_to_arr(const rigid& r, real (&data)[7]);
+void rigid_to_arr(const rigid& r, real (&data)[rigid::size()]);
 
 //! Creates a \ref rigid from a fixed size array of the same type and
 //! dimension.
 //! \note rigid uses a \ref quat and a ::vec3 internally.
-rigid rigid_from_arr(const real (&data)[7]);
+rigid rigid_from_arr(const real (&data)[rigid::size()]);
 
 //! Creates a \ref rigid from a pointer to an array of the same type.
 //! \note Ensure that the array has at least 7 elements from where it is read.

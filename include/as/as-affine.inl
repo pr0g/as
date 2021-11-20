@@ -16,4 +16,9 @@ AS_API constexpr affine affine::identity()
   return affine(mat3::identity(), vec3::zero());
 }
 
+AS_API constexpr index affine::size()
+{
+  return 12;
+}
+
 } // namespace as

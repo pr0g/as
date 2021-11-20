@@ -16,4 +16,9 @@ AS_API constexpr rigid rigid::identity()
   return rigid(quat::identity(), vec3::zero());
 }
 
+AS_API constexpr index rigid::size()
+{
+  return 7;
+}
+
 } // namespace as

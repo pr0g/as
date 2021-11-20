@@ -1479,7 +1479,7 @@ AS_API inline void quat_to_arr(const quat& q, real (&data)[quat::size()])
   }
 }
 
-AS_API inline void affine_to_arr(const affine& a, real (&data)[12])
+AS_API inline void affine_to_arr(const affine& a, real (&data)[affine::size()])
 {
   for (index i = 0; i < a.rotation.size(); ++i) {
     data[i] = a.rotation[i];
@@ -1489,7 +1489,7 @@ AS_API inline void affine_to_arr(const affine& a, real (&data)[12])
   }
 }
 
-AS_API inline affine affine_from_arr(const real (&data)[12])
+AS_API inline affine affine_from_arr(const real (&data)[affine::size()])
 {
   return affine_from_ptr(data);
 }
@@ -1596,7 +1596,7 @@ AS_API inline vec3 affine_inv_transform_pos(
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
-AS_API inline void rigid_to_arr(const rigid& r, real (&data)[7])
+AS_API inline void rigid_to_arr(const rigid& r, real (&data)[rigid::size()])
 {
   for (index i = 0; i < r.rotation.size(); ++i) {
     data[i] = r.rotation[i];
@@ -1606,7 +1606,7 @@ AS_API inline void rigid_to_arr(const rigid& r, real (&data)[7])
   }
 }
 
-AS_API inline rigid rigid_from_arr(const real (&data)[7])
+AS_API inline rigid rigid_from_arr(const real (&data)[rigid::size()])
 {
   return rigid_from_ptr(data);
 }

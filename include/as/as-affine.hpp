@@ -25,6 +25,9 @@ struct affine
   //! Returns an identity affine (identity transform).
   constexpr static affine identity();
 
+  //! Returns `12`.
+  constexpr static index size();
+
   mat3 rotation; //!< The rotation applied by this transformation.
   vec3 translation; //!< The translation applied by this transformation.
 };

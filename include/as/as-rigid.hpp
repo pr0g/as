@@ -25,6 +25,9 @@ struct rigid
   //! Returns an identity rigid (identity transform).
   constexpr static rigid identity();
 
+  //! Returns `7`.
+  constexpr static index size();
+
   quat rotation; //!< The rotation applied by this transformation.
   vec3 translation; //!< The translation applied by this transformation.
 };
