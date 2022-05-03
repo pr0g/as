@@ -240,7 +240,8 @@ TEST_CASE("rigid_inverse", "[as_rigid]")
 
   CHECK_THAT(make_span(expected_rigid, 4), elements_are_span(result.rotation));
   CHECK_THAT(
-    make_span(&expected_rigid[4], 3), elements_are_span(result.translation));
+    make_span(&expected_rigid[4], 3),
+    elements_are_span(result.translation).margin(0.000001_r));
 }
 
 TEST_CASE("rigid_from_affine", "[as_rigid]")

@@ -14,6 +14,7 @@ using as::real;
 
 // functions
 using as::degrees;
+using as::inverse_mix;
 using as::max;
 using as::min;
 using as::mix;
@@ -107,6 +108,84 @@ TEST_CASE("smoother_step", "[as_math]")
   real ninety_percent_value;
   ninety_percent_value = mix(0.0_r, 1.0_r, smoother_step(0.9_r));
   CHECK(ninety_percent_value == Approx(0.99144_r).epsilon(real_epsilon));
+}
+
+TEST_CASE("mix", "[as_math]")
+{
+  {
+    int expected;
+    expected = mix(0, 10, 0.5_r);
+    CHECK(expected == 5);
+  }
+
+  {
+    real expected;
+    expected = mix(0.0_r, 100.0_r, 0.0_r);
+    CHECK(expected == Approx(0.0_r).epsilon(g_epsilon));
+  }
+
+  {
+    real expected;
+    expected = mix(0.0_r, 100.0_r, 1.0_r);
+    CHECK(expected == Approx(100.0_r).epsilon(g_epsilon));
+  }
+
+  {
+    real expected;
+    expected = mix(0.5_r, 1.0_r, 0.2_r);
+    CHECK(expected == Approx(0.6_r).epsilon(g_epsilon));
+  }
+
+  {
+    real expected;
+    expected = mix(0.0_r, 10.0_r, 1.2_r);
+    CHECK(expected == Approx(12.0_r).epsilon(g_epsilon));
+  }
+
+  {
+    real expected;
+    expected = mix(0.0_r, 10.0_r, -0.2_r);
+    CHECK(expected == Approx(-2.0_r).epsilon(g_epsilon));
+  }
+}
+
+TEST_CASE("inverse_mix", "[as_math]")
+{
+  {
+    real expected;
+    expected = inverse_mix(0, 10, 5);
+    CHECK(expected == Approx(0.5_r).epsilon(g_epsilon));
+  }
+
+  {
+    real expected;
+    expected = inverse_mix(0.0_r, 100.0_r, 0.0_r);
+    CHECK(expected == Approx(0.0_r).epsilon(g_epsilon));
+  }
+
+  {
+    real expected;
+    expected = inverse_mix(0.0_r, 100.0_r, 100.0_r);
+    CHECK(expected == Approx(1.0_r).epsilon(g_epsilon));
+  }
+
+  {
+    real expected;
+    expected = inverse_mix(5, 10, 9);
+    CHECK(expected == Approx(0.8_r).epsilon(g_epsilon));
+  }
+
+  {
+    real expected;
+    expected = inverse_mix(2.0_r, 6.0_r, 0.0_r);
+    CHECK(expected == Approx(-0.5_r).epsilon(g_epsilon));
+  }
+
+  {
+    real expected;
+    expected = inverse_mix(10.0_r, 20.0_r, 25.0_r);
+    CHECK(expected == Approx(1.5_r).epsilon(g_epsilon));
+  }
 }
 
 TEST_CASE("degrees_to_radians", "[as_math]")

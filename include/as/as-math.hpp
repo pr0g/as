@@ -20,12 +20,19 @@ constexpr real k_two_pi = 6.28318530717958647692_r;
 constexpr real k_tau = k_two_pi;
 
 //! Returns a linearly interpolated value between `begin` and `end`.
-//! \param t The amount of interpolation between `begin` and `end`. Must be in
-//! the range `[0-1]`.
 //! \param begin The value to interpolate from.
 //! \param end The value to interpolate to.
+//! \param t The amount of interpolation between `begin` and `end`. Must be in
+//! the range `[0-1]`.
 template<typename T, typename V>
-constexpr V mix(const V& begin, const V& end, T t);
+constexpr V mix(V begin, V end, T t);
+
+//! Returns a value in the range `[0-1]` from a value between `begin` and `end`.
+//! \param begin The value at the beginning of the range.
+//! \param end The value at the end of the range.
+//! \param value The value between begin and end.
+template<typename T>
+constexpr real inverse_mix(T begin, T end, T value);
 
 //! Returns the result of Hermite interpolation between `begin` and `end`.
 //! \note `smooth_step` is not second-order continuous at either `t=0` or `t=1`.
