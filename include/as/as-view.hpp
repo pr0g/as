@@ -51,6 +51,10 @@ mat4 perspective_d3d_lh(real fovy, real aspect, real n, real f);
 //! \param f The far plane of the clipping volume.
 mat4 perspective_vulkan_rh(real fovy, real aspect, real n, real f);
 
+//! Takes a perspective projection matrix which maps depth values to the range
+//! (0, 1) and returns a matrix which maps them to the range (1, 0) - inverse z.
+mat4 reverse_z(const mat4& perspective_projection);
+
 //! Returns a mat4 representing a perspective projection matrix.
 //! \note Uses Vulkan NDC space (0, 1) and a left handed coordinate system.
 //! \param fovy The vertical field of view.
