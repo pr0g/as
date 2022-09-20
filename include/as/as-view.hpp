@@ -51,10 +51,6 @@ mat4 perspective_d3d_lh(real fovy, real aspect, real n, real f);
 //! \param f The far plane of the clipping volume.
 mat4 perspective_vulkan_rh(real fovy, real aspect, real n, real f);
 
-//! Takes a perspective projection matrix which maps depth values to the range
-//! (0, 1) and returns a matrix which maps them to the range (1, 0) - inverse z.
-mat4 reverse_z(const mat4& perspective_projection);
-
 //! Returns a mat4 representing a perspective projection matrix.
 //! \note Uses Vulkan NDC space (0, 1) and a left handed coordinate system.
 //! \param fovy The vertical field of view.
@@ -62,6 +58,16 @@ mat4 reverse_z(const mat4& perspective_projection);
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
 mat4 perspective_vulkan_lh(real fovy, real aspect, real n, real f);
+
+//! Takes a perspective projection matrix which maps depth values to the range
+//! (0, 1) and returns a matrix which maps them to the range (1, 0) - inverse z.
+mat4 reverse_z(const mat4& perspective_projection);
+
+//! Takes a perspective projection matrix with a depth range of -1 to 1 (OpenGL
+//! default) and returns a matrix with the depth range mapped to 0 to 1.
+//! \note The -1 to 1 range is sometimes referred to as 'closed unit ball',
+//! hence the name 'unit_range' used here.
+mat4 normalize_unit_range(const mat4& perspective_projection);
 
 //! Returns a mat4 representing an orthographic projection matrix.
 //! \note Uses OpenGL NDC space (-1, 1) and a right handed coordinate system.
