@@ -94,14 +94,13 @@ TEST_CASE("perspective_d3d_lh", "[as_view]")
     elements_are_span(perspective_d3d_lh).margin(g_epsilon));
 }
 
-TEST_CASE("perspective_vulkan_rh", "[as_view]")
+TEST_CASE("perspective_vk_rh", "[as_view]")
 {
   using gsl::make_span;
 
   const real fov = radians(90.0_r);
   const real aspect = 16.0_r / 9.0_r;
-  mat4 perspective_vulkan_rh =
-    as::perspective_vulkan_rh(fov, aspect, 0.01_r, 1000.0_r);
+  mat4 perspective_vk_rh = as::perspective_vk_rh(fov, aspect, 0.01_r, 1000.0_r);
 
   const real reference[] = {0.562500_r, 0.000000_r,  0.000000_r,  0.000000_r,
                             0.000000_r, -1.000000_r, 0.000000_r,  0.000000_r,
@@ -110,17 +109,16 @@ TEST_CASE("perspective_vulkan_rh", "[as_view]")
 
   CHECK_THAT(
     make_span(reference),
-    elements_are_span(perspective_vulkan_rh).margin(g_epsilon));
+    elements_are_span(perspective_vk_rh).margin(g_epsilon));
 }
 
-TEST_CASE("perspective_vulkan_lh", "[as_view]")
+TEST_CASE("perspective_vk_lh", "[as_view]")
 {
   using gsl::make_span;
 
   const real fov = radians(90.0_r);
   const real aspect = 16.0_r / 9.0_r;
-  mat4 perspective_vulkan_lh =
-    as::perspective_vulkan_lh(fov, aspect, 0.01_r, 1000.0_r);
+  mat4 perspective_vk_lh = as::perspective_vk_lh(fov, aspect, 0.01_r, 1000.0_r);
 
   const real reference[] = {0.562500_r, 0.000000_r,  0.000000_r,  0.000000_r,
                             0.000000_r, -1.000000_r, 0.000000_r,  0.000000_r,
@@ -129,7 +127,7 @@ TEST_CASE("perspective_vulkan_lh", "[as_view]")
 
   CHECK_THAT(
     make_span(reference),
-    elements_are_span(perspective_vulkan_lh).margin(g_epsilon));
+    elements_are_span(perspective_vk_lh).margin(g_epsilon));
 }
 
 TEST_CASE("ortho_gl_rh", "[as_view]")
@@ -200,13 +198,13 @@ TEST_CASE("ortho_d3d_rh", "[as_view]")
     make_span(reference), elements_are_span(ortho_d3d_rh).margin(g_epsilon));
 }
 
-TEST_CASE("ortho_vulkan_rh", "[as_view]")
+TEST_CASE("ortho_vk_rh", "[as_view]")
 {
   using gsl::make_span;
 
-  mat4 ortho_vulkan_rh;
-  ortho_vulkan_rh =
-    as::ortho_vulkan_rh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
+  mat4 ortho_vk_rh;
+  ortho_vk_rh =
+    as::ortho_vk_rh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
 
   const real reference[] = {0.100000_r,  0.000000_r,  0.000000_r,  0.000000_r,
                             0.000000_r,  -0.100000_r, 0.000000_r,  0.000000_r,
@@ -214,16 +212,16 @@ TEST_CASE("ortho_vulkan_rh", "[as_view]")
                             -0.000000_r, -0.000000_r, -0.000010_r, 1.000000_r};
 
   CHECK_THAT(
-    make_span(reference), elements_are_span(ortho_vulkan_rh).margin(g_epsilon));
+    make_span(reference), elements_are_span(ortho_vk_rh).margin(g_epsilon));
 }
 
-TEST_CASE("ortho_vulkan_lh", "[as_view]")
+TEST_CASE("ortho_vk_lh", "[as_view]")
 {
   using gsl::make_span;
 
-  mat4 ortho_vulkan_lh;
-  ortho_vulkan_lh =
-    as::ortho_vulkan_lh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
+  mat4 ortho_vk_lh;
+  ortho_vk_lh =
+    as::ortho_vk_lh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
 
   const real reference[] = {0.100000_r,  0.000000_r,  0.000000_r,  0.000000_r,
                             0.000000_r,  -0.100000_r, 0.000000_r,  0.000000_r,
@@ -231,7 +229,7 @@ TEST_CASE("ortho_vulkan_lh", "[as_view]")
                             -0.000000_r, -0.000000_r, -0.000010_r, 1.000000_r};
 
   CHECK_THAT(
-    make_span(reference), elements_are_span(ortho_vulkan_lh).margin(g_epsilon));
+    make_span(reference), elements_are_span(ortho_vk_lh).margin(g_epsilon));
 }
 
 static vec2i screen_to_world_to_screen(
@@ -370,12 +368,12 @@ TEST_CASE("world_to_screen_to_world", "[as_view]")
   }
 
   {
-    const mat4 perspective_vulkan_rh =
-      as::perspective_vulkan_rh(fov, aspect, 0.01_r, 1000.0_r);
+    const mat4 perspective_vk_rh =
+      as::perspective_vk_rh(fov, aspect, 0.01_r, 1000.0_r);
 
     const auto expected_world_position = vec3(0.0_r, -10.0_r, 0.0_r);
     const auto returned_world_position = world_to_screen_to_world(
-      expected_world_position, perspective_vulkan_rh,
+      expected_world_position, perspective_vk_rh,
       affine(as::mat3_rotation_x(radians(90.0_r)), vec3::axis_z(5.0_r)),
       screen_dimension);
 

@@ -49,7 +49,7 @@ mat4 perspective_d3d_lh(real fovy, real aspect, real n, real f);
 //! \param aspect The aspect ratio to use for the projection.
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
-mat4 perspective_vulkan_rh(real fovy, real aspect, real n, real f);
+mat4 perspective_vk_rh(real fovy, real aspect, real n, real f);
 
 //! Returns a mat4 representing a perspective projection matrix.
 //! \note Uses Vulkan NDC space (0, 1) and a left handed coordinate system.
@@ -57,7 +57,7 @@ mat4 perspective_vulkan_rh(real fovy, real aspect, real n, real f);
 //! \param aspect The aspect ratio to use for the projection.
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
-mat4 perspective_vulkan_lh(real fovy, real aspect, real n, real f);
+mat4 perspective_vk_lh(real fovy, real aspect, real n, real f);
 
 //! Takes a perspective projection matrix which maps depth values to the range
 //! (0, 1) and returns a matrix which maps them to the range (1, 0) - inverse z.
@@ -120,7 +120,7 @@ constexpr mat4 ortho_d3d_lh(real l, real r, real b, real t, real n, real f);
 //! \param t The topmost extent of the clipping volume.
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
-mat4 ortho_vulkan_rh(real l, real r, real b, real t, real n, real f);
+mat4 ortho_vk_rh(real l, real r, real b, real t, real n, real f);
 
 //! Returns a mat4 representing an orthographic projection matrix.
 //! \note Uses Vulkan NDC space (0, 1) and a left handed coordinate system.
@@ -130,7 +130,7 @@ mat4 ortho_vulkan_rh(real l, real r, real b, real t, real n, real f);
 //! \param t The topmost extent of the clipping volume.
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
-mat4 ortho_vulkan_lh(real l, real r, real b, real t, real n, real f);
+mat4 ortho_vk_lh(real l, real r, real b, real t, real n, real f);
 
 //! Takes a position in world space and transforms it to screen coordinates.
 //! \param world_position The position in world space.
