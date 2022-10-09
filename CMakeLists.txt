@@ -10,7 +10,7 @@ include(FetchContent)
 FetchContent_Declare(
     cmake-helpers
     GIT_REPOSITORY https://github.com/pr0g/cmake-helpers.git
-    GIT_TAG        origin/main)
+    GIT_TAG 7e1ded2f027dd2bd3265ab7cb4972d06083fbcc5)
 
 FetchContent_MakeAvailable(cmake-helpers)
 list(APPEND CMAKE_MODULE_PATH ${cmake-helpers_SOURCE_DIR})
