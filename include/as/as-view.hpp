@@ -15,7 +15,7 @@ namespace as
 //! \param aspect The aspect ratio to use for the projection.
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
-mat4 perspective_gl_rh(real fovy, real aspect, real n, real f);
+mat4 perspective_opengl_rh(real fovy, real aspect, real n, real f);
 
 //! Returns a mat4 representing a perspective projection matrix.
 //! \note Uses OpenGL NDC space (-1, 1) and a left handed coordinate system.
@@ -23,7 +23,7 @@ mat4 perspective_gl_rh(real fovy, real aspect, real n, real f);
 //! \param aspect The aspect ratio to use for the projection.
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
-mat4 perspective_gl_lh(real fovy, real aspect, real n, real f);
+mat4 perspective_opengl_lh(real fovy, real aspect, real n, real f);
 
 //! Returns a mat4 representing a perspective projection matrix.
 //! \note Uses Direct3D NDC space (0, 1) and a right handed coordinate system.
@@ -31,7 +31,7 @@ mat4 perspective_gl_lh(real fovy, real aspect, real n, real f);
 //! \param aspect The aspect ratio to use for the projection.
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
-mat4 perspective_d3d_rh(real fovy, real aspect, real n, real f);
+mat4 perspective_direct3d_rh(real fovy, real aspect, real n, real f);
 
 //! Returns a mat4 representing a perspective projection matrix.
 //! \note Uses Direct3D NDC space (0, 1) and a left handed coordinate system.
@@ -40,17 +40,17 @@ mat4 perspective_d3d_rh(real fovy, real aspect, real n, real f);
 //! \param aspect The aspect ratio to use for the projection.
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
-mat4 perspective_d3d_lh(real fovy, real aspect, real n, real f);
+mat4 perspective_direct3d_lh(real fovy, real aspect, real n, real f);
 
 //! Returns a mat4 representing a perspective projection matrix.
 //! \note Uses Metal NDC space (0, 1) and a right handed coordinate system.
 //! \note The Metal projection matrix calculation is equivalent to Direct3D.
-inline const auto perspective_mtl_rh = perspective_d3d_rh;
+inline const auto perspective_metal_rh = perspective_direct3d_rh;
 
 //! Returns a mat4 representing a perspective projection matrix.
 //! \note Uses Metal NDC space (0, 1) and a left handed coordinate system.
 //! \note The Metal projection matrix calculation is equivalent to Direct3D.
-inline const auto perspective_mtl_lh = perspective_d3d_lh;
+inline const auto perspective_metal_lh = perspective_direct3d_lh;
 
 //! Returns a mat4 representing a perspective projection matrix.
 //! \note Uses Vulkan NDC space (0, 1) and a right handed coordinate system.
@@ -59,7 +59,7 @@ inline const auto perspective_mtl_lh = perspective_d3d_lh;
 //! \param aspect The aspect ratio to use for the projection.
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
-mat4 perspective_vk_rh(real fovy, real aspect, real n, real f);
+mat4 perspective_vulkan_rh(real fovy, real aspect, real n, real f);
 
 //! Returns a mat4 representing a perspective projection matrix.
 //! \note Uses Vulkan NDC space (0, 1) and a left handed coordinate system.
@@ -67,7 +67,7 @@ mat4 perspective_vk_rh(real fovy, real aspect, real n, real f);
 //! \param aspect The aspect ratio to use for the projection.
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
-mat4 perspective_vk_lh(real fovy, real aspect, real n, real f);
+mat4 perspective_vulkan_lh(real fovy, real aspect, real n, real f);
 
 //! Takes a perspective projection matrix which maps depth values to the range
 //! (0, 1) and returns a matrix which maps them to the range (1, 0) - inverse z.
@@ -88,7 +88,7 @@ mat4 normalize_unit_range(const mat4& perspective_projection);
 //! \param t The topmost extent of the clipping volume.
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
-constexpr mat4 ortho_gl_rh(real l, real r, real b, real t, real n, real f);
+constexpr mat4 ortho_opengl_rh(real l, real r, real b, real t, real n, real f);
 
 //! Returns a mat4 representing an orthographic projection matrix.
 //! \note Uses OpenGL NDC space (-1, 1) and a left handed coordinate system.
@@ -98,7 +98,7 @@ constexpr mat4 ortho_gl_rh(real l, real r, real b, real t, real n, real f);
 //! \param t The topmost extent of the clipping volume.
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
-constexpr mat4 ortho_gl_lh(real l, real r, real b, real t, real n, real f);
+constexpr mat4 ortho_opengl_lh(real l, real r, real b, real t, real n, real f);
 
 //! Returns a mat4 representing an orthographic projection matrix.
 //! \note Uses Direct3D NDC space (0, 1) and a right handed coordinate system.
@@ -108,7 +108,8 @@ constexpr mat4 ortho_gl_lh(real l, real r, real b, real t, real n, real f);
 //! \param t The topmost extent of the clipping volume.
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
-constexpr mat4 ortho_d3d_rh(real l, real r, real b, real t, real n, real f);
+constexpr mat4 ortho_direct3d_rh(
+  real l, real r, real b, real t, real n, real f);
 
 //! Returns a mat4 representing an orthographic projection matrix.
 //! \note Uses Direct3D NDC space (0, 1) and a right left coordinate system.
@@ -119,17 +120,18 @@ constexpr mat4 ortho_d3d_rh(real l, real r, real b, real t, real n, real f);
 //! \param t The topmost extent of the clipping volume.
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
-constexpr mat4 ortho_d3d_lh(real l, real r, real b, real t, real n, real f);
+constexpr mat4 ortho_direct3d_lh(
+  real l, real r, real b, real t, real n, real f);
 
 //! Returns a mat4 representing an orthographic projection matrix.
 //! \note Uses Metal NDC space (0, 1) and a right handed coordinate system.
 //! \note The Metal projection matrix calculation is equivalent to Direct3D.
-inline const auto ortho_mtl_rh = ortho_d3d_rh;
+inline const auto ortho_metal_rh = ortho_direct3d_rh;
 
 //! Returns a mat4 representing an orthographic projection matrix.
 //! \note Uses Metal NDC space (0, 1) and a left handed coordinate system.
 //! \note The Metal projection matrix calculation is equivalent to Direct3D.
-inline const auto ortho_mtl_lh = ortho_d3d_lh;
+inline const auto ortho_metal_lh = ortho_direct3d_lh;
 
 //! Returns a mat4 representing an orthographic projection matrix.
 //! \note Uses Vulkan NDC space (0, 1) and a right handed coordinate system.
@@ -140,7 +142,7 @@ inline const auto ortho_mtl_lh = ortho_d3d_lh;
 //! \param t The topmost extent of the clipping volume.
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
-mat4 ortho_vk_rh(real l, real r, real b, real t, real n, real f);
+mat4 ortho_vulkan_rh(real l, real r, real b, real t, real n, real f);
 
 //! Returns a mat4 representing an orthographic projection matrix.
 //! \note Uses Vulkan NDC space (0, 1) and a left handed coordinate system.
@@ -150,7 +152,7 @@ mat4 ortho_vk_rh(real l, real r, real b, real t, real n, real f);
 //! \param t The topmost extent of the clipping volume.
 //! \param n The near plane of the clipping volume.
 //! \param f The far plane of the clipping volume.
-mat4 ortho_vk_lh(real l, real r, real b, real t, real n, real f);
+mat4 ortho_vulkan_lh(real l, real r, real b, real t, real n, real f);
 
 //! Takes a position in world space and transforms it to screen coordinates.
 //! \param world_position The position in world space.
