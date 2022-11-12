@@ -7,8 +7,8 @@ AS_API inline mat4 perspective_opengl_rh(
   const real e = 1.0_r / std::tan(fovy * 0.5_r);
 
   // clang-format off
-  return {e / aspect, 0.0_r, 0.0_r,                     0.0_r,
-          0.0_r,      e,     0.0_r,                     0.0_r,
+  return {e / aspect, 0.0_r,  0.0_r,                    0.0_r,
+          0.0_r,      e,      0.0_r,                    0.0_r,
           0.0_r,      0.0_r, (f + n) / (n - f),        -1.0_r,
           0.0_r,      0.0_r, (2.0_r * f * n) / (n - f), 0.0_r};
   // clang-format on
@@ -20,8 +20,8 @@ AS_API inline mat4 perspective_opengl_lh(
   const real e = 1.0_r / std::tan(fovy * 0.5_r);
 
   // clang-format off
-  return {e / aspect, 0.0_r, 0.0_r,                     0.0_r,
-          0.0_r,      e,     0.0_r,                     0.0_r,
+  return {e / aspect, 0.0_r,  0.0_r,                    0.0_r,
+          0.0_r,      e,      0.0_r,                    0.0_r,
           0.0_r,      0.0_r, (f + n) / (f - n),         1.0_r,
           0.0_r,      0.0_r, (2.0_r * f * n) / (n - f), 0.0_r};
   // clang-format on
@@ -33,9 +33,9 @@ AS_API inline mat4 perspective_direct3d_rh(
   const real e = 1.0_r / std::tan(fovy * 0.5_r);
 
   // clang-format off
-  return {e / aspect, 0.0_r, 0.0_r,             0.0_r,
-          0.0_r,      e,     0.0_r,             0.0_r,
-          0.0_r,      0.0_r, f / (n - f),      -1.0_r,
+  return {e / aspect, 0.0_r,  0.0_r,            0.0_r,
+          0.0_r,      e,      0.0_r,            0.0_r,
+          0.0_r,      0.0_r,  f / (n - f),     -1.0_r,
           0.0_r,      0.0_r, (f * n) / (n - f), 0.0_r};
   // clang-format on
 }
@@ -46,9 +46,9 @@ AS_API inline mat4 perspective_direct3d_lh(
   const real e = 1.0_r / std::tan(fovy * 0.5_r);
 
   // clang-format off
-  return {e / aspect, 0.0_r, 0.0_r,             0.0_r,
-          0.0_r,      e,     0.0_r,             0.0_r,
-          0.0_r,      0.0_r, f / (f - n),       1.0_r,
+  return {e / aspect, 0.0_r,  0.0_r,            0.0_r,
+          0.0_r,      e,      0.0_r,            0.0_r,
+          0.0_r,      0.0_r,  f / (f - n),      1.0_r,
           0.0_r,      0.0_r, (f * n) / (n - f), 0.0_r};
   // clang-format on
 }
