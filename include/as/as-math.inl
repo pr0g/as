@@ -73,7 +73,7 @@ AS_API constexpr real degrees(const real radians)
   return radians * rad_to_deg;
 }
 
-// floating p comparison by Bruce Dawson
+// floating point comparison by Bruce Dawson
 // ref:
 // https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
 AS_API inline bool real_near(
