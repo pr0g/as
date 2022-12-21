@@ -3,3 +3,4 @@ install/
 as-docs/
 .idea/
 .vscode/
+cmake-build-*/
