@@ -27,6 +27,9 @@ jobs:
           cmake -S ${{github.workspace}}/tests/test/third-party
           -B ${{github.workspace}}/tests/test/third-party/build
           -DCMAKE_BUILD_TYPE=${{matrix.build_type}}
+      - name: Build dependencies
+        run: >
+          cmake --build ${{github.workspace}}/tests/test/third-party/build
       - name: Configure CMake project
         run: >
           cmake -S ${{github.workspace}}/tests/test
@@ -35,10 +38,6 @@ jobs:
           -DCMAKE_BUILD_TYPE=${{matrix.build_type}}
           -D${{matrix.matrix_convention}}=ON
           -D${{matrix.real_precision}}=ON
-
-      - name: Build dependencies
-        run: >
-          cmake --build ${{github.workspace}}/tests/test/third-party/build
       - name: Build project
         run: >
           cmake --build ${{github.workspace}}/tests/test/build
