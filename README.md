@@ -17,26 +17,20 @@ This library is really just a dumb experimental thing meant for my own personal 
 
 Deficiencies include but are not limited to:
 
--   The API is not stable (I'm still iterating on it)
-
--   ~~The test coverage is currently woefully inadequate (I'm working on improving this)~~
-    -   I now _technically_ have **100%** test coverage! 🥳 I'm sure not all corner cases are covered but given reasonable inputs things seem to be behaving as expected.
-
--   I have used this in a few projects now
-    -   [Vulkan-Fruit](https://github.com/pr0g/vulkan-experiments) (Twitter [link](https://twitter.com/tom_h_h/status/957656446258307073)) - Experiment to learn more about Vulkan
-    -   [ToyMeshPathTracer](https://github.com/pr0g/ToyMeshPathTracer) - Fork of Aras Pranckevičius' ([aras_p's](https://twitter.com/aras_p)) interview task/assignment.
-    -   [as-camera](https://github.com/pr0g/as-camera) - Simple camera representation
-    -   [as-camera-input](https://github.com/pr0g/as-camera-input) - Interesting camera behaviours, built on-top of `as-camera`.
-    -   [sdl-bgfx-imgui-marching-cubes](https://github.com/pr0g/sdl-bgfx-imgui-marching-cubes) - Marching Cubes implementation
-    -   [sdl-bgfx-imgui-1d-nonlinear-transforms](https://github.com/pr0g/sdl-bgfx-imgui-as_1d-nonlinear-transformations) - Random experiments with interpolation and noise
-
--   There's bound to be bugs!
-
--   The performance is likely not very good either (I'm working on improving this, for example creating template specializations for the common dimensions).
-
--   No SIMD (yet? we'll see... 🤔)
-
--   I've probably made some horrible mistake somewhere which I'll be terribly embarrassed about once brought to my attention.
+- The API is not stable (I'm still iterating on it)
+- ~~The test coverage is currently woefully inadequate (I'm working on improving this)~~
+  - I now _technically_ have **100%** test coverage! 🥳 I'm sure not all corner cases are covered but given reasonable inputs things seem to be behaving as expected.
+- I have used this in a few projects now
+  - [Vulkan-Fruit](https://github.com/pr0g/vulkan-experiments) (Twitter [link](https://twitter.com/tom_h_h/status/957656446258307073)) - Experiment to learn more about Vulkan
+  - [ToyMeshPathTracer](https://github.com/pr0g/ToyMeshPathTracer) - Fork of Aras Pranckevičius' ([aras_p's](https://twitter.com/aras_p)) interview task/assignment.
+  - [as-camera](https://github.com/pr0g/as-camera) - Simple camera representation
+  - [as-camera-input](https://github.com/pr0g/as-camera-input) - Interesting camera behaviours, built on-top of `as-camera`.
+  - [sdl-bgfx-imgui-marching-cubes](https://github.com/pr0g/sdl-bgfx-imgui-marching-cubes) - Marching Cubes implementation
+  - [sdl-bgfx-imgui-1d-nonlinear-transforms](https://github.com/pr0g/sdl-bgfx-imgui-as_1d-nonlinear-transformations) - Random experiments with interpolation and noise
+- There's bound to be bugs!
+- The performance is likely not very good either (I'm working on improving this, for example creating template specializations for the common dimensions).
+- No SIMD (yet? we'll see... 🤔)
+- I've probably made some horrible mistake somewhere which I'll be terribly embarrassed about once brought to my attention.
 
 ## Using and/or installing the library
 
@@ -323,7 +317,27 @@ The last thing to mention is the function template specializations. These were m
 
 ### Row/Column Major
 
-I wanted it to be possible to use the library with either row or column vectors and not get them accidentally mixed up. Different graphics APIs use different conventions (OpenGL uses column-major and DirectX uses row-major). Now the layout in memory (as far as C++ is concerned) is always row-major (I recommend reading [this](http://seanmiddleditch.com/matrices-handedness-pre-and-post-multiplication-row-vs-column-major-and-notations/) article by Sean Middleditch ([@stmiddleditch](https://twitter.com/stmiddleditch)) for a great explanation of this subject).
+- Storage: **Row major**
+  - Basis axes data is contiguous
+  - All hardcoded matrices (e.g. projection matrices) are in row major format
+
+```c++
+// e.g.
+
+// expanded
+[x0, y0, z0, w0, x1, y1, z1, w1, x2, y2, z2, w2, x3, y3, z3, w3] 
+
+// wrapped
+[x0, y0, z0, w0, // x axis
+ x1, y1, z1, w1, // y axis
+ x2, y2, z2, w2, // z axis
+ x3, y3, z3, w3] // translation
+```
+
+- Convention: **Row or column**
+  - Library uses traversal order of rows/columns to switch
+
+I wanted it to be possible to use the library with either row or column vectors and not get them accidentally mixed up. Different graphics APIs use different conventions (OpenGL uses column-major and DirectX uses row-major). Now the layout in memory (as far as C++ is concerned) is always row-major (I recommend reading [this](https://seanmiddleditch.github.io/matrices-handedness-pre-and-post-multiplication-row-vs-column-major-and-notations/) article by Sean Middleditch ([@stmiddleditch](https://twitter.com/stmiddleditch)) for a great explanation of this subject).
 
 With row-major, when a vector is transformed by a matrix, the notation is to place the vector to the left of the matrix (so you multiply reading left to right) but with column-major the notation is to place the vector being transformed to the right of the matrix (in this case you multiply reading right to left). Now under the hood the multiplication is actually exactly the same, but I make sure to only enable the right overload for `operator *` when multiplying a vector and a matrix to make sure you can't get them the wrong way round (I do this by forcing you to pick the convention you want to use before you start using the library with a `#define` - you must define either `AS_COL_MAJOR` or `AS_ROW_MAJOR`).
 
@@ -355,18 +369,19 @@ There are a million other math libraries out there that are more complete, more 
 
 ### Libraries
 
--   [OpenGL Mathematics (glm)](https://glm.g-truc.net/0.9.9/index.html)
--   [DirectXMath](https://docs.microsoft.com/en-us/windows/desktop/dxmath/directxmath-portal)
--   [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page)
--   [Tuesday](https://github.com/Cincinesh/tue)
--   [HandmadeMath](https://github.com/HandmadeMath/Handmade-Math)
--   [RealTimeMath](https://github.com/nfrechette/rtm)
+- [OpenGL Mathematics (glm)](https://glm.g-truc.net/0.9.9/index.html)
+- [DirectXMath](https://docs.microsoft.com/en-us/windows/desktop/dxmath/directxmath-portal)
+- [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page)
+- [Tuesday](https://github.com/Cincinesh/tue)
+- [HandmadeMath](https://github.com/HandmadeMath/Handmade-Math)
+- [RealTimeMath](https://github.com/nfrechette/rtm)
+- [as-c-math](https://github.com/pr0g/as-c-math)
 
 ### Articles
 
--   [How To Write A Maths Library In 2016](http://www.codersnotes.com/notes/maths-lib-2016/)
--   [On Vector Math Libraries](http://www.reedbeta.com/blog/on-vector-math-libraries/)
+- [How To Write A Maths Library In 2016](http://www.codersnotes.com/notes/maths-lib-2016/)
+- [On Vector Math Libraries](http://www.reedbeta.com/blog/on-vector-math-libraries/)
 
 ## Related Links
 
--   [GameDev.net - A slick trick in c](https://www.gamedev.net/forums/topic/261920-a-slick-trick-in-c/)
+- [GameDev.net - A slick trick in c](https://www.gamedev.net/forums/topic/261920-a-slick-trick-in-c/)
