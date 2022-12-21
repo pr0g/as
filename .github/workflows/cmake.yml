@@ -24,6 +24,9 @@ jobs:
         # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
         # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
         run: >
+          cmake -S ${{github.workspace}}/tests/test/third-party
+          -B ${{github.workspace}}/tests/test/third-party/build
+          -DCMAKE_BUILD_TYPE=${{matrix.build_type}}
           cmake -S ${{github.workspace}}/tests/test
           -B ${{github.workspace}}/tests/test/build
           -DCMAKE_PREFIX_PATH="${{github.workspace}}/tests/test/third-party/build"
@@ -33,7 +36,9 @@ jobs:
 
       - name: Build
         # Build your program with the given configuration
-        run: cmake --build ${{github.workspace}}/tests/test/build
+        run: >
+        cmake --build ${{github.workspace}}/tests/test/third-party/build
+        cmake --build ${{github.workspace}}/tests/test/build
 
       - name: Test
         working-directory: ${{github.workspace}}/tests/test/build
