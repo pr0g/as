@@ -50,7 +50,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Coverage
-        run: >
+        run: |
           VERSION="1.14"
           mkdir Iconv
           cd Iconv
