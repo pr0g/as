@@ -47,8 +47,8 @@ jobs:
           name: third-party
           path: ${{github.workspace}}/tests/test/third-party/build
       - name: Display structure of downloaded files
-          run: ls -R
-          working-directory: ${{github.workspace}}/tests/test/third-party/
+        run: ls -R
+        working-directory: ${{github.workspace}}/tests/test/third-party/
       - name: Configure project
         run: >
           cmake -S ${{github.workspace}}/tests/test
