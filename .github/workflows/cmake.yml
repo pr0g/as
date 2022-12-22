@@ -51,6 +51,14 @@ jobs:
       - uses: actions/checkout@v3
       - name: Coverage
         run: >
+          VERSION="1.14"
+          mkdir Iconv
+          cd Iconv
+          wget "https://github.com/linux-test-project/lcov/releases/download/v1.14/lcov-$VERSION.tar.gz"
+          tar -xzf "lcov-$VERSION.tar.gz"
+          cd "lcov-$VERSION"
+          sudo make install
+          cd ..
           lcov --capture --directory build --output-file coverage.info
           lcov --remove coverage.info '*/third-party/*' '*/7.4.0/*' '*/usr/include/*' '*/tests/test/*.test.*' '*/tests/test/catch-*' --output-file coverage.info
           lcov --list coverage.info
