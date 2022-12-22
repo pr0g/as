@@ -49,6 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - needs: build
       - name: Coverage
         run: |
           VERSION="1.14"
@@ -59,7 +60,7 @@ jobs:
           cd "lcov-$VERSION"
           sudo make install
           cd ..
-          lcov --capture --directory build --output-file coverage.info
+          lcov --capture --directory ${{github.workspace}}/tests/test/build --output-file coverage.info
           lcov --remove coverage.info '*/third-party/*' '*/7.4.0/*' '*/usr/include/*' '*/tests/test/*.test.*' '*/tests/test/catch-*' --output-file coverage.info
           lcov --list coverage.info
           # codecov
