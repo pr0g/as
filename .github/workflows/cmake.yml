@@ -1,0 +1,45 @@
+name: CMake
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
+    # You can convert this to a matrix build if you need cross-platform coverage.
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        matrix_convention: [AS_ROW_MAJOR, AS_COL_MAJOR]
+        real_precision: [AS_PRECISION_FLOAT, AS_PRECISION_DOUBLE]
+        build_type: [Release, Debug]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configure CMake dependencies
+        run: >
+          cmake -S ${{github.workspace}}/tests/test/third-party
+          -B ${{github.workspace}}/tests/test/third-party/build
+          -DCMAKE_BUILD_TYPE=${{matrix.build_type}}
+      - name: Build dependencies
+        run: >
+          cmake --build ${{github.workspace}}/tests/test/third-party/build
+      - name: Configure CMake project
+        run: >
+          cmake -S ${{github.workspace}}/tests/test
+          -B ${{github.workspace}}/tests/test/build
+          -DCMAKE_PREFIX_PATH="${{github.workspace}}/tests/test/third-party/build"
+          -DCMAKE_BUILD_TYPE=${{matrix.build_type}}
+          -D${{matrix.matrix_convention}}=ON
+          -D${{matrix.real_precision}}=ON
+      - name: Build project
+        run: >
+          cmake --build ${{github.workspace}}/tests/test/build
+
+      - name: Test
+        working-directory: ${{github.workspace}}/tests/test/build
+        run: ctest -C ${{matrix.build_type}}
