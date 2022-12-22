@@ -40,12 +40,15 @@ jobs:
         real_precision: [AS_PRECISION_FLOAT] #, AS_PRECISION_DOUBLE
         build_type: [Debug] #, Release
     steps:
+      - uses: actions/checkout@v3
       - name: Download third-party dependencies
         uses: actions/download-artifact@v3
         with:
           name: third-party
           path: ${{github.workspace}}/tests/test/third-party/build
-      - uses: actions/checkout@v3
+      - name: Display structure of downloaded files
+          run: ls -R
+          working-directory: ${{github.workspace}}/tests/test/third-party/
       - name: Configure project
         run: >
           cmake -S ${{github.workspace}}/tests/test
