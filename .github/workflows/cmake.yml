@@ -49,7 +49,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Coverage
-      - if: ${{matrix.build_type}} == 'Debug'
         run: >
           lcov --capture --directory build --output-file coverage.info
           lcov --remove coverage.info '*/third-party/*' '*/7.4.0/*' '*/usr/include/*' '*/tests/test/*.test.*' '*/tests/test/catch-*' --output-file coverage.info
