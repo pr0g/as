@@ -12,6 +12,9 @@ jobs:
     # You can convert this to a matrix build if you need cross-platform coverage.
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     runs-on: ubuntu-latest
+    env:
+      CC: gcc-12
+      CXX: g++-12
     strategy:
       matrix:
         matrix_convention: [AS_ROW_MAJOR, AS_COL_MAJOR]
@@ -42,8 +45,8 @@ jobs:
           cmake --build ${{github.workspace}}/tests/test/build
 
       - name: Test
-        working-directory: ${{github.workspace}}/tests/test/build
-        run: ctest -C ${{matrix.build_type}}
+        # working-directory: ${{github.workspace}}/tests/test/build
+        run: ctest --test-dir ${{github.workspace}}/tests/test/build -C ${{matrix.build_type}}
 
   release:
     needs: build
