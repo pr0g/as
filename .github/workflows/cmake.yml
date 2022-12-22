@@ -2,7 +2,7 @@ name: CMake
 
 on:
   push:
-    branches: ["main"]
+    branches: ["coverage"]
   pull_request:
     branches: ["main"]
 
@@ -36,6 +36,7 @@ jobs:
           -DCMAKE_BUILD_TYPE=${{matrix.build_type}}
           -D${{matrix.matrix_convention}}=ON
           -D${{matrix.real_precision}}=ON
+          -DAS_COVERAGE=ON
       - name: Build project
         run: >
           cmake --build ${{github.workspace}}/tests/test/build
@@ -43,3 +44,13 @@ jobs:
       - name: Test
         working-directory: ${{github.workspace}}/tests/test/build
         run: ctest -C ${{matrix.build_type}}
+
+  release:
+    if: ${{matrix.build_type}} == Debug
+    needs: build
+    run: >
+      lcov --capture --directory build --output-file coverage.info
+      lcov --remove coverage.info '*/third-party/*' '*/7.4.0/*' '*/usr/include/*' '*/tests/test/*.test.*' '*/tests/test/catch-*' --output-file coverage.info
+      lcov --list coverage.info
+      # codecov
+      bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports" # uploading report to codecov
