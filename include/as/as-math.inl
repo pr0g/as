@@ -10,7 +10,7 @@ AS_API constexpr V mix(const V begin, const V end, const T t)
 template<typename T>
 AS_API constexpr real inverse_mix(const T begin, const T end, const T value)
 {
-  return (value - begin) / real(end - begin);
+  return real(value - begin) / real(end - begin);
 }
 
 template<typename T>
