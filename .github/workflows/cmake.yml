@@ -24,6 +24,7 @@ jobs:
           cmake --build ${{github.workspace}}/tests/test/third-party/build
 
   build:
+    needs: dependencies
     runs-on: ubuntu-latest
     env:
       CC: gcc-12
