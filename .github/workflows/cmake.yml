@@ -44,6 +44,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: third-party
+          path: ${{github.workspace}}/tests/test/third-party/build
       - uses: actions/checkout@v3
       - name: Configure project
         run: >
@@ -73,6 +74,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build-artifacts
+          path: ${{github.workspace}}/tests/test/build
       - uses: actions/checkout@v3
       - name: Coverage
         run: |
