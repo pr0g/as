@@ -35,6 +35,7 @@ jobs:
         real_precision: [AS_PRECISION_FLOAT] #, AS_PRECISION_DOUBLE
         build_type: [Debug] #, Release
     steps:
+      - uses: actions/checkout@v3
       - name: Configure project
         run: >
           cmake -S ${{github.workspace}}/tests/test
