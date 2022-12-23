@@ -73,6 +73,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -80,8 +81,7 @@ jobs:
           path: ${{github.workspace}}/tests/test/build
       - name: Display structure of downloaded files
         run: ls -R
-        working-directory: ${{github.workspace}}/tests/test/third-party/
-      - uses: actions/checkout@v3
+        working-directory: ${{github.workspace}}/tests/test/build
       - name: Coverage
         run: |
           VERSION="1.14"
