@@ -65,6 +65,6 @@ jobs:
           coveralls-lcov coverage.info
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@v1
-          with:
+        with:
           project-token: ${{ secrets.CODACY_API_TOKEN }}
           coverage-reports: coverage.info
