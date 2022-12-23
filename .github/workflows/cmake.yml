@@ -14,16 +14,11 @@ jobs:
       CXX: g++-12
     strategy:
       matrix:
-        matrix_convention: [AS_ROW_MAJOR] #, AS_COL_MAJOR
-        real_precision: [AS_PRECISION_FLOAT] #, AS_PRECISION_DOUBLE
-        build_type: [Debug] #, Release
+        matrix_convention: [AS_ROW_MAJOR, AS_COL_MAJOR]
+        real_precision: [AS_PRECISION_FLOAT, AS_PRECISION_DOUBLE]
+        build_type: [Debug, Release]
     steps:
       - uses: actions/checkout@v3
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.0"
-      - name: Configure coverage dependencies
-        run: gem install coveralls-lcov
       - name: Configure CMake dependencies
         run: >
           cmake -S ${{github.workspace}}/tests/test/third-party
