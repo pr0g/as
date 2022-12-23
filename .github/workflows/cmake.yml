@@ -50,9 +50,12 @@ jobs:
         run: |
           VERSION="1.16"
           mkdir Iconv
-          wget "https://github.com/linux-test-project/lcov/releases/download/v$VERSION/lcov-$VERSION.tar.gz" -P ${{github.workspace}}/Iconv
-          tar -xzf ${{github.workspace}}/Iconv/"lcov-$VERSION.tar.gz"
-          sudo make --directory ${{github.workspace}}/Iconv/"lcov-$VERSION" install
+          cd Iconv
+          wget "https://github.com/linux-test-project/lcov/releases/download/v$VERSION/lcov-$VERSION.tar.gz"
+          tar -xzf "lcov-$VERSION.tar.gz"
+          cd "lcov-$VERSION"
+          sudo make install
+          cd ..
           lcov --capture --directory ${{github.workspace}}/tests/test/build --output-file ${{github.workspace}}/coverage.info --gcov-tool=gcov-12
           lcov --remove ${{github.workspace}}/coverage.info '*/third-party/*' '*/7.4.0/*' '*/usr/include/*' '*/tests/test/*.test.*' '*/tests/test/catch-*' --output-file ${{github.workspace}}/coverage.info --gcov-tool=gcov-12
           lcov --list ${{github.workspace}}/coverage.info --gcov-tool=gcov-12
