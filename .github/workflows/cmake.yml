@@ -92,8 +92,8 @@ jobs:
           cd "lcov-$VERSION"
           sudo make install
           cd ..
-          lcov --capture --directory ${{github.workspace}}/tests/test/build --output-file coverage.info
-          lcov --remove coverage.info '*/third-party/*' '*/7.4.0/*' '*/usr/include/*' '*/tests/test/*.test.*' '*/tests/test/catch-*' --output-file coverage.info
-          lcov --list coverage.info
+          lcov --capture --directory ${{github.workspace}}/tests/test/build --output-file coverage.info --gcov-tool=gcov-12
+          lcov --remove coverage.info '*/third-party/*' '*/7.4.0/*' '*/usr/include/*' '*/tests/test/*.test.*' '*/tests/test/catch-*' --output-file coverage.info --gcov-tool=gcov-12
+          lcov --list coverage.info --gcov-tool=gcov-12
           # codecov
           bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports" # uploading report to codecov
