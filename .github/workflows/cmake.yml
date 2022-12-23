@@ -59,12 +59,15 @@ jobs:
           lcov --capture --directory ${{github.workspace}}/tests/test/build --output-file ${{github.workspace}}/coverage.info --gcov-tool=gcov-12
           lcov --remove ${{github.workspace}}/coverage.info '*/third-party/*' '*/7.4.0/*' '*/usr/include/*' '*/tests/test/*.test.*' '*/tests/test/catch-*' --output-file ${{github.workspace}}/coverage.info --gcov-tool=gcov-12
           lcov --list ${{github.workspace}}/coverage.info --gcov-tool=gcov-12
-          # codecov
-          bash <(curl -s https://codecov.io/bash) -f ${{github.workspace}}/coverage.info || echo "Codecov did not collect coverage reports"
-          # coveralls
-          coveralls-lcov ${{github.workspace}}/coverage.info
-      - name: Run codacy-coverage-reporter
+      - name: Codecov
+        run: bash <(curl -s https://codecov.io/bash) -f ${{github.workspace}}/coverage.info || echo "Codecov did not collect coverage reports"
+      - name: Codacy
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: ${{github.workspace}}/coverage.info
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ${{github.workspace}}/coverage.info
