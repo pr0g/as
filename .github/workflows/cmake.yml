@@ -55,4 +55,8 @@ jobs:
           lcov --remove coverage.info '*/third-party/*' '*/7.4.0/*' '*/usr/include/*' '*/tests/test/*.test.*' '*/tests/test/catch-*' --output-file coverage.info --gcov-tool=gcov-12
           lcov --list coverage.info --gcov-tool=gcov-12
           # codecov
-          bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports" # uploading report to codecov
+          bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
+          # coveralls
+          coveralls-lcov coverage.info
+          # codacy
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report --language cpp --force-language -r coverage.info
