@@ -8,16 +8,15 @@ on:
 
 jobs:
   build:
-    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
-    # You can convert this to a matrix build if you need cross-platform coverage.
-    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     runs-on: ubuntu-latest
+    env:
+      CC: gcc-12
+      CXX: g++-12
     strategy:
       matrix:
         matrix_convention: [AS_ROW_MAJOR, AS_COL_MAJOR]
         real_precision: [AS_PRECISION_FLOAT, AS_PRECISION_DOUBLE]
-        build_type: [Release, Debug]
-
+        build_type: [Debug, Release]
     steps:
       - uses: actions/checkout@v3
       - name: Configure CMake dependencies
@@ -28,7 +27,7 @@ jobs:
       - name: Build dependencies
         run: >
           cmake --build ${{github.workspace}}/tests/test/third-party/build
-      - name: Configure CMake project
+      - name: Configure project
         run: >
           cmake -S ${{github.workspace}}/tests/test
           -B ${{github.workspace}}/tests/test/build
@@ -36,10 +35,34 @@ jobs:
           -DCMAKE_BUILD_TYPE=${{matrix.build_type}}
           -D${{matrix.matrix_convention}}=ON
           -D${{matrix.real_precision}}=ON
+          -DAS_COVERAGE=ON
       - name: Build project
         run: >
           cmake --build ${{github.workspace}}/tests/test/build
-
-      - name: Test
-        working-directory: ${{github.workspace}}/tests/test/build
-        run: ctest -C ${{matrix.build_type}}
+      - name: Test project
+        run: ctest --test-dir ${{github.workspace}}/tests/test/build -C ${{matrix.build_type}}
+      - name: Capture coverage information
+        run: |
+          VERSION="1.16"
+          mkdir Iconv
+          cd Iconv
+          wget "https://github.com/linux-test-project/lcov/releases/download/v$VERSION/lcov-$VERSION.tar.gz"
+          tar -xzf "lcov-$VERSION.tar.gz"
+          cd "lcov-$VERSION"
+          sudo make install
+          cd ..
+          lcov --capture --directory ${{github.workspace}}/tests/test/build --output-file ${{github.workspace}}/coverage.info --gcov-tool=gcov-12
+          lcov --remove ${{github.workspace}}/coverage.info '*/third-party/*' '*/7.4.0/*' '*/usr/include/*' '*/tests/test/*.test.*' '*/tests/test/catch-*' --output-file ${{github.workspace}}/coverage.info --gcov-tool=gcov-12
+          lcov --list ${{github.workspace}}/coverage.info --gcov-tool=gcov-12
+      - name: Codecov
+        run: bash <(curl -s https://codecov.io/bash) -f ${{github.workspace}}/coverage.info || echo "Codecov did not collect coverage reports"
+      - name: Codacy
+        uses: codacy/codacy-coverage-reporter-action@v1
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: ${{github.workspace}}/coverage.info
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ${{github.workspace}}/coverage.info

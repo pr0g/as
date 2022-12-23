@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ./do-build.sh
-./build/as-test
+ctest --test-dir build
 lcov --directory build/ --capture                                 \
      --output-file build/app.info                                 \
      --gcov-tool=/opt/homebrew/bin/gcov-12
