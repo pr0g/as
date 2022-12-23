@@ -3,7 +3,8 @@
 `as` (short for _almost-something_) is an attempt at creating an easy to use header-only math library for prototype and hobby projects.
 
 ![Build status](https://github.com/pr0g/as/actions/workflows/cmake.yml/badge.svg)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/24b277ef4cdf4d699e7c6acb96d1fce6)](https://app.codacy.com/manual/pr0g/as?utm_source=github.com&utm_medium=referral&utm_content=pr0g/as&utm_campaign=Badge_Grade_Dashboard)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/3de79fb334c04ee199f4c1cf11d924ed)](https://www.codacy.com/gh/pr0g/as/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pr0g/as&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/3de79fb334c04ee199f4c1cf11d924ed)](https://www.codacy.com/gh/pr0g/as/dashboard?utm_source=github.com&utm_medium=referral&utm_content=pr0g/as&utm_campaign=Badge_Coverage)
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/pr0g/as?branch=main&svg=true)](https://ci.appveyor.com/project/pr0g/as)
 [![codecov](https://codecov.io/gh/pr0g/as/branch/main/graphs/badge.svg)](https://codecov.io/gh/pr0g/as)
 [![coveralls](https://coveralls.io/repos/github/pr0g/as/badge.svg?branch=main)](https://coveralls.io/github/pr0g/as?branch=main)
