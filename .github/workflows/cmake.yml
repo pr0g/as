@@ -7,27 +7,6 @@ on:
     branches: ["main"]
 
 jobs:
-  dependencies:
-    runs-on: ubuntu-latest
-    env:
-      CC: gcc-12
-      CXX: g++-12
-    steps:
-      - uses: actions/checkout@v3
-      - name: Configure CMake dependencies
-        run: >
-          cmake -S ${{github.workspace}}/tests/test/third-party
-          -B ${{github.workspace}}/tests/test/third-party/build
-          -DCMAKE_BUILD_TYPE=${{matrix.build_type}}
-      - name: Build dependencies
-        run: >
-          cmake --build ${{github.workspace}}/tests/test/third-party/build
-      - name: Upload third-party dependencies
-        uses: actions/upload-artifact@v3
-        with:
-          name: third-party
-          path: ${{github.workspace}}/tests/test/third-party/build
-
   build:
     needs: dependencies
     runs-on: ubuntu-latest
@@ -41,14 +20,14 @@ jobs:
         build_type: [Debug] #, Release
     steps:
       - uses: actions/checkout@v3
-      - name: Download third-party dependencies
-        uses: actions/download-artifact@v3
-        with:
-          name: third-party
-          path: ${{github.workspace}}/tests/test/third-party/build
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: ${{github.workspace}}/tests/test/third-party/
+      - name: Configure CMake dependencies
+        run: >
+          cmake -S ${{github.workspace}}/tests/test/third-party
+          -B ${{github.workspace}}/tests/test/third-party/build
+          -DCMAKE_BUILD_TYPE=${{matrix.build_type}}
+      - name: Build dependencies
+        run: >
+          cmake --build ${{github.workspace}}/tests/test/third-party/build
       - name: Configure project
         run: >
           cmake -S ${{github.workspace}}/tests/test
@@ -63,26 +42,7 @@ jobs:
           cmake --build ${{github.workspace}}/tests/test/build
       - name: Test project
         run: ctest --test-dir ${{github.workspace}}/tests/test/build -C ${{matrix.build_type}}
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-artifacts
-          path: ${{github.workspace}}/tests/test/build
-
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Download build artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: build-artifacts
-          path: ${{github.workspace}}/tests/test/build
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: ${{github.workspace}}/tests/test/build
-      - name: Coverage
+      - name: Capture coverage information
         run: |
           VERSION="1.14"
           mkdir Iconv
