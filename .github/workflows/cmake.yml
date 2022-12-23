@@ -19,6 +19,9 @@ jobs:
         build_type: [Debug] #, Release
     steps:
       - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
       - name: Configure coverage dependencies
         run: gem install coveralls-lcov
       - name: Configure CMake dependencies
