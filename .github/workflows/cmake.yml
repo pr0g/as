@@ -46,32 +46,31 @@ jobs:
           cmake --build ${{github.workspace}}/tests/test/build
       - name: Test project
         run: ctest --test-dir ${{github.workspace}}/tests/test/build -C ${{matrix.build_type}}
-      - if: |
-          ${{matrix.build_type}} == 'Debug' &&
-          ${{matrix.matrix_convention}} == 'AS_ROW_MAJOR' &&
-          ${{matrix.real_precision}} == 'AS_PRECISION_FLOAT'
+      - if: ${{matrix.build_type}} == 'Debug' && ${{matrix.matrix_convention}} == 'AS_ROW_MAJOR' && ${{matrix.real_precision}} == 'AS_PRECISION_FLOAT'
+        name: Coverage
         steps:
-          - name: Capture coverage information
-            run: |
-              VERSION="1.16"
-              mkdir Iconv
-              cd Iconv
-              wget "https://github.com/linux-test-project/lcov/releases/download/v$VERSION/lcov-$VERSION.tar.gz"
-              tar -xzf "lcov-$VERSION.tar.gz"
-              cd "lcov-$VERSION"
-              sudo make install
-              cd ..
-              lcov --capture --directory ${{github.workspace}}/tests/test/build --output-file ${{github.workspace}}/coverage.info --gcov-tool=gcov-12
-              lcov --remove ${{github.workspace}}/coverage.info '*/third-party/*' '*/7.4.0/*' '*/usr/include/*' '*/tests/test/*.test.*' '*/tests/test/catch-*' --output-file ${{github.workspace}}/coverage.info --gcov-tool=gcov-12
-              lcov --list ${{github.workspace}}/coverage.info --gcov-tool=gcov-12
-            - run: bash <(curl -s https://codecov.io/bash) -f ${{github.workspace}}/coverage.info || echo "Codecov did not collect coverage reports"
-              name: Codacy
-              uses: codacy/codacy-coverage-reporter-action@v1
-              with:
-                project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-                coverage-reports: ${{github.workspace}}/coverage.info
-            - name: Coveralls
-              uses: coverallsapp/github-action@master
-              with:
-                github-token: ${{ secrets.GITHUB_TOKEN }}
-                path-to-lcov: ${{github.workspace}}/coverage.info
+        - name: Capture coverage information
+          run: |
+            VERSION="1.16"
+            mkdir Iconv
+            cd Iconv
+            wget "https://github.com/linux-test-project/lcov/releases/download/v$VERSION/lcov-$VERSION.tar.gz"
+            tar -xzf "lcov-$VERSION.tar.gz"
+            cd "lcov-$VERSION"
+            sudo make install
+            cd ..
+            lcov --capture --directory ${{github.workspace}}/tests/test/build --output-file ${{github.workspace}}/coverage.info --gcov-tool=gcov-12
+            lcov --remove ${{github.workspace}}/coverage.info '*/third-party/*' '*/7.4.0/*' '*/usr/include/*' '*/tests/test/*.test.*' '*/tests/test/catch-*' --output-file ${{github.workspace}}/coverage.info --gcov-tool=gcov-12
+            lcov --list ${{github.workspace}}/coverage.info --gcov-tool=gcov-12
+        - name: Codecov
+          run: bash <(curl -s https://codecov.io/bash) -f ${{github.workspace}}/coverage.info || echo "Codecov did not collect coverage reports"
+        - name: Codacy
+          uses: codacy/codacy-coverage-reporter-action@v1
+          with:
+            project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+            coverage-reports: ${{github.workspace}}/coverage.info
+        - name: Coveralls
+          uses: coverallsapp/github-action@master
+          with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            path-to-lcov: ${{github.workspace}}/coverage.info
