@@ -78,6 +78,9 @@ jobs:
         with:
           name: build-artifacts
           path: ${{github.workspace}}/tests/test/build
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: ${{github.workspace}}/tests/test/third-party/
       - uses: actions/checkout@v3
       - name: Coverage
         run: |
