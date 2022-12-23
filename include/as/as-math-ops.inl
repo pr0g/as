@@ -616,13 +616,13 @@ AS_API T minor(const mat<T, 2>& m)
 template<typename T, index d, index I>
 AS_API T determinant_impl(const mat<T, d>& m, int2type<I> /*unused*/)
 {
-  auto sign = T(1.0);
   auto result = T(0.0);
+  auto current_sign = T(1.0);
   for (index i = 0; i < d; ++i) {
     const T minor_det =
       determinant_impl(sub_matrix(m, i, 0), int2type<I - 1>{});
-    result += (m[i] * minor_det) * sign;
-    sign *= T(-1.0);
+    result += m[i] * minor_det * current_sign;
+    current_sign *= T(-1.0);
   }
   return result;
 }

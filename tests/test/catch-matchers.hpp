@@ -14,7 +14,7 @@ class ElementsAreSubscript : public Catch::Matchers::MatcherBase<Sub2>
   Sub1 subscriptable1_;
 
 public:
-  ElementsAreSubscript(const Sub1& subscriptable)
+  explicit ElementsAreSubscript(const Sub1& subscriptable)
     : subscriptable1_(subscriptable)
   {
   }
