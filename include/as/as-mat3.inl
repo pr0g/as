@@ -80,4 +80,9 @@ AS_API constexpr const T mat<T, 3>::operator[](index i) &&
   return elem_rc[i];
 }
 
+AS_API constexpr index mat3_rc(const index r, const index c)
+{
+  return mat_rc(r, c, 3);
+}
+
 } // namespace as

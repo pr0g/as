@@ -323,18 +323,7 @@ vec<T, d> vec_average(const vec<T, d>* vectors, index count);
 template<typename... vectors>
 auto vec_average_fold(vectors&&... vecs);
 
-//! Performs a mapping from a row and column index to a single offset.
-//! \param r Row index.
-//! \param c Column index.
-//! \param d Dimension of the matrix.
-//! \note The result returned will depend on if `AS_COL_MAJOR` or `AS_ROW_MAJOR`
-//! is defined.
-//! ```{.cpp}
-//! // e.g. 4x4 matrix
-//! rc(3, 2, 4) = 11 // column major
-//! rc(3, 2, 4) = 14 // row major
-//! ```
-constexpr index mat_rc(index r, index c, index d);
+
 
 //! Returns the nth row of the matrix.
 //! \param m The matrix to use.
@@ -432,10 +421,6 @@ mat<T, d> mat_mul(const mat<T, d>& lhs, const mat<T, d>& rhs);
 //! ```
 template<typename T, index d>
 vec<T, d> mat_mul(const vec<T, d>& v, const mat<T, d>& m);
-
-//! Performs a mapping from a row and column index to a single offset for
-//! ::mat3. \param r Row index. \param c Column index.
-constexpr index mat3_rc(index r, index c);
 
 //! Returns the first row of the ::mat3.
 template<typename T>
@@ -568,10 +553,6 @@ constexpr mat3 mat3_scale(const vec3& scale);
 
 //! Returns a ::mat3 from a quaternion.
 constexpr mat3 mat3_from_quat(const quat& q);
-
-//! Performs a mapping from a row and column index to a single offset for
-//! ::mat4. \param r Row index. \param c Column index.
-constexpr index mat4_rc(index r, index c);
 
 //! Returns the first row of the ::mat4.
 template<typename T>

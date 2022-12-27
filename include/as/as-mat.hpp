@@ -138,6 +138,19 @@ constexpr subscript_const_iterator<mat<T, d>> cbegin(const mat<T, d>& mat);
 template<typename T, index d>
 constexpr subscript_const_iterator<mat<T, d>> cend(const mat<T, d>& mat);
 
+//! Performs a mapping from a row and column index to a single offset.
+//! \param r Row index.
+//! \param c Column index.
+//! \param d Dimension of the matrix.
+//! \note The result returned will depend on if `AS_COL_MAJOR` or `AS_ROW_MAJOR`
+//! is defined.
+//! ```{.cpp}
+//! // e.g. 4x4 matrix
+//! mat_rc(3, 2, 4) = 11 // column major
+//! mat_rc(3, 2, 4) = 14 // row major
+//! ```
+constexpr index mat_rc(index r, index c, index d);
+
 } // namespace as
 
 #include "as-mat.inl"

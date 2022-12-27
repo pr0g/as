@@ -470,15 +470,6 @@ AS_API auto vec_average_fold(vectors&&... vecs)
     (vecs + ...) / real(sizeof...(vecs)));
 }
 
-AS_API constexpr index mat_rc(const index r, const index c, const index d)
-{
-#ifdef AS_COL_MAJOR
-  return c * d + r;
-#elif defined AS_ROW_MAJOR
-  return r * d + c;
-#endif // AS_COL_MAJOR ? AS_ROW_MAJOR
-}
-
 template<typename T, index d>
 AS_API vec<T, d> mat_row(const mat<T, d>& m, const index r)
 {
@@ -699,11 +690,6 @@ AS_API vec<T, d> mat_mul(const vec<T, d>& v, const mat<T, d>& m)
 #elif defined AS_ROW_MAJOR
   return v * m;
 #endif // AS_COL_MAJOR ? AS_ROW_MAJOR
-}
-
-AS_API constexpr index mat3_rc(const index r, const index c)
-{
-  return mat_rc(r, c, 3);
 }
 
 template<typename T>
@@ -1006,11 +992,6 @@ AS_API constexpr mat3 mat3_from_quat(const quat& q)
   return {1.0_r - (yy + zz), xy + wz,           xz - wy,
           xy - wz,           1.0_r - (xx + zz), yz + wx,
           xz + wy,           yz - wx,           1.0_r - (xx + yy)};
-}
-
-AS_API constexpr index mat4_rc(const index r, const index c)
-{
-  return mat_rc(r, c, 4);
 }
 
 template<typename T>

@@ -78,6 +78,10 @@ using mat3i = mat<int32_t, 3>;
 //! Type alias for a three dimensional matrix of type `int64_t`.
 using mat3l = mat<int64_t, 3>;
 
+//! Performs a mapping from a row and column index to a single offset for
+//! ::mat3. \param r Row index. \param c Column index.
+constexpr index mat3_rc(index r, index c);
+
 } // namespace as
 
 #include "as-mat3.inl"

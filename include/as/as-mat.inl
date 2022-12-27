@@ -63,27 +63,15 @@ template<typename T, index d>
 AS_API const mat<T, d> operator*(const mat<T, d>& lhs, const mat<T, d>& rhs)
 {
   mat<T, d> result;
-#ifdef AS_COL_MAJOR
-  for (index col = 0; col < d; ++col) {
-    for (index row = 0; row < d; ++row) {
-      auto value = T(0.0);
-      for (index step = 0; step < d; ++step) {
-        value += lhs[row + d * step] * rhs[col * d + step];
-      }
-      result[col * d + row] = value;
-    }
-  }
-#elif defined AS_ROW_MAJOR
   for (index row = 0; row < d; ++row) {
     for (index col = 0; col < d; ++col) {
       auto value = T(0.0);
       for (index step = 0; step < d; ++step) {
-        value += lhs[row * d + step] * rhs[col + d * step];
+        value += lhs[mat_rc(row, step, d)] * rhs[mat_rc(step, col, d)];
       }
-      result[row * d + col] = value;
+      result[mat_rc(row, col, d)] = value;
     }
   }
-#endif // AS_ROW_MAJOR ? AS_COL_MAJOR
   return result;
 }
 
@@ -178,6 +166,15 @@ template<typename T, index d>
 AS_API constexpr subscript_const_iterator<mat<T, d>> cend(const mat<T, d>& m)
 {
   return end(m);
+}
+
+AS_API constexpr index mat_rc(const index r, const index c, const index d)
+{
+#ifdef AS_COL_MAJOR
+  return c * d + r;
+#elif defined AS_ROW_MAJOR
+  return r * d + c;
+#endif // AS_COL_MAJOR ? AS_ROW_MAJOR
 }
 
 } // namespace as

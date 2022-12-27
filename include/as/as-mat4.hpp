@@ -84,6 +84,10 @@ using mat4i = mat<int32_t, 4>;
 //! Type alias for a four dimensional matrix of type `int64_t`.
 using mat4l = mat<int64_t, 4>;
 
+//! Performs a mapping from a row and column index to a single offset for
+//! ::mat4. \param r Row index. \param c Column index.
+constexpr index mat4_rc(index r, index c);
+
 } // namespace as
 
 #include "as-mat4.inl"
