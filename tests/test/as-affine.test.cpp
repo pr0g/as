@@ -230,22 +230,45 @@ TEST_CASE("affine_inverse", "[as_affine]")
 {
   using gsl::make_span;
 
-  const affine a(
-    as::mat3_rotation_y(radians(90.0_r)), vec3(5.0_r, 10.0_r, 20.0_r));
+  // ensure inverse restores original point (rotation)
+  {
+    const affine a(
+      as::mat3_rotation_y(radians(90.0_r)), vec3(5.0_r, 10.0_r, 20.0_r));
 
-  const affine affine_expected_inverse(
-    as::mat3_rotation_y(radians(-90.0_r)), vec3(20.0_r, -10.0_r, -5.0_r));
+    const affine affine_expected_inverse(
+      as::mat3_rotation_y(radians(-90.0_r)), vec3(20.0_r, -10.0_r, -5.0_r));
 
-  real expected_affine[12];
-  as::affine_to_arr(affine_expected_inverse, expected_affine);
+    real expected_affine[12];
+    as::affine_to_arr(affine_expected_inverse, expected_affine);
 
-  affine result;
-  result = affine_inverse(a);
+    affine result;
+    result = affine_inverse(a);
 
-  CHECK_THAT(make_span(expected_affine, 9), elements_are_span(result.rotation));
-  CHECK_THAT(
-    make_span(&expected_affine[9], 3),
-    elements_are_span(result.translation).margin(0.000001_r));
+    CHECK_THAT(
+      make_span(expected_affine, 9), elements_are_span(result.rotation));
+    CHECK_THAT(
+      make_span(&expected_affine[9], 3),
+      elements_are_span(result.translation).margin(0.000001_r));
+  }
+  // ensure inverse restores original point (scale)
+  {
+    const affine scale_and_translation(
+      as::mat3_scale(2.0f), vec3(5.0_r, 10.0_r, 20.0_r));
+    const vec3 transformed_point =
+      affine_transform_pos(scale_and_translation, vec3(5.0f, 5.0f, 5.0f));
+    const affine scale_and_translation_inv =
+      affine_inverse(scale_and_translation);
+    const vec3 original_from_transform =
+      affine_transform_pos(scale_and_translation_inv, transformed_point);
+    const vec3 original_from_inv_transform =
+      affine_inv_transform_pos(scale_and_translation, transformed_point);
+
+    CHECK_THAT(
+      arr(5.0_r, 5.0_r, 5.0_r), elements_are_array(original_from_transform));
+    CHECK_THAT(
+      arr(5.0_r, 5.0_r, 5.0_r),
+      elements_are_array(original_from_inv_transform));
+  }
 }
 
 TEST_CASE("affine_from_rigid", "[as_affine]")

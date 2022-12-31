@@ -1523,7 +1523,7 @@ AS_API inline affine affine_mul(const affine& lhs, const affine& rhs)
 
 AS_API inline affine affine_inverse(const affine& a)
 {
-  const mat3 inv_rot = mat_transpose(a.rotation);
+  const mat3 inv_rot = mat_inverse(a.rotation);
   const vec3 inv_pos = affine_transform_pos(affine(inv_rot), -a.translation);
   return affine(inv_rot, inv_pos);
 }
@@ -1558,7 +1558,7 @@ AS_API inline vec3 affine_transform_pos(const affine& a, const vec3& position)
 AS_API inline vec3 affine_inv_transform_dir(
   const affine& a, const vec3& direction)
 {
-  const mat3 inv_rotation = mat_transpose(a.rotation);
+  const mat3 inv_rotation = mat_inverse(a.rotation);
 #ifdef AS_COL_MAJOR
   return inv_rotation * direction;
 #elif defined AS_ROW_MAJOR
@@ -1569,7 +1569,7 @@ AS_API inline vec3 affine_inv_transform_dir(
 AS_API inline vec3 affine_inv_transform_pos(
   const affine& a, const vec3& position)
 {
-  const mat3 inv_rotation = mat_transpose(a.rotation);
+  const mat3 inv_rotation = mat_inverse(a.rotation);
 #ifdef AS_COL_MAJOR
   return inv_rotation * (position - a.translation);
 #elif defined AS_ROW_MAJOR

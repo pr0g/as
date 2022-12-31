@@ -10,8 +10,7 @@ namespace unit_test
 {
 
 // use float epsilon for comparisons
-inline constexpr as::real g_epsilon =
-  as::real(std::numeric_limits<float>::epsilon());
+inline constexpr as::real g_epsilon = FLT_EPSILON;
 
 template<typename T>
 constexpr bool trivial_standard_layout_check()

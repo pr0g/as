@@ -323,8 +323,6 @@ vec<T, d> vec_average(const vec<T, d>* vectors, index count);
 template<typename... vectors>
 auto vec_average_fold(vectors&&... vecs);
 
-
-
 //! Returns the nth row of the matrix.
 //! \param m The matrix to use.
 //! \param r Row index.
@@ -873,7 +871,8 @@ affine affine_mul(const affine& lhs, const affine& rhs);
 //! ```{.cpp}
 //! // a * inv(a) = identity
 //! ```
-//! \note The inverse of \ref affine is just the transpose of the rotation part.
+//! \note A full inverse is performed as the rotation part may also contain
+//! scale.
 //! Ensure it holds a valid a rotation (axes are orthogonal).
 affine affine_inverse(const affine& a);
 
