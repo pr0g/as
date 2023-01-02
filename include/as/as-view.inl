@@ -87,10 +87,10 @@ AS_API inline mat4 reverse_z(const mat4& perspective_projection)
 AS_API inline mat4 normalize_unit_range(const mat4& perspective_projection)
 {
   // clang-format off
-    constexpr mat4 normalize_range {1.0_r, 0.0_r, 0.0_r, 0.0_r,
-                                    0.0_r, 1.0_r, 0.0_r, 0.0_r,
-                                    0.0_r, 0.0_r, 0.5_r, 0.0_r,
-                                    0.0_r, 0.0_r, 0.5_r, 1.0_r};
+  constexpr mat4 normalize_range {1.0_r, 0.0_r, 0.0_r, 0.0_r,
+                                  0.0_r, 1.0_r, 0.0_r, 0.0_r,
+                                  0.0_r, 0.0_r, 0.5_r, 0.0_r,
+                                  0.0_r, 0.0_r, 0.5_r, 1.0_r};
   // clang-format on
   return as::mat_mul(perspective_projection, normalize_range);
 }
