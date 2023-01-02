@@ -64,12 +64,14 @@ constexpr mat4 vulkan_clip {1.0_r,  0.0_r, 0.0_r, 0.0_r,
 AS_API inline mat4 perspective_vulkan_rh(
   const real fovy, const real aspect, const real n, const real f)
 {
+  // note: equivalent to invert_y(normalize_unit_range(projection_rh))
   return as::mat_mul(perspective_opengl_rh(fovy, aspect, n, f), vulkan_clip);
 }
 
 AS_API inline mat4 perspective_vulkan_lh(
   const real fovy, const real aspect, const real n, const real f)
 {
+  // note: equivalent to invert_y(normalize_unit_range(projection_lh))
   return as::mat_mul(perspective_opengl_lh(fovy, aspect, n, f), vulkan_clip);
 }
 
@@ -93,6 +95,17 @@ AS_API inline mat4 normalize_unit_range(const mat4& perspective_projection)
                                   0.0_r, 0.0_r, 0.5_r, 1.0_r};
   // clang-format on
   return as::mat_mul(perspective_projection, normalize_range);
+}
+
+AS_API inline mat4 invert_y(const mat4& projection)
+{
+  // clang-format off
+  constexpr mat4 inverted_y {1.0_r,  0.0_r, 0.0_r, 0.0_r,
+                             0.0_r, -1.0_r, 0.0_r, 0.0_r,
+                             0.0_r,  0.0_r, 1.0_r, 0.0_r,
+                             0.0_r,  0.0_r, 0.0_r, 1.0_r};
+  // clang-format on
+  return as::mat_mul(projection, inverted_y);
 }
 
 AS_API constexpr mat4 ortho_opengl_rh(

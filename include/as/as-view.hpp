@@ -79,6 +79,12 @@ mat4 reverse_z(const mat4& perspective_projection);
 //! hence the name 'unit_range' used here.
 mat4 normalize_unit_range(const mat4& perspective_projection);
 
+//! Takes a projection matrix (orthographic or perspective) and flips the y
+//! axis.
+//! \note The effect is to flip the image upside down, useful if the
+//! graphics API has y grow top down instead of bottom up.
+mat4 invert_y(const mat4& projection);
+
 //! Returns a mat4 representing an orthographic projection matrix.
 //! \note Uses OpenGL NDC space (-1, 1) and a right handed coordinate system.
 //! \note This is the OpenGL default.

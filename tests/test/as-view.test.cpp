@@ -282,6 +282,28 @@ TEST_CASE("normalize_unit_range", "[as_view]")
     elements_are_span(perspective_direct3d_lh).margin(g_epsilon));
 }
 
+TEST_CASE("invert_y", "[as_view]")
+{
+  using gsl::make_span;
+
+  const real fov = radians(90.0_r);
+  const real aspect = 16.0_r / 9.0_r;
+  const mat4 perspective_opengl_lh =
+    as::perspective_opengl_lh(fov, aspect, 0.01_r, 1000.0_r);
+
+  const real reference[] = {0.562500_r, 0.000000_r,  0.000000_r,  0.000000_r,
+                            0.000000_r, -1.000000_r, 0.000000_r,  0.000000_r,
+                            0.000000_r, 0.000000_r,  1.000020_r,  1.000000_r,
+                            0.000000_r, 0.000000_r,  -0.020000_r, 0.000000_r};
+
+  const mat4 y_inverted_perspective_opengl_lh =
+    as::invert_y(perspective_opengl_lh);
+
+  CHECK_THAT(
+    make_span(reference),
+    elements_are_span(y_inverted_perspective_opengl_lh).margin(k_view_epsilon));
+}
+
 static vec2i screen_to_world_to_screen(
   const vec2i& screen_position, const mat4& projection, const affine& view,
   const vec2i& screen_dimension)
