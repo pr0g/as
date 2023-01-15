@@ -29,10 +29,10 @@ TEST_CASE("perspective_opengl_rh", "[as_view]")
   const mat4 perspective_opengl_rh =
     as::perspective_opengl_rh(fov, aspect, 0.01_r, 1000.0_r);
 
-  const real reference[] = {0.562500_r, 0.000000_r, 0.000000_r,  0.000000_r,
-                            0.000000_r, 1.000000_r, 0.000000_r,  0.000000_r,
+  const real reference[] = {0.562500_r, 0.000000_r,  0.000000_r,  0.000000_r,
+                            0.000000_r, 1.000000_r,  0.000000_r,  0.000000_r,
                             0.000000_r, 0.000000_r, -1.000020_r, -1.000000_r,
-                            0.000000_r, 0.000000_r, -0.020000_r, 0.000000_r};
+                            0.000000_r, 0.000000_r, -0.020000_r,  0.000000_r};
 
   CHECK_THAT(
     make_span(reference),
@@ -48,9 +48,9 @@ TEST_CASE("perspective_opengl_lh", "[as_view]")
   const mat4 perspective_opengl_lh =
     as::perspective_opengl_lh(fov, aspect, 0.01_r, 1000.0_r);
 
-  const real reference[] = {0.562500_r, 0.000000_r, 0.000000_r,  0.000000_r,
-                            0.000000_r, 1.000000_r, 0.000000_r,  0.000000_r,
-                            0.000000_r, 0.000000_r, 1.000020_r,  1.000000_r,
+  const real reference[] = {0.562500_r, 0.000000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r, 1.000000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r, 0.000000_r,  1.000020_r, 1.000000_r,
                             0.000000_r, 0.000000_r, -0.020000_r, 0.000000_r};
 
   CHECK_THAT(
@@ -67,10 +67,10 @@ TEST_CASE("perspective_direct3d_rh", "[as_view]")
   const mat4 perspective_direct3d_rh =
     as::perspective_direct3d_rh(fov, aspect, 0.01_r, 1000.0_r);
 
-  const real reference[] = {0.562500_r, 0.000000_r, 0.000000_r,  0.000000_r,
-                            0.000000_r, 1.000000_r, 0.000000_r,  0.000000_r,
+  const real reference[] = {0.562500_r, 0.000000_r,  0.000000_r,  0.000000_r,
+                            0.000000_r, 1.000000_r,  0.000000_r,  0.000000_r,
                             0.000000_r, 0.000000_r, -1.000010_r, -1.000000_r,
-                            0.000000_r, 0.000000_r, -0.010000_r, 0.000000_r};
+                            0.000000_r, 0.000000_r, -0.010000_r,  0.000000_r};
 
   CHECK_THAT(
     make_span(reference),
@@ -86,9 +86,9 @@ TEST_CASE("perspective_direct3d_lh", "[as_view]")
   const mat4 perspective_direct3d_lh =
     as::perspective_direct3d_lh(fov, aspect, 0.01_r, 1000.0_r);
 
-  const real reference[] = {0.562500_r, 0.000000_r, 0.000000_r,  0.000000_r,
-                            0.000000_r, 1.000000_r, 0.000000_r,  0.000000_r,
-                            0.000000_r, 0.000000_r, 1.000010_r,  1.000000_r,
+  const real reference[] = {0.562500_r, 0.000000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r, 1.000000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r, 0.000000_r,  1.000010_r, 1.000000_r,
                             0.000000_r, 0.000000_r, -0.010000_r, 0.000000_r};
 
   CHECK_THAT(
@@ -105,10 +105,10 @@ TEST_CASE("perspective_vulkan_rh", "[as_view]")
   const mat4 perspective_vulkan_rh =
     as::perspective_vulkan_rh(fov, aspect, 0.01_r, 1000.0_r);
 
-  const real reference[] = {0.562500_r, 0.000000_r,  0.000000_r,  0.000000_r,
-                            0.000000_r, -1.000000_r, 0.000000_r,  0.000000_r,
-                            0.000000_r, 0.000000_r,  -1.000010_r, -1.000000_r,
-                            0.000000_r, 0.000000_r,  -0.010000_r, 0.000000_r};
+  const real reference[] = {0.562500_r,  0.000000_r,  0.000000_r,  0.000000_r,
+                            0.000000_r, -1.000000_r,  0.000000_r,  0.000000_r,
+                            0.000000_r,  0.000000_r, -1.000010_r, -1.000000_r,
+                            0.000000_r,  0.000000_r, -0.010000_r,  0.000000_r};
 
   CHECK_THAT(
     make_span(reference),
@@ -124,10 +124,10 @@ TEST_CASE("perspective_vulkan_lh", "[as_view]")
   const mat4 perspective_vulkan_lh =
     as::perspective_vulkan_lh(fov, aspect, 0.01_r, 1000.0_r);
 
-  const real reference[] = {0.562500_r, 0.000000_r,  0.000000_r,  0.000000_r,
-                            0.000000_r, -1.000000_r, 0.000000_r,  0.000000_r,
-                            0.000000_r, 0.000000_r,  1.000010_r,  1.000000_r,
-                            0.000000_r, 0.000000_r,  -0.010000_r, 0.000000_r};
+  const real reference[] = {0.562500_r,  0.000000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r, -1.000000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r,  0.000000_r,  1.000010_r, 1.000000_r,
+                            0.000000_r,  0.000000_r, -0.010000_r, 0.000000_r};
 
   CHECK_THAT(
     make_span(reference),
@@ -142,10 +142,10 @@ TEST_CASE("ortho_opengl_rh", "[as_view]")
   ortho_opengl_rh =
     as::ortho_opengl_rh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
 
-  const real reference[] = {0.100000_r,  0.000000_r,  0.000000_r,  0.000000_r,
-                            0.000000_r,  0.100000_r,  0.000000_r,  0.000000_r,
-                            0.000000_r,  0.000000_r,  -0.002000_r, 0.000000_r,
-                            -0.000000_r, -0.000000_r, -1.000020_r, 1.000000_r};
+  const real reference[] = {0.100000_r, 0.000000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r, 0.100000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r, 0.000000_r, -0.002000_r, 0.000000_r,
+                            0.000000_r, 0.000000_r, -1.000020_r, 1.000000_r};
 
   CHECK_THAT(
     make_span(reference), elements_are_span(ortho_opengl_rh).margin(g_epsilon));
@@ -159,10 +159,10 @@ TEST_CASE("ortho_opengl_lh", "[as_view]")
   ortho_opengl_lh =
     as::ortho_opengl_lh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
 
-  const real reference[] = {0.100000_r,  0.000000_r,  0.000000_r,  0.000000_r,
-                            0.000000_r,  0.100000_r,  0.000000_r,  0.000000_r,
-                            0.000000_r,  0.000000_r,  0.002000_r,  0.000000_r,
-                            -0.000000_r, -0.000000_r, -1.000020_r, 1.000000_r};
+  const real reference[] = {0.100000_r, 0.000000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r, 0.100000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r, 0.000000_r,  0.002000_r, 0.000000_r,
+                            0.000000_r, 0.000000_r, -1.000020_r, 1.000000_r};
 
   CHECK_THAT(
     make_span(reference), elements_are_span(ortho_opengl_lh).margin(g_epsilon));
@@ -176,10 +176,10 @@ TEST_CASE("ortho_direct3d_lh", "[as_view]")
   ortho_direct3d_lh =
     as::ortho_direct3d_lh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
 
-  const real reference[] = {0.100000_r,  0.000000_r,  0.000000_r,  0.000000_r,
-                            0.000000_r,  0.100000_r,  0.000000_r,  0.000000_r,
-                            0.000000_r,  0.000000_r,  0.001000_r,  0.000000_r,
-                            -0.000000_r, -0.000000_r, -0.000010_r, 1.000000_r};
+  const real reference[] = {0.100000_r, 0.000000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r, 0.100000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r, 0.000000_r,  0.001000_r, 0.000000_r,
+                            0.000000_r, 0.000000_r, -0.000010_r, 1.000000_r};
 
   CHECK_THAT(
     make_span(reference),
@@ -194,10 +194,10 @@ TEST_CASE("ortho_direct3d_rh", "[as_view]")
   ortho_direct3d_rh =
     as::ortho_direct3d_rh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
 
-  const real reference[] = {0.100000_r,  0.000000_r,  0.000000_r,  0.000000_r,
-                            0.000000_r,  0.100000_r,  0.000000_r,  0.000000_r,
-                            0.000000_r,  0.000000_r,  -0.001000_r, 0.000000_r,
-                            -0.000000_r, -0.000000_r, -0.000010_r, 1.000000_r};
+  const real reference[] = {0.100000_r, 0.000000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r, 0.100000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r, 0.000000_r, -0.001000_r, 0.000000_r,
+                            0.000000_r, 0.000000_r, -0.000010_r, 1.000000_r};
 
   CHECK_THAT(
     make_span(reference),
@@ -212,10 +212,10 @@ TEST_CASE("ortho_vulkan_rh", "[as_view]")
   ortho_vulkan_rh =
     as::ortho_vulkan_rh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
 
-  const real reference[] = {0.100000_r,  0.000000_r,  0.000000_r,  0.000000_r,
-                            0.000000_r,  -0.100000_r, 0.000000_r,  0.000000_r,
-                            0.000000_r,  0.000000_r,  -0.001000_r, 0.000000_r,
-                            -0.000000_r, -0.000000_r, -0.000010_r, 1.000000_r};
+  const real reference[] = {0.100000_r,  0.000000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r, -0.100000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r,  0.000000_r, -0.001000_r, 0.000000_r,
+                            0.000000_r,  0.000000_r, -0.000010_r, 1.000000_r};
 
   CHECK_THAT(
     make_span(reference), elements_are_span(ortho_vulkan_rh).margin(g_epsilon));
@@ -229,10 +229,10 @@ TEST_CASE("ortho_vulkan_lh", "[as_view]")
   ortho_vulkan_lh =
     as::ortho_vulkan_lh(-10.0_r, 10.0_r, -10.0_r, 10.0_r, 0.01_r, 1000.0_r);
 
-  const real reference[] = {0.100000_r,  0.000000_r,  0.000000_r,  0.000000_r,
-                            0.000000_r,  -0.100000_r, 0.000000_r,  0.000000_r,
-                            0.000000_r,  0.000000_r,  0.001000_r,  0.000000_r,
-                            -0.000000_r, -0.000000_r, -0.000010_r, 1.000000_r};
+  const real reference[] = {0.100000_r,  0.000000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r, -0.100000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r,  0.000000_r,  0.001000_r, 0.000000_r,
+                            0.000000_r,  0.000000_r, -0.000010_r, 1.000000_r};
 
   CHECK_THAT(
     make_span(reference), elements_are_span(ortho_vulkan_lh).margin(g_epsilon));
@@ -247,10 +247,10 @@ TEST_CASE("reverse_z", "[as_view]")
   const mat4 perspective_direct3d_rh =
     as::perspective_direct3d_rh(fov, aspect, 0.01_r, 1000.0_r);
 
-  const real reference[] = {0.562500_r, 0.000000_r, 0.000000_r, 0.000000_r,
-                            0.000000_r, 1.000000_r, 0.000000_r, 0.000000_r,
+  const real reference[] = {0.562500_r, 0.000000_r, 0.000000_r,  0.000000_r,
+                            0.000000_r, 1.000000_r, 0.000000_r,  0.000000_r,
                             0.000000_r, 0.000000_r, 0.000010_r, -1.000000_r,
-                            0.000000_r, 0.000000_r, 0.010000_r, 0.000000_r};
+                            0.000000_r, 0.000000_r, 0.010000_r,  0.000000_r};
 
   const mat4 perspective_direct3d_rh_reverse =
     reverse_z(perspective_direct3d_rh);
@@ -269,9 +269,9 @@ TEST_CASE("normalize_unit_range", "[as_view]")
   const mat4 perspective_opengl_lh =
     as::perspective_opengl_lh(fov, aspect, 0.01_r, 1000.0_r);
 
-  const real reference[] = {0.562500_r, 0.000000_r, 0.000000_r,  0.000000_r,
-                            0.000000_r, 1.000000_r, 0.000000_r,  0.000000_r,
-                            0.000000_r, 0.000000_r, 1.000010_r,  1.000000_r,
+  const real reference[] = {0.562500_r, 0.000000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r, 1.000000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r, 0.000000_r,  1.000010_r, 1.000000_r,
                             0.000000_r, 0.000000_r, -0.010000_r, 0.000000_r};
 
   const mat4 perspective_direct3d_lh =
@@ -291,10 +291,10 @@ TEST_CASE("invert_y", "[as_view]")
   const mat4 perspective_opengl_lh =
     as::perspective_opengl_lh(fov, aspect, 0.01_r, 1000.0_r);
 
-  const real reference[] = {0.562500_r, 0.000000_r,  0.000000_r,  0.000000_r,
-                            0.000000_r, -1.000000_r, 0.000000_r,  0.000000_r,
-                            0.000000_r, 0.000000_r,  1.000020_r,  1.000000_r,
-                            0.000000_r, 0.000000_r,  -0.020000_r, 0.000000_r};
+  const real reference[] = {0.562500_r,  0.000000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r, -1.000000_r,  0.000000_r, 0.000000_r,
+                            0.000000_r,  0.000000_r,  1.000020_r, 1.000000_r,
+                            0.000000_r,  0.000000_r, -0.020000_r, 0.000000_r};
 
   const mat4 y_inverted_perspective_opengl_lh =
     as::invert_y(perspective_opengl_lh);
