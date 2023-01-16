@@ -16,6 +16,9 @@ constexpr real k_pi = 3.14159265358979323846_r;
 //! Mathematical constant 2 * Pi to 21 significant digits.
 constexpr real k_two_pi = 6.28318530717958647692_r;
 
+//! Mathematical constant 1/2 * Pi to 21 significant digits.
+constexpr real k_half_pi = 1.57079632679489655800_r;
+
 //! Mathematical constant Tau to 21 significant digits (equivalent to 2 * Pi).
 constexpr real k_tau = k_two_pi;
 
