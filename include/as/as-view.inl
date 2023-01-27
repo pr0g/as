@@ -5,7 +5,6 @@ AS_API inline mat4 perspective_opengl_rh(
   const real fovy, const real aspect, const real n, const real f)
 {
   const real e = 1.0_r / std::tan(fovy * 0.5_r);
-
   // clang-format off
   return {e / aspect, 0.0_r,  0.0_r,                    0.0_r,
           0.0_r,      e,      0.0_r,                    0.0_r,
@@ -18,7 +17,6 @@ AS_API inline mat4 perspective_opengl_lh(
   const real fovy, const real aspect, const real n, const real f)
 {
   const real e = 1.0_r / std::tan(fovy * 0.5_r);
-
   // clang-format off
   return {e / aspect, 0.0_r,  0.0_r,                    0.0_r,
           0.0_r,      e,      0.0_r,                    0.0_r,
@@ -31,7 +29,6 @@ AS_API inline mat4 perspective_direct3d_rh(
   const real fovy, const real aspect, const real n, const real f)
 {
   const real e = 1.0_r / std::tan(fovy * 0.5_r);
-
   // clang-format off
   return {e / aspect, 0.0_r,  0.0_r,            0.0_r,
           0.0_r,      e,      0.0_r,            0.0_r,
@@ -44,7 +41,6 @@ AS_API inline mat4 perspective_direct3d_lh(
   const real fovy, const real aspect, const real n, const real f)
 {
   const real e = 1.0_r / std::tan(fovy * 0.5_r);
-
   // clang-format off
   return {e / aspect, 0.0_r,  0.0_r,            0.0_r,
           0.0_r,      e,      0.0_r,            0.0_r,
@@ -115,7 +111,6 @@ AS_API constexpr mat4 ortho_opengl_rh(
   const real x = 1.0_r / (r - l);
   const real y = 1.0_r / (t - b);
   const real z = 1.0_r / (f - n);
-
   // clang-format off
   return {2.0_r * x,    0.0_r,         0.0_r,      0.0_r,
           0.0_r,        2.0_r * y,     0.0_r,      0.0_r,
@@ -131,7 +126,6 @@ AS_API constexpr mat4 ortho_opengl_lh(
   const real x = 1.0_r / (r - l);
   const real y = 1.0_r / (t - b);
   const real z = 1.0_r / (f - n);
-
   // clang-format off
   return {2.0_r * x,    0.0_r,        0.0_r,      0.0_r,
           0.0_r,        2.0_r * y,    0.0_r,      0.0_r,
@@ -147,7 +141,6 @@ AS_API constexpr mat4 ortho_direct3d_rh(
   const real x = 1.0_r / (r - l);
   const real y = 1.0_r / (t - b);
   const real z = 1.0_r / (f - n);
-
   // clang-format off
   return {2.0_r * x,    0.0_r,        0.0_r, 0.0_r,
           0.0_r,        2.0_r * y,    0.0_r, 0.0_r,
@@ -163,7 +156,6 @@ AS_API constexpr mat4 ortho_direct3d_lh(
   const real x = 1.0_r / (r - l);
   const real y = 1.0_r / (t - b);
   const real z = 1.0_r / (f - n);
-
   // clang-format off
   return {2.0_r * x,    0.0_r,        0.0_r, 0.0_r,
           0.0_r,        2.0_r * y,    0.0_r, 0.0_r,
@@ -202,14 +194,14 @@ AS_API inline vec2i world_to_screen(
 
 AS_API inline vec3 screen_to_world(
   const vec2i& screen_position, const mat4& projection, const affine& view,
-  const vec2i& screen_dimension)
+  const vec2i& screen_dimension, const vec2f& depth_range)
 {
   const vec2 normalized_screen =
     vec2_from_ints(screen_position.x, screen_dimension.y - screen_position.y)
     / vec2_from_vec2i(screen_dimension);
   const vec2 ndc = (normalized_screen * 2.0_r) - vec2::one();
   vec4 world_position = mat_mul(
-    vec4(ndc.x, ndc.y, -1.0_r, 1.0_r),
+    vec4(ndc.x, ndc.y, depth_range.x, depth_range.y),
     mat_mul(mat_inverse(projection), mat4_from_affine(affine_inverse(view))));
   world_position /= world_position.w;
   return vec3_from_vec4(world_position);

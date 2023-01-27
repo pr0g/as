@@ -11,6 +11,7 @@ using as::affine;
 using as::mat4;
 using as::real;
 using as::vec2;
+using as::vec2f;
 using as::vec2i;
 using as::vec3;
 
@@ -308,8 +309,8 @@ static vec2i screen_to_world_to_screen(
   const vec2i& screen_position, const mat4& projection, const affine& view,
   const vec2i& screen_dimension)
 {
-  const auto world =
-    screen_to_world(screen_position, projection, view, screen_dimension);
+  const auto world = screen_to_world(
+    screen_position, projection, view, screen_dimension, vec2f{0.0f, 1.0f});
   return world_to_screen(world, projection, view, screen_dimension);
 }
 
@@ -319,8 +320,8 @@ static vec3 world_to_screen_to_world(
 {
   const auto screen =
     world_to_screen(world_position, projection, view, screen_dimension);
-  const auto world_near =
-    screen_to_world(screen, projection, view, screen_dimension);
+  const auto world_near = screen_to_world(
+    screen, projection, view, screen_dimension, vec2f{0.0f, 1.0f});
   const auto view_position = affine_inverse(view).translation;
   const auto distance = vec_distance(world_position, view_position);
   return view_position + vec_normalize(world_near) * distance;
@@ -455,7 +456,7 @@ TEST_CASE("world_to_screen_to_world", "[as_view]")
   }
 }
 
-TEST_CASE("screen_to_world_near_clip", "[as_view]")
+TEST_CASE("screen_to_world_near_clip_opengl_lh", "[as_view]")
 {
   const real fov = radians(90.0_r);
   const real aspect = 16.0_r / 9.0_r;
@@ -466,10 +467,29 @@ TEST_CASE("screen_to_world_near_clip", "[as_view]")
   {
     const auto returned_world_position = as::screen_to_world(
       vec2i(512, 384), perspective_opengl_lh, affine(vec3::zero()),
-      screen_dimension);
+      screen_dimension, vec2f{-1.0f, 1.0f});
 
     CHECK_THAT(
       arr(0.0_r, 0.0_r, 0.01_r), elements_are_array(returned_world_position));
+  }
+}
+
+TEST_CASE("screen_to_world_near_clip_direct3d_rh", "[as_view]")
+{
+  const real fov = radians(90.0_r);
+  const real aspect = 16.0_r / 9.0_r;
+  const vec2i screen_dimension = vec2i(1024, 768);
+  const mat4 perspective_direct3d_rh =
+    as::perspective_direct3d_rh(fov, aspect, 0.01_r, 1000.0_r);
+
+  {
+    const auto returned_world_position = as::screen_to_world(
+      vec2i(512, 384), perspective_direct3d_rh, affine(vec3::zero()),
+      screen_dimension, vec2f{0.0f, 1.0f});
+
+    CHECK_THAT(
+      arr(0.0_r, 0.0_r, -0.01_r),
+      elements_are_array(returned_world_position).margin(k_view_epsilon));
   }
 }
 
