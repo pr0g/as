@@ -555,4 +555,20 @@ TEST_CASE("quat_iterator", "[as_quat]")
   }
 }
 
+TEST_CASE("quat_conjugate_transpose", "[as_quat]")
+{
+  const quat q = as::quat_rotation_zxy(
+    as::radians(45.0f), as::radians(45.0f), as::radians(45.0f));
+  const quat q_conjugate = as::quat_conjugate(q);
+
+  const mat3 m_from_q = as::mat3_from_quat(q);
+  const mat3 m_from_q_conjugate = as::mat3_from_quat(q_conjugate);
+  const mat3 m_from_q_transposed = as::mat_transpose(m_from_q);
+
+  // verify converting from quat to mat3 after performing a conjugate is
+  // equivalent to converting from quat to mat3 and then transposing the matrix
+  CHECK_THAT(
+    m_from_q_transposed, elements_are(m_from_q_conjugate).margin(g_epsilon));
+}
+
 } // namespace unit_test
