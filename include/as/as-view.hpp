@@ -181,7 +181,7 @@ vec2i world_to_screen(
 //! 0 to 1 or -1 to 1. Pass either {0, 1} or {-1, 1}.
 vec3 screen_to_world(
   const vec2i& screen_position, const mat4& projection, const affine& view,
-  const vec2i& screen_dimension, const vec2f& depth_range);
+  const vec2i& screen_dimension, const vec2& depth_range);
 
 //! Returns a vec2 `(real, real)` from two `int32_t`s.
 constexpr vec2 vec2_from_ints(int32_t x, int32_t y);

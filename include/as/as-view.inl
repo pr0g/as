@@ -194,7 +194,7 @@ AS_API inline vec2i world_to_screen(
 
 AS_API inline vec3 screen_to_world(
   const vec2i& screen_position, const mat4& projection, const affine& view,
-  const vec2i& screen_dimension, const vec2f& depth_range)
+  const vec2i& screen_dimension, const vec2& depth_range)
 {
   const vec2 normalized_screen =
     vec2_from_ints(screen_position.x, screen_dimension.y - screen_position.y)
