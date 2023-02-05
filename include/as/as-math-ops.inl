@@ -1394,7 +1394,7 @@ AS_API inline quat quat_rotation_zxy(const vec3& xyz)
 AS_API inline quat quat_nlerp(const quat& q0, const quat& q1, const real t)
 {
   const quat q1_s = quat_dot(q0, q1) < 0.0_r ? q1 * -1.0_r : q1;
-  return mix(q0, q1_s, t);
+  return quat_normalize(mix(q0, q1_s, t));
 }
 
 AS_API inline quat quat_slerp(const quat& q0, const quat& q1, const real t)
@@ -1533,8 +1533,8 @@ AS_API inline bool affine_near(
   const real max_diff /*= std::numeric_limits<real>::epsilon()*/,
   const real max_rel_diff /*= std::numeric_limits<real>::epsilon()*/)
 {
-  return as::vec_near(lhs.translation, rhs.translation, max_diff, max_rel_diff)
-      && as::mat_near(lhs.rotation, rhs.rotation, max_diff, max_rel_diff);
+  return vec_near(lhs.translation, rhs.translation, max_diff, max_rel_diff)
+      && mat_near(lhs.rotation, rhs.rotation, max_diff, max_rel_diff);
 }
 
 AS_API inline vec3 affine_transform_dir(const affine& a, const vec3& direction)
@@ -1639,7 +1639,7 @@ AS_API inline rigid rigid_mul(const rigid& lhs, const rigid& rhs)
 
 AS_API inline rigid rigid_inverse(const rigid& r)
 {
-  const quat inv_rot = quat_inverse(as::quat_normalize(r.rotation));
+  const quat inv_rot = quat_inverse(quat_normalize(r.rotation));
   const vec3 inv_pos = rigid_transform_pos(rigid(inv_rot), -r.translation);
   return rigid(inv_rot, inv_pos);
 }
@@ -1649,8 +1649,8 @@ AS_API inline bool rigid_near(
   const real max_diff /*= std::numeric_limits<real>::epsilon()*/,
   const real max_rel_diff /*= std::numeric_limits<real>::epsilon()*/)
 {
-  return as::vec_near(lhs.translation, rhs.translation, max_diff, max_rel_diff)
-      && as::quat_near(lhs.rotation, rhs.rotation, max_diff, max_rel_diff);
+  return vec_near(lhs.translation, rhs.translation, max_diff, max_rel_diff)
+      && quat_near(lhs.rotation, rhs.rotation, max_diff, max_rel_diff);
 }
 
 AS_API inline vec3 rigid_transform_dir(const rigid& r, const vec3& direction)

@@ -301,8 +301,8 @@ TEST_CASE("quat_nlerp", "[as_quat]")
   const quat result_quat = quat_nlerp(quat_x, quat_y, 0.5_r);
   const vec3 result_vec = quat_rotate(result_quat, vec3::axis_x());
 
-  CHECK(result_vec.x == Approx(0.60355_r).margin(g_epsilon));
-  CHECK(result_vec.y == Approx(0.60355_r).margin(g_epsilon));
+  CHECK(result_vec.x == Approx(0.70711_r).margin(g_epsilon));
+  CHECK(result_vec.y == Approx(0.70711_r).margin(g_epsilon));
   CHECK(result_vec.z == Approx(0.0_r).margin(g_epsilon));
 }
 
