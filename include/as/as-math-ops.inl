@@ -1400,14 +1400,13 @@ AS_API inline quat quat_nlerp(const quat& q0, const quat& q1, const real t)
 AS_API inline quat quat_slerp(const quat& q0, const quat& q1, const real t)
 {
   const real dot = clamp(quat_dot(q0, q1), -1.0_r, 1.0_r);
-  if (dot > 0.995_r) {
-    return mix(q0, q1, t);
+  if (dot > 0.9995_r) {
+    return quat_normalize(mix(q0, q1, t));
   }
   const quat q1_s = dot < 0.0_r ? q1 * -1.0_r : q1;
   const real theta = std::acos(abs(dot));
-  const real sin_theta = std::sin(theta);
   return (q0 * std::sin((1.0_r - t) * theta) + q1_s * std::sin(t * theta))
-       / sin_theta;
+       / std::sin(theta);
 }
 
 // ref: euclidean space
