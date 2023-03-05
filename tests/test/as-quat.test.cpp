@@ -362,6 +362,39 @@ TEST_CASE("quat_slerp", "[as_quat]")
       CHECK(result_quat.w == Approx(quat_x.w).margin(g_epsilon));
     }
   }
+
+  {
+    const quat result_quat = quat_slerp(
+      as::quat(-1.0_r, 0.0_r, 0.0_r, 0.0_r),
+      as::quat(1.0_r, 0.0_r, 0.0_r, 0.0_r), 0.0_r);
+
+    CHECK(result_quat.w == Approx(-1.0_r).margin(g_epsilon));
+    CHECK(result_quat.x == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result_quat.y == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result_quat.z == Approx(0.0_r).margin(g_epsilon));
+  }
+
+  {
+    const quat result_quat = quat_slerp(
+      as::quat(-1.0_r, 0.0_r, 0.0_r, 0.0_r),
+      as::quat(1.0_r, 0.0_r, 0.0_r, 0.0_r), 1.0_r);
+
+    CHECK(result_quat.w == Approx(-1.0_r).margin(g_epsilon));
+    CHECK(result_quat.x == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result_quat.y == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result_quat.z == Approx(0.0_r).margin(g_epsilon));
+  }
+
+  {
+    const quat result_quat = quat_slerp(
+      as::quat(1.0_r, 0.0_r, 0.0_r, 0.0_r),
+      as::quat(-1.0_r, 0.0_r, 0.0_r, 0.0_r), 0.5_r);
+
+    CHECK(result_quat.w == Approx(1.0_r).margin(g_epsilon));
+    CHECK(result_quat.x == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result_quat.y == Approx(0.0_r).margin(g_epsilon));
+    CHECK(result_quat.z == Approx(0.0_r).margin(g_epsilon));
+  }
 }
 
 TEST_CASE("quat_from_mat3", "[as_quat]")
@@ -558,7 +591,7 @@ TEST_CASE("quat_iterator", "[as_quat]")
 TEST_CASE("quat_conjugate_transpose", "[as_quat]")
 {
   const quat q = as::quat_rotation_zxy(
-    as::radians(45.0f), as::radians(45.0f), as::radians(45.0f));
+    as::radians(45.0_r), as::radians(45.0_r), as::radians(45.0_r));
   const quat q_conjugate = as::quat_conjugate(q);
 
   const mat3 m_from_q = as::mat3_from_quat(q);
