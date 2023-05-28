@@ -60,33 +60,33 @@ AS_API constexpr real vec_dot(const vec3& lhs, const vec3& rhs)
 }
 
 template<typename T, index d>
-AS_API constexpr T vec_length_sq(const vec<T, d>& v)
+AS_API constexpr real vec_length_sq(const vec<T, d>& v)
 {
   return vec_dot(v, v);
 }
 
 template<typename T, index d>
-AS_API T vec_length(const vec<T, d>& v)
+AS_API real vec_length(const vec<T, d>& v)
 {
   return std::sqrt(vec_length_sq(v));
 }
 
 template<typename T, index d>
-AS_API T vec_distance(const vec<T, d>& lhs, const vec<T, d>& rhs)
+AS_API real vec_distance(const vec<T, d>& lhs, const vec<T, d>& rhs)
 {
   return vec_length(rhs - lhs);
 }
 
 template<typename T, index d>
-AS_API vec<T, d> vec_normalize(const vec<T, d>& v)
+AS_API vec<real, d> vec_normalize(const vec<T, d>& v)
 {
   return v / vec_length(v);
 }
 
 template<typename T, index d>
-AS_API std::tuple<vec<T, d>, T> vec_normalize_and_length(const vec<T, d>& v)
+AS_API std::tuple<vec<real, d>, real> vec_normalize_and_length(const vec<T, d>& v)
 {
-  const T len = vec_length(v);
+  const real len = vec_length(v);
   return std::make_tuple(v / len, len);
 }
 

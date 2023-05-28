@@ -60,26 +60,26 @@ constexpr real vec_dot(const vec3& lhs, const vec3& rhs);
 
 //! Returns the length squared of the vector.
 template<typename T, index d>
-constexpr T vec_length_sq(const vec<T, d>& v);
+constexpr real vec_length_sq(const vec<T, d>& v);
 
 //! Returns the length of the vector.
 template<typename T, index d>
-T vec_length(const vec<T, d>& v);
+real vec_length(const vec<T, d>& v);
 
 //! Returns the distance between two vectors.
 template<typename T, index d>
-T vec_distance(const vec<T, d>& lhs, const vec<T, d>& rhs);
+real vec_distance(const vec<T, d>& lhs, const vec<T, d>& rhs);
 
 //! Returns the input vector with unit length.
 template<typename T, index d>
-vec<T, d> vec_normalize(const vec<T, d>& v);
+vec<real, d> vec_normalize(const vec<T, d>& v);
 
 //! Returns the normalized vector (unit length) along with the length of the
 //! input vector.
 //! \note This can be useful to use instead of having to call `normalize` and
 //! `length` separately (reduces repeated work).
 template<typename T, index d>
-std::tuple<vec<T, d>, T> vec_normalize_and_length(const vec<T, d>& v);
+std::tuple<vec<real, d>, real> vec_normalize_and_length(const vec<T, d>& v);
 
 //! Returns if two vectors are the same as each other (within a certain
 //! tolerance).
