@@ -38,9 +38,9 @@ AS_API const T* vec_const_data(const vec<T, d>& v)
 }
 
 template<typename T, index d>
-AS_API constexpr T vec_dot(const vec<T, d>& lhs, const vec<T, d>& rhs)
+AS_API constexpr real vec_dot(const vec<T, d>& lhs, const vec<T, d>& rhs)
 {
-  auto result = T(0.0);
+  auto result = real(0.0);
   for (index i = 0; i < d; ++i) {
     result += lhs[i] * rhs[i];
   }

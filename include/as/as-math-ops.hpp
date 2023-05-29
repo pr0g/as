@@ -48,7 +48,7 @@ const T* vec_const_data(const vec<T, d>& v);
 //! \note Result is positive for acute angles, negative for obtuse angles and
 //! zero for right angles (vectors that are perpendicular/orthogonal).
 template<typename T, index d>
-constexpr T vec_dot(const vec<T, d>& lhs, const vec<T, d>& rhs);
+constexpr real vec_dot(const vec<T, d>& lhs, const vec<T, d>& rhs);
 
 //! Returns the dot product of two vector twos.
 template<>
