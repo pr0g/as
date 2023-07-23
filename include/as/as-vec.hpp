@@ -340,11 +340,11 @@ constexpr const vec2 operator-(const vec2& lhs, const vec2& rhs);
 template<>
 constexpr const vec3 operator-(const vec3& lhs, const vec3& rhs);
 
-//! Performs substraction assignment of two vectors.
+//! Performs subtraction assignment of two vectors.
 template<typename T, index d>
 constexpr vec<T, d>& operator-=(vec<T, d>& lhs, const vec<T, d>& rhs);
 
-//! Performs substraction assignment of two vector threes.
+//! Performs subtraction assignment of two vector threes.
 template<>
 constexpr vec3& operator-=(vec3& lhs, const vec3& rhs);
 

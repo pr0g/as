@@ -540,13 +540,13 @@ mat3 mat3_rotation_y(real radians);
 //! Returns a rotation about the z axis.
 mat3 mat3_rotation_z(real radians);
 
-//! Returns a uniform scale martix.
+//! Returns a uniform scale matrix.
 constexpr mat3 mat3_scale(real scale);
 
-//! Returns a (potentially) non-uniform scale martix.
+//! Returns a (potentially) non-uniform scale matrix.
 constexpr mat3 mat3_scale(real x, real y, real z);
 
-//! Returns a (potentially) non-uniform scale martix.
+//! Returns a (potentially) non-uniform scale matrix.
 constexpr mat3 mat3_scale(const vec3& scale);
 
 //! Returns a ::mat3 from a quaternion.

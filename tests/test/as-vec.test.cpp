@@ -853,7 +853,7 @@ TEST_CASE("addition_vec3", "[as_vec]")
   }
 }
 
-TEST_CASE("substraction", "[as_vec]")
+TEST_CASE("subtraction", "[as_vec]")
 {
   using vec5 = vec<real, 5>;
 
@@ -874,7 +874,7 @@ TEST_CASE("substraction", "[as_vec]")
   }
 }
 
-TEST_CASE("substraction_vec3", "[as_vec]")
+TEST_CASE("subtraction_vec3", "[as_vec]")
 {
   // vec3 operator '-'
   {
@@ -1923,7 +1923,7 @@ TEST_CASE("orthogonal_vec3", "[as_vec]")
   }
 }
 
-TEST_CASE("orthonomal_basis", "[as_vec]")
+TEST_CASE("orthonormal_basis", "[as_vec]")
 {
   {
     const mat3 basis = orthonormal_basis(vec3(1.0_r, 0.0_r, 0.0_r));
@@ -2008,11 +2008,11 @@ TEST_CASE("average", "[as_vec]")
 TEST_CASE("vec_data", "[as_vec]")
 {
   vec4 vec = vec4(1.0_r, 2.0_r, 3.0_r, 4.0_r);
-  real* vecp = vec_data(vec);
-  CHECK(*vecp == Approx(1.0_r).epsilon(g_epsilon));
-  CHECK(*(vecp + 1) == Approx(2.0_r).epsilon(g_epsilon));
-  CHECK(*(vecp + 2) == Approx(3.0_r).epsilon(g_epsilon));
-  CHECK(*(vecp + 3) == Approx(4.0_r).epsilon(g_epsilon));
+  real* vec_p = vec_data(vec);
+  CHECK(*vec_p == Approx(1.0_r).epsilon(g_epsilon));
+  CHECK(*(vec_p + 1) == Approx(2.0_r).epsilon(g_epsilon));
+  CHECK(*(vec_p + 2) == Approx(3.0_r).epsilon(g_epsilon));
+  CHECK(*(vec_p + 3) == Approx(4.0_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("vec4_translation_direction", "[as_vec]")
@@ -2189,7 +2189,7 @@ TEST_CASE("vec_iterator_addition", "[as_vec]")
   }
 }
 
-TEST_CASE("vec_iterator_substraction", "[as_vec]")
+TEST_CASE("vec_iterator_subtraction", "[as_vec]")
 {
   {
     vec<int, 4> vec(4, 3, 2, 1);

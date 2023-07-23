@@ -1759,11 +1759,11 @@ TEST_CASE("mat_basis_mutate_mat4", "[as_mat]")
 TEST_CASE("mat_data", "[as_mat]")
 {
   mat4 mat = mat4::identity();
-  real* matp = mat_data(mat);
-  CHECK(*matp == Approx(1.0_r).epsilon(g_epsilon));
-  CHECK(*(matp + 5) == Approx(1.0_r).epsilon(g_epsilon));
-  CHECK(*(matp + 10) == Approx(1.0_r).epsilon(g_epsilon));
-  CHECK(*(matp + 15) == Approx(1.0_r).epsilon(g_epsilon));
+  real* mat_p = mat_data(mat);
+  CHECK(*mat_p == Approx(1.0_r).epsilon(g_epsilon));
+  CHECK(*(mat_p + 5) == Approx(1.0_r).epsilon(g_epsilon));
+  CHECK(*(mat_p + 10) == Approx(1.0_r).epsilon(g_epsilon));
+  CHECK(*(mat_p + 15) == Approx(1.0_r).epsilon(g_epsilon));
 }
 
 TEST_CASE("mat_range_iteration_mat3", "[as_mat]")

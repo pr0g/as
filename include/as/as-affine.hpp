@@ -10,7 +10,7 @@ namespace as
 {
 
 //! Represents an \ref affine transformation.
-//! A geometric transformation that preserves lines and parrellism.
+//! A geometric transformation that preserves lines and parallelism.
 struct affine
 {
   affine() noexcept = default;
