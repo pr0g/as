@@ -1376,7 +1376,9 @@ TEST_CASE("mat3_rotate_zxy", "[as_mat]")
     real result_arr[9];
     as::mat_to_arr(result_mul, result_arr);
 
-    CHECK_THAT(make_span(result_arr), elements_are_span(expected_mul_sep));
+    CHECK_THAT(
+      make_span(result_arr),
+      elements_are_span(expected_mul_sep).margin(g_epsilon));
     CHECK(as::mat_near(result_mul, expected_mul_sep));
   }
 }

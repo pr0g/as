@@ -6,10 +6,7 @@ project(
     LANGUAGES CXX)
 
 include(FetchContent)
-
-FetchContent_Declare(
-    as
-    SOURCE_DIR ../../../)
+FetchContent_Declare(as SOURCE_DIR ../../../)
 FetchContent_MakeAvailable(as)
 
 find_package(Catch2 CONFIG REQUIRED)
@@ -23,7 +20,8 @@ add_executable(
     as-vec.test.cpp
     as-math.test.cpp
     as-view.test.cpp
-    as-rigid.test.cpp)
+    as-rigid.test.cpp
+    as-types.test.cpp)
 
 # cmake-format: off
 string(
@@ -85,8 +83,11 @@ string(
 target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE "${compile_options}")
 target_link_options(${CMAKE_PROJECT_NAME} PRIVATE "${link_options}")
 set_target_properties(
-    ${PROJECT_NAME} PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED YES
-                               CXX_EXTENSIONS NO NO_SYSTEM_FROM_IMPORTED false)
+    ${PROJECT_NAME}
+    PROPERTIES CXX_STANDARD 17
+               CXX_STANDARD_REQUIRED YES
+               CXX_EXTENSIONS NO
+               NO_SYSTEM_FROM_IMPORTED false)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 target_compile_definitions(
     ${PROJECT_NAME}
@@ -95,8 +96,8 @@ target_compile_definitions(
             $<$<BOOL:${AS_COL_MAJOR}>:AS_COL_MAJOR>
             $<$<BOOL:${AS_ROW_MAJOR}>:AS_ROW_MAJOR>
             $<$<BOOL:${AS_COVERAGE}>:AS_COVERAGE>)
-target_link_libraries(
-    ${PROJECT_NAME} as Catch2::Catch2WithMain Microsoft.GSL::GSL)
+target_link_libraries(${PROJECT_NAME} as Catch2::Catch2WithMain
+                      Microsoft.GSL::GSL)
 
 include(CTest)
 include(Catch)

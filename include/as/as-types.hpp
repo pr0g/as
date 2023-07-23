@@ -40,7 +40,7 @@ using real = float;
 //! A user-defined literal to be used for ::real.
 //! \note Returns `float` when `AS_PRECISION_FLOAT` is defined.
 //! \note Useful when using literals where precision is customizable.
-constexpr float operator"" _r(long double val)
+constexpr float operator"" _r(const long double val)
 {
   return float(val);
 }
@@ -52,11 +52,25 @@ using real = double;
 //! A user-defined literal to be used for ::real.
 //! \note Returns `double` when `AS_PRECISION_DOUBLE` is defined.
 //! \note Useful when using literals where precision is customizable.
-constexpr double operator"" _r(long double val)
+constexpr double operator"" _r(const long double val)
 {
   return double(val);
 }
 #endif // AS_PRECISION_DOUBLE
+
+//! A utility function to convert a double to the type ::real is defined as.
+//! \note If ::real is defined as `float`, some precision may be lost during
+//! the conversion.
+constexpr real to_real(const double val)
+{
+  return real(val);
+}
+
+//! A utility function to convert a float to the type ::real is defined as.
+constexpr real to_real(const float val)
+{
+  return real(val);
+}
 
 #ifdef _MSC_VER
 #define AS_NOINLINE __declspec(noinline)
