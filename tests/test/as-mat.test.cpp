@@ -14,8 +14,12 @@ using as::affine;
 using as::index;
 using as::mat;
 using as::mat3;
+using as::mat3d;
+using as::mat3f;
 using as::mat3i;
 using as::mat4;
+using as::mat4d;
+using as::mat4f;
 using as::mat4i;
 using as::quat;
 using as::real;
@@ -1865,6 +1869,66 @@ TEST_CASE("mat4_from_rigid", "[as_mat]")
   result = as::mat4_from_rigid(rigid(quat::identity(), vec3::zero()));
 
   CHECK_THAT(mat4::identity(), elements_are(result));
+}
+
+TEST_CASE("mat_conversion", "[as_mat]")
+{
+  {
+    mat3d m3d = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0};
+    mat3f m3f = as::mat_from_mat<float>(m3d);
+    CHECK_THAT(
+      m3f,
+      elements_are(mat3f(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f))
+        .epsilon(g_epsilon));
+  }
+
+  {
+    mat3f m3f = {1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f};
+    mat3d m3d = as::mat_from_mat<double>(m3f);
+    CHECK_THAT(
+      m3d, elements_are(mat3d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0))
+             .epsilon(g_epsilon));
+  }
+
+  {
+    mat3 m3r = {1.0_r, 2.0_r, 3.0_r, 4.0_r, 5.0_r, 6.0_r, 7.0_r, 8.0_r, 9.0_r};
+    mat3f m3f = as::mat_from_mat<float>(m3r);
+    CHECK_THAT(
+      m3f,
+      elements_are(mat3f(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f))
+        .epsilon(g_epsilon));
+  }
+
+  {
+    mat4 m4r = {1.0_r, 2.0_r,  3.0_r,  4.0_r,  5.0_r,  6.0_r,  7.0_r,  8.0_r,
+                9.0_r, 10.0_r, 11.0_r, 12.0_r, 13.0_r, 14.0_r, 15.0_r, 16.0_r};
+    mat4d m4d = as::mat_from_mat<double>(m4r);
+    CHECK_THAT(
+      m4d, elements_are(mat4d(
+                          1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0,
+                          11.0, 12.0, 13.0, 14.0, 15.0, 16.0))
+             .epsilon(g_epsilon));
+  }
+
+  {
+    mat3f m3f = {1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f};
+    mat3 m3r = as::mat_from_mat<real>(m3f);
+    CHECK_THAT(
+      m3r,
+      elements_are(
+        mat3(1.0_r, 2.0_r, 3.0_r, 4.0_r, 5.0_r, 6.0_r, 7.0_r, 8.0_r, 9.0_r))
+        .epsilon(g_epsilon));
+  }
+
+  {
+    mat3d m3d = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0};
+    mat3 m3r = as::mat_from_mat<real>(m3d);
+    CHECK_THAT(
+      m3r,
+      elements_are(
+        mat3(1.0_r, 2.0_r, 3.0_r, 4.0_r, 5.0_r, 6.0_r, 7.0_r, 8.0_r, 9.0_r))
+        .epsilon(g_epsilon));
+  }
 }
 
 } // namespace unit_test

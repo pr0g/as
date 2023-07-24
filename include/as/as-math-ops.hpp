@@ -373,6 +373,14 @@ mat<T, d> mat_from_arr(const T (&data)[d * d]);
 template<typename T, index d>
 mat<T, d> mat_from_ptr(const T* data);
 
+//! Creates a matrix from an existing matrix with a new type (O - other).
+//! ```{.cpp}
+//! as::mat3d m3d = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0};
+//! as::mat3f m3f = mat_from_mat<float>(m3d);
+//! ```
+template<typename T, typename O, as::index d>
+as::mat<T, d> mat_from_mat(const as::mat<O, d>& m);
+
 //! Writes the values stored in the matrix to an array of the same type and
 //! dimension.
 template<typename T, index d>

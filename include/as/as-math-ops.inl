@@ -545,6 +545,16 @@ AS_API mat<T, d> mat_from_ptr(const T* data)
   return result;
 }
 
+template<typename T, typename O, as::index d>
+AS_API as::mat<T, d> mat_from_mat(const as::mat<O, d>& m)
+{
+  mat<T, d> result;
+  for (index i = 0; i < d * d; ++i) {
+    result[i] = T(m[i]);
+  }
+  return result;
+}
+
 template<typename T, index d>
 AS_API void mat_to_arr(const mat<T, d>& m, T (&data)[d * d])
 {
