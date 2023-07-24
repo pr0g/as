@@ -89,8 +89,8 @@ std::tuple<vec<real, d>, real> vec_normalize_and_length(const vec<T, d>& v);
 template<typename T, index d>
 bool vec_near(
   const vec<T, d>& lhs, const vec<T, d>& rhs,
-  real max_diff = std::numeric_limits<real>::epsilon(),
-  real max_rel_diff = std::numeric_limits<real>::epsilon());
+  real max_diff = std::numeric_limits<float>::epsilon(),
+  real max_rel_diff = std::numeric_limits<float>::epsilon());
 
 //! Performs a `min` on each element of the two vectors, returning the
 //! smallest value at each element.
@@ -155,7 +155,7 @@ vec<T, d> vec_saturate(const vec<T, d>& v);
 //! \param begin The vector to interpolate from.
 //! \param end The vector to interpolate to.
 template<typename T, index d>
-vec<T, d> vec_mix(const vec<T, d>& begin, const vec<T, d>& end, T t);
+vec<T, d> vec_mix(const vec<T, d>& begin, const vec<T, d>& end, real t);
 
 //! Template specialization of vec_mix for vec2.
 template<>
@@ -378,8 +378,8 @@ void mat_to_arr(const mat<T, d>& m, T (&data)[d * d]);
 template<typename T, index d>
 bool mat_near(
   const mat<T, d>& lhs, const mat<T, d>& rhs,
-  real max_diff = std::numeric_limits<real>::epsilon(),
-  real max_rel_diff = std::numeric_limits<real>::epsilon());
+  real max_diff = std::numeric_limits<float>::epsilon(),
+  real max_rel_diff = std::numeric_limits<float>::epsilon());
 
 //! Returns the transpose of the matrix.
 //! \note Rows and columns are swapped.
@@ -507,18 +507,22 @@ template<typename T>
 constexpr mat<T, 3> mat3_from_mat4(const mat<T, 4>& transform);
 
 //! Returns a mat<T, 3> from an \ref affine.
-constexpr mat3 mat3_from_affine(const affine& a);
+template<typename T>
+constexpr mat<T, 3> mat3_from_affine(const affine_t<T>& a);
 
 //! Returns a rotation about a given axis.
 //! \param axis The axis of rotation.
 //! \param radians The amount to rotate by in radians.
-mat3 mat3_rotation_axis(const vec3& axis, real radians);
+template<typename T>
+mat<T, 3> mat3_rotation_axis(const vec<T, 3>& axis, T radians);
 
 //! Returns a rotation about `x`, then `y`, then `z`.
-mat3 mat3_rotation_xyz(real x, real y, real z);
+template<typename T>
+mat<T, 3> mat3_rotation_xyz(T x, T y, T z);
 
 //! Returns a rotation about `x`, then `y`, then `z` of vector `xyz`.
-mat3 mat3_rotation_xyz(const vec3& xyz);
+template<typename T>
+mat<T, 3> mat3_rotation_xyz(const vec<T, 3>& xyz);
 
 //! Returns a rotation about `z`, then `x`, then `y`.
 //! Each rotation occurs about the world frame (global axes), not the local
@@ -526,31 +530,40 @@ mat3 mat3_rotation_xyz(const vec3& xyz);
 //! concern for the current local frame, it always rotates in terms of the
 //! world frame.
 //! \note This is often useful for free-look/fps cameras.
-mat3 mat3_rotation_zxy(real x, real y, real z);
+template<typename T>
+mat<T, 3> mat3_rotation_zxy(T x, T y, T z);
 
 //! Returns a rotation about `z`, then `x`, then `y` of vector `xyz`.
-mat3 mat3_rotation_zxy(const vec3& xyz);
+template<typename T>
+mat<T, 3> mat3_rotation_zxy(const vec<T, 3>& xyz);
 
 //! Returns a rotation about the x axis.
-mat3 mat3_rotation_x(real radians);
+template<typename T>
+mat<T, 3> mat3_rotation_x(T radians);
 
 //! Returns a rotation about the y axis.
-mat3 mat3_rotation_y(real radians);
+template<typename T>
+mat<T, 3> mat3_rotation_y(T radians);
 
 //! Returns a rotation about the z axis.
-mat3 mat3_rotation_z(real radians);
+template<typename T>
+mat<T, 3> mat3_rotation_z(T radians);
 
 //! Returns a uniform scale matrix.
-constexpr mat3 mat3_scale(real scale);
+template<typename T>
+constexpr mat<T, 3> mat3_scale(T scale);
 
 //! Returns a (potentially) non-uniform scale matrix.
-constexpr mat3 mat3_scale(real x, real y, real z);
+template<typename T>
+constexpr mat<T, 3> mat3_scale(T x, T y, T z);
 
 //! Returns a (potentially) non-uniform scale matrix.
-constexpr mat3 mat3_scale(const vec3& scale);
+template<typename T>
+constexpr mat<T, 3> mat3_scale(const vec<T, 3>& scale);
 
 //! Returns a ::mat3 from a quaternion.
-constexpr mat3 mat3_from_quat(const quat& q);
+template<typename T>
+constexpr mat<T, 3> mat3_from_quat(const quat_t<T>& q);
 
 //! Returns the first row of the ::mat4.
 template<typename T>
@@ -727,12 +740,14 @@ constexpr mat<T, 4> mat4_from_mat3_vec3(
 //! Returns a mat<T, 4> from an \ref affine.
 //! \note The effect of the transformation will be the same, it is only the type
 //! that changes.
-constexpr mat4 mat4_from_affine(const affine& a);
+template<typename T>
+constexpr mat<T, 4> mat4_from_affine(const affine_t<T>& a);
 
 //! Returns a mat<T, 4> from a \ref rigid.
 //! \note The effect of the transformation will be the same, it is only the type
 //! that changes.
-constexpr mat4 mat4_from_rigid(const rigid& r);
+template<typename T>
+constexpr mat<T, 4> mat4_from_rigid(const rigid_t<T>& r);
 
 //! Returns a shear transformation about the `x` axis in `y` and/or `z`.
 template<typename T>
@@ -747,125 +762,154 @@ template<typename T>
 constexpr mat<T, 4> mat4_shear_z(T x, T y);
 
 //! Returns if two quaternions are within a certain tolerance of one another.
+template<typename T>
 bool quat_near(
-  const quat& q0, const quat& q1,
-  real max_diff = std::numeric_limits<real>::epsilon(),
-  real max_rel_diff = std::numeric_limits<real>::epsilon());
+  const quat_t<T>& q0, const quat_t<T>& q1,
+  real max_diff = std::numeric_limits<float>::epsilon(),
+  real max_rel_diff = std::numeric_limits<float>::epsilon());
 
 //! Returns the dot product of two quaternions.
 //! \note The corresponding scalar parts are multiplied together and then
 //! summed.
-constexpr real quat_dot(const quat& lhs, const quat& rhs);
+template<typename T>
+constexpr T quat_dot(const quat_t<T>& lhs, const quat_t<T>& rhs);
 
 //! Returns the length (magnitude) squared of the quaternion.
-constexpr real quat_length_sq(const quat& q);
+template<typename T>
+constexpr T quat_length_sq(const quat_t<T>& q);
 
 //! Returns the length (magnitude) of the quaternion.
-real quat_length(const quat& q);
+template<typename T>
+T quat_length(const quat_t<T>& q);
 
 //! Returns the conjugate of the quaternion.
 //! \note The sign of the imaginary parts are flipped.
 //! \note Represents the same rotation as the initial quaternion in the reverse
 //! direction.
-constexpr quat quat_conjugate(const quat& q);
+template<typename T>
+constexpr quat_t<T> quat_conjugate(const quat_t<T>& q);
 
 //! Returns a quaternion representing a rotation about the given axis.
 //! \param axis The axis of rotation.
 //! \param radians The amount to rotate by in radians.
-quat quat_rotation_axis(const vec3& axis, real radians);
+template<typename T>
+quat_t<T> quat_rotation_axis(const vec<T, 3>& axis, T radians);
 
 //! Returns a rotation about the x axis.
-quat quat_rotation_x(real radians);
+template<typename T>
+quat_t<T> quat_rotation_x(T radians);
 
 //! Returns a rotation about the y axis.
-quat quat_rotation_y(real radians);
+template<typename T>
+quat_t<T> quat_rotation_y(T radians);
 
 //! Returns a rotation about the z axis.
-quat quat_rotation_z(real radians);
+template<typename T>
+quat_t<T> quat_rotation_z(T radians);
 
 //! Returns a rotation about x, then y, then z.
-quat quat_rotation_xyz(real x, real y, real z);
+template<typename T>
+quat_t<T> quat_rotation_xyz(T x, T y, T z);
 
 //! Returns a rotation about x, then y, then z of vector `xyz`.
-quat quat_rotation_xyz(const vec3& xyz);
+template<typename T>
+quat_t<T> quat_rotation_xyz(const vec<T, 3>& xyz);
 
 //! Returns a rotation about z, then x, then y.
-quat quat_rotation_zxy(real x, real y, real z);
+template<typename T>
+quat_t<T> quat_rotation_zxy(T x, T y, T z);
 
 //! Returns a rotation about z, then x, then y of vector `xyz`.
-quat quat_rotation_zxy(const vec3& xyz);
+template<typename T>
+quat_t<T> quat_rotation_zxy(const vec<T, 3>& xyz);
 
 //! Returns the input quaternion normalized.
-quat quat_normalize(const quat& q);
+template<typename T>
+quat_t<T> quat_normalize(const quat_t<T>& q);
 
 //! Returns the inverse of the quaternion.
 //! \note This is the same as the conjugate if the quaternion is normalized
 //! (unit length).
-quat quat_inverse(const quat& q);
+template<typename T>
+quat_t<T> quat_inverse(const quat_t<T>& q);
 
 //! Returns the input vector rotated by the given quaternion.
-vec3 quat_rotate(const quat& q, const vec3& v);
+template<typename T>
+vec<T, 3> quat_rotate(const quat_t<T>& q, const vec<T, 3>& v);
 
 //! Returns the result of a linear interpolation between the two quaternions
 //! by ratio `t`.
 //! \note `t` should be in the range `[0-1]`.
-quat quat_nlerp(const quat& q0, const quat& q1, real t);
+template<typename T>
+quat_t<T> quat_nlerp(const quat_t<T>& q0, const quat_t<T>& q1, T t);
 
 //! Returns the result of a spherical interpolation between the two quaternions
 //! by ratio `t`.
 //! \note `t` should be in the range `[0-1]`.
-quat quat_slerp(const quat& q0, const quat& q1, real t);
+template<typename T>
+quat_t<T> quat_slerp(const quat_t<T>& q0, const quat_t<T>& q1, T t);
 
 //! Converts a rotation matrix to a quaternion.
 //! \note Ensure ::mat3 is a valid rotation. It must be 'special orthogonal'
 //! (pure rotation without reflection).
-quat quat_from_mat3(const mat3& m);
+template<typename T>
+quat_t<T> quat_from_mat3(const mat<T, 3>& m);
 
 //! Writes the values stored in the \ref quat to an array of the same type
 //! and dimension.
-void quat_to_arr(const quat& q, real (&data)[quat::size()]);
+template<typename T>
+void quat_to_arr(const quat_t<T>& q, T (&data)[quat_t<T>::size()]);
 
 //! Writes the values stored in the \ref affine to an array of the same type
 //! and dimension.
 //! \note affine uses a ::mat3 and a ::vec3 internally.
-void affine_to_arr(const affine& a, real (&data)[affine::size()]);
+template<typename T>
+void affine_to_arr(const affine_t<T>& a, T (&data)[affine_t<T>::size()]);
 
 //! Creates an \ref affine from a fixed size array of the same type and
 //! dimension.
 //! \note affine uses a ::mat3 and a ::vec3 internally.
-affine affine_from_arr(const real (&data)[affine::size()]);
+template<typename T>
+affine_t<T> affine_from_arr(const T (&data)[affine_t<T>::size()]);
 
 //! Creates an \ref affine from a pointer to an array of the same type.
 //! \note Ensure that the array has at least 12 elements from where it is read.
-affine affine_from_ptr(const real* data);
+template<typename T>
+affine_t<T> affine_from_ptr(const T* data);
 
 //! Returns an \ref affine from a ::mat4.
 //! \note Ensure that the ::mat4 holds a valid a transformation
 //! (translation/scale/rotation) and not a non-affine transformation such as a
 //! projection.
-affine affine_from_mat4(const mat4& m);
+template<typename T>
+affine_t<T> affine_from_mat4(const mat<T, 4>& m);
 
 //! Returns an \ref affine from a ::mat3.
 //! \note Ensure that the ::mat3 holds a valid a transformation
 //! (scale/rotation)
 //! \note The translation portion of affine will be zero.
-affine affine_from_mat3(const mat3& m);
+template<typename T>
+affine_t<T> affine_from_mat3(const mat<T, 3>& m);
 
 //! Returns an \ref affine from a ::mat3 and a ::vec3.
 //! \note Ensure that the ::mat3 holds a valid a transformation
 //! (scale/rotation)
-affine affine_from_mat3_vec3(const mat3& m, const vec3& v);
+template<typename T>
+affine_t<T> affine_from_mat3_vec3(const mat<T, 3>& m, const vec<T, 3>& v);
 
 //! Returns an \ref affine from a ::vec3.
 //! \note The rotation part will be initialized to the identity.
-affine affine_from_vec3(const vec3& v);
+template<typename T>
+affine_t<T> affine_from_vec3(const vec<T, 3>& v);
 
 //! Returns an \ref affine from a \ref rigid.
-affine affine_from_rigid(const rigid& r);
+template<typename T>
+affine_t<T> affine_from_rigid(const rigid_t<T>& r);
 
 //! Returns the result of two \ref affine types multiplied together.
 //! \note `lhs` is performed first, then `rhs`
-affine affine_mul(const affine& lhs, const affine& rhs);
+template<typename T>
+affine_t<T> affine_mul(const affine_t<T>& lhs, const affine_t<T>& rhs);
 
 //! Returns the inverse of the \ref affine.
 //! ```{.cpp}
@@ -874,94 +918,120 @@ affine affine_mul(const affine& lhs, const affine& rhs);
 //! \note A full inverse is performed as the rotation part may also contain
 //! scale.
 //! Ensure it holds a valid a rotation (axes are orthogonal).
-affine affine_inverse(const affine& a);
+template<typename T>
+affine_t<T> affine_inverse(const affine_t<T>& a);
 
 //! Returns if two affine transformations are the same as each other (within
 //! a certain tolerance).
+template<typename T>
 bool affine_near(
-  const affine& lhs, const affine& rhs,
-  real max_diff = std::numeric_limits<real>::epsilon(),
-  real max_rel_diff = std::numeric_limits<real>::epsilon());
+  const affine_t<T>& lhs, const affine_t<T>& rhs,
+  real max_diff = std::numeric_limits<float>::epsilon(),
+  real max_rel_diff = std::numeric_limits<float>::epsilon());
 
 //! Returns the input direction transformed by the \ref affine.
-vec3 affine_transform_dir(const affine& a, const vec3& direction);
+template<typename T>
+vec<T, 3> affine_transform_dir(
+  const affine_t<T>& a, const vec<T, 3>& direction);
 
 //! Returns the input position transformed by the \ref affine.
-vec3 affine_transform_pos(const affine& a, const vec3& position);
+template<typename T>
+vec<T, 3> affine_transform_pos(const affine_t<T>& a, const vec<T, 3>& position);
 
 //! Returns the input direction transformed by the inverse of the \ref affine.
-vec3 affine_inv_transform_dir(const affine& a, const vec3& direction);
+template<typename T>
+vec<T, 3> affine_inv_transform_dir(
+  const affine_t<T>& a, const vec<T, 3>& direction);
 
 //! Returns the input position transformed by the inverse of the \ref affine.
-vec3 affine_inv_transform_pos(const affine& a, const vec3& position);
+template<typename T>
+vec<T, 3> affine_inv_transform_pos(
+  const affine_t<T>& a, const vec<T, 3>& position);
 
 //! Writes the values stored in the \ref rigid to an array of the same type
 //! and dimension.
 //! \note rigid uses a \ref quat and a ::vec3 internally.
-void rigid_to_arr(const rigid& r, real (&data)[rigid::size()]);
+template<typename T>
+void rigid_to_arr(const rigid_t<T>& r, T (&data)[rigid_t<T>::size()]);
 
 //! Creates a \ref rigid from a fixed size array of the same type and
 //! dimension.
 //! \note rigid uses a \ref quat and a ::vec3 internally.
-rigid rigid_from_arr(const real (&data)[rigid::size()]);
+template<typename T>
+rigid_t<T> rigid_from_arr(const T (&data)[rigid_t<T>::size()]);
 
 //! Creates a \ref rigid from a pointer to an array of the same type.
 //! \note Ensure that the array has at least 7 elements from where it is read.
-rigid rigid_from_ptr(const real* data);
+template<typename T>
+rigid_t<T> rigid_from_ptr(const T* data);
 
 //! Returns a \ref rigid from a ::mat4.
 //! \note Ensure that the ::mat4 holds a valid a transformation
 //! (translation/scale/rotation) and not a non-affine transformation such as a
 //! projection.
-rigid rigid_from_mat4(const mat4& m);
+template<typename T>
+rigid_t<T> rigid_from_mat4(const mat<T, 4>& m);
 
 //! Returns a \ref rigid from a \ref quat.
 //! \note Ensure that the \ref quat holds a valid a transformation
 //! (scale/rotation)
 //! \note The translation portion of rigid will be zero.
-rigid rigid_from_quat(const quat& q);
+template<typename T>
+rigid_t<T> rigid_from_quat(const quat_t<T>& q);
 
 //! Returns a \ref rigid from a \ref quat and a ::vec3.
 //! \note Ensure that the \ref quat holds a valid a transformation
 //! (scale/rotation)
-rigid rigid_from_quat_vec3(const quat& q, const vec3& v);
+template<typename T>
+rigid_t<T> rigid_from_quat_vec3(const quat_t<T>& q, const vec<T, 3>& v);
 
 //! Returns a \ref rigid from a ::vec3.
 //! \note The rotation part will be initialized to the identity.
-rigid rigid_from_vec3(const vec3& v);
+template<typename T>
+rigid_t<T> rigid_from_vec3(const vec<T, 3>& v);
 
 //! Returns a \ref rigid from an \ref affine.
 //! \note The ::mat3 part of the \ref affine must be a valid rotation matrix.
-rigid rigid_from_affine(const affine& a);
+template<typename T>
+rigid_t<T> rigid_from_affine(const affine_t<T>& a);
 
 //! Returns the result of two \ref rigid types multiplied together.
 //! \note `lhs` is performed first, then `rhs`
-rigid rigid_mul(const rigid& lhs, const rigid& rhs);
+template<typename T>
+rigid_t<T> rigid_mul(const rigid_t<T>& lhs, const rigid_t<T>& rhs);
 
 //! Returns the inverse of the \ref rigid.
 //! ```{.cpp}
 //! // r * inv(r) = identity
 //! ```
-rigid rigid_inverse(const rigid& r);
+template<typename T>
+rigid_t<T> rigid_inverse(const rigid_t<T>& r);
 
 //! Returns if two rigid transformations are the same as each other (within
 //! a certain tolerance).
+template<typename T>
 bool rigid_near(
-  const rigid& lhs, const rigid& rhs,
-  real max_diff = std::numeric_limits<real>::epsilon(),
-  real max_rel_diff = std::numeric_limits<real>::epsilon());
+  const rigid_t<T>& lhs, const rigid_t<T>& rhs,
+  real max_diff = std::numeric_limits<float>::epsilon(),
+  real max_rel_diff = std::numeric_limits<float>::epsilon());
 
 //! Returns the input direction transformed by the \ref rigid.
-vec3 rigid_transform_dir(const rigid& r, const vec3& direction);
+template<typename T>
+vec<T, 3> rigid_transform_dir(const rigid_t<T>& r, const vec<T, 3>& direction);
 
 //! Returns the input position transformed by the \ref rigid.
-vec3 rigid_transform_pos(const rigid& r, const vec3& position);
+template<typename T>
+vec<T, 3> rigid_transform_pos(const rigid_t<T>& r, const vec<T, 3>& position);
 
 //! Returns the input direction transformed by the inverse of the \ref rigid.
-vec3 rigid_inv_transform_dir(const rigid& r, const vec3& direction);
+template<typename T>
+vec<T, 3> rigid_inv_transform_dir(
+  const rigid_t<T>& r, const vec<T, 3>& direction);
 
 //! Returns the input position transformed by the inverse of the \ref rigid.
-vec3 rigid_inv_transform_pos(const rigid& r, const vec3& position);
+template<typename T>
+vec<T, 3> rigid_inv_transform_pos(
+  const rigid_t<T>& r, const vec<T, 3>& position);
 
 } // namespace as
 

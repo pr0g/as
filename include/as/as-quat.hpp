@@ -9,20 +9,21 @@ namespace as
 {
 
 //! A quaternion used to store rotation/orientation in (_w_, __v__) format.
-struct quat
+template<typename T>
+struct quat_t
 {
-  //! Type alias for ::real.
-  using value_type = real;
+  //! Type alias for T
+  using value_type = T;
 
-  quat() noexcept = default;
+  quat_t() noexcept = default;
 
   //! Constructs quat with `(w_, x_, y_, z_)`.
-  constexpr quat(real w_, real x_, real y_, real z_);
+  constexpr quat_t(T w_, T x_, T y_, T z_);
   //! Constructs quat with `(w_, xyz_.x, xyz_.y, xyz_.z)`.
-  constexpr quat(real w_, const vec3& xyz_);
+  constexpr quat_t(T w_, const vec3& xyz_);
 
   //! Returns quaternion identity `(1.0, 0.0, 0.0, 0.0)`
-  constexpr static quat identity();
+  constexpr static quat_t identity();
 
   //! Returns `4`.
   constexpr static index size();
@@ -30,79 +31,104 @@ struct quat
   //! Returns a mutable reference to the value at the given index.
   //! \note Can only be called on a mutable lvalue object.
   //! \warning No bounds checking is performed.
-  real& operator[](index i) &;
+  T& operator[](index i) &;
   //! Returns a const reference to the value at the given index.
   //! \note Can only be called on a const lvalue object.
   //! \warning No bounds checking is performed.
-  const real& operator[](index i) const&;
+  const T& operator[](index i) const&;
   //! Returns a copy of the value at the given index.
   //! \note Can only be called on an rvalue object.
   //! \warning No bounds checking is performed.
-  real operator[](index i) &&;
+  T operator[](index i) &&;
 
-  real w; //!< Scalar part.
-  real x; //!< X component of vector part x _i_.
-  real y; //!< Y component of vector part y _j_.
-  real z; //!< Z component of vector part z _k_.
+  T w; //!< Scalar part.
+  T x; //!< X component of vector part x _i_.
+  T y; //!< Y component of vector part y _j_.
+  T z; //!< Z component of vector part z _k_.
 
 private:
-  static real quat::*elem[4];
+  static T quat_t::*elem[4];
 };
 
-inline real quat::*quat::elem[4] = {&quat::w, &quat::x, &quat::y, &quat::z};
+template<typename T>
+T quat_t<T>::*quat_t<T>::elem[4] = {
+  &quat_t<T>::w, &quat_t<T>::x, &quat_t<T>::y, &quat_t<T>::z};
+
+//! Type alias for a rigid of type ::real.
+using quat = quat_t<real>;
+//! Type alias for a rigid of type float.
+using quatf = quat_t<float>;
+//! Type alias for a rigid of type float.
+using quatd = quat_t<double>;
 
 //! Returns the result of concatenating two quaternions by multiplying them
 //! together.
 //! \note The quaternion on the right of the expression `rhs` will be applied
 //! first, followed by `lhs`.
-constexpr const quat operator*(const quat& lhs, const quat& rhs);
+template<typename T>
+constexpr const quat_t<T> operator*(const quat_t<T>& lhs, const quat_t<T>& rhs);
 
 //! Performs multiplication assignment of two quaternions.
-constexpr quat& operator*=(quat& lhs, const quat& rhs);
+template<typename T>
+constexpr quat_t<T>& operator*=(quat_t<T>& lhs, const quat_t<T>& rhs);
 
 //! Returns the sum of two quaternions.
-constexpr const quat operator+(const quat& lhs, const quat& rhs);
+template<typename T>
+constexpr const quat_t<T> operator+(const quat_t<T>& lhs, const quat_t<T>& rhs);
 
 //! Performs addition assignment of two quaternions.
-constexpr quat& operator+=(quat& lhs, const quat& rhs);
+template<typename T>
+constexpr quat_t<T>& operator+=(quat_t<T>& lhs, const quat_t<T>& rhs);
 
 //! Returns the result of `rhs` subtracted from `lhs`.
-constexpr const quat operator-(const quat& lhs, const quat& rhs);
+template<typename T>
+constexpr const quat_t<T> operator-(const quat_t<T>& lhs, const quat_t<T>& rhs);
 
 //! Performs subtraction assignment of two quaternions.
-constexpr quat& operator-=(quat& lhs, const quat& rhs);
+template<typename T>
+constexpr quat_t<T>& operator-=(quat_t<T>& lhs, const quat_t<T>& rhs);
 
-//! Returns the negation of `quat`.
-constexpr const quat operator-(const quat& q);
+//! Returns the negation of `quat_t<T>`.
+template<typename T>
+constexpr const quat_t<T> operator-(const quat_t<T>& q);
 
-//! Returns a quat divided by a scalar quantity.
-constexpr const quat operator/(const quat& lhs, real rhs);
+//! Returns a quat_t<T> divided by a scalar quantity.
+template<typename T>
+constexpr const quat_t<T> operator/(const quat_t<T>& lhs, T rhs);
 
-//! Returns a quat multiplied by a scalar quantity.
-constexpr const quat operator*(const quat& lhs, real rhs);
+//! Returns a quat_t<T> multiplied by a scalar quantity.
+template<typename T>
+constexpr const quat_t<T> operator*(const quat_t<T>& lhs, T rhs);
 
-//! Returns a quat multiplied by a scalar quantity (overload).
-constexpr const quat operator*(real lhs, const quat& rhs);
+//! Returns a quat_t<T> multiplied by a scalar quantity (overload).
+template<typename T>
+constexpr const quat_t<T> operator*(T lhs, const quat_t<T>& rhs);
 
 //! Returns an iterator to the beginning of the quaternion.
-subscript_iterator<quat> begin(quat& q);
+template<typename T>
+subscript_iterator<quat_t<T>> begin(quat_t<T>& q);
 
 //! Returns an iterator to the end of the quaternion.
-subscript_iterator<quat> end(quat& q);
+template<typename T>
+subscript_iterator<quat_t<T>> end(quat_t<T>& q);
 
 //! Returns an iterator to the beginning of the quaternion.
 //! \note `const` overload
-subscript_const_iterator<quat> begin(const quat& q);
+template<typename T>
+subscript_const_iterator<quat_t<T>> begin(const quat_t<T>& q);
 
 //! Returns an iterator to the end of the quaternion.
 //! \note `const` overload
-subscript_const_iterator<quat> end(const quat& q);
+template<typename T>
+subscript_const_iterator<quat_t<T>> end(const quat_t<T>& q);
 
 //! Returns a const iterator to the beginning of the quaternion.
-subscript_const_iterator<quat> cbegin(const quat& q);
+template<typename T>
+subscript_const_iterator<quat_t<T>> cbegin(const quat_t<T>& q);
 
 //! Returns a const iterator to the end of the quaternion.
-subscript_const_iterator<quat> cend(const quat& q);
+template<typename T>
+subscript_const_iterator<quat_t<T>> cend(const quat_t<T>& q);
 
 } // namespace as
 

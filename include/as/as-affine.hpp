@@ -11,26 +11,35 @@ namespace as
 
 //! Represents an \ref affine transformation.
 //! A geometric transformation that preserves lines and parallelism.
-struct affine
+template<typename T>
+struct affine_t
 {
-  affine() noexcept = default;
+  affine_t() noexcept = default;
 
   //! Constructs an affine with `(mat3::identity(), translation_)`
-  constexpr explicit affine(const vec3& translation_);
+  constexpr explicit affine_t(const vec<T, 3>& translation_);
   //! Constructs an affine with `(rotation_, translation_)`
   //! \note \p translation_ defaults to zero.
-  constexpr explicit affine(
-    const mat3& rotation_, const vec3& translation_ = vec3::zero());
+  constexpr explicit affine_t(
+    const mat<T, 3>& rotation_,
+    const vec<T, 3>& translation_ = vec<T, 3>::zero());
 
   //! Returns an identity affine (identity transform).
-  constexpr static affine identity();
+  constexpr static affine_t identity();
 
   //! Returns `12`.
   constexpr static index size();
 
-  mat3 rotation; //!< The rotation applied by this transformation.
-  vec3 translation; //!< The translation applied by this transformation.
+  mat<T, 3> rotation; //!< The rotation applied by this transformation.
+  vec<T, 3> translation; //!< The translation applied by this transformation.
 };
+
+//! Type alias for an affine of type ::real.
+using affine = affine_t<real>;
+//! Type alias for an affine of type float.
+using affinef = affine_t<float>;
+//! Type alias for an affine of type float.
+using affined = affine_t<double>;
 
 } // namespace as
 

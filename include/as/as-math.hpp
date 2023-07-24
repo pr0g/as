@@ -103,10 +103,12 @@ template<typename T>
 constexpr T snap(T in, T step);
 
 //! Returns the value in degrees as radians.
-constexpr real radians(real degrees);
+template<typename T>
+constexpr T radians(T degrees);
 
 //! Returns the value in radians as degrees.
-constexpr real degrees(real radians);
+template<typename T>
+constexpr T degrees(T radians);
 
 //! Returns if `a` and `b` are almost equal (within a given tolerance/epsilon).
 //! \param a The first value to compare.
@@ -115,8 +117,8 @@ constexpr real degrees(real radians);
 //! \param max_rel_diff The epsilon value to use for all other values.
 //! `max_rel_diff` will be scaled by the largest of the two values.
 bool real_near(
-  real a, real b, real max_diff = std::numeric_limits<real>::epsilon(),
-  real max_rel_diff = std::numeric_limits<real>::epsilon());
+  real a, real b, real max_diff = std::numeric_limits<float>::epsilon(),
+  real max_rel_diff = std::numeric_limits<float>::epsilon());
 
 } // namespace as
 

@@ -61,15 +61,17 @@ AS_API constexpr T snap(const T in, const T step)
   return std::floor((in / step) + T(0.5)) * step;
 }
 
-AS_API constexpr real radians(const real degrees)
+template<typename T>
+AS_API constexpr T radians(const T degrees)
 {
-  constexpr real deg_to_rad = k_pi / 180.0_r;
+  constexpr T deg_to_rad = k_pi / T(180.0);
   return degrees * deg_to_rad;
 }
 
-AS_API constexpr real degrees(const real radians)
+template<typename T>
+AS_API constexpr T degrees(const T radians)
 {
-  constexpr real rad_to_deg = 180.0_r / k_pi;
+  constexpr T rad_to_deg = T(180.0) / k_pi;
   return radians * rad_to_deg;
 }
 
@@ -78,8 +80,8 @@ AS_API constexpr real degrees(const real radians)
 // https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
 AS_API inline bool real_near(
   const real a, const real b,
-  const real max_diff /*= std::numeric_limits<real>::epsilon()*/,
-  const real max_rel_diff /*= std::numeric_limits<real>::epsilon()*/)
+  const real max_diff /*= std::numeric_limits<float>::epsilon()*/,
+  const real max_rel_diff /*= std::numeric_limits<float>::epsilon()*/)
 {
   // check if the numbers are really close
   // needed when comparing numbers near zero

@@ -1,43 +1,52 @@
 namespace as
 {
 
-AS_API constexpr quat::quat(
-  const real w_, const real x_, const real y_, const real z_)
+template<typename T>
+AS_API constexpr quat_t<T>::quat_t(
+  const T w_, const T x_, const T y_, const T z_)
   : w{w_}, x{x_}, y{y_}, z{z_}
 {
 }
 
-AS_API constexpr quat::quat(const real w_, const vec3& xyz_)
+template<typename T>
+AS_API constexpr quat_t<T>::quat_t(const T w_, const vec3& xyz_)
   : w{w_}, x{xyz_.x}, y{xyz_.y}, z{xyz_.z}
 {
 }
 
-AS_API constexpr quat quat::identity()
+template<typename T>
+AS_API constexpr quat_t<T> quat_t<T>::identity()
 {
-  return {1.0_r, 0.0_r, 0.0_r, 0.0_r};
+  return {T(1.0), T(0.0), T(0.0), T(0.0)};
 }
 
-AS_API constexpr index quat::size()
+template<typename T>
+AS_API constexpr index quat_t<T>::size()
 {
   return 4;
 }
 
-AS_API inline real& quat::operator[](const index i) &
+template<typename T>
+AS_API inline T& quat_t<T>::operator[](const index i) &
 {
   return this->*elem[i];
 }
 
-AS_API inline const real& quat::operator[](const index i) const&
+template<typename T>
+AS_API inline const T& quat_t<T>::operator[](const index i) const&
 {
   return this->*elem[i];
 }
 
-AS_API inline real quat::operator[](const index i) &&
+template<typename T>
+AS_API inline T quat_t<T>::operator[](const index i) &&
 {
   return this->*elem[i];
 }
 
-AS_API constexpr const quat operator*(const quat& lhs, const quat& rhs)
+template<typename T>
+AS_API constexpr const quat_t<T> operator*(
+  const quat_t<T>& lhs, const quat_t<T>& rhs)
 {
   return {
     lhs.w * rhs.w - lhs.x * rhs.x - lhs.y * rhs.y - lhs.z * rhs.z,
@@ -46,18 +55,22 @@ AS_API constexpr const quat operator*(const quat& lhs, const quat& rhs)
     lhs.w * rhs.z + lhs.z * rhs.w + lhs.x * rhs.y - lhs.y * rhs.x};
 }
 
-AS_API constexpr quat& operator*=(quat& lhs, const quat& rhs)
+template<typename T>
+AS_API constexpr quat_t<T>& operator*=(quat_t<T>& lhs, const quat_t<T>& rhs)
 {
   lhs = lhs * rhs;
   return lhs;
 }
 
-AS_API constexpr const quat operator+(const quat& lhs, const quat& rhs)
+template<typename T>
+AS_API constexpr const quat_t<T> operator+(
+  const quat_t<T>& lhs, const quat_t<T>& rhs)
 {
   return {lhs.w + rhs.w, lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z};
 }
 
-AS_API constexpr quat& operator+=(quat& lhs, const quat& rhs)
+template<typename T>
+AS_API constexpr quat_t<T>& operator+=(quat_t<T>& lhs, const quat_t<T>& rhs)
 {
   lhs.w += rhs.w;
   lhs.x += rhs.x;
@@ -66,12 +79,15 @@ AS_API constexpr quat& operator+=(quat& lhs, const quat& rhs)
   return lhs;
 }
 
-AS_API constexpr const quat operator-(const quat& lhs, const quat& rhs)
+template<typename T>
+AS_API constexpr const quat_t<T> operator-(
+  const quat_t<T>& lhs, const quat_t<T>& rhs)
 {
   return {lhs.w - rhs.w, lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z};
 }
 
-AS_API constexpr quat& operator-=(quat& lhs, const quat& rhs)
+template<typename T>
+AS_API constexpr quat_t<T>& operator-=(quat_t<T>& lhs, const quat_t<T>& rhs)
 {
   lhs.w -= rhs.w;
   lhs.x -= rhs.x;
@@ -80,54 +96,64 @@ AS_API constexpr quat& operator-=(quat& lhs, const quat& rhs)
   return lhs;
 }
 
-AS_API constexpr const quat operator-(const quat& q)
+template<typename T>
+AS_API constexpr const quat_t<T> operator-(const quat_t<T>& q)
 {
   return {-q.w, -q.x, -q.y, -q.z};
 }
 
-AS_API constexpr const quat operator/(const quat& lhs, const real rhs)
+template<typename T>
+AS_API constexpr const quat_t<T> operator/(const quat_t<T>& lhs, const T rhs)
 {
-  const real rhs_recip = 1.0_r / rhs;
+  const T rhs_recip = T(1.0) / rhs;
   return {
     lhs.w * rhs_recip, lhs.x * rhs_recip, lhs.y * rhs_recip, lhs.z * rhs_recip};
 }
 
-AS_API constexpr const quat operator*(const quat& lhs, const real rhs)
+template<typename T>
+AS_API constexpr const quat_t<T> operator*(const quat_t<T>& lhs, const T rhs)
 {
   return {lhs.w * rhs, lhs.x * rhs, lhs.y * rhs, lhs.z * rhs};
 }
 
-AS_API constexpr const quat operator*(const real lhs, const quat& rhs)
+template<typename T>
+AS_API constexpr const quat_t<T> operator*(const T lhs, const quat_t<T>& rhs)
 {
   return operator*(rhs, lhs);
 }
 
-AS_API inline subscript_iterator<quat> begin(quat& q)
+template<typename T>
+AS_API inline subscript_iterator<quat_t<T>> begin(quat_t<T>& q)
 {
-  return subscript_iterator<quat>(q, 0);
+  return subscript_iterator<quat_t<T>>(q, 0);
 }
 
-AS_API inline subscript_iterator<quat> end(quat& q)
+template<typename T>
+AS_API inline subscript_iterator<quat_t<T>> end(quat_t<T>& q)
 {
-  return subscript_iterator<quat>(q, quat::size());
+  return subscript_iterator<quat_t<T>>(q, quat_t<T>::size());
 }
 
-AS_API inline subscript_const_iterator<quat> begin(const quat& q)
+template<typename T>
+AS_API inline subscript_const_iterator<quat_t<T>> begin(const quat_t<T>& q)
 {
-  return subscript_const_iterator<quat>(q, 0);
+  return subscript_const_iterator<quat_t<T>>(q, 0);
 }
 
-AS_API inline subscript_const_iterator<quat> end(const quat& q)
+template<typename T>
+AS_API inline subscript_const_iterator<quat_t<T>> end(const quat_t<T>& q)
 {
-  return subscript_const_iterator<quat>(q, quat::size());
+  return subscript_const_iterator<quat_t<T>>(q, quat_t<T>::size());
 }
 
-AS_API inline subscript_const_iterator<quat> cbegin(const quat& q)
+template<typename T>
+AS_API inline subscript_const_iterator<quat_t<T>> cbegin(const quat_t<T>& q)
 {
   return begin(q);
 }
 
-AS_API inline subscript_const_iterator<quat> cend(const quat& q)
+template<typename T>
+AS_API inline subscript_const_iterator<quat_t<T>> cend(const quat_t<T>& q)
 {
   return end(q);
 }
