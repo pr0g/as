@@ -30,6 +30,14 @@ vec<T, d> vec_from_arr(const T (&data)[d]);
 template<typename T, index d>
 vec<T, d> vec_from_ptr(const T* data);
 
+//! Creates a vector from an existing vector with a new type (O - other).
+//! ```{.cpp}
+//! as::vec3d v3d = {1.0, 2.0, 3.0};
+//! as::vec3f v3f = vec_from_vec<float>(v3d);
+//! ```
+template<typename T, typename O, as::index d>
+as::vec<T, d> vec_from_vec(const as::vec<O, d>& v);
+
 //! Writes the values stored in the vector to an array of the same type and
 //! dimension.
 template<typename T, index d>

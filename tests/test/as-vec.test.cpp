@@ -17,9 +17,15 @@ using as::mat3;
 using as::real;
 using as::vec;
 using as::vec2;
+using as::vec2d;
+using as::vec2f;
 using as::vec3;
+using as::vec3d;
+using as::vec3f;
 using as::vec3i;
 using as::vec4;
+using as::vec4d;
+using as::vec4f;
 using as::vec4i;
 
 // functions
@@ -2282,7 +2288,7 @@ TEST_CASE("vec_iterator_assignment", "[as_vec]")
   CHECK(const_it == it);
 }
 
-TEST_CASE("vec_equal", "[as_mat]")
+TEST_CASE("vec_equal", "[as_vec]")
 {
   {
     vec3i v3i_lhs{11, 22, 33};
@@ -2299,7 +2305,7 @@ TEST_CASE("vec_equal", "[as_mat]")
   }
 }
 
-TEST_CASE("vec_radians", "[as_mat]")
+TEST_CASE("vec_radians", "[as_vec]")
 {
   constexpr real real_epsilon = 1e-3_r;
   const vec<real, 5> vec_degrees(57.2958_r, 90.0_r, 180.0_r, 270.0_r, 360.0_r);
@@ -2309,7 +2315,7 @@ TEST_CASE("vec_radians", "[as_mat]")
       .epsilon(real_epsilon));
 }
 
-TEST_CASE("vec_degrees", "[as_mat]")
+TEST_CASE("vec_degrees", "[as_vec]")
 {
   constexpr real real_epsilon = 1e-3_r;
   const vec<real, 5> vec_radians(
@@ -2318,6 +2324,47 @@ TEST_CASE("vec_degrees", "[as_mat]")
     as::vec_degrees(vec_radians),
     elements_are(vec<real, 5>(57.2958_r, 90.0_r, 180.0_r, 270.0_r, 360.0_r))
       .epsilon(real_epsilon));
+}
+
+TEST_CASE("vec_conversion", "[as_vec]")
+{
+  {
+    vec3d v3d = {1.0, 2.0, 3.0};
+    vec3f v3f = as::vec_from_vec<float>(v3d);
+    CHECK_THAT(v3f, elements_are(vec3f(1.0f, 2.0f, 3.0f)).epsilon(g_epsilon));
+  }
+
+  {
+    vec2f v2f = {1.0f, 2.0f};
+    vec2d v2d = as::vec_from_vec<double>(v2f);
+    CHECK_THAT(v2d, elements_are(vec2d(1.0, 2.0)).epsilon(g_epsilon));
+  }
+
+  {
+    vec4 v4r = {1.0_r, 2.0_r, 3.0_r, 4.0_r};
+    vec4f v4f = as::vec_from_vec<float>(v4r);
+    CHECK_THAT(
+      v4f, elements_are(vec4f(1.0f, 2.0f, 3.0f, 4.0f)).epsilon(g_epsilon));
+  }
+
+  {
+    vec4 v4r = {1.0_r, 2.0_r, 3.0_r, 4.0_r};
+    vec4d v4d = as::vec_from_vec<double>(v4r);
+    CHECK_THAT(v4d, elements_are(vec4d(1.0, 2.0, 3.0, 4.0)).epsilon(g_epsilon));
+  }
+
+  {
+    vec4f v4f = {1.0f, 2.0f, 3.0f, 4.0f};
+    vec4 v4r = as::vec_from_vec<real>(v4f);
+    CHECK_THAT(
+      v4r, elements_are(vec4(1.0_r, 2.0_r, 3.0_r, 4.0_r)).epsilon(g_epsilon));
+  }
+
+  {
+    vec3d v3d = {1.0, 2.0, 3.0};
+    vec3 v3r = as::vec_from_vec<real>(v3d);
+    CHECK_THAT(v3r, elements_are(vec3(1.0_r, 2.0_r, 3.0_r)).epsilon(g_epsilon));
+  }
 }
 
 } // namespace unit_test

@@ -17,6 +17,16 @@ AS_API vec<T, d> vec_from_ptr(const T* data)
   return result;
 }
 
+template<typename T, typename O, index d>
+AS_API vec<T, d> vec_from_vec(const vec<O, d>& v)
+{
+  vec<T, d> result;
+  for (index i = 0; i < d; ++i) {
+    result[i] = T(v[i]);
+  }
+  return result;
+}
+
 template<typename T, index d>
 AS_API void vec_to_arr(const vec<T, d>& v, T (&data)[d])
 {

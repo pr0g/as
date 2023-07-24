@@ -253,9 +253,9 @@ TEST_CASE("affine_inverse", "[as_affine]")
   // ensure inverse restores original point (scale)
   {
     const affine scale_and_translation(
-      as::mat3_scale(2.0f), vec3(5.0_r, 10.0_r, 20.0_r));
+      as::mat3_scale(2.0_r), vec3(5.0_r, 10.0_r, 20.0_r));
     const vec3 transformed_point =
-      affine_transform_pos(scale_and_translation, vec3(5.0f, 5.0f, 5.0f));
+      affine_transform_pos(scale_and_translation, vec3(5.0_r, 5.0_r, 5.0_r));
     const affine scale_and_translation_inv =
       affine_inverse(scale_and_translation);
     const vec3 original_from_transform =
