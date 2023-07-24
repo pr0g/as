@@ -4,9 +4,9 @@
 ctest --test-dir build
 lcov --directory build/ --capture                                 \
      --output-file build/app.info                                 \
-     --gcov-tool=/opt/homebrew/bin/gcov-12
+     --gcov-tool=/opt/homebrew/bin/gcov-13
 lcov --remove build/app.info                                      \
-    '*/12.1.0/*' '*/usr/include/*'                                 \
+    '*/13.1.0/*' '*/usr/include/*'                                 \
     '*/usr/local/include/*' '*/tests/test/catch-*'                \
     '*/tests/test/*.test.*' '*/third-party/*'                     \
     -o build/app-filtered.info                                    \
