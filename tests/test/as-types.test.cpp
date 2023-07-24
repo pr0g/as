@@ -30,4 +30,13 @@ TEST_CASE("double_to_real", "[as_real]")
   CHECK(r == Approx(static_cast<real>(6.28)).epsilon(g_epsilon));
 }
 
+TEST_CASE("user_defined_literal_namespace", "[as_real]")
+{
+  using namespace as::literals;
+  real r_1 = 1.0_r;
+  real r_2 = 2.0_r;
+  real expected = r_1 + r_2;
+  CHECK(expected == Approx(static_cast<real>(3.0_r)).epsilon(g_epsilon));
+}
+
 } // namespace unit_test

@@ -34,6 +34,9 @@ static_assert(
   false, "Must define only AS_PRECISION_FLOAT or AS_PRECISION_DOUBLE");
 #endif // AS_PRECISION_FLOAT ? AS_PRECISION_DOUBLE
 
+inline namespace literals
+{
+
 #ifdef AS_PRECISION_FLOAT
 //! An alias for `float` if `AS_PRECISION_FLOAT` is defined.
 using real = float;
@@ -57,6 +60,8 @@ constexpr double operator"" _r(const long double val)
   return double(val);
 }
 #endif // AS_PRECISION_DOUBLE
+
+} // namespace literals
 
 //! A utility function to convert a double to the type ::real is defined as.
 //! \note If ::real is defined as `float`, some precision may be lost during
