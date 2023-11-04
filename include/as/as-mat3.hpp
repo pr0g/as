@@ -73,9 +73,13 @@ using mat3 = mat<real, 3>;
 using mat3f = mat<float, 3>;
 //! Type alias for a three dimensional matrix of type `double`.
 using mat3d = mat<double, 3>;
-//! Type alias for a three dimensional matrix of type `int32_t`.
+//! Type alias for a three dimensional matrix of type `int8_t` (`char`).
+using mat3c = mat<int8_t, 3>;
+//! Type alias for a three dimensional matrix of type `int16_t` (`short`).
+using mat3s = mat<int16_t, 3>;
+//! Type alias for a three dimensional matrix of type `int32_t` (`int`).
 using mat3i = mat<int32_t, 3>;
-//! Type alias for a three dimensional matrix of type `int64_t`.
+//! Type alias for a three dimensional matrix of type `int64_t` (`long`).
 using mat3l = mat<int64_t, 3>;
 
 //! Performs a mapping from a row and column index to a single offset for

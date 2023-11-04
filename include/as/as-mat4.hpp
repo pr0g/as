@@ -79,9 +79,13 @@ using mat4 = mat<real, 4>;
 using mat4f = mat<float, 4>;
 //! Type alias for a four dimensional matrix of type `double`.
 using mat4d = mat<double, 4>;
-//! Type alias for a four dimensional matrix of type `int32_t`.
+//! Type alias for a four dimensional matrix of type `int8_t` (`char`).
+using mat4c = mat<int8_t, 4>;
+//! Type alias for a four dimensional matrix of type `int16_t` (`short`).
+using mat4s = mat<int16_t, 4>;
+//! Type alias for a four dimensional matrix of type `int32_t` (`int`).
 using mat4i = mat<int32_t, 4>;
-//! Type alias for a four dimensional matrix of type `int64_t`.
+//! Type alias for a four dimensional matrix of type `int64_t` (`long`).
 using mat4l = mat<int64_t, 4>;
 
 //! Performs a mapping from a row and column index to a single offset for

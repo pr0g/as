@@ -129,9 +129,13 @@ using vec2 = vec<real, 2>;
 using vec2f = vec<float, 2>;
 //! Type alias for a two dimensional vector of type `double`.
 using vec2d = vec<double, 2>;
-//! Type alias for a two dimensional vector of type `int32_t`.
+//! Type alias for a two dimensional vector of type `int8_t` (`char`).
+using vec2c = vec<int8_t, 2>;
+//! Type alias for a two dimensional vector of type `int16_t` (`short`).
+using vec2s = vec<int16_t, 2>;
+//! Type alias for a two dimensional vector of type `int32_t` (`int`).
 using vec2i = vec<int32_t, 2>;
-//! Type alias for a two dimensional vector of type `int64_t`.
+//! Type alias for a two dimensional vector of type `int64_t` (`long`).
 using vec2l = vec<int64_t, 2>;
 
 //! Partial template specialization of \ref vec for a three dimensional
@@ -211,9 +215,13 @@ using vec3 = vec<real, 3>;
 using vec3f = vec<float, 3>;
 //! Type alias for a three dimensional vector of type `double`.
 using vec3d = vec<double, 3>;
-//! Type alias for a three dimensional vector of type `int32_t`.
+//! Type alias for a three dimensional vector of type `int8_t` (`char`).
+using vec3c = vec<int8_t, 3>;
+//! Type alias for a three dimensional vector of type `int16_t` (`short`).
+using vec3s = vec<int16_t, 3>;
+//! Type alias for a three dimensional vector of type `int32_t` (`int`).
 using vec3i = vec<int32_t, 3>;
-//! Type alias for a three dimensional vector of type `int64_t`.
+//! Type alias for a three dimensional vector of type `int64_t` (`long`).
 using vec3l = vec<int64_t, 3>;
 
 //! Partial template specialization of \ref vec for a four dimensional vector.
@@ -300,9 +308,13 @@ using vec4 = vec<real, 4>;
 using vec4f = vec<float, 4>;
 //! Type alias for a four dimensional vector of type `double`.
 using vec4d = vec<double, 4>;
-//! Type alias for a four dimensional vector of type `int32_t`.
+//! Type alias for a four dimensional vector of type `int8_t` (`char`).
+using vec4c = vec<int8_t, 4>;
+//! Type alias for a four dimensional vector of type `int16_t` (`short`).
+using vec4s = vec<int16_t, 4>;
+//! Type alias for a four dimensional vector of type `int32_t` (`int`).
 using vec4i = vec<int32_t, 4>;
-//! Type alias for a four dimensional vector of type `int64_t`.
+//! Type alias for a four dimensional vector of type `int64_t` (`long`).
 using vec4l = vec<int64_t, 4>;
 
 //! Returns the sum of two vectors.
