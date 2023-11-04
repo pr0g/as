@@ -63,16 +63,11 @@ constexpr double operator"" _r(const long double val)
 
 } // namespace literals
 
-//! A utility function to convert a double to the type ::real is defined as.
-//! \note If ::real is defined as `float`, some precision may be lost during
-//! the conversion.
-constexpr real to_real(const double val)
-{
-  return real(val);
-}
-
-//! A utility function to convert a float to the type ::real is defined as.
-constexpr real to_real(const float val)
+//! A utility function to convert a type to ::real.
+//! \note T is expected to be a numeric type and precision may be lost if
+//! converting from a wider to narrower type (e.g. float to double).
+template<typename T>
+constexpr real to_real(const T val)
 {
   return real(val);
 }
