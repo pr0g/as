@@ -318,9 +318,9 @@ The last thing to mention is the function template specializations. These were m
 
 ### Row/Column Major
 
-- Storage: **Row major**
+- Storage: **Row or column major**
   - Basis axes data is contiguous
-  - All hardcoded matrices (e.g. projection matrices) are in row major format
+  - All hardcoded matrices (e.g. projection matrices) are written with their basis vectors being contiguous (the rows in the C++ array correspond to rows or columns depending on which convention is used)
 
 ```c++
 // e.g.
@@ -335,18 +335,18 @@ The last thing to mention is the function template specializations. These were m
  x3, y3, z3, w3] // translation
 ```
 
-- Convention: **Row or column**
+- Convention: **Row or column vectors**
   - Library uses traversal order of rows/columns to switch
 
-I wanted it to be possible to use the library with either row or column vectors and not get them accidentally mixed up. Different graphics APIs use different conventions (OpenGL uses column-major and DirectX uses row-major). Now the layout in memory (as far as C++ is concerned) is always row-major (I recommend reading [this](https://seanmiddleditch.github.io/matrices-handedness-pre-and-post-multiplication-row-vs-column-major-and-notations/) article by Sean Middleditch ([@stmiddleditch](https://twitter.com/stmiddleditch)) for a great explanation of this subject).
+I wanted it to be possible to use the library with either row or column vectors and not get them accidentally mixed up. Different graphics APIs use different conventions (OpenGL uses column vectors and DirectX uses row vectors). Now the layout in memory (as far as C++ is concerned) is always row major (I recommend reading [this](https://seanmiddleditch.github.io/matrices-handedness-pre-and-post-multiplication-row-vs-column-major-and-notations/) article by Sean Middleditch ([@stmiddleditch](https://twitter.com/stmiddleditch)) for a great explanation of this subject).
 
-With row-major, when a vector is transformed by a matrix, the notation is to place the vector to the left of the matrix (so you multiply reading left to right) but with column-major the notation is to place the vector being transformed to the right of the matrix (in this case you multiply reading right to left). Now under the hood the multiplication is actually exactly the same, but I make sure to only enable the right overload for `operator *` when multiplying a vector and a matrix to make sure you can't get them the wrong way round (I do this by forcing you to pick the convention you want to use before you start using the library with a `#define` - you must define either `AS_COL_MAJOR` or `AS_ROW_MAJOR`).
+With row vector convention, when a vector is transformed by a matrix, the notation is to place the vector to the left of the matrix (so you multiply reading left to right) but with column vectors the notation is to place the vector being transformed to the right of the matrix (in this case you multiply reading right to left). Now under the hood the multiplication is actually exactly the same, but I make sure to only enable the right overload for `operator *` when multiplying a vector and a matrix to make sure you can't get them the wrong way round (I do this by forcing you to pick the convention you want to use before you start using the library with a `#define` - you must define either `AS_COL_MAJOR` or `AS_ROW_MAJOR`).
 
 In the case of multiplying two matrices the multiplication order is different to account for the left-to-right or right-to-left convention when combining matrices.
 
 **UPDATE**: I realized attempting to support the row/column toggle with non-square matrices was actually impossible. I could either have square matrices with the row/column switch (_TLDR_: I picked this), non-square matrices with row-major layout only, or have non-square row-major matrices and square only column-major (I didn't really like this mismatch).
 
-The reason I wasn't able to support non-square column major matrices boils down to how you multiply matrices. Technically matrix multiplication is multiplying each row of the left matrix by each column of the right matrix. The resulting matrix will have the same number of rows as the left matrix and same number of columns as the right matrix - e.g. a `2x4 * 4x2` = `2x2` matrix and a `4x2 * 2x4 = 4x4` matrix). For matrix multiplication to be well defined (possible) the number of columns in the left matrix must equal the number of rows in the right matrix (see earlier examples). When trying to do things column-major, certain matrix sizes don't really work, you have to always start with the row in the left matrix. When `AS_COL_MAJOR` is defined I pull a bit of a trick under the hood where the data layout of the matrix doesn't change but the order in which elements are visited is (we multiply columns in the left matrix by rows in the right matrix) but this trick only really works when the matrices are square. It's the same effect as if the matrices were transposed and you did the normal `row * col` multiply. Remember to get the same answer as when in row-major you also have to swap the order of the matrices as `A * B != B * A` for matrices.
+The reason I wasn't able to support non-square column major matrices boils down to how you multiply matrices. Technically matrix multiplication is multiplying each row of the left matrix by each column of the right matrix. The resulting matrix will have the same number of rows as the left matrix and same number of columns as the right matrix - e.g. a `2x4 * 4x2` = `2x2` matrix and a `4x2 * 2x4 = 4x4` matrix. For matrix multiplication to be well defined (possible), the number of columns in the left matrix must equal the number of rows in the right matrix (see earlier examples). When trying to do things column-major, certain matrix sizes don't really work, you have to always start with the row in the left matrix. When `AS_COL_MAJOR` is defined, the data layout of the matrix doesn't change, but the order in which elements are visited is (we multiply columns in the left matrix by rows in the right matrix) but this trick only really works when the matrices are square. It's the same effect as if the matrices were transposed and you did the normal `row * col` multiply. Remember to get the same answer as when in row vector you also have to swap the order of the matrices as `A * B != B * A` for matrices.
 
  As square matrices are the most common and I wanted to keep the switch I've removed the ability to select row/column sizes in the matrix types and instead you just set a dimension (`d`).
 
